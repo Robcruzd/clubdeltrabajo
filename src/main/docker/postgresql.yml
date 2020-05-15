@@ -1,0 +1,11 @@
+version: '2'
+services:
+  ctproject-postgresql:
+    image: postgres:12.1
+    # volumes:
+    #     - ~/volumes/jhipster/ctProject/postgresql/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=ctProject
+      - POSTGRES_PASSWORD=
+    ports:
+      - 5432:5432
