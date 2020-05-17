@@ -1,0 +1,157 @@
+.etiqueta-resultado {
+  top: 125px;
+  margin-left: 163px;
+  margin-bottom: 8px;
+  width: 108px;
+  height: 18px;
+  text-align: left;
+  font-size: 15px;
+  font-family: 'OpenSans';
+  font-weight: bold;
+  letter-spacing: 0px;
+  color: #020d52;
+  opacity: 1;
+}
+
+.cuadro-busqueda {
+  background: #f8f8f8 0% 0% no-repeat padding-box;
+  top: 151px;
+  margin-left: 154px;
+  margin-bottom: 24px;
+  width: 523px;
+  height: 33px;
+  background: #f8f8f8 0% 0% no-repeat padding-box;
+  border-radius: 49px;
+  opacity: 1;
+}
+
+.input-busqueda {
+  background: transparent;
+  border-color: transparent;
+  border: none;
+  width: 90%;
+  margin-left: 15px;
+  padding-bottom: 5px;
+}
+
+.input-busqueda:focus {
+  outline: none;
+}
+
+.boton-busqueda {
+  color: #2c3f78;
+  border: none !important;
+}
+
+.resultados-busqueda {
+  margin-left: 154px;
+  padding-left: 0px !important;
+}
+
+.elemento-busqueda {
+  top: 208px;
+  width: 184px;
+  height: 153px;
+  margin-right: 12px;
+  margin-bottom: 8px;
+  background: #f8f8f8 0% 0% no-repeat padding-box;
+  border-radius: 19px;
+  opacity: 1;
+}
+
+.logo-empresa {
+  margin-top: 15%;
+  margin-right: 5%;
+  position: relative;
+  float: right;
+  width: 55px;
+  height: 55px;
+  background: transparent url('../../../content/images/Image\ 35.png') 0% 0% no-repeat padding-box;
+  border-radius: 35px;
+  opacity: 1;
+}
+
+.boton-ver {
+  position: relative;
+  margin-top: 25px;
+  margin-left: 85px;
+  width: 67px;
+  height: 26px;
+  padding: 0px;
+  background: #2699fb 0% 0% no-repeat padding-box;
+  border-radius: 49px;
+  opacity: 1;
+  color: #ffffff;
+  font-size: 11px;
+  font-family: 'Arial';
+  font-weight: bold;
+  letter-spacing: 0px;
+}
+
+.titulo-resultado {
+  margin-top: 35px;
+  margin-left: 16px;
+  width: 155px;
+  height: 14px;
+  text-align: left;
+  font-size: 12px;
+  font-family: 'Roboto';
+  font-weight: bold;
+  letter-spacing: 0px;
+  color: #645d5d;
+}
+
+.subtitulo-resultado {
+  margin-top: 20px;
+  margin-left: 16px;
+  width: 155px;
+  height: 14px;
+  text-align: left;
+  font-size: 12px;
+  font-family: 'Roboto';
+  letter-spacing: 0px;
+  color: #645d5d;
+}
+
+.filtro {
+  top: 167px;
+  left: 787px;
+  width: 242px;
+  padding: 20px;
+  height: 800px;
+  background: #f8f8f8;
+  opacity: 1;
+}
+
+.label-salario {
+  font-size: 12px;
+  font-weight: bold;
+  color: #645d5d;
+  font-family: 'Roboto';
+}
+
+.rangos {
+  height: 250px;
+  padding-left: 20px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+}
+
+.label-rangos {
+  color: #645d5d;
+  font-family: 'Roboto';
+  font-size: 13px;
+  margin-top: 0px;
+  margin-bottom: 2px;
+  width: 90%;
+}
+
+.fecha-publicacion {
+  padding-left: 20px;
+  padding-top: 15px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  font-family: 'Roboto';
+  font-size: 13px;
+  color: #645d5d;
+}
