@@ -1,0 +1,103 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="ctProjectApp.informacionLaboral.home.title">Informacion Laborals</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-informacion-laboral" [routerLink]="['/informacion-laboral/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="ctProjectApp.informacionLaboral.home.createLabel">
+            Create a new Informacion Laboral
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="informacionLaborals?.length === 0">
+        <span jhiTranslate="ctProjectApp.informacionLaboral.home.notFound">No informacionLaborals found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="informacionLaborals?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="nombreEmpresa"><span jhiTranslate="ctProjectApp.informacionLaboral.nombreEmpresa">Nombre Empresa</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="fechaInicio"><span jhiTranslate="ctProjectApp.informacionLaboral.fechaInicio">Fecha Inicio</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="fechaFin"><span jhiTranslate="ctProjectApp.informacionLaboral.fechaFin">Fecha Fin</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="direccion"><span jhiTranslate="ctProjectApp.informacionLaboral.direccion">Direccion</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="cuidad"><span jhiTranslate="ctProjectApp.informacionLaboral.cuidad">Cuidad</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="departamento"><span jhiTranslate="ctProjectApp.informacionLaboral.departamento">Departamento</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="pais"><span jhiTranslate="ctProjectApp.informacionLaboral.pais">Pais</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="telefonoEmpresa"><span jhiTranslate="ctProjectApp.informacionLaboral.telefonoEmpresa">Telefono Empresa</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="usuario.id"><span jhiTranslate="ctProjectApp.informacionLaboral.usuario">Usuario</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dependencia.id"><span jhiTranslate="ctProjectApp.informacionLaboral.dependencia">Dependencia</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="cargo.id"><span jhiTranslate="ctProjectApp.informacionLaboral.cargo">Cargo</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let informacionLaboral of informacionLaborals ;trackBy: trackId">
+                    <td><a [routerLink]="['/informacion-laboral', informacionLaboral.id, 'view']">{{ informacionLaboral.id }}</a></td>
+                    <td>{{ informacionLaboral.nombreEmpresa }}</td>
+                    <td>{{ informacionLaboral.fechaInicio | date:'mediumDate' }}</td>
+                    <td>{{ informacionLaboral.fechaFin | date:'mediumDate' }}</td>
+                    <td>{{ informacionLaboral.direccion }}</td>
+                    <td>{{ informacionLaboral.cuidad }}</td>
+                    <td>{{ informacionLaboral.departamento }}</td>
+                    <td>{{ informacionLaboral.pais }}</td>
+                    <td>{{ informacionLaboral.telefonoEmpresa }}</td>
+                    <td>
+                        <div *ngIf="informacionLaboral.usuario">
+                            <a [routerLink]="['/persona', informacionLaboral.usuario?.id, 'view']" >{{ informacionLaboral.usuario?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="informacionLaboral.dependencia">
+                            <a [routerLink]="['/dependencia', informacionLaboral.dependencia?.id, 'view']" >{{ informacionLaboral.dependencia?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="informacionLaboral.cargo">
+                            <a [routerLink]="['/cargo', informacionLaboral.cargo?.id, 'view']" >{{ informacionLaboral.cargo?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/informacion-laboral', informacionLaboral.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/informacion-laboral', informacionLaboral.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(informacionLaboral)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="informacionLaborals?.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

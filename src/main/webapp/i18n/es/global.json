@@ -7,6 +7,22 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entidades",
+        "persona": "Persona",
+        "tipoDocumento": "Tipo Documento",
+        "empresa": "Empresa",
+        "tipoUsuario": "Tipo Usuario",
+        "informacionAcademica": "Informacion Academica",
+        "informacionPersonal": "Informacion Personal",
+        "dependencia": "Dependencia",
+        "informacionLaboral": "Informacion Laboral",
+        "archivo": "Archivo",
+        "cargo": "Cargo",
+        "institucion": "Institucion",
+        "nivelIdioma": "Nivel Idioma",
+        "idioma": "Idioma",
+        "aplicacionOferta": "Aplicacion Oferta",
+        "oferta": "Oferta",
+        "usuario": "Usuario",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

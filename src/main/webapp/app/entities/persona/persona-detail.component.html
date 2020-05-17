@@ -1,0 +1,56 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="persona">
+            <h2><span jhiTranslate="ctProjectApp.persona.detail.title">Persona</span> {{ persona.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="ctProjectApp.persona.nombre">Nombre</span></dt>
+                <dd>
+                    <span>{{ persona.nombre }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.persona.apellido">Apellido</span></dt>
+                <dd>
+                    <span>{{ persona.apellido }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.persona.email">Email</span></dt>
+                <dd>
+                    <span>{{ persona.email }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.persona.tipoUsuario">Tipo Usuario</span></dt>
+                <dd>
+                    <div *ngIf="persona.tipoUsuario">
+                        <a [routerLink]="['/tipo-usuario', persona.tipoUsuario?.id, 'view']">{{ persona.tipoUsuario?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.persona.numeroDocumento">Numero Documento</span></dt>
+                <dd>
+                    <div *ngIf="persona.numeroDocumento">
+                        <a [routerLink]="['/usuario', persona.numeroDocumento?.id, 'view']">{{ persona.numeroDocumento?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.persona.tipoDocumento">Tipo Documento</span></dt>
+                <dd>
+                    <div *ngIf="persona.tipoDocumento">
+                        <a [routerLink]="['/tipo-documento', persona.tipoDocumento?.id, 'view']">{{ persona.tipoDocumento?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/persona', persona.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

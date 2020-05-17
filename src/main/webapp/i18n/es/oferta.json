@@ -1,0 +1,31 @@
+{
+  "ctProjectApp": {
+    "oferta": {
+      "home": {
+        "title": "Ofertas",
+        "createLabel": "Crear nuevo Oferta",
+        "createOrEditLabel": "Crear o editar Oferta",
+        "notFound": "Ningún Ofertas encontrado"
+      },
+      "created": "Un nuevo Oferta ha sido creado con el identificador {{ param }}",
+      "updated": "Un Oferta ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Oferta ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Oferta {{ id }}?"
+      },
+      "detail": {
+        "title": "Oferta"
+      },
+      "descripcion": "Descripcion",
+      "titulo": "Titulo",
+      "salario": "Salario",
+      "cargo": "Cargo",
+      "experiencia": "Experiencia",
+      "ciudad": "Ciudad",
+      "area": "Area",
+      "fechaPublicacion": "Fecha Publicacion",
+      "estado": "Estado",
+      "usuario": "Usuario"
+    }
+  }
+}

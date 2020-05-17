@@ -1,0 +1,22 @@
+{
+  "ctProjectApp": {
+    "institucion": {
+      "home": {
+        "title": "Institucions",
+        "createLabel": "Crear nuevo Institucion",
+        "createOrEditLabel": "Crear o editar Institucion",
+        "notFound": "Ningún Institucions encontrado"
+      },
+      "created": "Un nuevo Institucion ha sido creado con el identificador {{ param }}",
+      "updated": "Un Institucion ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Institucion ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Institucion {{ id }}?"
+      },
+      "detail": {
+        "title": "Institucion"
+      },
+      "institucion": "Institucion"
+    }
+  }
+}

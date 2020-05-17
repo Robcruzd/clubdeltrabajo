@@ -1,0 +1,31 @@
+{
+  "ctProjectApp": {
+    "informacionAcademica": {
+      "home": {
+        "title": "Informacion Academicas",
+        "createLabel": "Create a new Informacion Academica",
+        "createOrEditLabel": "Create or edit a Informacion Academica",
+        "notFound": "No Informacion Academicas found"
+      },
+      "created": "A new Informacion Academica is created with identifier {{ param }}",
+      "updated": "A Informacion Academica is updated with identifier {{ param }}",
+      "deleted": "A Informacion Academica is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Informacion Academica {{ id }}?"
+      },
+      "detail": {
+        "title": "Informacion Academica"
+      },
+      "nivelEstudio": "Nivel Estudio",
+      "estado": "Estado",
+      "fechaInicio": "Fecha Inicio",
+      "fechaFin": "Fecha Fin",
+      "tituloOtorgado": "Titulo Otorgado",
+      "perfilProfesional": "Perfil Profesional",
+      "usuario": "Usuario",
+      "idioma": "Idioma",
+      "nivelIdioma": "Nivel Idioma",
+      "institucion": "Institucion"
+    }
+  }
+}

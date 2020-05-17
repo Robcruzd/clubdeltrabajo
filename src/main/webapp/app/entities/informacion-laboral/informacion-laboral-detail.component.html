@@ -1,0 +1,76 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="informacionLaboral">
+            <h2><span jhiTranslate="ctProjectApp.informacionLaboral.detail.title">Informacion Laboral</span> {{ informacionLaboral.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="ctProjectApp.informacionLaboral.nombreEmpresa">Nombre Empresa</span></dt>
+                <dd>
+                    <span>{{ informacionLaboral.nombreEmpresa }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionLaboral.fechaInicio">Fecha Inicio</span></dt>
+                <dd>
+                    <span>{{ informacionLaboral.fechaInicio }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionLaboral.fechaFin">Fecha Fin</span></dt>
+                <dd>
+                    <span>{{ informacionLaboral.fechaFin }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionLaboral.direccion">Direccion</span></dt>
+                <dd>
+                    <span>{{ informacionLaboral.direccion }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionLaboral.cuidad">Cuidad</span></dt>
+                <dd>
+                    <span>{{ informacionLaboral.cuidad }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionLaboral.departamento">Departamento</span></dt>
+                <dd>
+                    <span>{{ informacionLaboral.departamento }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionLaboral.pais">Pais</span></dt>
+                <dd>
+                    <span>{{ informacionLaboral.pais }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionLaboral.telefonoEmpresa">Telefono Empresa</span></dt>
+                <dd>
+                    <span>{{ informacionLaboral.telefonoEmpresa }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionLaboral.usuario">Usuario</span></dt>
+                <dd>
+                    <div *ngIf="informacionLaboral.usuario">
+                        <a [routerLink]="['/persona', informacionLaboral.usuario?.id, 'view']">{{ informacionLaboral.usuario?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionLaboral.dependencia">Dependencia</span></dt>
+                <dd>
+                    <div *ngIf="informacionLaboral.dependencia">
+                        <a [routerLink]="['/dependencia', informacionLaboral.dependencia?.id, 'view']">{{ informacionLaboral.dependencia?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionLaboral.cargo">Cargo</span></dt>
+                <dd>
+                    <div *ngIf="informacionLaboral.cargo">
+                        <a [routerLink]="['/cargo', informacionLaboral.cargo?.id, 'view']">{{ informacionLaboral.cargo?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/informacion-laboral', informacionLaboral.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,144 @@
+
+
+entity Persona (ct_persona_tb) {
+	id Integer required,
+    nombre String required,
+    apellido String required,
+    email String required,
+}
+
+entity TipoDocumento (ct_tipo_documento_tb) {
+    id Integer required,
+    nombreTipo String required,
+}
+entity Empresa (ct_empresa_tb) {
+	id Integer required,
+	razonSocial String required,
+	razonComercial String required,
+	email String required,
+}
+entity TipoUsuario (ct_tipo_usuario_tb) {
+	id Integer required, 
+    nombre String required,
+}
+entity InformacionAcademica (ct_informacion_academica_tb) {
+	id Integer required, 
+	nivelEstudio Integer,
+	estado Integer required,
+	fechaInicio LocalDate,
+    fechaFin LocalDate,
+    tituloOtorgado String,
+    perfilProfesional String,
+}
+entity InformacionPersonal (ct_informacion_personal_tb) {
+	id Integer required,
+    fechaNacimiento LocalDate required,
+    lugarNacimiento String required,
+    direccionResidencia String required,
+    genero String required,
+    ciudad Integer required,
+    telefono String required,
+    discapacidad Integer,
+    redesSociales Integer,
+    licencenciaConduccion Boolean,
+}
+entity Dependencia (ct_dependencia_tb) {
+	id Integer required, 
+    dependencia String required,
+}
+entity InformacionLaboral (ct_informacon_laboral_tb) {
+	id Integer required,
+    nombreEmpresa String required,
+    fechaInicio LocalDate required,
+    fechaFin LocalDate required,
+    direccion String required,
+    cuidad Integer required,
+    departamento Integer required,
+    pais Integer required,
+    telefonoEmpresa String required,
+}
+entity Archivo (ct_archivo_tb) {
+    id Integer required,
+    tipo Integer required,
+    archivo String required,
+}
+entity Cargo (ct_cargo_tb) {
+    id Integer required,
+    cargo String required,
+}
+entity Institucion (ct_institucion_tb) {
+	id Integer required,
+	institucion String required,
+}
+entity NivelIdioma (ct_nivel_idioma_tb) {
+	id Integer required,
+ 	nivel String required,
+}
+entity Idioma (ct_idioma_tb) {
+	id Integer required,
+ 	idioma String required,
+}
+entity AplicacionOferta (ct_aplicacion_oferta_tb) {
+    id Integer required,
+}
+entity Oferta (ct_oferta_tb) {
+    id Integer required,
+    descripcion String required,
+    titulo Integer required,
+    salario Integer required,
+    cargo Integer required,
+    experiencia String,
+    ciudad Integer required,
+    area Integer required,
+    fechaPublicacion LocalDate required,
+    estado String required, 
+}
+entity Usuario (ct_usuario_tb) {
+    id Integer required,
+    usuario Integer required,
+    clave String required,
+    estado String required,
+}
+
+relationship ManyToOne {
+    Archivo { usuario required} to Persona
+    Empresa { tipoDocumento required} to TipoDocumento
+    Persona { tipoDocumento required} to TipoDocumento
+    AplicacionOferta { usuario required} to Persona
+    InformacionAcademica { usuario required} to Persona
+    InformacionPersonal { usuario required} to Persona
+    InformacionLaboral { usuario required} to Persona
+    Oferta{ usuario required} to Empresa
+    AplicacionOferta { oferta required} to Oferta
+    InformacionLaboral { dependencia required} to Dependencia
+    InformacionLaboral { cargo required} to Cargo
+    InformacionAcademica { idioma } to Idioma
+    InformacionAcademica { nivelIdioma } to NivelIdioma
+    InformacionAcademica { institucion } to Institucion
+      
+}
+
+relationship OneToOne {
+    Persona { tipoUsuario required} to TipoUsuario
+    Persona { numeroDocumento required} to Usuario 
+	Empresa { numeroDocumento required} to Usuario
+    Empresa { tipoUsuario required} to TipoUsuario
+  
+}
+
+
+
+
+// Set pagination options
+paginate * with pagination
+
+// Use Data Transfert Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceClass
+
+filter *
+// Set an angular suffix
+// Set an angular suffix
+// angularSuffix * with mySuffix

@@ -1,0 +1,24 @@
+{
+  "ctProjectApp": {
+    "archivo": {
+      "home": {
+        "title": "Archivos",
+        "createLabel": "Create a new Archivo",
+        "createOrEditLabel": "Create or edit a Archivo",
+        "notFound": "No Archivos found"
+      },
+      "created": "A new Archivo is created with identifier {{ param }}",
+      "updated": "A Archivo is updated with identifier {{ param }}",
+      "deleted": "A Archivo is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Archivo {{ id }}?"
+      },
+      "detail": {
+        "title": "Archivo"
+      },
+      "tipo": "Tipo",
+      "archivo": "Archivo",
+      "usuario": "Usuario"
+    }
+  }
+}
