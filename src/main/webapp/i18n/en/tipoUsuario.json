@@ -1,0 +1,22 @@
+{
+  "ctProjectApp": {
+    "tipoUsuario": {
+      "home": {
+        "title": "Tipo Usuarios",
+        "createLabel": "Create a new Tipo Usuario",
+        "createOrEditLabel": "Create or edit a Tipo Usuario",
+        "notFound": "No Tipo Usuarios found"
+      },
+      "created": "A new Tipo Usuario is created with identifier {{ param }}",
+      "updated": "A Tipo Usuario is updated with identifier {{ param }}",
+      "deleted": "A Tipo Usuario is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Tipo Usuario {{ id }}?"
+      },
+      "detail": {
+        "title": "Tipo Usuario"
+      },
+      "nombre": "Nombre"
+    }
+  }
+}

@@ -1,0 +1,118 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-informacion-academica-heading" jhiTranslate="ctProjectApp.informacionAcademica.home.createOrEditLabel">Create or edit a Informacion Academica</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.informacionAcademica.nivelEstudio" for="field_nivelEstudio">Nivel Estudio</label>
+                    <input type="number" class="form-control" name="nivelEstudio" id="field_nivelEstudio"
+                           formControlName="nivelEstudio"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.informacionAcademica.estado" for="field_estado">Estado</label>
+                    <input type="number" class="form-control" name="estado" id="field_estado"
+                           formControlName="estado"/>
+                    <div *ngIf="editForm.get('estado')!.invalid && (editForm.get('estado')!.dirty || editForm.get('estado')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('estado')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('estado')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.informacionAcademica.fechaInicio" for="field_fechaInicio">Fecha Inicio</label>
+                    <div class="input-group">
+                        <input id="field_fechaInicio" type="text" class="form-control" name="fechaInicio" ngbDatepicker #fechaInicioDp="ngbDatepicker" formControlName="fechaInicio"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="fechaInicioDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.informacionAcademica.fechaFin" for="field_fechaFin">Fecha Fin</label>
+                    <div class="input-group">
+                        <input id="field_fechaFin" type="text" class="form-control" name="fechaFin" ngbDatepicker #fechaFinDp="ngbDatepicker" formControlName="fechaFin"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="fechaFinDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.informacionAcademica.tituloOtorgado" for="field_tituloOtorgado">Titulo Otorgado</label>
+                    <input type="text" class="form-control" name="tituloOtorgado" id="field_tituloOtorgado"
+                           formControlName="tituloOtorgado"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.informacionAcademica.perfilProfesional" for="field_perfilProfesional">Perfil Profesional</label>
+                    <input type="text" class="form-control" name="perfilProfesional" id="field_perfilProfesional"
+                           formControlName="perfilProfesional"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.informacionAcademica.usuario" for="field_usuario">Usuario</label>
+                    <select class="form-control" id="field_usuario" name="usuario" formControlName="usuario">
+                        <option *ngIf="!editForm.get('usuario')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="personaOption.id === editForm.get('usuario')!.value?.id ? editForm.get('usuario')!.value : personaOption" *ngFor="let personaOption of personas; trackBy: trackById">{{ personaOption.id }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('usuario')!.invalid && (editForm.get('usuario')!.dirty || editForm.get('usuario')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('usuario')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.informacionAcademica.idioma" for="field_idioma">Idioma</label>
+                    <select class="form-control" id="field_idioma" name="idioma" formControlName="idioma">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="idiomaOption.id === editForm.get('idioma')!.value?.id ? editForm.get('idioma')!.value : idiomaOption" *ngFor="let idiomaOption of idiomas; trackBy: trackById">{{ idiomaOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.informacionAcademica.nivelIdioma" for="field_nivelIdioma">Nivel Idioma</label>
+                    <select class="form-control" id="field_nivelIdioma" name="nivelIdioma" formControlName="nivelIdioma">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="nivelIdiomaOption.id === editForm.get('nivelIdioma')!.value?.id ? editForm.get('nivelIdioma')!.value : nivelIdiomaOption" *ngFor="let nivelIdiomaOption of nivelidiomas; trackBy: trackById">{{ nivelIdiomaOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.informacionAcademica.institucion" for="field_institucion">Institucion</label>
+                    <select class="form-control" id="field_institucion" name="institucion" formControlName="institucion">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="institucionOption.id === editForm.get('institucion')!.value?.id ? editForm.get('institucion')!.value : institucionOption" *ngFor="let institucionOption of institucions; trackBy: trackById">{{ institucionOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

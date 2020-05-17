@@ -1,0 +1,104 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-persona-heading" jhiTranslate="ctProjectApp.persona.home.createOrEditLabel">Create or edit a Persona</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.persona.nombre" for="field_nombre">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="field_nombre"
+                           formControlName="nombre"/>
+                    <div *ngIf="editForm.get('nombre')!.invalid && (editForm.get('nombre')!.dirty || editForm.get('nombre')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nombre')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.persona.apellido" for="field_apellido">Apellido</label>
+                    <input type="text" class="form-control" name="apellido" id="field_apellido"
+                           formControlName="apellido"/>
+                    <div *ngIf="editForm.get('apellido')!.invalid && (editForm.get('apellido')!.dirty || editForm.get('apellido')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('apellido')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.persona.email" for="field_email">Email</label>
+                    <input type="text" class="form-control" name="email" id="field_email"
+                           formControlName="email"/>
+                    <div *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('email')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.persona.tipoUsuario" for="field_tipoUsuario">Tipo Usuario</label>
+                    <select class="form-control" id="field_tipoUsuario" name="tipoUsuario" formControlName="tipoUsuario">
+                        <option *ngIf="!editForm.get('tipoUsuario')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="tipoUsuarioOption.id === editForm.get('tipoUsuario')!.value?.id ? editForm.get('tipoUsuario')!.value : tipoUsuarioOption" *ngFor="let tipoUsuarioOption of tipousuarios; trackBy: trackById">{{ tipoUsuarioOption.id }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('tipoUsuario')!.invalid && (editForm.get('tipoUsuario')!.dirty || editForm.get('tipoUsuario')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('tipoUsuario')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.persona.numeroDocumento" for="field_numeroDocumento">Numero Documento</label>
+                    <select class="form-control" id="field_numeroDocumento" name="numeroDocumento" formControlName="numeroDocumento">
+                        <option *ngIf="!editForm.get('numeroDocumento')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="usuarioOption.id === editForm.get('numeroDocumento')!.value?.id ? editForm.get('numeroDocumento')!.value : usuarioOption" *ngFor="let usuarioOption of numerodocumentos; trackBy: trackById">{{ usuarioOption.id }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('numeroDocumento')!.invalid && (editForm.get('numeroDocumento')!.dirty || editForm.get('numeroDocumento')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('numeroDocumento')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.persona.tipoDocumento" for="field_tipoDocumento">Tipo Documento</label>
+                    <select class="form-control" id="field_tipoDocumento" name="tipoDocumento" formControlName="tipoDocumento">
+                        <option *ngIf="!editForm.get('tipoDocumento')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="tipoDocumentoOption.id === editForm.get('tipoDocumento')!.value?.id ? editForm.get('tipoDocumento')!.value : tipoDocumentoOption" *ngFor="let tipoDocumentoOption of tipodocumentos; trackBy: trackById">{{ tipoDocumentoOption.id }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('tipoDocumento')!.invalid && (editForm.get('tipoDocumento')!.dirty || editForm.get('tipoDocumento')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('tipoDocumento')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

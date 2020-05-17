@@ -1,0 +1,23 @@
+{
+  "ctProjectApp": {
+    "aplicacionOferta": {
+      "home": {
+        "title": "Aplicacion Ofertas",
+        "createLabel": "Create a new Aplicacion Oferta",
+        "createOrEditLabel": "Create or edit a Aplicacion Oferta",
+        "notFound": "No Aplicacion Ofertas found"
+      },
+      "created": "A new Aplicacion Oferta is created with identifier {{ param }}",
+      "updated": "A Aplicacion Oferta is updated with identifier {{ param }}",
+      "deleted": "A Aplicacion Oferta is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Aplicacion Oferta {{ id }}?"
+      },
+      "detail": {
+        "title": "Aplicacion Oferta"
+      },
+      "usuario": "Usuario",
+      "oferta": "Oferta"
+    }
+  }
+}

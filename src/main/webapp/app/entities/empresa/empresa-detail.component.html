@@ -1,0 +1,56 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="empresa">
+            <h2><span jhiTranslate="ctProjectApp.empresa.detail.title">Empresa</span> {{ empresa.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="ctProjectApp.empresa.razonSocial">Razon Social</span></dt>
+                <dd>
+                    <span>{{ empresa.razonSocial }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.empresa.razonComercial">Razon Comercial</span></dt>
+                <dd>
+                    <span>{{ empresa.razonComercial }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.empresa.email">Email</span></dt>
+                <dd>
+                    <span>{{ empresa.email }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.empresa.numeroDocumento">Numero Documento</span></dt>
+                <dd>
+                    <div *ngIf="empresa.numeroDocumento">
+                        <a [routerLink]="['/usuario', empresa.numeroDocumento?.id, 'view']">{{ empresa.numeroDocumento?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.empresa.tipoUsuario">Tipo Usuario</span></dt>
+                <dd>
+                    <div *ngIf="empresa.tipoUsuario">
+                        <a [routerLink]="['/tipo-usuario', empresa.tipoUsuario?.id, 'view']">{{ empresa.tipoUsuario?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.empresa.tipoDocumento">Tipo Documento</span></dt>
+                <dd>
+                    <div *ngIf="empresa.tipoDocumento">
+                        <a [routerLink]="['/tipo-documento', empresa.tipoDocumento?.id, 'view']">{{ empresa.tipoDocumento?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/empresa', empresa.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

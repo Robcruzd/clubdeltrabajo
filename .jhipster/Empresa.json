@@ -1,0 +1,65 @@
+{
+    "name": "Empresa",
+    "fields": [
+        {
+            "fieldName": "razonSocial",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "razonComercial",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "usuario",
+            "otherEntityRelationshipName": "empresa",
+            "relationshipValidateRules": "required",
+            "relationshipName": "numeroDocumento",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "tipoUsuario",
+            "otherEntityRelationshipName": "empresa",
+            "relationshipValidateRules": "required",
+            "relationshipName": "tipoUsuario",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "tipoDocumento",
+            "otherEntityRelationshipName": "empresa",
+            "relationshipValidateRules": "required",
+            "relationshipName": "tipoDocumento",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200517195600",
+    "entityTableName": "ct_empresa_tb",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

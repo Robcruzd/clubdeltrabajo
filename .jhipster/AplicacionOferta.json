@@ -1,0 +1,33 @@
+{
+    "name": "AplicacionOferta",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "persona",
+            "otherEntityRelationshipName": "aplicacionOferta",
+            "relationshipValidateRules": "required",
+            "relationshipName": "usuario",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "oferta",
+            "otherEntityRelationshipName": "aplicacionOferta",
+            "relationshipValidateRules": "required",
+            "relationshipName": "oferta",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200517200700",
+    "entityTableName": "ct_aplicacion_oferta_tb",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,74 @@
+{
+    "name": "InformacionAcademica",
+    "fields": [
+        {
+            "fieldName": "nivelEstudio",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "estado",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "fechaInicio",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "fechaFin",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "tituloOtorgado",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "perfilProfesional",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "persona",
+            "otherEntityRelationshipName": "informacionAcademica",
+            "relationshipValidateRules": "required",
+            "relationshipName": "usuario",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "idioma",
+            "otherEntityRelationshipName": "informacionAcademica",
+            "relationshipName": "idioma",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "nivelIdioma",
+            "otherEntityRelationshipName": "informacionAcademica",
+            "relationshipName": "nivelIdioma",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "institucion",
+            "otherEntityRelationshipName": "informacionAcademica",
+            "relationshipName": "institucion",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200517195800",
+    "entityTableName": "ct_informacion_academica_tb",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

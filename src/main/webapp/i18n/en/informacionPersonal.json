@@ -1,0 +1,31 @@
+{
+  "ctProjectApp": {
+    "informacionPersonal": {
+      "home": {
+        "title": "Informacion Personals",
+        "createLabel": "Create a new Informacion Personal",
+        "createOrEditLabel": "Create or edit a Informacion Personal",
+        "notFound": "No Informacion Personals found"
+      },
+      "created": "A new Informacion Personal is created with identifier {{ param }}",
+      "updated": "A Informacion Personal is updated with identifier {{ param }}",
+      "deleted": "A Informacion Personal is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Informacion Personal {{ id }}?"
+      },
+      "detail": {
+        "title": "Informacion Personal"
+      },
+      "fechaNacimiento": "Fecha Nacimiento",
+      "lugarNacimiento": "Lugar Nacimiento",
+      "direccionResidencia": "Direccion Residencia",
+      "genero": "Genero",
+      "ciudad": "Ciudad",
+      "telefono": "Telefono",
+      "discapacidad": "Discapacidad",
+      "redesSociales": "Redes Sociales",
+      "licencenciaConduccion": "Licencencia Conduccion",
+      "usuario": "Usuario"
+    }
+  }
+}
