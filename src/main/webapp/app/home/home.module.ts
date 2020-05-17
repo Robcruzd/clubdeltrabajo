@@ -7,7 +7,7 @@ import { HomeComponent } from './home.component';
 import { ResultadosBusquedaComponent } from './resultados-busqueda/resultados-busqueda.component';
 
 @NgModule({
-  imports: [CtProjectSharedModule, RouterModule.forChild([HOME_ROUTE])],
+  imports: [CtProjectSharedModule, RouterModule.forChild(HOME_ROUTE)],
   declarations: [HomeComponent, ResultadosBusquedaComponent]
 })
 export class CtProjectHomeModule {}
