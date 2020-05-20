@@ -1,0 +1,93 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="ctProjectApp.informacionPersonal.home.title">Informacion Personals</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-informacion-personal" [routerLink]="['/informacion-personal/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="ctProjectApp.informacionPersonal.home.createLabel">
+            Create a new Informacion Personal
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="informacionPersonals?.length === 0">
+        <span jhiTranslate="ctProjectApp.informacionPersonal.home.notFound">No informacionPersonals found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="informacionPersonals?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="fechaNacimiento"><span jhiTranslate="ctProjectApp.informacionPersonal.fechaNacimiento">Fecha Nacimiento</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="lugarNacimiento"><span jhiTranslate="ctProjectApp.informacionPersonal.lugarNacimiento">Lugar Nacimiento</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="direccionResidencia"><span jhiTranslate="ctProjectApp.informacionPersonal.direccionResidencia">Direccion Residencia</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="genero"><span jhiTranslate="ctProjectApp.informacionPersonal.genero">Genero</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="ciudad"><span jhiTranslate="ctProjectApp.informacionPersonal.ciudad">Ciudad</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="telefono"><span jhiTranslate="ctProjectApp.informacionPersonal.telefono">Telefono</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="discapacidad"><span jhiTranslate="ctProjectApp.informacionPersonal.discapacidad">Discapacidad</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="redesSociales"><span jhiTranslate="ctProjectApp.informacionPersonal.redesSociales">Redes Sociales</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="licencenciaConduccion"><span jhiTranslate="ctProjectApp.informacionPersonal.licencenciaConduccion">Licencencia Conduccion</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="usuario.id"><span jhiTranslate="ctProjectApp.informacionPersonal.usuario">Usuario</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let informacionPersonal of informacionPersonals ;trackBy: trackId">
+                    <td><a [routerLink]="['/informacion-personal', informacionPersonal.id, 'view']">{{ informacionPersonal.id }}</a></td>
+                    <td>{{ informacionPersonal.fechaNacimiento | date:'mediumDate' }}</td>
+                    <td>{{ informacionPersonal.lugarNacimiento }}</td>
+                    <td>{{ informacionPersonal.direccionResidencia }}</td>
+                    <td>{{ informacionPersonal.genero }}</td>
+                    <td>{{ informacionPersonal.ciudad }}</td>
+                    <td>{{ informacionPersonal.telefono }}</td>
+                    <td>{{ informacionPersonal.discapacidad }}</td>
+                    <td>{{ informacionPersonal.redesSociales }}</td>
+                    <td>{{ informacionPersonal.licencenciaConduccion }}</td>
+                    <td>
+                        <div *ngIf="informacionPersonal.usuario">
+                            <a [routerLink]="['/persona', informacionPersonal.usuario?.id, 'view']" >{{ informacionPersonal.usuario?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/informacion-personal', informacionPersonal.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/informacion-personal', informacionPersonal.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(informacionPersonal)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="informacionPersonals?.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <!--
+        Added the constraints for entity InformacionAcademica.
+    -->
+    <changeSet id="20200517195800-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="usuario_id"
+                                 baseTableName="ct_informacion_academica_tb"
+                                 constraintName="fk_ct_informacion_academica_tb_usuario_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="ct_persona_tb"/>
+
+        <addForeignKeyConstraint baseColumnNames="idioma_id"
+                                 baseTableName="ct_informacion_academica_tb"
+                                 constraintName="fk_ct_informacion_academica_tb_idioma_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="ct_idioma_tb"/>
+
+        <addForeignKeyConstraint baseColumnNames="nivel_idioma_id"
+                                 baseTableName="ct_informacion_academica_tb"
+                                 constraintName="fk_ct_informacion_academica_tb_nivel_idioma_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="ct_nivel_idioma_tb"/>
+
+        <addForeignKeyConstraint baseColumnNames="institucion_id"
+                                 baseTableName="ct_informacion_academica_tb"
+                                 constraintName="fk_ct_informacion_academica_tb_institucion_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="ct_institucion_tb"/>
+
+    </changeSet>
+</databaseChangeLog>

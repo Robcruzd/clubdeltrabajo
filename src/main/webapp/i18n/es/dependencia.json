@@ -1,0 +1,22 @@
+{
+  "ctProjectApp": {
+    "dependencia": {
+      "home": {
+        "title": "Dependencias",
+        "createLabel": "Crear nuevo Dependencia",
+        "createOrEditLabel": "Crear o editar Dependencia",
+        "notFound": "Ningún Dependencias encontrado"
+      },
+      "created": "Un nuevo Dependencia ha sido creado con el identificador {{ param }}",
+      "updated": "Un Dependencia ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Dependencia ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Dependencia {{ id }}?"
+      },
+      "detail": {
+        "title": "Dependencia"
+      },
+      "dependencia": "Dependencia"
+    }
+  }
+}

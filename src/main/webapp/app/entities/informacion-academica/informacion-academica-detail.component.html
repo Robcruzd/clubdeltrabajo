@@ -1,0 +1,74 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="informacionAcademica">
+            <h2><span jhiTranslate="ctProjectApp.informacionAcademica.detail.title">Informacion Academica</span> {{ informacionAcademica.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="ctProjectApp.informacionAcademica.nivelEstudio">Nivel Estudio</span></dt>
+                <dd>
+                    <span>{{ informacionAcademica.nivelEstudio }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionAcademica.estado">Estado</span></dt>
+                <dd>
+                    <span>{{ informacionAcademica.estado }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionAcademica.fechaInicio">Fecha Inicio</span></dt>
+                <dd>
+                    <span>{{ informacionAcademica.fechaInicio }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionAcademica.fechaFin">Fecha Fin</span></dt>
+                <dd>
+                    <span>{{ informacionAcademica.fechaFin }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionAcademica.tituloOtorgado">Titulo Otorgado</span></dt>
+                <dd>
+                    <span>{{ informacionAcademica.tituloOtorgado }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionAcademica.perfilProfesional">Perfil Profesional</span></dt>
+                <dd>
+                    <span>{{ informacionAcademica.perfilProfesional }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionAcademica.usuario">Usuario</span></dt>
+                <dd>
+                    <div *ngIf="informacionAcademica.usuario">
+                        <a [routerLink]="['/persona', informacionAcademica.usuario?.id, 'view']">{{ informacionAcademica.usuario?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionAcademica.idioma">Idioma</span></dt>
+                <dd>
+                    <div *ngIf="informacionAcademica.idioma">
+                        <a [routerLink]="['/idioma', informacionAcademica.idioma?.id, 'view']">{{ informacionAcademica.idioma?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionAcademica.nivelIdioma">Nivel Idioma</span></dt>
+                <dd>
+                    <div *ngIf="informacionAcademica.nivelIdioma">
+                        <a [routerLink]="['/nivel-idioma', informacionAcademica.nivelIdioma?.id, 'view']">{{ informacionAcademica.nivelIdioma?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionAcademica.institucion">Institucion</span></dt>
+                <dd>
+                    <div *ngIf="informacionAcademica.institucion">
+                        <a [routerLink]="['/institucion', informacionAcademica.institucion?.id, 'view']">{{ informacionAcademica.institucion?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/informacion-academica', informacionAcademica.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

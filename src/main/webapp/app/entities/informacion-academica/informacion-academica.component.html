@@ -1,0 +1,105 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="ctProjectApp.informacionAcademica.home.title">Informacion Academicas</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-informacion-academica" [routerLink]="['/informacion-academica/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="ctProjectApp.informacionAcademica.home.createLabel">
+            Create a new Informacion Academica
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="informacionAcademicas?.length === 0">
+        <span jhiTranslate="ctProjectApp.informacionAcademica.home.notFound">No informacionAcademicas found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="informacionAcademicas?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="nivelEstudio"><span jhiTranslate="ctProjectApp.informacionAcademica.nivelEstudio">Nivel Estudio</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="estado"><span jhiTranslate="ctProjectApp.informacionAcademica.estado">Estado</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="fechaInicio"><span jhiTranslate="ctProjectApp.informacionAcademica.fechaInicio">Fecha Inicio</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="fechaFin"><span jhiTranslate="ctProjectApp.informacionAcademica.fechaFin">Fecha Fin</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="tituloOtorgado"><span jhiTranslate="ctProjectApp.informacionAcademica.tituloOtorgado">Titulo Otorgado</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="perfilProfesional"><span jhiTranslate="ctProjectApp.informacionAcademica.perfilProfesional">Perfil Profesional</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="usuario.id"><span jhiTranslate="ctProjectApp.informacionAcademica.usuario">Usuario</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="idioma.id"><span jhiTranslate="ctProjectApp.informacionAcademica.idioma">Idioma</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="nivelIdioma.id"><span jhiTranslate="ctProjectApp.informacionAcademica.nivelIdioma">Nivel Idioma</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="institucion.id"><span jhiTranslate="ctProjectApp.informacionAcademica.institucion">Institucion</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let informacionAcademica of informacionAcademicas ;trackBy: trackId">
+                    <td><a [routerLink]="['/informacion-academica', informacionAcademica.id, 'view']">{{ informacionAcademica.id }}</a></td>
+                    <td>{{ informacionAcademica.nivelEstudio }}</td>
+                    <td>{{ informacionAcademica.estado }}</td>
+                    <td>{{ informacionAcademica.fechaInicio | date:'mediumDate' }}</td>
+                    <td>{{ informacionAcademica.fechaFin | date:'mediumDate' }}</td>
+                    <td>{{ informacionAcademica.tituloOtorgado }}</td>
+                    <td>{{ informacionAcademica.perfilProfesional }}</td>
+                    <td>
+                        <div *ngIf="informacionAcademica.usuario">
+                            <a [routerLink]="['/persona', informacionAcademica.usuario?.id, 'view']" >{{ informacionAcademica.usuario?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="informacionAcademica.idioma">
+                            <a [routerLink]="['/idioma', informacionAcademica.idioma?.id, 'view']" >{{ informacionAcademica.idioma?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="informacionAcademica.nivelIdioma">
+                            <a [routerLink]="['/nivel-idioma', informacionAcademica.nivelIdioma?.id, 'view']" >{{ informacionAcademica.nivelIdioma?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="informacionAcademica.institucion">
+                            <a [routerLink]="['/institucion', informacionAcademica.institucion?.id, 'view']" >{{ informacionAcademica.institucion?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/informacion-academica', informacionAcademica.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/informacion-academica', informacionAcademica.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(informacionAcademica)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="informacionAcademicas?.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

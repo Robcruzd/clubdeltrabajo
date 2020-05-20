@@ -1,0 +1,22 @@
+{
+  "ctProjectApp": {
+    "nivelIdioma": {
+      "home": {
+        "title": "Nivel Idiomas",
+        "createLabel": "Create a new Nivel Idioma",
+        "createOrEditLabel": "Create or edit a Nivel Idioma",
+        "notFound": "No Nivel Idiomas found"
+      },
+      "created": "A new Nivel Idioma is created with identifier {{ param }}",
+      "updated": "A Nivel Idioma is updated with identifier {{ param }}",
+      "deleted": "A Nivel Idioma is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Nivel Idioma {{ id }}?"
+      },
+      "detail": {
+        "title": "Nivel Idioma"
+      },
+      "nivel": "Nivel"
+    }
+  }
+}

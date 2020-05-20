@@ -1,0 +1,68 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="informacionPersonal">
+            <h2><span jhiTranslate="ctProjectApp.informacionPersonal.detail.title">Informacion Personal</span> {{ informacionPersonal.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="ctProjectApp.informacionPersonal.fechaNacimiento">Fecha Nacimiento</span></dt>
+                <dd>
+                    <span>{{ informacionPersonal.fechaNacimiento }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionPersonal.lugarNacimiento">Lugar Nacimiento</span></dt>
+                <dd>
+                    <span>{{ informacionPersonal.lugarNacimiento }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionPersonal.direccionResidencia">Direccion Residencia</span></dt>
+                <dd>
+                    <span>{{ informacionPersonal.direccionResidencia }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionPersonal.genero">Genero</span></dt>
+                <dd>
+                    <span>{{ informacionPersonal.genero }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionPersonal.ciudad">Ciudad</span></dt>
+                <dd>
+                    <span>{{ informacionPersonal.ciudad }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionPersonal.telefono">Telefono</span></dt>
+                <dd>
+                    <span>{{ informacionPersonal.telefono }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionPersonal.discapacidad">Discapacidad</span></dt>
+                <dd>
+                    <span>{{ informacionPersonal.discapacidad }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionPersonal.redesSociales">Redes Sociales</span></dt>
+                <dd>
+                    <span>{{ informacionPersonal.redesSociales }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionPersonal.licencenciaConduccion">Licencencia Conduccion</span></dt>
+                <dd>
+                    <span>{{ informacionPersonal.licencenciaConduccion }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionPersonal.usuario">Usuario</span></dt>
+                <dd>
+                    <div *ngIf="informacionPersonal.usuario">
+                        <a [routerLink]="['/persona', informacionPersonal.usuario?.id, 'view']">{{ informacionPersonal.usuario?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/informacion-personal', informacionPersonal.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

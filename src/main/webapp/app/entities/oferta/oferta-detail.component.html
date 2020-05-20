@@ -1,0 +1,68 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="oferta">
+            <h2><span jhiTranslate="ctProjectApp.oferta.detail.title">Oferta</span> {{ oferta.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="ctProjectApp.oferta.descripcion">Descripcion</span></dt>
+                <dd>
+                    <span>{{ oferta.descripcion }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.oferta.titulo">Titulo</span></dt>
+                <dd>
+                    <span>{{ oferta.titulo }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.oferta.salario">Salario</span></dt>
+                <dd>
+                    <span>{{ oferta.salario }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.oferta.cargo">Cargo</span></dt>
+                <dd>
+                    <span>{{ oferta.cargo }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.oferta.experiencia">Experiencia</span></dt>
+                <dd>
+                    <span>{{ oferta.experiencia }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.oferta.ciudad">Ciudad</span></dt>
+                <dd>
+                    <span>{{ oferta.ciudad }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.oferta.area">Area</span></dt>
+                <dd>
+                    <span>{{ oferta.area }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.oferta.fechaPublicacion">Fecha Publicacion</span></dt>
+                <dd>
+                    <span>{{ oferta.fechaPublicacion }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.oferta.estado">Estado</span></dt>
+                <dd>
+                    <span>{{ oferta.estado }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.oferta.usuario">Usuario</span></dt>
+                <dd>
+                    <div *ngIf="oferta.usuario">
+                        <a [routerLink]="['/empresa', oferta.usuario?.id, 'view']">{{ oferta.usuario?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/oferta', oferta.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

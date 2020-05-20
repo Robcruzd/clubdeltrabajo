@@ -1,0 +1,32 @@
+{
+  "ctProjectApp": {
+    "informacionLaboral": {
+      "home": {
+        "title": "Informacion Laborals",
+        "createLabel": "Create a new Informacion Laboral",
+        "createOrEditLabel": "Create or edit a Informacion Laboral",
+        "notFound": "No Informacion Laborals found"
+      },
+      "created": "A new Informacion Laboral is created with identifier {{ param }}",
+      "updated": "A Informacion Laboral is updated with identifier {{ param }}",
+      "deleted": "A Informacion Laboral is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Informacion Laboral {{ id }}?"
+      },
+      "detail": {
+        "title": "Informacion Laboral"
+      },
+      "nombreEmpresa": "Nombre Empresa",
+      "fechaInicio": "Fecha Inicio",
+      "fechaFin": "Fecha Fin",
+      "direccion": "Direccion",
+      "cuidad": "Cuidad",
+      "departamento": "Departamento",
+      "pais": "Pais",
+      "telefonoEmpresa": "Telefono Empresa",
+      "usuario": "Usuario",
+      "dependencia": "Dependencia",
+      "cargo": "Cargo"
+    }
+  }
+}
