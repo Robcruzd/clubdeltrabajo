@@ -1,0 +1,91 @@
+.foto-perfil {
+  top: 133px;
+  left: 327px;
+  width: 168px;
+  height: 168px;
+  //background: transparent url('../../../content/images/Image\ 28.png') 0% 0% no-repeat padding-box;
+  opacity: 1;
+  margin-bottom: 7px;
+}
+
+.codigo {
+  top: 308px;
+  left: 371px;
+  width: 81px;
+  height: 81px;
+  //background: transparent url('../../../content/images/frame.png') 0% 0% no-repeat padding-box;
+  mix-blend-mode: multiply;
+  opacity: 1;
+}
+
+.informacion-hoja-vida {
+  top: 145px;
+  left: 519px;
+  width: 445px;
+  height: auto;
+  border: 1px solid #ebebeb;
+  opacity: 1;
+  margin-bottom: 14px;
+  padding: 50px 40px 0 40px;
+}
+
+.boton-descargar {
+  top: 693px;
+  left: 765px;
+  width: 167px;
+  height: 48px;
+  background: #2699fb 0% 0% no-repeat padding-box;
+  border-radius: 24px;
+  opacity: 1;
+  top: 709px;
+  text-align: center;
+  font-size: 12px;
+  font-family: 'Arial';
+  font-weight: bold;
+  letter-spacing: 0px;
+  color: #ffffff;
+  float: right;
+}
+
+.boton-regresar {
+  position: absolute;
+  bottom: 20px;
+  left: 80px;
+  width: 20px;
+  height: 30px;
+  color: #020d52;
+  opacity: 1;
+}
+
+.titulo {
+  font-size: 30px;
+  font-family: 'Arial';
+  font-weight: bold;
+  color: #072278;
+}
+
+.texto-hoja-vida {
+  text-align: justify;
+  font-size: 12px;
+  font-family: 'Arial';
+  color: #645d5d;
+}
+
+.pie-pagina {
+  margin-bottom: 50px;
+  left: 781px;
+  height: 11px;
+  text-align: right;
+  font-size: 12px;
+  font-family: 'Roboto';
+  font-weight: normal;
+  letter-spacing: 0px;
+  color: #072278;
+  opacity: 1;
+}
+
+.logo {
+  width: 110px;
+  height: 40px;
+  opacity: 1;
+}

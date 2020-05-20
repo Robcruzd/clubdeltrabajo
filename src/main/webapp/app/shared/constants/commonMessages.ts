@@ -4,5 +4,6 @@ export const commonMessages = {
   CIUDAD_LABEL: 'Ciudad',
   FECHA_PUBLICACION_LABEL: 'Fecha de publicación',
   AREA_TRABAJO_LABEL: 'Área de trabajo',
-  EMPRESAS_LABEL: 'Ordenar por empresas'
+  EMPRESAS_LABEL: 'Ordenar por empresas',
+  DESCARGAR_HOJAVIDA_LABEL: 'Descargar hoja de vida'
 };
