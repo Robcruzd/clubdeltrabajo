@@ -6,9 +6,10 @@ import { HOME_ROUTE } from './home.route';
 import { HomeComponent } from './home.component';
 import { ResultadosBusquedaComponent } from './resultados-busqueda/resultados-busqueda.component';
 import { VerHojaVidaComponent } from './ver-hoja-vida/ver-hoja-vida.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 @NgModule({
   imports: [CtProjectSharedModule, RouterModule.forChild(HOME_ROUTE)],
-  declarations: [HomeComponent, ResultadosBusquedaComponent, VerHojaVidaComponent]
+  declarations: [HomeComponent, ResultadosBusquedaComponent, VerHojaVidaComponent, PerfilComponent]
 })
 export class CtProjectHomeModule {}
