@@ -1,0 +1,432 @@
+<div class="container">
+    <form [formGroup]="globalForm" (ngSubmit)="onSubmit()">
+        <ng-container *ngIf="step === 0">
+            <form [formGroup]="formPersonal">
+                <p class="text">{{labels.INFORMACION_PERSONA_LABEL}}</p>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <p class="text">{{labels.NOMBRE_LABEL}} <span class="text-danger">*</span></p>
+                            <input type="text" class="box" formControlName="nombre">
+                            <small id="emailHelp"
+                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <p class="text">{{labels.APELLIDO_LABEL}} <span class="text-danger">*</span></p>
+                            <input type="text" class="box" formControlName="apellidos">
+                            <small id="emailHelp"
+                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <p class="text">{{labels.NUMERO_DOCUMENTO_LABEL}} <span class="text-danger">*</span></p>
+                            <input type="number" class="box" formControlName="numeroDocumento">
+
+                            <small id="emailHelp"
+                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <p class="text">{{labels.FECHA_NACIMENTO_LABEL}} <span class="text-danger">*</span></p>
+                            <input type="text" class="box" formControlName="fechaNacimiento">
+                            <small id="emailHelp"
+                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <p class="text">{{labels.LUGAR_NACIMIENTO_LABEL}}</p>
+                            <input type="text" class="box" formControlName="lugarNacimiento">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <p class="text">{{labels.DIRECCION_RESIDENCIA_LABEL}} <span class="text-danger">*</span></p>
+                            <input type="text" class="box" formControlName="direccionResidencia">
+                            <small id="emailHelp"
+                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <label class="radio-inline mr-2">{{labels.GENERO_LABEL}} <span
+                                    class="text-danger">*</span></label>
+                            <label class="radio-inline mr-2">
+                                <input type="radio" [value]="labels.MASCULINO" formControlName="genero">
+                                {{labels.MASCULINO}}
+                            </label>
+                            <label class="radio-inline mr-2">
+                                <input type="radio" [value]="labels.FEMENINO" formControlName="genero">
+                                {{labels.FEMENINO}}
+                            </label>
+                            <small id="emailHelp"
+                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <p class="text">{{labels.CIUDAD_LABEL}} <span class="text-danger">*</span></p>
+                            <input type="text" class="box" formControlName="ciudad">
+                            <small id="emailHelp"
+                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <p class="text">{{labels.CONTACTO_LABEL}} <span class="text-danger">*</span></p>
+                            <input type="number" class="box" formControlName="telefono">
+                            <small id="emailHelp"
+                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <p class="text">{{labels.CORREO_ELECTRONICO_LABEL}} <span class="text-danger">*</span></p>
+                            <input type="text" class="box" formControlName="email">
+                            <small id="emailHelp"
+                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <p class="text">{{labels.DISCAPACIDADES_LABEL}}</p>
+                            <input type="text" class="box" formControlName="discapacidad">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <p class="text">{{labels.REDES_SOCIALES_LABEL}}</p>
+                            <input type="text" class="box" formControlName="redesSociales">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <p class="text">{{labels.LICECIA_CONDUCCION_LABEL}}</p>
+                            <input type="text" class="box" formControlName="licencenciaConduccion">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <p class="text-danger">{{labels.INFO_CAMPO_OBLIGAORIO_LABEL}} </p>
+                        <button class="btn btn-primary" (click)="nextStep()" [disabled]="formPersonal.invalid"
+                            type="submit">Siguiente</button>
+                    </div>
+                </div>
+            </form>
+        </ng-container>
+        <ng-container formArrayName="informacionAcademica" *ngIf="step === 1">
+            <p class="text">{{labels.INFORMACION_ACADEMICA_LABEL}}</p>
+            <ng-container *ngFor="let academica of informacionAcademica.controls; index as indexAcademica">
+                <div [formGroupName]="indexAcademica">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">{{labels.NIVEL_ESTUDIO_LABEL}} <span class="text-danger">*</span></p>
+                                <input type="text" class="box" formControlName="nivelEstudio">
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">{{labels.ESTADO_LABEL}} <span class="text-danger">*</span></p>
+                                <input type="text" class="box" formControlName="estado">
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">{{labels.FECHA_INICIO_LABEL}} <span class="text-danger">*</span></p>
+                                <input type="text" class="box" formControlName="fechaInicio">
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">{{labels.FECHA_FIN_LABEL}}<span class="text-danger">*</span></p>
+                                <input type="text" class="box" formControlName="fechaFin">
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">{{labels.TITULO_OTORGADO_LABEL}}<span class="text-danger">*</span></p>
+                                <input type="text" class="box" formControlName="tituloOtorgado">
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">{{labels.INSTITUCION_LABEL}} <span class="text-danger">*</span></p>
+                                <input type="text" class="box" formControlName="institucion">
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">{{labels.TITULO_LABEL}} <span class="text-danger">*</span></p>
+                                <input type="text" class="box">
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <button class="btn btn-primary float-right" (click)="addItemInformacionAcademica()"
+                type="button">{{labels.AGREGAR_ESTUDIOS_LABEL}}
+            </button>
+            <!-- <div class="row float-right">
+                <div class="col-6">
+                    <p>&nbsp;</p>
+                </div>
+            </div> -->
+        </ng-container>
+        <ng-container formArrayName="idiomas" *ngIf="step === 1">
+            <ng-container *ngFor="let idioma of idiomas.controls; index as indexIdioma">
+                <div [formGroupName]="indexIdioma">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">Idiomas </p>
+                                <input type="text" class="box" formControlName="idioma">
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">Nivel <span class="text-danger">*</span></p>
+                                <input type="text" class="box" formControlName="nivel">
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="row">
+                <div class="col-offset-6 col-sm-12 mb-2">
+                    <button type="button" (click)="addItemIdioma()" class="btn btn-primary float-right">
+                        {{labels.AGREGAR_IDIOMA_LABEL}}
+                    </button>
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-container formArrayName="experienciaLaboral" *ngIf="step === 2">
+            <form [formGroup]="formPerfil">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>{{labels.PERFIL_LABEL}}<span class="text-danger"> *</span></label>
+                            <textarea formControlName="perfilProfesional" class="form-control" rows="3"></textarea>
+                            <small id="emailHelp"
+                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <p class="text">{{labels.EXPERIENCIA_LABORAL_LABEL}}</p>
+            <ng-container *ngFor="let laboral of experienciaLaboral.controls; index as indexLaboral">
+                <div [formGroupName]="indexLaboral">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">{{labels.NOMBRE_EMPRESA_LABEL}} <span class="text-danger">*</span></p>
+                                <input type="text" class="box" formControlName="nombreEmpresa">
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">{{labels.FECHA_INICIO_LABEL}} <span class="text-danger">*</span></p>
+                                <input type="text" class="box" formControlName="fechaInicio">
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">{{labels.FECHA_FIN_LABEL}} <span class="text-danger">*</span></p>
+                                <input type="text" class="box" formControlName="fechaFin">
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">{{labels.DIRECCION_LABEL}} <span class="text-danger">*</span></p>
+                                <input type="text" class="box" formControlName="direccion">
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">{{labels.DEPARTAMENTO_LABEL}} <span class="text-danger">*</span></p>
+                                <select formControlName="departamento" class="form-control">
+                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                    <option *ngFor="let departamento of departamentos" [ngValue]="departamento"
+                                        (change)="cargarMunicipios(departamento.codigo)">
+                                        {{ departamento.nombre }}
+                                    </option>
+                                </select>
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">{{labels.CIUDAD_LABEL}} <span class="text-danger">*</span></p>
+                                <select formControlName="cuidad" class="form-control">
+                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                    <option *ngFor="let municipio of municipios" [ngValue]="municipio">
+                                        {{ municipio.nombre }}
+                                    </option>
+                                </select>
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">{{labels.PAIS_LABEL}} <span class="text-danger">*</span></p>
+                                <input type="text" class="box" formControlName="pais">
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">{{labels.TELEFONO_EMRESAS_LABEL}} <span class="text-danger">*</span></p>
+                                <input type="text" class="box" formControlName="telefonoEmpresa">
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">{{labels.CARGO_LABEL}} <span class="text-danger">*</span></p>
+                                <input type="text" class="box" formControlName="cargo">
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">{{labels.DEPENDENCIA_LABEL}} <span class="text-danger">*</span></p>
+                                <input type="text" class="box" formControlName="dependencia">
+                                <small id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <p class="text">{{labels.ADJUNTE_CERTIFICADO_LABORAL_LABEL}} <span
+                                        class="text-danger">*</span></p>
+                                <input type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <button type="button" (click)="addItemExperienciaLaboral()"
+                class="btn btn-primary float-right">{{labels.AGREGAR_EXPERIENCIA_LABEL}}</button>
+            <!-- <div class="row float-right">
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                        <p class="text">&nbsp;</p>
+                    </div>
+                </div>
+            </div> -->
+        </ng-container>
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <button type="button" class="btn" (click)="previousStep()">
+                    <p class="h4">
+                        <fa-icon class="text" icon="chevron-left"></fa-icon>
+                    </p>
+                </button>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <button *ngIf="step === 1" class="btn btn-primary float-right" (click)="nextStep()">
+                    {{'Siguiente'}}
+                </button>
+                <button type="submit" *ngIf="step === 2" class="btn btn-primary float-right" [disabled]="false">
+                    {{'Guardar'}}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<hr>
+
+<div class="container" *ngIf="mostrar">
+    <code>{{globalForm.value | json}}</code>
+</div>
+
+<div class="container" *ngIf="mostrar">
+    <code>{{formPersonal.value | json}}</code>
+</div>
+
+<div class="container" *ngIf="mostrar">
+    <code>{{formPerfil.value | json}}</code>
+</div>

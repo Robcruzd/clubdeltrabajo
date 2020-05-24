@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-
 import { HomeComponent } from './home.component';
 import { ResultadosBusquedaComponent } from './resultados-busqueda/resultados-busqueda.component';
 import { VerHojaVidaComponent } from './ver-hoja-vida/ver-hoja-vida.component';
+import { CrearHojaVidaComponent } from './crear-hoja-vida/crear-hoja-vida.component';
 
 export const HOME_ROUTE: Routes = [
   {
@@ -20,5 +20,9 @@ export const HOME_ROUTE: Routes = [
   {
     path: 'hoja-vida',
     component: VerHojaVidaComponent
+  },
+  {
+    path: 'crear-hoja-vida',
+    component: CrearHojaVidaComponent
   }
 ];
