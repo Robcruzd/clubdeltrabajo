@@ -27,7 +27,16 @@
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
                             <p class="text">{{labels.NUMERO_DOCUMENTO_LABEL}} <span class="text-danger">*</span></p>
-                            <input type="number" class="box" formControlName="numeroDocumento">
+                            <ng-container formGroupName="documento">
+                                <select formControlName="tipoDocumento">
+                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                    <option *ngFor="let documento of documentos" [ngValue]="documento">
+                                        {{ documento.nombreTipo }}
+                                    </option>
+                                </select>
+                                <input type="number" class="box" formControlName="numeroDocumento">
+                                <input type="file" formControlName="archivo">
+                            </ng-container>
 
                             <small id="emailHelp"
                                 class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
@@ -36,7 +45,28 @@
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
                             <p class="text">{{labels.FECHA_NACIMENTO_LABEL}} <span class="text-danger">*</span></p>
-                            <input type="text" class="box" formControlName="fechaNacimiento">
+                            <ng-container formGroupName="fechaNacimiento">
+                                <select formControlName="dia">
+                                    <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_DIA}}</option>
+                                    <option *ngFor="let dia of dias" [ngValue]="dia">
+                                        {{ dia }}
+                                    </option>
+                                </select>
+
+                                <select formControlName="mes">
+                                    <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_MES}}</option>
+                                    <option *ngFor="let mes of meses" [ngValue]="mes">
+                                        {{ mes }}
+                                    </option>
+                                </select>
+
+                                <select formControlName="anio">
+                                    <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_ANIO}}</option>
+                                    <option *ngFor="let anio of anios" [ngValue]="anio">
+                                        {{ anio }}
+                                    </option>
+                                </select>
+                            </ng-container>
                             <small id="emailHelp"
                                 class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
@@ -114,7 +144,12 @@
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
                             <p class="text">{{labels.DISCAPACIDADES_LABEL}}</p>
-                            <input type="text" class="box" formControlName="discapacidad">
+                            <select formControlName="discapacidad">
+                                <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option *ngFor="let discapacidad of discapacidades" [ngValue]="discapacidad">
+                                    {{ discapacidad.nombre }}
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6">
@@ -129,11 +164,14 @@
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
                             <p class="text">{{labels.LICECIA_CONDUCCION_LABEL}}</p>
-                            <input type="text" class="box" formControlName="licencenciaConduccion">
+                            <ng-container formGroupName="licencenciaConduccion">
+                                <input type="text" class="box" formControlName="numero">
+                                <input type="file" formControlName="archivo">
+                            </ng-container>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6">
-                        <p class="text-danger">{{labels.INFO_CAMPO_OBLIGAORIO_LABEL}} </p>
+                        <p class="text-danger">{{labels.INFO_CAMPO_OBLIGATORIO_LABEL}} </p>
                         <button class="btn btn-primary" (click)="nextStep()" [disabled]="formPersonal.invalid"
                             type="submit">Siguiente</button>
                     </div>
@@ -148,7 +186,12 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <p class="text">{{labels.NIVEL_ESTUDIO_LABEL}} <span class="text-danger">*</span></p>
-                                <input type="text" class="box" formControlName="nivelEstudio">
+                                <select formControlName="nivelEstudio">
+                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                    <option *ngFor="let nivel of nivelEstudio" [ngValue]="nivel">
+                                        {{ nivel.nombre }}
+                                    </option>
+                                </select>
                                 <small id="emailHelp"
                                     class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
@@ -156,7 +199,12 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <p class="text">{{labels.ESTADO_LABEL}} <span class="text-danger">*</span></p>
-                                <input type="text" class="box" formControlName="estado">
+                                <select formControlName="estado">
+                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                    <option *ngFor="let estado of estadoNivelEstudio" [ngValue]="estado">
+                                        {{ estado.nombre }}
+                                    </option>
+                                </select>
                                 <small id="emailHelp"
                                     class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
@@ -166,18 +214,61 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
-                                <p class="text">{{labels.FECHA_INICIO_LABEL}} <span class="text-danger">*</span></p>
-                                <input type="text" class="box" formControlName="fechaInicio">
-                                <small id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <ng-container formGroupName="fechaInicio">
+                                    <p class="text">{{labels.FECHA_INICIO_LABEL}} <span class="text-danger">*</span></p>
+                                    <select formControlName="dia">
+                                        <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_DIA}}</option>
+                                        <option *ngFor="let dia of dias" [ngValue]="dia">
+                                            {{ dia }}
+                                        </option>
+                                    </select>
+
+                                    <select formControlName="mes">
+                                        <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_MES}}</option>
+                                        <option *ngFor="let mes of meses" [ngValue]="mes">
+                                            {{ mes }}
+                                        </option>
+                                    </select>
+
+                                    <select formControlName="anio">
+                                        <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_ANIO}}</option>
+                                        <option *ngFor="let anio of anios" [ngValue]="anio">
+                                            {{ anio }}
+                                        </option>
+                                    </select>
+                                    <small id="emailHelp"
+                                        class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                </ng-container>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <p class="text">{{labels.FECHA_FIN_LABEL}}<span class="text-danger">*</span></p>
-                                <input type="text" class="box" formControlName="fechaFin">
-                                <small id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <ng-container formGroupName="fechaFin">
+                                    <select formControlName="dia">
+                                        <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_DIA}}</option>
+                                        <option *ngFor="let dia of dias" [ngValue]="dia">
+                                            {{ dia }}
+                                        </option>
+                                    </select>
+
+                                    <select formControlName="mes">
+                                        <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_MES}}</option>
+                                        <option *ngFor="let mes of meses" [ngValue]="mes">
+                                            {{ mes }}
+                                        </option>
+                                    </select>
+
+                                    <select formControlName="anio">
+                                        <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_ANIO}}</option>
+                                        <option *ngFor="let anio of anios" [ngValue]="anio">
+                                            {{ anio }}
+                                        </option>
+                                    </select>
+                                    <small id="emailHelp"
+                                        class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+
+                                </ng-container>
                             </div>
                         </div>
                     </div>
@@ -185,7 +276,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
-                                <p class="text">{{labels.TITULO_OTORGADO_LABEL}}<span class="text-danger">*</span></p>
+                                <p class="text">{{labels.TITULO_OTORGADO_LABEL}} <span class="text-danger">*</span></p>
                                 <input type="text" class="box" formControlName="tituloOtorgado">
                                 <small id="emailHelp"
                                     class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
@@ -205,7 +296,7 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <p class="text">{{labels.TITULO_LABEL}} <span class="text-danger">*</span></p>
-                                <input type="text" class="box">
+                                <input type="file">
                                 <small id="emailHelp"
                                     class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
@@ -222,22 +313,32 @@
                 </div>
             </div> -->
         </ng-container>
-        <ng-container formArrayName="idiomas" *ngIf="step === 1">
-            <ng-container *ngFor="let idioma of idiomas.controls; index as indexIdioma">
+        <ng-container formArrayName="idioma" *ngIf="step === 1">
+            <ng-container *ngFor="let item of idioma.controls; index as indexIdioma">
                 <div [formGroupName]="indexIdioma">
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
-                                <p class="text">Idiomas </p>
-                                <input type="text" class="box" formControlName="idioma">
+                                <p class="text">{{labels.IDIOMAS_LABEL}} </p>
+                                <select formControlName="idioma">
+                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                    <option *ngFor="let idioma of idiomas" [ngValue]="idioma">
+                                        {{ idioma.idioma }}
+                                    </option>
+                                </select>
                                 <small id="emailHelp"
                                     class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
-                                <p class="text">Nivel <span class="text-danger">*</span></p>
-                                <input type="text" class="box" formControlName="nivel">
+                                <p class="text">{{labels.NIVEL_IDIOMA_LABEL}} <span class="text-danger">*</span></p>
+                                <select formControlName="nivel">
+                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                    <option *ngFor="let nivel of nivelIdioma" [ngValue]="nivel">
+                                        {{ nivel.nombre }}
+                                    </option>
+                                </select>
                                 <small id="emailHelp"
                                     class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
@@ -282,9 +383,30 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <p class="text">{{labels.FECHA_INICIO_LABEL}} <span class="text-danger">*</span></p>
-                                <input type="text" class="box" formControlName="fechaInicio">
-                                <small id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <ng-container formGroupName="fechaInicio">
+                                    <select formControlName="dia">
+                                        <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_DIA}}</option>
+                                        <option *ngFor="let dia of dias" [ngValue]="dia">
+                                            {{ dia }}
+                                        </option>
+                                    </select>
+
+                                    <select formControlName="mes">
+                                        <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_MES}}</option>
+                                        <option *ngFor="let mes of meses" [ngValue]="mes">
+                                            {{ mes }}
+                                        </option>
+                                    </select>
+
+                                    <select formControlName="anio">
+                                        <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_ANIO}}</option>
+                                        <option *ngFor="let anio of anios" [ngValue]="anio">
+                                            {{ anio }}
+                                        </option>
+                                    </select>
+                                    <small id="emailHelp"
+                                        class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                </ng-container>
                             </div>
                         </div>
                     </div>
@@ -293,9 +415,30 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <p class="text">{{labels.FECHA_FIN_LABEL}} <span class="text-danger">*</span></p>
-                                <input type="text" class="box" formControlName="fechaFin">
-                                <small id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <ng-container formGroupName="fechaFin">
+                                    <select formControlName="dia">
+                                        <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_DIA}}</option>
+                                        <option *ngFor="let dia of dias" [ngValue]="dia">
+                                            {{ dia }}
+                                        </option>
+                                    </select>
+
+                                    <select formControlName="mes">
+                                        <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_MES}}</option>
+                                        <option *ngFor="let mes of meses" [ngValue]="mes">
+                                            {{ mes }}
+                                        </option>
+                                    </select>
+
+                                    <select formControlName="anio">
+                                        <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_ANIO}}</option>
+                                        <option *ngFor="let anio of anios" [ngValue]="anio">
+                                            {{ anio }}
+                                        </option>
+                                    </select>
+                                    <small id="emailHelp"
+                                        class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                </ng-container>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
@@ -342,14 +485,19 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <p class="text">{{labels.PAIS_LABEL}} <span class="text-danger">*</span></p>
-                                <input type="text" class="box" formControlName="pais">
+                                <select formControlName="pais">
+                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                    <option *ngFor="let pais of paises" [ngValue]="pais">
+                                        {{ pais.nombre }}
+                                    </option>
+                                </select>
                                 <small id="emailHelp"
                                     class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
-                                <p class="text">{{labels.TELEFONO_EMRESAS_LABEL}} <span class="text-danger">*</span></p>
+                                <p class="text">{{labels.TELEFONO_EMPRESA_LABEL}} <span class="text-danger">*</span></p>
                                 <input type="text" class="box" formControlName="telefonoEmpresa">
                                 <small id="emailHelp"
                                     class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>

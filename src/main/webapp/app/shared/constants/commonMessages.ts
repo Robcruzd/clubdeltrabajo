@@ -23,7 +23,7 @@ export const commonMessages = {
   DISCAPACIDADES_LABEL: 'Discapacidades',
   REDES_SOCIALES_LABEL: 'Redes sociales',
   LICECIA_CONDUCCION_LABEL: 'Licencia de conducción',
-  INFO_CAMPO_OBLIGAORIO_LABEL: '* Son campos requeridos',
+  INFO_CAMPO_OBLIGATORIO_LABEL: '* Son campos requeridos',
   INFORMACION_ACADEMICA_LABEL: 'Información Académica',
   NIVEL_ESTUDIO_LABEL: 'Nivel estudio',
   ESTADO_LABEL: 'Estado',
@@ -41,8 +41,39 @@ export const commonMessages = {
   DIRECCION_LABEL: 'Dirección',
   SELECCIONE_LABEL: 'Seleccione ...',
   PAIS_LABEL: 'País',
-  TELEFONO_EMRESAS_LABEL: 'Teléfono de la empresa',
+  TELEFONO_EMPRESA_LABEL: 'Teléfono de la empresa',
   CARGO_LABEL: 'Cargo',
   DEPENDENCIA_LABEL: 'Dependencia',
-  ADJUNTE_CERTIFICADO_LABORAL_LABEL: 'Adjunte certificado laboral'
+  ADJUNTE_CERTIFICADO_LABORAL_LABEL: 'Adjunte certificado laboral',
+  ARRAY_DISCAPACIDADES: [
+    { codigo: '001', nombre: 'Discapacidad física' },
+    { codigo: '002', nombre: 'Discapacidad sensorial' },
+    { codigo: '003', nombre: 'Discapacidad intelectual' },
+    { codigo: '004', nombre: 'Discapacidad psíquica' },
+    { codigo: '005', nombre: 'Discapacidad visceral' },
+    { codigo: '006', nombre: 'Discapacidad múltiple' }
+  ],
+  PLACEHOLDER_DIA: 'DD',
+  PLACEHOLDER_MES: 'MM',
+  PLACEHOLDER_ANIO: 'AA',
+  ARRAY_NIVEL_ESTUDIOS: [
+    { codigo: 'PI', nombre: 'Primaria' },
+    { codigo: 'BA', nombre: 'Bachillerato' },
+    { codigo: 'UN', nombre: 'Universidad' },
+    { codigo: 'ES', nombre: 'Especialización' },
+    { codigo: 'DR', nombre: 'Doctorado' },
+    { codigo: 'PD', nombre: 'Post Doctorado' }
+  ],
+  ARRAY_ESTADO_NIVEL_ESTUDIO: [
+    { codigo: 'CO', nombre: 'Completo' },
+    { codigo: 'IN', nombre: 'Incompleto' }
+  ],
+  ARRAY_NIVEL_IDIOMA: [
+    { codigo: 'BA', nombre: 'Básico' },
+    { codigo: 'CO', nombre: 'Conversacional' },
+    { codigo: 'A', nombre: 'Avanzado' },
+    { codigo: 'LN', nombre: 'Lengua Nativa' }
+  ],
+  IDIOMAS_LABEL: 'Idiomas',
+  NIVEL_IDIOMA_LABEL: 'Nivel del idioma'
 };
