@@ -1,32 +1,34 @@
 <div class="estilo_body">
     <p class="titulo">Busca Trabajo</p>
     <div class="div_autocompletes">
-      <input type="text"
-              placeholder="Selecciona Una Profesion"
-              [formControl]="myControlProfesiones"
-              [matAutocomplete]="autoProfesiones"
-              class="inputCiudades icon login">
-      <mat-autocomplete #autoProfesiones="matAutocomplete">
-        <mat-option *ngFor="let option of filteredOptionsProfesiones | async" [value]="option">
-          {{option}}
-        </mat-option>
-      </mat-autocomplete>
-      <input type="text"
-              placeholder="Selecciona Una Ciudad"
-              [matAutocomplete]="autoCiudades" 
-              [formControl]="myControlCiudades"
-              class="inputCiudades">
-      <mat-autocomplete #autoCiudades="matAutocomplete">
-        <mat-option *ngFor="let datos of filteredOptionsCiudades | async" [value]="datos">
-          {{datos}}
-        </mat-option>
-      </mat-autocomplete>
+        <div class="divInputComplete">
+            <fa-icon icon="user" style="color: #2699FB; margin-left: 20px; margin-right: 10px;"></fa-icon>
+            <input type="text" placeholder="{{lblSeleccioneProfesion}}" [formControl]="myControlProfesiones"
+                [matAutocomplete]="autoProfesiones" class="inputCiudades icon login">
+            <mat-autocomplete #autoProfesiones="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptionsProfesiones | async" [value]="option">
+                    {{option}}
+                </mat-option>
+            </mat-autocomplete>
+        </div>
+        <div class="divInputComplete">
+            <fa-icon icon="map-marker-alt" style="color: #2699FB; margin-left: 20px; margin-right: 10px;"></fa-icon>
+            <input type="text" placeholder="{{lblSeleccioneCiudad}}" [matAutocomplete]="autoCiudades"
+                [formControl]="myControlCiudades" class="inputCiudades">
+            <mat-autocomplete #autoCiudades="matAutocomplete">
+                <mat-option *ngFor="let datos of filteredOptionsCiudades | async" [value]="datos">
+                    {{datos}}
+                </mat-option>
+            </mat-autocomplete>
+        </div>
     </div>
     </br>
-    <button class="btn boton_buscar shadow-none"  style="color:white; "><fa-icon icon="search"></fa-icon> Buscar</button>
+    <button class="btn boton_buscar shadow-none" style="color:white;" (click)="buscar()">
+        <fa-icon icon="search"></fa-icon> Buscar
+    </button>
     </br>
     <div>
         <button class="btn registro_hoja_de_vida shadow-none" style="color:white;" (click)="registrarHojaVida()">Registra tu Hoja de Vida</button>
         <button class="btn solucion_para_tu_empresa shadow-none" style="color:white;">Soluciones para tu Empresa</button>
-    </div>    
+    </div>
 </div>

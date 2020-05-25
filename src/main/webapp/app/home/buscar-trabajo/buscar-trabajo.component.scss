@@ -9,9 +9,12 @@
   min-height: 100vh;
   height: 100% !important;
   background-image: url('../../../content/images/BuscarTrabajo.jpg');
-  background-color: #cccccc; /* Used if the image is unavailable */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
+  background-color: #cccccc;
+  /* Used if the image is unavailable */
+  background-position: center;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
   background-size: cover;
   //background: transparent linear-gradient(0deg, #314681 0%, #1a2050 100%) 0% 0% no-repeat padding-box;
 
@@ -32,12 +35,22 @@
     justify-content: space-between;
 
     .inputCiudades {
-      width: 48%;
+      background: transparent;
+      border-color: transparent;
+      border: none;
       height: 48px;
-      background: #ffffff 0% 0% no-repeat padding-box;
-      border: 1px solid #bce0fd;
-      border-radius: 24px;
+      width: 83%;
       opacity: 1;
+    }
+
+    .divInputComplete {
+      width: 48%;
+      background: #ffffff 0% 0% no-repeat padding-box;
+      border-radius: 24px;
+    }
+
+    .inputCiudades:focus {
+      outline: none;
     }
   }
 
@@ -56,6 +69,7 @@
     width: 90px;
     height: 30px;
     margin: 0;
+    padding: 0;
   }
 
   .registro_hoja_de_vida {
