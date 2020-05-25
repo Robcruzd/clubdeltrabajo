@@ -1,0 +1,6 @@
+export enum TipoArchivo {
+  CERTIFICADO_LABORAL = 1, // 'CL',
+  CERTIFICADO_ESTUDIO = 2, // 'CE',
+  DOCUMENTO_IDENTIDAD = 3, // 'DI',
+  LICENCIA_CONDUCCION = 4 // 'LC'
+}

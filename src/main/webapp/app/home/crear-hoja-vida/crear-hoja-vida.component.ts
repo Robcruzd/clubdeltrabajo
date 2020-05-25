@@ -1,14 +1,19 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IdiomaService } from '../../entities/idioma/idioma.service';
 import { TipoDocumentoService } from '../../entities/tipo-documento/tipo-documento.service';
 import { commonMessages } from '../../shared/constants/commonMessages';
+import { Archivo, IArchivo } from '../../shared/model/archivo.model';
+import { IIdioma } from '../../shared/model/idioma.model';
+import { IInformacionAcademica } from '../../shared/model/informacion-academica.model';
+import { IInformacionLaboral } from '../../shared/model/informacion-laboral.model';
 import { ITipoDocumento } from '../../shared/model/tipo-documento.model';
 import { ApiService } from '../../shared/services/api.service';
 import { GeografiaVo } from '../../shared/vo/geografia-vo';
+import { HojaVidaVo, IdiomaVo } from '../../shared/vo/hoja-vida-vo';
 import { IOpcionVo } from '../../shared/vo/option-vo';
-import { IdiomaService } from '../../entities/idioma/idioma.service';
-import { IIdioma } from '../../shared/model/idioma.model';
+import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
 
 @Component({
   selector: 'jhi-crear-hoja-vida',
@@ -34,7 +39,10 @@ export class CrearHojaVidaComponent implements OnInit {
   estadoNivelEstudio: IOpcionVo[] = this.apiService.getEstadoNivelEstudio();
   idiomas: Array<IIdioma> = [];
   nivelIdioma: Array<IOpcionVo> = [];
+  archivos: Array<IArchivo> = [];
+  tipoArchivo = TipoArchivo;
   mostrar!: boolean;
+  hojaVidaVo!: HojaVidaVo;
 
   constructor(
     private fb: FormBuilder,
@@ -73,8 +81,7 @@ export class CrearHojaVidaComponent implements OnInit {
       apellidos: ['', [Validators.required]],
       documento: this.fb.group({
         tipoDocumento: [null, [Validators.required]],
-        numeroDocumento: ['', [Validators.required]],
-        archivo: [null]
+        numeroDocumento: ['', [Validators.required]]
       }), // numero documento
       fechaNacimiento: this.fb.group({
         dia: [null, [Validators.required]],
@@ -90,10 +97,7 @@ export class CrearHojaVidaComponent implements OnInit {
       discapacidad: [null],
       redesSociales: [''],
       perfilProfesional: [''],
-      licencenciaConduccion: this.fb.group({
-        numero: [],
-        archivo: [null]
-      })
+      licencenciaConduccion: [null]
     });
   }
 
@@ -156,7 +160,8 @@ export class CrearHojaVidaComponent implements OnInit {
       telefonoEmpresa: [''],
       usuario: [''],
       dependencia: [''],
-      cargo: ['']
+      cargo: [''],
+      certificado: [null]
     });
   }
 
@@ -181,6 +186,31 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.hojaVidaVo = new HojaVidaVo();
+    this.hojaVidaVo.informacionPersonal = this.formPersonal.value;
+    if (this.hojaVidaVo && this.hojaVidaVo.informacionPersonal) {
+      this.hojaVidaVo.informacionPersonal.perfilProfesional = this.formPerfil.value.perfilProfesional;
+    }
+    // cargar informacion academica
+    const academica: IInformacionAcademica[] = [];
+    for (let index = 0; index < this.informacionAcademica.length; index++) {
+      academica.push(this.informacionAcademica.at(index).value);
+    }
+    this.hojaVidaVo.informacionAcademica = academica;
+
+    // cargar idiomas
+    const idioma: IdiomaVo[] = [];
+    for (let index = 0; index < this.idioma.length; index++) {
+      idioma.push(this.idioma.at(index).value);
+    }
+    this.hojaVidaVo.idiomas = idioma;
+
+    // cargar informacion laboral
+    const laboral: IInformacionLaboral[] = [];
+    for (let index = 0; index < this.experienciaLaboral.length; index++) {
+      laboral.push(this.experienciaLaboral.at(index).value);
+    }
+    this.hojaVidaVo.experienciaLaboral = laboral;
     this.mostrar = true;
   }
 
@@ -255,6 +285,20 @@ export class CrearHojaVidaComponent implements OnInit {
 
   cargarNivelIdioma(): void {
     this.nivelIdioma = this.apiService.getNivelIdioma();
+  }
+
+  // cargar archivos
+  addArchivo(event: any, tipoDocumento: number): void {
+    const file: File = event.target.files[0];
+    const archivo = new Archivo();
+    archivo.tipo = tipoDocumento;
+    archivo.nombre = file.name;
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      archivo.archivo = reader.result;
+      this.archivos.push(archivo);
+    };
   }
 
   // getters

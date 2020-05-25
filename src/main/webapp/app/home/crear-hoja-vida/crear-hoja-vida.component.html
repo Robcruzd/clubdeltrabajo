@@ -35,7 +35,8 @@
                                     </option>
                                 </select>
                                 <input type="number" class="box" formControlName="numeroDocumento">
-                                <input type="file" formControlName="archivo">
+                                <input type="file" accept=".png, .jpeg, .jpg"
+                                    (change)="addArchivo($event, tipoArchivo.DOCUMENTO_IDENTIDAD)">
                             </ng-container>
 
                             <small id="emailHelp"
@@ -145,7 +146,7 @@
                         <div class="form-group">
                             <p class="text">{{labels.DISCAPACIDADES_LABEL}}</p>
                             <select formControlName="discapacidad">
-                                <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
                                 <option *ngFor="let discapacidad of discapacidades" [ngValue]="discapacidad">
                                     {{ discapacidad.nombre }}
                                 </option>
@@ -164,10 +165,8 @@
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
                             <p class="text">{{labels.LICECIA_CONDUCCION_LABEL}}</p>
-                            <ng-container formGroupName="licencenciaConduccion">
-                                <input type="text" class="box" formControlName="numero">
-                                <input type="file" formControlName="archivo">
-                            </ng-container>
+                            <input type="file" formControlName="licencenciaConduccion" accept=".png, .jpg, .jpeg"
+                                (change)="addArchivo($event, tipoArchivo.LICENCIA_CONDUCCION)">
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6">
@@ -296,7 +295,8 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <p class="text">{{labels.TITULO_LABEL}} <span class="text-danger">*</span></p>
-                                <input type="file">
+                                <input type="file" accept=".png, .jpeg, .jpg"
+                                    (change)="addArchivo($event, tipoArchivo.CERTIFICADO_ESTUDIO)">
                                 <small id="emailHelp"
                                     class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
@@ -455,7 +455,7 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <p class="text">{{labels.DEPARTAMENTO_LABEL}} <span class="text-danger">*</span></p>
-                                <select formControlName="departamento" class="form-control">
+                                <select formControlName="departamento">
                                     <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                                     <option *ngFor="let departamento of departamentos" [ngValue]="departamento"
                                         (change)="cargarMunicipios(departamento.codigo)">
@@ -469,7 +469,7 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <p class="text">{{labels.CIUDAD_LABEL}} <span class="text-danger">*</span></p>
-                                <select formControlName="cuidad" class="form-control">
+                                <select formControlName="cuidad">
                                     <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                                     <option *ngFor="let municipio of municipios" [ngValue]="municipio">
                                         {{ municipio.nombre }}
@@ -529,7 +529,8 @@
                             <div class="form-group">
                                 <p class="text">{{labels.ADJUNTE_CERTIFICADO_LABORAL_LABEL}} <span
                                         class="text-danger">*</span></p>
-                                <input type="text">
+                                <input type="file" accept=".png, .jpeg, .jpg"
+                                    (change)="addArchivo($event, tipoArchivo.CERTIFICADO_LABORAL)">
                             </div>
                         </div>
                     </div>
@@ -537,13 +538,6 @@
             </ng-container>
             <button type="button" (click)="addItemExperienciaLaboral()"
                 class="btn btn-primary float-right">{{labels.AGREGAR_EXPERIENCIA_LABEL}}</button>
-            <!-- <div class="row float-right">
-                <div class="col-sm-12 col-md-6">
-                    <div class="form-group">
-                        <p class="text">&nbsp;</p>
-                    </div>
-                </div>
-            </div> -->
         </ng-container>
         <div class="row">
             <div class="col-sm-12 col-md-6">
@@ -568,13 +562,9 @@
 <hr>
 
 <div class="container" *ngIf="mostrar">
-    <code>{{globalForm.value | json}}</code>
-</div>
-
-<div class="container" *ngIf="mostrar">
-    <code>{{formPersonal.value | json}}</code>
-</div>
-
-<div class="container" *ngIf="mostrar">
-    <code>{{formPerfil.value | json}}</code>
+    <code>{{hojaVidaVo | json}}</code>
+    <hr>
+    <ng-container *ngFor="let archivo of archivos">
+        <p>Tipo: {{archivo.tipo}} <span> Nombre: {{archivo.nombre}}</span></p>
+    </ng-container>
 </div>

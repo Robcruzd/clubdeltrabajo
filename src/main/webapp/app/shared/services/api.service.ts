@@ -62,7 +62,8 @@ export class ApiService {
 
   getAnios(): number[] {
     const anios: number[] = [];
-    for (let anio = 1950; anio <= new Date().getFullYear(); anio++) {
+    const fecha = new Date();
+    for (let anio = fecha.getFullYear() - 70; anio <= fecha.getFullYear(); anio++) {
       anios.push(anio);
     }
 
