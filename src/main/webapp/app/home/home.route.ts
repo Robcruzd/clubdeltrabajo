@@ -5,6 +5,7 @@ import { ResultadosBusquedaComponent } from './resultados-busqueda/resultados-bu
 import { VerHojaVidaComponent } from './ver-hoja-vida/ver-hoja-vida.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { BuscarTrabajoComponent } from './buscar-trabajo/buscar-trabajo.component';
+import { AgregarUsuarioComponent } from './agregar-usuario/agregar-usuario.component';
 
 export const HOME_ROUTE: Routes = [
   {
@@ -30,5 +31,9 @@ export const HOME_ROUTE: Routes = [
   {
     path: 'buscar-trabajo',
     component: BuscarTrabajoComponent
+  },
+  {
+    path: 'agregar-usuario',
+    component: AgregarUsuarioComponent
   }
 ];
