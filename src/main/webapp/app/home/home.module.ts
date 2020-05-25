@@ -10,16 +10,20 @@ import { VerHojaVidaComponent } from './ver-hoja-vida/ver-hoja-vida.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { BuscarTrabajoComponent } from './buscar-trabajo/buscar-trabajo.component';
 import { AgregarUsuarioComponent } from './agregar-usuario/agregar-usuario.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CrearHojaVidaComponent } from './crear-hoja-vida/crear-hoja-vida.component';
 
 @NgModule({
-  imports: [CtProjectSharedModule, MatAutocompleteModule, MatInputModule, RouterModule.forChild(HOME_ROUTE)],
+  imports: [CtProjectSharedModule, RouterModule.forChild(HOME_ROUTE), MatAutocompleteModule, MatInputModule,FontAwesomeModule, FormsModule, ReactiveFormsModule],
   declarations: [
-    HomeComponent,
-    ResultadosBusquedaComponent,
-    VerHojaVidaComponent,
-    PerfilComponent,
-    BuscarTrabajoComponent,
-    AgregarUsuarioComponent
-  ]
+      HomeComponent, 
+      ResultadosBusquedaComponent, 
+      VerHojaVidaComponent, 
+      PerfilComponent,
+      BuscarTrabajoComponent,
+      AgregarUsuarioComponent
+      CrearHojaVidaComponent
+    ]
 })
 export class CtProjectHomeModule {}

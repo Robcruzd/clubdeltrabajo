@@ -12,6 +12,7 @@ export interface IInformacionPersonal {
   discapacidad?: number;
   redesSociales?: number;
   licencenciaConduccion?: boolean;
+  perfilProfesional?: string;
   usuario?: IPersona;
 }
 
@@ -27,6 +28,7 @@ export class InformacionPersonal implements IInformacionPersonal {
     public discapacidad?: number,
     public redesSociales?: number,
     public licencenciaConduccion?: boolean,
+    public perfilProfesional?: string,
     public usuario?: IPersona
   ) {
     this.licencenciaConduccion = this.licencenciaConduccion || false;
