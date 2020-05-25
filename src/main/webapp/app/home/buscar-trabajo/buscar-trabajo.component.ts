@@ -1,5 +1,6 @@
+import { DataService } from './../../shared/services/data.service';
+import { commonMessages } from 'app/shared/constants/commonMessages';
 import { Component, OnInit } from '@angular/core';
-
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -15,6 +16,8 @@ import { Router } from '@angular/router';
 export class BuscarTrabajoComponent implements OnInit {
   myControlCiudades = new FormControl();
   myControlProfesiones = new FormControl();
+  lblSeleccioneProfesion = commonMessages.SELECCIONE_PROFESION_LABEL;
+  lblSeleccioneCiudad = commonMessages.SELECCIONE_CIUDAD_LABEL;
   profesiones: string[] = ['Diseño grafico', 'Ingenieria de sistemas', 'Ingenieria electronica', 'Nutricion'];
   public keyword = 'municipio';
   data: any = [];
@@ -23,7 +26,7 @@ export class BuscarTrabajoComponent implements OnInit {
   filteredOptionsCiudades = new Observable<string[]>();
   filteredOptionsProfesiones = new Observable<string[]>();
 
-  constructor(private ciudadServices: ApiService, private router: Router) {}
+  constructor(private ciudadServices: ApiService, private dataService: DataService, private router: Router) {}
 
   ngOnInit(): void {
     this.traerCiudad();
@@ -59,6 +62,15 @@ export class BuscarTrabajoComponent implements OnInit {
       startWith(''),
       map(value => this._filterProfesiones(value))
     );
+  }
+
+  buscar(): void {
+    const busqueda = {
+      profesion: this.myControlProfesiones.value,
+      ubicacion: this.myControlCiudades.value
+    };
+    this.dataService.data = busqueda;
+    this.router.navigate(['/resultados-busqueda']);
   }
 
   registrarHojaVida(): void {

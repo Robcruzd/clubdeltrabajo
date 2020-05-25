@@ -12,5 +12,7 @@ export const commonMessages = {
   EDITAR_HOJA_VIDA_LABEL: 'Editar hoja de vida',
   CAMPO_REQUERIDO: '* Campo Requerido',
   FORMATO_EMAIL_INVALIDO: '* Formato de email Invalido',
-  CONTRASENA_NO_COINCIDEN: '* Las contraseñas no coinciden'
+  CONTRASENA_NO_COINCIDEN: '* Las contraseñas no coinciden',
+  SELECCIONE_PROFESION_LABEL: 'Seleccione una profesión',
+  SELECCIONE_CIUDAD_LABEL: 'Seleccione una ciudad'
 };
