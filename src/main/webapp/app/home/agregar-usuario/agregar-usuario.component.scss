@@ -1,0 +1,72 @@
+.navbarRegistroUsuario {
+  background: transparent linear-gradient(0deg, #304580 0%, #1a2050 100%) 0% 0% no-repeat padding-box;
+  opacity: 1;
+  display: flex;
+  flex-direction: initial;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-width: 15vh;
+  min-height: 15vh;
+  height: 100% !important;
+  .imagen_logo {
+    opacity: 1;
+    max-width: 60vh;
+    max-height: 60vh;
+    margin: 0;
+  }
+}
+
+.estilo_body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  min-width: 100vh;
+  min-height: 100vh;
+  height: 100% !important;
+  background-image: url('../../../content/images/FondoRegistro.jpg');
+  background-color: #cccccc; /* Used if the image is unavailable */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+
+  .div_centro {
+    border-radius: 2.5rem 2.5rem 2.5rem 2.5rem;
+    width: 60vh;
+    height: 90vh;
+    padding: 2rem 2rem;
+    margin-left: 1rem;
+    z-index: 1;
+    background: transparent linear-gradient(180deg, #2d427d 0%, #1a2152 100%) 0% 0% no-repeat padding-box;
+    opacity: 1;
+
+    .estilo_titulo {
+      width: 264px;
+      height: 27px;
+      text-align: center;
+      font: Extrabold 20px/27px Open Sans;
+      letter-spacing: 0px;
+      color: #ffffff;
+      opacity: 1;
+    }
+
+    .estilo_inputs {
+      width: 295px;
+      height: 48px;
+      background: #ffffff 0% 0% no-repeat padding-box;
+      border-radius: 24px;
+      opacity: 1;
+    }
+
+    .boton_registrar {
+      width: 295px;
+      height: 48px;
+      background: #2699fb 0% 0% no-repeat padding-box;
+      border-radius: 24px;
+      opacity: 1;
+    }
+  }
+}

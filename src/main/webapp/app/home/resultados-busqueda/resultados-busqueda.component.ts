@@ -1,3 +1,5 @@
+import { FormBuilder } from '@angular/forms';
+import { DataService } from './../../shared/services/data.service';
 import { Component, OnInit } from '@angular/core';
 import { commonMessages } from 'app/shared/constants/commonMessages';
 
@@ -13,8 +15,19 @@ export class ResultadosBusquedaComponent implements OnInit {
   lblFechaPublicacion = commonMessages.FECHA_PUBLICACION_LABEL;
   lblAreaTrabajo = commonMessages.AREA_TRABAJO_LABEL;
   lblEmpresas = commonMessages.EMPRESAS_LABEL;
+  // formBusqueda!: FormGroup;
+  profesion: any;
+  ubicacion: any;
 
-  constructor() {}
+  constructor(private dataService: DataService, private formBuilder: FormBuilder) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.profesion = this.dataService.data.profesion;
+    this.ubicacion = this.dataService.data.ubicacion;
+
+    // this.formBusqueda = this.formBuilder.group({
+    //   'campoBusqueda': ['']
+    // });
+    // this.formBusqueda.get('campoBusqueda')?.setValue(this.dataService.data.profesion);
+  }
 }

@@ -31,6 +31,7 @@
   },
   "defaultProject": "ct-project",
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": "f3c0a14e-bd1f-4b59-bb5a-7298e99635cb"
   }
 }

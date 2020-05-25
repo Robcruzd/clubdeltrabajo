@@ -34,7 +34,11 @@ import {
   faTasks,
   faHome,
   faChevronLeft,
-  faAngleLeft
+  faAngleLeft,
+  faSuitcase,
+  faIdCard,
+  faMapMarkerAlt,
+  faExclamationCircle
   // jhipster-needle-add-icon-import
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -74,6 +78,10 @@ export const fontAwesomeIcons = [
   faTrashAlt,
   faAsterisk,
   faChevronLeft,
-  faAngleLeft
+  faAngleLeft,
+  faSuitcase,
+  faIdCard,
+  faMapMarkerAlt,
+  faExclamationCircle
   // jhipster-needle-add-icon-import
 ];

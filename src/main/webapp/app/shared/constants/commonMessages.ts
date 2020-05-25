@@ -6,6 +6,15 @@ export const commonMessages = {
   AREA_TRABAJO_LABEL: 'Área de trabajo',
   EMPRESAS_LABEL: 'Ordenar por empresas',
   DESCARGAR_HOJAVIDA_LABEL: 'Descargar hoja de vida',
+  VER_HOJA_VIDA_LABEL: 'Ver mi Hoja de Vida',
+  VER_BUSCA_EMPLEO_LABEL: 'Busca empleo',
+  VER_OFERTAS_LABEL: 'Ver ofertas',
+  EDITAR_HOJA_VIDA_LABEL: 'Editar hoja de vida',
+  CAMPO_REQUERIDO: '* Campo Requerido',
+  FORMATO_EMAIL_INVALIDO: '* Formato de email Invalido',
+  CONTRASENA_NO_COINCIDEN: '* Las contraseñas no coinciden',
+  SELECCIONE_PROFESION_LABEL: 'Seleccione una profesión',
+  SELECCIONE_CIUDAD_LABEL: 'Seleccione una ciudad'
   CAMPO_OBLIGATORIO_LABEL: 'El campo es requerido',
   INFORMACION_PERSONA_LABEL: 'Información Personal',
   NOMBRE_LABEL: 'Nombre',
@@ -76,4 +85,5 @@ export const commonMessages = {
   ],
   IDIOMAS_LABEL: 'Idiomas',
   NIVEL_IDIOMA_LABEL: 'Nivel del idioma'
+>>>>>>> src/main/webapp/app/shared/constants/commonMessages.ts
 };

@@ -1,0 +1,90 @@
+.estilo_body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  min-width: 100vh;
+  min-height: 100vh;
+  height: 100% !important;
+  background-image: url('../../../content/images/BuscarTrabajo.jpg');
+  background-color: #cccccc;
+  /* Used if the image is unavailable */
+  background-position: center;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: cover;
+  //background: transparent linear-gradient(0deg, #314681 0%, #1a2050 100%) 0% 0% no-repeat padding-box;
+
+  .titulo {
+    font-size: 1.625rem;
+    font-family: sans-serif;
+    font-weight: bolder;
+    text-align: center;
+    font-weight: 600;
+    color: #ffffff;
+    opacity: 1;
+  }
+
+  .div_autocompletes {
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .inputCiudades {
+      background: transparent;
+      border-color: transparent;
+      border: none;
+      height: 48px;
+      width: 83%;
+      opacity: 1;
+    }
+
+    .divInputComplete {
+      width: 48%;
+      background: #ffffff 0% 0% no-repeat padding-box;
+      border-radius: 24px;
+    }
+
+    .inputCiudades:focus {
+      outline: none;
+    }
+  }
+
+  input,
+  textarea {
+    font-family: FontAwesome, 'Open Sans', Verdana, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+  }
+
+  .boton_buscar {
+    background: #2699fb 0% 0% no-repeat padding-box;
+    border-radius: 15px;
+    opacity: 1;
+    width: 90px;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .registro_hoja_de_vida {
+    width: 220px;
+    height: 43px;
+    background: #2699fb 0% 0% no-repeat padding-box;
+    border-radius: 24px;
+    opacity: 1;
+  }
+
+  .solucion_para_tu_empresa {
+    width: 220px;
+    height: 43px;
+    background: #fb8826 0% 0% no-repeat padding-box;
+    border-radius: 24px;
+    opacity: 1;
+  }
+}
