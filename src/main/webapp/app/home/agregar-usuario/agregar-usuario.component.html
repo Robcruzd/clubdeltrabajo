@@ -1,0 +1,94 @@
+<header class="navbarRegistroUsuario">
+    <img src="../../../content/images/logo_empresa.png" alt="" class="imagen_logo">
+</header>
+<body class="estilo_body">
+    <div class="div_centro">
+        <p class="estilo_titulo">Regístrate y entra al club.</p>
+        <div>
+            <label style="color: white;">Persona Natural </label><input type="radio" [(ngModel)]="personaNatural" value="PN" name="usuario" ngModel>
+            <label style="color: white;">Persona Juridica </label><input type="radio" value="juridica" name="usuario" ngModel>
+        </div>
+        <div>
+            <label style="color: white;">Nombre</label>
+            <input type="text" class="estilo_inputs" [(ngModel)]="persona.nombre">
+            <label *ngIf="mensajeNombre" class="text-danger">
+                {{mensajeNombre}}
+            </label>
+        </div>
+        <div>
+            <label style="color: white;">Apellidos</label>
+            <input type="text" class="estilo_inputs" [(ngModel)]="persona.apellido">
+            <label *ngIf="mensajeApellido" class="text-danger">
+                {{mensajeApellido}}
+            </label>
+        </div>
+        <div>
+            <label style="color: white;">Email</label>
+            <input type="text" class="estilo_inputs" [(ngModel)]="persona.email">
+            <label *ngIf="mensajeEmail" class="text-danger">
+                {{mensajeEmail}}
+            </label>
+        </div>
+        <div>
+            <label style="color: white;">Numero de Documento</label>
+            <input type="number" class="estilo_inputs" [(ngModel)]="persona.numeroDocumento">
+            <label *ngIf="mensajeNumDoc" class="text-danger">
+                {{mensajeNumDoc}}
+            </label>
+        </div>
+        <div>
+            <label style="color: white;">Contraseña</label>
+            <input type="password" class="estilo_inputs" [(ngModel)]="usuario.clave">
+            <label *ngIf="mensajeClave" class="text-danger">
+                {{mensajeClave}}
+            </label>
+        </div>
+        <div>
+            <label style="color: white;">Confirmar Contraseña</label>
+            <input type="password" class="estilo_inputs" [(ngModel)]="ConfirmarClave">
+            <label *ngIf="mensajeConfClave" class="text-danger">
+                {{mensajeConfClave}}
+            </label>
+        </div>
+        <button class="btn boton_registrar shadow-none"  style="color:white; " [(disabled)]="!condiciones" (click)="onCrearUsuario()">Registrarme</button>
+        <div>
+            <input type="radio" value="terminos" name="terminos" [(ngModel)]="condiciones" ><label style="color: white;">Acepto los </label><a style="color: #03ECFF;" (click)="openScrollableContent(longContent)">Términos, Condiciones y Póliticas de Privacidad.</a>
+        </div>
+        <label style="color: #03ECFF;">¡Ya estoy registrado!</label>
+       
+    </div>
+
+</body>
+
+<ng-template #longContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" style="color: #1FB9FD;">Términos, Condiciones y Póliticas de Privacidad.</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+      <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Aceptar</button>
+    </div>
+  </ng-template>
+

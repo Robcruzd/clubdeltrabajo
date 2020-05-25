@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ApiService } from 'app/shared/services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-buscar-trabajo',
@@ -22,7 +23,7 @@ export class BuscarTrabajoComponent implements OnInit {
   filteredOptionsCiudades = new Observable<string[]>();
   filteredOptionsProfesiones = new Observable<string[]>();
 
-  constructor(private ciudadServices: ApiService) {}
+  constructor(private ciudadServices: ApiService, private router: Router) {}
 
   ngOnInit(): void {
     this.traerCiudad();
@@ -58,5 +59,9 @@ export class BuscarTrabajoComponent implements OnInit {
       startWith(''),
       map(value => this._filterProfesiones(value))
     );
+  }
+
+  registrarHojaVida(): void {
+    this.router.navigate(['/agregar-usuario']);
   }
 }

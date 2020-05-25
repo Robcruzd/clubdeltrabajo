@@ -9,9 +9,17 @@ import { ResultadosBusquedaComponent } from './resultados-busqueda/resultados-bu
 import { VerHojaVidaComponent } from './ver-hoja-vida/ver-hoja-vida.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { BuscarTrabajoComponent } from './buscar-trabajo/buscar-trabajo.component';
+import { AgregarUsuarioComponent } from './agregar-usuario/agregar-usuario.component';
 
 @NgModule({
   imports: [CtProjectSharedModule, MatAutocompleteModule, MatInputModule, RouterModule.forChild(HOME_ROUTE)],
-  declarations: [HomeComponent, ResultadosBusquedaComponent, VerHojaVidaComponent, PerfilComponent, BuscarTrabajoComponent]
+  declarations: [
+    HomeComponent,
+    ResultadosBusquedaComponent,
+    VerHojaVidaComponent,
+    PerfilComponent,
+    BuscarTrabajoComponent,
+    AgregarUsuarioComponent
+  ]
 })
 export class CtProjectHomeModule {}
