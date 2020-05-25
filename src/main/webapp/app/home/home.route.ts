@@ -35,6 +35,8 @@ export const HOME_ROUTE: Routes = [
   {
     path: 'agregar-usuario',
     component: AgregarUsuarioComponent
+  },
+  {
     path: 'crear-hoja-vida',
     component: CrearHojaVidaComponent
   }

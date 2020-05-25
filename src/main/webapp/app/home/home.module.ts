@@ -15,15 +15,23 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CrearHojaVidaComponent } from './crear-hoja-vida/crear-hoja-vida.component';
 
 @NgModule({
-  imports: [CtProjectSharedModule, RouterModule.forChild(HOME_ROUTE), MatAutocompleteModule, MatInputModule,FontAwesomeModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CtProjectSharedModule,
+    RouterModule.forChild(HOME_ROUTE),
+    MatAutocompleteModule,
+    MatInputModule,
+    FontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
   declarations: [
-      HomeComponent, 
-      ResultadosBusquedaComponent, 
-      VerHojaVidaComponent, 
-      PerfilComponent,
-      BuscarTrabajoComponent,
-      AgregarUsuarioComponent
-      CrearHojaVidaComponent
-    ]
+    HomeComponent,
+    ResultadosBusquedaComponent,
+    VerHojaVidaComponent,
+    PerfilComponent,
+    BuscarTrabajoComponent,
+    AgregarUsuarioComponent,
+    CrearHojaVidaComponent
+  ]
 })
 export class CtProjectHomeModule {}
