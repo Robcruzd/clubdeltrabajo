@@ -14,7 +14,7 @@ export const commonMessages = {
   FORMATO_EMAIL_INVALIDO: '* Formato de email Invalido',
   CONTRASENA_NO_COINCIDEN: '* Las contraseñas no coinciden',
   SELECCIONE_PROFESION_LABEL: 'Seleccione una profesión',
-  SELECCIONE_CIUDAD_LABEL: 'Seleccione una ciudad'
+  SELECCIONE_CIUDAD_LABEL: 'Seleccione una ciudad',
   CAMPO_OBLIGATORIO_LABEL: 'El campo es requerido',
   INFORMACION_PERSONA_LABEL: 'Información Personal',
   NOMBRE_LABEL: 'Nombre',
@@ -85,5 +85,4 @@ export const commonMessages = {
   ],
   IDIOMAS_LABEL: 'Idiomas',
   NIVEL_IDIOMA_LABEL: 'Nivel del idioma'
->>>>>>> src/main/webapp/app/shared/constants/commonMessages.ts
 };
