@@ -48,7 +48,7 @@ export class BuscarTrabajoComponent implements OnInit {
   }
 
   traerCiudad(): void {
-    this.ciudadServices.getInformacionGeografica().subscribe(response => {
+    this.ciudadServices.getCiudades().subscribe(response => {
       this.data = response;
       this.filteredOptionsCiudades = this.myControlCiudades.valueChanges.pipe(
         startWith(''),
