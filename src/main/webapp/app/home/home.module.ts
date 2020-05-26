@@ -1,3 +1,4 @@
+import { QRCodeModule } from 'angularx-qrcode';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -12,7 +13,7 @@ import { BuscarTrabajoComponent } from './buscar-trabajo/buscar-trabajo.componen
 import { AgregarUsuarioComponent } from './agregar-usuario/agregar-usuario.component';
 
 @NgModule({
-  imports: [CtProjectSharedModule, MatAutocompleteModule, MatInputModule, RouterModule.forChild(HOME_ROUTE)],
+  imports: [CtProjectSharedModule, MatAutocompleteModule, MatInputModule, QRCodeModule, RouterModule.forChild(HOME_ROUTE)],
   declarations: [
     HomeComponent,
     ResultadosBusquedaComponent,

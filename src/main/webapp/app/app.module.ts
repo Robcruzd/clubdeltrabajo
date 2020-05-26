@@ -14,6 +14,7 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { ErrorComponent } from './layouts/error/error.component';
     CtProjectHomeModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
     CtProjectEntityModule,
-    CtProjectAppRoutingModule
+    CtProjectAppRoutingModule,
+    QRCodeModule
   ],
   declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
   bootstrap: [MainComponent]
