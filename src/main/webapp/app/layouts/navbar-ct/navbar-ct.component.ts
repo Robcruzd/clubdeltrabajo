@@ -1,3 +1,4 @@
+import { Router, NavigationEnd } from '@angular/router';
 import { commonMessages } from 'app/shared/constants/commonMessages';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,16 +10,23 @@ import { Component, OnInit } from '@angular/core';
 export class NavbarCtComponent implements OnInit {
   lblIngresar = commonMessages.INGRESAR_LABEL;
   lblSalir = commonMessages.SALIR_LABEL;
+  show = true;
 
   lstOpcionesMenu: any = [
-    { id: 1, etiqueta: 'Inicio' },
-    { id: 2, etiqueta: 'Trabajos' },
-    { id: 3, etiqueta: 'Candidatos' },
-    { id: 4, etiqueta: 'Empresas' },
-    { id: 5, etiqueta: 'Registro' }
+    { id: 1, etiqueta: 'Inicio', ruta: '/' },
+    { id: 2, etiqueta: 'Trabajos', ruta: '/' },
+    { id: 3, etiqueta: 'Candidatos', ruta: '/' },
+    { id: 4, etiqueta: 'Empresas', ruta: '/' },
+    { id: 5, etiqueta: 'Registro', ruta: '/' }
   ];
 
-  constructor() {}
+  constructor(private router: Router) {
+    this.router.events.subscribe(val => {
+      if (val instanceof NavigationEnd) {
+        this.show = val.url === '/' || val.url === '/agregar-usuario' ? false : true;
+      }
+    });
+  }
 
   ngOnInit(): void {}
 }
