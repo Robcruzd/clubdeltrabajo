@@ -84,5 +84,7 @@ export const commonMessages = {
     { codigo: 'LN', nombre: 'Lengua Nativa' }
   ],
   IDIOMAS_LABEL: 'Idiomas',
-  NIVEL_IDIOMA_LABEL: 'Nivel del idioma'
+  NIVEL_IDIOMA_LABEL: 'Nivel del idioma',
+  INGRESAR_LABEL: 'Ingresar',
+  SALIR_LABEL: 'Salir'
 };
