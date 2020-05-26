@@ -15,6 +15,7 @@ import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { NavbarCtComponent } from './layouts/navbar-ct/navbar-ct.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,15 @@ import { QRCodeModule } from 'angularx-qrcode';
     CtProjectAppRoutingModule,
     QRCodeModule
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+  declarations: [
+    MainComponent,
+    NavbarComponent,
+    ErrorComponent,
+    PageRibbonComponent,
+    ActiveMenuDirective,
+    FooterComponent,
+    NavbarCtComponent
+  ],
   bootstrap: [MainComponent]
 })
 export class CtProjectAppModule {}
