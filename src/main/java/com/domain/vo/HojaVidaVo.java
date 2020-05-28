@@ -6,6 +6,7 @@ import java.util.List;
 import com.domain.InformacionAcademica;
 import com.domain.InformacionLaboral;
 import com.domain.InformacionPersonal;
+import com.domain.PersonaIdioma;
 
 public class HojaVidaVo implements Serializable {
 
@@ -14,7 +15,7 @@ public class HojaVidaVo implements Serializable {
     private InformacionPersonal informacionPersonal;
     private List<InformacionAcademica> informacionAcademica;
     private List<InformacionLaboral> experienciaLaboral;
-    private List<IdiomVo> idiomas;
+    private List<PersonaIdioma> idiomas;
 
     public HojaVidaVo() {
 
@@ -44,11 +45,11 @@ public class HojaVidaVo implements Serializable {
         return this.experienciaLaboral;
     }
 
-    public List<IdiomVo> getIdiomas() {
+    public List<PersonaIdioma> getIdiomas() {
         return idiomas;
     }
 
-    public void setIdiomas(List<IdiomVo> idiomas) {
+    public void setIdiomas(List<PersonaIdioma> idiomas) {
         this.idiomas = idiomas;
     }
 

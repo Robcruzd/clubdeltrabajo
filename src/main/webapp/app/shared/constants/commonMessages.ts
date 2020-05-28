@@ -66,12 +66,12 @@ export const commonMessages = {
   PLACEHOLDER_MES: 'MM',
   PLACEHOLDER_ANIO: 'AA',
   ARRAY_NIVEL_ESTUDIOS: [
-    { codigo: 'PI', nombre: 'Primaria' },
-    { codigo: 'BA', nombre: 'Bachillerato' },
-    { codigo: 'UN', nombre: 'Universidad' },
-    { codigo: 'ES', nombre: 'Especialización' },
-    { codigo: 'DR', nombre: 'Doctorado' },
-    { codigo: 'PD', nombre: 'Post Doctorado' }
+    { codigo: 1, nombre: 'Primaria' },
+    { codigo: 2, nombre: 'Bachillerato' },
+    { codigo: 3, nombre: 'Universidad' },
+    { codigo: 4, nombre: 'Especialización' },
+    { codigo: 5, nombre: 'Doctorado' },
+    { codigo: 6, nombre: 'Post Doctorado' }
   ],
   ARRAY_ESTADO_NIVEL_ESTUDIO: [
     { codigo: 'CO', nombre: 'Completo' },

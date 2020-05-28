@@ -12,13 +12,15 @@ import { IIdioma } from '../../shared/model/idioma.model';
 import { IInformacionAcademica, InformacionAcademica } from '../../shared/model/informacion-academica.model';
 import { IInformacionLaboral, InformacionLaboral } from '../../shared/model/informacion-laboral.model';
 import { IInformacionPersonal, InformacionPersonal } from '../../shared/model/informacion-personal.model';
-import { Persona } from '../../shared/model/persona.model';
+import { Persona, IPersona } from '../../shared/model/persona.model';
 import { ITipoDocumento } from '../../shared/model/tipo-documento.model';
 import { ApiService } from '../../shared/services/api.service';
 import { GeografiaVo } from '../../shared/vo/geografia-vo';
-import { HojaVidaVo, IdiomaVo } from '../../shared/vo/hoja-vida-vo';
-import { IOpcionVo } from '../../shared/vo/option-vo';
+import { HojaVidaVo } from '../../shared/vo/hoja-vida-vo';
+import { IOpcionVo } from '../../shared/vo/opcion-vo';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
+import { IPersonaIdioma, PersonaIdioma } from '../../shared/model/persona-idioma.model';
+import { HojaVidaService } from '../../shared/services/hoja-vida.service';
 
 @Component({
   selector: 'jhi-crear-hoja-vida',
@@ -53,7 +55,8 @@ export class CrearHojaVidaComponent implements OnInit {
     private fb: FormBuilder,
     private apiService: ApiService,
     private tipoDocumentoService: TipoDocumentoService,
-    private idiomaService: IdiomaService
+    private idiomaService: IdiomaService,
+    private service: HojaVidaService
   ) {}
 
   ngOnInit(): void {
@@ -135,7 +138,9 @@ export class CrearHojaVidaComponent implements OnInit {
 
   crearItemIdioma(): FormGroup {
     return this.fb.group({
-      idioma: [null],
+      id: [null],
+      idPersona: [null],
+      idIdioma: [null],
       nivel: [null]
     });
   }
@@ -191,10 +196,6 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.procesarFormulario();
-  }
-
-  procesarFormulario(): void {
     this.hojaVidaVo = new HojaVidaVo();
 
     // cargar informacion personal
@@ -208,9 +209,9 @@ export class CrearHojaVidaComponent implements OnInit {
     this.hojaVidaVo.informacionAcademica = academica;
 
     // cargar idiomas
-    const idioma: IdiomaVo[] = [];
+    const idioma: IPersona[] = [];
     for (let index = 0; index < this.idioma.length; index++) {
-      idioma.push(this.idioma.at(index).value);
+      idioma.push(this.procesarIdiomas(this.idioma.at(index).value));
     }
     this.hojaVidaVo.idiomas = idioma;
 
@@ -221,6 +222,9 @@ export class CrearHojaVidaComponent implements OnInit {
     }
     this.hojaVidaVo.experienciaLaboral = laboral;
     this.mostrar = true;
+    this.service.create(this.hojaVidaVo).subscribe(response => {
+      if (response.body) this.hojaVidaVo = response.body;
+    });
   }
 
   procesarInformacionPersonal(): IInformacionPersonal {
@@ -231,7 +235,7 @@ export class CrearHojaVidaComponent implements OnInit {
       lugarNacimiento: this.formPersonal.get(['lugarNacimiento'])!.value,
       direccionResidencia: this.formPersonal.get(['direccionResidencia'])!.value,
       genero: this.formPersonal.get(['genero'])!.value,
-      ciudad: this.formPersonal.get(['ciudad'])!.value,
+      ciudad: 1, // this.formPersonal.get(['ciudad'])!.value,
       telefono: this.formPersonal.get(['telefono'])!.value,
       discapacidad: this.formPersonal.get(['discapacidad'])!.value,
       redesSociales: this.formPersonal.get(['redesSociales'])!.value,
@@ -241,47 +245,54 @@ export class CrearHojaVidaComponent implements OnInit {
     };
   }
 
-  procesarInformacionAcademica(form: FormGroup): IInformacionAcademica {
+  procesarInformacionAcademica(academica: Object): IInformacionAcademica {
     return {
       ...new InformacionAcademica(),
-      id: form.get(['id'])!.value,
-      nivelEstudio: form.get(['nivelEstudio'])!.value,
-      estado: form.get(['estado'])!.value,
-      fechaInicio: this.getFecha(form.get(['fechaInicio'])!.value),
-      fechaFin: this.getFecha(form.get(['fechaFin'])!.value),
-      tituloOtorgado: form.get(['tituloOtorgado'])!.value,
-      perfilProfesional: form.get(['perfilProfesional'])!.value,
+      id: academica['id'],
+      nivelEstudio: academica['nivelEstudio'].codigo,
+      estado: academica['estado'],
+      fechaInicio: this.getFecha(academica['fechaInicio']),
+      fechaFin: this.getFecha(academica['fechaFin']),
+      tituloOtorgado: academica['tituloOtorgado'],
       usuario: new Persona(1),
-      idioma: form.get(['idioma'])!.value,
-      nivelIdioma: form.get(['nivelIdioma'])!.value,
-      institucion: form.get(['institucion'])!.value
+      institucion: academica['institucion']
     };
   }
 
-  procesarExperienciaLaboral(form: FormGroup): IInformacionLaboral {
+  procesarExperienciaLaboral(experiencia: Object): IInformacionLaboral {
     return {
       ...new InformacionLaboral(),
-      id: form.get(['id'])!.value,
-      nombreEmpresa: form.get(['nombreEmpresa'])!.value,
-      fechaInicio: this.getFecha(form.get(['fechaInicio'])!.value),
-      fechaFin: this.getFecha(form.get(['fechaFin'])!.value),
-      direccion: form.get(['direccion'])!.value,
-      cuidad: form.get(['cuidad'])!.value,
-      departamento: form.get(['departamento'])!.value,
-      pais: form.get(['pais'])!.value,
-      telefonoEmpresa: form.get(['telefonoEmpresa'])!.value,
+      id: experiencia['id'],
+      nombreEmpresa: experiencia['nombreEmpresa'],
+      fechaInicio: this.getFecha(experiencia['fechaInicio']),
+      fechaFin: this.getFecha(experiencia['fechaFin']),
+      direccion: experiencia['direccion'],
+      cuidad: 1, // experiencia['cuidad'],
+      departamento: experiencia['departamento'],
+      pais: experiencia['pais'],
+      telefonoEmpresa: experiencia['telefonoEmpresa'],
       usuario: new Persona(1),
-      dependencia: form.get(['dependencia'])!.value,
-      cargo: form.get(['cargo'])!.value
+      dependencia: experiencia['dependencia'],
+      cargo: experiencia['cargo']
     };
   }
 
-  getFecha(form: FormGroup): Moment {
-    let dia = form.get(['dia'])!.value;
-    let mes = form.get(['mes'])!.value;
-    let anio = form.get(['anio'])!.value;
+  procesarIdiomas(idioma: Object): IPersonaIdioma {
+    return {
+      ...new PersonaIdioma(),
+      id: idioma['id'],
+      nivel: idioma['nivel'].codigo,
+      idPersona: new Persona(1),
+      idIdioma: idioma['idIdioma']
+    };
+  }
 
-    return moment(`${dia}/${mes}/${anio}`, DATE_FORMAT);
+  getFecha(fecha: Object): Moment {
+    const dia = fecha['dia'] < 10 ? '0' + fecha['dia'] : fecha['dia'];
+    const mes = fecha['mes'] < 10 ? '0' + fecha['mes'] : fecha['mes'];
+    const anio = fecha['anio'];
+
+    return moment(`${anio}/${mes}/${dia}`, DATE_FORMAT);
   }
 
   cargarPaises(): void {
