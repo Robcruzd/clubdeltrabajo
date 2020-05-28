@@ -21,26 +21,23 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "numeroDocumento",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "otherEntityName": "tipoUsuario",
             "otherEntityRelationshipName": "persona",
             "relationshipValidateRules": "required",
             "relationshipName": "tipoUsuario",
-            "otherEntityField": "id",
-            "ownerSide": true
-        },
-        {
-            "relationshipType": "one-to-one",
-            "otherEntityName": "usuario",
-            "otherEntityRelationshipName": "persona",
-            "relationshipValidateRules": "required",
-            "relationshipName": "numeroDocumento",
-            "otherEntityField": "id",
-            "ownerSide": true
+            "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",

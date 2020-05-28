@@ -32,9 +32,9 @@ public class PersonaCriteria implements Serializable, Criteria {
 
     private StringFilter email;
 
-    private LongFilter tipoUsuarioId;
+    private StringFilter numeroDocumento;
 
-    private LongFilter numeroDocumentoId;
+    private LongFilter tipoUsuarioId;
 
     private LongFilter tipoDocumentoId;
 
@@ -46,8 +46,8 @@ public class PersonaCriteria implements Serializable, Criteria {
         this.nombre = other.nombre == null ? null : other.nombre.copy();
         this.apellido = other.apellido == null ? null : other.apellido.copy();
         this.email = other.email == null ? null : other.email.copy();
+        this.numeroDocumento = other.numeroDocumento == null ? null : other.numeroDocumento.copy();
         this.tipoUsuarioId = other.tipoUsuarioId == null ? null : other.tipoUsuarioId.copy();
-        this.numeroDocumentoId = other.numeroDocumentoId == null ? null : other.numeroDocumentoId.copy();
         this.tipoDocumentoId = other.tipoDocumentoId == null ? null : other.tipoDocumentoId.copy();
     }
 
@@ -88,20 +88,20 @@ public class PersonaCriteria implements Serializable, Criteria {
         this.email = email;
     }
 
+    public StringFilter getNumeroDocumento() {
+        return numeroDocumento;
+    }
+
+    public void setNumeroDocumento(StringFilter numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
+    }
+
     public LongFilter getTipoUsuarioId() {
         return tipoUsuarioId;
     }
 
     public void setTipoUsuarioId(LongFilter tipoUsuarioId) {
         this.tipoUsuarioId = tipoUsuarioId;
-    }
-
-    public LongFilter getNumeroDocumentoId() {
-        return numeroDocumentoId;
-    }
-
-    public void setNumeroDocumentoId(LongFilter numeroDocumentoId) {
-        this.numeroDocumentoId = numeroDocumentoId;
     }
 
     public LongFilter getTipoDocumentoId() {
@@ -127,8 +127,8 @@ public class PersonaCriteria implements Serializable, Criteria {
             Objects.equals(nombre, that.nombre) &&
             Objects.equals(apellido, that.apellido) &&
             Objects.equals(email, that.email) &&
+            Objects.equals(numeroDocumento, that.numeroDocumento) &&
             Objects.equals(tipoUsuarioId, that.tipoUsuarioId) &&
-            Objects.equals(numeroDocumentoId, that.numeroDocumentoId) &&
             Objects.equals(tipoDocumentoId, that.tipoDocumentoId);
     }
 
@@ -139,8 +139,8 @@ public class PersonaCriteria implements Serializable, Criteria {
         nombre,
         apellido,
         email,
+        numeroDocumento,
         tipoUsuarioId,
-        numeroDocumentoId,
         tipoDocumentoId
         );
     }
@@ -152,8 +152,8 @@ public class PersonaCriteria implements Serializable, Criteria {
                 (nombre != null ? "nombre=" + nombre + ", " : "") +
                 (apellido != null ? "apellido=" + apellido + ", " : "") +
                 (email != null ? "email=" + email + ", " : "") +
+                (numeroDocumento != null ? "numeroDocumento=" + numeroDocumento + ", " : "") +
                 (tipoUsuarioId != null ? "tipoUsuarioId=" + tipoUsuarioId + ", " : "") +
-                (numeroDocumentoId != null ? "numeroDocumentoId=" + numeroDocumentoId + ", " : "") +
                 (tipoDocumentoId != null ? "tipoDocumentoId=" + tipoDocumentoId + ", " : "") +
             "}";
     }

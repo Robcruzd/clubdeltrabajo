@@ -112,6 +112,9 @@ public class InformacionPersonalQueryService extends QueryService<InformacionPer
             if (criteria.getLicencenciaConduccion() != null) {
                 specification = specification.and(buildSpecification(criteria.getLicencenciaConduccion(), InformacionPersonal_.licencenciaConduccion));
             }
+            if (criteria.getPerfilProfesional() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getPerfilProfesional(), InformacionPersonal_.perfilProfesional));
+            }
             if (criteria.getUsuarioId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUsuarioId(),
                     root -> root.join(InformacionPersonal_.usuario, JoinType.LEFT).get(Persona_.id)));

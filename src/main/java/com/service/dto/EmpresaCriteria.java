@@ -32,7 +32,7 @@ public class EmpresaCriteria implements Serializable, Criteria {
 
     private StringFilter email;
 
-    private LongFilter numeroDocumentoId;
+    private StringFilter numeroDocumento;
 
     private LongFilter tipoUsuarioId;
 
@@ -46,7 +46,7 @@ public class EmpresaCriteria implements Serializable, Criteria {
         this.razonSocial = other.razonSocial == null ? null : other.razonSocial.copy();
         this.razonComercial = other.razonComercial == null ? null : other.razonComercial.copy();
         this.email = other.email == null ? null : other.email.copy();
-        this.numeroDocumentoId = other.numeroDocumentoId == null ? null : other.numeroDocumentoId.copy();
+        this.numeroDocumento = other.numeroDocumento == null ? null : other.numeroDocumento.copy();
         this.tipoUsuarioId = other.tipoUsuarioId == null ? null : other.tipoUsuarioId.copy();
         this.tipoDocumentoId = other.tipoDocumentoId == null ? null : other.tipoDocumentoId.copy();
     }
@@ -88,12 +88,12 @@ public class EmpresaCriteria implements Serializable, Criteria {
         this.email = email;
     }
 
-    public LongFilter getNumeroDocumentoId() {
-        return numeroDocumentoId;
+    public StringFilter getNumeroDocumento() {
+        return numeroDocumento;
     }
 
-    public void setNumeroDocumentoId(LongFilter numeroDocumentoId) {
-        this.numeroDocumentoId = numeroDocumentoId;
+    public void setNumeroDocumento(StringFilter numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
     }
 
     public LongFilter getTipoUsuarioId() {
@@ -127,7 +127,7 @@ public class EmpresaCriteria implements Serializable, Criteria {
             Objects.equals(razonSocial, that.razonSocial) &&
             Objects.equals(razonComercial, that.razonComercial) &&
             Objects.equals(email, that.email) &&
-            Objects.equals(numeroDocumentoId, that.numeroDocumentoId) &&
+            Objects.equals(numeroDocumento, that.numeroDocumento) &&
             Objects.equals(tipoUsuarioId, that.tipoUsuarioId) &&
             Objects.equals(tipoDocumentoId, that.tipoDocumentoId);
     }
@@ -139,7 +139,7 @@ public class EmpresaCriteria implements Serializable, Criteria {
         razonSocial,
         razonComercial,
         email,
-        numeroDocumentoId,
+        numeroDocumento,
         tipoUsuarioId,
         tipoDocumentoId
         );
@@ -152,7 +152,7 @@ public class EmpresaCriteria implements Serializable, Criteria {
                 (razonSocial != null ? "razonSocial=" + razonSocial + ", " : "") +
                 (razonComercial != null ? "razonComercial=" + razonComercial + ", " : "") +
                 (email != null ? "email=" + email + ", " : "") +
-                (numeroDocumentoId != null ? "numeroDocumentoId=" + numeroDocumentoId + ", " : "") +
+                (numeroDocumento != null ? "numeroDocumento=" + numeroDocumento + ", " : "") +
                 (tipoUsuarioId != null ? "tipoUsuarioId=" + tipoUsuarioId + ", " : "") +
                 (tipoDocumentoId != null ? "tipoDocumentoId=" + tipoDocumentoId + ", " : "") +
             "}";

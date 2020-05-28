@@ -28,26 +28,10 @@
                 <dd>
                     <span>{{ informacionAcademica.tituloOtorgado }}</span>
                 </dd>
-                <dt><span jhiTranslate="ctProjectApp.informacionAcademica.perfilProfesional">Perfil Profesional</span></dt>
-                <dd>
-                    <span>{{ informacionAcademica.perfilProfesional }}</span>
-                </dd>
                 <dt><span jhiTranslate="ctProjectApp.informacionAcademica.usuario">Usuario</span></dt>
                 <dd>
                     <div *ngIf="informacionAcademica.usuario">
                         <a [routerLink]="['/persona', informacionAcademica.usuario?.id, 'view']">{{ informacionAcademica.usuario?.id }}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="ctProjectApp.informacionAcademica.idioma">Idioma</span></dt>
-                <dd>
-                    <div *ngIf="informacionAcademica.idioma">
-                        <a [routerLink]="['/idioma', informacionAcademica.idioma?.id, 'view']">{{ informacionAcademica.idioma?.id }}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="ctProjectApp.informacionAcademica.nivelIdioma">Nivel Idioma</span></dt>
-                <dd>
-                    <div *ngIf="informacionAcademica.nivelIdioma">
-                        <a [routerLink]="['/nivel-idioma', informacionAcademica.nivelIdioma?.id, 'view']">{{ informacionAcademica.nivelIdioma?.id }}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="ctProjectApp.informacionAcademica.institucion">Institucion</span></dt>

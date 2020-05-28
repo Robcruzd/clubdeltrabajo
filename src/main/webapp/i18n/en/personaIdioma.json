@@ -1,0 +1,24 @@
+{
+  "ctProjectApp": {
+    "personaIdioma": {
+      "home": {
+        "title": "Persona Idiomas",
+        "createLabel": "Create a new Persona Idioma",
+        "createOrEditLabel": "Create or edit a Persona Idioma",
+        "notFound": "No Persona Idiomas found"
+      },
+      "created": "A new Persona Idioma is created with identifier {{ param }}",
+      "updated": "A Persona Idioma is updated with identifier {{ param }}",
+      "deleted": "A Persona Idioma is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Persona Idioma {{ id }}?"
+      },
+      "detail": {
+        "title": "Persona Idioma"
+      },
+      "nivel": "Nivel",
+      "idPersona": "Id Persona",
+      "idIdioma": "Id Idioma"
+    }
+  }
+}

@@ -1,0 +1,66 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-persona-idioma-heading" jhiTranslate="ctProjectApp.personaIdioma.home.createOrEditLabel">Create or edit a Persona Idioma</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.personaIdioma.nivel" for="field_nivel">Nivel</label>
+                    <input type="text" class="form-control" name="nivel" id="field_nivel"
+                           formControlName="nivel"/>
+                    <div *ngIf="editForm.get('nivel')!.invalid && (editForm.get('nivel')!.dirty || editForm.get('nivel')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nivel')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.personaIdioma.idPersona" for="field_idPersona">Id Persona</label>
+                    <select class="form-control" id="field_idPersona" name="idPersona" formControlName="idPersona">
+                        <option *ngIf="!editForm.get('idPersona')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="personaOption.id === editForm.get('idPersona')!.value?.id ? editForm.get('idPersona')!.value : personaOption" *ngFor="let personaOption of personas; trackBy: trackById">{{ personaOption.id }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('idPersona')!.invalid && (editForm.get('idPersona')!.dirty || editForm.get('idPersona')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('idPersona')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.personaIdioma.idIdioma" for="field_idIdioma">Id Idioma</label>
+                    <select class="form-control" id="field_idIdioma" name="idIdioma" formControlName="idIdioma">
+                        <option *ngIf="!editForm.get('idIdioma')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="idiomaOption.id === editForm.get('idIdioma')!.value?.id ? editForm.get('idIdioma')!.value : idiomaOption" *ngFor="let idiomaOption of idiomas; trackBy: trackById">{{ idiomaOption.id }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('idIdioma')!.invalid && (editForm.get('idIdioma')!.dirty || editForm.get('idIdioma')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('idIdioma')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

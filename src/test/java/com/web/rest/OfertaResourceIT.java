@@ -39,9 +39,8 @@ public class OfertaResourceIT {
     private static final String DEFAULT_DESCRIPCION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPCION = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_TITULO = 1;
-    private static final Integer UPDATED_TITULO = 2;
-    private static final Integer SMALLER_TITULO = 1 - 1;
+    private static final String DEFAULT_TITULO = "AAAAAAAAAA";
+    private static final String UPDATED_TITULO = "BBBBBBBBBB";
 
     private static final Integer DEFAULT_SALARIO = 1;
     private static final Integer UPDATED_SALARIO = 2;
@@ -66,8 +65,8 @@ public class OfertaResourceIT {
     private static final LocalDate UPDATED_FECHA_PUBLICACION = LocalDate.now(ZoneId.systemDefault());
     private static final LocalDate SMALLER_FECHA_PUBLICACION = LocalDate.ofEpochDay(-1L);
 
-    private static final String DEFAULT_ESTADO = "AAAAAAAAAA";
-    private static final String UPDATED_ESTADO = "BBBBBBBBBB";
+    private static final String DEFAULT_ESTADO = "A";
+    private static final String UPDATED_ESTADO = "B";
 
     @Autowired
     private OfertaRepository ofertaRepository;
@@ -533,57 +532,30 @@ public class OfertaResourceIT {
         // Get all the ofertaList where titulo is null
         defaultOfertaShouldNotBeFound("titulo.specified=false");
     }
-
-    @Test
+                @Test
     @Transactional
-    public void getAllOfertasByTituloIsGreaterThanOrEqualToSomething() throws Exception {
+    public void getAllOfertasByTituloContainsSomething() throws Exception {
         // Initialize the database
         ofertaRepository.saveAndFlush(oferta);
 
-        // Get all the ofertaList where titulo is greater than or equal to DEFAULT_TITULO
-        defaultOfertaShouldBeFound("titulo.greaterThanOrEqual=" + DEFAULT_TITULO);
+        // Get all the ofertaList where titulo contains DEFAULT_TITULO
+        defaultOfertaShouldBeFound("titulo.contains=" + DEFAULT_TITULO);
 
-        // Get all the ofertaList where titulo is greater than or equal to UPDATED_TITULO
-        defaultOfertaShouldNotBeFound("titulo.greaterThanOrEqual=" + UPDATED_TITULO);
+        // Get all the ofertaList where titulo contains UPDATED_TITULO
+        defaultOfertaShouldNotBeFound("titulo.contains=" + UPDATED_TITULO);
     }
 
     @Test
     @Transactional
-    public void getAllOfertasByTituloIsLessThanOrEqualToSomething() throws Exception {
+    public void getAllOfertasByTituloNotContainsSomething() throws Exception {
         // Initialize the database
         ofertaRepository.saveAndFlush(oferta);
 
-        // Get all the ofertaList where titulo is less than or equal to DEFAULT_TITULO
-        defaultOfertaShouldBeFound("titulo.lessThanOrEqual=" + DEFAULT_TITULO);
+        // Get all the ofertaList where titulo does not contain DEFAULT_TITULO
+        defaultOfertaShouldNotBeFound("titulo.doesNotContain=" + DEFAULT_TITULO);
 
-        // Get all the ofertaList where titulo is less than or equal to SMALLER_TITULO
-        defaultOfertaShouldNotBeFound("titulo.lessThanOrEqual=" + SMALLER_TITULO);
-    }
-
-    @Test
-    @Transactional
-    public void getAllOfertasByTituloIsLessThanSomething() throws Exception {
-        // Initialize the database
-        ofertaRepository.saveAndFlush(oferta);
-
-        // Get all the ofertaList where titulo is less than DEFAULT_TITULO
-        defaultOfertaShouldNotBeFound("titulo.lessThan=" + DEFAULT_TITULO);
-
-        // Get all the ofertaList where titulo is less than UPDATED_TITULO
-        defaultOfertaShouldBeFound("titulo.lessThan=" + UPDATED_TITULO);
-    }
-
-    @Test
-    @Transactional
-    public void getAllOfertasByTituloIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        ofertaRepository.saveAndFlush(oferta);
-
-        // Get all the ofertaList where titulo is greater than DEFAULT_TITULO
-        defaultOfertaShouldNotBeFound("titulo.greaterThan=" + DEFAULT_TITULO);
-
-        // Get all the ofertaList where titulo is greater than SMALLER_TITULO
-        defaultOfertaShouldBeFound("titulo.greaterThan=" + SMALLER_TITULO);
+        // Get all the ofertaList where titulo does not contain UPDATED_TITULO
+        defaultOfertaShouldBeFound("titulo.doesNotContain=" + UPDATED_TITULO);
     }
 
 

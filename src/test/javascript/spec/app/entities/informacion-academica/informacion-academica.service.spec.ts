@@ -24,7 +24,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new InformacionAcademica(0, 0, 0, currentDate, currentDate, 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new InformacionAcademica(0, 0, 0, currentDate, currentDate, 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -76,8 +76,7 @@ describe('Service Tests', () => {
             estado: 1,
             fechaInicio: currentDate.format(DATE_FORMAT),
             fechaFin: currentDate.format(DATE_FORMAT),
-            tituloOtorgado: 'BBBBBB',
-            perfilProfesional: 'BBBBBB'
+            tituloOtorgado: 'BBBBBB'
           },
           elemDefault
         );
@@ -104,8 +103,7 @@ describe('Service Tests', () => {
             estado: 1,
             fechaInicio: currentDate.format(DATE_FORMAT),
             fechaFin: currentDate.format(DATE_FORMAT),
-            tituloOtorgado: 'BBBBBB',
-            perfilProfesional: 'BBBBBB'
+            tituloOtorgado: 'BBBBBB'
           },
           elemDefault
         );

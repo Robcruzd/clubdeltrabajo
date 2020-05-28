@@ -29,7 +29,7 @@ public class OfertaCriteria implements Serializable, Criteria {
 
     private StringFilter descripcion;
 
-    private IntegerFilter titulo;
+    private StringFilter titulo;
 
     private IntegerFilter salario;
 
@@ -85,11 +85,11 @@ public class OfertaCriteria implements Serializable, Criteria {
         this.descripcion = descripcion;
     }
 
-    public IntegerFilter getTitulo() {
+    public StringFilter getTitulo() {
         return titulo;
     }
 
-    public void setTitulo(IntegerFilter titulo) {
+    public void setTitulo(StringFilter titulo) {
         this.titulo = titulo;
     }
 

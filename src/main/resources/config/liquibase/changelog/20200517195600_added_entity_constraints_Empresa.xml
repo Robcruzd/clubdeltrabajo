@@ -8,12 +8,6 @@
     -->
     <changeSet id="20200517195600-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="numero_documento_id"
-                                 baseTableName="ct_empresa_tb"
-                                 constraintName="fk_ct_empresa_tb_numero_documento_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="ct_usuario_tb"/>
-
         <addForeignKeyConstraint baseColumnNames="tipo_usuario_id"
                                  baseTableName="ct_empresa_tb"
                                  constraintName="fk_ct_empresa_tb_tipo_usuario_id"

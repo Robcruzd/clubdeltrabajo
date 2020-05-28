@@ -2,7 +2,6 @@ package com.web.rest;
 
 import com.CtProjectApp;
 import com.domain.Empresa;
-import com.domain.Usuario;
 import com.domain.TipoUsuario;
 import com.domain.TipoDocumento;
 import com.repository.EmpresaRepository;
@@ -45,6 +44,9 @@ public class EmpresaResourceIT {
     private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
     private static final String UPDATED_EMAIL = "BBBBBBBBBB";
 
+    private static final String DEFAULT_NUMERO_DOCUMENTO = "AAAAAAAAAA";
+    private static final String UPDATED_NUMERO_DOCUMENTO = "BBBBBBBBBB";
+
     @Autowired
     private EmpresaRepository empresaRepository;
 
@@ -72,17 +74,8 @@ public class EmpresaResourceIT {
         Empresa empresa = new Empresa()
             .razonSocial(DEFAULT_RAZON_SOCIAL)
             .razonComercial(DEFAULT_RAZON_COMERCIAL)
-            .email(DEFAULT_EMAIL);
-        // Add required entity
-        Usuario usuario;
-        if (TestUtil.findAll(em, Usuario.class).isEmpty()) {
-            usuario = UsuarioResourceIT.createEntity(em);
-            em.persist(usuario);
-            em.flush();
-        } else {
-            usuario = TestUtil.findAll(em, Usuario.class).get(0);
-        }
-        empresa.setNumeroDocumento(usuario);
+            .email(DEFAULT_EMAIL)
+            .numeroDocumento(DEFAULT_NUMERO_DOCUMENTO);
         // Add required entity
         TipoUsuario tipoUsuario;
         if (TestUtil.findAll(em, TipoUsuario.class).isEmpty()) {
@@ -115,17 +108,8 @@ public class EmpresaResourceIT {
         Empresa empresa = new Empresa()
             .razonSocial(UPDATED_RAZON_SOCIAL)
             .razonComercial(UPDATED_RAZON_COMERCIAL)
-            .email(UPDATED_EMAIL);
-        // Add required entity
-        Usuario usuario;
-        if (TestUtil.findAll(em, Usuario.class).isEmpty()) {
-            usuario = UsuarioResourceIT.createUpdatedEntity(em);
-            em.persist(usuario);
-            em.flush();
-        } else {
-            usuario = TestUtil.findAll(em, Usuario.class).get(0);
-        }
-        empresa.setNumeroDocumento(usuario);
+            .email(UPDATED_EMAIL)
+            .numeroDocumento(UPDATED_NUMERO_DOCUMENTO);
         // Add required entity
         TipoUsuario tipoUsuario;
         if (TestUtil.findAll(em, TipoUsuario.class).isEmpty()) {
@@ -172,6 +156,7 @@ public class EmpresaResourceIT {
         assertThat(testEmpresa.getRazonSocial()).isEqualTo(DEFAULT_RAZON_SOCIAL);
         assertThat(testEmpresa.getRazonComercial()).isEqualTo(DEFAULT_RAZON_COMERCIAL);
         assertThat(testEmpresa.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testEmpresa.getNumeroDocumento()).isEqualTo(DEFAULT_NUMERO_DOCUMENTO);
     }
 
     @Test
@@ -250,6 +235,24 @@ public class EmpresaResourceIT {
 
     @Test
     @Transactional
+    public void checkNumeroDocumentoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = empresaRepository.findAll().size();
+        // set the field null
+        empresa.setNumeroDocumento(null);
+
+        // Create the Empresa, which fails.
+
+        restEmpresaMockMvc.perform(post("/api/empresas")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(empresa)))
+            .andExpect(status().isBadRequest());
+
+        List<Empresa> empresaList = empresaRepository.findAll();
+        assertThat(empresaList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllEmpresas() throws Exception {
         // Initialize the database
         empresaRepository.saveAndFlush(empresa);
@@ -261,7 +264,8 @@ public class EmpresaResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(empresa.getId().intValue())))
             .andExpect(jsonPath("$.[*].razonSocial").value(hasItem(DEFAULT_RAZON_SOCIAL)))
             .andExpect(jsonPath("$.[*].razonComercial").value(hasItem(DEFAULT_RAZON_COMERCIAL)))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)));
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
+            .andExpect(jsonPath("$.[*].numeroDocumento").value(hasItem(DEFAULT_NUMERO_DOCUMENTO)));
     }
     
     @Test
@@ -277,7 +281,8 @@ public class EmpresaResourceIT {
             .andExpect(jsonPath("$.id").value(empresa.getId().intValue()))
             .andExpect(jsonPath("$.razonSocial").value(DEFAULT_RAZON_SOCIAL))
             .andExpect(jsonPath("$.razonComercial").value(DEFAULT_RAZON_COMERCIAL))
-            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL));
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
+            .andExpect(jsonPath("$.numeroDocumento").value(DEFAULT_NUMERO_DOCUMENTO));
     }
 
 
@@ -537,16 +542,78 @@ public class EmpresaResourceIT {
     @Test
     @Transactional
     public void getAllEmpresasByNumeroDocumentoIsEqualToSomething() throws Exception {
-        // Get already existing entity
-        Usuario numeroDocumento = empresa.getNumeroDocumento();
+        // Initialize the database
         empresaRepository.saveAndFlush(empresa);
-        Long numeroDocumentoId = numeroDocumento.getId();
 
-        // Get all the empresaList where numeroDocumento equals to numeroDocumentoId
-        defaultEmpresaShouldBeFound("numeroDocumentoId.equals=" + numeroDocumentoId);
+        // Get all the empresaList where numeroDocumento equals to DEFAULT_NUMERO_DOCUMENTO
+        defaultEmpresaShouldBeFound("numeroDocumento.equals=" + DEFAULT_NUMERO_DOCUMENTO);
 
-        // Get all the empresaList where numeroDocumento equals to numeroDocumentoId + 1
-        defaultEmpresaShouldNotBeFound("numeroDocumentoId.equals=" + (numeroDocumentoId + 1));
+        // Get all the empresaList where numeroDocumento equals to UPDATED_NUMERO_DOCUMENTO
+        defaultEmpresaShouldNotBeFound("numeroDocumento.equals=" + UPDATED_NUMERO_DOCUMENTO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEmpresasByNumeroDocumentoIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        empresaRepository.saveAndFlush(empresa);
+
+        // Get all the empresaList where numeroDocumento not equals to DEFAULT_NUMERO_DOCUMENTO
+        defaultEmpresaShouldNotBeFound("numeroDocumento.notEquals=" + DEFAULT_NUMERO_DOCUMENTO);
+
+        // Get all the empresaList where numeroDocumento not equals to UPDATED_NUMERO_DOCUMENTO
+        defaultEmpresaShouldBeFound("numeroDocumento.notEquals=" + UPDATED_NUMERO_DOCUMENTO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEmpresasByNumeroDocumentoIsInShouldWork() throws Exception {
+        // Initialize the database
+        empresaRepository.saveAndFlush(empresa);
+
+        // Get all the empresaList where numeroDocumento in DEFAULT_NUMERO_DOCUMENTO or UPDATED_NUMERO_DOCUMENTO
+        defaultEmpresaShouldBeFound("numeroDocumento.in=" + DEFAULT_NUMERO_DOCUMENTO + "," + UPDATED_NUMERO_DOCUMENTO);
+
+        // Get all the empresaList where numeroDocumento equals to UPDATED_NUMERO_DOCUMENTO
+        defaultEmpresaShouldNotBeFound("numeroDocumento.in=" + UPDATED_NUMERO_DOCUMENTO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEmpresasByNumeroDocumentoIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        empresaRepository.saveAndFlush(empresa);
+
+        // Get all the empresaList where numeroDocumento is not null
+        defaultEmpresaShouldBeFound("numeroDocumento.specified=true");
+
+        // Get all the empresaList where numeroDocumento is null
+        defaultEmpresaShouldNotBeFound("numeroDocumento.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllEmpresasByNumeroDocumentoContainsSomething() throws Exception {
+        // Initialize the database
+        empresaRepository.saveAndFlush(empresa);
+
+        // Get all the empresaList where numeroDocumento contains DEFAULT_NUMERO_DOCUMENTO
+        defaultEmpresaShouldBeFound("numeroDocumento.contains=" + DEFAULT_NUMERO_DOCUMENTO);
+
+        // Get all the empresaList where numeroDocumento contains UPDATED_NUMERO_DOCUMENTO
+        defaultEmpresaShouldNotBeFound("numeroDocumento.contains=" + UPDATED_NUMERO_DOCUMENTO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEmpresasByNumeroDocumentoNotContainsSomething() throws Exception {
+        // Initialize the database
+        empresaRepository.saveAndFlush(empresa);
+
+        // Get all the empresaList where numeroDocumento does not contain DEFAULT_NUMERO_DOCUMENTO
+        defaultEmpresaShouldNotBeFound("numeroDocumento.doesNotContain=" + DEFAULT_NUMERO_DOCUMENTO);
+
+        // Get all the empresaList where numeroDocumento does not contain UPDATED_NUMERO_DOCUMENTO
+        defaultEmpresaShouldBeFound("numeroDocumento.doesNotContain=" + UPDATED_NUMERO_DOCUMENTO);
     }
 
 
@@ -591,7 +658,8 @@ public class EmpresaResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(empresa.getId().intValue())))
             .andExpect(jsonPath("$.[*].razonSocial").value(hasItem(DEFAULT_RAZON_SOCIAL)))
             .andExpect(jsonPath("$.[*].razonComercial").value(hasItem(DEFAULT_RAZON_COMERCIAL)))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)));
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
+            .andExpect(jsonPath("$.[*].numeroDocumento").value(hasItem(DEFAULT_NUMERO_DOCUMENTO)));
 
         // Check, that the count call also returns 1
         restEmpresaMockMvc.perform(get("/api/empresas/count?sort=id,desc&" + filter))
@@ -641,7 +709,8 @@ public class EmpresaResourceIT {
         updatedEmpresa
             .razonSocial(UPDATED_RAZON_SOCIAL)
             .razonComercial(UPDATED_RAZON_COMERCIAL)
-            .email(UPDATED_EMAIL);
+            .email(UPDATED_EMAIL)
+            .numeroDocumento(UPDATED_NUMERO_DOCUMENTO);
 
         restEmpresaMockMvc.perform(put("/api/empresas")
             .contentType(MediaType.APPLICATION_JSON)
@@ -655,6 +724,7 @@ public class EmpresaResourceIT {
         assertThat(testEmpresa.getRazonSocial()).isEqualTo(UPDATED_RAZON_SOCIAL);
         assertThat(testEmpresa.getRazonComercial()).isEqualTo(UPDATED_RAZON_COMERCIAL);
         assertThat(testEmpresa.getEmail()).isEqualTo(UPDATED_EMAIL);
+        assertThat(testEmpresa.getNumeroDocumento()).isEqualTo(UPDATED_NUMERO_DOCUMENTO);
     }
 
     @Test

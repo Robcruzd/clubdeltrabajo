@@ -45,6 +45,8 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
 
     private BooleanFilter licencenciaConduccion;
 
+    private StringFilter perfilProfesional;
+
     private LongFilter usuarioId;
 
     public InformacionPersonalCriteria() {
@@ -61,6 +63,7 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
         this.discapacidad = other.discapacidad == null ? null : other.discapacidad.copy();
         this.redesSociales = other.redesSociales == null ? null : other.redesSociales.copy();
         this.licencenciaConduccion = other.licencenciaConduccion == null ? null : other.licencenciaConduccion.copy();
+        this.perfilProfesional = other.perfilProfesional == null ? null : other.perfilProfesional.copy();
         this.usuarioId = other.usuarioId == null ? null : other.usuarioId.copy();
     }
 
@@ -149,6 +152,14 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
         this.licencenciaConduccion = licencenciaConduccion;
     }
 
+    public StringFilter getPerfilProfesional() {
+        return perfilProfesional;
+    }
+
+    public void setPerfilProfesional(StringFilter perfilProfesional) {
+        this.perfilProfesional = perfilProfesional;
+    }
+
     public LongFilter getUsuarioId() {
         return usuarioId;
     }
@@ -178,6 +189,7 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
             Objects.equals(discapacidad, that.discapacidad) &&
             Objects.equals(redesSociales, that.redesSociales) &&
             Objects.equals(licencenciaConduccion, that.licencenciaConduccion) &&
+            Objects.equals(perfilProfesional, that.perfilProfesional) &&
             Objects.equals(usuarioId, that.usuarioId);
     }
 
@@ -194,6 +206,7 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
         discapacidad,
         redesSociales,
         licencenciaConduccion,
+        perfilProfesional,
         usuarioId
         );
     }
@@ -211,6 +224,7 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
                 (discapacidad != null ? "discapacidad=" + discapacidad + ", " : "") +
                 (redesSociales != null ? "redesSociales=" + redesSociales + ", " : "") +
                 (licencenciaConduccion != null ? "licencenciaConduccion=" + licencenciaConduccion + ", " : "") +
+                (perfilProfesional != null ? "perfilProfesional=" + perfilProfesional + ", " : "") +
                 (usuarioId != null ? "usuarioId=" + usuarioId + ", " : "") +
             "}";
     }

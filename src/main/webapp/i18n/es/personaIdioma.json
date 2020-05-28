@@ -1,0 +1,24 @@
+{
+  "ctProjectApp": {
+    "personaIdioma": {
+      "home": {
+        "title": "Persona Idiomas",
+        "createLabel": "Crear nuevo Persona Idioma",
+        "createOrEditLabel": "Crear o editar Persona Idioma",
+        "notFound": "Ningún Persona Idiomas encontrado"
+      },
+      "created": "Un nuevo Persona Idioma ha sido creado con el identificador {{ param }}",
+      "updated": "Un Persona Idioma ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Persona Idioma ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Persona Idioma {{ id }}?"
+      },
+      "detail": {
+        "title": "Persona Idioma"
+      },
+      "nivel": "Nivel",
+      "idPersona": "Id Persona",
+      "idIdioma": "Id Idioma"
+    }
+  }
+}

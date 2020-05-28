@@ -67,6 +67,9 @@ public class InformacionPersonalResourceIT {
     private static final Boolean DEFAULT_LICENCENCIA_CONDUCCION = false;
     private static final Boolean UPDATED_LICENCENCIA_CONDUCCION = true;
 
+    private static final String DEFAULT_PERFIL_PROFESIONAL = "AAAAAAAAAA";
+    private static final String UPDATED_PERFIL_PROFESIONAL = "BBBBBBBBBB";
+
     @Autowired
     private InformacionPersonalRepository informacionPersonalRepository;
 
@@ -100,7 +103,8 @@ public class InformacionPersonalResourceIT {
             .telefono(DEFAULT_TELEFONO)
             .discapacidad(DEFAULT_DISCAPACIDAD)
             .redesSociales(DEFAULT_REDES_SOCIALES)
-            .licencenciaConduccion(DEFAULT_LICENCENCIA_CONDUCCION);
+            .licencenciaConduccion(DEFAULT_LICENCENCIA_CONDUCCION)
+            .perfilProfesional(DEFAULT_PERFIL_PROFESIONAL);
         // Add required entity
         Persona persona;
         if (TestUtil.findAll(em, Persona.class).isEmpty()) {
@@ -129,7 +133,8 @@ public class InformacionPersonalResourceIT {
             .telefono(UPDATED_TELEFONO)
             .discapacidad(UPDATED_DISCAPACIDAD)
             .redesSociales(UPDATED_REDES_SOCIALES)
-            .licencenciaConduccion(UPDATED_LICENCENCIA_CONDUCCION);
+            .licencenciaConduccion(UPDATED_LICENCENCIA_CONDUCCION)
+            .perfilProfesional(UPDATED_PERFIL_PROFESIONAL);
         // Add required entity
         Persona persona;
         if (TestUtil.findAll(em, Persona.class).isEmpty()) {
@@ -172,6 +177,7 @@ public class InformacionPersonalResourceIT {
         assertThat(testInformacionPersonal.getDiscapacidad()).isEqualTo(DEFAULT_DISCAPACIDAD);
         assertThat(testInformacionPersonal.getRedesSociales()).isEqualTo(DEFAULT_REDES_SOCIALES);
         assertThat(testInformacionPersonal.isLicencenciaConduccion()).isEqualTo(DEFAULT_LICENCENCIA_CONDUCCION);
+        assertThat(testInformacionPersonal.getPerfilProfesional()).isEqualTo(DEFAULT_PERFIL_PROFESIONAL);
     }
 
     @Test
@@ -321,7 +327,8 @@ public class InformacionPersonalResourceIT {
             .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO)))
             .andExpect(jsonPath("$.[*].discapacidad").value(hasItem(DEFAULT_DISCAPACIDAD)))
             .andExpect(jsonPath("$.[*].redesSociales").value(hasItem(DEFAULT_REDES_SOCIALES)))
-            .andExpect(jsonPath("$.[*].licencenciaConduccion").value(hasItem(DEFAULT_LICENCENCIA_CONDUCCION.booleanValue())));
+            .andExpect(jsonPath("$.[*].licencenciaConduccion").value(hasItem(DEFAULT_LICENCENCIA_CONDUCCION.booleanValue())))
+            .andExpect(jsonPath("$.[*].perfilProfesional").value(hasItem(DEFAULT_PERFIL_PROFESIONAL)));
     }
     
     @Test
@@ -343,7 +350,8 @@ public class InformacionPersonalResourceIT {
             .andExpect(jsonPath("$.telefono").value(DEFAULT_TELEFONO))
             .andExpect(jsonPath("$.discapacidad").value(DEFAULT_DISCAPACIDAD))
             .andExpect(jsonPath("$.redesSociales").value(DEFAULT_REDES_SOCIALES))
-            .andExpect(jsonPath("$.licencenciaConduccion").value(DEFAULT_LICENCENCIA_CONDUCCION.booleanValue()));
+            .andExpect(jsonPath("$.licencenciaConduccion").value(DEFAULT_LICENCENCIA_CONDUCCION.booleanValue()))
+            .andExpect(jsonPath("$.perfilProfesional").value(DEFAULT_PERFIL_PROFESIONAL));
     }
 
 
@@ -1152,6 +1160,84 @@ public class InformacionPersonalResourceIT {
 
     @Test
     @Transactional
+    public void getAllInformacionPersonalsByPerfilProfesionalIsEqualToSomething() throws Exception {
+        // Initialize the database
+        informacionPersonalRepository.saveAndFlush(informacionPersonal);
+
+        // Get all the informacionPersonalList where perfilProfesional equals to DEFAULT_PERFIL_PROFESIONAL
+        defaultInformacionPersonalShouldBeFound("perfilProfesional.equals=" + DEFAULT_PERFIL_PROFESIONAL);
+
+        // Get all the informacionPersonalList where perfilProfesional equals to UPDATED_PERFIL_PROFESIONAL
+        defaultInformacionPersonalShouldNotBeFound("perfilProfesional.equals=" + UPDATED_PERFIL_PROFESIONAL);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInformacionPersonalsByPerfilProfesionalIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        informacionPersonalRepository.saveAndFlush(informacionPersonal);
+
+        // Get all the informacionPersonalList where perfilProfesional not equals to DEFAULT_PERFIL_PROFESIONAL
+        defaultInformacionPersonalShouldNotBeFound("perfilProfesional.notEquals=" + DEFAULT_PERFIL_PROFESIONAL);
+
+        // Get all the informacionPersonalList where perfilProfesional not equals to UPDATED_PERFIL_PROFESIONAL
+        defaultInformacionPersonalShouldBeFound("perfilProfesional.notEquals=" + UPDATED_PERFIL_PROFESIONAL);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInformacionPersonalsByPerfilProfesionalIsInShouldWork() throws Exception {
+        // Initialize the database
+        informacionPersonalRepository.saveAndFlush(informacionPersonal);
+
+        // Get all the informacionPersonalList where perfilProfesional in DEFAULT_PERFIL_PROFESIONAL or UPDATED_PERFIL_PROFESIONAL
+        defaultInformacionPersonalShouldBeFound("perfilProfesional.in=" + DEFAULT_PERFIL_PROFESIONAL + "," + UPDATED_PERFIL_PROFESIONAL);
+
+        // Get all the informacionPersonalList where perfilProfesional equals to UPDATED_PERFIL_PROFESIONAL
+        defaultInformacionPersonalShouldNotBeFound("perfilProfesional.in=" + UPDATED_PERFIL_PROFESIONAL);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInformacionPersonalsByPerfilProfesionalIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        informacionPersonalRepository.saveAndFlush(informacionPersonal);
+
+        // Get all the informacionPersonalList where perfilProfesional is not null
+        defaultInformacionPersonalShouldBeFound("perfilProfesional.specified=true");
+
+        // Get all the informacionPersonalList where perfilProfesional is null
+        defaultInformacionPersonalShouldNotBeFound("perfilProfesional.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllInformacionPersonalsByPerfilProfesionalContainsSomething() throws Exception {
+        // Initialize the database
+        informacionPersonalRepository.saveAndFlush(informacionPersonal);
+
+        // Get all the informacionPersonalList where perfilProfesional contains DEFAULT_PERFIL_PROFESIONAL
+        defaultInformacionPersonalShouldBeFound("perfilProfesional.contains=" + DEFAULT_PERFIL_PROFESIONAL);
+
+        // Get all the informacionPersonalList where perfilProfesional contains UPDATED_PERFIL_PROFESIONAL
+        defaultInformacionPersonalShouldNotBeFound("perfilProfesional.contains=" + UPDATED_PERFIL_PROFESIONAL);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInformacionPersonalsByPerfilProfesionalNotContainsSomething() throws Exception {
+        // Initialize the database
+        informacionPersonalRepository.saveAndFlush(informacionPersonal);
+
+        // Get all the informacionPersonalList where perfilProfesional does not contain DEFAULT_PERFIL_PROFESIONAL
+        defaultInformacionPersonalShouldNotBeFound("perfilProfesional.doesNotContain=" + DEFAULT_PERFIL_PROFESIONAL);
+
+        // Get all the informacionPersonalList where perfilProfesional does not contain UPDATED_PERFIL_PROFESIONAL
+        defaultInformacionPersonalShouldBeFound("perfilProfesional.doesNotContain=" + UPDATED_PERFIL_PROFESIONAL);
+    }
+
+
+    @Test
+    @Transactional
     public void getAllInformacionPersonalsByUsuarioIsEqualToSomething() throws Exception {
         // Get already existing entity
         Persona usuario = informacionPersonal.getUsuario();
@@ -1181,7 +1267,8 @@ public class InformacionPersonalResourceIT {
             .andExpect(jsonPath("$.[*].telefono").value(hasItem(DEFAULT_TELEFONO)))
             .andExpect(jsonPath("$.[*].discapacidad").value(hasItem(DEFAULT_DISCAPACIDAD)))
             .andExpect(jsonPath("$.[*].redesSociales").value(hasItem(DEFAULT_REDES_SOCIALES)))
-            .andExpect(jsonPath("$.[*].licencenciaConduccion").value(hasItem(DEFAULT_LICENCENCIA_CONDUCCION.booleanValue())));
+            .andExpect(jsonPath("$.[*].licencenciaConduccion").value(hasItem(DEFAULT_LICENCENCIA_CONDUCCION.booleanValue())))
+            .andExpect(jsonPath("$.[*].perfilProfesional").value(hasItem(DEFAULT_PERFIL_PROFESIONAL)));
 
         // Check, that the count call also returns 1
         restInformacionPersonalMockMvc.perform(get("/api/informacion-personals/count?sort=id,desc&" + filter))
@@ -1237,7 +1324,8 @@ public class InformacionPersonalResourceIT {
             .telefono(UPDATED_TELEFONO)
             .discapacidad(UPDATED_DISCAPACIDAD)
             .redesSociales(UPDATED_REDES_SOCIALES)
-            .licencenciaConduccion(UPDATED_LICENCENCIA_CONDUCCION);
+            .licencenciaConduccion(UPDATED_LICENCENCIA_CONDUCCION)
+            .perfilProfesional(UPDATED_PERFIL_PROFESIONAL);
 
         restInformacionPersonalMockMvc.perform(put("/api/informacion-personals")
             .contentType(MediaType.APPLICATION_JSON)
@@ -1257,6 +1345,7 @@ public class InformacionPersonalResourceIT {
         assertThat(testInformacionPersonal.getDiscapacidad()).isEqualTo(UPDATED_DISCAPACIDAD);
         assertThat(testInformacionPersonal.getRedesSociales()).isEqualTo(UPDATED_REDES_SOCIALES);
         assertThat(testInformacionPersonal.isLicencenciaConduccion()).isEqualTo(UPDATED_LICENCENCIA_CONDUCCION);
+        assertThat(testInformacionPersonal.getPerfilProfesional()).isEqualTo(UPDATED_PERFIL_PROFESIONAL);
     }
 
     @Test

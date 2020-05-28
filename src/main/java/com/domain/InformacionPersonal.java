@@ -56,6 +56,9 @@ public class InformacionPersonal implements Serializable {
     @Column(name = "licencencia_conduccion")
     private Boolean licencenciaConduccion;
 
+    @Column(name = "perfil_profesional")
+    private String perfilProfesional;
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("informacionPersonals")
@@ -187,6 +190,19 @@ public class InformacionPersonal implements Serializable {
         this.licencenciaConduccion = licencenciaConduccion;
     }
 
+    public String getPerfilProfesional() {
+        return perfilProfesional;
+    }
+
+    public InformacionPersonal perfilProfesional(String perfilProfesional) {
+        this.perfilProfesional = perfilProfesional;
+        return this;
+    }
+
+    public void setPerfilProfesional(String perfilProfesional) {
+        this.perfilProfesional = perfilProfesional;
+    }
+
     public Persona getUsuario() {
         return usuario;
     }
@@ -230,6 +246,7 @@ public class InformacionPersonal implements Serializable {
             ", discapacidad=" + getDiscapacidad() +
             ", redesSociales=" + getRedesSociales() +
             ", licencenciaConduccion='" + isLicencenciaConduccion() + "'" +
+            ", perfilProfesional='" + getPerfilProfesional() + "'" +
             "}";
     }
 }

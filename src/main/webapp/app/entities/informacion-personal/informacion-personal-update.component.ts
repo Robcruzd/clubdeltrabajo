@@ -30,6 +30,7 @@ export class InformacionPersonalUpdateComponent implements OnInit {
     discapacidad: [],
     redesSociales: [],
     licencenciaConduccion: [],
+    perfilProfesional: [],
     usuario: [null, Validators.required]
   });
 
@@ -60,6 +61,7 @@ export class InformacionPersonalUpdateComponent implements OnInit {
       discapacidad: informacionPersonal.discapacidad,
       redesSociales: informacionPersonal.redesSociales,
       licencenciaConduccion: informacionPersonal.licencenciaConduccion,
+      perfilProfesional: informacionPersonal.perfilProfesional,
       usuario: informacionPersonal.usuario
     });
   }
@@ -91,6 +93,7 @@ export class InformacionPersonalUpdateComponent implements OnInit {
       discapacidad: this.editForm.get(['discapacidad'])!.value,
       redesSociales: this.editForm.get(['redesSociales'])!.value,
       licencenciaConduccion: this.editForm.get(['licencenciaConduccion'])!.value,
+      perfilProfesional: this.editForm.get(['perfilProfesional'])!.value,
       usuario: this.editForm.get(['usuario'])!.value
     };
   }
