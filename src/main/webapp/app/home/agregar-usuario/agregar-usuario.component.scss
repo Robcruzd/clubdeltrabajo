@@ -28,45 +28,86 @@
   min-height: 100vh;
   height: 100% !important;
   background-image: url('../../../content/images/FondoRegistro.jpg');
-  background-color: #cccccc; /* Used if the image is unavailable */
+  background-color: #666666; /* Used if the image is unavailable */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
 
   .div_centro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     border-radius: 2.5rem 2.5rem 2.5rem 2.5rem;
     width: 60vh;
-    height: 90vh;
-    padding: 2rem 2rem;
-    margin-left: 1rem;
+    min-height: 90vh;
+    height: 100%;
+    padding: 2rem;
     z-index: 1;
     background: transparent linear-gradient(180deg, #2d427d 0%, #1a2152 100%) 0% 0% no-repeat padding-box;
     opacity: 1;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+
+    label {
+      margin-bottom: 0rem;
+      margin-left: 1rem;
+      margin-right: 0.5rem;
+    }
 
     .estilo_titulo {
       width: 264px;
       height: 27px;
       text-align: center;
-      font: Extrabold 20px/27px Open Sans;
+      font: Extrabold 20px/27px 'Open Sans';
       letter-spacing: 0px;
       color: #ffffff;
       opacity: 1;
     }
 
-    .estilo_inputs {
-      width: 295px;
-      height: 48px;
-      background: #ffffff 0% 0% no-repeat padding-box;
-      border-radius: 24px;
-      opacity: 1;
+    .typePersona {
+      margin-bottom: 1rem;
+    }
+
+    .inputs {
+      width: 100%;
+
+      .estilo_inputs {
+        padding-left: 1.5rem;
+        width: 100%;
+        height: 48px;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border-radius: 24px;
+        opacity: 1;
+        margin-bottom: 0.5rem;
+        border-width: 0rem;
+      }
     }
 
     .boton_registrar {
-      width: 295px;
+      margin-top: 1rem;
+      width: 100%;
       height: 48px;
       background: #2699fb 0% 0% no-repeat padding-box;
       border-radius: 24px;
       opacity: 1;
+    }
+
+    .terminos {
+      display: flex;
+      flex-direction: row;
+      width: 90%;
+      margin-top: 1rem;
+      align-items: center;
+
+      .label-terminos {
+        text-align: center;
+      }
+    }
+
+    .ya-registrado {
+      margin-bottom: 1rem;
+      margin-top: 1.5rem;
+      align-items: center;
     }
   }
 }

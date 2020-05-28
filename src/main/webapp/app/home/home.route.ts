@@ -6,6 +6,8 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { BuscarTrabajoComponent } from './buscar-trabajo/buscar-trabajo.component';
 import { AgregarUsuarioComponent } from './agregar-usuario/agregar-usuario.component';
 import { CrearHojaVidaComponent } from './crear-hoja-vida/crear-hoja-vida.component';
+import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
+import { RestaurarContrasenaComponent } from './restaurar-contrasena/restaurar-contrasena.component';
 
 export const HOME_ROUTE: Routes = [
   {
@@ -39,5 +41,13 @@ export const HOME_ROUTE: Routes = [
   {
     path: 'crear-hoja-vida',
     component: CrearHojaVidaComponent
+  },
+  {
+    path: 'inicio-sesion',
+    component: InicioSesionComponent
+  },
+  {
+    path: 'restaurar-contrasena',
+    component: RestaurarContrasenaComponent
   }
 ];
