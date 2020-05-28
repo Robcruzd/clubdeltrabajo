@@ -34,15 +34,14 @@ public class Persona implements Serializable {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @OneToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
-    private TipoUsuario tipoUsuario;
+    @Column(name = "numero_documento", nullable = false)
+    private String numeroDocumento;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
-    private Usuario numeroDocumento;
+    @JsonIgnoreProperties("personas")
+    private TipoUsuario tipoUsuario;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -97,6 +96,19 @@ public class Persona implements Serializable {
         this.email = email;
     }
 
+    public String getNumeroDocumento() {
+        return numeroDocumento;
+    }
+
+    public Persona numeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
+        return this;
+    }
+
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
+    }
+
     public TipoUsuario getTipoUsuario() {
         return tipoUsuario;
     }
@@ -108,19 +120,6 @@ public class Persona implements Serializable {
 
     public void setTipoUsuario(TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
-    }
-
-    public Usuario getNumeroDocumento() {
-        return numeroDocumento;
-    }
-
-    public Persona numeroDocumento(Usuario usuario) {
-        this.numeroDocumento = usuario;
-        return this;
-    }
-
-    public void setNumeroDocumento(Usuario usuario) {
-        this.numeroDocumento = usuario;
     }
 
     public TipoDocumento getTipoDocumento() {
@@ -160,6 +159,7 @@ public class Persona implements Serializable {
             ", nombre='" + getNombre() + "'" +
             ", apellido='" + getApellido() + "'" +
             ", email='" + getEmail() + "'" +
+            ", numeroDocumento='" + getNumeroDocumento() + "'" +
             "}";
     }
 }

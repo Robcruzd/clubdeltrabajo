@@ -30,17 +30,8 @@
             <column name="titulo_otorgado" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="perfil_profesional" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
             <column name="usuario_id" type="bigint">
                 <constraints nullable="false" />
-            </column>
-            <column name="idioma_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-            <column name="nivel_idioma_id" type="bigint">
-                <constraints nullable="true" />
             </column>
             <column name="institucion_id" type="bigint">
                 <constraints nullable="true" />
@@ -73,7 +64,6 @@
             <column name="fecha_inicio" type="date"/>
             <column name="fecha_fin" type="date"/>
             <column name="titulo_otorgado" type="string"/>
-            <column name="perfil_profesional" type="string"/>
             <column name="usuario_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>

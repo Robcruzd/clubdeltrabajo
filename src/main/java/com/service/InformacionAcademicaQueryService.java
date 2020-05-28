@@ -100,20 +100,9 @@ public class InformacionAcademicaQueryService extends QueryService<InformacionAc
             if (criteria.getTituloOtorgado() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getTituloOtorgado(), InformacionAcademica_.tituloOtorgado));
             }
-            if (criteria.getPerfilProfesional() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getPerfilProfesional(), InformacionAcademica_.perfilProfesional));
-            }
             if (criteria.getUsuarioId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUsuarioId(),
                     root -> root.join(InformacionAcademica_.usuario, JoinType.LEFT).get(Persona_.id)));
-            }
-            if (criteria.getIdiomaId() != null) {
-                specification = specification.and(buildSpecification(criteria.getIdiomaId(),
-                    root -> root.join(InformacionAcademica_.idioma, JoinType.LEFT).get(Idioma_.id)));
-            }
-            if (criteria.getNivelIdiomaId() != null) {
-                specification = specification.and(buildSpecification(criteria.getNivelIdiomaId(),
-                    root -> root.join(InformacionAcademica_.nivelIdioma, JoinType.LEFT).get(NivelIdioma_.id)));
             }
             if (criteria.getInstitucionId() != null) {
                 specification = specification.and(buildSpecification(criteria.getInstitucionId(),

@@ -14,18 +14,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="ct_persona_tb"/>
 
-        <addForeignKeyConstraint baseColumnNames="idioma_id"
-                                 baseTableName="ct_informacion_academica_tb"
-                                 constraintName="fk_ct_informacion_academica_tb_idioma_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="ct_idioma_tb"/>
-
-        <addForeignKeyConstraint baseColumnNames="nivel_idioma_id"
-                                 baseTableName="ct_informacion_academica_tb"
-                                 constraintName="fk_ct_informacion_academica_tb_nivel_idioma_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="ct_nivel_idioma_tb"/>
-
         <addForeignKeyConstraint baseColumnNames="institucion_id"
                                  baseTableName="ct_informacion_academica_tb"
                                  constraintName="fk_ct_informacion_academica_tb_institucion_id"

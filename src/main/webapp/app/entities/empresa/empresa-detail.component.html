@@ -22,9 +22,7 @@
                 </dd>
                 <dt><span jhiTranslate="ctProjectApp.empresa.numeroDocumento">Numero Documento</span></dt>
                 <dd>
-                    <div *ngIf="empresa.numeroDocumento">
-                        <a [routerLink]="['/usuario', empresa.numeroDocumento?.id, 'view']">{{ empresa.numeroDocumento?.id }}</a>
-                    </div>
+                    <span>{{ empresa.numeroDocumento }}</span>
                 </dd>
                 <dt><span jhiTranslate="ctProjectApp.empresa.tipoUsuario">Tipo Usuario</span></dt>
                 <dd>

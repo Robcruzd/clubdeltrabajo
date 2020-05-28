@@ -24,7 +24,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new Oferta(0, 'AAAAAAA', 0, 0, 0, 'AAAAAAA', 0, 0, currentDate, 'AAAAAAA');
+      elemDefault = new Oferta(0, 'AAAAAAA', 'AAAAAAA', 0, 0, 'AAAAAAA', 0, 0, currentDate, 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -70,7 +70,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             descripcion: 'BBBBBB',
-            titulo: 1,
+            titulo: 'BBBBBB',
             salario: 1,
             cargo: 1,
             experiencia: 'BBBBBB',
@@ -100,7 +100,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             descripcion: 'BBBBBB',
-            titulo: 1,
+            titulo: 'BBBBBB',
             salario: 1,
             cargo: 1,
             experiencia: 'BBBBBB',

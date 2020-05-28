@@ -18,7 +18,7 @@
             <column name="descripcion" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="titulo" type="integer">
+            <column name="titulo" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
             <column name="salario" type="integer">
@@ -39,7 +39,7 @@
             <column name="fecha_publicacion" type="date">
                 <constraints nullable="false" />
             </column>
-            <column name="estado" type="varchar(255)">
+            <column name="estado" type="varchar(1)">
                 <constraints nullable="false" />
             </column>
             <column name="usuario_id" type="bigint">
@@ -69,7 +69,7 @@
                   tableName="ct_oferta_tb">
             <column name="id" type="numeric"/>
             <column name="descripcion" type="string"/>
-            <column name="titulo" type="numeric"/>
+            <column name="titulo" type="string"/>
             <column name="salario" type="numeric"/>
             <column name="cargo" type="numeric"/>
             <column name="experiencia" type="string"/>

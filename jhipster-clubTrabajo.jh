@@ -5,6 +5,7 @@ entity Persona (ct_persona_tb) {
     nombre String required,
     apellido String required,
     email String required,
+    numeroDocumento String required,
 }
 
 entity TipoDocumento (ct_tipo_documento_tb) {
@@ -16,6 +17,7 @@ entity Empresa (ct_empresa_tb) {
 	razonSocial String required,
 	razonComercial String required,
 	email String required,
+	numeroDocumento String required,
 }
 entity TipoUsuario (ct_tipo_usuario_tb) {
 	id Integer required, 
@@ -28,7 +30,6 @@ entity InformacionAcademica (ct_informacion_academica_tb) {
 	fechaInicio LocalDate,
     fechaFin LocalDate,
     tituloOtorgado String,
-    perfilProfesional String,
 }
 entity InformacionPersonal (ct_informacion_personal_tb) {
 	id Integer required,
@@ -41,6 +42,7 @@ entity InformacionPersonal (ct_informacion_personal_tb) {
     discapacidad Integer,
     redesSociales Integer,
     licencenciaConduccion Boolean,
+    perfilProfesional String,
 }
 entity Dependencia (ct_dependencia_tb) {
 	id Integer required, 
@@ -70,10 +72,7 @@ entity Institucion (ct_institucion_tb) {
 	id Integer required,
 	institucion String required,
 }
-entity NivelIdioma (ct_nivel_idioma_tb) {
-	id Integer required,
- 	nivel String required,
-}
+
 entity Idioma (ct_idioma_tb) {
 	id Integer required,
  	idioma String required,
@@ -81,29 +80,27 @@ entity Idioma (ct_idioma_tb) {
 entity AplicacionOferta (ct_aplicacion_oferta_tb) {
     id Integer required,
 }
+
+entity PersonaIdioma (ct_persona_idioma_tb){
+	id Integer required,
+	nivel String required,
+}
+
 entity Oferta (ct_oferta_tb) {
     id Integer required,
     descripcion String required,
-    titulo Integer required,
+    titulo String required,
     salario Integer required,
     cargo Integer required,
     experiencia String,
     ciudad Integer required,
     area Integer required,
     fechaPublicacion LocalDate required,
-    estado String required, 
-}
-entity Usuario (ct_usuario_tb) {
-    id Integer required,
-    usuario Integer required,
-    clave String required,
-    estado String required,
+    estado String maxlength(1) required 
 }
 
 relationship ManyToOne {
     Archivo { usuario required} to Persona
-    Empresa { tipoDocumento required} to TipoDocumento
-    Persona { tipoDocumento required} to TipoDocumento
     AplicacionOferta { usuario required} to Persona
     InformacionAcademica { usuario required} to Persona
     InformacionPersonal { usuario required} to Persona
@@ -112,21 +109,14 @@ relationship ManyToOne {
     AplicacionOferta { oferta required} to Oferta
     InformacionLaboral { dependencia required} to Dependencia
     InformacionLaboral { cargo required} to Cargo
-    InformacionAcademica { idioma } to Idioma
-    InformacionAcademica { nivelIdioma } to NivelIdioma
     InformacionAcademica { institucion } to Institucion
-      
-}
-
-relationship OneToOne {
+    PersonaIdioma { idPersona required } to Persona
+    PersonaIdioma { idIdioma required } to Idioma
     Persona { tipoUsuario required} to TipoUsuario
-    Persona { numeroDocumento required} to Usuario 
-	Empresa { numeroDocumento required} to Usuario
     Empresa { tipoUsuario required} to TipoUsuario
-  
+    Empresa { tipoDocumento required} to TipoDocumento
+    Persona { tipoDocumento required} to TipoDocumento  
 }
-
-
 
 
 // Set pagination options

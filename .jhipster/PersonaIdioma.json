@@ -1,0 +1,41 @@
+{
+    "name": "PersonaIdioma",
+    "fields": [
+        {
+            "fieldName": "nivel",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "persona",
+            "otherEntityRelationshipName": "personaIdioma",
+            "relationshipValidateRules": "required",
+            "relationshipName": "idPersona",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "idioma",
+            "otherEntityRelationshipName": "personaIdioma",
+            "relationshipValidateRules": "required",
+            "relationshipName": "idIdioma",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200528015800",
+    "entityTableName": "ct_persona_idioma_tb",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

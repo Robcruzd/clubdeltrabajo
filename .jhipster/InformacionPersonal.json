@@ -54,6 +54,10 @@
         {
             "fieldName": "licencenciaConduccion",
             "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "perfilProfesional",
+            "fieldType": "String"
         }
     ],
     "relationships": [

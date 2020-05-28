@@ -94,9 +94,8 @@ public class EmpresaQueryService extends QueryService<Empresa> {
             if (criteria.getEmail() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getEmail(), Empresa_.email));
             }
-            if (criteria.getNumeroDocumentoId() != null) {
-                specification = specification.and(buildSpecification(criteria.getNumeroDocumentoId(),
-                    root -> root.join(Empresa_.numeroDocumento, JoinType.LEFT).get(Usuario_.id)));
+            if (criteria.getNumeroDocumento() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getNumeroDocumento(), Empresa_.numeroDocumento));
             }
             if (criteria.getTipoUsuarioId() != null) {
                 specification = specification.and(buildSpecification(criteria.getTipoUsuarioId(),

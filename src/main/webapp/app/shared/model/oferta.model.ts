@@ -4,7 +4,7 @@ import { IEmpresa } from 'app/shared/model/empresa.model';
 export interface IOferta {
   id?: number;
   descripcion?: string;
-  titulo?: number;
+  titulo?: string;
   salario?: number;
   cargo?: number;
   experiencia?: string;
@@ -19,7 +19,7 @@ export class Oferta implements IOferta {
   constructor(
     public id?: number,
     public descripcion?: string,
-    public titulo?: number,
+    public titulo?: string,
     public salario?: number,
     public cargo?: number,
     public experiencia?: string,

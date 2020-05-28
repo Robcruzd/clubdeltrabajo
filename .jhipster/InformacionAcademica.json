@@ -23,10 +23,6 @@
         {
             "fieldName": "tituloOtorgado",
             "fieldType": "String"
-        },
-        {
-            "fieldName": "perfilProfesional",
-            "fieldType": "String"
         }
     ],
     "relationships": [
@@ -36,20 +32,6 @@
             "otherEntityRelationshipName": "informacionAcademica",
             "relationshipValidateRules": "required",
             "relationshipName": "usuario",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "idioma",
-            "otherEntityRelationshipName": "informacionAcademica",
-            "relationshipName": "idioma",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "nivelIdioma",
-            "otherEntityRelationshipName": "informacionAcademica",
-            "relationshipName": "nivelIdioma",
             "otherEntityField": "id"
         },
         {

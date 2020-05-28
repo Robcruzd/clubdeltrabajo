@@ -60,12 +60,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="ctProjectApp.informacionAcademica.perfilProfesional" for="field_perfilProfesional">Perfil Profesional</label>
-                    <input type="text" class="form-control" name="perfilProfesional" id="field_perfilProfesional"
-                           formControlName="perfilProfesional"/>
-                </div>
-
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="ctProjectApp.informacionAcademica.usuario" for="field_usuario">Usuario</label>
                     <select class="form-control" id="field_usuario" name="usuario" formControlName="usuario">
                         <option *ngIf="!editForm.get('usuario')!.value" [ngValue]="null" selected></option>
@@ -77,22 +71,6 @@
                            *ngIf="editForm.get('usuario')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="ctProjectApp.informacionAcademica.idioma" for="field_idioma">Idioma</label>
-                    <select class="form-control" id="field_idioma" name="idioma" formControlName="idioma">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="idiomaOption.id === editForm.get('idioma')!.value?.id ? editForm.get('idioma')!.value : idiomaOption" *ngFor="let idiomaOption of idiomas; trackBy: trackById">{{ idiomaOption.id }}</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="ctProjectApp.informacionAcademica.nivelIdioma" for="field_nivelIdioma">Nivel Idioma</label>
-                    <select class="form-control" id="field_nivelIdioma" name="nivelIdioma" formControlName="nivelIdioma">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="nivelIdiomaOption.id === editForm.get('nivelIdioma')!.value?.id ? editForm.get('nivelIdioma')!.value : nivelIdiomaOption" *ngFor="let nivelIdiomaOption of nivelidiomas; trackBy: trackById">{{ nivelIdiomaOption.id }}</option>
-                    </select>
                 </div>
 
                 <div class="form-group">

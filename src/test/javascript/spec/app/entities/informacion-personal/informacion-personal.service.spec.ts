@@ -24,7 +24,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new InformacionPersonal(0, currentDate, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 0, 'AAAAAAA', 0, 0, false);
+      elemDefault = new InformacionPersonal(0, currentDate, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 0, 'AAAAAAA', 0, 0, false, 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -77,7 +77,8 @@ describe('Service Tests', () => {
             telefono: 'BBBBBB',
             discapacidad: 1,
             redesSociales: 1,
-            licencenciaConduccion: true
+            licencenciaConduccion: true,
+            perfilProfesional: 'BBBBBB'
           },
           elemDefault
         );
@@ -107,7 +108,8 @@ describe('Service Tests', () => {
             telefono: 'BBBBBB',
             discapacidad: 1,
             redesSociales: 1,
-            licencenciaConduccion: true
+            licencenciaConduccion: true,
+            perfilProfesional: 'BBBBBB'
           },
           elemDefault
         );

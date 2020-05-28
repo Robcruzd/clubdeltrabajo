@@ -4,18 +4,15 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { IEmpresa, Empresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from './empresa.service';
-import { IUsuario } from 'app/shared/model/usuario.model';
-import { UsuarioService } from 'app/entities/usuario/usuario.service';
 import { ITipoUsuario } from 'app/shared/model/tipo-usuario.model';
 import { TipoUsuarioService } from 'app/entities/tipo-usuario/tipo-usuario.service';
 import { ITipoDocumento } from 'app/shared/model/tipo-documento.model';
 import { TipoDocumentoService } from 'app/entities/tipo-documento/tipo-documento.service';
 
-type SelectableEntity = IUsuario | ITipoUsuario | ITipoDocumento;
+type SelectableEntity = ITipoUsuario | ITipoDocumento;
 
 @Component({
   selector: 'jhi-empresa-update',
@@ -23,7 +20,6 @@ type SelectableEntity = IUsuario | ITipoUsuario | ITipoDocumento;
 })
 export class EmpresaUpdateComponent implements OnInit {
   isSaving = false;
-  numerodocumentos: IUsuario[] = [];
   tipousuarios: ITipoUsuario[] = [];
   tipodocumentos: ITipoDocumento[] = [];
 
@@ -32,14 +28,13 @@ export class EmpresaUpdateComponent implements OnInit {
     razonSocial: [null, [Validators.required]],
     razonComercial: [null, [Validators.required]],
     email: [null, [Validators.required]],
-    numeroDocumento: [null, Validators.required],
+    numeroDocumento: [null, [Validators.required]],
     tipoUsuario: [null, Validators.required],
     tipoDocumento: [null, Validators.required]
   });
 
   constructor(
     protected empresaService: EmpresaService,
-    protected usuarioService: UsuarioService,
     protected tipoUsuarioService: TipoUsuarioService,
     protected tipoDocumentoService: TipoDocumentoService,
     protected activatedRoute: ActivatedRoute,
@@ -50,49 +45,7 @@ export class EmpresaUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ empresa }) => {
       this.updateForm(empresa);
 
-      this.usuarioService
-        .query({ 'empresaId.specified': 'false' })
-        .pipe(
-          map((res: HttpResponse<IUsuario[]>) => {
-            return res.body || [];
-          })
-        )
-        .subscribe((resBody: IUsuario[]) => {
-          if (!empresa.numeroDocumento || !empresa.numeroDocumento.id) {
-            this.numerodocumentos = resBody;
-          } else {
-            this.usuarioService
-              .find(empresa.numeroDocumento.id)
-              .pipe(
-                map((subRes: HttpResponse<IUsuario>) => {
-                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
-                })
-              )
-              .subscribe((concatRes: IUsuario[]) => (this.numerodocumentos = concatRes));
-          }
-        });
-
-      this.tipoUsuarioService
-        .query({ 'empresaId.specified': 'false' })
-        .pipe(
-          map((res: HttpResponse<ITipoUsuario[]>) => {
-            return res.body || [];
-          })
-        )
-        .subscribe((resBody: ITipoUsuario[]) => {
-          if (!empresa.tipoUsuario || !empresa.tipoUsuario.id) {
-            this.tipousuarios = resBody;
-          } else {
-            this.tipoUsuarioService
-              .find(empresa.tipoUsuario.id)
-              .pipe(
-                map((subRes: HttpResponse<ITipoUsuario>) => {
-                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
-                })
-              )
-              .subscribe((concatRes: ITipoUsuario[]) => (this.tipousuarios = concatRes));
-          }
-        });
+      this.tipoUsuarioService.query().subscribe((res: HttpResponse<ITipoUsuario[]>) => (this.tipousuarios = res.body || []));
 
       this.tipoDocumentoService.query().subscribe((res: HttpResponse<ITipoDocumento[]>) => (this.tipodocumentos = res.body || []));
     });

@@ -20,16 +20,14 @@
                 <dd>
                     <span>{{ persona.email }}</span>
                 </dd>
+                <dt><span jhiTranslate="ctProjectApp.persona.numeroDocumento">Numero Documento</span></dt>
+                <dd>
+                    <span>{{ persona.numeroDocumento }}</span>
+                </dd>
                 <dt><span jhiTranslate="ctProjectApp.persona.tipoUsuario">Tipo Usuario</span></dt>
                 <dd>
                     <div *ngIf="persona.tipoUsuario">
                         <a [routerLink]="['/tipo-usuario', persona.tipoUsuario?.id, 'view']">{{ persona.tipoUsuario?.id }}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="ctProjectApp.persona.numeroDocumento">Numero Documento</span></dt>
-                <dd>
-                    <div *ngIf="persona.numeroDocumento">
-                        <a [routerLink]="['/usuario', persona.numeroDocumento?.id, 'view']">{{ persona.numeroDocumento?.id }}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="ctProjectApp.persona.tipoDocumento">Tipo Documento</span></dt>

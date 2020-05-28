@@ -34,14 +34,13 @@ public class Empresa implements Serializable {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @OneToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
-    private Usuario numeroDocumento;
+    @Column(name = "numero_documento", nullable = false)
+    private String numeroDocumento;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
+    @JsonIgnoreProperties("empresas")
     private TipoUsuario tipoUsuario;
 
     @ManyToOne(optional = false)
@@ -97,17 +96,17 @@ public class Empresa implements Serializable {
         this.email = email;
     }
 
-    public Usuario getNumeroDocumento() {
+    public String getNumeroDocumento() {
         return numeroDocumento;
     }
 
-    public Empresa numeroDocumento(Usuario usuario) {
-        this.numeroDocumento = usuario;
+    public Empresa numeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
         return this;
     }
 
-    public void setNumeroDocumento(Usuario usuario) {
-        this.numeroDocumento = usuario;
+    public void setNumeroDocumento(String numeroDocumento) {
+        this.numeroDocumento = numeroDocumento;
     }
 
     public TipoUsuario getTipoUsuario() {
@@ -160,6 +159,7 @@ public class Empresa implements Serializable {
             ", razonSocial='" + getRazonSocial() + "'" +
             ", razonComercial='" + getRazonComercial() + "'" +
             ", email='" + getEmail() + "'" +
+            ", numeroDocumento='" + getNumeroDocumento() + "'" +
             "}";
     }
 }

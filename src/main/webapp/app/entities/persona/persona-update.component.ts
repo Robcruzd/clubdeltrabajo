@@ -4,18 +4,15 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { IPersona, Persona } from 'app/shared/model/persona.model';
 import { PersonaService } from './persona.service';
 import { ITipoUsuario } from 'app/shared/model/tipo-usuario.model';
 import { TipoUsuarioService } from 'app/entities/tipo-usuario/tipo-usuario.service';
-import { IUsuario } from 'app/shared/model/usuario.model';
-import { UsuarioService } from 'app/entities/usuario/usuario.service';
 import { ITipoDocumento } from 'app/shared/model/tipo-documento.model';
 import { TipoDocumentoService } from 'app/entities/tipo-documento/tipo-documento.service';
 
-type SelectableEntity = ITipoUsuario | IUsuario | ITipoDocumento;
+type SelectableEntity = ITipoUsuario | ITipoDocumento;
 
 @Component({
   selector: 'jhi-persona-update',
@@ -24,7 +21,6 @@ type SelectableEntity = ITipoUsuario | IUsuario | ITipoDocumento;
 export class PersonaUpdateComponent implements OnInit {
   isSaving = false;
   tipousuarios: ITipoUsuario[] = [];
-  numerodocumentos: IUsuario[] = [];
   tipodocumentos: ITipoDocumento[] = [];
 
   editForm = this.fb.group({
@@ -32,15 +28,14 @@ export class PersonaUpdateComponent implements OnInit {
     nombre: [null, [Validators.required]],
     apellido: [null, [Validators.required]],
     email: [null, [Validators.required]],
+    numeroDocumento: [null, [Validators.required]],
     tipoUsuario: [null, Validators.required],
-    numeroDocumento: [null, Validators.required],
     tipoDocumento: [null, Validators.required]
   });
 
   constructor(
     protected personaService: PersonaService,
     protected tipoUsuarioService: TipoUsuarioService,
-    protected usuarioService: UsuarioService,
     protected tipoDocumentoService: TipoDocumentoService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
@@ -50,49 +45,7 @@ export class PersonaUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ persona }) => {
       this.updateForm(persona);
 
-      this.tipoUsuarioService
-        .query({ 'personaId.specified': 'false' })
-        .pipe(
-          map((res: HttpResponse<ITipoUsuario[]>) => {
-            return res.body || [];
-          })
-        )
-        .subscribe((resBody: ITipoUsuario[]) => {
-          if (!persona.tipoUsuario || !persona.tipoUsuario.id) {
-            this.tipousuarios = resBody;
-          } else {
-            this.tipoUsuarioService
-              .find(persona.tipoUsuario.id)
-              .pipe(
-                map((subRes: HttpResponse<ITipoUsuario>) => {
-                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
-                })
-              )
-              .subscribe((concatRes: ITipoUsuario[]) => (this.tipousuarios = concatRes));
-          }
-        });
-
-      this.usuarioService
-        .query({ 'personaId.specified': 'false' })
-        .pipe(
-          map((res: HttpResponse<IUsuario[]>) => {
-            return res.body || [];
-          })
-        )
-        .subscribe((resBody: IUsuario[]) => {
-          if (!persona.numeroDocumento || !persona.numeroDocumento.id) {
-            this.numerodocumentos = resBody;
-          } else {
-            this.usuarioService
-              .find(persona.numeroDocumento.id)
-              .pipe(
-                map((subRes: HttpResponse<IUsuario>) => {
-                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
-                })
-              )
-              .subscribe((concatRes: IUsuario[]) => (this.numerodocumentos = concatRes));
-          }
-        });
+      this.tipoUsuarioService.query().subscribe((res: HttpResponse<ITipoUsuario[]>) => (this.tipousuarios = res.body || []));
 
       this.tipoDocumentoService.query().subscribe((res: HttpResponse<ITipoDocumento[]>) => (this.tipodocumentos = res.body || []));
     });
@@ -104,8 +57,8 @@ export class PersonaUpdateComponent implements OnInit {
       nombre: persona.nombre,
       apellido: persona.apellido,
       email: persona.email,
-      tipoUsuario: persona.tipoUsuario,
       numeroDocumento: persona.numeroDocumento,
+      tipoUsuario: persona.tipoUsuario,
       tipoDocumento: persona.tipoDocumento
     });
   }
@@ -131,8 +84,8 @@ export class PersonaUpdateComponent implements OnInit {
       nombre: this.editForm.get(['nombre'])!.value,
       apellido: this.editForm.get(['apellido'])!.value,
       email: this.editForm.get(['email'])!.value,
-      tipoUsuario: this.editForm.get(['tipoUsuario'])!.value,
       numeroDocumento: this.editForm.get(['numeroDocumento'])!.value,
+      tipoUsuario: this.editForm.get(['tipoUsuario'])!.value,
       tipoDocumento: this.editForm.get(['tipoDocumento'])!.value
     };
   }

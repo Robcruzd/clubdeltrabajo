@@ -24,11 +24,11 @@
             <column name="email" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="numero_documento_id" type="bigint">
-                <constraints unique="true" nullable="false" uniqueConstraintName="ux_ct_empresa_tb_numero_documento_id" />
+            <column name="numero_documento" type="varchar(255)">
+                <constraints nullable="false" />
             </column>
             <column name="tipo_usuario_id" type="bigint">
-                <constraints unique="true" nullable="false" uniqueConstraintName="ux_ct_empresa_tb_tipo_usuario_id" />
+                <constraints nullable="false" />
             </column>
             <column name="tipo_documento_id" type="bigint">
                 <constraints nullable="false" />
@@ -59,7 +59,7 @@
             <column name="razon_social" type="string"/>
             <column name="razon_comercial" type="string"/>
             <column name="email" type="string"/>
-            <column name="numero_documento_id" type="numeric"/>
+            <column name="numero_documento" type="string"/>
             <column name="tipo_usuario_id" type="numeric"/>
             <column name="tipo_documento_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->

@@ -19,8 +19,8 @@
       "nombre": "Nombre",
       "apellido": "Apellido",
       "email": "Email",
-      "tipoUsuario": "Tipo Usuario",
       "numeroDocumento": "Numero Documento",
+      "tipoUsuario": "Tipo Usuario",
       "tipoDocumento": "Tipo Documento"
     }
   }
