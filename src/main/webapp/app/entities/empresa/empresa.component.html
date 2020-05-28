@@ -26,7 +26,7 @@
                     <th scope="col"  jhiSortBy="razonSocial"><span jhiTranslate="ctProjectApp.empresa.razonSocial">Razon Social</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="razonComercial"><span jhiTranslate="ctProjectApp.empresa.razonComercial">Razon Comercial</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="email"><span jhiTranslate="ctProjectApp.empresa.email">Email</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="numeroDocumento.id"><span jhiTranslate="ctProjectApp.empresa.numeroDocumento">Numero Documento</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="numeroDocumento"><span jhiTranslate="ctProjectApp.empresa.numeroDocumento">Numero Documento</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="tipoUsuario.id"><span jhiTranslate="ctProjectApp.empresa.tipoUsuario">Tipo Usuario</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="tipoDocumento.id"><span jhiTranslate="ctProjectApp.empresa.tipoDocumento">Tipo Documento</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
@@ -38,11 +38,7 @@
                     <td>{{ empresa.razonSocial }}</td>
                     <td>{{ empresa.razonComercial }}</td>
                     <td>{{ empresa.email }}</td>
-                    <td>
-                        <div *ngIf="empresa.numeroDocumento">
-                            <a [routerLink]="['/usuario', empresa.numeroDocumento?.id, 'view']" >{{ empresa.numeroDocumento?.id }}</a>
-                        </div>
-                    </td>
+                    <td>{{ empresa.numeroDocumento }}</td>
                     <td>
                         <div *ngIf="empresa.tipoUsuario">
                             <a [routerLink]="['/tipo-usuario', empresa.tipoUsuario?.id, 'view']" >{{ empresa.tipoUsuario?.id }}</a>

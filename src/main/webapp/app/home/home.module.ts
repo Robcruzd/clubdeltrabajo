@@ -1,3 +1,4 @@
+import { QRCodeModule } from 'angularx-qrcode';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -22,7 +23,8 @@ import { CrearHojaVidaComponent } from './crear-hoja-vida/crear-hoja-vida.compon
     MatInputModule,
     FontAwesomeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    QRCodeModule
   ],
   declarations: [
     HomeComponent,

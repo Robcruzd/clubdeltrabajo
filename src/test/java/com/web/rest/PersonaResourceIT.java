@@ -3,7 +3,6 @@ package com.web.rest;
 import com.CtProjectApp;
 import com.domain.Persona;
 import com.domain.TipoUsuario;
-import com.domain.Usuario;
 import com.domain.TipoDocumento;
 import com.repository.PersonaRepository;
 import com.service.PersonaService;
@@ -45,6 +44,9 @@ public class PersonaResourceIT {
     private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
     private static final String UPDATED_EMAIL = "BBBBBBBBBB";
 
+    private static final String DEFAULT_NUMERO_DOCUMENTO = "AAAAAAAAAA";
+    private static final String UPDATED_NUMERO_DOCUMENTO = "BBBBBBBBBB";
+
     @Autowired
     private PersonaRepository personaRepository;
 
@@ -72,7 +74,8 @@ public class PersonaResourceIT {
         Persona persona = new Persona()
             .nombre(DEFAULT_NOMBRE)
             .apellido(DEFAULT_APELLIDO)
-            .email(DEFAULT_EMAIL);
+            .email(DEFAULT_EMAIL)
+            .numeroDocumento(DEFAULT_NUMERO_DOCUMENTO);
         // Add required entity
         TipoUsuario tipoUsuario;
         if (TestUtil.findAll(em, TipoUsuario.class).isEmpty()) {
@@ -83,16 +86,6 @@ public class PersonaResourceIT {
             tipoUsuario = TestUtil.findAll(em, TipoUsuario.class).get(0);
         }
         persona.setTipoUsuario(tipoUsuario);
-        // Add required entity
-        Usuario usuario;
-        if (TestUtil.findAll(em, Usuario.class).isEmpty()) {
-            usuario = UsuarioResourceIT.createEntity(em);
-            em.persist(usuario);
-            em.flush();
-        } else {
-            usuario = TestUtil.findAll(em, Usuario.class).get(0);
-        }
-        persona.setNumeroDocumento(usuario);
         // Add required entity
         TipoDocumento tipoDocumento;
         if (TestUtil.findAll(em, TipoDocumento.class).isEmpty()) {
@@ -115,7 +108,8 @@ public class PersonaResourceIT {
         Persona persona = new Persona()
             .nombre(UPDATED_NOMBRE)
             .apellido(UPDATED_APELLIDO)
-            .email(UPDATED_EMAIL);
+            .email(UPDATED_EMAIL)
+            .numeroDocumento(UPDATED_NUMERO_DOCUMENTO);
         // Add required entity
         TipoUsuario tipoUsuario;
         if (TestUtil.findAll(em, TipoUsuario.class).isEmpty()) {
@@ -126,16 +120,6 @@ public class PersonaResourceIT {
             tipoUsuario = TestUtil.findAll(em, TipoUsuario.class).get(0);
         }
         persona.setTipoUsuario(tipoUsuario);
-        // Add required entity
-        Usuario usuario;
-        if (TestUtil.findAll(em, Usuario.class).isEmpty()) {
-            usuario = UsuarioResourceIT.createUpdatedEntity(em);
-            em.persist(usuario);
-            em.flush();
-        } else {
-            usuario = TestUtil.findAll(em, Usuario.class).get(0);
-        }
-        persona.setNumeroDocumento(usuario);
         // Add required entity
         TipoDocumento tipoDocumento;
         if (TestUtil.findAll(em, TipoDocumento.class).isEmpty()) {
@@ -172,6 +156,7 @@ public class PersonaResourceIT {
         assertThat(testPersona.getNombre()).isEqualTo(DEFAULT_NOMBRE);
         assertThat(testPersona.getApellido()).isEqualTo(DEFAULT_APELLIDO);
         assertThat(testPersona.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testPersona.getNumeroDocumento()).isEqualTo(DEFAULT_NUMERO_DOCUMENTO);
     }
 
     @Test
@@ -250,6 +235,24 @@ public class PersonaResourceIT {
 
     @Test
     @Transactional
+    public void checkNumeroDocumentoIsRequired() throws Exception {
+        int databaseSizeBeforeTest = personaRepository.findAll().size();
+        // set the field null
+        persona.setNumeroDocumento(null);
+
+        // Create the Persona, which fails.
+
+        restPersonaMockMvc.perform(post("/api/personas")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(persona)))
+            .andExpect(status().isBadRequest());
+
+        List<Persona> personaList = personaRepository.findAll();
+        assertThat(personaList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllPersonas() throws Exception {
         // Initialize the database
         personaRepository.saveAndFlush(persona);
@@ -261,7 +264,8 @@ public class PersonaResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(persona.getId().intValue())))
             .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
             .andExpect(jsonPath("$.[*].apellido").value(hasItem(DEFAULT_APELLIDO)))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)));
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
+            .andExpect(jsonPath("$.[*].numeroDocumento").value(hasItem(DEFAULT_NUMERO_DOCUMENTO)));
     }
     
     @Test
@@ -277,7 +281,8 @@ public class PersonaResourceIT {
             .andExpect(jsonPath("$.id").value(persona.getId().intValue()))
             .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE))
             .andExpect(jsonPath("$.apellido").value(DEFAULT_APELLIDO))
-            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL));
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
+            .andExpect(jsonPath("$.numeroDocumento").value(DEFAULT_NUMERO_DOCUMENTO));
     }
 
 
@@ -536,6 +541,84 @@ public class PersonaResourceIT {
 
     @Test
     @Transactional
+    public void getAllPersonasByNumeroDocumentoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        personaRepository.saveAndFlush(persona);
+
+        // Get all the personaList where numeroDocumento equals to DEFAULT_NUMERO_DOCUMENTO
+        defaultPersonaShouldBeFound("numeroDocumento.equals=" + DEFAULT_NUMERO_DOCUMENTO);
+
+        // Get all the personaList where numeroDocumento equals to UPDATED_NUMERO_DOCUMENTO
+        defaultPersonaShouldNotBeFound("numeroDocumento.equals=" + UPDATED_NUMERO_DOCUMENTO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllPersonasByNumeroDocumentoIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        personaRepository.saveAndFlush(persona);
+
+        // Get all the personaList where numeroDocumento not equals to DEFAULT_NUMERO_DOCUMENTO
+        defaultPersonaShouldNotBeFound("numeroDocumento.notEquals=" + DEFAULT_NUMERO_DOCUMENTO);
+
+        // Get all the personaList where numeroDocumento not equals to UPDATED_NUMERO_DOCUMENTO
+        defaultPersonaShouldBeFound("numeroDocumento.notEquals=" + UPDATED_NUMERO_DOCUMENTO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllPersonasByNumeroDocumentoIsInShouldWork() throws Exception {
+        // Initialize the database
+        personaRepository.saveAndFlush(persona);
+
+        // Get all the personaList where numeroDocumento in DEFAULT_NUMERO_DOCUMENTO or UPDATED_NUMERO_DOCUMENTO
+        defaultPersonaShouldBeFound("numeroDocumento.in=" + DEFAULT_NUMERO_DOCUMENTO + "," + UPDATED_NUMERO_DOCUMENTO);
+
+        // Get all the personaList where numeroDocumento equals to UPDATED_NUMERO_DOCUMENTO
+        defaultPersonaShouldNotBeFound("numeroDocumento.in=" + UPDATED_NUMERO_DOCUMENTO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllPersonasByNumeroDocumentoIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        personaRepository.saveAndFlush(persona);
+
+        // Get all the personaList where numeroDocumento is not null
+        defaultPersonaShouldBeFound("numeroDocumento.specified=true");
+
+        // Get all the personaList where numeroDocumento is null
+        defaultPersonaShouldNotBeFound("numeroDocumento.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllPersonasByNumeroDocumentoContainsSomething() throws Exception {
+        // Initialize the database
+        personaRepository.saveAndFlush(persona);
+
+        // Get all the personaList where numeroDocumento contains DEFAULT_NUMERO_DOCUMENTO
+        defaultPersonaShouldBeFound("numeroDocumento.contains=" + DEFAULT_NUMERO_DOCUMENTO);
+
+        // Get all the personaList where numeroDocumento contains UPDATED_NUMERO_DOCUMENTO
+        defaultPersonaShouldNotBeFound("numeroDocumento.contains=" + UPDATED_NUMERO_DOCUMENTO);
+    }
+
+    @Test
+    @Transactional
+    public void getAllPersonasByNumeroDocumentoNotContainsSomething() throws Exception {
+        // Initialize the database
+        personaRepository.saveAndFlush(persona);
+
+        // Get all the personaList where numeroDocumento does not contain DEFAULT_NUMERO_DOCUMENTO
+        defaultPersonaShouldNotBeFound("numeroDocumento.doesNotContain=" + DEFAULT_NUMERO_DOCUMENTO);
+
+        // Get all the personaList where numeroDocumento does not contain UPDATED_NUMERO_DOCUMENTO
+        defaultPersonaShouldBeFound("numeroDocumento.doesNotContain=" + UPDATED_NUMERO_DOCUMENTO);
+    }
+
+
+    @Test
+    @Transactional
     public void getAllPersonasByTipoUsuarioIsEqualToSomething() throws Exception {
         // Get already existing entity
         TipoUsuario tipoUsuario = persona.getTipoUsuario();
@@ -547,22 +630,6 @@ public class PersonaResourceIT {
 
         // Get all the personaList where tipoUsuario equals to tipoUsuarioId + 1
         defaultPersonaShouldNotBeFound("tipoUsuarioId.equals=" + (tipoUsuarioId + 1));
-    }
-
-
-    @Test
-    @Transactional
-    public void getAllPersonasByNumeroDocumentoIsEqualToSomething() throws Exception {
-        // Get already existing entity
-        Usuario numeroDocumento = persona.getNumeroDocumento();
-        personaRepository.saveAndFlush(persona);
-        Long numeroDocumentoId = numeroDocumento.getId();
-
-        // Get all the personaList where numeroDocumento equals to numeroDocumentoId
-        defaultPersonaShouldBeFound("numeroDocumentoId.equals=" + numeroDocumentoId);
-
-        // Get all the personaList where numeroDocumento equals to numeroDocumentoId + 1
-        defaultPersonaShouldNotBeFound("numeroDocumentoId.equals=" + (numeroDocumentoId + 1));
     }
 
 
@@ -591,7 +658,8 @@ public class PersonaResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(persona.getId().intValue())))
             .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
             .andExpect(jsonPath("$.[*].apellido").value(hasItem(DEFAULT_APELLIDO)))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)));
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
+            .andExpect(jsonPath("$.[*].numeroDocumento").value(hasItem(DEFAULT_NUMERO_DOCUMENTO)));
 
         // Check, that the count call also returns 1
         restPersonaMockMvc.perform(get("/api/personas/count?sort=id,desc&" + filter))
@@ -641,7 +709,8 @@ public class PersonaResourceIT {
         updatedPersona
             .nombre(UPDATED_NOMBRE)
             .apellido(UPDATED_APELLIDO)
-            .email(UPDATED_EMAIL);
+            .email(UPDATED_EMAIL)
+            .numeroDocumento(UPDATED_NUMERO_DOCUMENTO);
 
         restPersonaMockMvc.perform(put("/api/personas")
             .contentType(MediaType.APPLICATION_JSON)
@@ -655,6 +724,7 @@ public class PersonaResourceIT {
         assertThat(testPersona.getNombre()).isEqualTo(UPDATED_NOMBRE);
         assertThat(testPersona.getApellido()).isEqualTo(UPDATED_APELLIDO);
         assertThat(testPersona.getEmail()).isEqualTo(UPDATED_EMAIL);
+        assertThat(testPersona.getNumeroDocumento()).isEqualTo(UPDATED_NUMERO_DOCUMENTO);
     }
 
     @Test

@@ -25,16 +25,12 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="ctProjectApp.oferta.titulo" for="field_titulo">Titulo</label>
-                    <input type="number" class="form-control" name="titulo" id="field_titulo"
+                    <input type="text" class="form-control" name="titulo" id="field_titulo"
                            formControlName="titulo"/>
                     <div *ngIf="editForm.get('titulo')!.invalid && (editForm.get('titulo')!.dirty || editForm.get('titulo')!.touched)">
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('titulo')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.get('titulo')?.errors?.number" jhiTranslate="entity.validation.number">
-                            This field should be a number.
                         </small>
                     </div>
                 </div>
@@ -133,6 +129,10 @@
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('estado')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('estado')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 1 }">
+                        This field cannot be longer than 1 characters.
                         </small>
                     </div>
                 </div>

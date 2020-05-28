@@ -37,13 +37,7 @@ public class InformacionAcademicaCriteria implements Serializable, Criteria {
 
     private StringFilter tituloOtorgado;
 
-    private StringFilter perfilProfesional;
-
     private LongFilter usuarioId;
-
-    private LongFilter idiomaId;
-
-    private LongFilter nivelIdiomaId;
 
     private LongFilter institucionId;
 
@@ -57,10 +51,7 @@ public class InformacionAcademicaCriteria implements Serializable, Criteria {
         this.fechaInicio = other.fechaInicio == null ? null : other.fechaInicio.copy();
         this.fechaFin = other.fechaFin == null ? null : other.fechaFin.copy();
         this.tituloOtorgado = other.tituloOtorgado == null ? null : other.tituloOtorgado.copy();
-        this.perfilProfesional = other.perfilProfesional == null ? null : other.perfilProfesional.copy();
         this.usuarioId = other.usuarioId == null ? null : other.usuarioId.copy();
-        this.idiomaId = other.idiomaId == null ? null : other.idiomaId.copy();
-        this.nivelIdiomaId = other.nivelIdiomaId == null ? null : other.nivelIdiomaId.copy();
         this.institucionId = other.institucionId == null ? null : other.institucionId.copy();
     }
 
@@ -117,36 +108,12 @@ public class InformacionAcademicaCriteria implements Serializable, Criteria {
         this.tituloOtorgado = tituloOtorgado;
     }
 
-    public StringFilter getPerfilProfesional() {
-        return perfilProfesional;
-    }
-
-    public void setPerfilProfesional(StringFilter perfilProfesional) {
-        this.perfilProfesional = perfilProfesional;
-    }
-
     public LongFilter getUsuarioId() {
         return usuarioId;
     }
 
     public void setUsuarioId(LongFilter usuarioId) {
         this.usuarioId = usuarioId;
-    }
-
-    public LongFilter getIdiomaId() {
-        return idiomaId;
-    }
-
-    public void setIdiomaId(LongFilter idiomaId) {
-        this.idiomaId = idiomaId;
-    }
-
-    public LongFilter getNivelIdiomaId() {
-        return nivelIdiomaId;
-    }
-
-    public void setNivelIdiomaId(LongFilter nivelIdiomaId) {
-        this.nivelIdiomaId = nivelIdiomaId;
     }
 
     public LongFilter getInstitucionId() {
@@ -174,10 +141,7 @@ public class InformacionAcademicaCriteria implements Serializable, Criteria {
             Objects.equals(fechaInicio, that.fechaInicio) &&
             Objects.equals(fechaFin, that.fechaFin) &&
             Objects.equals(tituloOtorgado, that.tituloOtorgado) &&
-            Objects.equals(perfilProfesional, that.perfilProfesional) &&
             Objects.equals(usuarioId, that.usuarioId) &&
-            Objects.equals(idiomaId, that.idiomaId) &&
-            Objects.equals(nivelIdiomaId, that.nivelIdiomaId) &&
             Objects.equals(institucionId, that.institucionId);
     }
 
@@ -190,10 +154,7 @@ public class InformacionAcademicaCriteria implements Serializable, Criteria {
         fechaInicio,
         fechaFin,
         tituloOtorgado,
-        perfilProfesional,
         usuarioId,
-        idiomaId,
-        nivelIdiomaId,
         institucionId
         );
     }
@@ -207,10 +168,7 @@ public class InformacionAcademicaCriteria implements Serializable, Criteria {
                 (fechaInicio != null ? "fechaInicio=" + fechaInicio + ", " : "") +
                 (fechaFin != null ? "fechaFin=" + fechaFin + ", " : "") +
                 (tituloOtorgado != null ? "tituloOtorgado=" + tituloOtorgado + ", " : "") +
-                (perfilProfesional != null ? "perfilProfesional=" + perfilProfesional + ", " : "") +
                 (usuarioId != null ? "usuarioId=" + usuarioId + ", " : "") +
-                (idiomaId != null ? "idiomaId=" + idiomaId + ", " : "") +
-                (nivelIdiomaId != null ? "nivelIdiomaId=" + nivelIdiomaId + ", " : "") +
                 (institucionId != null ? "institucionId=" + institucionId + ", " : "") +
             "}";
     }

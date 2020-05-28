@@ -14,12 +14,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="ct_tipo_usuario_tb"/>
 
-        <addForeignKeyConstraint baseColumnNames="numero_documento_id"
-                                 baseTableName="ct_persona_tb"
-                                 constraintName="fk_ct_persona_tb_numero_documento_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="ct_usuario_tb"/>
-
         <addForeignKeyConstraint baseColumnNames="tipo_documento_id"
                                  baseTableName="ct_persona_tb"
                                  constraintName="fk_ct_persona_tb_tipo_documento_id"

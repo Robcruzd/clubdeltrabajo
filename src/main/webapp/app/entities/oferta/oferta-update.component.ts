@@ -29,7 +29,7 @@ export class OfertaUpdateComponent implements OnInit {
     ciudad: [null, [Validators.required]],
     area: [null, [Validators.required]],
     fechaPublicacion: [null, [Validators.required]],
-    estado: [null, [Validators.required]],
+    estado: [null, [Validators.required, Validators.maxLength(1)]],
     usuario: [null, Validators.required]
   });
 

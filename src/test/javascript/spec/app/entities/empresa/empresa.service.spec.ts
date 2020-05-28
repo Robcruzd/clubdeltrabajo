@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(EmpresaService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Empresa(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Empresa(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -56,7 +56,8 @@ describe('Service Tests', () => {
           {
             razonSocial: 'BBBBBB',
             razonComercial: 'BBBBBB',
-            email: 'BBBBBB'
+            email: 'BBBBBB',
+            numeroDocumento: 'BBBBBB'
           },
           elemDefault
         );
@@ -75,7 +76,8 @@ describe('Service Tests', () => {
           {
             razonSocial: 'BBBBBB',
             razonComercial: 'BBBBBB',
-            email: 'BBBBBB'
+            email: 'BBBBBB',
+            numeroDocumento: 'BBBBBB'
           },
           elemDefault
         );

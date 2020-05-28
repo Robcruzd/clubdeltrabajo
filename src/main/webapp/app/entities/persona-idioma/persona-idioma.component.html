@@ -1,0 +1,83 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="ctProjectApp.personaIdioma.home.title">Persona Idiomas</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-persona-idioma" [routerLink]="['/persona-idioma/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="ctProjectApp.personaIdioma.home.createLabel">
+            Create a new Persona Idioma
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="personaIdiomas?.length === 0">
+        <span jhiTranslate="ctProjectApp.personaIdioma.home.notFound">No personaIdiomas found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="personaIdiomas?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="nivel"><span jhiTranslate="ctProjectApp.personaIdioma.nivel">Nivel</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="idPersona.id"><span jhiTranslate="ctProjectApp.personaIdioma.idPersona">Id Persona</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="idIdioma.id"><span jhiTranslate="ctProjectApp.personaIdioma.idIdioma">Id Idioma</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let personaIdioma of personaIdiomas ;trackBy: trackId">
+                    <td><a [routerLink]="['/persona-idioma', personaIdioma.id, 'view']">{{ personaIdioma.id }}</a></td>
+                    <td>{{ personaIdioma.nivel }}</td>
+                    <td>
+                        <div *ngIf="personaIdioma.idPersona">
+                            <a [routerLink]="['/persona', personaIdioma.idPersona?.id, 'view']" >{{ personaIdioma.idPersona?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="personaIdioma.idIdioma">
+                            <a [routerLink]="['/idioma', personaIdioma.idIdioma?.id, 'view']" >{{ personaIdioma.idIdioma?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/persona-idioma', personaIdioma.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/persona-idioma', personaIdioma.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(personaIdioma)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="personaIdiomas?.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

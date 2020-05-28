@@ -10,7 +10,7 @@
         },
         {
             "fieldName": "titulo",
-            "fieldType": "Integer",
+            "fieldType": "String",
             "fieldValidateRules": [
                 "required"
             ]
@@ -58,8 +58,10 @@
             "fieldName": "estado",
             "fieldType": "String",
             "fieldValidateRules": [
+                "maxlength",
                 "required"
-            ]
+            ],
+            "fieldValidateRulesMaxlength": "1"
         }
     ],
     "relationships": [

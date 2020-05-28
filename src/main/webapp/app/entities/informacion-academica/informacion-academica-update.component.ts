@@ -9,14 +9,10 @@ import { IInformacionAcademica, InformacionAcademica } from 'app/shared/model/in
 import { InformacionAcademicaService } from './informacion-academica.service';
 import { IPersona } from 'app/shared/model/persona.model';
 import { PersonaService } from 'app/entities/persona/persona.service';
-import { IIdioma } from 'app/shared/model/idioma.model';
-import { IdiomaService } from 'app/entities/idioma/idioma.service';
-import { INivelIdioma } from 'app/shared/model/nivel-idioma.model';
-import { NivelIdiomaService } from 'app/entities/nivel-idioma/nivel-idioma.service';
 import { IInstitucion } from 'app/shared/model/institucion.model';
 import { InstitucionService } from 'app/entities/institucion/institucion.service';
 
-type SelectableEntity = IPersona | IIdioma | INivelIdioma | IInstitucion;
+type SelectableEntity = IPersona | IInstitucion;
 
 @Component({
   selector: 'jhi-informacion-academica-update',
@@ -25,8 +21,6 @@ type SelectableEntity = IPersona | IIdioma | INivelIdioma | IInstitucion;
 export class InformacionAcademicaUpdateComponent implements OnInit {
   isSaving = false;
   personas: IPersona[] = [];
-  idiomas: IIdioma[] = [];
-  nivelidiomas: INivelIdioma[] = [];
   institucions: IInstitucion[] = [];
   fechaInicioDp: any;
   fechaFinDp: any;
@@ -38,18 +32,13 @@ export class InformacionAcademicaUpdateComponent implements OnInit {
     fechaInicio: [],
     fechaFin: [],
     tituloOtorgado: [],
-    perfilProfesional: [],
     usuario: [null, Validators.required],
-    idioma: [],
-    nivelIdioma: [],
     institucion: []
   });
 
   constructor(
     protected informacionAcademicaService: InformacionAcademicaService,
     protected personaService: PersonaService,
-    protected idiomaService: IdiomaService,
-    protected nivelIdiomaService: NivelIdiomaService,
     protected institucionService: InstitucionService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
@@ -60,10 +49,6 @@ export class InformacionAcademicaUpdateComponent implements OnInit {
       this.updateForm(informacionAcademica);
 
       this.personaService.query().subscribe((res: HttpResponse<IPersona[]>) => (this.personas = res.body || []));
-
-      this.idiomaService.query().subscribe((res: HttpResponse<IIdioma[]>) => (this.idiomas = res.body || []));
-
-      this.nivelIdiomaService.query().subscribe((res: HttpResponse<INivelIdioma[]>) => (this.nivelidiomas = res.body || []));
 
       this.institucionService.query().subscribe((res: HttpResponse<IInstitucion[]>) => (this.institucions = res.body || []));
     });
@@ -77,10 +62,7 @@ export class InformacionAcademicaUpdateComponent implements OnInit {
       fechaInicio: informacionAcademica.fechaInicio,
       fechaFin: informacionAcademica.fechaFin,
       tituloOtorgado: informacionAcademica.tituloOtorgado,
-      perfilProfesional: informacionAcademica.perfilProfesional,
       usuario: informacionAcademica.usuario,
-      idioma: informacionAcademica.idioma,
-      nivelIdioma: informacionAcademica.nivelIdioma,
       institucion: informacionAcademica.institucion
     });
   }
@@ -108,10 +90,7 @@ export class InformacionAcademicaUpdateComponent implements OnInit {
       fechaInicio: this.editForm.get(['fechaInicio'])!.value,
       fechaFin: this.editForm.get(['fechaFin'])!.value,
       tituloOtorgado: this.editForm.get(['tituloOtorgado'])!.value,
-      perfilProfesional: this.editForm.get(['perfilProfesional'])!.value,
       usuario: this.editForm.get(['usuario'])!.value,
-      idioma: this.editForm.get(['idioma'])!.value,
-      nivelIdioma: this.editForm.get(['nivelIdioma'])!.value,
       institucion: this.editForm.get(['institucion'])!.value
     };
   }

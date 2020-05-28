@@ -3,8 +3,6 @@ package com.web.rest;
 import com.CtProjectApp;
 import com.domain.InformacionAcademica;
 import com.domain.Persona;
-import com.domain.Idioma;
-import com.domain.NivelIdioma;
 import com.domain.Institucion;
 import com.repository.InformacionAcademicaRepository;
 import com.service.InformacionAcademicaService;
@@ -58,9 +56,6 @@ public class InformacionAcademicaResourceIT {
     private static final String DEFAULT_TITULO_OTORGADO = "AAAAAAAAAA";
     private static final String UPDATED_TITULO_OTORGADO = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PERFIL_PROFESIONAL = "AAAAAAAAAA";
-    private static final String UPDATED_PERFIL_PROFESIONAL = "BBBBBBBBBB";
-
     @Autowired
     private InformacionAcademicaRepository informacionAcademicaRepository;
 
@@ -90,8 +85,7 @@ public class InformacionAcademicaResourceIT {
             .estado(DEFAULT_ESTADO)
             .fechaInicio(DEFAULT_FECHA_INICIO)
             .fechaFin(DEFAULT_FECHA_FIN)
-            .tituloOtorgado(DEFAULT_TITULO_OTORGADO)
-            .perfilProfesional(DEFAULT_PERFIL_PROFESIONAL);
+            .tituloOtorgado(DEFAULT_TITULO_OTORGADO);
         // Add required entity
         Persona persona;
         if (TestUtil.findAll(em, Persona.class).isEmpty()) {
@@ -116,8 +110,7 @@ public class InformacionAcademicaResourceIT {
             .estado(UPDATED_ESTADO)
             .fechaInicio(UPDATED_FECHA_INICIO)
             .fechaFin(UPDATED_FECHA_FIN)
-            .tituloOtorgado(UPDATED_TITULO_OTORGADO)
-            .perfilProfesional(UPDATED_PERFIL_PROFESIONAL);
+            .tituloOtorgado(UPDATED_TITULO_OTORGADO);
         // Add required entity
         Persona persona;
         if (TestUtil.findAll(em, Persona.class).isEmpty()) {
@@ -156,7 +149,6 @@ public class InformacionAcademicaResourceIT {
         assertThat(testInformacionAcademica.getFechaInicio()).isEqualTo(DEFAULT_FECHA_INICIO);
         assertThat(testInformacionAcademica.getFechaFin()).isEqualTo(DEFAULT_FECHA_FIN);
         assertThat(testInformacionAcademica.getTituloOtorgado()).isEqualTo(DEFAULT_TITULO_OTORGADO);
-        assertThat(testInformacionAcademica.getPerfilProfesional()).isEqualTo(DEFAULT_PERFIL_PROFESIONAL);
     }
 
     @Test
@@ -212,8 +204,7 @@ public class InformacionAcademicaResourceIT {
             .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO)))
             .andExpect(jsonPath("$.[*].fechaInicio").value(hasItem(DEFAULT_FECHA_INICIO.toString())))
             .andExpect(jsonPath("$.[*].fechaFin").value(hasItem(DEFAULT_FECHA_FIN.toString())))
-            .andExpect(jsonPath("$.[*].tituloOtorgado").value(hasItem(DEFAULT_TITULO_OTORGADO)))
-            .andExpect(jsonPath("$.[*].perfilProfesional").value(hasItem(DEFAULT_PERFIL_PROFESIONAL)));
+            .andExpect(jsonPath("$.[*].tituloOtorgado").value(hasItem(DEFAULT_TITULO_OTORGADO)));
     }
     
     @Test
@@ -231,8 +222,7 @@ public class InformacionAcademicaResourceIT {
             .andExpect(jsonPath("$.estado").value(DEFAULT_ESTADO))
             .andExpect(jsonPath("$.fechaInicio").value(DEFAULT_FECHA_INICIO.toString()))
             .andExpect(jsonPath("$.fechaFin").value(DEFAULT_FECHA_FIN.toString()))
-            .andExpect(jsonPath("$.tituloOtorgado").value(DEFAULT_TITULO_OTORGADO))
-            .andExpect(jsonPath("$.perfilProfesional").value(DEFAULT_PERFIL_PROFESIONAL));
+            .andExpect(jsonPath("$.tituloOtorgado").value(DEFAULT_TITULO_OTORGADO));
     }
 
 
@@ -755,84 +745,6 @@ public class InformacionAcademicaResourceIT {
 
     @Test
     @Transactional
-    public void getAllInformacionAcademicasByPerfilProfesionalIsEqualToSomething() throws Exception {
-        // Initialize the database
-        informacionAcademicaRepository.saveAndFlush(informacionAcademica);
-
-        // Get all the informacionAcademicaList where perfilProfesional equals to DEFAULT_PERFIL_PROFESIONAL
-        defaultInformacionAcademicaShouldBeFound("perfilProfesional.equals=" + DEFAULT_PERFIL_PROFESIONAL);
-
-        // Get all the informacionAcademicaList where perfilProfesional equals to UPDATED_PERFIL_PROFESIONAL
-        defaultInformacionAcademicaShouldNotBeFound("perfilProfesional.equals=" + UPDATED_PERFIL_PROFESIONAL);
-    }
-
-    @Test
-    @Transactional
-    public void getAllInformacionAcademicasByPerfilProfesionalIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        informacionAcademicaRepository.saveAndFlush(informacionAcademica);
-
-        // Get all the informacionAcademicaList where perfilProfesional not equals to DEFAULT_PERFIL_PROFESIONAL
-        defaultInformacionAcademicaShouldNotBeFound("perfilProfesional.notEquals=" + DEFAULT_PERFIL_PROFESIONAL);
-
-        // Get all the informacionAcademicaList where perfilProfesional not equals to UPDATED_PERFIL_PROFESIONAL
-        defaultInformacionAcademicaShouldBeFound("perfilProfesional.notEquals=" + UPDATED_PERFIL_PROFESIONAL);
-    }
-
-    @Test
-    @Transactional
-    public void getAllInformacionAcademicasByPerfilProfesionalIsInShouldWork() throws Exception {
-        // Initialize the database
-        informacionAcademicaRepository.saveAndFlush(informacionAcademica);
-
-        // Get all the informacionAcademicaList where perfilProfesional in DEFAULT_PERFIL_PROFESIONAL or UPDATED_PERFIL_PROFESIONAL
-        defaultInformacionAcademicaShouldBeFound("perfilProfesional.in=" + DEFAULT_PERFIL_PROFESIONAL + "," + UPDATED_PERFIL_PROFESIONAL);
-
-        // Get all the informacionAcademicaList where perfilProfesional equals to UPDATED_PERFIL_PROFESIONAL
-        defaultInformacionAcademicaShouldNotBeFound("perfilProfesional.in=" + UPDATED_PERFIL_PROFESIONAL);
-    }
-
-    @Test
-    @Transactional
-    public void getAllInformacionAcademicasByPerfilProfesionalIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        informacionAcademicaRepository.saveAndFlush(informacionAcademica);
-
-        // Get all the informacionAcademicaList where perfilProfesional is not null
-        defaultInformacionAcademicaShouldBeFound("perfilProfesional.specified=true");
-
-        // Get all the informacionAcademicaList where perfilProfesional is null
-        defaultInformacionAcademicaShouldNotBeFound("perfilProfesional.specified=false");
-    }
-                @Test
-    @Transactional
-    public void getAllInformacionAcademicasByPerfilProfesionalContainsSomething() throws Exception {
-        // Initialize the database
-        informacionAcademicaRepository.saveAndFlush(informacionAcademica);
-
-        // Get all the informacionAcademicaList where perfilProfesional contains DEFAULT_PERFIL_PROFESIONAL
-        defaultInformacionAcademicaShouldBeFound("perfilProfesional.contains=" + DEFAULT_PERFIL_PROFESIONAL);
-
-        // Get all the informacionAcademicaList where perfilProfesional contains UPDATED_PERFIL_PROFESIONAL
-        defaultInformacionAcademicaShouldNotBeFound("perfilProfesional.contains=" + UPDATED_PERFIL_PROFESIONAL);
-    }
-
-    @Test
-    @Transactional
-    public void getAllInformacionAcademicasByPerfilProfesionalNotContainsSomething() throws Exception {
-        // Initialize the database
-        informacionAcademicaRepository.saveAndFlush(informacionAcademica);
-
-        // Get all the informacionAcademicaList where perfilProfesional does not contain DEFAULT_PERFIL_PROFESIONAL
-        defaultInformacionAcademicaShouldNotBeFound("perfilProfesional.doesNotContain=" + DEFAULT_PERFIL_PROFESIONAL);
-
-        // Get all the informacionAcademicaList where perfilProfesional does not contain UPDATED_PERFIL_PROFESIONAL
-        defaultInformacionAcademicaShouldBeFound("perfilProfesional.doesNotContain=" + UPDATED_PERFIL_PROFESIONAL);
-    }
-
-
-    @Test
-    @Transactional
     public void getAllInformacionAcademicasByUsuarioIsEqualToSomething() throws Exception {
         // Get already existing entity
         Persona usuario = informacionAcademica.getUsuario();
@@ -844,46 +756,6 @@ public class InformacionAcademicaResourceIT {
 
         // Get all the informacionAcademicaList where usuario equals to usuarioId + 1
         defaultInformacionAcademicaShouldNotBeFound("usuarioId.equals=" + (usuarioId + 1));
-    }
-
-
-    @Test
-    @Transactional
-    public void getAllInformacionAcademicasByIdiomaIsEqualToSomething() throws Exception {
-        // Initialize the database
-        informacionAcademicaRepository.saveAndFlush(informacionAcademica);
-        Idioma idioma = IdiomaResourceIT.createEntity(em);
-        em.persist(idioma);
-        em.flush();
-        informacionAcademica.setIdioma(idioma);
-        informacionAcademicaRepository.saveAndFlush(informacionAcademica);
-        Long idiomaId = idioma.getId();
-
-        // Get all the informacionAcademicaList where idioma equals to idiomaId
-        defaultInformacionAcademicaShouldBeFound("idiomaId.equals=" + idiomaId);
-
-        // Get all the informacionAcademicaList where idioma equals to idiomaId + 1
-        defaultInformacionAcademicaShouldNotBeFound("idiomaId.equals=" + (idiomaId + 1));
-    }
-
-
-    @Test
-    @Transactional
-    public void getAllInformacionAcademicasByNivelIdiomaIsEqualToSomething() throws Exception {
-        // Initialize the database
-        informacionAcademicaRepository.saveAndFlush(informacionAcademica);
-        NivelIdioma nivelIdioma = NivelIdiomaResourceIT.createEntity(em);
-        em.persist(nivelIdioma);
-        em.flush();
-        informacionAcademica.setNivelIdioma(nivelIdioma);
-        informacionAcademicaRepository.saveAndFlush(informacionAcademica);
-        Long nivelIdiomaId = nivelIdioma.getId();
-
-        // Get all the informacionAcademicaList where nivelIdioma equals to nivelIdiomaId
-        defaultInformacionAcademicaShouldBeFound("nivelIdiomaId.equals=" + nivelIdiomaId);
-
-        // Get all the informacionAcademicaList where nivelIdioma equals to nivelIdiomaId + 1
-        defaultInformacionAcademicaShouldNotBeFound("nivelIdiomaId.equals=" + (nivelIdiomaId + 1));
     }
 
 
@@ -918,8 +790,7 @@ public class InformacionAcademicaResourceIT {
             .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO)))
             .andExpect(jsonPath("$.[*].fechaInicio").value(hasItem(DEFAULT_FECHA_INICIO.toString())))
             .andExpect(jsonPath("$.[*].fechaFin").value(hasItem(DEFAULT_FECHA_FIN.toString())))
-            .andExpect(jsonPath("$.[*].tituloOtorgado").value(hasItem(DEFAULT_TITULO_OTORGADO)))
-            .andExpect(jsonPath("$.[*].perfilProfesional").value(hasItem(DEFAULT_PERFIL_PROFESIONAL)));
+            .andExpect(jsonPath("$.[*].tituloOtorgado").value(hasItem(DEFAULT_TITULO_OTORGADO)));
 
         // Check, that the count call also returns 1
         restInformacionAcademicaMockMvc.perform(get("/api/informacion-academicas/count?sort=id,desc&" + filter))
@@ -971,8 +842,7 @@ public class InformacionAcademicaResourceIT {
             .estado(UPDATED_ESTADO)
             .fechaInicio(UPDATED_FECHA_INICIO)
             .fechaFin(UPDATED_FECHA_FIN)
-            .tituloOtorgado(UPDATED_TITULO_OTORGADO)
-            .perfilProfesional(UPDATED_PERFIL_PROFESIONAL);
+            .tituloOtorgado(UPDATED_TITULO_OTORGADO);
 
         restInformacionAcademicaMockMvc.perform(put("/api/informacion-academicas")
             .contentType(MediaType.APPLICATION_JSON)
@@ -988,7 +858,6 @@ public class InformacionAcademicaResourceIT {
         assertThat(testInformacionAcademica.getFechaInicio()).isEqualTo(UPDATED_FECHA_INICIO);
         assertThat(testInformacionAcademica.getFechaFin()).isEqualTo(UPDATED_FECHA_FIN);
         assertThat(testInformacionAcademica.getTituloOtorgado()).isEqualTo(UPDATED_TITULO_OTORGADO);
-        assertThat(testInformacionAcademica.getPerfilProfesional()).isEqualTo(UPDATED_PERFIL_PROFESIONAL);
     }
 
     @Test

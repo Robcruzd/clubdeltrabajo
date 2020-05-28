@@ -26,8 +26,8 @@
                     <th scope="col"  jhiSortBy="nombre"><span jhiTranslate="ctProjectApp.persona.nombre">Nombre</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="apellido"><span jhiTranslate="ctProjectApp.persona.apellido">Apellido</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="email"><span jhiTranslate="ctProjectApp.persona.email">Email</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="numeroDocumento"><span jhiTranslate="ctProjectApp.persona.numeroDocumento">Numero Documento</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="tipoUsuario.id"><span jhiTranslate="ctProjectApp.persona.tipoUsuario">Tipo Usuario</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="numeroDocumento.id"><span jhiTranslate="ctProjectApp.persona.numeroDocumento">Numero Documento</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="tipoDocumento.id"><span jhiTranslate="ctProjectApp.persona.tipoDocumento">Tipo Documento</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
@@ -38,14 +38,10 @@
                     <td>{{ persona.nombre }}</td>
                     <td>{{ persona.apellido }}</td>
                     <td>{{ persona.email }}</td>
+                    <td>{{ persona.numeroDocumento }}</td>
                     <td>
                         <div *ngIf="persona.tipoUsuario">
                             <a [routerLink]="['/tipo-usuario', persona.tipoUsuario?.id, 'view']" >{{ persona.tipoUsuario?.id }}</a>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="persona.numeroDocumento">
-                            <a [routerLink]="['/usuario', persona.numeroDocumento?.id, 'view']" >{{ persona.numeroDocumento?.id }}</a>
                         </div>
                     </td>
                     <td>

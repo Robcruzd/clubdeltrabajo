@@ -86,5 +86,7 @@ export const commonMessages = {
   IDIOMAS_LABEL: 'Idiomas',
   NIVEL_IDIOMA_LABEL: 'Nivel del idioma',
   SIGUIENTE_LABEL: 'Siguiente',
-  GUARDAR_LABEL: 'Guardar'
+  GUARDAR_LABEL: 'Guardar',
+  INGRESAR_LABEL: 'Ingresar',
+  SALIR_LABEL: 'Salir'
 };

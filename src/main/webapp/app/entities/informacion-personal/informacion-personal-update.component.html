@@ -110,6 +110,12 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.informacionPersonal.perfilProfesional" for="field_perfilProfesional">Perfil Profesional</label>
+                    <input type="text" class="form-control" name="perfilProfesional" id="field_perfilProfesional"
+                           formControlName="perfilProfesional"/>
+                </div>
+
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="ctProjectApp.informacionPersonal.usuario" for="field_usuario">Usuario</label>
                     <select class="form-control" id="field_usuario" name="usuario" formControlName="usuario">
                         <option *ngIf="!editForm.get('usuario')!.value" [ngValue]="null" selected></option>

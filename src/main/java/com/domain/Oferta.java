@@ -29,7 +29,7 @@ public class Oferta implements Serializable {
 
     @NotNull
     @Column(name = "titulo", nullable = false)
-    private Integer titulo;
+    private String titulo;
 
     @NotNull
     @Column(name = "salario", nullable = false)
@@ -55,7 +55,8 @@ public class Oferta implements Serializable {
     private LocalDate fechaPublicacion;
 
     @NotNull
-    @Column(name = "estado", nullable = false)
+    @Size(max = 1)
+    @Column(name = "estado", length = 1, nullable = false)
     private String estado;
 
     @ManyToOne(optional = false)
@@ -85,16 +86,16 @@ public class Oferta implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Integer getTitulo() {
+    public String getTitulo() {
         return titulo;
     }
 
-    public Oferta titulo(Integer titulo) {
+    public Oferta titulo(String titulo) {
         this.titulo = titulo;
         return this;
     }
 
-    public void setTitulo(Integer titulo) {
+    public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
@@ -224,7 +225,7 @@ public class Oferta implements Serializable {
         return "Oferta{" +
             "id=" + getId() +
             ", descripcion='" + getDescripcion() + "'" +
-            ", titulo=" + getTitulo() +
+            ", titulo='" + getTitulo() + "'" +
             ", salario=" + getSalario() +
             ", cargo=" + getCargo() +
             ", experiencia='" + getExperiencia() + "'" +

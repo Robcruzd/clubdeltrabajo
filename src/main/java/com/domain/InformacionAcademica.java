@@ -39,21 +39,10 @@ public class InformacionAcademica implements Serializable {
     @Column(name = "titulo_otorgado")
     private String tituloOtorgado;
 
-    @Column(name = "perfil_profesional")
-    private String perfilProfesional;
-
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("informacionAcademicas")
     private Persona usuario;
-
-    @ManyToOne
-    @JsonIgnoreProperties("informacionAcademicas")
-    private Idioma idioma;
-
-    @ManyToOne
-    @JsonIgnoreProperties("informacionAcademicas")
-    private NivelIdioma nivelIdioma;
 
     @ManyToOne
     @JsonIgnoreProperties("informacionAcademicas")
@@ -133,19 +122,6 @@ public class InformacionAcademica implements Serializable {
         this.tituloOtorgado = tituloOtorgado;
     }
 
-    public String getPerfilProfesional() {
-        return perfilProfesional;
-    }
-
-    public InformacionAcademica perfilProfesional(String perfilProfesional) {
-        this.perfilProfesional = perfilProfesional;
-        return this;
-    }
-
-    public void setPerfilProfesional(String perfilProfesional) {
-        this.perfilProfesional = perfilProfesional;
-    }
-
     public Persona getUsuario() {
         return usuario;
     }
@@ -157,32 +133,6 @@ public class InformacionAcademica implements Serializable {
 
     public void setUsuario(Persona persona) {
         this.usuario = persona;
-    }
-
-    public Idioma getIdioma() {
-        return idioma;
-    }
-
-    public InformacionAcademica idioma(Idioma idioma) {
-        this.idioma = idioma;
-        return this;
-    }
-
-    public void setIdioma(Idioma idioma) {
-        this.idioma = idioma;
-    }
-
-    public NivelIdioma getNivelIdioma() {
-        return nivelIdioma;
-    }
-
-    public InformacionAcademica nivelIdioma(NivelIdioma nivelIdioma) {
-        this.nivelIdioma = nivelIdioma;
-        return this;
-    }
-
-    public void setNivelIdioma(NivelIdioma nivelIdioma) {
-        this.nivelIdioma = nivelIdioma;
     }
 
     public Institucion getInstitucion() {
@@ -224,7 +174,6 @@ public class InformacionAcademica implements Serializable {
             ", fechaInicio='" + getFechaInicio() + "'" +
             ", fechaFin='" + getFechaFin() + "'" +
             ", tituloOtorgado='" + getTituloOtorgado() + "'" +
-            ", perfilProfesional='" + getPerfilProfesional() + "'" +
             "}";
     }
 }

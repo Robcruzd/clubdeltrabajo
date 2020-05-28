@@ -28,10 +28,7 @@
                     <th scope="col"  jhiSortBy="fechaInicio"><span jhiTranslate="ctProjectApp.informacionAcademica.fechaInicio">Fecha Inicio</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="fechaFin"><span jhiTranslate="ctProjectApp.informacionAcademica.fechaFin">Fecha Fin</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="tituloOtorgado"><span jhiTranslate="ctProjectApp.informacionAcademica.tituloOtorgado">Titulo Otorgado</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="perfilProfesional"><span jhiTranslate="ctProjectApp.informacionAcademica.perfilProfesional">Perfil Profesional</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="usuario.id"><span jhiTranslate="ctProjectApp.informacionAcademica.usuario">Usuario</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="idioma.id"><span jhiTranslate="ctProjectApp.informacionAcademica.idioma">Idioma</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="nivelIdioma.id"><span jhiTranslate="ctProjectApp.informacionAcademica.nivelIdioma">Nivel Idioma</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="institucion.id"><span jhiTranslate="ctProjectApp.informacionAcademica.institucion">Institucion</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
@@ -44,20 +41,9 @@
                     <td>{{ informacionAcademica.fechaInicio | date:'mediumDate' }}</td>
                     <td>{{ informacionAcademica.fechaFin | date:'mediumDate' }}</td>
                     <td>{{ informacionAcademica.tituloOtorgado }}</td>
-                    <td>{{ informacionAcademica.perfilProfesional }}</td>
                     <td>
                         <div *ngIf="informacionAcademica.usuario">
                             <a [routerLink]="['/persona', informacionAcademica.usuario?.id, 'view']" >{{ informacionAcademica.usuario?.id }}</a>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="informacionAcademica.idioma">
-                            <a [routerLink]="['/idioma', informacionAcademica.idioma?.id, 'view']" >{{ informacionAcademica.idioma?.id }}</a>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="informacionAcademica.nivelIdioma">
-                            <a [routerLink]="['/nivel-idioma', informacionAcademica.nivelIdioma?.id, 'view']" >{{ informacionAcademica.nivelIdioma?.id }}</a>
                         </div>
                     </td>
                     <td>

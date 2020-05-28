@@ -42,6 +42,9 @@
             <column name="licencencia_conduccion" type="boolean">
                 <constraints nullable="true" />
             </column>
+            <column name="perfil_profesional" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="usuario_id" type="bigint">
                 <constraints nullable="false" />
             </column>
@@ -77,6 +80,7 @@
             <column name="discapacidad" type="numeric"/>
             <column name="redes_sociales" type="numeric"/>
             <column name="licencencia_conduccion" type="boolean"/>
+            <column name="perfil_profesional" type="string"/>
             <column name="usuario_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>

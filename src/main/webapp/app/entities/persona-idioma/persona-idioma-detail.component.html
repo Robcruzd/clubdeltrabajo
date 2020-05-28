@@ -1,0 +1,42 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="personaIdioma">
+            <h2><span jhiTranslate="ctProjectApp.personaIdioma.detail.title">Persona Idioma</span> {{ personaIdioma.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="ctProjectApp.personaIdioma.nivel">Nivel</span></dt>
+                <dd>
+                    <span>{{ personaIdioma.nivel }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.personaIdioma.idPersona">Id Persona</span></dt>
+                <dd>
+                    <div *ngIf="personaIdioma.idPersona">
+                        <a [routerLink]="['/persona', personaIdioma.idPersona?.id, 'view']">{{ personaIdioma.idPersona?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.personaIdioma.idIdioma">Id Idioma</span></dt>
+                <dd>
+                    <div *ngIf="personaIdioma.idIdioma">
+                        <a [routerLink]="['/idioma', personaIdioma.idIdioma?.id, 'view']">{{ personaIdioma.idIdioma?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/persona-idioma', personaIdioma.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

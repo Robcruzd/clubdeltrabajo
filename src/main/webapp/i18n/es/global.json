@@ -23,6 +23,7 @@
         "aplicacionOferta": "Aplicacion Oferta",
         "oferta": "Oferta",
         "usuario": "Usuario",
+        "personaIdioma": "Persona Idioma",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

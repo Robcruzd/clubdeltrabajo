@@ -13,6 +13,10 @@ import { IOpcionVo } from '../vo/option-vo';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
+  getCiudades(): Observable<GeografiaVo[]> {
+    return this.http.get<any[]>(URL_UBICACIONES);
+  }
+
   getInformacionGeografica(): Observable<GeografiaVo[]> {
     return this.http
       .get<any[]>(URL_UBICACIONES)

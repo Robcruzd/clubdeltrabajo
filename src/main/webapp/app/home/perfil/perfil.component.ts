@@ -11,8 +11,10 @@ export class PerfilComponent implements OnInit {
   lblBuscaEmpleo = commonMessages.VER_BUSCA_EMPLEO_LABEL;
   lblVerOfertas = commonMessages.VER_OFERTAS_LABEL;
   lblEditarHojaVida = commonMessages.EDITAR_HOJA_VIDA_LABEL;
-
+  qrCard: any;
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.qrCard = 'Perfil de presentación Juan Pérez.';
+  }
 }

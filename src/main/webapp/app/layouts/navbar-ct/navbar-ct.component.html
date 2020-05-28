@@ -1,0 +1,15 @@
+<div class="navbar" *ngIf="show">
+    <img class="logo" [routerLink]="['/']" src="../../../content/images/logo_empresa.png">
+    <div class="opciones">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a *ngFor="let item of lstOpcionesMenu" class="nav-item nav-link item"
+                        href="#">{{item.etiqueta}}</a>
+                    <button class="btn shadow-none boton-ingresar">{{lblIngresar}}</button>
+                    <button class="btn shadow-none boton-salir" style="display: none;">{{lblSalir}}</button>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
