@@ -1,13 +1,18 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as moment from 'moment';
+import { Moment } from 'moment';
 import { IdiomaService } from '../../entities/idioma/idioma.service';
 import { TipoDocumentoService } from '../../entities/tipo-documento/tipo-documento.service';
 import { commonMessages } from '../../shared/constants/commonMessages';
+import { DATE_FORMAT } from '../../shared/constants/input.constants';
 import { Archivo, IArchivo } from '../../shared/model/archivo.model';
 import { IIdioma } from '../../shared/model/idioma.model';
-import { IInformacionAcademica } from '../../shared/model/informacion-academica.model';
-import { IInformacionLaboral } from '../../shared/model/informacion-laboral.model';
+import { IInformacionAcademica, InformacionAcademica } from '../../shared/model/informacion-academica.model';
+import { IInformacionLaboral, InformacionLaboral } from '../../shared/model/informacion-laboral.model';
+import { IInformacionPersonal, InformacionPersonal } from '../../shared/model/informacion-personal.model';
+import { Persona } from '../../shared/model/persona.model';
 import { ITipoDocumento } from '../../shared/model/tipo-documento.model';
 import { ApiService } from '../../shared/services/api.service';
 import { GeografiaVo } from '../../shared/vo/geografia-vo';
@@ -186,15 +191,19 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.procesarFormulario();
+  }
+
+  procesarFormulario(): void {
     this.hojaVidaVo = new HojaVidaVo();
-    this.hojaVidaVo.informacionPersonal = this.formPersonal.value;
-    if (this.hojaVidaVo && this.hojaVidaVo.informacionPersonal) {
-      this.hojaVidaVo.informacionPersonal.perfilProfesional = this.formPerfil.value.perfilProfesional;
-    }
+
+    // cargar informacion personal
+    this.hojaVidaVo.informacionPersonal = this.procesarInformacionPersonal();
+
     // cargar informacion academica
     const academica: IInformacionAcademica[] = [];
     for (let index = 0; index < this.informacionAcademica.length; index++) {
-      academica.push(this.informacionAcademica.at(index).value);
+      academica.push(this.procesarInformacionAcademica(this.informacionAcademica.at(index).value));
     }
     this.hojaVidaVo.informacionAcademica = academica;
 
@@ -208,10 +217,71 @@ export class CrearHojaVidaComponent implements OnInit {
     // cargar informacion laboral
     const laboral: IInformacionLaboral[] = [];
     for (let index = 0; index < this.experienciaLaboral.length; index++) {
-      laboral.push(this.experienciaLaboral.at(index).value);
+      laboral.push(this.procesarExperienciaLaboral(this.experienciaLaboral.at(index).value));
     }
     this.hojaVidaVo.experienciaLaboral = laboral;
     this.mostrar = true;
+  }
+
+  procesarInformacionPersonal(): IInformacionPersonal {
+    return {
+      ...new InformacionPersonal(),
+      id: this.formPersonal.get(['id'])!.value,
+      fechaNacimiento: this.getFecha(this.formPersonal.get(['fechaNacimiento'])!.value),
+      lugarNacimiento: this.formPersonal.get(['lugarNacimiento'])!.value,
+      direccionResidencia: this.formPersonal.get(['direccionResidencia'])!.value,
+      genero: this.formPersonal.get(['genero'])!.value,
+      ciudad: this.formPersonal.get(['ciudad'])!.value,
+      telefono: this.formPersonal.get(['telefono'])!.value,
+      discapacidad: this.formPersonal.get(['discapacidad'])!.value,
+      redesSociales: this.formPersonal.get(['redesSociales'])!.value,
+      licencenciaConduccion: this.formPersonal.get(['licencenciaConduccion'])!.value,
+      perfilProfesional: this.formPerfil.get(['perfilProfesional'])!.value,
+      usuario: new Persona(1)
+    };
+  }
+
+  procesarInformacionAcademica(form: FormGroup): IInformacionAcademica {
+    return {
+      ...new InformacionAcademica(),
+      id: form.get(['id'])!.value,
+      nivelEstudio: form.get(['nivelEstudio'])!.value,
+      estado: form.get(['estado'])!.value,
+      fechaInicio: this.getFecha(form.get(['fechaInicio'])!.value),
+      fechaFin: this.getFecha(form.get(['fechaFin'])!.value),
+      tituloOtorgado: form.get(['tituloOtorgado'])!.value,
+      perfilProfesional: form.get(['perfilProfesional'])!.value,
+      usuario: new Persona(1),
+      idioma: form.get(['idioma'])!.value,
+      nivelIdioma: form.get(['nivelIdioma'])!.value,
+      institucion: form.get(['institucion'])!.value
+    };
+  }
+
+  procesarExperienciaLaboral(form: FormGroup): IInformacionLaboral {
+    return {
+      ...new InformacionLaboral(),
+      id: form.get(['id'])!.value,
+      nombreEmpresa: form.get(['nombreEmpresa'])!.value,
+      fechaInicio: this.getFecha(form.get(['fechaInicio'])!.value),
+      fechaFin: this.getFecha(form.get(['fechaFin'])!.value),
+      direccion: form.get(['direccion'])!.value,
+      cuidad: form.get(['cuidad'])!.value,
+      departamento: form.get(['departamento'])!.value,
+      pais: form.get(['pais'])!.value,
+      telefonoEmpresa: form.get(['telefonoEmpresa'])!.value,
+      usuario: new Persona(1),
+      dependencia: form.get(['dependencia'])!.value,
+      cargo: form.get(['cargo'])!.value
+    };
+  }
+
+  getFecha(form: FormGroup): Moment {
+    let dia = form.get(['dia'])!.value;
+    let mes = form.get(['mes'])!.value;
+    let anio = form.get(['anio'])!.value;
+
+    return moment(`${dia}/${mes}/${anio}`, DATE_FORMAT);
   }
 
   cargarPaises(): void {

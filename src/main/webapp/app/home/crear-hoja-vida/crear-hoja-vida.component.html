@@ -591,12 +591,13 @@
                 </button>
             </div>
             <div class="col-sm-12 col-md-6">
-                <button *ngIf="step === 1" class="btn boton_siguiente text-white float-right" (click)="nextStep()">
+                <button type="button" *ngIf="step === 1" class="btn boton_siguiente text-white float-right"
+                    (click)="nextStep()">
                     {{labels.SIGUIENTE_LABEL}}
                 </button>
                 <button type="submit" *ngIf="step === 2" class="btn boton_siguiente text-white float-right"
                     [disabled]="false">
-                    {{labels.SIGUIENTE_LABEL}}
+                    {{labels.GUARDAR_LABEL}}
                 </button>
             </div>
         </div>
