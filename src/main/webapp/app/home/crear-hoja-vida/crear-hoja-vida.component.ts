@@ -1,9 +1,13 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IDependencia } from 'app/shared/model/dependencia.model';
+import { IInstitucion } from 'app/shared/model/institucion.model';
 import * as moment from 'moment';
 import { Moment } from 'moment';
+import { DependenciaService } from '../../entities/dependencia/dependencia.service';
 import { IdiomaService } from '../../entities/idioma/idioma.service';
+import { InstitucionService } from '../../entities/institucion/institucion.service';
 import { TipoDocumentoService } from '../../entities/tipo-documento/tipo-documento.service';
 import { commonMessages } from '../../shared/constants/commonMessages';
 import { DATE_FORMAT } from '../../shared/constants/input.constants';
@@ -12,15 +16,17 @@ import { IIdioma } from '../../shared/model/idioma.model';
 import { IInformacionAcademica, InformacionAcademica } from '../../shared/model/informacion-academica.model';
 import { IInformacionLaboral, InformacionLaboral } from '../../shared/model/informacion-laboral.model';
 import { IInformacionPersonal, InformacionPersonal } from '../../shared/model/informacion-personal.model';
-import { Persona, IPersona } from '../../shared/model/persona.model';
+import { IPersonaIdioma, PersonaIdioma } from '../../shared/model/persona-idioma.model';
+import { IPersona, Persona } from '../../shared/model/persona.model';
 import { ITipoDocumento } from '../../shared/model/tipo-documento.model';
 import { ApiService } from '../../shared/services/api.service';
+import { HojaVidaService } from '../../shared/services/hoja-vida.service';
 import { GeografiaVo } from '../../shared/vo/geografia-vo';
 import { HojaVidaVo } from '../../shared/vo/hoja-vida-vo';
 import { IOpcionVo } from '../../shared/vo/opcion-vo';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
-import { IPersonaIdioma, PersonaIdioma } from '../../shared/model/persona-idioma.model';
-import { HojaVidaService } from '../../shared/services/hoja-vida.service';
+import { ICargo } from 'app/shared/model/cargo.model';
+import { CargoService } from '../../entities/cargo/cargo.service';
 
 @Component({
   selector: 'jhi-crear-hoja-vida',
@@ -50,13 +56,19 @@ export class CrearHojaVidaComponent implements OnInit {
   tipoArchivo = TipoArchivo;
   mostrar!: boolean;
   hojaVidaVo!: HojaVidaVo;
+  instituciones: Array<IInstitucion> = [];
+  dependencias: Array<IDependencia> = [];
+  cargos: Array<ICargo> = [];
 
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
     private tipoDocumentoService: TipoDocumentoService,
     private idiomaService: IdiomaService,
-    private service: HojaVidaService
+    private service: HojaVidaService,
+    private institucionService: InstitucionService,
+    private dependeciaService: DependenciaService,
+    private cargoService: CargoService
   ) {}
 
   ngOnInit(): void {
@@ -68,6 +80,9 @@ export class CrearHojaVidaComponent implements OnInit {
     this.cargarDiscapacidades();
     this.cargarIdiomas();
     this.cargarNivelIdioma();
+    this.cargarInstituciones();
+    this.cargarDependencias();
+    this.cargarCargos();
     this.globalForm = this.crearFormularioGeneral();
     this.crearFormularioInformacionPersonal();
     this.crearFormularioPerfil();
@@ -99,7 +114,7 @@ export class CrearHojaVidaComponent implements OnInit {
       lugarNacimiento: [''],
       direccionResidencia: ['', [Validators.required]],
       genero: ['', [Validators.required]],
-      ciudad: ['', [Validators.required]],
+      ciudad: [null, [Validators.required]],
       telefono: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       discapacidad: [null],
@@ -128,7 +143,7 @@ export class CrearHojaVidaComponent implements OnInit {
       usuario: [''],
       idioma: [''],
       nivelIdioma: [''],
-      institucion: ['']
+      institucion: [null]
     });
   }
 
@@ -169,8 +184,8 @@ export class CrearHojaVidaComponent implements OnInit {
       pais: [null],
       telefonoEmpresa: [''],
       usuario: [''],
-      dependencia: [''],
-      cargo: [''],
+      dependencia: [null],
+      cargo: [null],
       certificado: [null]
     });
   }
@@ -235,7 +250,7 @@ export class CrearHojaVidaComponent implements OnInit {
       lugarNacimiento: this.formPersonal.get(['lugarNacimiento'])!.value,
       direccionResidencia: this.formPersonal.get(['direccionResidencia'])!.value,
       genero: this.formPersonal.get(['genero'])!.value,
-      ciudad: 1, // this.formPersonal.get(['ciudad'])!.value,
+      ciudad: this.formPersonal.get(['ciudad'])!.value.codigo as number,
       telefono: this.formPersonal.get(['telefono'])!.value,
       discapacidad: this.formPersonal.get(['discapacidad'])!.value,
       redesSociales: this.formPersonal.get(['redesSociales'])!.value,
@@ -249,8 +264,8 @@ export class CrearHojaVidaComponent implements OnInit {
     return {
       ...new InformacionAcademica(),
       id: academica['id'],
-      nivelEstudio: academica['nivelEstudio'].codigo,
-      estado: academica['estado'],
+      nivelEstudio: academica['nivelEstudio'] ? (academica['nivelEstudio'].codigo as number) : undefined,
+      estado: academica['estado'] ? (academica['estado'].codigo as number) : undefined,
       fechaInicio: this.getFecha(academica['fechaInicio']),
       fechaFin: this.getFecha(academica['fechaFin']),
       tituloOtorgado: academica['tituloOtorgado'],
@@ -267,9 +282,9 @@ export class CrearHojaVidaComponent implements OnInit {
       fechaInicio: this.getFecha(experiencia['fechaInicio']),
       fechaFin: this.getFecha(experiencia['fechaFin']),
       direccion: experiencia['direccion'],
-      cuidad: 1, // experiencia['cuidad'],
-      departamento: experiencia['departamento'],
-      pais: experiencia['pais'],
+      cuidad: experiencia['cuidad'] ? (experiencia['cuidad'].codigo as number) : undefined,
+      departamento: experiencia['departamento'] ? (experiencia['departamento'].codigo as number) : undefined,
+      pais: experiencia['pais'] ? this.getPaisPorCodigo(experiencia['pais'].codigo) : undefined,
       telefonoEmpresa: experiencia['telefonoEmpresa'],
       usuario: new Persona(1),
       dependencia: experiencia['dependencia'],
@@ -277,11 +292,19 @@ export class CrearHojaVidaComponent implements OnInit {
     };
   }
 
+  getPaisPorCodigo(codigo: string): number {
+    return this.paises.findIndex(pais => pais.codigo === codigo);
+  }
+
+  getPaisPorIndice(indice: number): IOpcionVo {
+    return this.paises[indice];
+  }
+
   procesarIdiomas(idioma: Object): IPersonaIdioma {
     return {
       ...new PersonaIdioma(),
       id: idioma['id'],
-      nivel: idioma['nivel'].codigo,
+      nivel: idioma['nivel'] ? idioma['nivel'].codigo : undefined,
       idPersona: new Persona(1),
       idIdioma: idioma['idIdioma']
     };
@@ -303,7 +326,7 @@ export class CrearHojaVidaComponent implements OnInit {
     this.apiService.getInformacionGeografica().subscribe(response => {
       this.geografia = response;
       this.cargarDepartamentos();
-      // this.cargarMunicipios(this.departamentos[0].codigo);
+      this.cargarMunicipios({});
     });
   }
 
@@ -323,15 +346,25 @@ export class CrearHojaVidaComponent implements OnInit {
     return self.findIndex(item => item.codigoDpto === value.codigoDpto) === index;
   }
 
-  cargarMunicipios(codigoDpto: string): void {
-    this.municipios = this.geografia
-      .filter(item => item.codigoDpto === codigoDpto)
-      .map(item => {
+  cargarMunicipios(value: Object): void {
+    this.municipios = [];
+    if (this.step === 0) {
+      this.municipios = this.geografia.map(item => {
         return {
           codigo: item.codigoMpio,
           nombre: item.nombreMpio
         };
       });
+    } else if (value && Object.entries(value).length > 0) {
+      this.municipios = this.geografia
+        .filter(item => item.codigoDpto === value['departamento'].codigo)
+        .map(item => {
+          return {
+            codigo: item.codigoMpio,
+            nombre: item.nombreMpio
+          };
+        });
+    }
   }
 
   cargarDiscapacidades(): void {
@@ -349,6 +382,45 @@ export class CrearHojaVidaComponent implements OnInit {
 
   onSuccessTipoDocumento(data: ITipoDocumento[] | null): void {
     this.documentos = data || [];
+  }
+
+  cargarInstituciones(): void {
+    this.institucionService
+      .query({
+        page: 0,
+        size: 200
+      })
+      .subscribe((res: HttpResponse<IInstitucion[]>) => this.onSuccessInstitucion(res.body));
+  }
+
+  onSuccessInstitucion(data: IInstitucion[] | null): void {
+    this.instituciones = data || [];
+  }
+
+  cargarDependencias(): void {
+    this.dependeciaService
+      .query({
+        page: 0,
+        size: 200
+      })
+      .subscribe((res: HttpResponse<IDependencia[]>) => this.onSuccessDependencia(res.body));
+  }
+
+  onSuccessDependencia(data: IDependencia[] | null): void {
+    this.dependencias = data || [];
+  }
+
+  cargarCargos(): void {
+    this.cargoService
+      .query({
+        page: 0,
+        size: 200
+      })
+      .subscribe((res: HttpResponse<ICargo[]>) => this.onSuccessCargo(res.body));
+  }
+
+  onSuccessCargo(data: ICargo[] | null): void {
+    this.cargos = data || [];
   }
 
   cargarIdiomas(): void {

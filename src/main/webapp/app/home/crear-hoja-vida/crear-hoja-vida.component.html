@@ -31,19 +31,19 @@
                             <p class="estilo_label">{{labels.NUMERO_DOCUMENTO_LABEL}} <span
                                     class="estilo_campo_requerido">*</span></p>
                             <ng-container formGroupName="documento">
-                                <select class="estilo_inputs" formControlName="tipoDocumento">
+                                <select formControlName="tipoDocumento">
                                     <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                                     <option *ngFor="let documento of documentos" [ngValue]="documento">
                                         {{ documento.nombreTipo }}
                                     </option>
                                 </select>
                                 <input type="number" class="estilo_inputs" formControlName="numeroDocumento">
-
-                                <div class="file-upload text-secondary">
+                                <div class="file-upload file-upload text-light" (click)="tipodocumento.click()">
                                     <label for="file">
-                                        <fa-icon icon="images"></fa-icon>
+                                        <fa-icon icon="images" class="float-right"></fa-icon>
                                     </label>
-                                    <input type="file" (change)="addArchivo($event, tipoArchivo.DOCUMENTO_IDENTIDAD)" />
+                                    <input type="file" #tipodocumento
+                                        (change)="addArchivo($event, tipoArchivo.DOCUMENTO_IDENTIDAD)" />
                                 </div>
                             </ng-container>
 
@@ -56,21 +56,21 @@
                             <p class="estilo_label">{{labels.FECHA_NACIMENTO_LABEL}} <span
                                     class="estilo_campo_requerido">*</span></p>
                             <ng-container formGroupName="fechaNacimiento">
-                                <select class="estilo_inputs" formControlName="dia">
+                                <select formControlName="dia">
                                     <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_DIA}}</option>
                                     <option *ngFor="let dia of dias" [ngValue]="dia">
                                         {{ dia }}
                                     </option>
                                 </select>
 
-                                <select class="estilo_inputs" formControlName="mes">
+                                <select formControlName="mes">
                                     <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_MES}}</option>
                                     <option *ngFor="let mes of meses" [ngValue]="mes">
                                         {{ mes }}
                                     </option>
                                 </select>
 
-                                <select class="estilo_inputs" formControlName="anio">
+                                <select formControlName="anio">
                                     <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_ANIO}}</option>
                                     <option *ngFor="let anio of anios" [ngValue]="anio">
                                         {{ anio }}
@@ -126,8 +126,16 @@
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
                             <p class="estilo_label">{{labels.CIUDAD_LABEL}} <span
-                                    class="estilo_campo_requerido">*</span></p>
-                            <input type="text" class="estilo_inputs" formControlName="ciudad">
+                                    class="estilo_campo_requerido">*</span>
+                            </p>
+                            <select formControlName="ciudad">
+                                <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option *ngFor="let municipio of municipios" [ngValue]="municipio">
+                                    {{ municipio.nombre }}
+                                </option>
+                            </select>
+                            <small *ngIf="false" id="emailHelp"
+                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             <small *ngIf="false" id="emailHelp"
                                 class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
@@ -159,7 +167,7 @@
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
                             <p class="estilo_label">{{labels.DISCAPACIDADES_LABEL}}</p>
-                            <select class="estilo_inputs" formControlName="discapacidad">
+                            <select formControlName="discapacidad">
                                 <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
                                 <option *ngFor="let discapacidad of discapacidades" [ngValue]="discapacidad">
                                     {{ discapacidad.nombre }}
@@ -178,7 +186,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
-                            <p class="estilo_label">{{labels.LICECIA_CONDUCCION_LABEL}}</p>
+                            <p class="estilo_label">{{labels.LICENCIA_CONDUCCION_LABEL}}</p>
                             <div class="file-upload file-upload text-secondary" (click)="licencia.click()">
                                 <label for="file">
                                     <fa-icon icon="images" class="float-right"></fa-icon>
@@ -205,8 +213,8 @@
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.NIVEL_ESTUDIO_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
-                                <select class="estilo_inputs" formControlName="nivelEstudio">
-                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <select formControlName="nivelEstudio">
+                                    <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
                                     <option *ngFor="let nivel of nivelEstudio" [ngValue]="nivel">
                                         {{ nivel.nombre }}
                                     </option>
@@ -220,8 +228,8 @@
                                 <p class="estilo_label">{{labels.ESTADO_LABEL}} <span
                                         class="estilo_campo_requerido">*</span>
                                 </p>
-                                <select class="estilo_inputs" formControlName="estado">
-                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <select formControlName="estado">
+                                    <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
                                     <option *ngFor="let estado of estadoNivelEstudio" [ngValue]="estado">
                                         {{ estado.nombre }}
                                     </option>
@@ -238,21 +246,21 @@
                                 <ng-container formGroupName="fechaInicio">
                                     <p class="estilo_label">{{labels.FECHA_INICIO_LABEL}} <span
                                             class="estilo_campo_requerido">*</span></p>
-                                    <select class="estilo_inputs" formControlName="dia">
+                                    <select formControlName="dia">
                                         <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_DIA}}</option>
                                         <option *ngFor="let dia of dias" [ngValue]="dia">
                                             {{ dia }}
                                         </option>
                                     </select>
 
-                                    <select class="estilo_inputs" formControlName="mes">
+                                    <select formControlName="mes">
                                         <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_MES}}</option>
                                         <option *ngFor="let mes of meses" [ngValue]="mes">
                                             {{ mes }}
                                         </option>
                                     </select>
 
-                                    <select class="estilo_inputs" formControlName="anio">
+                                    <select formControlName="anio">
                                         <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_ANIO}}</option>
                                         <option *ngFor="let anio of anios" [ngValue]="anio">
                                             {{ anio }}
@@ -269,21 +277,21 @@
                                         class="estilo_campo_requerido">*</span>
                                 </p>
                                 <ng-container formGroupName="fechaFin">
-                                    <select class="estilo_inputs" formControlName="dia">
+                                    <select formControlName="dia">
                                         <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_DIA}}</option>
                                         <option *ngFor="let dia of dias" [ngValue]="dia">
                                             {{ dia }}
                                         </option>
                                     </select>
 
-                                    <select class="estilo_inputs" formControlName="mes">
+                                    <select formControlName="mes">
                                         <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_MES}}</option>
                                         <option *ngFor="let mes of meses" [ngValue]="mes">
                                             {{ mes }}
                                         </option>
                                     </select>
 
-                                    <select class="estilo_inputs" formControlName="anio">
+                                    <select formControlName="anio">
                                         <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_ANIO}}</option>
                                         <option *ngFor="let anio of anios" [ngValue]="anio">
                                             {{ anio }}
@@ -311,7 +319,12 @@
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.INSTITUCION_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
-                                <input type="text" class="estilo_inputs" formControlName="institucion">
+                                <select formControlName="institucion">
+                                    <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
+                                    <option *ngFor="let institucion of instituciones" [ngValue]="institucion">
+                                        {{ institucion.institucion }}
+                                    </option>
+                                </select>
                                 <small *ngIf="false" id="emailHelp"
                                     class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
@@ -324,8 +337,15 @@
                                 <p class="estilo_label">{{labels.TITULO_LABEL}} <span
                                         class="estilo_campo_requerido">*</span>
                                 </p>
-                                <input type="file" accept=".png, .jpeg, .jpg"
-                                    (change)="addArchivo($event, tipoArchivo.CERTIFICADO_ESTUDIO)">
+                                <p>{{labels.ADJUNTE_CERTIFICADO_ESTUDIO_LABEL}}</p>
+                                <div class="file-upload file-upload text-secondary"
+                                    (click)="certificadoestudio.click()">
+                                    <label for="file">
+                                        <fa-icon icon="images" class="float-right"></fa-icon>
+                                    </label>
+                                    <input type="file" accept=".png, .jpeg, .jpg" #certificadoestudio
+                                        (change)="addArchivo($event, tipoArchivo.CERTIFICADO_ESTUDIO)">
+                                </div>
                                 <small *ngIf="false" id="emailHelp"
                                     class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
@@ -349,8 +369,8 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.IDIOMAS_LABEL}} </p>
-                                <select class="estilo_inputs" formControlName="idIdioma">
-                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <select formControlName="idIdioma">
+                                    <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
                                     <option *ngFor="let idioma of idiomas" [ngValue]="idioma">
                                         {{ idioma.idioma }}
                                     </option>
@@ -363,8 +383,8 @@
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.NIVEL_IDIOMA_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
-                                <select class="estilo_inputs" formControlName="nivel">
-                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <select formControlName="nivel">
+                                    <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
                                     <option *ngFor="let nivel of nivelIdioma" [ngValue]="nivel">
                                         {{ nivel.nombre }}
                                     </option>
@@ -416,21 +436,21 @@
                                 <p class="estilo_label">{{labels.FECHA_INICIO_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
                                 <ng-container formGroupName="fechaInicio">
-                                    <select class="estilo_inputs" formControlName="dia">
+                                    <select formControlName="dia">
                                         <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_DIA}}</option>
                                         <option *ngFor="let dia of dias" [ngValue]="dia">
                                             {{ dia }}
                                         </option>
                                     </select>
 
-                                    <select class="estilo_inputs" formControlName="mes">
+                                    <select formControlName="mes">
                                         <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_MES}}</option>
                                         <option *ngFor="let mes of meses" [ngValue]="mes">
                                             {{ mes }}
                                         </option>
                                     </select>
 
-                                    <select class="estilo_inputs" formControlName="anio">
+                                    <select formControlName="anio">
                                         <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_ANIO}}</option>
                                         <option *ngFor="let anio of anios" [ngValue]="anio">
                                             {{ anio }}
@@ -450,21 +470,21 @@
                                         class="estilo_campo_requerido">*</span>
                                 </p>
                                 <ng-container formGroupName="fechaFin">
-                                    <select class="estilo_inputs" formControlName="dia">
+                                    <select formControlName="dia">
                                         <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_DIA}}</option>
                                         <option *ngFor="let dia of dias" [ngValue]="dia">
                                             {{ dia }}
                                         </option>
                                     </select>
 
-                                    <select class="estilo_inputs" formControlName="mes">
+                                    <select formControlName="mes">
                                         <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_MES}}</option>
                                         <option *ngFor="let mes of meses" [ngValue]="mes">
                                             {{ mes }}
                                         </option>
                                     </select>
 
-                                    <select class="estilo_inputs" formControlName="anio">
+                                    <select formControlName="anio">
                                         <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_ANIO}}</option>
                                         <option *ngFor="let anio of anios" [ngValue]="anio">
                                             {{ anio }}
@@ -492,10 +512,10 @@
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.DEPARTAMENTO_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
-                                <select class="estilo_inputs" formControlName="departamento">
+                                <select formControlName="departamento"
+                                    (change)="cargarMunicipios(experienciaLaboral.at(indexLaboral).value)">
                                     <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
-                                    <option *ngFor="let departamento of departamentos" [ngValue]="departamento"
-                                        (change)="cargarMunicipios(departamento.codigo)">
+                                    <option *ngFor="let departamento of departamentos" [ngValue]="departamento">
                                         {{ departamento.nombre }}
                                     </option>
                                 </select>
@@ -508,7 +528,7 @@
                                 <p class="estilo_label">{{labels.CIUDAD_LABEL}} <span
                                         class="estilo_campo_requerido">*</span>
                                 </p>
-                                <select class="estilo_inputs" formControlName="cuidad">
+                                <select formControlName="cuidad">
                                     <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                                     <option *ngFor="let municipio of municipios" [ngValue]="municipio">
                                         {{ municipio.nombre }}
@@ -525,7 +545,7 @@
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.PAIS_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
-                                <select class="estilo_inputs" formControlName="pais">
+                                <select formControlName="pais">
                                     <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                                     <option *ngFor="let pais of paises" [ngValue]="pais">
                                         {{ pais.nombre }}
@@ -539,7 +559,7 @@
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.TELEFONO_EMPRESA_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
-                                <input type="text" class="estilo_inputs" formControlName="telefonoEmpresa">
+                                <input type="number" class="estilo_inputs" formControlName="telefonoEmpresa">
                                 <small *ngIf="false" id="emailHelp"
                                     class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
@@ -551,7 +571,12 @@
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.CARGO_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
-                                <input type="text" class="estilo_inputs" formControlName="cargo">
+                                <select formControlName="cargo">
+                                    <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
+                                    <option *ngFor="let cargo of cargos" [ngValue]="cargo">
+                                        {{ cargo.cargo }}
+                                    </option>
+                                </select>
                                 <small *ngIf="false" id="emailHelp"
                                     class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
@@ -560,7 +585,12 @@
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.DEPENDENCIA_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
-                                <input type="text" class="estilo_inputs" formControlName="dependencia">
+                                <select formControlName="dependencia">
+                                    <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
+                                    <option *ngFor="let dependencia of dependencias" [ngValue]="dependencia">
+                                        {{ dependencia.dependencia }}
+                                    </option>
+                                </select>
                                 <small *ngIf="false" id="emailHelp"
                                     class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
@@ -572,8 +602,14 @@
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.ADJUNTE_CERTIFICADO_LABORAL_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
-                                <input type="file" accept=".png, .jpeg, .jpg"
-                                    (change)="addArchivo($event, tipoArchivo.CERTIFICADO_LABORAL)">
+                                <div class="file-upload file-upload text-secondary"
+                                    (click)="certificadolaboral.click()">
+                                    <label for="file">
+                                        <fa-icon icon="images" class="float-right"></fa-icon>
+                                    </label>
+                                    <input type="file" #certificadolaboral accept=".png, .jpeg, .jpg"
+                                        (change)="addArchivo($event, tipoArchivo.CERTIFICADO_ESTUDIO)">
+                                </div>
                             </div>
                         </div>
                     </div>

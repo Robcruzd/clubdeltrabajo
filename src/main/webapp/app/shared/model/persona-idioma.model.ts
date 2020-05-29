@@ -3,7 +3,7 @@ import { IIdioma } from 'app/shared/model/idioma.model';
 
 export interface IPersonaIdioma {
   id?: number;
-  nivel?: string;
+  nivel?: string | null;
   idPersona?: IPersona;
   idIdioma?: IIdioma;
 }

@@ -31,7 +31,7 @@ export const commonMessages = {
   CORREO_ELECTRONICO_LABEL: 'Email',
   DISCAPACIDADES_LABEL: 'Discapacidades',
   REDES_SOCIALES_LABEL: 'Redes sociales',
-  LICECIA_CONDUCCION_LABEL: 'Licencia de conducción',
+  LICENCIA_CONDUCCION_LABEL: 'Licencia de conducción',
   INFO_CAMPO_OBLIGATORIO_LABEL: '* Son campos requeridos',
   INFORMACION_ACADEMICA_LABEL: 'Información Académica',
   NIVEL_ESTUDIO_LABEL: 'Nivel estudio',
@@ -74,8 +74,8 @@ export const commonMessages = {
     { codigo: 6, nombre: 'Post Doctorado' }
   ],
   ARRAY_ESTADO_NIVEL_ESTUDIO: [
-    { codigo: 'CO', nombre: 'Completo' },
-    { codigo: 'IN', nombre: 'Incompleto' }
+    { codigo: 0, nombre: 'Incompleto' },
+    { codigo: 1, nombre: 'Completo' }
   ],
   ARRAY_NIVEL_IDIOMA: [
     { codigo: 'BA', nombre: 'Básico' },
@@ -88,5 +88,6 @@ export const commonMessages = {
   SIGUIENTE_LABEL: 'Siguiente',
   GUARDAR_LABEL: 'Guardar',
   INGRESAR_LABEL: 'Ingresar',
-  SALIR_LABEL: 'Salir'
+  SALIR_LABEL: 'Salir',
+  ADJUNTE_CERTIFICADO_ESTUDIO_LABEL: 'Adjunte certificado de estudio'
 };
