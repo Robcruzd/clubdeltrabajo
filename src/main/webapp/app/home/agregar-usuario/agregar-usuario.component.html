@@ -4,46 +4,46 @@
 <body class="estilo_body">
     <div class="div_centro">
         <p class="estilo_titulo">Regístrate y entra al club.</p>
-        <div>
+        <div class="typePersona">
             <label style="color: white;">Persona Natural </label><input type="radio" [(ngModel)]="personaNatural" value="PN" name="usuario" ngModel>
             <label style="color: white;">Persona Juridica </label><input type="radio" value="juridica" name="usuario" ngModel>
         </div>
-        <div>
+        <div class="inputs">
             <label style="color: white;">Nombre</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="persona.nombre">
             <label *ngIf="mensajeNombre" class="text-danger">
                 {{mensajeNombre}}
             </label>
         </div>
-        <div>
+        <div class="inputs">
             <label style="color: white;">Apellidos</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="persona.apellido">
             <label *ngIf="mensajeApellido" class="text-danger">
                 {{mensajeApellido}}
             </label>
         </div>
-        <div>
+        <div class="inputs">
             <label style="color: white;">Email</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="persona.email">
             <label *ngIf="mensajeEmail" class="text-danger">
                 {{mensajeEmail}}
             </label>
         </div>
-        <div>
+        <div class="inputs">
             <label style="color: white;">Numero de Documento</label>
             <input type="number" class="estilo_inputs" [(ngModel)]="persona.numeroDocumento">
             <label *ngIf="mensajeNumDoc" class="text-danger">
                 {{mensajeNumDoc}}
             </label>
         </div>
-        <div>
+        <div class="inputs">
             <label style="color: white;">Contraseña</label>
             <input type="password" class="estilo_inputs" [(ngModel)]="usuario.clave">
             <label *ngIf="mensajeClave" class="text-danger">
                 {{mensajeClave}}
             </label>
         </div>
-        <div>
+        <div class="inputs">
             <label style="color: white;">Confirmar Contraseña</label>
             <input type="password" class="estilo_inputs" [(ngModel)]="ConfirmarClave">
             <label *ngIf="mensajeConfClave" class="text-danger">
@@ -51,10 +51,13 @@
             </label>
         </div>
         <button class="btn boton_registrar shadow-none"  style="color:white; " [(disabled)]="!condiciones" (click)="onCrearUsuario()">Registrarme</button>
-        <div>
-            <input type="radio" value="terminos" name="terminos" [(ngModel)]="condiciones" ><label style="color: white;">Acepto los </label><a style="color: #03ECFF;" (click)="openScrollableContent(longContent)">Términos, Condiciones y Póliticas de Privacidad.</a>
+        <div class="terminos">
+            <input type="radio" value="terminos" name="terminos" [(ngModel)]="condiciones" >
+            <label class="label-terminos" style="color: white;">Acepto los 
+                <a style="color: #03ECFF;" (click)="openScrollableContent(longContent)">Términos, Condiciones y Póliticas de Privacidad.</a>
+            </label>
         </div>
-        <label style="color: #03ECFF;">¡Ya estoy registrado!</label>
+        <a class="ya-registrado" style="color: #03ECFF;">¡Ya estoy registrado!</a>
        
     </div>
 

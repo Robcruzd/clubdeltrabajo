@@ -14,6 +14,8 @@ import { AgregarUsuarioComponent } from './agregar-usuario/agregar-usuario.compo
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CrearHojaVidaComponent } from './crear-hoja-vida/crear-hoja-vida.component';
+import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
+import { RestaurarContrasenaComponent } from './restaurar-contrasena/restaurar-contrasena.component';
 
 @NgModule({
   imports: [
@@ -33,7 +35,9 @@ import { CrearHojaVidaComponent } from './crear-hoja-vida/crear-hoja-vida.compon
     PerfilComponent,
     BuscarTrabajoComponent,
     AgregarUsuarioComponent,
-    CrearHojaVidaComponent
+    CrearHojaVidaComponent,
+    InicioSesionComponent,
+    RestaurarContrasenaComponent
   ]
 })
 export class CtProjectHomeModule {}

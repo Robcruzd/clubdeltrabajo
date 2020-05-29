@@ -1,0 +1,38 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "amplify-clubtrabajo-dev-212816-authRole",
+			"UnauthRoleArn": "arn:aws:iam::320699086083:role/amplify-clubtrabajo-dev-212816-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::320699086083:role/amplify-clubtrabajo-dev-212816-authRole",
+			"Region": "us-east-2",
+			"DeploymentBucketName": "amplify-clubtrabajo-dev-212816-deployment",
+			"UnauthRoleName": "amplify-clubtrabajo-dev-212816-unauthRole",
+			"StackName": "amplify-clubtrabajo-dev-212816",
+			"StackId": "arn:aws:cloudformation:us-east-2:320699086083:stack/amplify-clubtrabajo-dev-212816/3b179e10-9d66-11ea-bba3-025282f53354",
+			"AmplifyAppId": "d3gjtbm98r748x"
+		}
+	},
+	"auth": {
+		"clubtrabajoede0fa31": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false,
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-clubtrabajo-dev-212816-deployment/amplify-cfn-templates/auth/clubtrabajoede0fa31-cloudformation-template.yml",
+				"logicalId": "authclubtrabajoede0fa31"
+			},
+			"lastPushTimeStamp": "2020-05-24T02:46:52.157Z",
+			"output": {
+				"AppClientSecret": "ov429uvaji0bn3jmgnihlli6celil998l766hi6kjrncvld43uq",
+				"UserPoolId": "us-east-2_He3ibPWCU",
+				"AppClientIDWeb": "6067qp46b6munrdaj8lcro6djp",
+				"AppClientID": "51f7rh7enib60ftod8i6ustm8t",
+				"IdentityPoolId": "us-east-2:35e9054a-9a76-4967-b0ce-4ab22c2a9231",
+				"IdentityPoolName": "clubtrabajoede0fa31_identitypool_ede0fa31__dev",
+				"UserPoolName": "clubtrabajoede0fa31_userpool_ede0fa31"
+			},
+			"lastPushDirHash": "8jgxazdFqMWckvQJxF+l4KSt268="
+		}
+	}
+}

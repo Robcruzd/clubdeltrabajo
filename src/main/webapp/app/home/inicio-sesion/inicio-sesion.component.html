@@ -1,0 +1,15 @@
+<div class="estilo_home">
+    <img class="logo" src="../../../content/images/logo_cdt_fondo2.png">
+    <div class="div_centro">
+        <h3 class="titulo1">Bienvenido al club</h3>
+        <p class="text">Si ya estás registrado inicia sesión</p>
+        <input class="input_inicio_sesion" maxlength="30" type="text" 
+                name="nombre" [(ngModel)]="username" placeholder="Correo"
+                [ngModelOptions]="{standalone: true}">
+        <input class="input_inicio_sesion" maxlength="30" type="password" name="nombre" [(ngModel)]="password" placeholder="Contraseña"
+                  [ngModelOptions]="{standalone: true}">
+        <button class="button_iniciar_sesion">Iniciar sesión</button>
+        <a class="recoverPassword">Olvidaste tu contraseña?</a>
+        <p class="goRegister">¿No te has registrado? <a>Hazlo aquí</a></p>
+    </div>
+</div>
