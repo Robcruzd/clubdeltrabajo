@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.List;
 
 /**
  * Service Implementation for managing {@link Archivo}.
@@ -36,6 +37,17 @@ public class ArchivoService {
     public Archivo save(Archivo archivo) {
         log.debug("Request to save Archivo : {}", archivo);
         return archivoRepository.save(archivo);
+    }
+    
+    /**
+     * Save all archivos.
+     *
+     * @param archivos the entities to save.
+     * @return the persisted entities.
+     */
+    public List<Archivo> saveAll(List<Archivo> archivos) {
+        log.debug("Request to save Archivos : {}", archivos);
+        return archivoRepository.saveAll(archivos);
     }
 
     /**

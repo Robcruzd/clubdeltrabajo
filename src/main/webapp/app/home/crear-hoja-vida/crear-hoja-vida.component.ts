@@ -30,6 +30,7 @@ import { GeografiaVo } from '../../shared/vo/geografia-vo';
 import { HojaVidaVo } from '../../shared/vo/hoja-vida-vo';
 import { IOpcionVo } from '../../shared/vo/opcion-vo';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
+import { ArchivoService } from '../../entities/archivo/archivo.service';
 
 @Component({
   selector: 'jhi-crear-hoja-vida',
@@ -63,6 +64,7 @@ export class CrearHojaVidaComponent implements OnInit {
   dependencias: Array<IDependencia> = [];
   cargos: Array<ICargo> = [];
   account!: Account | null;
+  persona!: number;
 
   constructor(
     private fb: FormBuilder,
@@ -73,7 +75,8 @@ export class CrearHojaVidaComponent implements OnInit {
     private institucionService: InstitucionService,
     private dependeciaService: DependenciaService,
     private cargoService: CargoService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private archivoService: ArchivoService
   ) {}
 
   ngOnInit(): void {
@@ -98,11 +101,13 @@ export class CrearHojaVidaComponent implements OnInit {
   cargarCuentaUsuario(): void {
     this.accountService.getAuthenticationState().subscribe(account => {
       this.account = account;
+      this.persona = this.account?.user || 0;
+      this.getHojaVida();
     });
   }
 
   getHojaVida(): void {
-    this.service.find(1).subscribe(response => {
+    this.service.find(this.persona).subscribe(response => {
       this.hojaVidaVo = response.body;
       this.updateForm(response.body);
     });
@@ -348,14 +353,23 @@ export class CrearHojaVidaComponent implements OnInit {
     this.hojaVidaVo.experienciaLaboral = laboral;
     this.mostrar = true;
     this.service.create(this.hojaVidaVo).subscribe(response => {
-      if (response.body) this.hojaVidaVo = response.body;
+      if (response.body !== null) {
+        this.hojaVidaVo = response.body;
+        if (this.archivos.length !== 0) {
+          this.archivoService.createArchivos(this.archivos).subscribe(archivos => {
+            if (archivos.body !== null) {
+              this.archivos = archivos.body;
+            }
+          });
+        }
+      }
     });
   }
 
   procesarPersona(): IPersona {
     return {
       ...new Persona(),
-      id: 1,
+      id: this.persona,
       nombre: this.formPersonal.get(['nombre'])!.value,
       apellido: this.formPersonal.get(['apellido'])!.value,
       email: this.formPersonal.get(['email'])!.value,
@@ -379,7 +393,7 @@ export class CrearHojaVidaComponent implements OnInit {
       redesSociales: this.formPersonal.get(['redesSociales'])!.value,
       licencenciaConduccion: this.formPersonal.get(['licencenciaConduccion'])!.value,
       perfilProfesional: this.formPerfil.get(['perfilProfesional'])!.value,
-      usuario: new Persona(1)
+      usuario: new Persona(this.persona)
     };
   }
 
@@ -392,7 +406,7 @@ export class CrearHojaVidaComponent implements OnInit {
       fechaInicio: this.getFecha(academica['fechaInicio']),
       fechaFin: this.getFecha(academica['fechaFin']),
       tituloOtorgado: academica['tituloOtorgado'],
-      usuario: new Persona(1),
+      usuario: new Persona(this.persona),
       institucion: academica['institucion']
     };
   }
@@ -409,7 +423,7 @@ export class CrearHojaVidaComponent implements OnInit {
       departamento: experiencia['departamento'] ? (experiencia['departamento'].codigo as number) : undefined,
       pais: experiencia['pais'] ? this.getPaisPorCodigo(experiencia['pais'].codigo) : undefined,
       telefonoEmpresa: experiencia['telefonoEmpresa'],
-      usuario: new Persona(1),
+      usuario: new Persona(this.persona),
       dependencia: experiencia['dependencia'],
       cargo: experiencia['cargo']
     };
@@ -428,7 +442,7 @@ export class CrearHojaVidaComponent implements OnInit {
       ...new PersonaIdioma(),
       id: idioma['id'],
       nivel: idioma['nivel'] ? idioma['nivel'].codigo : undefined,
-      idPersona: new Persona(1),
+      idPersona: new Persona(this.persona),
       idIdioma: idioma['idIdioma']
     };
   }
@@ -572,6 +586,7 @@ export class CrearHojaVidaComponent implements OnInit {
     const archivo = new Archivo();
     archivo.tipo = tipoDocumento;
     archivo.nombre = file.name;
+    archivo.usuario = new Persona(this.persona);
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
