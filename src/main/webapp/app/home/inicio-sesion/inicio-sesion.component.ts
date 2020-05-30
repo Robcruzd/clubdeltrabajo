@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-inicio-sesion',
@@ -9,7 +10,12 @@ export class InicioSesionComponent implements OnInit {
   username = '';
   password = '';
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
+
+  ventanaRegistrar(): void{
+    this.router.navigate(['/agregar-usuario']);
+  }
+
 }

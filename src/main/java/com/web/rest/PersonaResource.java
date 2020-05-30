@@ -1,7 +1,9 @@
 package com.web.rest;
 
 import com.domain.Persona;
+import com.domain.vo.UsuarioVo;
 import com.service.PersonaService;
+import com.service.UserService;
 import com.web.rest.errors.BadRequestAlertException;
 import com.service.dto.PersonaCriteria;
 import com.service.PersonaQueryService;
@@ -43,10 +45,13 @@ public class PersonaResource {
     private final PersonaService personaService;
 
     private final PersonaQueryService personaQueryService;
+    
+    private final UserService userService;
 
-    public PersonaResource(PersonaService personaService, PersonaQueryService personaQueryService) {
+    public PersonaResource(PersonaService personaService, PersonaQueryService personaQueryService, UserService userService) {
         this.personaService = personaService;
         this.personaQueryService = personaQueryService;
+        this.userService = userService;
     }
 
     /**
@@ -63,6 +68,20 @@ public class PersonaResource {
             throw new BadRequestAlertException("A new persona cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Persona result = personaService.save(persona);
+        return ResponseEntity.created(new URI("/api/personas/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+    
+    @PostMapping("/personas/user")
+    public ResponseEntity<Persona> crearUsuarioPersona(@Valid @RequestBody UsuarioVo usuarioVo) throws URISyntaxException {
+        log.debug("REST request to save Persona : {}", usuarioVo);
+        if (usuarioVo.getPersona().getId() != null) {
+            throw new BadRequestAlertException("A new persona cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        Persona result = personaService.save(usuarioVo.getPersona());
+        usuarioVo.getUsuario().setUser(result.getId());
+        userService.registerUser(usuarioVo.getUsuario(), usuarioVo.getUsuario().getPassword());
         return ResponseEntity.created(new URI("/api/personas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
