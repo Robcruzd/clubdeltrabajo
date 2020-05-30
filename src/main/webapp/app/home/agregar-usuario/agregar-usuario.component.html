@@ -5,7 +5,7 @@
     <div class="div_centro">
         <p class="estilo_titulo">Regístrate y entra al club.</p>
         <div class="typePersona">
-            <label style="color: white;">Persona Natural </label><input type="radio" [(ngModel)]="personaNatural" value="PN" name="usuario" ngModel>
+            <label style="color: white;">Persona Natural </label><input type="radio" value="1" name="usuario" [(ngModel)]="tipoUsuario.id" ngChecked="true" />
             <label style="color: white;">Persona Juridica </label><input type="radio" value="juridica" name="usuario" ngModel>
         </div>
         <div class="inputs">
@@ -38,7 +38,7 @@
         </div>
         <div class="inputs">
             <label style="color: white;">Contraseña</label>
-            <input type="password" class="estilo_inputs" [(ngModel)]="usuario.clave">
+            <input type="password" class="estilo_inputs" [(ngModel)]="user.password">
             <label *ngIf="mensajeClave" class="text-danger">
                 {{mensajeClave}}
             </label>
@@ -57,7 +57,7 @@
                 <a style="color: #03ECFF;" (click)="openScrollableContent(longContent)">Términos, Condiciones y Póliticas de Privacidad.</a>
             </label>
         </div>
-        <a class="ya-registrado" style="color: #03ECFF;">¡Ya estoy registrado!</a>
+        <a class="ya-registrado" style="color: #03ECFF;" (click)="ventanaInicioSesion()">¡Ya estoy registrado!</a>
        
     </div>
 

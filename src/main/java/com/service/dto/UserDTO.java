@@ -49,6 +49,10 @@ public class UserDTO {
     private Instant lastModifiedDate;
 
     private Set<String> authorities;
+    
+    private Long user;
+    
+    private String password;
 
     public UserDTO() {
         // Empty constructor needed for Jackson.
@@ -70,6 +74,7 @@ public class UserDTO {
         this.authorities = user.getAuthorities().stream()
             .map(Authority::getName)
             .collect(Collectors.toSet());
+        this.user = user.getUser();
     }
 
     public Long getId() {
@@ -176,7 +181,23 @@ public class UserDTO {
         this.authorities = authorities;
     }
 
-    @Override
+    public Long getUser() {
+		return user;
+	}
+
+	public void setUser(Long user) {
+		this.user = user;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
     public String toString() {
         return "UserDTO{" +
             "login='" + login + '\'' +

@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Persona } from 'app/shared/model/persona.model';
-import { Usuario } from 'app/shared/model/usuario.model';
-import { commonMessages } from 'app/shared/constants/commonMessages';
+import { Persona } from '../../shared/model/persona.model';
+import { commonMessages } from '../../shared/constants/commonMessages';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { User } from '../../core/user/user.model';
+import { TipoUsuario } from '../../shared/model/tipo-usuario.model';
+import { TipoDocumento } from '../../shared/model/tipo-documento.model';
+import { UsuarioVo } from '../../shared/vo/usuario-vo';
+import { PersonaService } from '../../entities/persona/persona.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-agregar-usuario',
@@ -11,7 +16,10 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AgregarUsuarioComponent implements OnInit {
   persona = new Persona();
-  usuario = new Usuario();
+  user = new User();
+  tipoUsuario = new TipoUsuario();
+  tipoDocumento = new TipoDocumento();
+  usuarioVo = new UsuarioVo();
   ConfirmarClave: String = '';
   mensajeNombre: any;
   mensajeApellido: any;
@@ -25,10 +33,10 @@ export class AgregarUsuarioComponent implements OnInit {
   document = new Document();
   isOpen = false;
 
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal, private personaService: PersonaService, private router: Router) {}
 
   ngOnInit(): void {
-    this.usuario.clave = '';
+    this.user.password = '';
   }
 
   onCrearUsuario(): void {
@@ -61,16 +69,16 @@ export class AgregarUsuarioComponent implements OnInit {
       this.mensajeNumDoc = commonMessages.CAMPO_REQUERIDO;
       this.validacionIncorrecta = true;
     }
-    if (!this.usuario.clave) {
+    if (!this.user.password) {
       this.mensajeClave = commonMessages.CAMPO_REQUERIDO;
       this.validacionIncorrecta = true;
     }
-    if (!this.ConfirmarClave && !this.usuario.clave) {
+    if (!this.ConfirmarClave && !this.user.password) {
       this.mensajeConfClave = commonMessages.CAMPO_REQUERIDO;
       this.validacionIncorrecta = true;
     }
 
-    if (this.usuario.clave !== this.ConfirmarClave) {
+    if (this.user.password !== this.ConfirmarClave) {
       this.mensajeConfClave = commonMessages.CONTRASENA_NO_COINCIDEN;
       this.validacionIncorrecta = true;
     }
@@ -78,8 +86,37 @@ export class AgregarUsuarioComponent implements OnInit {
     if (this.validacionIncorrecta === false) {
       this.persona;
       this.personaNatural;
-      this.usuario;
+      this.user;
+      this.tipoDocumento.id = 1;
+      this.personaNatural;
+      this.persona.tipoUsuario = this.tipoUsuario;
+      this.persona.tipoDocumento = this.tipoDocumento;
+      this.user.login = this.persona.email;
+      this.user.email = this.persona.email;
+      this.user.activated = true;
+      this.user.createdBy = "admin";
+      this.usuarioVo.persona = this.persona;
+      this.usuarioVo.usuario = this.user;
+      if (this.persona.id !== undefined) {
+        this.personaService.create(this.persona).subscribe(
+          () => {
+            this.ventanaInicioSesion();
+          }
+        );
+        
+      } else {
+        this.personaService.crearUsuario(this.usuarioVo).subscribe(
+          () => {
+            this.ventanaInicioSesion();
+          }
+        );
+      }
+
     }
+  }
+
+  ventanaInicioSesion(): void {
+    this.router.navigate(['/inicio-sesion']);
   }
 
   openScrollableContent(longContent: any): void {
