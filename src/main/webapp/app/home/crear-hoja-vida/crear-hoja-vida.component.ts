@@ -77,8 +77,9 @@ export class CrearHojaVidaComponent implements OnInit {
     this.mostrar = false;
 
     this.globalForm = this.crearFormularioGeneral();
+    this.consultarInformacionGeografica();
     this.cargarPaises();
-    this.cargarDocumentos();
+    this.cargarTipoDocumento();
     this.cargarDiscapacidades();
     this.cargarIdiomas();
     this.cargarNivelIdioma();
@@ -87,8 +88,7 @@ export class CrearHojaVidaComponent implements OnInit {
     this.cargarCargos();
     this.crearFormularioInformacionPersonal();
     this.crearFormularioPerfil();
-    this.consultarInformacionGeografica();
-    // this.getHojaVida();
+    this.getHojaVida();
   }
 
   getHojaVida(): void {
@@ -111,10 +111,8 @@ export class CrearHojaVidaComponent implements OnInit {
       id: [''],
       nombre: ['', [Validators.required]],
       apellidos: ['', [Validators.required]],
-      documento: this.fb.group({
-        tipoDocumento: [null, [Validators.required]],
-        numeroDocumento: ['', [Validators.required]]
-      }),
+      tipoDocumento: [null, [Validators.required]],
+      numeroDocumento: ['', [Validators.required]],
       fechaNacimiento: this.fb.group({
         dia: [null, [Validators.required]],
         mes: [null, [Validators.required]],
@@ -192,8 +190,7 @@ export class CrearHojaVidaComponent implements OnInit {
       telefonoEmpresa: [''],
       usuario: [''],
       dependencia: [null],
-      cargo: [null],
-      certificado: [null]
+      cargo: [null]
     });
   }
 
@@ -217,11 +214,13 @@ export class CrearHojaVidaComponent implements OnInit {
       id: hojaVida.informacionPersonal.id,
       nombre: hojaVida.persona.nombre,
       apellidos: hojaVida.persona.apellido,
-      documento: {
-        tipoDocumento: hojaVida.persona.tipoDocumento,
-        numeroDocumento: hojaVida.persona.numeroDocumento
+      fechaNacimiento: {
+        dia: this.getDia(hojaVida.informacionPersonal.fechaNacimiento),
+        mes: this.getMes(hojaVida.informacionPersonal.fechaNacimiento),
+        anio: this.getAnio(hojaVida.informacionPersonal.fechaNacimiento)
       },
-      fechaNacimiento: this.createFormGroupDate(hojaVida.informacionPersonal.fechaNacimiento),
+      tipoDocumento: hojaVida.persona.tipoDocumento,
+      numeroDocumento: hojaVida.persona.numeroDocumento,
       lugarNacimiento: hojaVida.informacionPersonal.lugarNacimiento,
       direccionResidencia: hojaVida.informacionPersonal.direccionResidencia,
       genero: hojaVida.informacionPersonal.genero,
@@ -246,8 +245,16 @@ export class CrearHojaVidaComponent implements OnInit {
         id: academica.id,
         nivelEstudio: academica.nivelEstudio,
         estado: academica.estado,
-        fechaInicio: this.createFormGroupDate(academica.fechaInicio),
-        fechaFin: this.createFormGroupDate(academica.fechaFin),
+        fechaInicio: {
+          dia: this.getDia(academica.fechaInicio),
+          mes: this.getMes(academica.fechaInicio),
+          anio: this.getAnio(academica.fechaInicio)
+        },
+        fechaFin: {
+          dia: this.getDia(academica.fechaFin),
+          mes: this.getMes(academica.fechaFin),
+          anio: this.getAnio(academica.fechaFin)
+        },
         tituloOtorgado: academica.tituloOtorgado,
         usuario: academica.usuario,
         institucion: academica.institucion
@@ -267,11 +274,19 @@ export class CrearHojaVidaComponent implements OnInit {
     for (let index = 0; index < hojaVida.experienciaLaboral.length; index++) {
       this.addItemExperienciaLaboral();
       const experiencia = hojaVida.experienciaLaboral[index];
-      this.informacionAcademica.at(index).patchValue({
+      this.experienciaLaboral.at(index).patchValue({
         id: experiencia.id,
         nombreEmpresa: experiencia.nombreEmpresa,
-        fechaInicio: this.createFormGroupDate(experiencia.fechaInicio),
-        fechaFin: this.createFormGroupDate(experiencia.fechaFin),
+        fechaInicio: {
+          dia: this.getDia(experiencia.fechaInicio),
+          mes: this.getMes(experiencia.fechaInicio),
+          anio: this.getAnio(experiencia.fechaInicio)
+        },
+        fechaFin: {
+          dia: this.getDia(experiencia.fechaFin),
+          mes: this.getMes(experiencia.fechaFin),
+          anio: this.getAnio(experiencia.fechaFin)
+        },
         direccion: experiencia.direccion,
         cuidad: experiencia.cuidad,
         departamento: experiencia.departamento,
@@ -350,7 +365,7 @@ export class CrearHojaVidaComponent implements OnInit {
       genero: this.formPersonal.get(['genero'])!.value,
       ciudad: this.formPersonal.get(['ciudad'])!.value.codigo as number,
       telefono: this.formPersonal.get(['telefono'])!.value,
-      discapacidad: this.formPersonal.get(['discapacidad'])!.value,
+      discapacidad: this.formPersonal.get(['discapacidad'])!.value.codigo,
       redesSociales: this.formPersonal.get(['redesSociales'])!.value,
       licencenciaConduccion: this.formPersonal.get(['licencenciaConduccion'])!.value,
       perfilProfesional: this.formPerfil.get(['perfilProfesional'])!.value,
@@ -416,16 +431,19 @@ export class CrearHojaVidaComponent implements OnInit {
     return moment(`${anio}/${mes}/${dia}`, DATE_FORMAT);
   }
 
-  createFormGroupDate(fecha: Moment | undefined): FormGroup {
+  getDia(fecha: any): number | null {
     const date = moment(fecha, DATE_FORMAT);
-    const dia = date ? date.day() : undefined;
-    const mes = date ? date.month() : undefined;
-    const anio = date ? date.year() : undefined;
-    return this.fb.group({
-      dia: [dia],
-      mes: [mes],
-      anio: [anio]
-    });
+    return date ? Number(date.format('D')) : null;
+  }
+
+  getMes(fecha: any): number | null {
+    const date = moment(fecha, DATE_FORMAT);
+    return date ? Number(date.format('M')) : null;
+  }
+
+  getAnio(fecha: any): number | null {
+    const date = moment(fecha, DATE_FORMAT);
+    return date ? Number(date.format('YYYY')) : null;
   }
 
   cargarPaises(): void {
@@ -433,8 +451,8 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   consultarInformacionGeografica(): void {
-    this.apiService.getInformacionGeografica().subscribe(response => {
-      this.geografia = response;
+    this.apiService.getInformacionGeografica().subscribe(geografia => {
+      this.geografia = geografia;
       this.cargarDepartamentos();
       this.cargarMunicipios({});
     });
@@ -481,7 +499,7 @@ export class CrearHojaVidaComponent implements OnInit {
     this.discapacidades = this.apiService.getDiscapacidades();
   }
 
-  cargarDocumentos(): void {
+  cargarTipoDocumento(): void {
     this.tipoDocumentoService
       .query({
         page: 0,
