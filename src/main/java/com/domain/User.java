@@ -91,6 +91,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
+    
+    @Column(name = "usuario_id")
+    private Long user;
 
     public Long getId() {
         return id;
@@ -196,8 +199,16 @@ public class User extends AbstractAuditingEntity implements Serializable {
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
     }
+    
+    public Long getUser() {
+		return user;
+	}
 
-    @Override
+	public void setUser(Long user) {
+		this.user = user;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

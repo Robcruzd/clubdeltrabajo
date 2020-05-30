@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IPersona } from 'app/shared/model/persona.model';
+import { UsuarioVo } from '../../shared/vo/usuario-vo';
 
 type EntityResponseType = HttpResponse<IPersona>;
 type EntityArrayResponseType = HttpResponse<IPersona[]>;
@@ -14,6 +15,10 @@ export class PersonaService {
   public resourceUrl = SERVER_API_URL + 'api/personas';
 
   constructor(protected http: HttpClient) {}
+
+  crearUsuario(usuario: UsuarioVo): Observable<any> {
+    return this.http.post<IPersona>(this.resourceUrl+'/user', usuario, { observe: 'response' });
+  }
 
   create(persona: IPersona): Observable<EntityResponseType> {
     return this.http.post<IPersona>(this.resourceUrl, persona, { observe: 'response' });
