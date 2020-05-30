@@ -1,11 +1,13 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Account } from 'app/core/user/account.model';
 import { ICargo } from 'app/shared/model/cargo.model';
 import { IDependencia } from 'app/shared/model/dependencia.model';
 import { IInstitucion } from 'app/shared/model/institucion.model';
 import * as moment from 'moment';
 import { Moment } from 'moment';
+import { AccountService } from '../../core/auth/account.service';
 import { CargoService } from '../../entities/cargo/cargo.service';
 import { DependenciaService } from '../../entities/dependencia/dependencia.service';
 import { IdiomaService } from '../../entities/idioma/idioma.service';
@@ -60,6 +62,7 @@ export class CrearHojaVidaComponent implements OnInit {
   instituciones: Array<IInstitucion> = [];
   dependencias: Array<IDependencia> = [];
   cargos: Array<ICargo> = [];
+  account!: Account | null;
 
   constructor(
     private fb: FormBuilder,
@@ -69,13 +72,14 @@ export class CrearHojaVidaComponent implements OnInit {
     private service: HojaVidaService,
     private institucionService: InstitucionService,
     private dependeciaService: DependenciaService,
-    private cargoService: CargoService
+    private cargoService: CargoService,
+    private accountService: AccountService
   ) {}
 
   ngOnInit(): void {
     this.step = 0;
     this.mostrar = false;
-
+    this.cargarCuentaUsuario();
     this.globalForm = this.crearFormularioGeneral();
     this.consultarInformacionGeografica();
     this.cargarPaises();
@@ -89,6 +93,12 @@ export class CrearHojaVidaComponent implements OnInit {
     this.crearFormularioInformacionPersonal();
     this.crearFormularioPerfil();
     this.getHojaVida();
+  }
+
+  cargarCuentaUsuario(): void {
+    this.accountService.getAuthenticationState().subscribe(account => {
+      this.account = account;
+    });
   }
 
   getHojaVida(): void {
