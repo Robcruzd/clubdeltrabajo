@@ -88,7 +88,7 @@ export class CrearHojaVidaComponent implements OnInit {
     this.crearFormularioInformacionPersonal();
     this.crearFormularioPerfil();
     this.consultarInformacionGeografica();
-    this.getHojaVida();
+    // this.getHojaVida();
   }
 
   getHojaVida(): void {
