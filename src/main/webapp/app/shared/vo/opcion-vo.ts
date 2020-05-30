@@ -1,4 +1,4 @@
 export interface IOpcionVo {
-  codigo: string;
+  codigo: string | number;
   nombre: string;
 }

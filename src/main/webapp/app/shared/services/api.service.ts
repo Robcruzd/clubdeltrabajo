@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { commonMessages } from '../constants/commonMessages';
 import { URL_UBICACIONES, URL_PAISES } from '../constants/constantes.constants';
 import { GeografiaVo } from '../vo/geografia-vo';
-import { IOpcionVo } from '../vo/option-vo';
+import { IOpcionVo } from '../vo/opcion-vo';
 
 @Injectable({
   providedIn: 'root'
