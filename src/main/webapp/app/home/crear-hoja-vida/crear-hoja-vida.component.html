@@ -337,7 +337,7 @@
                                 <p class="estilo_label">{{labels.TITULO_LABEL}} <span
                                         class="estilo_campo_requerido">*</span>
                                 </p>
-                                <p>{{labels.ADJUNTE_CERTIFICADO_ESTUDIO_LABEL}}</p>
+                                <p class="estilo_label">{{labels.ADJUNTE_CERTIFICADO_ESTUDIO_LABEL}}</p>
                                 <div class="file-upload file-upload text-secondary"
                                     (click)="certificadoestudio.click()">
                                     <label for="file">
@@ -410,7 +410,8 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group">
-                            <label>{{labels.PERFIL_LABEL}}<span class="estilo_campo_requerido"> *</span></label>
+                            <h1 class="estilo_titulo">{{labels.PERFIL_LABEL}} <span class="estilo_campo_requerido">
+                                    *</span></h1>
                             <textarea formControlName="perfilProfesional" class="form-control" rows="3"></textarea>
                             <small *ngIf="false" id="emailHelp"
                                 class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>

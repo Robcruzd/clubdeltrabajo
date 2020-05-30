@@ -1,10 +1,12 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ICargo } from 'app/shared/model/cargo.model';
 import { IDependencia } from 'app/shared/model/dependencia.model';
 import { IInstitucion } from 'app/shared/model/institucion.model';
 import * as moment from 'moment';
 import { Moment } from 'moment';
+import { CargoService } from '../../entities/cargo/cargo.service';
 import { DependenciaService } from '../../entities/dependencia/dependencia.service';
 import { IdiomaService } from '../../entities/idioma/idioma.service';
 import { InstitucionService } from '../../entities/institucion/institucion.service';
@@ -19,14 +21,13 @@ import { IInformacionPersonal, InformacionPersonal } from '../../shared/model/in
 import { IPersonaIdioma, PersonaIdioma } from '../../shared/model/persona-idioma.model';
 import { IPersona, Persona } from '../../shared/model/persona.model';
 import { ITipoDocumento } from '../../shared/model/tipo-documento.model';
+import { TipoUsuario } from '../../shared/model/tipo-usuario.model';
 import { ApiService } from '../../shared/services/api.service';
 import { HojaVidaService } from '../../shared/services/hoja-vida.service';
 import { GeografiaVo } from '../../shared/vo/geografia-vo';
 import { HojaVidaVo } from '../../shared/vo/hoja-vida-vo';
 import { IOpcionVo } from '../../shared/vo/opcion-vo';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
-import { ICargo } from 'app/shared/model/cargo.model';
-import { CargoService } from '../../entities/cargo/cargo.service';
 
 @Component({
   selector: 'jhi-crear-hoja-vida',
@@ -55,7 +56,7 @@ export class CrearHojaVidaComponent implements OnInit {
   archivos: Array<IArchivo> = [];
   tipoArchivo = TipoArchivo;
   mostrar!: boolean;
-  hojaVidaVo!: HojaVidaVo;
+  hojaVidaVo!: HojaVidaVo | null;
   instituciones: Array<IInstitucion> = [];
   dependencias: Array<IDependencia> = [];
   cargos: Array<ICargo> = [];
@@ -75,6 +76,7 @@ export class CrearHojaVidaComponent implements OnInit {
     this.step = 0;
     this.mostrar = false;
 
+    this.globalForm = this.crearFormularioGeneral();
     this.cargarPaises();
     this.cargarDocumentos();
     this.cargarDiscapacidades();
@@ -83,10 +85,17 @@ export class CrearHojaVidaComponent implements OnInit {
     this.cargarInstituciones();
     this.cargarDependencias();
     this.cargarCargos();
-    this.globalForm = this.crearFormularioGeneral();
     this.crearFormularioInformacionPersonal();
     this.crearFormularioPerfil();
     this.consultarInformacionGeografica();
+    this.getHojaVida();
+  }
+
+  getHojaVida(): void {
+    this.service.find(1).subscribe(response => {
+      this.hojaVidaVo = response.body;
+      this.updateForm(response.body);
+    });
   }
 
   crearFormularioGeneral(): FormGroup {
@@ -105,7 +114,7 @@ export class CrearHojaVidaComponent implements OnInit {
       documento: this.fb.group({
         tipoDocumento: [null, [Validators.required]],
         numeroDocumento: ['', [Validators.required]]
-      }), // numero documento
+      }),
       fechaNacimiento: this.fb.group({
         dia: [null, [Validators.required]],
         mes: [null, [Validators.required]],
@@ -141,8 +150,6 @@ export class CrearHojaVidaComponent implements OnInit {
       }),
       tituloOtorgado: [''],
       usuario: [''],
-      idioma: [''],
-      nivelIdioma: [''],
       institucion: [null]
     });
   }
@@ -200,6 +207,83 @@ export class CrearHojaVidaComponent implements OnInit {
     });
   }
 
+  updateForm(hojaVida: HojaVidaVo | null): void {
+    if (hojaVida === null) {
+      return;
+    }
+
+    // Cargar informacion personal
+    this.formPersonal.patchValue({
+      id: hojaVida.informacionPersonal.id,
+      nombre: hojaVida.persona.nombre,
+      apellidos: hojaVida.persona.apellido,
+      documento: {
+        tipoDocumento: hojaVida.persona.tipoDocumento,
+        numeroDocumento: hojaVida.persona.numeroDocumento
+      },
+      fechaNacimiento: this.createFormGroupDate(hojaVida.informacionPersonal.fechaNacimiento),
+      lugarNacimiento: hojaVida.informacionPersonal.lugarNacimiento,
+      direccionResidencia: hojaVida.informacionPersonal.direccionResidencia,
+      genero: hojaVida.informacionPersonal.genero,
+      ciudad: hojaVida.informacionPersonal.ciudad,
+      telefono: hojaVida.informacionPersonal.telefono,
+      email: hojaVida.persona.email,
+      discapacidad: hojaVida.informacionPersonal.discapacidad,
+      redesSociales: hojaVida.informacionPersonal.redesSociales,
+      perfilProfesional: hojaVida.informacionPersonal.perfilProfesional,
+      licencenciaConduccion: hojaVida.informacionPersonal.licencenciaConduccion
+    });
+
+    // cargar perfil profesional
+    this.formPerfil.patchValue({ perfilProfesional: hojaVida.informacionPersonal.perfilProfesional });
+
+    // cargar Informacion Academica
+    this.informacionAcademica.clear();
+    for (let index = 0; index < hojaVida.informacionAcademica.length; index++) {
+      this.addItemInformacionAcademica();
+      const academica = hojaVida.informacionAcademica[index];
+      this.informacionAcademica.at(index).patchValue({
+        id: academica.id,
+        nivelEstudio: academica.nivelEstudio,
+        estado: academica.estado,
+        fechaInicio: this.createFormGroupDate(academica.fechaInicio),
+        fechaFin: this.createFormGroupDate(academica.fechaFin),
+        tituloOtorgado: academica.tituloOtorgado,
+        usuario: academica.usuario,
+        institucion: academica.institucion
+      });
+    }
+
+    // cargar idiomas
+    this.idioma.clear();
+    for (let index = 0; index < hojaVida.idiomas.length; index++) {
+      this.addItemIdioma();
+      const idioma = hojaVida.idiomas[index];
+      this.idioma.at(index).setValue(idioma);
+    }
+
+    // cargar Experiencia laboral
+    this.experienciaLaboral.clear();
+    for (let index = 0; index < hojaVida.experienciaLaboral.length; index++) {
+      this.addItemExperienciaLaboral();
+      const experiencia = hojaVida.experienciaLaboral[index];
+      this.informacionAcademica.at(index).patchValue({
+        id: experiencia.id,
+        nombreEmpresa: experiencia.nombreEmpresa,
+        fechaInicio: this.createFormGroupDate(experiencia.fechaInicio),
+        fechaFin: this.createFormGroupDate(experiencia.fechaFin),
+        direccion: experiencia.direccion,
+        cuidad: experiencia.cuidad,
+        departamento: experiencia.departamento,
+        pais: experiencia.pais,
+        telefonoEmpresa: experiencia.telefonoEmpresa,
+        usuario: experiencia.usuario,
+        dependencia: experiencia.dependencia,
+        cargo: experiencia.cargo
+      });
+    }
+  }
+
   nextStep(): void {
     if (this.step === 3) return;
     this.step++;
@@ -215,6 +299,7 @@ export class CrearHojaVidaComponent implements OnInit {
 
     // cargar informacion personal
     this.hojaVidaVo.informacionPersonal = this.procesarInformacionPersonal();
+    this.hojaVidaVo.persona = this.procesarPersona();
 
     // cargar informacion academica
     const academica: IInformacionAcademica[] = [];
@@ -240,6 +325,19 @@ export class CrearHojaVidaComponent implements OnInit {
     this.service.create(this.hojaVidaVo).subscribe(response => {
       if (response.body) this.hojaVidaVo = response.body;
     });
+  }
+
+  procesarPersona(): IPersona {
+    return {
+      ...new Persona(),
+      id: 1,
+      nombre: this.formPersonal.get(['nombre'])!.value,
+      apellido: this.formPersonal.get(['apellido'])!.value,
+      email: this.formPersonal.get(['email'])!.value,
+      tipoDocumento: this.formPersonal.get(['tipoDocumento'])!.value,
+      numeroDocumento: this.formPersonal.get(['numeroDocumento'])!.value,
+      tipoUsuario: new TipoUsuario(1)
+    };
   }
 
   procesarInformacionPersonal(): IInformacionPersonal {
@@ -318,6 +416,18 @@ export class CrearHojaVidaComponent implements OnInit {
     return moment(`${anio}/${mes}/${dia}`, DATE_FORMAT);
   }
 
+  createFormGroupDate(fecha: Moment | undefined): FormGroup {
+    const date = moment(fecha, DATE_FORMAT);
+    const dia = date ? date.day() : undefined;
+    const mes = date ? date.month() : undefined;
+    const anio = date ? date.year() : undefined;
+    return this.fb.group({
+      dia: [dia],
+      mes: [mes],
+      anio: [anio]
+    });
+  }
+
   cargarPaises(): void {
     this.apiService.getPaises().subscribe(response => (this.paises = response));
   }
@@ -377,11 +487,7 @@ export class CrearHojaVidaComponent implements OnInit {
         page: 0,
         size: 20
       })
-      .subscribe((res: HttpResponse<ITipoDocumento[]>) => this.onSuccessTipoDocumento(res.body));
-  }
-
-  onSuccessTipoDocumento(data: ITipoDocumento[] | null): void {
-    this.documentos = data || [];
+      .subscribe((res: HttpResponse<ITipoDocumento[]>) => (this.documentos = res.body || []));
   }
 
   cargarInstituciones(): void {
@@ -390,11 +496,7 @@ export class CrearHojaVidaComponent implements OnInit {
         page: 0,
         size: 200
       })
-      .subscribe((res: HttpResponse<IInstitucion[]>) => this.onSuccessInstitucion(res.body));
-  }
-
-  onSuccessInstitucion(data: IInstitucion[] | null): void {
-    this.instituciones = data || [];
+      .subscribe((res: HttpResponse<IInstitucion[]>) => (this.instituciones = res.body || []));
   }
 
   cargarDependencias(): void {
@@ -403,11 +505,7 @@ export class CrearHojaVidaComponent implements OnInit {
         page: 0,
         size: 200
       })
-      .subscribe((res: HttpResponse<IDependencia[]>) => this.onSuccessDependencia(res.body));
-  }
-
-  onSuccessDependencia(data: IDependencia[] | null): void {
-    this.dependencias = data || [];
+      .subscribe((res: HttpResponse<IDependencia[]>) => (this.dependencias = res.body || []));
   }
 
   cargarCargos(): void {
