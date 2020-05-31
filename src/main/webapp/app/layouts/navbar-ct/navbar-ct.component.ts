@@ -29,4 +29,8 @@ export class NavbarCtComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  ventanaInicioSesion(): void{
+    this.router.navigate(['/inicio-sesion']);
+  }
 }

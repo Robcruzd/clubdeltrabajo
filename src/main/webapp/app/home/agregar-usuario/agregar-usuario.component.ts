@@ -9,6 +9,8 @@ import { UsuarioVo } from '../../shared/vo/usuario-vo';
 import { PersonaService } from '../../entities/persona/persona.service';
 import { Router } from '@angular/router';
 
+declare let alertify: any;
+
 @Component({
   selector: 'jhi-agregar-usuario',
   templateUrl: './agregar-usuario.component.html',
@@ -101,9 +103,8 @@ export class AgregarUsuarioComponent implements OnInit {
         this.personaService.create(this.persona).subscribe(
           () => {
             this.ventanaInicioSesion();
-          }
-        );
-        
+          }, () => {this.mensajeFallido();}
+        );   
       } else {
         this.personaService.crearUsuario(this.usuarioVo).subscribe(
           () => {
@@ -115,7 +116,14 @@ export class AgregarUsuarioComponent implements OnInit {
     }
   }
 
+  mensajeFallido(): void{
+    alertify.set('notifier','position', 'top-right');
+    alertify.error('Ingresado correctamente');
+  }
+
   ventanaInicioSesion(): void {
+    alertify.set('notifier','position', 'top-right');
+    alertify.success('Ingresado correctamente');
     this.router.navigate(['/inicio-sesion']);
   }
 

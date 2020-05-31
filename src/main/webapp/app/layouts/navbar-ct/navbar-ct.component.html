@@ -6,7 +6,7 @@
                 <div class="navbar-nav">
                     <a *ngFor="let item of lstOpcionesMenu" class="nav-item nav-link item"
                         href="#">{{item.etiqueta}}</a>
-                    <button class="btn shadow-none boton-ingresar">{{lblIngresar}}</button>
+                    <button class="btn shadow-none boton-ingresar" (click)="ventanaInicioSesion()">{{lblIngresar}}</button>
                     <button class="btn shadow-none boton-salir" style="display: none;">{{lblSalir}}</button>
                 </div>
             </div>
