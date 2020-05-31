@@ -1,6 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Account } from 'app/core/user/account.model';
 import { ICargo } from 'app/shared/model/cargo.model';
 import { IDependencia } from 'app/shared/model/dependencia.model';
@@ -8,6 +9,7 @@ import { IInstitucion } from 'app/shared/model/institucion.model';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 import { AccountService } from '../../core/auth/account.service';
+import { ArchivoService } from '../../entities/archivo/archivo.service';
 import { CargoService } from '../../entities/cargo/cargo.service';
 import { DependenciaService } from '../../entities/dependencia/dependencia.service';
 import { IdiomaService } from '../../entities/idioma/idioma.service';
@@ -30,7 +32,6 @@ import { GeografiaVo } from '../../shared/vo/geografia-vo';
 import { HojaVidaVo } from '../../shared/vo/hoja-vida-vo';
 import { IOpcionVo } from '../../shared/vo/opcion-vo';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
-import { ArchivoService } from '../../entities/archivo/archivo.service';
 
 @Component({
   selector: 'jhi-crear-hoja-vida',
@@ -76,10 +77,14 @@ export class CrearHojaVidaComponent implements OnInit {
     private dependeciaService: DependenciaService,
     private cargoService: CargoService,
     private accountService: AccountService,
-    private archivoService: ArchivoService
+    private archivoService: ArchivoService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    if (!this.accountService.isAuthenticated) {
+      this.router.navigate(['/']);
+    }
     this.step = 0;
     this.mostrar = false;
     this.cargarCuentaUsuario();
@@ -125,7 +130,7 @@ export class CrearHojaVidaComponent implements OnInit {
     this.formPersonal = this.fb.group({
       id: [''],
       nombre: ['', [Validators.required]],
-      apellidos: ['', [Validators.required]],
+      apellido: ['', [Validators.required]],
       tipoDocumento: [null, [Validators.required]],
       numeroDocumento: ['', [Validators.required]],
       fechaNacimiento: this.fb.group({
@@ -228,7 +233,7 @@ export class CrearHojaVidaComponent implements OnInit {
     this.formPersonal.patchValue({
       id: hojaVida.informacionPersonal.id,
       nombre: hojaVida.persona.nombre,
-      apellidos: hojaVida.persona.apellido,
+      apellido: hojaVida.persona.apellido,
       fechaNacimiento: {
         dia: this.getDia(hojaVida.informacionPersonal.fechaNacimiento),
         mes: this.getMes(hojaVida.informacionPersonal.fechaNacimiento),
@@ -355,13 +360,13 @@ export class CrearHojaVidaComponent implements OnInit {
     this.service.create(this.hojaVidaVo).subscribe(response => {
       if (response.body !== null) {
         this.hojaVidaVo = response.body;
-        if (this.archivos.length !== 0) {
+        /* if (this.archivos.length !== 0) {
           this.archivoService.createArchivos(this.archivos).subscribe(archivos => {
             if (archivos.body !== null) {
               this.archivos = archivos.body;
             }
           });
-        }
+        } */
       }
     });
   }
@@ -389,7 +394,7 @@ export class CrearHojaVidaComponent implements OnInit {
       genero: this.formPersonal.get(['genero'])!.value,
       ciudad: this.formPersonal.get(['ciudad'])!.value.codigo as number,
       telefono: this.formPersonal.get(['telefono'])!.value,
-      discapacidad: this.formPersonal.get(['discapacidad'])!.value.codigo,
+      discapacidad: this.formPersonal.get(['discapacidad'])!.value ? this.formPersonal.get(['discapacidad'])!.value.codigo : null,
       redesSociales: this.formPersonal.get(['redesSociales'])!.value,
       licencenciaConduccion: this.formPersonal.get(['licencenciaConduccion'])!.value,
       perfilProfesional: this.formPerfil.get(['perfilProfesional'])!.value,

@@ -17,7 +17,7 @@
                         <div class="form-group">
                             <p class="estilo_label">{{labels.APELLIDO_LABEL}} <span
                                     class="estilo_campo_requerido">*</span></p>
-                            <input type="text" class="estilo_inputs" formControlName="apellidos">
+                            <input type="text" class="estilo_inputs" formControlName="apellido">
                             <small *ngIf="false" id="emailHelp"
                                 class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
@@ -659,14 +659,4 @@
             </div>
         </div>
     </form>
-</div>
-
-<hr>
-
-<div class="container" *ngIf="mostrar">
-    <code>{{hojaVidaVo | json}}</code>
-    <hr>
-    <ng-container *ngFor="let archivo of archivos">
-        <p>Tipo: {{archivo.tipo}} <span> Nombre: {{archivo.nombre}}</span></p>
-    </ng-container>
 </div>

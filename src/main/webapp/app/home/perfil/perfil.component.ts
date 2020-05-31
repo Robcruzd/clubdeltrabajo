@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { commonMessages } from 'app/shared/constants/commonMessages';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-perfil',
@@ -12,9 +13,13 @@ export class PerfilComponent implements OnInit {
   lblVerOfertas = commonMessages.VER_OFERTAS_LABEL;
   lblEditarHojaVida = commonMessages.EDITAR_HOJA_VIDA_LABEL;
   qrCard: any;
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.qrCard = 'Perfil de presentación Juan Pérez.';
+  }
+
+  editarHojaVida(): void {
+    this.router.navigate(['crear-hoja-vida']);
   }
 }
