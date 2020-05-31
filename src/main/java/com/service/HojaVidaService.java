@@ -50,19 +50,11 @@ public class HojaVidaService {
 	public HojaVidaVo save(HojaVidaVo hojaVida) {
 		log.debug("Request to save Hoja de vida : {}", hojaVida);
 
+		this.personaRepository.save(hojaVida.getPersona());
 		this.personalRepository.save(hojaVida.getInformacionPersonal());
-
-		for (InformacionAcademica academica : hojaVida.getInformacionAcademica()) {
-			this.academicaRepository.save(academica);
-		}
-
-		for (InformacionLaboral laboral : hojaVida.getExperienciaLaboral()) {
-			this.experienciaRepository.save(laboral);
-		}
-
-		for (PersonaIdioma idioma : hojaVida.getIdiomas()) {
-			idiomaRepository.save(idioma);
-		}
+		this.academicaRepository.saveAll(hojaVida.getInformacionAcademica());
+		this.experienciaRepository.saveAll(hojaVida.getExperienciaLaboral());
+		this.idiomaRepository.saveAll(hojaVida.getIdiomas());
 
 		return hojaVida;
 	}
@@ -81,6 +73,7 @@ public class HojaVidaService {
 		List<InformacionLaboral> experiencia = this.experienciaRepository.findByUsuario(persona);
 		List<PersonaIdioma> idiomas = this.idiomaRepository.findByIdPersona(persona);
 
+		hojaVidaVo.setPersona(persona);
 		hojaVidaVo.setInformacionPersonal(personal);
 		hojaVidaVo.setInformacionAcademica(academica);
 		hojaVidaVo.setExperienciaLaboral(experiencia);

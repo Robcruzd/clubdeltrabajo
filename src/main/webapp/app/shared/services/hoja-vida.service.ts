@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { HojaVidaVo } from '../vo/hoja-vida-vo';
 
 type EntityResponseType = HttpResponse<HojaVidaVo>;
-type EntityArrayResponseType = HttpResponse<HojaVidaVo[]>;
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +14,12 @@ export class HojaVidaService {
 
   constructor(protected http: HttpClient) {}
 
-  create(informacionLaboral: HojaVidaVo): Observable<EntityResponseType> {
-    return this.http.post<HojaVidaVo>(this.resourceUrl, informacionLaboral, { observe: 'response' });
+  create(hojaVida: HojaVidaVo): Observable<EntityResponseType> {
+    return this.http.post<HojaVidaVo>(this.resourceUrl, hojaVida, { observe: 'response' });
   }
 
-  update(informacionLaboral: HojaVidaVo): Observable<EntityResponseType> {
-    return this.http.put<HojaVidaVo>(this.resourceUrl, informacionLaboral, { observe: 'response' });
+  update(hojaVida: HojaVidaVo): Observable<EntityResponseType> {
+    return this.http.put<HojaVidaVo>(this.resourceUrl, hojaVida, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {

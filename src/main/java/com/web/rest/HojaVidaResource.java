@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -74,4 +75,20 @@ public class HojaVidaResource {
 		Optional<HojaVidaVo> hojaVida = service.get(id);
 		return ResponseUtil.wrapOrNotFound(hojaVida);
 	}
+
+	/**
+	 * {@code PUT  /hoja-vida/:id} : update the "id" persona.
+	 *
+	 * @param id the id of the persona to retrieve its curriculum.
+	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+	 *         the hojaVida, or with status {@code 404 (Not Found)}.
+	 */
+	@PutMapping("/hoja-vida")
+	public ResponseEntity<HojaVidaVo> update(@Valid @RequestBody HojaVidaVo hojaVida) {
+		log.debug("REST request to update Hoja de vida : {}");
+		HojaVidaVo result = service.save(hojaVida);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME,
+				hojaVida.getInformacionPersonal().getUsuario().getId().toString())).body(result);
+	}
+
 }

@@ -17,7 +17,7 @@
                         <div class="form-group">
                             <p class="estilo_label">{{labels.APELLIDO_LABEL}} <span
                                     class="estilo_campo_requerido">*</span></p>
-                            <input type="text" class="estilo_inputs" formControlName="apellidos">
+                            <input type="text" class="estilo_inputs" formControlName="apellido">
                             <small *ngIf="false" id="emailHelp"
                                 class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
@@ -30,23 +30,22 @@
                         <div class="form-group">
                             <p class="estilo_label">{{labels.NUMERO_DOCUMENTO_LABEL}} <span
                                     class="estilo_campo_requerido">*</span></p>
-                            <ng-container formGroupName="documento">
-                                <select formControlName="tipoDocumento">
-                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
-                                    <option *ngFor="let documento of documentos" [ngValue]="documento">
-                                        {{ documento.nombreTipo }}
-                                    </option>
-                                </select>
-                                <input type="number" class="estilo_inputs" formControlName="numeroDocumento">
-                                <div class="file-upload file-upload text-light" (click)="tipodocumento.click()">
-                                    <label for="file">
-                                        <fa-icon icon="images" class="float-right"></fa-icon>
-                                    </label>
-                                    <input type="file" #tipodocumento
-                                        (change)="addArchivo($event, tipoArchivo.DOCUMENTO_IDENTIDAD)" />
-                                </div>
-                            </ng-container>
-
+                            <select formControlName="tipoDocumento">
+                                <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option
+                                    [ngValue]="documento.id === formPersonal.get('tipoDocumento')!.value?.id ? formPersonal.get('tipoDocumento')!.value : documento"
+                                    *ngFor="let documento of documentos">
+                                    {{ documento.nombreTipo }}
+                                </option>
+                            </select>
+                            <input type="number" class="estilo_inputs" formControlName="numeroDocumento">
+                            <div class="file-upload file-upload text-light" (click)="tipodocumento.click()">
+                                <label for="file">
+                                    <fa-icon icon="images" class="float-right"></fa-icon>
+                                </label>
+                                <input type="file" #tipodocumento
+                                    (change)="addArchivo($event, tipoArchivo.DOCUMENTO_IDENTIDAD)" />
+                            </div>
                             <small *ngIf="false" id="emailHelp"
                                 class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
@@ -130,7 +129,9 @@
                             </p>
                             <select formControlName="ciudad">
                                 <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
-                                <option *ngFor="let municipio of municipios" [ngValue]="municipio">
+                                <option
+                                    [ngValue]="municipio.codigo == formPersonal.get('ciudad')!.value ? formPersonal.get('ciudad')!.value : municipio"
+                                    *ngFor="let municipio of municipios">
                                     {{ municipio.nombre }}
                                 </option>
                             </select>
@@ -168,8 +169,11 @@
                         <div class="form-group">
                             <p class="estilo_label">{{labels.DISCAPACIDADES_LABEL}}</p>
                             <select formControlName="discapacidad">
-                                <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
-                                <option *ngFor="let discapacidad of discapacidades" [ngValue]="discapacidad">
+                                <option *ngIf="!formPersonal.get('discapacidad')!.value" [ngValue]="null" selected>
+                                    {{labels.SELECCIONE_LABEL}}</option>
+                                <option
+                                    [ngValue]="discapacidad.codigo === formPersonal.get('discapacidad')!.value ? formPersonal.get('discapacidad')!.value: discapacidad"
+                                    *ngFor="let discapacidad of discapacidades">
                                     {{ discapacidad.nombre }}
                                 </option>
                             </select>
@@ -215,7 +219,9 @@
                                         class="estilo_campo_requerido">*</span></p>
                                 <select formControlName="nivelEstudio">
                                     <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
-                                    <option *ngFor="let nivel of nivelEstudio" [ngValue]="nivel">
+                                    <option
+                                        [ngValue]="nivel.codigo === informacionAcademica.at(indexAcademica).get('nivelEstudio')!.value ? informacionAcademica.at(indexAcademica).get('nivelEstudio')!.value: nivel"
+                                        *ngFor="let nivel of nivelEstudio">
                                         {{ nivel.nombre }}
                                     </option>
                                 </select>
@@ -230,7 +236,9 @@
                                 </p>
                                 <select formControlName="estado">
                                     <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
-                                    <option *ngFor="let estado of estadoNivelEstudio" [ngValue]="estado">
+                                    <option
+                                        [ngValue]="estado.codigo === informacionAcademica.at(indexAcademica).get('estado')!.value ? informacionAcademica.at(indexAcademica).get('estado')!.value: estado"
+                                        *ngFor="let estado of estadoNivelEstudio">
                                         {{ estado.nombre }}
                                     </option>
                                 </select>
@@ -321,7 +329,8 @@
                                         class="estilo_campo_requerido">*</span></p>
                                 <select formControlName="institucion">
                                     <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
-                                    <option *ngFor="let institucion of instituciones" [ngValue]="institucion">
+                                    <option *ngFor="let institucion of instituciones"
+                                        [ngValue]="institucion.id === informacionAcademica.at(indexAcademica).get('institucion')!.value?.id ? informacionAcademica.at(indexAcademica).get('institucion')!.value: institucion">
                                         {{ institucion.institucion }}
                                     </option>
                                 </select>
@@ -337,7 +346,7 @@
                                 <p class="estilo_label">{{labels.TITULO_LABEL}} <span
                                         class="estilo_campo_requerido">*</span>
                                 </p>
-                                <p>{{labels.ADJUNTE_CERTIFICADO_ESTUDIO_LABEL}}</p>
+                                <p class="estilo_label">{{labels.ADJUNTE_CERTIFICADO_ESTUDIO_LABEL}}</p>
                                 <div class="file-upload file-upload text-secondary"
                                     (click)="certificadoestudio.click()">
                                     <label for="file">
@@ -356,11 +365,6 @@
             <button class="btn boton_agregar text-white float-right" (click)="addItemInformacionAcademica()"
                 type="button">{{labels.AGREGAR_ESTUDIOS_LABEL}}
             </button>
-            <!-- <div class="row float-right">
-                <div class="col-6">
-                    <p>&nbsp;</p>
-                </div>
-            </div> -->
         </ng-container>
         <ng-container formArrayName="idioma" *ngIf="step === 1">
             <ng-container *ngFor="let item of idioma.controls; index as indexIdioma">
@@ -371,8 +375,10 @@
                                 <p class="estilo_label">{{labels.IDIOMAS_LABEL}} </p>
                                 <select formControlName="idIdioma">
                                     <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
-                                    <option *ngFor="let idioma of idiomas" [ngValue]="idioma">
-                                        {{ idioma.idioma }}
+                                    <option
+                                        [ngValue]="item.id === idioma.at(indexIdioma).get('idIdioma')!.value?.id ? idioma.at(indexIdioma).get('idIdioma')!.value: item"
+                                        *ngFor="let item of idiomas">
+                                        {{ item.idioma }}
                                     </option>
                                 </select>
                                 <small *ngIf="false" id="emailHelp"
@@ -385,7 +391,9 @@
                                         class="estilo_campo_requerido">*</span></p>
                                 <select formControlName="nivel">
                                     <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
-                                    <option *ngFor="let nivel of nivelIdioma" [ngValue]="nivel">
+                                    <option
+                                        [ngValue]="nivel.codigo === idioma.at(indexIdioma).get('nivel')!.value ? idioma.at(indexIdioma).get('nivel')!.value: nivel"
+                                        *ngFor="let nivel of nivelIdioma">
                                         {{ nivel.nombre }}
                                     </option>
                                 </select>
@@ -405,12 +413,13 @@
             </div>
         </ng-container>
 
-        <ng-container formArrayName="experienciaLaboral" *ngIf="step === 2">
+        <ng-container *ngIf="step === 2">
             <form [formGroup]="formPerfil">
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group">
-                            <label>{{labels.PERFIL_LABEL}}<span class="estilo_campo_requerido"> *</span></label>
+                            <h1 class="estilo_titulo">{{labels.PERFIL_LABEL}} <span class="estilo_campo_requerido">
+                                    *</span></h1>
                             <textarea formControlName="perfilProfesional" class="form-control" rows="3"></textarea>
                             <small *ngIf="false" id="emailHelp"
                                 class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
@@ -418,6 +427,8 @@
                     </div>
                 </div>
             </form>
+        </ng-container>
+        <ng-container formArrayName="experienciaLaboral" *ngIf="step === 2">
             <p class="estilo_label">{{labels.EXPERIENCIA_LABORAL_LABEL}}</p>
             <ng-container *ngFor="let laboral of experienciaLaboral.controls; index as indexLaboral">
                 <div [formGroupName]="indexLaboral">
@@ -515,7 +526,9 @@
                                 <select formControlName="departamento"
                                     (change)="cargarMunicipios(experienciaLaboral.at(indexLaboral).value)">
                                     <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
-                                    <option *ngFor="let departamento of departamentos" [ngValue]="departamento">
+                                    <option
+                                        [ngValue]="departamento.codigo == experienciaLaboral.at(indexLaboral).get('departamento')!.value? experienciaLaboral.at(indexLaboral).get('departamento')!.value : departamento"
+                                        *ngFor="let departamento of departamentos">
                                         {{ departamento.nombre }}
                                     </option>
                                 </select>
@@ -530,7 +543,9 @@
                                 </p>
                                 <select formControlName="cuidad">
                                     <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
-                                    <option *ngFor="let municipio of municipios" [ngValue]="municipio">
+                                    <option
+                                        [ngValue]="municipio.codigo == experienciaLaboral.at(indexLaboral).get('cuidad')!.value? experienciaLaboral.at(indexLaboral).get('cuidad')!.value : municipio"
+                                        *ngFor="let municipio of municipios">
                                         {{ municipio.nombre }}
                                     </option>
                                 </select>
@@ -547,7 +562,9 @@
                                         class="estilo_campo_requerido">*</span></p>
                                 <select formControlName="pais">
                                     <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
-                                    <option *ngFor="let pais of paises" [ngValue]="pais">
+                                    <option
+                                        [ngValue]="pais.codigo == experienciaLaboral.at(indexLaboral).get('pais')!.value? experienciaLaboral.at(indexLaboral).get('pais')!.value : pais"
+                                        *ngFor="let pais of paises">
                                         {{ pais.nombre }}
                                     </option>
                                 </select>
@@ -573,7 +590,9 @@
                                         class="estilo_campo_requerido">*</span></p>
                                 <select formControlName="cargo">
                                     <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
-                                    <option *ngFor="let cargo of cargos" [ngValue]="cargo">
+                                    <option
+                                        [ngValue]="cargo.id === experienciaLaboral.at(indexLaboral).get('cargo')!.value?.id ? experienciaLaboral.at(indexLaboral).get('cargo')!.value : cargo"
+                                        *ngFor="let cargo of cargos">
                                         {{ cargo.cargo }}
                                     </option>
                                 </select>
@@ -587,7 +606,9 @@
                                         class="estilo_campo_requerido">*</span></p>
                                 <select formControlName="dependencia">
                                     <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
-                                    <option *ngFor="let dependencia of dependencias" [ngValue]="dependencia">
+                                    <option
+                                        [ngValue]="dependencia.id === experienciaLaboral.at(indexLaboral).get('dependencia')!.value?.id ? experienciaLaboral.at(indexLaboral).get('dependencia')!.value : dependencia"
+                                        *ngFor="let dependencia of dependencias">
                                         {{ dependencia.dependencia }}
                                     </option>
                                 </select>
@@ -638,14 +659,4 @@
             </div>
         </div>
     </form>
-</div>
-
-<hr>
-
-<div class="container" *ngIf="mostrar">
-    <code>{{hojaVidaVo | json}}</code>
-    <hr>
-    <ng-container *ngFor="let archivo of archivos">
-        <p>Tipo: {{archivo.tipo}} <span> Nombre: {{archivo.nombre}}</span></p>
-    </ng-container>
 </div>
