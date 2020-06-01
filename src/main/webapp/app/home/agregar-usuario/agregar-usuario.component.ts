@@ -103,7 +103,9 @@ export class AgregarUsuarioComponent implements OnInit {
         this.personaService.create(this.persona).subscribe(
           () => {
             this.ventanaInicioSesion();
-          }, () => {this.mensajeFallido();}
+          },
+          () => (alertify.set('notifier','position', 'top-right'),
+          alertify.error('Fallo registro de usuario!'))
         );   
       } else {
         this.personaService.crearUsuario(this.usuarioVo).subscribe(
@@ -116,14 +118,13 @@ export class AgregarUsuarioComponent implements OnInit {
     }
   }
 
-  mensajeFallido(): void{
-    alertify.set('notifier','position', 'top-right');
-    alertify.error('Ingresado correctamente');
-  }
-
   ventanaInicioSesion(): void {
     alertify.set('notifier','position', 'top-right');
-    alertify.success('Ingresado correctamente');
+    alertify.success('Ingresado correctamente!');
+    this.router.navigate(['/inicio-sesion']);
+  }
+
+  ventanaInicioSesionRegistrado(): void {
     this.router.navigate(['/inicio-sesion']);
   }
 

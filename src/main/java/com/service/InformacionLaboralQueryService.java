@@ -104,7 +104,7 @@ public class InformacionLaboralQueryService extends QueryService<InformacionLabo
                 specification = specification.and(buildRangeSpecification(criteria.getDepartamento(), InformacionLaboral_.departamento));
             }
             if (criteria.getPais() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getPais(), InformacionLaboral_.pais));
+                specification = specification.and(buildStringSpecification(criteria.getPais(), InformacionLaboral_.pais));
             }
             if (criteria.getTelefonoEmpresa() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getTelefonoEmpresa(), InformacionLaboral_.telefonoEmpresa));
