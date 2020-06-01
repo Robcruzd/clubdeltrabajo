@@ -9,12 +9,12 @@
                         <img class="foto-perfil" src="../../../content/images/Image 28.png">
                     </div>
                     <div class="col-md-6" style="margin-top: 110px;">
-                        <h2 class="titulo" *ngIf="true">Juan Pérez</h2>
+                        <h2 class="titulo" *ngIf="true">{{persona?.nombre}} {{persona?.apellido}}</h2>
                         <label style="color: #072278; font-weight: bold;">CC</label>
-                        <label style="color: #645d5d; font-size: 13px;"> 1234567</label>
+                        <label style="color: #645d5d; font-size: 13px;"> {{persona?.numeroDocumento}}</label>
                         <br>
                         <label style="color: #072278; font-weight: bold;">Código</label>
-                        <label style="color: #645d5d; font-size: 13px;"> 1234567</label>
+                        <label style="color: #645d5d; font-size: 13px;">{{persona?.id}}</label>
                     </div>
                 </div>
             </div>
@@ -34,13 +34,13 @@
                 </button>
             </div>
             <div class="row" style="justify-content: center; margin-left: 15px;">
-                <img class="procuraduria" src="../../../content/images/Image 29.png">
-                <img class="contraloria" src="../../../content/images/Image 30.png">
-                <img class="policia" src="../../../content/images/Image 31.png">
+                <a href="https://www.procuraduria.gov.co/portal/" target="_blank"><img class="procuraduria" src="../../../content/images/Image 29.png"></a>
+                <a href="https://www.contraloria.gov.co/" target="_blank"><img class="contraloria" src="../../../content/images/Image 30.png"></a> 
+                <a href="https://www.policia.gov.co/" target="_blank"><img class="policia" src="../../../content/images/Image 31.png"></a> 
             </div>
         </div>
         <div class="col-md-4" style="margin-left:30px;">
-            <h2 class="titulo">Juan Pérez</h2>
+            <h2 class="titulo">{{persona?.nombre}} {{persona?.apellido}}</h2>
             <p class="texto-hoja-vida">"Sed ut perspiciatis quae ab illo inventore veritatis et quasi architecto
                 beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
                 odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.

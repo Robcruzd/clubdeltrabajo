@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from '../../core/login/login.service';
+import { Login } from '../../core/login/login.model';
+
+declare let alertify: any;
 
 @Component({
   selector: 'jhi-inicio-sesion',
@@ -9,17 +13,26 @@ import { Router } from '@angular/router';
 export class InicioSesionComponent implements OnInit {
   username = '';
   password = '';
+  login = new Login(this.username,this.password,false);
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private loginService: LoginService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   ventanaRegistrar(): void{
     this.router.navigate(['/agregar-usuario']);
   }
 
   ventanaPerfil(): void{
-    this.router.navigate(['/perfil']);
+    this.login.rememberMe = false;
+    this.loginService.login(this.login).subscribe(
+        () => {
+          this.router.navigate(['/perfil']);
+        },
+        () => (alertify.set('notifier','position', 'top-right'),
+        alertify.error('Fallo ingreso!'))
+      );
   }
 
   ventanaRecuperar(): void{
