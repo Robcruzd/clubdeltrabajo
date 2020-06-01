@@ -212,7 +212,8 @@
                         <div class="form-group">
                         <p class="estilo_campo_requerido">{{labels.INFO_CAMPO_OBLIGATORIO_LABEL}} </p>
                         <button class="btn boton_siguiente text-white" (click)="nextStep()"
-                             type="button">{{labels.SIGUIENTE_LABEL}}</button>
+                            [disabled]="formPersonal.invalid" 
+                            type="button">{{labels.SIGUIENTE_LABEL}}</button>
                         </div>
                     </div>
                 </div>

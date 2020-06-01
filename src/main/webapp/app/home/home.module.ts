@@ -16,6 +16,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CrearHojaVidaComponent } from './crear-hoja-vida/crear-hoja-vida.component';
 import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
 import { RestaurarContrasenaComponent } from './restaurar-contrasena/restaurar-contrasena.component';
+import { NuevoCorreoComponent } from './nuevo-correo/nuevo-correo.component';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { RestaurarContrasenaComponent } from './restaurar-contrasena/restaurar-c
     AgregarUsuarioComponent,
     CrearHojaVidaComponent,
     InicioSesionComponent,
-    RestaurarContrasenaComponent
+    RestaurarContrasenaComponent,
+    NuevoCorreoComponent
   ]
 })
 export class CtProjectHomeModule {}
