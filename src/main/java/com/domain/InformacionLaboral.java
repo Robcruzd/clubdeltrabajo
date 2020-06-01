@@ -49,7 +49,7 @@ public class InformacionLaboral implements Serializable {
 
     @NotNull
     @Column(name = "pais", nullable = false)
-    private Integer pais;
+    private String pais;
 
     @NotNull
     @Column(name = "telefono_empresa", nullable = false)
@@ -157,11 +157,11 @@ public class InformacionLaboral implements Serializable {
         this.departamento = departamento;
     }
 
-    public Integer getPais() {
+    public String getPais() {
         return pais;
     }
 
-    public InformacionLaboral pais(Integer pais) {
+    public InformacionLaboral pais(String pais) {
         this.pais = pais;
         return this;
     }

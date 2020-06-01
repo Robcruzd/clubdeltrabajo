@@ -11,7 +11,7 @@ export interface IInformacionLaboral {
   direccion?: string;
   cuidad?: number;
   departamento?: number;
-  pais?: number;
+  pais?: string;
   telefonoEmpresa?: string;
   usuario?: IPersona;
   dependencia?: IDependencia;
@@ -27,7 +27,7 @@ export class InformacionLaboral implements IInformacionLaboral {
     public direccion?: string,
     public cuidad?: number,
     public departamento?: number,
-    public pais?: number,
+    public pais?: string,
     public telefonoEmpresa?: string,
     public usuario?: IPersona,
     public dependencia?: IDependencia,

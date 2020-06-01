@@ -1,3 +1,17 @@
+<code>
+    {{globalForm.value | json}}
+</code>
+
+<br>
+<br>
+<hr>
+
+<ng-container *ngIf="hojaVidaVo">
+    <code>
+        {{hojaVidaVo | json}}
+    </code>
+</ng-container>
+
 <div class="container estilo_body">
     <form [formGroup]="globalForm" (ngSubmit)="onSubmit()">
         <ng-container *ngIf="step === 0">
@@ -130,7 +144,7 @@
                             <select formControlName="ciudad">
                                 <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                                 <option
-                                    [ngValue]="municipio.codigo == formPersonal.get('ciudad')!.value ? formPersonal.get('ciudad')!.value : municipio"
+                                    [ngValue]="municipio.codigo == formPersonal.get('ciudad')!.value ? formPersonal.get('ciudad')!.value : municipio.codigo"
                                     *ngFor="let municipio of municipios">
                                     {{ municipio.nombre }}
                                 </option>
@@ -172,7 +186,7 @@
                                 <option *ngIf="!formPersonal.get('discapacidad')!.value" [ngValue]="null" selected>
                                     {{labels.SELECCIONE_LABEL}}</option>
                                 <option
-                                    [ngValue]="discapacidad.codigo === formPersonal.get('discapacidad')!.value ? formPersonal.get('discapacidad')!.value: discapacidad"
+                                    [ngValue]="discapacidad.codigo === formPersonal.get('discapacidad')!.value ? formPersonal.get('discapacidad')!.value: discapacidad.codigo"
                                     *ngFor="let discapacidad of discapacidades">
                                     {{ discapacidad.nombre }}
                                 </option>
@@ -220,7 +234,7 @@
                                 <select formControlName="nivelEstudio">
                                     <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
                                     <option
-                                        [ngValue]="nivel.codigo === informacionAcademica.at(indexAcademica).get('nivelEstudio')!.value ? informacionAcademica.at(indexAcademica).get('nivelEstudio')!.value: nivel"
+                                        [ngValue]="nivel.codigo === informacionAcademica.at(indexAcademica).get('nivelEstudio')!.value ? informacionAcademica.at(indexAcademica).get('nivelEstudio')!.value: nivel.codigo"
                                         *ngFor="let nivel of nivelEstudio">
                                         {{ nivel.nombre }}
                                     </option>
@@ -237,7 +251,7 @@
                                 <select formControlName="estado">
                                     <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
                                     <option
-                                        [ngValue]="estado.codigo === informacionAcademica.at(indexAcademica).get('estado')!.value ? informacionAcademica.at(indexAcademica).get('estado')!.value: estado"
+                                        [ngValue]="estado.codigo === informacionAcademica.at(indexAcademica).get('estado')!.value ? informacionAcademica.at(indexAcademica).get('estado')!.value: estado.codigo"
                                         *ngFor="let estado of estadoNivelEstudio">
                                         {{ estado.nombre }}
                                     </option>
@@ -392,7 +406,7 @@
                                 <select formControlName="nivel">
                                     <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
                                     <option
-                                        [ngValue]="nivel.codigo === idioma.at(indexIdioma).get('nivel')!.value ? idioma.at(indexIdioma).get('nivel')!.value: nivel"
+                                        [ngValue]="nivel.codigo === idioma.at(indexIdioma).get('nivel')!.value ? idioma.at(indexIdioma).get('nivel')!.value: nivel.codigo"
                                         *ngFor="let nivel of nivelIdioma">
                                         {{ nivel.nombre }}
                                     </option>
@@ -527,7 +541,7 @@
                                     (change)="cargarMunicipios(experienciaLaboral.at(indexLaboral).value)">
                                     <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                                     <option
-                                        [ngValue]="departamento.codigo == experienciaLaboral.at(indexLaboral).get('departamento')!.value? experienciaLaboral.at(indexLaboral).get('departamento')!.value : departamento"
+                                        [ngValue]="departamento.codigo == experienciaLaboral.at(indexLaboral).get('departamento')!.value? experienciaLaboral.at(indexLaboral).get('departamento')!.value : departamento.codigo"
                                         *ngFor="let departamento of departamentos">
                                         {{ departamento.nombre }}
                                     </option>
@@ -544,7 +558,7 @@
                                 <select formControlName="cuidad">
                                     <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                                     <option
-                                        [ngValue]="municipio.codigo == experienciaLaboral.at(indexLaboral).get('cuidad')!.value? experienciaLaboral.at(indexLaboral).get('cuidad')!.value : municipio"
+                                        [ngValue]="municipio.codigo == experienciaLaboral.at(indexLaboral).get('cuidad')!.value? experienciaLaboral.at(indexLaboral).get('cuidad')!.value : municipio.codigo"
                                         *ngFor="let municipio of municipios">
                                         {{ municipio.nombre }}
                                     </option>
@@ -563,7 +577,7 @@
                                 <select formControlName="pais">
                                     <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                                     <option
-                                        [ngValue]="pais.codigo == experienciaLaboral.at(indexLaboral).get('pais')!.value? experienciaLaboral.at(indexLaboral).get('pais')!.value : pais"
+                                        [ngValue]="pais.codigo == experienciaLaboral.at(indexLaboral).get('pais')!.value ? experienciaLaboral.at(indexLaboral).get('pais')!.value : pais.codigo"
                                         *ngFor="let pais of paises">
                                         {{ pais.nombre }}
                                     </option>
