@@ -392,9 +392,9 @@ export class CrearHojaVidaComponent implements OnInit {
       lugarNacimiento: this.formPersonal.get(['lugarNacimiento'])!.value,
       direccionResidencia: this.formPersonal.get(['direccionResidencia'])!.value,
       genero: this.formPersonal.get(['genero'])!.value,
-      ciudad: this.formPersonal.get(['ciudad'])!.value.codigo as number,
+      ciudad: this.formPersonal.get(['ciudad'])!.value as number,
       telefono: this.formPersonal.get(['telefono'])!.value,
-      discapacidad: this.formPersonal.get(['discapacidad'])!.value ? this.formPersonal.get(['discapacidad'])!.value.codigo : null,
+      discapacidad: this.formPersonal.get(['discapacidad'])!.value,
       redesSociales: this.formPersonal.get(['redesSociales'])!.value,
       licencenciaConduccion: this.formPersonal.get(['licencenciaConduccion'])!.value,
       perfilProfesional: this.formPerfil.get(['perfilProfesional'])!.value,
@@ -406,8 +406,8 @@ export class CrearHojaVidaComponent implements OnInit {
     return {
       ...new InformacionAcademica(),
       id: academica['id'],
-      nivelEstudio: academica['nivelEstudio'] ? (academica['nivelEstudio'].codigo as number) : undefined,
-      estado: academica['estado'] ? (academica['estado'].codigo as number) : undefined,
+      nivelEstudio: academica['nivelEstudio'],
+      estado: academica['estado'],
       fechaInicio: this.getFecha(academica['fechaInicio']),
       fechaFin: this.getFecha(academica['fechaFin']),
       tituloOtorgado: academica['tituloOtorgado'],
@@ -424,9 +424,9 @@ export class CrearHojaVidaComponent implements OnInit {
       fechaInicio: this.getFecha(experiencia['fechaInicio']),
       fechaFin: this.getFecha(experiencia['fechaFin']),
       direccion: experiencia['direccion'],
-      cuidad: experiencia['cuidad'] ? (experiencia['cuidad'].codigo as number) : undefined,
-      departamento: experiencia['departamento'] ? (experiencia['departamento'].codigo as number) : undefined,
-      pais: experiencia['pais'] ? this.getPaisPorCodigo(experiencia['pais'].codigo) : undefined,
+      cuidad: experiencia['cuidad'],
+      departamento: experiencia['departamento'],
+      pais: experiencia['pais'],
       telefonoEmpresa: experiencia['telefonoEmpresa'],
       usuario: new Persona(this.persona),
       dependencia: experiencia['dependencia'],
@@ -434,19 +434,11 @@ export class CrearHojaVidaComponent implements OnInit {
     };
   }
 
-  getPaisPorCodigo(codigo: string): number {
-    return this.paises.findIndex(pais => pais.codigo === codigo);
-  }
-
-  getPaisPorIndice(indice: number): IOpcionVo {
-    return this.paises[indice];
-  }
-
   procesarIdiomas(idioma: Object): IPersonaIdioma {
     return {
       ...new PersonaIdioma(),
       id: idioma['id'],
-      nivel: idioma['nivel'] ? idioma['nivel'].codigo : undefined,
+      nivel: idioma['nivel'],
       idPersona: new Persona(this.persona),
       idIdioma: idioma['idIdioma']
     };
@@ -514,7 +506,7 @@ export class CrearHojaVidaComponent implements OnInit {
       });
     } else if (value && Object.entries(value).length > 0) {
       this.municipios = this.geografia
-        .filter(item => item.codigoDpto === value['departamento'].codigo)
+        .filter(item => item.codigoDpto === value['departamento'])
         .map(item => {
           return {
             codigo: item.codigoMpio,

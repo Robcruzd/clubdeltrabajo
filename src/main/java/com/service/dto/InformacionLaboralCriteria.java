@@ -39,7 +39,7 @@ public class InformacionLaboralCriteria implements Serializable, Criteria {
 
     private IntegerFilter departamento;
 
-    private IntegerFilter pais;
+    private StringFilter pais;
 
     private StringFilter telefonoEmpresa;
 
@@ -128,11 +128,11 @@ public class InformacionLaboralCriteria implements Serializable, Criteria {
         this.departamento = departamento;
     }
 
-    public IntegerFilter getPais() {
+    public StringFilter getPais() {
         return pais;
     }
 
-    public void setPais(IntegerFilter pais) {
+    public void setPais(StringFilter pais) {
         this.pais = pais;
     }
 
