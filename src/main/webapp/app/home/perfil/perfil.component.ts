@@ -22,4 +22,8 @@ export class PerfilComponent implements OnInit {
   editarHojaVida(): void {
     this.router.navigate(['crear-hoja-vida']);
   }
+
+  verHojaVida(): void {
+    this.router.navigate(['hoja-vida']);
+  }
 }

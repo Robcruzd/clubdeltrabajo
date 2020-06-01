@@ -18,4 +18,12 @@ export class InicioSesionComponent implements OnInit {
     this.router.navigate(['/agregar-usuario']);
   }
 
+  ventanaPerfil(): void{
+    this.router.navigate(['/perfil']);
+  }
+
+  ventanaRecuperar(): void{
+    this.router.navigate(['/restaurar-contrasena']);
+  }
+
 }
