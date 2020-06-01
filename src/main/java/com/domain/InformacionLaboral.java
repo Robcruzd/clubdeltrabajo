@@ -166,7 +166,7 @@ public class InformacionLaboral implements Serializable {
         return this;
     }
 
-    public void setPais(Integer pais) {
+    public void setPais(String pais) {
         this.pais = pais;
     }
 
