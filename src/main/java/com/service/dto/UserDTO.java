@@ -132,6 +132,10 @@ public class UserDTO {
     public void setActivated(boolean activated) {
         this.activated = activated;
     }
+    
+    public boolean getActivated() {
+        return activated;
+    }
 
     public String getLangKey() {
         return langKey;
