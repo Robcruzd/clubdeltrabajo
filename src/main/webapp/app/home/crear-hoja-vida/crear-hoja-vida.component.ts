@@ -229,92 +229,106 @@ export class CrearHojaVidaComponent implements OnInit {
     }
 
     // Cargar informacion personal
-    this.formPersonal.patchValue({
-      id: hojaVida.informacionPersonal.id,
-      nombre: hojaVida.persona.nombre,
-      apellido: hojaVida.persona.apellido,
-      fechaNacimiento: {
-        dia: this.getDia(hojaVida.informacionPersonal.fechaNacimiento),
-        mes: this.getMes(hojaVida.informacionPersonal.fechaNacimiento),
-        anio: this.getAnio(hojaVida.informacionPersonal.fechaNacimiento)
-      },
-      tipoDocumento: hojaVida.persona.tipoDocumento,
-      numeroDocumento: hojaVida.persona.numeroDocumento,
-      lugarNacimiento: hojaVida.informacionPersonal.lugarNacimiento,
-      direccionResidencia: hojaVida.informacionPersonal.direccionResidencia,
-      genero: hojaVida.informacionPersonal.genero,
-      ciudad: hojaVida.informacionPersonal.ciudad,
-      telefono: hojaVida.informacionPersonal.telefono,
-      email: hojaVida.persona.email,
-      discapacidad: hojaVida.informacionPersonal.discapacidad,
-      redesSociales: hojaVida.informacionPersonal.redesSociales,
-      perfilProfesional: hojaVida.informacionPersonal.perfilProfesional,
-      licencenciaConduccion: hojaVida.informacionPersonal.licencenciaConduccion
-    });
-
-    // cargar perfil profesional
-    this.formPerfil.patchValue({ perfilProfesional: hojaVida.informacionPersonal.perfilProfesional });
-
-    // cargar Informacion Academica
-    this.informacionAcademica.clear();
-    for (let index = 0; index < hojaVida.informacionAcademica.length; index++) {
-      this.addItemInformacionAcademica();
-      const academica = hojaVida.informacionAcademica[index];
-      this.informacionAcademica.at(index).patchValue({
-        id: academica.id,
-        nivelEstudio: academica.nivelEstudio,
-        estado: academica.estado,
-        fechaInicio: {
-          dia: this.getDia(academica.fechaInicio),
-          mes: this.getMes(academica.fechaInicio),
-          anio: this.getAnio(academica.fechaInicio)
+    if (this.hojaVidaVo?.informacionPersonal !== null) {
+      this.formPersonal.patchValue({
+        id: hojaVida.informacionPersonal.id,
+        nombre: hojaVida.persona.nombre,
+        apellido: hojaVida.persona.apellido,
+        fechaNacimiento: {
+          dia: this.getDia(hojaVida.informacionPersonal.fechaNacimiento),
+          mes: this.getMes(hojaVida.informacionPersonal.fechaNacimiento),
+          anio: this.getAnio(hojaVida.informacionPersonal.fechaNacimiento)
         },
-        fechaFin: {
-          dia: this.getDia(academica.fechaFin),
-          mes: this.getMes(academica.fechaFin),
-          anio: this.getAnio(academica.fechaFin)
-        },
-        tituloOtorgado: academica.tituloOtorgado,
-        usuario: academica.usuario,
-        institucion: academica.institucion
+        tipoDocumento: hojaVida.persona.tipoDocumento,
+        numeroDocumento: hojaVida.persona.numeroDocumento,
+        lugarNacimiento: hojaVida.informacionPersonal.lugarNacimiento,
+        direccionResidencia: hojaVida.informacionPersonal.direccionResidencia,
+        genero: hojaVida.informacionPersonal.genero,
+        ciudad: hojaVida.informacionPersonal.ciudad,
+        telefono: hojaVida.informacionPersonal.telefono,
+        email: hojaVida.persona.email,
+        discapacidad: hojaVida.informacionPersonal.discapacidad,
+        redesSociales: hojaVida.informacionPersonal.redesSociales,
+        perfilProfesional: hojaVida.informacionPersonal.perfilProfesional,
+        licencenciaConduccion: hojaVida.informacionPersonal.licencenciaConduccion
       });
+
+      // cargar perfil profesional
+      this.formPerfil.patchValue({ perfilProfesional: hojaVida.informacionPersonal.perfilProfesional });
+    } else {
+      this.formPersonal.get('nombre')?.setValue(this.hojaVidaVo.persona.nombre);
+      this.formPersonal.get('apellido')?.setValue(this.hojaVidaVo.persona.apellido);
+      this.formPersonal.get('tipoDocumento')?.setValue(this.hojaVidaVo.persona.tipoDocumento);
+      this.formPersonal.get('numeroDocumento')?.setValue(this.hojaVidaVo.persona.numeroDocumento);
+      this.formPersonal.get('email')?.setValue(this.hojaVidaVo.persona.email);
     }
 
-    // cargar idiomas
-    this.idioma.clear();
-    for (let index = 0; index < hojaVida.idiomas.length; index++) {
-      this.addItemIdioma();
-      const idioma = hojaVida.idiomas[index];
-      this.idioma.at(index).setValue(idioma);
+    if (this.hojaVidaVo?.informacionAcademica.length !== 0) {
+      // cargar Informacion Academica
+      this.informacionAcademica.clear();
+      for (let index = 0; index < hojaVida.informacionAcademica.length; index++) {
+        this.addItemInformacionAcademica();
+        const academica = hojaVida.informacionAcademica[index];
+        this.informacionAcademica.at(index).patchValue({
+          id: academica.id,
+          nivelEstudio: academica.nivelEstudio,
+          estado: academica.estado,
+          fechaInicio: {
+            dia: this.getDia(academica.fechaInicio),
+            mes: this.getMes(academica.fechaInicio),
+            anio: this.getAnio(academica.fechaInicio)
+          },
+          fechaFin: {
+            dia: this.getDia(academica.fechaFin),
+            mes: this.getMes(academica.fechaFin),
+            anio: this.getAnio(academica.fechaFin)
+          },
+          tituloOtorgado: academica.tituloOtorgado,
+          usuario: academica.usuario,
+          institucion: academica.institucion
+        });
+      }
     }
 
-    // cargar Experiencia laboral
-    this.experienciaLaboral.clear();
-    for (let index = 0; index < hojaVida.experienciaLaboral.length; index++) {
-      this.addItemExperienciaLaboral();
-      const experiencia = hojaVida.experienciaLaboral[index];
-      this.experienciaLaboral.at(index).patchValue({
-        id: experiencia.id,
-        nombreEmpresa: experiencia.nombreEmpresa,
-        fechaInicio: {
-          dia: this.getDia(experiencia.fechaInicio),
-          mes: this.getMes(experiencia.fechaInicio),
-          anio: this.getAnio(experiencia.fechaInicio)
-        },
-        fechaFin: {
-          dia: this.getDia(experiencia.fechaFin),
-          mes: this.getMes(experiencia.fechaFin),
-          anio: this.getAnio(experiencia.fechaFin)
-        },
-        direccion: experiencia.direccion,
-        cuidad: experiencia.cuidad,
-        departamento: experiencia.departamento,
-        pais: experiencia.pais,
-        telefonoEmpresa: experiencia.telefonoEmpresa,
-        usuario: experiencia.usuario,
-        dependencia: experiencia.dependencia,
-        cargo: experiencia.cargo
-      });
+    if (this.hojaVidaVo?.idiomas.length !== 0) {
+      // cargar idiomas
+      this.idioma.clear();
+      for (let index = 0; index < hojaVida.idiomas.length; index++) {
+        this.addItemIdioma();
+        const idioma = hojaVida.idiomas[index];
+        this.idioma.at(index).setValue(idioma);
+      }
+    }
+
+    if (this.hojaVidaVo?.experienciaLaboral.length !== 0) {
+      // cargar Experiencia laboral
+      this.experienciaLaboral.clear();
+      for (let index = 0; index < hojaVida.experienciaLaboral.length; index++) {
+        this.addItemExperienciaLaboral();
+        const experiencia = hojaVida.experienciaLaboral[index];
+        this.experienciaLaboral.at(index).patchValue({
+          id: experiencia.id,
+          nombreEmpresa: experiencia.nombreEmpresa,
+          fechaInicio: {
+            dia: this.getDia(experiencia.fechaInicio),
+            mes: this.getMes(experiencia.fechaInicio),
+            anio: this.getAnio(experiencia.fechaInicio)
+          },
+          fechaFin: {
+            dia: this.getDia(experiencia.fechaFin),
+            mes: this.getMes(experiencia.fechaFin),
+            anio: this.getAnio(experiencia.fechaFin)
+          },
+          direccion: experiencia.direccion,
+          cuidad: experiencia.cuidad,
+          departamento: experiencia.departamento,
+          pais: experiencia.pais,
+          telefonoEmpresa: experiencia.telefonoEmpresa,
+          usuario: experiencia.usuario,
+          dependencia: experiencia.dependencia,
+          cargo: experiencia.cargo
+        });
+      }
     }
   }
 
