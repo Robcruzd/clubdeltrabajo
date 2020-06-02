@@ -1,17 +1,3 @@
-<code>
-    {{globalForm.value | json}}
-</code>
-
-<br>
-<br>
-<hr>
-
-<ng-container *ngIf="hojaVidaVo">
-    <code>
-        {{hojaVidaVo | json}}
-    </code>
-</ng-container>
-
 <div class="container estilo_body">
     <form [formGroup]="globalForm" (ngSubmit)="onSubmit()">
         <ng-container *ngIf="step === 0" >
