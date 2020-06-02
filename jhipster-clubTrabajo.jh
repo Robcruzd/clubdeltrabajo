@@ -40,29 +40,30 @@ entity InformacionPersonal (ct_informacion_personal_tb) {
     ciudad Integer required,
     telefono String required,
     discapacidad Integer,
-    redesSociales Integer,
+    redesSociales String,
     licencenciaConduccion Boolean,
     perfilProfesional String,
 }
-entity Dependencia (ct_dependencia_tb) {
-	id Integer required, 
-    dependencia String required,
-}
+
 entity InformacionLaboral (ct_informacon_laboral_tb) {
 	id Integer required,
     nombreEmpresa String required,
     fechaInicio LocalDate required,
     fechaFin LocalDate required,
     direccion String required,
-    cuidad Integer required,
+    ciudad Integer required,
     departamento Integer required,
-    pais Integer required,
+    pais String required,
     telefonoEmpresa String required,
+    dependencia String required,
+    ciudadExtranjera String required,
 }
 entity Archivo (ct_archivo_tb) {
     id Integer required,
     tipo Integer required,
     archivo String required,
+    nombre String required,
+    extension String required,
 }
 entity Cargo (ct_cargo_tb) {
     id Integer required,
@@ -107,7 +108,6 @@ relationship ManyToOne {
     InformacionLaboral { usuario required} to Persona
     Oferta{ usuario required} to Empresa
     AplicacionOferta { oferta required} to Oferta
-    InformacionLaboral { dependencia required} to Dependencia
     InformacionLaboral { cargo required} to Cargo
     InformacionAcademica { institucion } to Institucion
     PersonaIdioma { idPersona required } to Persona

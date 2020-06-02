@@ -30,6 +30,10 @@ public class ArchivoCriteria implements Serializable, Criteria {
 
     private StringFilter archivo;
 
+    private StringFilter nombre;
+
+    private StringFilter extension;
+
     private LongFilter usuarioId;
 
     public ArchivoCriteria() {
@@ -39,6 +43,8 @@ public class ArchivoCriteria implements Serializable, Criteria {
         this.id = other.id == null ? null : other.id.copy();
         this.tipo = other.tipo == null ? null : other.tipo.copy();
         this.archivo = other.archivo == null ? null : other.archivo.copy();
+        this.nombre = other.nombre == null ? null : other.nombre.copy();
+        this.extension = other.extension == null ? null : other.extension.copy();
         this.usuarioId = other.usuarioId == null ? null : other.usuarioId.copy();
     }
 
@@ -71,6 +77,22 @@ public class ArchivoCriteria implements Serializable, Criteria {
         this.archivo = archivo;
     }
 
+    public StringFilter getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(StringFilter nombre) {
+        this.nombre = nombre;
+    }
+
+    public StringFilter getExtension() {
+        return extension;
+    }
+
+    public void setExtension(StringFilter extension) {
+        this.extension = extension;
+    }
+
     public LongFilter getUsuarioId() {
         return usuarioId;
     }
@@ -93,6 +115,8 @@ public class ArchivoCriteria implements Serializable, Criteria {
             Objects.equals(id, that.id) &&
             Objects.equals(tipo, that.tipo) &&
             Objects.equals(archivo, that.archivo) &&
+            Objects.equals(nombre, that.nombre) &&
+            Objects.equals(extension, that.extension) &&
             Objects.equals(usuarioId, that.usuarioId);
     }
 
@@ -102,6 +126,8 @@ public class ArchivoCriteria implements Serializable, Criteria {
         id,
         tipo,
         archivo,
+        nombre,
+        extension,
         usuarioId
         );
     }
@@ -112,6 +138,8 @@ public class ArchivoCriteria implements Serializable, Criteria {
                 (id != null ? "id=" + id + ", " : "") +
                 (tipo != null ? "tipo=" + tipo + ", " : "") +
                 (archivo != null ? "archivo=" + archivo + ", " : "") +
+                (nombre != null ? "nombre=" + nombre + ", " : "") +
+                (extension != null ? "extension=" + extension + ", " : "") +
                 (usuarioId != null ? "usuarioId=" + usuarioId + ", " : "") +
             "}";
     }

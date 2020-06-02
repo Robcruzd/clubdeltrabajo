@@ -14,12 +14,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="ct_persona_tb"/>
 
-        <addForeignKeyConstraint baseColumnNames="dependencia_id"
-                                 baseTableName="ct_informacon_laboral_tb"
-                                 constraintName="fk_ct_informacon_laboral_tb_dependencia_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="ct_dependencia_tb"/>
-
         <addForeignKeyConstraint baseColumnNames="cargo_id"
                                  baseTableName="ct_informacon_laboral_tb"
                                  constraintName="fk_ct_informacon_laboral_tb_cargo_id"

@@ -36,7 +36,7 @@
             <column name="discapacidad" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="redes_sociales" type="integer">
+            <column name="redes_sociales" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="licencencia_conduccion" type="boolean">
@@ -78,7 +78,7 @@
             <column name="ciudad" type="numeric"/>
             <column name="telefono" type="string"/>
             <column name="discapacidad" type="numeric"/>
-            <column name="redes_sociales" type="numeric"/>
+            <column name="redes_sociales" type="string"/>
             <column name="licencencia_conduccion" type="boolean"/>
             <column name="perfil_profesional" type="string"/>
             <column name="usuario_id" type="numeric"/>

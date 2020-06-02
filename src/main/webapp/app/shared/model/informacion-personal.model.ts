@@ -10,7 +10,7 @@ export interface IInformacionPersonal {
   ciudad?: number;
   telefono?: string;
   discapacidad?: number;
-  redesSociales?: number;
+  redesSociales?: string;
   licencenciaConduccion?: boolean;
   perfilProfesional?: string;
   usuario?: IPersona;
@@ -26,7 +26,7 @@ export class InformacionPersonal implements IInformacionPersonal {
     public ciudad?: number,
     public telefono?: string,
     public discapacidad?: number,
-    public redesSociales?: number,
+    public redesSociales?: string,
     public licencenciaConduccion?: boolean,
     public perfilProfesional?: string,
     public usuario?: IPersona

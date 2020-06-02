@@ -25,6 +25,8 @@
                     <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="tipo"><span jhiTranslate="ctProjectApp.archivo.tipo">Tipo</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="archivo"><span jhiTranslate="ctProjectApp.archivo.archivo">Archivo</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="nombre"><span jhiTranslate="ctProjectApp.archivo.nombre">Nombre</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="extension"><span jhiTranslate="ctProjectApp.archivo.extension">Extension</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="usuario.id"><span jhiTranslate="ctProjectApp.archivo.usuario">Usuario</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
@@ -34,6 +36,8 @@
                     <td><a [routerLink]="['/archivo', archivo.id, 'view']">{{ archivo.id }}</a></td>
                     <td>{{ archivo.tipo }}</td>
                     <td>{{ archivo.archivo }}</td>
+                    <td>{{ archivo.nombre }}</td>
+                    <td>{{ archivo.extension }}</td>
                     <td>
                         <div *ngIf="archivo.usuario">
                             <a [routerLink]="['/persona', archivo.usuario?.id, 'view']" >{{ archivo.usuario?.id }}</a>

@@ -40,8 +40,8 @@ public class InformacionLaboral implements Serializable {
     private String direccion;
 
     @NotNull
-    @Column(name = "cuidad", nullable = false)
-    private Integer cuidad;
+    @Column(name = "ciudad", nullable = false)
+    private Integer ciudad;
 
     @NotNull
     @Column(name = "departamento", nullable = false)
@@ -55,15 +55,18 @@ public class InformacionLaboral implements Serializable {
     @Column(name = "telefono_empresa", nullable = false)
     private String telefonoEmpresa;
 
-    @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties("informacionLaborals")
-    private Persona usuario;
+    @Column(name = "dependencia", nullable = false)
+    private String dependencia;
+
+    @NotNull
+    @Column(name = "ciudad_extranjera", nullable = false)
+    private String ciudadExtranjera;
 
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("informacionLaborals")
-    private Dependencia dependencia;
+    private Persona usuario;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -131,17 +134,17 @@ public class InformacionLaboral implements Serializable {
         this.direccion = direccion;
     }
 
-    public Integer getCuidad() {
-        return cuidad;
+    public Integer getCiudad() {
+        return ciudad;
     }
 
-    public InformacionLaboral cuidad(Integer cuidad) {
-        this.cuidad = cuidad;
+    public InformacionLaboral ciudad(Integer ciudad) {
+        this.ciudad = ciudad;
         return this;
     }
 
-    public void setCuidad(Integer cuidad) {
-        this.cuidad = cuidad;
+    public void setCiudad(Integer ciudad) {
+        this.ciudad = ciudad;
     }
 
     public Integer getDepartamento() {
@@ -183,6 +186,32 @@ public class InformacionLaboral implements Serializable {
         this.telefonoEmpresa = telefonoEmpresa;
     }
 
+    public String getDependencia() {
+        return dependencia;
+    }
+
+    public InformacionLaboral dependencia(String dependencia) {
+        this.dependencia = dependencia;
+        return this;
+    }
+
+    public void setDependencia(String dependencia) {
+        this.dependencia = dependencia;
+    }
+
+    public String getCiudadExtranjera() {
+        return ciudadExtranjera;
+    }
+
+    public InformacionLaboral ciudadExtranjera(String ciudadExtranjera) {
+        this.ciudadExtranjera = ciudadExtranjera;
+        return this;
+    }
+
+    public void setCiudadExtranjera(String ciudadExtranjera) {
+        this.ciudadExtranjera = ciudadExtranjera;
+    }
+
     public Persona getUsuario() {
         return usuario;
     }
@@ -194,19 +223,6 @@ public class InformacionLaboral implements Serializable {
 
     public void setUsuario(Persona persona) {
         this.usuario = persona;
-    }
-
-    public Dependencia getDependencia() {
-        return dependencia;
-    }
-
-    public InformacionLaboral dependencia(Dependencia dependencia) {
-        this.dependencia = dependencia;
-        return this;
-    }
-
-    public void setDependencia(Dependencia dependencia) {
-        this.dependencia = dependencia;
     }
 
     public Cargo getCargo() {
@@ -247,10 +263,12 @@ public class InformacionLaboral implements Serializable {
             ", fechaInicio='" + getFechaInicio() + "'" +
             ", fechaFin='" + getFechaFin() + "'" +
             ", direccion='" + getDireccion() + "'" +
-            ", cuidad=" + getCuidad() +
+            ", ciudad=" + getCiudad() +
             ", departamento=" + getDepartamento() +
-            ", pais=" + getPais() +
+            ", pais='" + getPais() + "'" +
             ", telefonoEmpresa='" + getTelefonoEmpresa() + "'" +
+            ", dependencia='" + getDependencia() + "'" +
+            ", ciudadExtranjera='" + getCiudadExtranjera() + "'" +
             "}";
     }
 }

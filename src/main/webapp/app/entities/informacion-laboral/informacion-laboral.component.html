@@ -27,12 +27,13 @@
                     <th scope="col"  jhiSortBy="fechaInicio"><span jhiTranslate="ctProjectApp.informacionLaboral.fechaInicio">Fecha Inicio</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="fechaFin"><span jhiTranslate="ctProjectApp.informacionLaboral.fechaFin">Fecha Fin</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="direccion"><span jhiTranslate="ctProjectApp.informacionLaboral.direccion">Direccion</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="cuidad"><span jhiTranslate="ctProjectApp.informacionLaboral.cuidad">Cuidad</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="ciudad"><span jhiTranslate="ctProjectApp.informacionLaboral.ciudad">Ciudad</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="departamento"><span jhiTranslate="ctProjectApp.informacionLaboral.departamento">Departamento</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="pais"><span jhiTranslate="ctProjectApp.informacionLaboral.pais">Pais</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="telefonoEmpresa"><span jhiTranslate="ctProjectApp.informacionLaboral.telefonoEmpresa">Telefono Empresa</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dependencia"><span jhiTranslate="ctProjectApp.informacionLaboral.dependencia">Dependencia</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="ciudadExtranjera"><span jhiTranslate="ctProjectApp.informacionLaboral.ciudadExtranjera">Ciudad Extranjera</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="usuario.id"><span jhiTranslate="ctProjectApp.informacionLaboral.usuario">Usuario</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="dependencia.id"><span jhiTranslate="ctProjectApp.informacionLaboral.dependencia">Dependencia</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="cargo.id"><span jhiTranslate="ctProjectApp.informacionLaboral.cargo">Cargo</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
@@ -44,18 +45,15 @@
                     <td>{{ informacionLaboral.fechaInicio | date:'mediumDate' }}</td>
                     <td>{{ informacionLaboral.fechaFin | date:'mediumDate' }}</td>
                     <td>{{ informacionLaboral.direccion }}</td>
-                    <td>{{ informacionLaboral.cuidad }}</td>
+                    <td>{{ informacionLaboral.ciudad }}</td>
                     <td>{{ informacionLaboral.departamento }}</td>
                     <td>{{ informacionLaboral.pais }}</td>
                     <td>{{ informacionLaboral.telefonoEmpresa }}</td>
+                    <td>{{ informacionLaboral.dependencia }}</td>
+                    <td>{{ informacionLaboral.ciudadExtranjera }}</td>
                     <td>
                         <div *ngIf="informacionLaboral.usuario">
                             <a [routerLink]="['/persona', informacionLaboral.usuario?.id, 'view']" >{{ informacionLaboral.usuario?.id }}</a>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="informacionLaboral.dependencia">
-                            <a [routerLink]="['/dependencia', informacionLaboral.dependencia?.id, 'view']" >{{ informacionLaboral.dependencia?.id }}</a>
                         </div>
                     </td>
                     <td>

@@ -3,7 +3,6 @@ package com.web.rest;
 import com.CtProjectApp;
 import com.domain.InformacionLaboral;
 import com.domain.Persona;
-import com.domain.Dependencia;
 import com.domain.Cargo;
 import com.repository.InformacionLaboralRepository;
 import com.service.InformacionLaboralService;
@@ -52,20 +51,25 @@ public class InformacionLaboralResourceIT {
     private static final String DEFAULT_DIRECCION = "AAAAAAAAAA";
     private static final String UPDATED_DIRECCION = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_CUIDAD = 1;
-    private static final Integer UPDATED_CUIDAD = 2;
-    private static final Integer SMALLER_CUIDAD = 1 - 1;
+    private static final Integer DEFAULT_CIUDAD = 1;
+    private static final Integer UPDATED_CIUDAD = 2;
+    private static final Integer SMALLER_CIUDAD = 1 - 1;
 
     private static final Integer DEFAULT_DEPARTAMENTO = 1;
     private static final Integer UPDATED_DEPARTAMENTO = 2;
     private static final Integer SMALLER_DEPARTAMENTO = 1 - 1;
 
-    private static final Integer DEFAULT_PAIS = 1;
-    private static final Integer UPDATED_PAIS = 2;
-    private static final Integer SMALLER_PAIS = 1 - 1;
+    private static final String DEFAULT_PAIS = "AAAAAAAAAA";
+    private static final String UPDATED_PAIS = "BBBBBBBBBB";
 
     private static final String DEFAULT_TELEFONO_EMPRESA = "AAAAAAAAAA";
     private static final String UPDATED_TELEFONO_EMPRESA = "BBBBBBBBBB";
+
+    private static final String DEFAULT_DEPENDENCIA = "AAAAAAAAAA";
+    private static final String UPDATED_DEPENDENCIA = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CIUDAD_EXTRANJERA = "AAAAAAAAAA";
+    private static final String UPDATED_CIUDAD_EXTRANJERA = "BBBBBBBBBB";
 
     @Autowired
     private InformacionLaboralRepository informacionLaboralRepository;
@@ -96,10 +100,12 @@ public class InformacionLaboralResourceIT {
             .fechaInicio(DEFAULT_FECHA_INICIO)
             .fechaFin(DEFAULT_FECHA_FIN)
             .direccion(DEFAULT_DIRECCION)
-            .cuidad(DEFAULT_CUIDAD)
+            .ciudad(DEFAULT_CIUDAD)
             .departamento(DEFAULT_DEPARTAMENTO)
             .pais(DEFAULT_PAIS)
-            .telefonoEmpresa(DEFAULT_TELEFONO_EMPRESA);
+            .telefonoEmpresa(DEFAULT_TELEFONO_EMPRESA)
+            .dependencia(DEFAULT_DEPENDENCIA)
+            .ciudadExtranjera(DEFAULT_CIUDAD_EXTRANJERA);
         // Add required entity
         Persona persona;
         if (TestUtil.findAll(em, Persona.class).isEmpty()) {
@@ -110,16 +116,6 @@ public class InformacionLaboralResourceIT {
             persona = TestUtil.findAll(em, Persona.class).get(0);
         }
         informacionLaboral.setUsuario(persona);
-        // Add required entity
-        Dependencia dependencia;
-        if (TestUtil.findAll(em, Dependencia.class).isEmpty()) {
-            dependencia = DependenciaResourceIT.createEntity(em);
-            em.persist(dependencia);
-            em.flush();
-        } else {
-            dependencia = TestUtil.findAll(em, Dependencia.class).get(0);
-        }
-        informacionLaboral.setDependencia(dependencia);
         // Add required entity
         Cargo cargo;
         if (TestUtil.findAll(em, Cargo.class).isEmpty()) {
@@ -144,10 +140,12 @@ public class InformacionLaboralResourceIT {
             .fechaInicio(UPDATED_FECHA_INICIO)
             .fechaFin(UPDATED_FECHA_FIN)
             .direccion(UPDATED_DIRECCION)
-            .cuidad(UPDATED_CUIDAD)
+            .ciudad(UPDATED_CIUDAD)
             .departamento(UPDATED_DEPARTAMENTO)
             .pais(UPDATED_PAIS)
-            .telefonoEmpresa(UPDATED_TELEFONO_EMPRESA);
+            .telefonoEmpresa(UPDATED_TELEFONO_EMPRESA)
+            .dependencia(UPDATED_DEPENDENCIA)
+            .ciudadExtranjera(UPDATED_CIUDAD_EXTRANJERA);
         // Add required entity
         Persona persona;
         if (TestUtil.findAll(em, Persona.class).isEmpty()) {
@@ -158,16 +156,6 @@ public class InformacionLaboralResourceIT {
             persona = TestUtil.findAll(em, Persona.class).get(0);
         }
         informacionLaboral.setUsuario(persona);
-        // Add required entity
-        Dependencia dependencia;
-        if (TestUtil.findAll(em, Dependencia.class).isEmpty()) {
-            dependencia = DependenciaResourceIT.createUpdatedEntity(em);
-            em.persist(dependencia);
-            em.flush();
-        } else {
-            dependencia = TestUtil.findAll(em, Dependencia.class).get(0);
-        }
-        informacionLaboral.setDependencia(dependencia);
         // Add required entity
         Cargo cargo;
         if (TestUtil.findAll(em, Cargo.class).isEmpty()) {
@@ -205,10 +193,12 @@ public class InformacionLaboralResourceIT {
         assertThat(testInformacionLaboral.getFechaInicio()).isEqualTo(DEFAULT_FECHA_INICIO);
         assertThat(testInformacionLaboral.getFechaFin()).isEqualTo(DEFAULT_FECHA_FIN);
         assertThat(testInformacionLaboral.getDireccion()).isEqualTo(DEFAULT_DIRECCION);
-        assertThat(testInformacionLaboral.getCuidad()).isEqualTo(DEFAULT_CUIDAD);
+        assertThat(testInformacionLaboral.getCiudad()).isEqualTo(DEFAULT_CIUDAD);
         assertThat(testInformacionLaboral.getDepartamento()).isEqualTo(DEFAULT_DEPARTAMENTO);
         assertThat(testInformacionLaboral.getPais()).isEqualTo(DEFAULT_PAIS);
         assertThat(testInformacionLaboral.getTelefonoEmpresa()).isEqualTo(DEFAULT_TELEFONO_EMPRESA);
+        assertThat(testInformacionLaboral.getDependencia()).isEqualTo(DEFAULT_DEPENDENCIA);
+        assertThat(testInformacionLaboral.getCiudadExtranjera()).isEqualTo(DEFAULT_CIUDAD_EXTRANJERA);
     }
 
     @Test
@@ -305,10 +295,10 @@ public class InformacionLaboralResourceIT {
 
     @Test
     @Transactional
-    public void checkCuidadIsRequired() throws Exception {
+    public void checkCiudadIsRequired() throws Exception {
         int databaseSizeBeforeTest = informacionLaboralRepository.findAll().size();
         // set the field null
-        informacionLaboral.setCuidad(null);
+        informacionLaboral.setCiudad(null);
 
         // Create the InformacionLaboral, which fails.
 
@@ -377,6 +367,42 @@ public class InformacionLaboralResourceIT {
 
     @Test
     @Transactional
+    public void checkDependenciaIsRequired() throws Exception {
+        int databaseSizeBeforeTest = informacionLaboralRepository.findAll().size();
+        // set the field null
+        informacionLaboral.setDependencia(null);
+
+        // Create the InformacionLaboral, which fails.
+
+        restInformacionLaboralMockMvc.perform(post("/api/informacion-laborals")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(informacionLaboral)))
+            .andExpect(status().isBadRequest());
+
+        List<InformacionLaboral> informacionLaboralList = informacionLaboralRepository.findAll();
+        assertThat(informacionLaboralList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkCiudadExtranjeraIsRequired() throws Exception {
+        int databaseSizeBeforeTest = informacionLaboralRepository.findAll().size();
+        // set the field null
+        informacionLaboral.setCiudadExtranjera(null);
+
+        // Create the InformacionLaboral, which fails.
+
+        restInformacionLaboralMockMvc.perform(post("/api/informacion-laborals")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(informacionLaboral)))
+            .andExpect(status().isBadRequest());
+
+        List<InformacionLaboral> informacionLaboralList = informacionLaboralRepository.findAll();
+        assertThat(informacionLaboralList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllInformacionLaborals() throws Exception {
         // Initialize the database
         informacionLaboralRepository.saveAndFlush(informacionLaboral);
@@ -390,10 +416,12 @@ public class InformacionLaboralResourceIT {
             .andExpect(jsonPath("$.[*].fechaInicio").value(hasItem(DEFAULT_FECHA_INICIO.toString())))
             .andExpect(jsonPath("$.[*].fechaFin").value(hasItem(DEFAULT_FECHA_FIN.toString())))
             .andExpect(jsonPath("$.[*].direccion").value(hasItem(DEFAULT_DIRECCION)))
-            .andExpect(jsonPath("$.[*].cuidad").value(hasItem(DEFAULT_CUIDAD)))
+            .andExpect(jsonPath("$.[*].ciudad").value(hasItem(DEFAULT_CIUDAD)))
             .andExpect(jsonPath("$.[*].departamento").value(hasItem(DEFAULT_DEPARTAMENTO)))
             .andExpect(jsonPath("$.[*].pais").value(hasItem(DEFAULT_PAIS)))
-            .andExpect(jsonPath("$.[*].telefonoEmpresa").value(hasItem(DEFAULT_TELEFONO_EMPRESA)));
+            .andExpect(jsonPath("$.[*].telefonoEmpresa").value(hasItem(DEFAULT_TELEFONO_EMPRESA)))
+            .andExpect(jsonPath("$.[*].dependencia").value(hasItem(DEFAULT_DEPENDENCIA)))
+            .andExpect(jsonPath("$.[*].ciudadExtranjera").value(hasItem(DEFAULT_CIUDAD_EXTRANJERA)));
     }
     
     @Test
@@ -411,10 +439,12 @@ public class InformacionLaboralResourceIT {
             .andExpect(jsonPath("$.fechaInicio").value(DEFAULT_FECHA_INICIO.toString()))
             .andExpect(jsonPath("$.fechaFin").value(DEFAULT_FECHA_FIN.toString()))
             .andExpect(jsonPath("$.direccion").value(DEFAULT_DIRECCION))
-            .andExpect(jsonPath("$.cuidad").value(DEFAULT_CUIDAD))
+            .andExpect(jsonPath("$.ciudad").value(DEFAULT_CIUDAD))
             .andExpect(jsonPath("$.departamento").value(DEFAULT_DEPARTAMENTO))
             .andExpect(jsonPath("$.pais").value(DEFAULT_PAIS))
-            .andExpect(jsonPath("$.telefonoEmpresa").value(DEFAULT_TELEFONO_EMPRESA));
+            .andExpect(jsonPath("$.telefonoEmpresa").value(DEFAULT_TELEFONO_EMPRESA))
+            .andExpect(jsonPath("$.dependencia").value(DEFAULT_DEPENDENCIA))
+            .andExpect(jsonPath("$.ciudadExtranjera").value(DEFAULT_CIUDAD_EXTRANJERA));
     }
 
 
@@ -805,106 +835,106 @@ public class InformacionLaboralResourceIT {
 
     @Test
     @Transactional
-    public void getAllInformacionLaboralsByCuidadIsEqualToSomething() throws Exception {
+    public void getAllInformacionLaboralsByCiudadIsEqualToSomething() throws Exception {
         // Initialize the database
         informacionLaboralRepository.saveAndFlush(informacionLaboral);
 
-        // Get all the informacionLaboralList where cuidad equals to DEFAULT_CUIDAD
-        defaultInformacionLaboralShouldBeFound("cuidad.equals=" + DEFAULT_CUIDAD);
+        // Get all the informacionLaboralList where ciudad equals to DEFAULT_CIUDAD
+        defaultInformacionLaboralShouldBeFound("ciudad.equals=" + DEFAULT_CIUDAD);
 
-        // Get all the informacionLaboralList where cuidad equals to UPDATED_CUIDAD
-        defaultInformacionLaboralShouldNotBeFound("cuidad.equals=" + UPDATED_CUIDAD);
+        // Get all the informacionLaboralList where ciudad equals to UPDATED_CIUDAD
+        defaultInformacionLaboralShouldNotBeFound("ciudad.equals=" + UPDATED_CIUDAD);
     }
 
     @Test
     @Transactional
-    public void getAllInformacionLaboralsByCuidadIsNotEqualToSomething() throws Exception {
+    public void getAllInformacionLaboralsByCiudadIsNotEqualToSomething() throws Exception {
         // Initialize the database
         informacionLaboralRepository.saveAndFlush(informacionLaboral);
 
-        // Get all the informacionLaboralList where cuidad not equals to DEFAULT_CUIDAD
-        defaultInformacionLaboralShouldNotBeFound("cuidad.notEquals=" + DEFAULT_CUIDAD);
+        // Get all the informacionLaboralList where ciudad not equals to DEFAULT_CIUDAD
+        defaultInformacionLaboralShouldNotBeFound("ciudad.notEquals=" + DEFAULT_CIUDAD);
 
-        // Get all the informacionLaboralList where cuidad not equals to UPDATED_CUIDAD
-        defaultInformacionLaboralShouldBeFound("cuidad.notEquals=" + UPDATED_CUIDAD);
+        // Get all the informacionLaboralList where ciudad not equals to UPDATED_CIUDAD
+        defaultInformacionLaboralShouldBeFound("ciudad.notEquals=" + UPDATED_CIUDAD);
     }
 
     @Test
     @Transactional
-    public void getAllInformacionLaboralsByCuidadIsInShouldWork() throws Exception {
+    public void getAllInformacionLaboralsByCiudadIsInShouldWork() throws Exception {
         // Initialize the database
         informacionLaboralRepository.saveAndFlush(informacionLaboral);
 
-        // Get all the informacionLaboralList where cuidad in DEFAULT_CUIDAD or UPDATED_CUIDAD
-        defaultInformacionLaboralShouldBeFound("cuidad.in=" + DEFAULT_CUIDAD + "," + UPDATED_CUIDAD);
+        // Get all the informacionLaboralList where ciudad in DEFAULT_CIUDAD or UPDATED_CIUDAD
+        defaultInformacionLaboralShouldBeFound("ciudad.in=" + DEFAULT_CIUDAD + "," + UPDATED_CIUDAD);
 
-        // Get all the informacionLaboralList where cuidad equals to UPDATED_CUIDAD
-        defaultInformacionLaboralShouldNotBeFound("cuidad.in=" + UPDATED_CUIDAD);
+        // Get all the informacionLaboralList where ciudad equals to UPDATED_CIUDAD
+        defaultInformacionLaboralShouldNotBeFound("ciudad.in=" + UPDATED_CIUDAD);
     }
 
     @Test
     @Transactional
-    public void getAllInformacionLaboralsByCuidadIsNullOrNotNull() throws Exception {
+    public void getAllInformacionLaboralsByCiudadIsNullOrNotNull() throws Exception {
         // Initialize the database
         informacionLaboralRepository.saveAndFlush(informacionLaboral);
 
-        // Get all the informacionLaboralList where cuidad is not null
-        defaultInformacionLaboralShouldBeFound("cuidad.specified=true");
+        // Get all the informacionLaboralList where ciudad is not null
+        defaultInformacionLaboralShouldBeFound("ciudad.specified=true");
 
-        // Get all the informacionLaboralList where cuidad is null
-        defaultInformacionLaboralShouldNotBeFound("cuidad.specified=false");
+        // Get all the informacionLaboralList where ciudad is null
+        defaultInformacionLaboralShouldNotBeFound("ciudad.specified=false");
     }
 
     @Test
     @Transactional
-    public void getAllInformacionLaboralsByCuidadIsGreaterThanOrEqualToSomething() throws Exception {
+    public void getAllInformacionLaboralsByCiudadIsGreaterThanOrEqualToSomething() throws Exception {
         // Initialize the database
         informacionLaboralRepository.saveAndFlush(informacionLaboral);
 
-        // Get all the informacionLaboralList where cuidad is greater than or equal to DEFAULT_CUIDAD
-        defaultInformacionLaboralShouldBeFound("cuidad.greaterThanOrEqual=" + DEFAULT_CUIDAD);
+        // Get all the informacionLaboralList where ciudad is greater than or equal to DEFAULT_CIUDAD
+        defaultInformacionLaboralShouldBeFound("ciudad.greaterThanOrEqual=" + DEFAULT_CIUDAD);
 
-        // Get all the informacionLaboralList where cuidad is greater than or equal to UPDATED_CUIDAD
-        defaultInformacionLaboralShouldNotBeFound("cuidad.greaterThanOrEqual=" + UPDATED_CUIDAD);
+        // Get all the informacionLaboralList where ciudad is greater than or equal to UPDATED_CIUDAD
+        defaultInformacionLaboralShouldNotBeFound("ciudad.greaterThanOrEqual=" + UPDATED_CIUDAD);
     }
 
     @Test
     @Transactional
-    public void getAllInformacionLaboralsByCuidadIsLessThanOrEqualToSomething() throws Exception {
+    public void getAllInformacionLaboralsByCiudadIsLessThanOrEqualToSomething() throws Exception {
         // Initialize the database
         informacionLaboralRepository.saveAndFlush(informacionLaboral);
 
-        // Get all the informacionLaboralList where cuidad is less than or equal to DEFAULT_CUIDAD
-        defaultInformacionLaboralShouldBeFound("cuidad.lessThanOrEqual=" + DEFAULT_CUIDAD);
+        // Get all the informacionLaboralList where ciudad is less than or equal to DEFAULT_CIUDAD
+        defaultInformacionLaboralShouldBeFound("ciudad.lessThanOrEqual=" + DEFAULT_CIUDAD);
 
-        // Get all the informacionLaboralList where cuidad is less than or equal to SMALLER_CUIDAD
-        defaultInformacionLaboralShouldNotBeFound("cuidad.lessThanOrEqual=" + SMALLER_CUIDAD);
+        // Get all the informacionLaboralList where ciudad is less than or equal to SMALLER_CIUDAD
+        defaultInformacionLaboralShouldNotBeFound("ciudad.lessThanOrEqual=" + SMALLER_CIUDAD);
     }
 
     @Test
     @Transactional
-    public void getAllInformacionLaboralsByCuidadIsLessThanSomething() throws Exception {
+    public void getAllInformacionLaboralsByCiudadIsLessThanSomething() throws Exception {
         // Initialize the database
         informacionLaboralRepository.saveAndFlush(informacionLaboral);
 
-        // Get all the informacionLaboralList where cuidad is less than DEFAULT_CUIDAD
-        defaultInformacionLaboralShouldNotBeFound("cuidad.lessThan=" + DEFAULT_CUIDAD);
+        // Get all the informacionLaboralList where ciudad is less than DEFAULT_CIUDAD
+        defaultInformacionLaboralShouldNotBeFound("ciudad.lessThan=" + DEFAULT_CIUDAD);
 
-        // Get all the informacionLaboralList where cuidad is less than UPDATED_CUIDAD
-        defaultInformacionLaboralShouldBeFound("cuidad.lessThan=" + UPDATED_CUIDAD);
+        // Get all the informacionLaboralList where ciudad is less than UPDATED_CIUDAD
+        defaultInformacionLaboralShouldBeFound("ciudad.lessThan=" + UPDATED_CIUDAD);
     }
 
     @Test
     @Transactional
-    public void getAllInformacionLaboralsByCuidadIsGreaterThanSomething() throws Exception {
+    public void getAllInformacionLaboralsByCiudadIsGreaterThanSomething() throws Exception {
         // Initialize the database
         informacionLaboralRepository.saveAndFlush(informacionLaboral);
 
-        // Get all the informacionLaboralList where cuidad is greater than DEFAULT_CUIDAD
-        defaultInformacionLaboralShouldNotBeFound("cuidad.greaterThan=" + DEFAULT_CUIDAD);
+        // Get all the informacionLaboralList where ciudad is greater than DEFAULT_CIUDAD
+        defaultInformacionLaboralShouldNotBeFound("ciudad.greaterThan=" + DEFAULT_CIUDAD);
 
-        // Get all the informacionLaboralList where cuidad is greater than SMALLER_CUIDAD
-        defaultInformacionLaboralShouldBeFound("cuidad.greaterThan=" + SMALLER_CUIDAD);
+        // Get all the informacionLaboralList where ciudad is greater than SMALLER_CIUDAD
+        defaultInformacionLaboralShouldBeFound("ciudad.greaterThan=" + SMALLER_CIUDAD);
     }
 
 
@@ -1064,57 +1094,30 @@ public class InformacionLaboralResourceIT {
         // Get all the informacionLaboralList where pais is null
         defaultInformacionLaboralShouldNotBeFound("pais.specified=false");
     }
-
-    @Test
+                @Test
     @Transactional
-    public void getAllInformacionLaboralsByPaisIsGreaterThanOrEqualToSomething() throws Exception {
+    public void getAllInformacionLaboralsByPaisContainsSomething() throws Exception {
         // Initialize the database
         informacionLaboralRepository.saveAndFlush(informacionLaboral);
 
-        // Get all the informacionLaboralList where pais is greater than or equal to DEFAULT_PAIS
-        defaultInformacionLaboralShouldBeFound("pais.greaterThanOrEqual=" + DEFAULT_PAIS);
+        // Get all the informacionLaboralList where pais contains DEFAULT_PAIS
+        defaultInformacionLaboralShouldBeFound("pais.contains=" + DEFAULT_PAIS);
 
-        // Get all the informacionLaboralList where pais is greater than or equal to UPDATED_PAIS
-        defaultInformacionLaboralShouldNotBeFound("pais.greaterThanOrEqual=" + UPDATED_PAIS);
+        // Get all the informacionLaboralList where pais contains UPDATED_PAIS
+        defaultInformacionLaboralShouldNotBeFound("pais.contains=" + UPDATED_PAIS);
     }
 
     @Test
     @Transactional
-    public void getAllInformacionLaboralsByPaisIsLessThanOrEqualToSomething() throws Exception {
+    public void getAllInformacionLaboralsByPaisNotContainsSomething() throws Exception {
         // Initialize the database
         informacionLaboralRepository.saveAndFlush(informacionLaboral);
 
-        // Get all the informacionLaboralList where pais is less than or equal to DEFAULT_PAIS
-        defaultInformacionLaboralShouldBeFound("pais.lessThanOrEqual=" + DEFAULT_PAIS);
+        // Get all the informacionLaboralList where pais does not contain DEFAULT_PAIS
+        defaultInformacionLaboralShouldNotBeFound("pais.doesNotContain=" + DEFAULT_PAIS);
 
-        // Get all the informacionLaboralList where pais is less than or equal to SMALLER_PAIS
-        defaultInformacionLaboralShouldNotBeFound("pais.lessThanOrEqual=" + SMALLER_PAIS);
-    }
-
-    @Test
-    @Transactional
-    public void getAllInformacionLaboralsByPaisIsLessThanSomething() throws Exception {
-        // Initialize the database
-        informacionLaboralRepository.saveAndFlush(informacionLaboral);
-
-        // Get all the informacionLaboralList where pais is less than DEFAULT_PAIS
-        defaultInformacionLaboralShouldNotBeFound("pais.lessThan=" + DEFAULT_PAIS);
-
-        // Get all the informacionLaboralList where pais is less than UPDATED_PAIS
-        defaultInformacionLaboralShouldBeFound("pais.lessThan=" + UPDATED_PAIS);
-    }
-
-    @Test
-    @Transactional
-    public void getAllInformacionLaboralsByPaisIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        informacionLaboralRepository.saveAndFlush(informacionLaboral);
-
-        // Get all the informacionLaboralList where pais is greater than DEFAULT_PAIS
-        defaultInformacionLaboralShouldNotBeFound("pais.greaterThan=" + DEFAULT_PAIS);
-
-        // Get all the informacionLaboralList where pais is greater than SMALLER_PAIS
-        defaultInformacionLaboralShouldBeFound("pais.greaterThan=" + SMALLER_PAIS);
+        // Get all the informacionLaboralList where pais does not contain UPDATED_PAIS
+        defaultInformacionLaboralShouldBeFound("pais.doesNotContain=" + UPDATED_PAIS);
     }
 
 
@@ -1198,6 +1201,162 @@ public class InformacionLaboralResourceIT {
 
     @Test
     @Transactional
+    public void getAllInformacionLaboralsByDependenciaIsEqualToSomething() throws Exception {
+        // Initialize the database
+        informacionLaboralRepository.saveAndFlush(informacionLaboral);
+
+        // Get all the informacionLaboralList where dependencia equals to DEFAULT_DEPENDENCIA
+        defaultInformacionLaboralShouldBeFound("dependencia.equals=" + DEFAULT_DEPENDENCIA);
+
+        // Get all the informacionLaboralList where dependencia equals to UPDATED_DEPENDENCIA
+        defaultInformacionLaboralShouldNotBeFound("dependencia.equals=" + UPDATED_DEPENDENCIA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInformacionLaboralsByDependenciaIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        informacionLaboralRepository.saveAndFlush(informacionLaboral);
+
+        // Get all the informacionLaboralList where dependencia not equals to DEFAULT_DEPENDENCIA
+        defaultInformacionLaboralShouldNotBeFound("dependencia.notEquals=" + DEFAULT_DEPENDENCIA);
+
+        // Get all the informacionLaboralList where dependencia not equals to UPDATED_DEPENDENCIA
+        defaultInformacionLaboralShouldBeFound("dependencia.notEquals=" + UPDATED_DEPENDENCIA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInformacionLaboralsByDependenciaIsInShouldWork() throws Exception {
+        // Initialize the database
+        informacionLaboralRepository.saveAndFlush(informacionLaboral);
+
+        // Get all the informacionLaboralList where dependencia in DEFAULT_DEPENDENCIA or UPDATED_DEPENDENCIA
+        defaultInformacionLaboralShouldBeFound("dependencia.in=" + DEFAULT_DEPENDENCIA + "," + UPDATED_DEPENDENCIA);
+
+        // Get all the informacionLaboralList where dependencia equals to UPDATED_DEPENDENCIA
+        defaultInformacionLaboralShouldNotBeFound("dependencia.in=" + UPDATED_DEPENDENCIA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInformacionLaboralsByDependenciaIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        informacionLaboralRepository.saveAndFlush(informacionLaboral);
+
+        // Get all the informacionLaboralList where dependencia is not null
+        defaultInformacionLaboralShouldBeFound("dependencia.specified=true");
+
+        // Get all the informacionLaboralList where dependencia is null
+        defaultInformacionLaboralShouldNotBeFound("dependencia.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllInformacionLaboralsByDependenciaContainsSomething() throws Exception {
+        // Initialize the database
+        informacionLaboralRepository.saveAndFlush(informacionLaboral);
+
+        // Get all the informacionLaboralList where dependencia contains DEFAULT_DEPENDENCIA
+        defaultInformacionLaboralShouldBeFound("dependencia.contains=" + DEFAULT_DEPENDENCIA);
+
+        // Get all the informacionLaboralList where dependencia contains UPDATED_DEPENDENCIA
+        defaultInformacionLaboralShouldNotBeFound("dependencia.contains=" + UPDATED_DEPENDENCIA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInformacionLaboralsByDependenciaNotContainsSomething() throws Exception {
+        // Initialize the database
+        informacionLaboralRepository.saveAndFlush(informacionLaboral);
+
+        // Get all the informacionLaboralList where dependencia does not contain DEFAULT_DEPENDENCIA
+        defaultInformacionLaboralShouldNotBeFound("dependencia.doesNotContain=" + DEFAULT_DEPENDENCIA);
+
+        // Get all the informacionLaboralList where dependencia does not contain UPDATED_DEPENDENCIA
+        defaultInformacionLaboralShouldBeFound("dependencia.doesNotContain=" + UPDATED_DEPENDENCIA);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllInformacionLaboralsByCiudadExtranjeraIsEqualToSomething() throws Exception {
+        // Initialize the database
+        informacionLaboralRepository.saveAndFlush(informacionLaboral);
+
+        // Get all the informacionLaboralList where ciudadExtranjera equals to DEFAULT_CIUDAD_EXTRANJERA
+        defaultInformacionLaboralShouldBeFound("ciudadExtranjera.equals=" + DEFAULT_CIUDAD_EXTRANJERA);
+
+        // Get all the informacionLaboralList where ciudadExtranjera equals to UPDATED_CIUDAD_EXTRANJERA
+        defaultInformacionLaboralShouldNotBeFound("ciudadExtranjera.equals=" + UPDATED_CIUDAD_EXTRANJERA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInformacionLaboralsByCiudadExtranjeraIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        informacionLaboralRepository.saveAndFlush(informacionLaboral);
+
+        // Get all the informacionLaboralList where ciudadExtranjera not equals to DEFAULT_CIUDAD_EXTRANJERA
+        defaultInformacionLaboralShouldNotBeFound("ciudadExtranjera.notEquals=" + DEFAULT_CIUDAD_EXTRANJERA);
+
+        // Get all the informacionLaboralList where ciudadExtranjera not equals to UPDATED_CIUDAD_EXTRANJERA
+        defaultInformacionLaboralShouldBeFound("ciudadExtranjera.notEquals=" + UPDATED_CIUDAD_EXTRANJERA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInformacionLaboralsByCiudadExtranjeraIsInShouldWork() throws Exception {
+        // Initialize the database
+        informacionLaboralRepository.saveAndFlush(informacionLaboral);
+
+        // Get all the informacionLaboralList where ciudadExtranjera in DEFAULT_CIUDAD_EXTRANJERA or UPDATED_CIUDAD_EXTRANJERA
+        defaultInformacionLaboralShouldBeFound("ciudadExtranjera.in=" + DEFAULT_CIUDAD_EXTRANJERA + "," + UPDATED_CIUDAD_EXTRANJERA);
+
+        // Get all the informacionLaboralList where ciudadExtranjera equals to UPDATED_CIUDAD_EXTRANJERA
+        defaultInformacionLaboralShouldNotBeFound("ciudadExtranjera.in=" + UPDATED_CIUDAD_EXTRANJERA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInformacionLaboralsByCiudadExtranjeraIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        informacionLaboralRepository.saveAndFlush(informacionLaboral);
+
+        // Get all the informacionLaboralList where ciudadExtranjera is not null
+        defaultInformacionLaboralShouldBeFound("ciudadExtranjera.specified=true");
+
+        // Get all the informacionLaboralList where ciudadExtranjera is null
+        defaultInformacionLaboralShouldNotBeFound("ciudadExtranjera.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllInformacionLaboralsByCiudadExtranjeraContainsSomething() throws Exception {
+        // Initialize the database
+        informacionLaboralRepository.saveAndFlush(informacionLaboral);
+
+        // Get all the informacionLaboralList where ciudadExtranjera contains DEFAULT_CIUDAD_EXTRANJERA
+        defaultInformacionLaboralShouldBeFound("ciudadExtranjera.contains=" + DEFAULT_CIUDAD_EXTRANJERA);
+
+        // Get all the informacionLaboralList where ciudadExtranjera contains UPDATED_CIUDAD_EXTRANJERA
+        defaultInformacionLaboralShouldNotBeFound("ciudadExtranjera.contains=" + UPDATED_CIUDAD_EXTRANJERA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInformacionLaboralsByCiudadExtranjeraNotContainsSomething() throws Exception {
+        // Initialize the database
+        informacionLaboralRepository.saveAndFlush(informacionLaboral);
+
+        // Get all the informacionLaboralList where ciudadExtranjera does not contain DEFAULT_CIUDAD_EXTRANJERA
+        defaultInformacionLaboralShouldNotBeFound("ciudadExtranjera.doesNotContain=" + DEFAULT_CIUDAD_EXTRANJERA);
+
+        // Get all the informacionLaboralList where ciudadExtranjera does not contain UPDATED_CIUDAD_EXTRANJERA
+        defaultInformacionLaboralShouldBeFound("ciudadExtranjera.doesNotContain=" + UPDATED_CIUDAD_EXTRANJERA);
+    }
+
+
+    @Test
+    @Transactional
     public void getAllInformacionLaboralsByUsuarioIsEqualToSomething() throws Exception {
         // Get already existing entity
         Persona usuario = informacionLaboral.getUsuario();
@@ -1209,22 +1368,6 @@ public class InformacionLaboralResourceIT {
 
         // Get all the informacionLaboralList where usuario equals to usuarioId + 1
         defaultInformacionLaboralShouldNotBeFound("usuarioId.equals=" + (usuarioId + 1));
-    }
-
-
-    @Test
-    @Transactional
-    public void getAllInformacionLaboralsByDependenciaIsEqualToSomething() throws Exception {
-        // Get already existing entity
-        Dependencia dependencia = informacionLaboral.getDependencia();
-        informacionLaboralRepository.saveAndFlush(informacionLaboral);
-        Long dependenciaId = dependencia.getId();
-
-        // Get all the informacionLaboralList where dependencia equals to dependenciaId
-        defaultInformacionLaboralShouldBeFound("dependenciaId.equals=" + dependenciaId);
-
-        // Get all the informacionLaboralList where dependencia equals to dependenciaId + 1
-        defaultInformacionLaboralShouldNotBeFound("dependenciaId.equals=" + (dependenciaId + 1));
     }
 
 
@@ -1255,10 +1398,12 @@ public class InformacionLaboralResourceIT {
             .andExpect(jsonPath("$.[*].fechaInicio").value(hasItem(DEFAULT_FECHA_INICIO.toString())))
             .andExpect(jsonPath("$.[*].fechaFin").value(hasItem(DEFAULT_FECHA_FIN.toString())))
             .andExpect(jsonPath("$.[*].direccion").value(hasItem(DEFAULT_DIRECCION)))
-            .andExpect(jsonPath("$.[*].cuidad").value(hasItem(DEFAULT_CUIDAD)))
+            .andExpect(jsonPath("$.[*].ciudad").value(hasItem(DEFAULT_CIUDAD)))
             .andExpect(jsonPath("$.[*].departamento").value(hasItem(DEFAULT_DEPARTAMENTO)))
             .andExpect(jsonPath("$.[*].pais").value(hasItem(DEFAULT_PAIS)))
-            .andExpect(jsonPath("$.[*].telefonoEmpresa").value(hasItem(DEFAULT_TELEFONO_EMPRESA)));
+            .andExpect(jsonPath("$.[*].telefonoEmpresa").value(hasItem(DEFAULT_TELEFONO_EMPRESA)))
+            .andExpect(jsonPath("$.[*].dependencia").value(hasItem(DEFAULT_DEPENDENCIA)))
+            .andExpect(jsonPath("$.[*].ciudadExtranjera").value(hasItem(DEFAULT_CIUDAD_EXTRANJERA)));
 
         // Check, that the count call also returns 1
         restInformacionLaboralMockMvc.perform(get("/api/informacion-laborals/count?sort=id,desc&" + filter))
@@ -1310,10 +1455,12 @@ public class InformacionLaboralResourceIT {
             .fechaInicio(UPDATED_FECHA_INICIO)
             .fechaFin(UPDATED_FECHA_FIN)
             .direccion(UPDATED_DIRECCION)
-            .cuidad(UPDATED_CUIDAD)
+            .ciudad(UPDATED_CIUDAD)
             .departamento(UPDATED_DEPARTAMENTO)
             .pais(UPDATED_PAIS)
-            .telefonoEmpresa(UPDATED_TELEFONO_EMPRESA);
+            .telefonoEmpresa(UPDATED_TELEFONO_EMPRESA)
+            .dependencia(UPDATED_DEPENDENCIA)
+            .ciudadExtranjera(UPDATED_CIUDAD_EXTRANJERA);
 
         restInformacionLaboralMockMvc.perform(put("/api/informacion-laborals")
             .contentType(MediaType.APPLICATION_JSON)
@@ -1328,10 +1475,12 @@ public class InformacionLaboralResourceIT {
         assertThat(testInformacionLaboral.getFechaInicio()).isEqualTo(UPDATED_FECHA_INICIO);
         assertThat(testInformacionLaboral.getFechaFin()).isEqualTo(UPDATED_FECHA_FIN);
         assertThat(testInformacionLaboral.getDireccion()).isEqualTo(UPDATED_DIRECCION);
-        assertThat(testInformacionLaboral.getCuidad()).isEqualTo(UPDATED_CUIDAD);
+        assertThat(testInformacionLaboral.getCiudad()).isEqualTo(UPDATED_CIUDAD);
         assertThat(testInformacionLaboral.getDepartamento()).isEqualTo(UPDATED_DEPARTAMENTO);
         assertThat(testInformacionLaboral.getPais()).isEqualTo(UPDATED_PAIS);
         assertThat(testInformacionLaboral.getTelefonoEmpresa()).isEqualTo(UPDATED_TELEFONO_EMPRESA);
+        assertThat(testInformacionLaboral.getDependencia()).isEqualTo(UPDATED_DEPENDENCIA);
+        assertThat(testInformacionLaboral.getCiudadExtranjera()).isEqualTo(UPDATED_CIUDAD_EXTRANJERA);
     }
 
     @Test

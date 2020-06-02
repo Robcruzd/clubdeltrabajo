@@ -97,8 +97,8 @@ public class InformacionLaboralQueryService extends QueryService<InformacionLabo
             if (criteria.getDireccion() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDireccion(), InformacionLaboral_.direccion));
             }
-            if (criteria.getCuidad() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getCuidad(), InformacionLaboral_.cuidad));
+            if (criteria.getCiudad() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getCiudad(), InformacionLaboral_.ciudad));
             }
             if (criteria.getDepartamento() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getDepartamento(), InformacionLaboral_.departamento));
@@ -109,13 +109,15 @@ public class InformacionLaboralQueryService extends QueryService<InformacionLabo
             if (criteria.getTelefonoEmpresa() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getTelefonoEmpresa(), InformacionLaboral_.telefonoEmpresa));
             }
+            if (criteria.getDependencia() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getDependencia(), InformacionLaboral_.dependencia));
+            }
+            if (criteria.getCiudadExtranjera() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getCiudadExtranjera(), InformacionLaboral_.ciudadExtranjera));
+            }
             if (criteria.getUsuarioId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUsuarioId(),
                     root -> root.join(InformacionLaboral_.usuario, JoinType.LEFT).get(Persona_.id)));
-            }
-            if (criteria.getDependenciaId() != null) {
-                specification = specification.and(buildSpecification(criteria.getDependenciaId(),
-                    root -> root.join(InformacionLaboral_.dependencia, JoinType.LEFT).get(Dependencia_.id)));
             }
             if (criteria.getCargoId() != null) {
                 specification = specification.and(buildSpecification(criteria.getCargoId(),

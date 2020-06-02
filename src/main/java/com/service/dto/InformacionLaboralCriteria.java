@@ -35,7 +35,7 @@ public class InformacionLaboralCriteria implements Serializable, Criteria {
 
     private StringFilter direccion;
 
-    private IntegerFilter cuidad;
+    private IntegerFilter ciudad;
 
     private IntegerFilter departamento;
 
@@ -43,9 +43,11 @@ public class InformacionLaboralCriteria implements Serializable, Criteria {
 
     private StringFilter telefonoEmpresa;
 
-    private LongFilter usuarioId;
+    private StringFilter dependencia;
 
-    private LongFilter dependenciaId;
+    private StringFilter ciudadExtranjera;
+
+    private LongFilter usuarioId;
 
     private LongFilter cargoId;
 
@@ -58,12 +60,13 @@ public class InformacionLaboralCriteria implements Serializable, Criteria {
         this.fechaInicio = other.fechaInicio == null ? null : other.fechaInicio.copy();
         this.fechaFin = other.fechaFin == null ? null : other.fechaFin.copy();
         this.direccion = other.direccion == null ? null : other.direccion.copy();
-        this.cuidad = other.cuidad == null ? null : other.cuidad.copy();
+        this.ciudad = other.ciudad == null ? null : other.ciudad.copy();
         this.departamento = other.departamento == null ? null : other.departamento.copy();
         this.pais = other.pais == null ? null : other.pais.copy();
         this.telefonoEmpresa = other.telefonoEmpresa == null ? null : other.telefonoEmpresa.copy();
+        this.dependencia = other.dependencia == null ? null : other.dependencia.copy();
+        this.ciudadExtranjera = other.ciudadExtranjera == null ? null : other.ciudadExtranjera.copy();
         this.usuarioId = other.usuarioId == null ? null : other.usuarioId.copy();
-        this.dependenciaId = other.dependenciaId == null ? null : other.dependenciaId.copy();
         this.cargoId = other.cargoId == null ? null : other.cargoId.copy();
     }
 
@@ -112,12 +115,12 @@ public class InformacionLaboralCriteria implements Serializable, Criteria {
         this.direccion = direccion;
     }
 
-    public IntegerFilter getCuidad() {
-        return cuidad;
+    public IntegerFilter getCiudad() {
+        return ciudad;
     }
 
-    public void setCuidad(IntegerFilter cuidad) {
-        this.cuidad = cuidad;
+    public void setCiudad(IntegerFilter ciudad) {
+        this.ciudad = ciudad;
     }
 
     public IntegerFilter getDepartamento() {
@@ -144,20 +147,28 @@ public class InformacionLaboralCriteria implements Serializable, Criteria {
         this.telefonoEmpresa = telefonoEmpresa;
     }
 
+    public StringFilter getDependencia() {
+        return dependencia;
+    }
+
+    public void setDependencia(StringFilter dependencia) {
+        this.dependencia = dependencia;
+    }
+
+    public StringFilter getCiudadExtranjera() {
+        return ciudadExtranjera;
+    }
+
+    public void setCiudadExtranjera(StringFilter ciudadExtranjera) {
+        this.ciudadExtranjera = ciudadExtranjera;
+    }
+
     public LongFilter getUsuarioId() {
         return usuarioId;
     }
 
     public void setUsuarioId(LongFilter usuarioId) {
         this.usuarioId = usuarioId;
-    }
-
-    public LongFilter getDependenciaId() {
-        return dependenciaId;
-    }
-
-    public void setDependenciaId(LongFilter dependenciaId) {
-        this.dependenciaId = dependenciaId;
     }
 
     public LongFilter getCargoId() {
@@ -184,12 +195,13 @@ public class InformacionLaboralCriteria implements Serializable, Criteria {
             Objects.equals(fechaInicio, that.fechaInicio) &&
             Objects.equals(fechaFin, that.fechaFin) &&
             Objects.equals(direccion, that.direccion) &&
-            Objects.equals(cuidad, that.cuidad) &&
+            Objects.equals(ciudad, that.ciudad) &&
             Objects.equals(departamento, that.departamento) &&
             Objects.equals(pais, that.pais) &&
             Objects.equals(telefonoEmpresa, that.telefonoEmpresa) &&
+            Objects.equals(dependencia, that.dependencia) &&
+            Objects.equals(ciudadExtranjera, that.ciudadExtranjera) &&
             Objects.equals(usuarioId, that.usuarioId) &&
-            Objects.equals(dependenciaId, that.dependenciaId) &&
             Objects.equals(cargoId, that.cargoId);
     }
 
@@ -201,12 +213,13 @@ public class InformacionLaboralCriteria implements Serializable, Criteria {
         fechaInicio,
         fechaFin,
         direccion,
-        cuidad,
+        ciudad,
         departamento,
         pais,
         telefonoEmpresa,
+        dependencia,
+        ciudadExtranjera,
         usuarioId,
-        dependenciaId,
         cargoId
         );
     }
@@ -219,12 +232,13 @@ public class InformacionLaboralCriteria implements Serializable, Criteria {
                 (fechaInicio != null ? "fechaInicio=" + fechaInicio + ", " : "") +
                 (fechaFin != null ? "fechaFin=" + fechaFin + ", " : "") +
                 (direccion != null ? "direccion=" + direccion + ", " : "") +
-                (cuidad != null ? "cuidad=" + cuidad + ", " : "") +
+                (ciudad != null ? "ciudad=" + ciudad + ", " : "") +
                 (departamento != null ? "departamento=" + departamento + ", " : "") +
                 (pais != null ? "pais=" + pais + ", " : "") +
                 (telefonoEmpresa != null ? "telefonoEmpresa=" + telefonoEmpresa + ", " : "") +
+                (dependencia != null ? "dependencia=" + dependencia + ", " : "") +
+                (ciudadExtranjera != null ? "ciudadExtranjera=" + ciudadExtranjera + ", " : "") +
                 (usuarioId != null ? "usuarioId=" + usuarioId + ", " : "") +
-                (dependenciaId != null ? "dependenciaId=" + dependenciaId + ", " : "") +
                 (cargoId != null ? "cargoId=" + cargoId + ", " : "") +
             "}";
     }
