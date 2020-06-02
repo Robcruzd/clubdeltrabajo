@@ -20,12 +20,13 @@
       "fechaInicio": "Fecha Inicio",
       "fechaFin": "Fecha Fin",
       "direccion": "Direccion",
-      "cuidad": "Cuidad",
+      "ciudad": "Ciudad",
       "departamento": "Departamento",
       "pais": "Pais",
       "telefonoEmpresa": "Telefono Empresa",
-      "usuario": "Usuario",
       "dependencia": "Dependencia",
+      "ciudadExtranjera": "Ciudad Extranjera",
+      "usuario": "Usuario",
       "cargo": "Cargo"
     }
   }

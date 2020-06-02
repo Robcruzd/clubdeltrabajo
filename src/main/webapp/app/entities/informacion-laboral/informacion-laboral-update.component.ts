@@ -9,12 +9,10 @@ import { IInformacionLaboral, InformacionLaboral } from 'app/shared/model/inform
 import { InformacionLaboralService } from './informacion-laboral.service';
 import { IPersona } from 'app/shared/model/persona.model';
 import { PersonaService } from 'app/entities/persona/persona.service';
-import { IDependencia } from 'app/shared/model/dependencia.model';
-import { DependenciaService } from 'app/entities/dependencia/dependencia.service';
 import { ICargo } from 'app/shared/model/cargo.model';
 import { CargoService } from 'app/entities/cargo/cargo.service';
 
-type SelectableEntity = IPersona | IDependencia | ICargo;
+type SelectableEntity = IPersona | ICargo;
 
 @Component({
   selector: 'jhi-informacion-laboral-update',
@@ -23,7 +21,6 @@ type SelectableEntity = IPersona | IDependencia | ICargo;
 export class InformacionLaboralUpdateComponent implements OnInit {
   isSaving = false;
   personas: IPersona[] = [];
-  dependencias: IDependencia[] = [];
   cargos: ICargo[] = [];
   fechaInicioDp: any;
   fechaFinDp: any;
@@ -34,19 +31,19 @@ export class InformacionLaboralUpdateComponent implements OnInit {
     fechaInicio: [null, [Validators.required]],
     fechaFin: [null, [Validators.required]],
     direccion: [null, [Validators.required]],
-    cuidad: [null, [Validators.required]],
+    ciudad: [null, [Validators.required]],
     departamento: [null, [Validators.required]],
     pais: [null, [Validators.required]],
     telefonoEmpresa: [null, [Validators.required]],
+    dependencia: [null, [Validators.required]],
+    ciudadExtranjera: [null, [Validators.required]],
     usuario: [null, Validators.required],
-    dependencia: [null, Validators.required],
     cargo: [null, Validators.required]
   });
 
   constructor(
     protected informacionLaboralService: InformacionLaboralService,
     protected personaService: PersonaService,
-    protected dependenciaService: DependenciaService,
     protected cargoService: CargoService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
@@ -57,8 +54,6 @@ export class InformacionLaboralUpdateComponent implements OnInit {
       this.updateForm(informacionLaboral);
 
       this.personaService.query().subscribe((res: HttpResponse<IPersona[]>) => (this.personas = res.body || []));
-
-      this.dependenciaService.query().subscribe((res: HttpResponse<IDependencia[]>) => (this.dependencias = res.body || []));
 
       this.cargoService.query().subscribe((res: HttpResponse<ICargo[]>) => (this.cargos = res.body || []));
     });
@@ -71,12 +66,13 @@ export class InformacionLaboralUpdateComponent implements OnInit {
       fechaInicio: informacionLaboral.fechaInicio,
       fechaFin: informacionLaboral.fechaFin,
       direccion: informacionLaboral.direccion,
-      cuidad: informacionLaboral.cuidad,
+      ciudad: informacionLaboral.ciudad,
       departamento: informacionLaboral.departamento,
       pais: informacionLaboral.pais,
       telefonoEmpresa: informacionLaboral.telefonoEmpresa,
-      usuario: informacionLaboral.usuario,
       dependencia: informacionLaboral.dependencia,
+      ciudadExtranjera: informacionLaboral.ciudadExtranjera,
+      usuario: informacionLaboral.usuario,
       cargo: informacionLaboral.cargo
     });
   }
@@ -103,12 +99,13 @@ export class InformacionLaboralUpdateComponent implements OnInit {
       fechaInicio: this.editForm.get(['fechaInicio'])!.value,
       fechaFin: this.editForm.get(['fechaFin'])!.value,
       direccion: this.editForm.get(['direccion'])!.value,
-      cuidad: this.editForm.get(['cuidad'])!.value,
+      ciudad: this.editForm.get(['ciudad'])!.value,
       departamento: this.editForm.get(['departamento'])!.value,
       pais: this.editForm.get(['pais'])!.value,
       telefonoEmpresa: this.editForm.get(['telefonoEmpresa'])!.value,
-      usuario: this.editForm.get(['usuario'])!.value,
       dependencia: this.editForm.get(['dependencia'])!.value,
+      ciudadExtranjera: this.editForm.get(['ciudadExtranjera'])!.value,
+      usuario: this.editForm.get(['usuario'])!.value,
       cargo: this.editForm.get(['cargo'])!.value
     };
   }

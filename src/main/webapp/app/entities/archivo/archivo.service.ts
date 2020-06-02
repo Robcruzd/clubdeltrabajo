@@ -1,9 +1,10 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SERVER_API_URL } from 'app/app.constants';
-import { IArchivo } from 'app/shared/model/archivo.model';
-import { createRequestOption } from 'app/shared/util/request-util';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+import { SERVER_API_URL } from 'app/app.constants';
+import { createRequestOption } from 'app/shared/util/request-util';
+import { IArchivo } from 'app/shared/model/archivo.model';
 
 type EntityResponseType = HttpResponse<IArchivo>;
 type EntityArrayResponseType = HttpResponse<IArchivo[]>;

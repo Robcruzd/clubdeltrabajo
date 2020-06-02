@@ -27,22 +27,25 @@
             <column name="direccion" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="cuidad" type="integer">
+            <column name="ciudad" type="integer">
                 <constraints nullable="false" />
             </column>
             <column name="departamento" type="integer">
                 <constraints nullable="false" />
             </column>
-            <column name="pais" type="integer">
+            <column name="pais" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
             <column name="telefono_empresa" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="usuario_id" type="bigint">
+            <column name="dependencia" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="dependencia_id" type="bigint">
+            <column name="ciudad_extranjera" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="usuario_id" type="bigint">
                 <constraints nullable="false" />
             </column>
             <column name="cargo_id" type="bigint">
@@ -75,12 +78,13 @@
             <column name="fecha_inicio" type="date"/>
             <column name="fecha_fin" type="date"/>
             <column name="direccion" type="string"/>
-            <column name="cuidad" type="numeric"/>
+            <column name="ciudad" type="numeric"/>
             <column name="departamento" type="numeric"/>
-            <column name="pais" type="numeric"/>
+            <column name="pais" type="string"/>
             <column name="telefono_empresa" type="string"/>
+            <column name="dependencia" type="string"/>
+            <column name="ciudad_extranjera" type="string"/>
             <column name="usuario_id" type="numeric"/>
-            <column name="dependencia_id" type="numeric"/>
             <column name="cargo_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>

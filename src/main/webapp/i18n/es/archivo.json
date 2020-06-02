@@ -18,6 +18,8 @@
       },
       "tipo": "Tipo",
       "archivo": "Archivo",
+      "nombre": "Nombre",
+      "extension": "Extension",
       "usuario": "Usuario"
     }
   }

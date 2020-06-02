@@ -51,7 +51,7 @@ public class InformacionPersonal implements Serializable {
     private Integer discapacidad;
 
     @Column(name = "redes_sociales")
-    private Integer redesSociales;
+    private String redesSociales;
 
     @Column(name = "licencencia_conduccion")
     private Boolean licencenciaConduccion;
@@ -164,16 +164,16 @@ public class InformacionPersonal implements Serializable {
         this.discapacidad = discapacidad;
     }
 
-    public Integer getRedesSociales() {
+    public String getRedesSociales() {
         return redesSociales;
     }
 
-    public InformacionPersonal redesSociales(Integer redesSociales) {
+    public InformacionPersonal redesSociales(String redesSociales) {
         this.redesSociales = redesSociales;
         return this;
     }
 
-    public void setRedesSociales(Integer redesSociales) {
+    public void setRedesSociales(String redesSociales) {
         this.redesSociales = redesSociales;
     }
 
@@ -244,7 +244,7 @@ public class InformacionPersonal implements Serializable {
             ", ciudad=" + getCiudad() +
             ", telefono='" + getTelefono() + "'" +
             ", discapacidad=" + getDiscapacidad() +
-            ", redesSociales=" + getRedesSociales() +
+            ", redesSociales='" + getRedesSociales() + "'" +
             ", licencenciaConduccion='" + isLicencenciaConduccion() + "'" +
             ", perfilProfesional='" + getPerfilProfesional() + "'" +
             "}";

@@ -49,7 +49,7 @@
         },
         {
             "fieldName": "redesSociales",
-            "fieldType": "Integer"
+            "fieldType": "String"
         },
         {
             "fieldName": "licencenciaConduccion",

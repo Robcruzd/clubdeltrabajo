@@ -24,9 +24,9 @@
                 <dd>
                     <span>{{ informacionLaboral.direccion }}</span>
                 </dd>
-                <dt><span jhiTranslate="ctProjectApp.informacionLaboral.cuidad">Cuidad</span></dt>
+                <dt><span jhiTranslate="ctProjectApp.informacionLaboral.ciudad">Ciudad</span></dt>
                 <dd>
-                    <span>{{ informacionLaboral.cuidad }}</span>
+                    <span>{{ informacionLaboral.ciudad }}</span>
                 </dd>
                 <dt><span jhiTranslate="ctProjectApp.informacionLaboral.departamento">Departamento</span></dt>
                 <dd>
@@ -40,16 +40,18 @@
                 <dd>
                     <span>{{ informacionLaboral.telefonoEmpresa }}</span>
                 </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionLaboral.dependencia">Dependencia</span></dt>
+                <dd>
+                    <span>{{ informacionLaboral.dependencia }}</span>
+                </dd>
+                <dt><span jhiTranslate="ctProjectApp.informacionLaboral.ciudadExtranjera">Ciudad Extranjera</span></dt>
+                <dd>
+                    <span>{{ informacionLaboral.ciudadExtranjera }}</span>
+                </dd>
                 <dt><span jhiTranslate="ctProjectApp.informacionLaboral.usuario">Usuario</span></dt>
                 <dd>
                     <div *ngIf="informacionLaboral.usuario">
                         <a [routerLink]="['/persona', informacionLaboral.usuario?.id, 'view']">{{ informacionLaboral.usuario?.id }}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="ctProjectApp.informacionLaboral.dependencia">Dependencia</span></dt>
-                <dd>
-                    <div *ngIf="informacionLaboral.dependencia">
-                        <a [routerLink]="['/dependencia', informacionLaboral.dependencia?.id, 'view']">{{ informacionLaboral.dependencia?.id }}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="ctProjectApp.informacionLaboral.cargo">Cargo</span></dt>
