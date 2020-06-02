@@ -9,7 +9,6 @@ import { IInstitucion } from 'app/shared/model/institucion.model';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 import { AccountService } from '../../core/auth/account.service';
-import { ArchivoService } from '../../entities/archivo/archivo.service';
 import { CargoService } from '../../entities/cargo/cargo.service';
 import { DependenciaService } from '../../entities/dependencia/dependencia.service';
 import { IdiomaService } from '../../entities/idioma/idioma.service';
@@ -32,6 +31,8 @@ import { GeografiaVo } from '../../shared/vo/geografia-vo';
 import { HojaVidaVo } from '../../shared/vo/hoja-vida-vo';
 import { IOpcionVo } from '../../shared/vo/opcion-vo';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
+
+declare let alertify: any;
 
 @Component({
   selector: 'jhi-crear-hoja-vida',
@@ -59,7 +60,6 @@ export class CrearHojaVidaComponent implements OnInit {
   nivelIdioma: Array<IOpcionVo> = [];
   archivos: Array<IArchivo> = [];
   tipoArchivo = TipoArchivo;
-  mostrar!: boolean;
   hojaVidaVo!: HojaVidaVo | null;
   instituciones: Array<IInstitucion> = [];
   dependencias: Array<IDependencia> = [];
@@ -77,16 +77,15 @@ export class CrearHojaVidaComponent implements OnInit {
     private dependeciaService: DependenciaService,
     private cargoService: CargoService,
     private accountService: AccountService,
-    private archivoService: ArchivoService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     if (!this.accountService.isAuthenticated) {
       this.router.navigate(['/']);
+      return;
     }
     this.step = 0;
-    this.mostrar = false;
     this.cargarCuentaUsuario();
     this.globalForm = this.crearFormularioGeneral();
     this.consultarInformacionGeografica();
@@ -356,19 +355,23 @@ export class CrearHojaVidaComponent implements OnInit {
       laboral.push(this.procesarExperienciaLaboral(this.experienciaLaboral.at(index).value));
     }
     this.hojaVidaVo.experienciaLaboral = laboral;
-    this.mostrar = true;
-    this.service.create(this.hojaVidaVo).subscribe(response => {
-      if (response.body !== null) {
-        this.hojaVidaVo = response.body;
-        /* if (this.archivos.length !== 0) {
-          this.archivoService.createArchivos(this.archivos).subscribe(archivos => {
-            if (archivos.body !== null) {
-              this.archivos = archivos.body;
-            }
-          });
-        } */
+
+    // Cargar archivos
+    if (this.archivos.length !== 0) this.hojaVidaVo.archivos = this.archivos;
+
+    this.service.create(this.hojaVidaVo).subscribe(
+      response => {
+        if (response.body !== null) {
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+          this.hojaVidaVo = response.body;
+        }
+      },
+      () => {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error(commonMessages.HTTP_ERROR_LABEL);
       }
-    });
+    );
   }
 
   procesarPersona(): IPersona {
@@ -392,9 +395,9 @@ export class CrearHojaVidaComponent implements OnInit {
       lugarNacimiento: this.formPersonal.get(['lugarNacimiento'])!.value,
       direccionResidencia: this.formPersonal.get(['direccionResidencia'])!.value,
       genero: this.formPersonal.get(['genero'])!.value,
-      ciudad: this.formPersonal.get(['ciudad'])!.value.codigo as number,
+      ciudad: this.formPersonal.get(['ciudad'])!.value as number,
       telefono: this.formPersonal.get(['telefono'])!.value,
-      discapacidad: this.formPersonal.get(['discapacidad'])!.value ? this.formPersonal.get(['discapacidad'])!.value.codigo : null,
+      discapacidad: this.formPersonal.get(['discapacidad'])!.value,
       redesSociales: this.formPersonal.get(['redesSociales'])!.value,
       licencenciaConduccion: this.formPersonal.get(['licencenciaConduccion'])!.value,
       perfilProfesional: this.formPerfil.get(['perfilProfesional'])!.value,
@@ -406,8 +409,8 @@ export class CrearHojaVidaComponent implements OnInit {
     return {
       ...new InformacionAcademica(),
       id: academica['id'],
-      nivelEstudio: academica['nivelEstudio'] ? (academica['nivelEstudio'].codigo as number) : undefined,
-      estado: academica['estado'] ? (academica['estado'].codigo as number) : undefined,
+      nivelEstudio: academica['nivelEstudio'],
+      estado: academica['estado'],
       fechaInicio: this.getFecha(academica['fechaInicio']),
       fechaFin: this.getFecha(academica['fechaFin']),
       tituloOtorgado: academica['tituloOtorgado'],
@@ -424,9 +427,9 @@ export class CrearHojaVidaComponent implements OnInit {
       fechaInicio: this.getFecha(experiencia['fechaInicio']),
       fechaFin: this.getFecha(experiencia['fechaFin']),
       direccion: experiencia['direccion'],
-      cuidad: experiencia['cuidad'] ? (experiencia['cuidad'].codigo as number) : undefined,
-      departamento: experiencia['departamento'] ? (experiencia['departamento'].codigo as number) : undefined,
-      pais: experiencia['pais'] ? this.getPaisPorCodigo(experiencia['pais'].codigo) : undefined,
+      cuidad: experiencia['cuidad'],
+      departamento: experiencia['departamento'],
+      pais: experiencia['pais'],
       telefonoEmpresa: experiencia['telefonoEmpresa'],
       usuario: new Persona(this.persona),
       dependencia: experiencia['dependencia'],
@@ -434,19 +437,11 @@ export class CrearHojaVidaComponent implements OnInit {
     };
   }
 
-  getPaisPorCodigo(codigo: string): number {
-    return this.paises.findIndex(pais => pais.codigo === codigo);
-  }
-
-  getPaisPorIndice(indice: number): IOpcionVo {
-    return this.paises[indice];
-  }
-
   procesarIdiomas(idioma: Object): IPersonaIdioma {
     return {
       ...new PersonaIdioma(),
       id: idioma['id'],
-      nivel: idioma['nivel'] ? idioma['nivel'].codigo : undefined,
+      nivel: idioma['nivel'],
       idPersona: new Persona(this.persona),
       idIdioma: idioma['idIdioma']
     };
@@ -514,7 +509,7 @@ export class CrearHojaVidaComponent implements OnInit {
       });
     } else if (value && Object.entries(value).length > 0) {
       this.municipios = this.geografia
-        .filter(item => item.codigoDpto === value['departamento'].codigo)
+        .filter(item => item.codigoDpto === value['departamento'])
         .map(item => {
           return {
             codigo: item.codigoMpio,

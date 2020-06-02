@@ -1,6 +1,9 @@
 package com.repository;
 
+import java.util.List;
+
 import com.domain.Archivo;
+import com.domain.Persona;
 
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
@@ -11,4 +14,6 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface ArchivoRepository extends JpaRepository<Archivo, Long>, JpaSpecificationExecutor<Archivo> {
+
+    List<Archivo> findByUsuario(Persona usuario);
 }

@@ -89,5 +89,7 @@ export const commonMessages = {
   GUARDAR_LABEL: 'Guardar',
   INGRESAR_LABEL: 'Ingresar',
   SALIR_LABEL: 'Salir',
-  ADJUNTE_CERTIFICADO_ESTUDIO_LABEL: 'Adjunte certificado de estudio'
+  ADJUNTE_CERTIFICADO_ESTUDIO_LABEL: 'Adjunte certificado de estudio',
+  HTTP_SUCCESS_LABEL: 'Datos guardados correctamente',
+  HTTP_ERROR_LABEL: 'Error al guardar datos'
 };

@@ -8,6 +8,7 @@ import com.domain.InformacionLaboral;
 import com.domain.InformacionPersonal;
 import com.domain.Persona;
 import com.domain.PersonaIdioma;
+import com.domain.Archivo;
 
 public class HojaVidaVo implements Serializable {
 
@@ -18,9 +19,18 @@ public class HojaVidaVo implements Serializable {
 	private List<InformacionAcademica> informacionAcademica;
 	private List<InformacionLaboral> experienciaLaboral;
 	private List<PersonaIdioma> idiomas;
+	private List<Archivo> archivos;
 
 	public HojaVidaVo() {
 
+	}
+
+	public List<Archivo> getArchivos() {
+		return this.archivos;
+	}
+
+	public void setArchivos(List<Archivo> archivos) {
+		this.archivos = archivos;
 	}
 
 	public Persona getPersona() {

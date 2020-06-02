@@ -8,6 +8,7 @@ import { AgregarUsuarioComponent } from './agregar-usuario/agregar-usuario.compo
 import { CrearHojaVidaComponent } from './crear-hoja-vida/crear-hoja-vida.component';
 import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
 import { RestaurarContrasenaComponent } from './restaurar-contrasena/restaurar-contrasena.component';
+import { NuevoCorreoComponent } from './nuevo-correo/nuevo-correo.component';
 
 export const HOME_ROUTE: Routes = [
   {
@@ -49,5 +50,9 @@ export const HOME_ROUTE: Routes = [
   {
     path: 'restaurar-contrasena',
     component: RestaurarContrasenaComponent
+  },
+  {
+    path: 'nuevo-correo',
+    component: NuevoCorreoComponent
   }
 ];
