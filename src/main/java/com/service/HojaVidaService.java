@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.domain.Archivo;
+import com.repository.ArchivoRepository;
 import com.domain.InformacionAcademica;
 import com.domain.InformacionLaboral;
 import com.domain.InformacionPersonal;
@@ -25,6 +27,7 @@ import com.repository.PersonaRepository;
 public class HojaVidaService {
 	private final Logger log = LoggerFactory.getLogger(HojaVidaService.class);
 
+	private final ArchivoRepository archivoRepository;
 	private final PersonaRepository personaRepository;
 	private final InformacionPersonalRepository personalRepository;
 	private final InformacionAcademicaRepository academicaRepository;
@@ -33,7 +36,8 @@ public class HojaVidaService {
 
 	public HojaVidaService(InformacionPersonalRepository personalRepository,
 			InformacionAcademicaRepository academicaRepository, InformacionLaboralRepository experienciaRepository,
-			PersonaIdiomaRepository idiomaRepository, PersonaRepository personaRepository) {
+			PersonaIdiomaRepository idiomaRepository, PersonaRepository personaRepository, ArchivoRepository archivoRepository) {
+		this.archivoRepository = archivoRepository;
 		this.personalRepository = personalRepository;
 		this.academicaRepository = academicaRepository;
 		this.experienciaRepository = experienciaRepository;
@@ -50,6 +54,7 @@ public class HojaVidaService {
 	public HojaVidaVo save(HojaVidaVo hojaVida) {
 		log.debug("Request to save Hoja de vida : {}", hojaVida);
 
+		this.archivoRepository.saveAll(hojaVida.getArchivos());
 		this.personaRepository.save(hojaVida.getPersona());
 		this.personalRepository.save(hojaVida.getInformacionPersonal());
 		this.academicaRepository.saveAll(hojaVida.getInformacionAcademica());
@@ -72,7 +77,9 @@ public class HojaVidaService {
 		List<InformacionAcademica> academica = this.academicaRepository.findByUsuario(persona);
 		List<InformacionLaboral> experiencia = this.experienciaRepository.findByUsuario(persona);
 		List<PersonaIdioma> idiomas = this.idiomaRepository.findByIdPersona(persona);
+		List<Archivo> archivos = this.archivoRepository.findByUsuario(persona);
 
+		hojaVidaVo.setArchivos(archivos);
 		hojaVidaVo.setPersona(persona);
 		hojaVidaVo.setInformacionPersonal(personal);
 		hojaVidaVo.setInformacionAcademica(academica);

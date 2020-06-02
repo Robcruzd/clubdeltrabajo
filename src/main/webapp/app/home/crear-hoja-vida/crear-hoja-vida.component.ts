@@ -9,7 +9,6 @@ import { IInstitucion } from 'app/shared/model/institucion.model';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 import { AccountService } from '../../core/auth/account.service';
-import { ArchivoService } from '../../entities/archivo/archivo.service';
 import { CargoService } from '../../entities/cargo/cargo.service';
 import { DependenciaService } from '../../entities/dependencia/dependencia.service';
 import { IdiomaService } from '../../entities/idioma/idioma.service';
@@ -32,6 +31,8 @@ import { GeografiaVo } from '../../shared/vo/geografia-vo';
 import { HojaVidaVo } from '../../shared/vo/hoja-vida-vo';
 import { IOpcionVo } from '../../shared/vo/opcion-vo';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
+
+declare let alertify: any;
 
 @Component({
   selector: 'jhi-crear-hoja-vida',
@@ -59,7 +60,6 @@ export class CrearHojaVidaComponent implements OnInit {
   nivelIdioma: Array<IOpcionVo> = [];
   archivos: Array<IArchivo> = [];
   tipoArchivo = TipoArchivo;
-  mostrar!: boolean;
   hojaVidaVo!: HojaVidaVo | null;
   instituciones: Array<IInstitucion> = [];
   dependencias: Array<IDependencia> = [];
@@ -77,16 +77,15 @@ export class CrearHojaVidaComponent implements OnInit {
     private dependeciaService: DependenciaService,
     private cargoService: CargoService,
     private accountService: AccountService,
-    private archivoService: ArchivoService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     if (!this.accountService.isAuthenticated) {
       this.router.navigate(['/']);
+      return;
     }
     this.step = 0;
-    this.mostrar = false;
     this.cargarCuentaUsuario();
     this.globalForm = this.crearFormularioGeneral();
     this.consultarInformacionGeografica();
@@ -356,19 +355,23 @@ export class CrearHojaVidaComponent implements OnInit {
       laboral.push(this.procesarExperienciaLaboral(this.experienciaLaboral.at(index).value));
     }
     this.hojaVidaVo.experienciaLaboral = laboral;
-    this.mostrar = true;
-    this.service.create(this.hojaVidaVo).subscribe(response => {
-      if (response.body !== null) {
-        this.hojaVidaVo = response.body;
-        /* if (this.archivos.length !== 0) {
-          this.archivoService.createArchivos(this.archivos).subscribe(archivos => {
-            if (archivos.body !== null) {
-              this.archivos = archivos.body;
-            }
-          });
-        } */
+
+    // Cargar archivos
+    if (this.archivos.length !== 0) this.hojaVidaVo.archivos = this.archivos;
+
+    this.service.create(this.hojaVidaVo).subscribe(
+      response => {
+        if (response.body !== null) {
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+          this.hojaVidaVo = response.body;
+        }
+      },
+      () => {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error(commonMessages.HTTP_ERROR_LABEL);
       }
-    });
+    );
   }
 
   procesarPersona(): IPersona {
