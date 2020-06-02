@@ -24,7 +24,19 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new InformacionLaboral(0, 'AAAAAAA', currentDate, currentDate, 'AAAAAAA', 0, 0, 0, 'AAAAAAA');
+      elemDefault = new InformacionLaboral(
+        0,
+        'AAAAAAA',
+        currentDate,
+        currentDate,
+        'AAAAAAA',
+        0,
+        0,
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA'
+      );
     });
 
     describe('Service methods', () => {
@@ -76,10 +88,12 @@ describe('Service Tests', () => {
             fechaInicio: currentDate.format(DATE_FORMAT),
             fechaFin: currentDate.format(DATE_FORMAT),
             direccion: 'BBBBBB',
-            cuidad: 1,
+            ciudad: 1,
             departamento: 1,
-            pais: 1,
-            telefonoEmpresa: 'BBBBBB'
+            pais: 'BBBBBB',
+            telefonoEmpresa: 'BBBBBB',
+            dependencia: 'BBBBBB',
+            ciudadExtranjera: 'BBBBBB'
           },
           elemDefault
         );
@@ -106,10 +120,12 @@ describe('Service Tests', () => {
             fechaInicio: currentDate.format(DATE_FORMAT),
             fechaFin: currentDate.format(DATE_FORMAT),
             direccion: 'BBBBBB',
-            cuidad: 1,
+            ciudad: 1,
             departamento: 1,
-            pais: 1,
-            telefonoEmpresa: 'BBBBBB'
+            pais: 'BBBBBB',
+            telefonoEmpresa: 'BBBBBB',
+            dependencia: 'BBBBBB',
+            ciudadExtranjera: 'BBBBBB'
           },
           elemDefault
         );

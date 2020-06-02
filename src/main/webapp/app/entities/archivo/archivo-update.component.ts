@@ -22,6 +22,8 @@ export class ArchivoUpdateComponent implements OnInit {
     id: [],
     tipo: [null, [Validators.required]],
     archivo: [null, [Validators.required]],
+    nombre: [null, [Validators.required]],
+    extension: [null, [Validators.required]],
     usuario: [null, Validators.required]
   });
 
@@ -45,6 +47,8 @@ export class ArchivoUpdateComponent implements OnInit {
       id: archivo.id,
       tipo: archivo.tipo,
       archivo: archivo.archivo,
+      nombre: archivo.nombre,
+      extension: archivo.extension,
       usuario: archivo.usuario
     });
   }
@@ -69,6 +73,8 @@ export class ArchivoUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       tipo: this.editForm.get(['tipo'])!.value,
       archivo: this.editForm.get(['archivo'])!.value,
+      nombre: this.editForm.get(['nombre'])!.value,
+      extension: this.editForm.get(['extension'])!.value,
       usuario: this.editForm.get(['usuario'])!.value
     };
   }

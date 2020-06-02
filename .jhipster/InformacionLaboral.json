@@ -30,7 +30,7 @@
             ]
         },
         {
-            "fieldName": "cuidad",
+            "fieldName": "ciudad",
             "fieldType": "Integer",
             "fieldValidateRules": [
                 "required"
@@ -45,13 +45,27 @@
         },
         {
             "fieldName": "pais",
-            "fieldType": "Integer",
+            "fieldType": "String",
             "fieldValidateRules": [
                 "required"
             ]
         },
         {
             "fieldName": "telefonoEmpresa",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dependencia",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "ciudadExtranjera",
             "fieldType": "String",
             "fieldValidateRules": [
                 "required"
@@ -65,14 +79,6 @@
             "otherEntityRelationshipName": "informacionLaboral",
             "relationshipValidateRules": "required",
             "relationshipName": "usuario",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "dependencia",
-            "otherEntityRelationshipName": "informacionLaboral",
-            "relationshipValidateRules": "required",
-            "relationshipName": "dependencia",
             "otherEntityField": "id"
         },
         {

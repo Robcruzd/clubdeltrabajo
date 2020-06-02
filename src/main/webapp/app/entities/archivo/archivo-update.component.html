@@ -40,6 +40,30 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.archivo.nombre" for="field_nombre">Nombre</label>
+                    <input type="text" class="form-control" name="nombre" id="field_nombre"
+                           formControlName="nombre"/>
+                    <div *ngIf="editForm.get('nombre')!.invalid && (editForm.get('nombre')!.dirty || editForm.get('nombre')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nombre')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="ctProjectApp.archivo.extension" for="field_extension">Extension</label>
+                    <input type="text" class="form-control" name="extension" id="field_extension"
+                           formControlName="extension"/>
+                    <div *ngIf="editForm.get('extension')!.invalid && (editForm.get('extension')!.dirty || editForm.get('extension')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('extension')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="ctProjectApp.archivo.usuario" for="field_usuario">Usuario</label>
                     <select class="form-control" id="field_usuario" name="usuario" formControlName="usuario">
                         <option *ngIf="!editForm.get('usuario')!.value" [ngValue]="null" selected></option>
