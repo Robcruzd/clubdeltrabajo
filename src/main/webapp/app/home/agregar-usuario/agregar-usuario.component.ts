@@ -1,4 +1,3 @@
-import { JhiLanguageService } from 'ng-jhipster';
 import { Component, OnInit } from '@angular/core';
 import { Persona } from '../../shared/model/persona.model';
 import { commonMessages } from '../../shared/constants/commonMessages';
@@ -36,12 +35,7 @@ export class AgregarUsuarioComponent implements OnInit {
   document = new Document();
   isOpen = false;
 
-  constructor(
-    private modalService: NgbModal,
-    private personaService: PersonaService,
-    private languageService: JhiLanguageService,
-    private router: Router
-  ) {}
+  constructor(private modalService: NgbModal, private personaService: PersonaService, private router: Router) {}
 
   ngOnInit(): void {
     this.user.password = '';
@@ -103,7 +97,6 @@ export class AgregarUsuarioComponent implements OnInit {
       this.user.email = this.persona.email;
       this.user.activated = true;
       this.user.createdBy = 'admin';
-      this.user.langKey = this.languageService.getCurrentLanguage();
       this.usuarioVo.persona = this.persona;
       this.usuarioVo.usuario = this.user;
       if (this.persona.id !== undefined) {
