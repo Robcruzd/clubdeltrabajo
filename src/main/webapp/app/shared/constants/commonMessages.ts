@@ -66,16 +66,22 @@ export const commonMessages = {
   PLACEHOLDER_MES: 'MM',
   PLACEHOLDER_ANIO: 'AA',
   ARRAY_NIVEL_ESTUDIOS: [
-    { codigo: 1, nombre: 'Primaria' },
-    { codigo: 2, nombre: 'Bachillerato' },
-    { codigo: 3, nombre: 'Universidad' },
-    { codigo: 4, nombre: 'Especialización' },
-    { codigo: 5, nombre: 'Doctorado' },
-    { codigo: 6, nombre: 'Post Doctorado' }
+    { codigo: 1, nombre: 'Preescolar' },
+    { codigo: 2, nombre: 'Educación Básica Primaria' },
+    { codigo: 3, nombre: 'Educación Básica Secundaria' },
+    { codigo: 4, nombre: 'Bachillerato / Educación Media' },
+    { codigo: 5, nombre: 'Universidad / Carrera técnica' },
+    { codigo: 6, nombre: 'Universidad / Carrera tecnológica' },
+    { codigo: 7, nombre: 'Universidad / Carrera profesional' },
+    { codigo: 8, nombre: 'Postgrado / Especialización' },
+    { codigo: 9, nombre: 'Postgrado / Maestría' },
+    { codigo: 10, nombre: 'Postgrado / Doctorado' }
   ],
   ARRAY_ESTADO_NIVEL_ESTUDIO: [
     { codigo: 0, nombre: 'Incompleto' },
-    { codigo: 1, nombre: 'Completo' }
+    { codigo: 1, nombre: 'Aplazado' },
+    { codigo: 2, nombre: 'En curso' },
+    { codigo: 3, nombre: 'Completo' }
   ],
   ARRAY_NIVEL_IDIOMA: [
     { codigo: 'BA', nombre: 'Básico' },
@@ -91,5 +97,13 @@ export const commonMessages = {
   SALIR_LABEL: 'Salir',
   ADJUNTE_CERTIFICADO_ESTUDIO_LABEL: 'Adjunte certificado de estudio',
   HTTP_SUCCESS_LABEL: 'Datos guardados correctamente',
-  HTTP_ERROR_LABEL: 'Error al guardar datos'
+  HTTP_ERROR_LABEL: 'Error al guardar datos',
+  ARRAY_REDES_SOCIALES: [
+    { codigo: 'FB', nombre: 'Facebook' },
+    { codigo: 'IN', nombre: 'Instagram' },
+    { codigo: 'LK', nombre: 'LinkedIn' }
+  ],
+  CODIGO_COLOMBIA: 'CO',
+  INGRESE_VALOR_LABEL: 'Ingrese ',
+  DIRECCION_RED_SOCIAL: 'Dirección red social '
 };

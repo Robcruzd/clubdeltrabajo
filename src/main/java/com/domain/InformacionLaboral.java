@@ -39,12 +39,10 @@ public class InformacionLaboral implements Serializable {
     @Column(name = "direccion", nullable = false)
     private String direccion;
 
-    @NotNull
-    @Column(name = "ciudad", nullable = false)
+    @Column(name = "ciudad")
     private Integer ciudad;
 
-    @NotNull
-    @Column(name = "departamento", nullable = false)
+    @Column(name = "departamento")
     private Integer departamento;
 
     @NotNull
@@ -59,8 +57,7 @@ public class InformacionLaboral implements Serializable {
     @Column(name = "dependencia", nullable = false)
     private String dependencia;
 
-    @NotNull
-    @Column(name = "ciudad_extranjera", nullable = false)
+    @Column(name = "ciudad_extranjera")
     private String ciudadExtranjera;
 
     @ManyToOne(optional = false)

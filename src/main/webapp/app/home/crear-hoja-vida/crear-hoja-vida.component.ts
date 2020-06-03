@@ -8,9 +8,7 @@ import { IInstitucion } from 'app/shared/model/institucion.model';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 import { AccountService } from '../../core/auth/account.service';
-import { ArchivoService } from '../../entities/archivo/archivo.service';
 import { CargoService } from '../../entities/cargo/cargo.service';
-import { DependenciaService } from '../../entities/dependencia/dependencia.service';
 import { IdiomaService } from '../../entities/idioma/idioma.service';
 import { InstitucionService } from '../../entities/institucion/institucion.service';
 import { TipoDocumentoService } from '../../entities/tipo-documento/tipo-documento.service';
@@ -49,15 +47,15 @@ export class CrearHojaVidaComponent implements OnInit {
   paises: Array<IOpcionVo> = [];
   departamentos: Array<IOpcionVo> = [];
   municipios: Array<IOpcionVo> = [];
-  discapacidades: Array<IOpcionVo> = [];
+  discapacidades: Array<IOpcionVo> = commonMessages.ARRAY_DISCAPACIDADES;
   documentos: Array<ITipoDocumento> = [];
   dias: number[] = this.apiService.getDias();
   meses: number[] = this.apiService.getMeses();
   anios: number[] = this.apiService.getAnios();
-  nivelEstudio: IOpcionVo[] = this.apiService.getNivelEstudio();
-  estadoNivelEstudio: IOpcionVo[] = this.apiService.getEstadoNivelEstudio();
+  nivelEstudio: IOpcionVo[] = commonMessages.ARRAY_NIVEL_ESTUDIOS;
+  estadoNivelEstudio: IOpcionVo[] = commonMessages.ARRAY_ESTADO_NIVEL_ESTUDIO;
   idiomas: Array<IIdioma> = [];
-  nivelIdioma: Array<IOpcionVo> = [];
+  nivelIdioma: Array<IOpcionVo> = commonMessages.ARRAY_NIVEL_IDIOMA;
   archivos: Array<IArchivo> = [];
   tipoArchivo = TipoArchivo;
   mostrar!: boolean;
@@ -66,6 +64,8 @@ export class CrearHojaVidaComponent implements OnInit {
   cargos: Array<ICargo> = [];
   account!: Account | null;
   persona!: number;
+  redesSociales: Array<IOpcionVo> = commonMessages.ARRAY_REDES_SOCIALES;
+  redSocial = ' ';
 
   constructor(
     private fb: FormBuilder,
@@ -74,10 +74,8 @@ export class CrearHojaVidaComponent implements OnInit {
     private idiomaService: IdiomaService,
     private service: HojaVidaService,
     private institucionService: InstitucionService,
-    private dependeciaService: DependenciaService,
     private cargoService: CargoService,
     private accountService: AccountService,
-    private archivoService: ArchivoService,
     private router: Router
   ) {}
 
@@ -93,9 +91,7 @@ export class CrearHojaVidaComponent implements OnInit {
     this.consultarInformacionGeografica();
     this.cargarPaises();
     this.cargarTipoDocumento();
-    this.cargarDiscapacidades();
     this.cargarIdiomas();
-    this.cargarNivelIdioma();
     this.cargarInstituciones();
     this.cargarCargos();
     this.crearFormularioInformacionPersonal();
@@ -145,9 +141,9 @@ export class CrearHojaVidaComponent implements OnInit {
       telefono: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       discapacidad: [null],
-      redesSociales: [''],
+      redesSociales: [null],
       perfilProfesional: [''],
-      licencenciaConduccion: [null]
+      licencenciaConduccion: [false]
     });
   }
 
@@ -207,6 +203,7 @@ export class CrearHojaVidaComponent implements OnInit {
       ciudad: [null],
       departamento: [null],
       pais: [null],
+      ciudadExtranjera: [''],
       telefonoEmpresa: [''],
       usuario: [''],
       dependencia: [''],
@@ -256,6 +253,7 @@ export class CrearHojaVidaComponent implements OnInit {
 
       // cargar perfil profesional
       this.formPerfil.patchValue({ perfilProfesional: hojaVida.informacionPersonal.perfilProfesional });
+      this.cargarRedSocial();
     } else {
       this.formPersonal.get('nombre')?.setValue(this.hojaVidaVo.persona.nombre);
       this.formPersonal.get('apellido')?.setValue(this.hojaVidaVo.persona.apellido);
@@ -324,11 +322,13 @@ export class CrearHojaVidaComponent implements OnInit {
           ciudad: experiencia.ciudad,
           departamento: experiencia.departamento,
           pais: experiencia.pais,
+          ciudadExtranjera: experiencia.ciudadExtranjera,
           telefonoEmpresa: experiencia.telefonoEmpresa,
           usuario: experiencia.usuario,
           dependencia: experiencia.dependencia,
           cargo: experiencia.cargo
         });
+        this.onChangePais(index);
       }
     }
   }
@@ -412,7 +412,7 @@ export class CrearHojaVidaComponent implements OnInit {
       ciudad: this.formPersonal.get(['ciudad'])!.value as number,
       telefono: this.formPersonal.get(['telefono'])!.value,
       discapacidad: this.formPersonal.get(['discapacidad'])!.value,
-      redesSociales: this.formPersonal.get(['redesSociales'])!.value,
+      redesSociales: this.procesarRedSocial(this.formPersonal.get(['redesSociales'])!.value),
       licencenciaConduccion: this.formPersonal.get(['licencenciaConduccion'])!.value,
       perfilProfesional: this.formPerfil.get(['perfilProfesional'])!.value,
       usuario: new Persona(this.persona)
@@ -445,6 +445,7 @@ export class CrearHojaVidaComponent implements OnInit {
       departamento: experiencia['departamento'],
       pais: experiencia['pais'],
       telefonoEmpresa: experiencia['telefonoEmpresa'],
+      ciudadExtranjera: experiencia['ciudadExtranjera'],
       usuario: new Persona(this.persona),
       dependencia: experiencia['dependencia'],
       cargo: experiencia['cargo']
@@ -533,10 +534,6 @@ export class CrearHojaVidaComponent implements OnInit {
     }
   }
 
-  cargarDiscapacidades(): void {
-    this.discapacidades = this.apiService.getDiscapacidades();
-  }
-
   cargarTipoDocumento(): void {
     this.tipoDocumentoService
       .query({
@@ -561,11 +558,7 @@ export class CrearHojaVidaComponent implements OnInit {
         page: 0,
         size: 200
       })
-      .subscribe((res: HttpResponse<ICargo[]>) => this.onSuccessCargo(res.body));
-  }
-
-  onSuccessCargo(data: ICargo[] | null): void {
-    this.cargos = data || [];
+      .subscribe((res: HttpResponse<ICargo[]>) => (this.cargos = res.body || []));
   }
 
   cargarIdiomas(): void {
@@ -574,15 +567,7 @@ export class CrearHojaVidaComponent implements OnInit {
         page: 0,
         size: 20
       })
-      .subscribe((res: HttpResponse<IIdioma[]>) => this.onSuccessIdioma(res.body));
-  }
-
-  onSuccessIdioma(data: IIdioma[] | null): void {
-    this.idiomas = data || [];
-  }
-
-  cargarNivelIdioma(): void {
-    this.nivelIdioma = this.apiService.getNivelIdioma();
+      .subscribe((res: HttpResponse<IIdioma[]>) => (this.idiomas = res.body || []));
   }
 
   // cargar archivos
@@ -591,6 +576,7 @@ export class CrearHojaVidaComponent implements OnInit {
     const archivo = new Archivo();
     archivo.tipo = tipoDocumento;
     archivo.nombre = file.name;
+    archivo.extension = file.name.split('.').pop();
     archivo.usuario = new Persona(this.persona);
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -598,6 +584,39 @@ export class CrearHojaVidaComponent implements OnInit {
       archivo.archivo = reader.result;
       this.archivos.push(archivo);
     };
+  }
+
+  procesarRedSocial(value: string | undefined): string | undefined {
+    if (value !== null) {
+      return value?.concat(':').concat(this.redSocial ? this.redSocial : ' ');
+    }
+    return undefined;
+  }
+
+  cargarRedSocial(): void {
+    if (this.formPersonal.get(['redesSociales'])!.value) {
+      const value = this.formPersonal.get(['redesSociales'])!.value.split(':');
+      this.redSocial = value[1];
+      this.formPersonal.get(['redesSociales'])!.setValue(value[0]);
+    }
+  }
+
+  setRedSocial(event: any): void {
+    this.redSocial = event.target.value;
+  }
+
+  onChangePais(index: number): void {
+    if (this.experienciaLaboral.at(index).get(['pais'])!.value !== commonMessages.CODIGO_COLOMBIA) {
+      this.experienciaLaboral
+        .at(index)
+        .get(['departamento'])
+        ?.disable();
+    } else {
+      this.experienciaLaboral
+        .at(index)
+        .get(['departamento'])
+        ?.enable();
+    }
   }
 
   // getters
