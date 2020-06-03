@@ -1,9 +1,12 @@
 package com.web.rest;
 
+import com.domain.Persona;
 import com.domain.User;
+import com.domain.vo.UsuarioVo;
 import com.repository.UserRepository;
 import com.security.SecurityUtils;
 import com.service.MailService;
+import com.service.PersonaService;
 import com.service.UserService;
 import com.service.dto.PasswordChangeDTO;
 import com.service.dto.UserDTO;
@@ -11,14 +14,21 @@ import com.web.rest.errors.*;
 import com.web.rest.vm.KeyAndPasswordVM;
 import com.web.rest.vm.ManagedUserVM;
 
+import io.github.jhipster.web.util.HeaderUtil;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.*;
 
 /**
@@ -33,6 +43,11 @@ public class AccountResource {
             super(message);
         }
     }
+    
+    private static final String ENTITY_NAME = "persona";
+    
+    @Value("${jhipster.clientApp.name}")
+    private String applicationName;
 
     private final Logger log = LoggerFactory.getLogger(AccountResource.class);
 
@@ -41,12 +56,15 @@ public class AccountResource {
     private final UserService userService;
 
     private final MailService mailService;
+    
+    private final PersonaService personaService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService, PersonaService personaService) {
 
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
+        this.personaService = personaService;
     }
 
     /**
@@ -65,6 +83,22 @@ public class AccountResource {
         }
         User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
         mailService.sendActivationEmail(user);
+    }
+    
+    @PostMapping("/registrar")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Persona> crearUsuarioPersona(@Valid @RequestBody UsuarioVo usuarioVo) throws URISyntaxException {
+        log.debug("REST request to save Persona : {}", usuarioVo);
+        if (usuarioVo.getPersona().getId() != null) {
+            throw new BadRequestAlertException("A new persona cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        Persona result = personaService.save(usuarioVo.getPersona());
+        usuarioVo.getUsuario().setUser(result.getId());
+        User user = userService.registerUser(usuarioVo.getUsuario(), usuarioVo.getUsuario().getPassword());
+        mailService.sendActivationEmail(user);
+        return ResponseEntity.created(new URI("/api/personas/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 
     /**
@@ -148,14 +182,16 @@ public class AccountResource {
      * @param mail the mail of the user.
      */
     @PostMapping(path = "/account/reset-password/init")
-    public void requestPasswordReset(@RequestBody String mail) {
+    public Optional<User> requestPasswordReset(@RequestBody String mail) {
         Optional<User> user = userService.requestPasswordReset(mail);
         if (user.isPresent()) {
             mailService.sendPasswordResetMail(user.get());
+            return user;
         } else {
             // Pretend the request has been successful to prevent checking which emails really exist
             // but log that an invalid attempt has been made
             log.warn("Password reset requested for non existing mail '{}'", mail);
+            return null;
         }
     }
 
@@ -167,16 +203,16 @@ public class AccountResource {
      * @throws RuntimeException {@code 500 (Internal Server Error)} if the password could not be reset.
      */
     @PostMapping(path = "/account/reset-password/finish")
-    public void finishPasswordReset(@RequestBody KeyAndPasswordVM keyAndPassword) {
+    public Optional<User> finishPasswordReset(@RequestBody KeyAndPasswordVM keyAndPassword) {
         if (!checkPasswordLength(keyAndPassword.getNewPassword())) {
             throw new InvalidPasswordException();
         }
         Optional<User> user =
             userService.completePasswordReset(keyAndPassword.getNewPassword(), keyAndPassword.getKey());
-
         if (!user.isPresent()) {
             throw new AccountResourceException("No user was found for this reset key");
         }
+        return user;
     }
 
     private static boolean checkPasswordLength(String password) {

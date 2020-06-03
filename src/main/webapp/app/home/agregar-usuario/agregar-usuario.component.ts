@@ -1,3 +1,4 @@
+import { JhiLanguageService } from 'ng-jhipster';
 import { Component, OnInit } from '@angular/core';
 import { Persona } from '../../shared/model/persona.model';
 import { commonMessages } from '../../shared/constants/commonMessages';
@@ -35,7 +36,12 @@ export class AgregarUsuarioComponent implements OnInit {
   document = new Document();
   isOpen = false;
 
-  constructor(private modalService: NgbModal, private personaService: PersonaService, private router: Router) {}
+  constructor(
+    private modalService: NgbModal,
+    private personaService: PersonaService,
+    private languageService: JhiLanguageService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.user.password = '';
@@ -96,7 +102,8 @@ export class AgregarUsuarioComponent implements OnInit {
       this.user.login = this.persona.email;
       this.user.email = this.persona.email;
       this.user.activated = true;
-      this.user.createdBy = "admin";
+      this.user.createdBy = 'admin';
+      this.user.langKey = this.languageService.getCurrentLanguage();
       this.usuarioVo.persona = this.persona;
       this.usuarioVo.usuario = this.user;
       if (this.persona.id !== undefined) {
@@ -104,22 +111,18 @@ export class AgregarUsuarioComponent implements OnInit {
           () => {
             this.ventanaInicioSesion();
           },
-          () => (alertify.set('notifier','position', 'top-right'),
-          alertify.error('Fallo registro de usuario!'))
-        );   
-      } else {
-        this.personaService.crearUsuario(this.usuarioVo).subscribe(
-          () => {
-            this.ventanaInicioSesion();
-          }
+          () => (alertify.set('notifier', 'position', 'top-right'), alertify.error('Fallo registro de usuario!'))
         );
+      } else {
+        this.personaService.crearUsuario(this.usuarioVo).subscribe(() => {
+          this.ventanaInicioSesion();
+        });
       }
-
     }
   }
 
   ventanaInicioSesion(): void {
-    alertify.set('notifier','position', 'top-right');
+    alertify.set('notifier', 'position', 'top-right');
     alertify.success('Ingresado correctamente!');
     this.router.navigate(['/inicio-sesion']);
   }
