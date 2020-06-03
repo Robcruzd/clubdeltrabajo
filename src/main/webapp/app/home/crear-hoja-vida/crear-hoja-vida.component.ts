@@ -4,11 +4,11 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Account } from 'app/core/user/account.model';
 import { ICargo } from 'app/shared/model/cargo.model';
-import { IDependencia } from 'app/shared/model/dependencia.model';
 import { IInstitucion } from 'app/shared/model/institucion.model';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 import { AccountService } from '../../core/auth/account.service';
+import { ArchivoService } from '../../entities/archivo/archivo.service';
 import { CargoService } from '../../entities/cargo/cargo.service';
 import { DependenciaService } from '../../entities/dependencia/dependencia.service';
 import { IdiomaService } from '../../entities/idioma/idioma.service';
@@ -60,9 +60,9 @@ export class CrearHojaVidaComponent implements OnInit {
   nivelIdioma: Array<IOpcionVo> = [];
   archivos: Array<IArchivo> = [];
   tipoArchivo = TipoArchivo;
+  mostrar!: boolean;
   hojaVidaVo!: HojaVidaVo | null;
   instituciones: Array<IInstitucion> = [];
-  dependencias: Array<IDependencia> = [];
   cargos: Array<ICargo> = [];
   account!: Account | null;
   persona!: number;
@@ -77,6 +77,7 @@ export class CrearHojaVidaComponent implements OnInit {
     private dependeciaService: DependenciaService,
     private cargoService: CargoService,
     private accountService: AccountService,
+    private archivoService: ArchivoService,
     private router: Router
   ) {}
 
@@ -86,6 +87,7 @@ export class CrearHojaVidaComponent implements OnInit {
       return;
     }
     this.step = 0;
+    this.mostrar = false;
     this.cargarCuentaUsuario();
     this.globalForm = this.crearFormularioGeneral();
     this.consultarInformacionGeografica();
@@ -95,7 +97,6 @@ export class CrearHojaVidaComponent implements OnInit {
     this.cargarIdiomas();
     this.cargarNivelIdioma();
     this.cargarInstituciones();
-    this.cargarDependencias();
     this.cargarCargos();
     this.crearFormularioInformacionPersonal();
     this.crearFormularioPerfil();
@@ -203,12 +204,12 @@ export class CrearHojaVidaComponent implements OnInit {
         anio: [null, [Validators.required]]
       }),
       direccion: [''],
-      cuidad: [null],
+      ciudad: [null],
       departamento: [null],
       pais: [null],
       telefonoEmpresa: [''],
       usuario: [''],
-      dependencia: [null],
+      dependencia: [''],
       cargo: [null]
     });
   }
@@ -307,7 +308,7 @@ export class CrearHojaVidaComponent implements OnInit {
           anio: this.getAnio(experiencia.fechaFin)
         },
         direccion: experiencia.direccion,
-        cuidad: experiencia.cuidad,
+        ciudad: experiencia.ciudad,
         departamento: experiencia.departamento,
         pais: experiencia.pais,
         telefonoEmpresa: experiencia.telefonoEmpresa,
@@ -355,7 +356,6 @@ export class CrearHojaVidaComponent implements OnInit {
       laboral.push(this.procesarExperienciaLaboral(this.experienciaLaboral.at(index).value));
     }
     this.hojaVidaVo.experienciaLaboral = laboral;
-
     // Cargar archivos
     if (this.archivos.length !== 0) this.hojaVidaVo.archivos = this.archivos;
 
@@ -427,7 +427,7 @@ export class CrearHojaVidaComponent implements OnInit {
       fechaInicio: this.getFecha(experiencia['fechaInicio']),
       fechaFin: this.getFecha(experiencia['fechaFin']),
       direccion: experiencia['direccion'],
-      cuidad: experiencia['cuidad'],
+      ciudad: experiencia['ciudad'],
       departamento: experiencia['departamento'],
       pais: experiencia['pais'],
       telefonoEmpresa: experiencia['telefonoEmpresa'],
@@ -539,15 +539,6 @@ export class CrearHojaVidaComponent implements OnInit {
         size: 200
       })
       .subscribe((res: HttpResponse<IInstitucion[]>) => (this.instituciones = res.body || []));
-  }
-
-  cargarDependencias(): void {
-    this.dependeciaService
-      .query({
-        page: 0,
-        size: 200
-      })
-      .subscribe((res: HttpResponse<IDependencia[]>) => (this.dependencias = res.body || []));
   }
 
   cargarCargos(): void {

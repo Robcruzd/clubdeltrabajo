@@ -41,7 +41,7 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
 
     private IntegerFilter discapacidad;
 
-    private IntegerFilter redesSociales;
+    private StringFilter redesSociales;
 
     private BooleanFilter licencenciaConduccion;
 
@@ -136,11 +136,11 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
         this.discapacidad = discapacidad;
     }
 
-    public IntegerFilter getRedesSociales() {
+    public StringFilter getRedesSociales() {
         return redesSociales;
     }
 
-    public void setRedesSociales(IntegerFilter redesSociales) {
+    public void setRedesSociales(StringFilter redesSociales) {
         this.redesSociales = redesSociales;
     }
 

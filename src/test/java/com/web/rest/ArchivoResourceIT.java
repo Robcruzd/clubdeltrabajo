@@ -41,6 +41,12 @@ public class ArchivoResourceIT {
     private static final String DEFAULT_ARCHIVO = "AAAAAAAAAA";
     private static final String UPDATED_ARCHIVO = "BBBBBBBBBB";
 
+    private static final String DEFAULT_NOMBRE = "AAAAAAAAAA";
+    private static final String UPDATED_NOMBRE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_EXTENSION = "AAAAAAAAAA";
+    private static final String UPDATED_EXTENSION = "BBBBBBBBBB";
+
     @Autowired
     private ArchivoRepository archivoRepository;
 
@@ -67,7 +73,9 @@ public class ArchivoResourceIT {
     public static Archivo createEntity(EntityManager em) {
         Archivo archivo = new Archivo()
             .tipo(DEFAULT_TIPO)
-            .archivo(DEFAULT_ARCHIVO);
+            .archivo(DEFAULT_ARCHIVO)
+            .nombre(DEFAULT_NOMBRE)
+            .extension(DEFAULT_EXTENSION);
         // Add required entity
         Persona persona;
         if (TestUtil.findAll(em, Persona.class).isEmpty()) {
@@ -89,7 +97,9 @@ public class ArchivoResourceIT {
     public static Archivo createUpdatedEntity(EntityManager em) {
         Archivo archivo = new Archivo()
             .tipo(UPDATED_TIPO)
-            .archivo(UPDATED_ARCHIVO);
+            .archivo(UPDATED_ARCHIVO)
+            .nombre(UPDATED_NOMBRE)
+            .extension(UPDATED_EXTENSION);
         // Add required entity
         Persona persona;
         if (TestUtil.findAll(em, Persona.class).isEmpty()) {
@@ -125,6 +135,8 @@ public class ArchivoResourceIT {
         Archivo testArchivo = archivoList.get(archivoList.size() - 1);
         assertThat(testArchivo.getTipo()).isEqualTo(DEFAULT_TIPO);
         assertThat(testArchivo.getArchivo()).isEqualTo(DEFAULT_ARCHIVO);
+        assertThat(testArchivo.getNombre()).isEqualTo(DEFAULT_NOMBRE);
+        assertThat(testArchivo.getExtension()).isEqualTo(DEFAULT_EXTENSION);
     }
 
     @Test
@@ -185,6 +197,42 @@ public class ArchivoResourceIT {
 
     @Test
     @Transactional
+    public void checkNombreIsRequired() throws Exception {
+        int databaseSizeBeforeTest = archivoRepository.findAll().size();
+        // set the field null
+        archivo.setNombre(null);
+
+        // Create the Archivo, which fails.
+
+        restArchivoMockMvc.perform(post("/api/archivos")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(archivo)))
+            .andExpect(status().isBadRequest());
+
+        List<Archivo> archivoList = archivoRepository.findAll();
+        assertThat(archivoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkExtensionIsRequired() throws Exception {
+        int databaseSizeBeforeTest = archivoRepository.findAll().size();
+        // set the field null
+        archivo.setExtension(null);
+
+        // Create the Archivo, which fails.
+
+        restArchivoMockMvc.perform(post("/api/archivos")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(archivo)))
+            .andExpect(status().isBadRequest());
+
+        List<Archivo> archivoList = archivoRepository.findAll();
+        assertThat(archivoList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllArchivos() throws Exception {
         // Initialize the database
         archivoRepository.saveAndFlush(archivo);
@@ -195,7 +243,9 @@ public class ArchivoResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(archivo.getId().intValue())))
             .andExpect(jsonPath("$.[*].tipo").value(hasItem(DEFAULT_TIPO)))
-            .andExpect(jsonPath("$.[*].archivo").value(hasItem(DEFAULT_ARCHIVO)));
+            .andExpect(jsonPath("$.[*].archivo").value(hasItem(DEFAULT_ARCHIVO)))
+            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
+            .andExpect(jsonPath("$.[*].extension").value(hasItem(DEFAULT_EXTENSION)));
     }
     
     @Test
@@ -210,7 +260,9 @@ public class ArchivoResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(archivo.getId().intValue()))
             .andExpect(jsonPath("$.tipo").value(DEFAULT_TIPO))
-            .andExpect(jsonPath("$.archivo").value(DEFAULT_ARCHIVO));
+            .andExpect(jsonPath("$.archivo").value(DEFAULT_ARCHIVO))
+            .andExpect(jsonPath("$.nombre").value(DEFAULT_NOMBRE))
+            .andExpect(jsonPath("$.extension").value(DEFAULT_EXTENSION));
     }
 
 
@@ -418,6 +470,162 @@ public class ArchivoResourceIT {
 
     @Test
     @Transactional
+    public void getAllArchivosByNombreIsEqualToSomething() throws Exception {
+        // Initialize the database
+        archivoRepository.saveAndFlush(archivo);
+
+        // Get all the archivoList where nombre equals to DEFAULT_NOMBRE
+        defaultArchivoShouldBeFound("nombre.equals=" + DEFAULT_NOMBRE);
+
+        // Get all the archivoList where nombre equals to UPDATED_NOMBRE
+        defaultArchivoShouldNotBeFound("nombre.equals=" + UPDATED_NOMBRE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllArchivosByNombreIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        archivoRepository.saveAndFlush(archivo);
+
+        // Get all the archivoList where nombre not equals to DEFAULT_NOMBRE
+        defaultArchivoShouldNotBeFound("nombre.notEquals=" + DEFAULT_NOMBRE);
+
+        // Get all the archivoList where nombre not equals to UPDATED_NOMBRE
+        defaultArchivoShouldBeFound("nombre.notEquals=" + UPDATED_NOMBRE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllArchivosByNombreIsInShouldWork() throws Exception {
+        // Initialize the database
+        archivoRepository.saveAndFlush(archivo);
+
+        // Get all the archivoList where nombre in DEFAULT_NOMBRE or UPDATED_NOMBRE
+        defaultArchivoShouldBeFound("nombre.in=" + DEFAULT_NOMBRE + "," + UPDATED_NOMBRE);
+
+        // Get all the archivoList where nombre equals to UPDATED_NOMBRE
+        defaultArchivoShouldNotBeFound("nombre.in=" + UPDATED_NOMBRE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllArchivosByNombreIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        archivoRepository.saveAndFlush(archivo);
+
+        // Get all the archivoList where nombre is not null
+        defaultArchivoShouldBeFound("nombre.specified=true");
+
+        // Get all the archivoList where nombre is null
+        defaultArchivoShouldNotBeFound("nombre.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllArchivosByNombreContainsSomething() throws Exception {
+        // Initialize the database
+        archivoRepository.saveAndFlush(archivo);
+
+        // Get all the archivoList where nombre contains DEFAULT_NOMBRE
+        defaultArchivoShouldBeFound("nombre.contains=" + DEFAULT_NOMBRE);
+
+        // Get all the archivoList where nombre contains UPDATED_NOMBRE
+        defaultArchivoShouldNotBeFound("nombre.contains=" + UPDATED_NOMBRE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllArchivosByNombreNotContainsSomething() throws Exception {
+        // Initialize the database
+        archivoRepository.saveAndFlush(archivo);
+
+        // Get all the archivoList where nombre does not contain DEFAULT_NOMBRE
+        defaultArchivoShouldNotBeFound("nombre.doesNotContain=" + DEFAULT_NOMBRE);
+
+        // Get all the archivoList where nombre does not contain UPDATED_NOMBRE
+        defaultArchivoShouldBeFound("nombre.doesNotContain=" + UPDATED_NOMBRE);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllArchivosByExtensionIsEqualToSomething() throws Exception {
+        // Initialize the database
+        archivoRepository.saveAndFlush(archivo);
+
+        // Get all the archivoList where extension equals to DEFAULT_EXTENSION
+        defaultArchivoShouldBeFound("extension.equals=" + DEFAULT_EXTENSION);
+
+        // Get all the archivoList where extension equals to UPDATED_EXTENSION
+        defaultArchivoShouldNotBeFound("extension.equals=" + UPDATED_EXTENSION);
+    }
+
+    @Test
+    @Transactional
+    public void getAllArchivosByExtensionIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        archivoRepository.saveAndFlush(archivo);
+
+        // Get all the archivoList where extension not equals to DEFAULT_EXTENSION
+        defaultArchivoShouldNotBeFound("extension.notEquals=" + DEFAULT_EXTENSION);
+
+        // Get all the archivoList where extension not equals to UPDATED_EXTENSION
+        defaultArchivoShouldBeFound("extension.notEquals=" + UPDATED_EXTENSION);
+    }
+
+    @Test
+    @Transactional
+    public void getAllArchivosByExtensionIsInShouldWork() throws Exception {
+        // Initialize the database
+        archivoRepository.saveAndFlush(archivo);
+
+        // Get all the archivoList where extension in DEFAULT_EXTENSION or UPDATED_EXTENSION
+        defaultArchivoShouldBeFound("extension.in=" + DEFAULT_EXTENSION + "," + UPDATED_EXTENSION);
+
+        // Get all the archivoList where extension equals to UPDATED_EXTENSION
+        defaultArchivoShouldNotBeFound("extension.in=" + UPDATED_EXTENSION);
+    }
+
+    @Test
+    @Transactional
+    public void getAllArchivosByExtensionIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        archivoRepository.saveAndFlush(archivo);
+
+        // Get all the archivoList where extension is not null
+        defaultArchivoShouldBeFound("extension.specified=true");
+
+        // Get all the archivoList where extension is null
+        defaultArchivoShouldNotBeFound("extension.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllArchivosByExtensionContainsSomething() throws Exception {
+        // Initialize the database
+        archivoRepository.saveAndFlush(archivo);
+
+        // Get all the archivoList where extension contains DEFAULT_EXTENSION
+        defaultArchivoShouldBeFound("extension.contains=" + DEFAULT_EXTENSION);
+
+        // Get all the archivoList where extension contains UPDATED_EXTENSION
+        defaultArchivoShouldNotBeFound("extension.contains=" + UPDATED_EXTENSION);
+    }
+
+    @Test
+    @Transactional
+    public void getAllArchivosByExtensionNotContainsSomething() throws Exception {
+        // Initialize the database
+        archivoRepository.saveAndFlush(archivo);
+
+        // Get all the archivoList where extension does not contain DEFAULT_EXTENSION
+        defaultArchivoShouldNotBeFound("extension.doesNotContain=" + DEFAULT_EXTENSION);
+
+        // Get all the archivoList where extension does not contain UPDATED_EXTENSION
+        defaultArchivoShouldBeFound("extension.doesNotContain=" + UPDATED_EXTENSION);
+    }
+
+
+    @Test
+    @Transactional
     public void getAllArchivosByUsuarioIsEqualToSomething() throws Exception {
         // Get already existing entity
         Persona usuario = archivo.getUsuario();
@@ -440,7 +648,9 @@ public class ArchivoResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(archivo.getId().intValue())))
             .andExpect(jsonPath("$.[*].tipo").value(hasItem(DEFAULT_TIPO)))
-            .andExpect(jsonPath("$.[*].archivo").value(hasItem(DEFAULT_ARCHIVO)));
+            .andExpect(jsonPath("$.[*].archivo").value(hasItem(DEFAULT_ARCHIVO)))
+            .andExpect(jsonPath("$.[*].nombre").value(hasItem(DEFAULT_NOMBRE)))
+            .andExpect(jsonPath("$.[*].extension").value(hasItem(DEFAULT_EXTENSION)));
 
         // Check, that the count call also returns 1
         restArchivoMockMvc.perform(get("/api/archivos/count?sort=id,desc&" + filter))
@@ -489,7 +699,9 @@ public class ArchivoResourceIT {
         em.detach(updatedArchivo);
         updatedArchivo
             .tipo(UPDATED_TIPO)
-            .archivo(UPDATED_ARCHIVO);
+            .archivo(UPDATED_ARCHIVO)
+            .nombre(UPDATED_NOMBRE)
+            .extension(UPDATED_EXTENSION);
 
         restArchivoMockMvc.perform(put("/api/archivos")
             .contentType(MediaType.APPLICATION_JSON)
@@ -502,6 +714,8 @@ public class ArchivoResourceIT {
         Archivo testArchivo = archivoList.get(archivoList.size() - 1);
         assertThat(testArchivo.getTipo()).isEqualTo(UPDATED_TIPO);
         assertThat(testArchivo.getArchivo()).isEqualTo(UPDATED_ARCHIVO);
+        assertThat(testArchivo.getNombre()).isEqualTo(UPDATED_NOMBRE);
+        assertThat(testArchivo.getExtension()).isEqualTo(UPDATED_EXTENSION);
     }
 
     @Test

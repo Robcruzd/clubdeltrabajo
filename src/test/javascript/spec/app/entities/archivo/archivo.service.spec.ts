@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(ArchivoService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Archivo(0, 0, 'AAAAAAA');
+      elemDefault = new Archivo(0, 0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -55,7 +55,9 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             tipo: 1,
-            archivo: 'BBBBBB'
+            archivo: 'BBBBBB',
+            nombre: 'BBBBBB',
+            extension: 'BBBBBB'
           },
           elemDefault
         );
@@ -73,7 +75,9 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             tipo: 1,
-            archivo: 'BBBBBB'
+            archivo: 'BBBBBB',
+            nombre: 'BBBBBB',
+            extension: 'BBBBBB'
           },
           elemDefault
         );

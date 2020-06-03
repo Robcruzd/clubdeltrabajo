@@ -60,9 +60,8 @@ public class InformacionPersonalResourceIT {
     private static final Integer UPDATED_DISCAPACIDAD = 2;
     private static final Integer SMALLER_DISCAPACIDAD = 1 - 1;
 
-    private static final Integer DEFAULT_REDES_SOCIALES = 1;
-    private static final Integer UPDATED_REDES_SOCIALES = 2;
-    private static final Integer SMALLER_REDES_SOCIALES = 1 - 1;
+    private static final String DEFAULT_REDES_SOCIALES = "AAAAAAAAAA";
+    private static final String UPDATED_REDES_SOCIALES = "BBBBBBBBBB";
 
     private static final Boolean DEFAULT_LICENCENCIA_CONDUCCION = false;
     private static final Boolean UPDATED_LICENCENCIA_CONDUCCION = true;
@@ -1052,57 +1051,30 @@ public class InformacionPersonalResourceIT {
         // Get all the informacionPersonalList where redesSociales is null
         defaultInformacionPersonalShouldNotBeFound("redesSociales.specified=false");
     }
-
-    @Test
+                @Test
     @Transactional
-    public void getAllInformacionPersonalsByRedesSocialesIsGreaterThanOrEqualToSomething() throws Exception {
+    public void getAllInformacionPersonalsByRedesSocialesContainsSomething() throws Exception {
         // Initialize the database
         informacionPersonalRepository.saveAndFlush(informacionPersonal);
 
-        // Get all the informacionPersonalList where redesSociales is greater than or equal to DEFAULT_REDES_SOCIALES
-        defaultInformacionPersonalShouldBeFound("redesSociales.greaterThanOrEqual=" + DEFAULT_REDES_SOCIALES);
+        // Get all the informacionPersonalList where redesSociales contains DEFAULT_REDES_SOCIALES
+        defaultInformacionPersonalShouldBeFound("redesSociales.contains=" + DEFAULT_REDES_SOCIALES);
 
-        // Get all the informacionPersonalList where redesSociales is greater than or equal to UPDATED_REDES_SOCIALES
-        defaultInformacionPersonalShouldNotBeFound("redesSociales.greaterThanOrEqual=" + UPDATED_REDES_SOCIALES);
+        // Get all the informacionPersonalList where redesSociales contains UPDATED_REDES_SOCIALES
+        defaultInformacionPersonalShouldNotBeFound("redesSociales.contains=" + UPDATED_REDES_SOCIALES);
     }
 
     @Test
     @Transactional
-    public void getAllInformacionPersonalsByRedesSocialesIsLessThanOrEqualToSomething() throws Exception {
+    public void getAllInformacionPersonalsByRedesSocialesNotContainsSomething() throws Exception {
         // Initialize the database
         informacionPersonalRepository.saveAndFlush(informacionPersonal);
 
-        // Get all the informacionPersonalList where redesSociales is less than or equal to DEFAULT_REDES_SOCIALES
-        defaultInformacionPersonalShouldBeFound("redesSociales.lessThanOrEqual=" + DEFAULT_REDES_SOCIALES);
+        // Get all the informacionPersonalList where redesSociales does not contain DEFAULT_REDES_SOCIALES
+        defaultInformacionPersonalShouldNotBeFound("redesSociales.doesNotContain=" + DEFAULT_REDES_SOCIALES);
 
-        // Get all the informacionPersonalList where redesSociales is less than or equal to SMALLER_REDES_SOCIALES
-        defaultInformacionPersonalShouldNotBeFound("redesSociales.lessThanOrEqual=" + SMALLER_REDES_SOCIALES);
-    }
-
-    @Test
-    @Transactional
-    public void getAllInformacionPersonalsByRedesSocialesIsLessThanSomething() throws Exception {
-        // Initialize the database
-        informacionPersonalRepository.saveAndFlush(informacionPersonal);
-
-        // Get all the informacionPersonalList where redesSociales is less than DEFAULT_REDES_SOCIALES
-        defaultInformacionPersonalShouldNotBeFound("redesSociales.lessThan=" + DEFAULT_REDES_SOCIALES);
-
-        // Get all the informacionPersonalList where redesSociales is less than UPDATED_REDES_SOCIALES
-        defaultInformacionPersonalShouldBeFound("redesSociales.lessThan=" + UPDATED_REDES_SOCIALES);
-    }
-
-    @Test
-    @Transactional
-    public void getAllInformacionPersonalsByRedesSocialesIsGreaterThanSomething() throws Exception {
-        // Initialize the database
-        informacionPersonalRepository.saveAndFlush(informacionPersonal);
-
-        // Get all the informacionPersonalList where redesSociales is greater than DEFAULT_REDES_SOCIALES
-        defaultInformacionPersonalShouldNotBeFound("redesSociales.greaterThan=" + DEFAULT_REDES_SOCIALES);
-
-        // Get all the informacionPersonalList where redesSociales is greater than SMALLER_REDES_SOCIALES
-        defaultInformacionPersonalShouldBeFound("redesSociales.greaterThan=" + SMALLER_REDES_SOCIALES);
+        // Get all the informacionPersonalList where redesSociales does not contain UPDATED_REDES_SOCIALES
+        defaultInformacionPersonalShouldBeFound("redesSociales.doesNotContain=" + UPDATED_REDES_SOCIALES);
     }
 
 

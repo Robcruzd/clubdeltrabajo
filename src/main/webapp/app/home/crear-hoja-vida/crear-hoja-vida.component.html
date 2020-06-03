@@ -1,3 +1,5 @@
+
+
 <div class="container estilo_body">
     <form [formGroup]="globalForm" (ngSubmit)="onSubmit()">
         <ng-container *ngIf="step === 0" >
@@ -576,10 +578,10 @@
                                 <p class="estilo_label">{{labels.CIUDAD_LABEL}} <span
                                         class="estilo_campo_requerido">*</span>
                                 </p>
-                                <select formControlName="cuidad" class="estilo_inputs">
+                                <select formControlName="ciudad" class="estilo_inputs">
                                     <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                                     <option
-                                        [ngValue]="municipio.codigo == experienciaLaboral.at(indexLaboral).get('cuidad')!.value? experienciaLaboral.at(indexLaboral).get('cuidad')!.value : municipio.codigo"
+                                        [ngValue]="municipio.codigo == experienciaLaboral.at(indexLaboral).get('ciudad')!.value? experienciaLaboral.at(indexLaboral).get('ciudad')!.value : municipio.codigo"
                                         *ngFor="let municipio of municipios">
                                         {{ municipio.nombre }}
                                     </option>
@@ -639,14 +641,7 @@
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.DEPENDENCIA_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
-                                <select formControlName="dependencia" class="estilo_inputs">
-                                    <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
-                                    <option
-                                        [ngValue]="dependencia.id === experienciaLaboral.at(indexLaboral).get('dependencia')!.value?.id ? experienciaLaboral.at(indexLaboral).get('dependencia')!.value : dependencia"
-                                        *ngFor="let dependencia of dependencias">
-                                        {{ dependencia.dependencia }}
-                                    </option>
-                                </select>
+                                <input type="text" class="estilo_inputs" formControlName="dependencia">
                                 <small *ngIf="false" id="emailHelp"
                                     class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>

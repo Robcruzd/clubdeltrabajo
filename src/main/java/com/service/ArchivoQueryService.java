@@ -91,6 +91,12 @@ public class ArchivoQueryService extends QueryService<Archivo> {
             if (criteria.getArchivo() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getArchivo(), Archivo_.archivo));
             }
+            if (criteria.getNombre() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getNombre(), Archivo_.nombre));
+            }
+            if (criteria.getExtension() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getExtension(), Archivo_.extension));
+            }
             if (criteria.getUsuarioId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUsuarioId(),
                     root -> root.join(Archivo_.usuario, JoinType.LEFT).get(Persona_.id)));

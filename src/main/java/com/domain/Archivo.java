@@ -30,6 +30,14 @@ public class Archivo implements Serializable {
     @Column(name = "archivo", nullable = false)
     private String archivo;
 
+    @NotNull
+    @Column(name = "nombre", nullable = false)
+    private String nombre;
+
+    @NotNull
+    @Column(name = "extension", nullable = false)
+    private String extension;
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("archivos")
@@ -70,6 +78,32 @@ public class Archivo implements Serializable {
         this.archivo = archivo;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Archivo nombre(String nombre) {
+        this.nombre = nombre;
+        return this;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public Archivo extension(String extension) {
+        this.extension = extension;
+        return this;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
+
     public Persona getUsuario() {
         return usuario;
     }
@@ -106,6 +140,8 @@ public class Archivo implements Serializable {
             "id=" + getId() +
             ", tipo=" + getTipo() +
             ", archivo='" + getArchivo() + "'" +
+            ", nombre='" + getNombre() + "'" +
+            ", extension='" + getExtension() + "'" +
             "}";
     }
 }

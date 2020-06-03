@@ -1,6 +1,5 @@
 import { Moment } from 'moment';
 import { IPersona } from 'app/shared/model/persona.model';
-import { IDependencia } from 'app/shared/model/dependencia.model';
 import { ICargo } from 'app/shared/model/cargo.model';
 
 export interface IInformacionLaboral {
@@ -9,12 +8,13 @@ export interface IInformacionLaboral {
   fechaInicio?: Moment;
   fechaFin?: Moment;
   direccion?: string;
-  cuidad?: number;
+  ciudad?: number;
   departamento?: number;
   pais?: string;
   telefonoEmpresa?: string;
+  dependencia?: string;
+  ciudadExtranjera?: string;
   usuario?: IPersona;
-  dependencia?: IDependencia;
   cargo?: ICargo;
 }
 
@@ -25,12 +25,13 @@ export class InformacionLaboral implements IInformacionLaboral {
     public fechaInicio?: Moment,
     public fechaFin?: Moment,
     public direccion?: string,
-    public cuidad?: number,
+    public ciudad?: number,
     public departamento?: number,
     public pais?: string,
     public telefonoEmpresa?: string,
+    public dependencia?: string,
+    public ciudadExtranjera?: string,
     public usuario?: IPersona,
-    public dependencia?: IDependencia,
     public cargo?: ICargo
   ) {}
 }
