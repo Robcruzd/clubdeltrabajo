@@ -17,7 +17,7 @@ export class PersonaService {
   constructor(protected http: HttpClient) {}
 
   crearUsuario(usuario: UsuarioVo): Observable<any> {
-    return this.http.post<IPersona>(this.resourceUrl + '/user', usuario, { observe: 'response' });
+    return this.http.post<IPersona>(SERVER_API_URL + 'api/registrar', usuario, { observe: 'response' });
   }
 
   create(persona: IPersona): Observable<EntityResponseType> {

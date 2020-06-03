@@ -1,13 +1,19 @@
-<div class="estilo_home">
+<div class="estilo_home" *ngIf="initialized && key && !success">
     <img class="logo" src="../../../content/images/logo_cdt_fondo2.png">
     <div class="div_centro">
         <h3 class="titulo1">Cambiar contraseña</h3>
         <div class="inputs">
-            <input class="estilo_input" maxlength="30" type="password" name="nombre" [(ngModel)]="password" placeholder="Nueva contraseña"
-                  [ngModelOptions]="{standalone: true}">
-            <input class="estilo_input" maxlength="30" type="password" name="nombre" [(ngModel)]="confirmPassword" placeholder="Confirmar contraseña"
-                  [ngModelOptions]="{standalone: true}">
+            <input class="estilo_input" maxlength="30" type="password" name="nombre" [(ngModel)]="password"
+                placeholder="Nueva contraseña" [ngModelOptions]="{standalone: true}">
+            <label *ngIf="mensajeClave" class="text-danger">
+                {{mensajeClave}}
+            </label>
+            <input class="estilo_input" maxlength="30" type="password" name="nombre" [(ngModel)]="confirmPassword"
+                placeholder="Confirmar contraseña" [ngModelOptions]="{standalone: true}">
+            <label *ngIf="mensajeConfClave" class="text-danger">
+                {{mensajeConfClave}}
+            </label>
         </div>
-        <button class="button_cambiar_contrasenia">Cambiar</button>
+        <button class="button_cambiar_contrasenia" (click)="confirmarPassword()">Cambiar</button>
     </div>
 </div>
