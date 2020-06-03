@@ -54,12 +54,12 @@ public class HojaVidaService {
 	public HojaVidaVo save(HojaVidaVo hojaVida) {
 		log.debug("Request to save Hoja de vida : {}", hojaVida);
 
-		this.archivoRepository.saveAll(hojaVida.getArchivos());
-		this.personaRepository.save(hojaVida.getPersona());
-		this.personalRepository.save(hojaVida.getInformacionPersonal());
-		this.academicaRepository.saveAll(hojaVida.getInformacionAcademica());
-		this.experienciaRepository.saveAll(hojaVida.getExperienciaLaboral());
-		this.idiomaRepository.saveAll(hojaVida.getIdiomas());
+		if (hojaVida.getArchivos() != null && !hojaVida.getArchivos().isEmpty()) this.archivoRepository.saveAll(hojaVida.getArchivos());
+		if (hojaVida.getPersona() != null) this.personaRepository.save(hojaVida.getPersona());
+		if (hojaVida.getInformacionPersonal() != null) this.personalRepository.save(hojaVida.getInformacionPersonal());
+		if (hojaVida.getInformacionAcademica() != null && !hojaVida.getInformacionAcademica().isEmpty()) this.academicaRepository.saveAll(hojaVida.getInformacionAcademica());
+		if (hojaVida.getExperienciaLaboral() != null && !hojaVida.getExperienciaLaboral().isEmpty()) this.experienciaRepository.saveAll(hojaVida.getExperienciaLaboral());
+		if (hojaVida.getIdiomas() != null && !hojaVida.getIdiomas().isEmpty()) this.idiomaRepository.saveAll(hojaVida.getIdiomas());
 
 		return hojaVida;
 	}

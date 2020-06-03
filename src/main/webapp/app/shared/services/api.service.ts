@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { commonMessages } from '../constants/commonMessages';
-import { URL_UBICACIONES, URL_PAISES } from '../constants/constantes.constants';
+import { URL_PAISES, URL_UBICACIONES } from '../constants/constantes.constants';
 import { GeografiaVo } from '../vo/geografia-vo';
 import { IOpcionVo } from '../vo/opcion-vo';
 
@@ -42,10 +41,6 @@ export class ApiService {
     );
   }
 
-  getDiscapacidades(): IOpcionVo[] {
-    return commonMessages.ARRAY_DISCAPACIDADES;
-  }
-
   getDias(): number[] {
     const dias: number[] = [];
     for (let dia = 1; dia < 32; dia++) {
@@ -72,17 +67,5 @@ export class ApiService {
     }
 
     return anios;
-  }
-
-  getNivelEstudio(): IOpcionVo[] {
-    return commonMessages.ARRAY_NIVEL_ESTUDIOS;
-  }
-
-  getEstadoNivelEstudio(): IOpcionVo[] {
-    return commonMessages.ARRAY_ESTADO_NIVEL_ESTUDIO;
-  }
-
-  getNivelIdioma(): IOpcionVo[] {
-    return commonMessages.ARRAY_NIVEL_IDIOMA;
   }
 }
