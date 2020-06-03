@@ -35,7 +35,7 @@ export class ArchivoService {
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
-  
+
   createArchivos(archivo: IArchivo[]): Observable<EntityArrayResponseType> {
     return this.http.post<IArchivo[]>(`${this.resourceUrl}/hoja-vida`, archivo, { observe: 'response' });
   }
