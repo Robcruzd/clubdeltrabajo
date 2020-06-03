@@ -208,11 +208,11 @@
                         <div class="form-group">
                             <p class="estilo_label">{{labels.LICENCIA_CONDUCCION_LABEL}}</p>
                             <div class="input_group">
-                                <input type="checkbox" formControlName="licencenciaConduccion">
-                                <div class="file_upload_licence" (click)="licencia.click()">
+                                <div class="file_upload_licence">
+                                    <input type="checkbox" class="checkbox" formControlName="licencenciaConduccion">
                                     <input type="file" #licencia class="file"
                                         (change)="addArchivo($event, tipoArchivo.LICENCIA_CONDUCCION)" />
-                                    <label for="file" class="label_file">
+                                    <label for="file" class="label_file" (click)="licencia.click()">
                                         <fa-icon icon="images" class="float-right"></fa-icon>
                                     </label>
                                 </div>
@@ -221,21 +221,29 @@
                     </div>
                     <div class="column">
                         <div class="form-group">
-                        <p class="estilo_campo_requerido">{{labels.DIRECCION_RED_SOCIAL}}<span class="float-right">{{labels.INFO_CAMPO_OBLIGATORIO_LABEL}}</span> </p>
+                        <p class="estilo_label">{{labels.DIRECCION_RED_SOCIAL}}</p>
                         <input type="text" class="estilo_inputs" (change)="setRedSocial($event)" [value]="redSocial">
                         </div>
                     </div>
                 </div>
-            </form>
-            <div class="rowFooter" style="justify-content: start; margin: 0rem">
-                <div class="firstScreen">
-                    <button type="button" class="btn" (click)="previousStep()">
-                        <p class="h4">
-                            <fa-icon class="estilo_label" style="padding-left: 0rem;" icon="chevron-left"></fa-icon>
-                        </p>
-                    </button>
+                <div class="rowFooter">
+                    <div class="column">
+                        <button type="button" class="btn" (click)="previousStep()">
+                            <p class="h4">
+                                <fa-icon class="estilo_label" style="padding-left: 0rem;" icon="chevron-left"></fa-icon>
+                            </p>
+                        </button>
+                    </div>
+                    <div class="column">
+                        <p class="estilo_campo_requerido">{{labels.INFO_CAMPO_OBLIGATORIO_LABEL}}</p>
+                        <button type="button" class="btn boton_siguiente text-white float-right"
+                        [disabled]="formPersonal.invalid" 
+                            (click)="nextStep()">
+                            {{labels.SIGUIENTE_LABEL}}
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </form>
             </div>
         </ng-container>
         <ng-container formArrayName="informacionAcademica" *ngIf="step === 1">
