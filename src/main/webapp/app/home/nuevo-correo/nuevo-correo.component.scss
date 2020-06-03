@@ -66,6 +66,10 @@
         margin-bottom: 0.5rem;
         border-width: 0rem;
       }
+
+      .estilo_input:focus {
+        outline: none;
+      }
     }
 
     .button_cambiar_contrasenia {
@@ -80,6 +84,10 @@
       color: #ffffff;
       opacity: 1;
       border-width: 0rem;
+    }
+
+    .button_cambiar_contrasenia:focus {
+      outline: none;
     }
 
     p {

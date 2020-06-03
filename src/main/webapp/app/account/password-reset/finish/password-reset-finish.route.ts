@@ -1,10 +1,9 @@
+import { NuevoCorreoComponent } from './../../../home/nuevo-correo/nuevo-correo.component';
 import { Route } from '@angular/router';
-
-import { PasswordResetFinishComponent } from './password-reset-finish.component';
 
 export const passwordResetFinishRoute: Route = {
   path: 'reset/finish',
-  component: PasswordResetFinishComponent,
+  component: NuevoCorreoComponent,
   data: {
     authorities: [],
     pageTitle: 'global.menu.account.password'
