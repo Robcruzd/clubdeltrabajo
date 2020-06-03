@@ -105,5 +105,6 @@ export const commonMessages = {
   ],
   CODIGO_COLOMBIA: 'CO',
   INGRESE_VALOR_LABEL: 'Ingrese ',
-  DIRECCION_RED_SOCIAL: 'Dirección red social '
+  DIRECCION_RED_SOCIAL: 'Dirección red social ',
+  NOMBRE_ARCHIVO_DEFAULT: 'archivo'
 };
