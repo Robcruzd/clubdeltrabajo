@@ -3,7 +3,7 @@
   align-self: center;
   justify-self: center;
   background: transparent linear-gradient(181deg, #2e437e 0%, #1a2152 100%) 0% 0% no-repeat padding-box;
-  border-radius: 30px;
+  border-radius: 1.875rem;
   opacity: 1;
   margin-top: 3rem;
   margin-bottom: 3rem;
@@ -20,7 +20,7 @@
 
   .ngnum11 {
     background: transparent linear-gradient(358deg, #2e437e 0%, #2e427d 6%, #1a2152 100%) 0% 0% no-repeat padding-box;
-    border-radius: 71px;
+    border-radius: 4.438rem 4.438rem 1.875rem 1.875rem;
     opacity: 1;
     padding: 1rem 5rem 1rem 5rem;
     margin: 1rem 0rem 1rem 0rem;
@@ -229,9 +229,8 @@
   }
 
   .rowFooter {
-    margin-left: 5rem;
-    margin-right: 5rem;
-    padding-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    padding-top: 1rem;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -242,6 +241,12 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+    }
+
+    .firstScreen {
+      display: flex;
+      justify-content: flex-start;
+      align-self: flex-start;
     }
   }
 }
