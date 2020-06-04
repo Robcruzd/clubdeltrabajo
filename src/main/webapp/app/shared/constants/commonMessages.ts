@@ -109,5 +109,6 @@ export const commonMessages = {
   RECUPERACION_PASSWORD_LABEL: 'Revise su correo electrónico para obtener más ' + 'información sobre cómo restablecer su contraseña.',
   CORREO_NO_EXISTE_LABEL: 'El correo electrónico ingresado no pertenece a ningún usuario. ' + 'Digite nuevamente.',
   FALTA_CLAVE_REINICIO_LABEL: 'Falta clave de reinicio.',
-  LONGITUD_MINIMA_PASSWORD: 'La longitud mínima debe ser 4 caracteres.'
+  LONGITUD_MINIMA_PASSWORD: 'La longitud mínima debe ser 4 caracteres.',
+  OPCION_PERFIL_LABEL: 'Perfil'
 };
