@@ -578,9 +578,15 @@ export class CrearHojaVidaComponent implements OnInit {
     const file: File = event.target.files[0];
     const archivo = new Archivo();
     let flag = 0;
+    const extension = file.name.split('.').pop() || '';
+    if (!commonMessages.ARCHIVOS_PERMITIDOS.includes(extension)) {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error(commonMessages.ERROR_ARCHIVO_NO_SOPORTADO);
+      return;
+    }
     archivo.tipo = tipoDocumento;
     archivo.nombre = file.name;
-    archivo.extension = file.name.split('.').pop();
+    archivo.extension = extension;
     archivo.usuario = new Persona(this.persona);
     this.pruebaFile = event;
 

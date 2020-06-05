@@ -10,7 +10,14 @@ import { IOpcionVo } from '../vo/opcion-vo';
   providedIn: 'root'
 })
 export class ApiService {
-  constructor(private http: HttpClient) {}
+  private readonly pdfFonts: any;
+  pdfMake: any;
+
+  constructor(private http: HttpClient) {
+    this.pdfMake = require('pdfmake/build/pdfmake.js');
+    this.pdfFonts = require('pdfmake/build/vfs_fonts.js');
+    this.pdfMake.vfs = this.pdfFonts.pdfMake.vfs;
+  }
 
   getCiudades(): Observable<GeografiaVo[]> {
     return this.http.get<any[]>(URL_UBICACIONES);
@@ -67,5 +74,14 @@ export class ApiService {
     }
 
     return anios;
+  }
+
+  downloadFile(name: any, data: any): void {
+    if (name !== null && data !== null) {
+      const downloadLink = document.createElement('a');
+      downloadLink.href = data;
+      downloadLink.download = name;
+      downloadLink.click();
+    }
   }
 }
