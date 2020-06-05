@@ -7,6 +7,7 @@ export interface IInformacionPersonal {
   lugarNacimiento?: string;
   direccionResidencia?: string;
   genero?: string;
+  departamento?: number;
   ciudad?: number;
   telefono?: string;
   discapacidad?: number;
@@ -23,6 +24,7 @@ export class InformacionPersonal implements IInformacionPersonal {
     public lugarNacimiento?: string,
     public direccionResidencia?: string,
     public genero?: string,
+    public departamento?: number,
     public ciudad?: number,
     public telefono?: string,
     public discapacidad?: number,

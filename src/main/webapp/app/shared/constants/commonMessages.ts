@@ -1,4 +1,7 @@
 export const commonMessages = {
+  PLACEHOLDER_CERTIFICADO: 'Adjunte certificado',
+  PLACEHOLDER_LICENCIA: 'Adjunte licencia',
+  ATRAS: 'Atras',
   RESULTADO_BUSQUEDA_LABEL: 'Resultados para',
   SALARIO_LABEL: 'Salario (en millones de pesos)',
   CIUDAD_LABEL: 'Ciudad',

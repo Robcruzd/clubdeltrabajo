@@ -109,24 +109,21 @@
                 </div>
 
                 <div class="row">
-
                     <div class="column">
                         <div class="form-group">
-                            <div class="genero">
-                                <p>&nbsp;</p>
-                                <label class="radio-inline">{{labels.GENERO_LABEL}} <span
-                                        class="estilo_campo_requerido">*</span></label>
-                                <label class="radio-inline">
-                                    <input type="radio" [value]="labels.MASCULINO" formControlName="genero">
-                                    <span class="text-white">{{labels.MASCULINO}}</span>
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" [value]="labels.FEMENINO" formControlName="genero">
-                                    <span class="text-white">{{labels.FEMENINO}}</span>
-                                </label>
-                                <small *ngIf="false" id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                            </div>
+                            <p class="estilo_label">{{labels.DEPARTAMENTO_LABEL}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <select formControlName="departamento" class="estilo_inputs"
+                            (change)="cargarMunicipios(formPersonal.value)">
+                                <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option
+                                    [ngValue]="departamento.codigo == formPersonal.get('departamento')!.value? formPersonal.get('departamento')!.value : departamento.codigo"
+                                    *ngFor="let departamento of departamentos">
+                                    {{ departamento.nombre }}
+                                </option>
+                            </select>
+                            <small *ngIf="false" id="emailHelp"
+                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
                     </div>
 
@@ -135,7 +132,8 @@
                             <p class="estilo_label">{{labels.CIUDAD_LABEL}} <span
                                     class="estilo_campo_requerido">*</span>
                             </p>
-                            <select formControlName="ciudad" class="estilo_inputs">
+                            <select formControlName="ciudad" class="estilo_inputs"
+                                >
                                 <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                                 <option
                                     [ngValue]="municipio.codigo == formPersonal.get('ciudad')!.value ? formPersonal.get('ciudad')!.value : municipio.codigo"
@@ -209,7 +207,17 @@
                             <p class="estilo_label">{{labels.LICENCIA_CONDUCCION_LABEL}}</p>
                             <div class="input_group">
                                 <div class="file_upload_licence">
-                                    <input type="checkbox" class="checkbox" formControlName="licencenciaConduccion">
+                                    <!-- <input type="checkbox" class="checkbox" formControlName="licencenciaConduccion"> -->
+                                    <div *ngIf="archivos.length>0; else elseBlock" class='name_file'>
+                                        <div *ngFor="let archivo of archivos">
+                                            <div *ngIf="archivo.tipo==tipoArchivo.LICENCIA_CONDUCCION">
+                                                <label>{{archivo.nombre}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ng-template #elseBlock class='name_file'>
+                                        <label>{{labels.PLACEHOLDER_LICENCIA}}</label>
+                                    </ng-template>
                                     <input type="file" #licencia class="file"
                                         (change)="addArchivo($event, tipoArchivo.LICENCIA_CONDUCCION)" />
                                     <label for="file" class="label_file" (click)="licencia.click()">
@@ -226,18 +234,47 @@
                         </div>
                     </div>
                 </div>
-                <div class="rowFooter">
+
+                <div class="row">
                     <div class="column">
-                        <button type="button" class="btn" (click)="previousStep()">
-                            <p class="h4">
-                                <fa-icon class="estilo_label" style="padding-left: 0rem;" icon="chevron-left"></fa-icon>
-                            </p>
-                        </button>
+                        <div class="form-group">
+                            <div class="genero">
+                                <p>&nbsp;</p>
+                                <label class="radio-inline">{{labels.GENERO_LABEL}} <span
+                                        class="estilo_campo_requerido">*</span></label>
+                                <label class="radio-inline">
+                                    <input type="radio" [value]="labels.MASCULINO" formControlName="genero">
+                                    <span class="text-white">{{labels.MASCULINO}}</span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" [value]="labels.FEMENINO" formControlName="genero">
+                                    <span class="text-white">{{labels.FEMENINO}}</span>
+                                </label>
+                                <small *ngIf="false" id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">       
                     </div>
                     <div class="column">
                         <p class="estilo_campo_requerido">{{labels.INFO_CAMPO_OBLIGATORIO_LABEL}}</p>
+                    </div>
+                </div>
+
+                <div class="rowFooter">
+                    <div class="column">
+                        <button type="button" class="btn boton_siguiente text-white" (click)="previousStep()">
+                            {{labels.ATRAS}}
+                        </button>
+                    </div>
+                    <div class="column">
                         <button type="button" class="btn boton_siguiente text-white float-right"
-                        [disabled]="formPersonal.invalid" 
+                            [disabled]="formPersonal.invalid" 
                             (click)="nextStep()">
                             {{labels.SIGUIENTE_LABEL}}
                         </button>
@@ -361,7 +398,17 @@
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.TITULO_OTORGADO_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
-                                <input type="text" class="estilo_inputs" formControlName="tituloOtorgado">
+                                <div class="input_group">
+                                    <input type="text" class="estilo_titulo_otorgado" formControlName="tituloOtorgado">
+                                    <div class="file_upload text-secondary"
+                                            (click)="certificadoestudio.click()">
+                                            <label for="file" class="label_file">
+                                                <fa-icon icon="images" class="float-right"></fa-icon>
+                                            </label>
+                                            <input class='file' type="file" accept=".png, .jpeg, .jpg" #certificadoestudio
+                                                (change)="addArchivo($event, tipoArchivo.CERTIFICADO_ESTUDIO)">
+                                    </div>
+                                </div>
                                 <small *ngIf="false" id="emailHelp"
                                     class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
@@ -381,29 +428,6 @@
                                     class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="column">
-                            <div class="form-group">
-                                <p class="estilo_label">{{labels.TITULO_LABEL}} <span
-                                        class="estilo_campo_requerido">*</span>
-                                </p>
-                                <div class="input_group">
-                                    <div class="file_upload_licence file-upload text-secondary"
-                                        (click)="certificadoestudio.click()">
-                                        <label for="file" class="label_file">
-                                            <fa-icon icon="images" class="float-right"></fa-icon>
-                                        </label>
-                                        <input class='file' type="file" accept=".png, .jpeg, .jpg" #certificadoestudio
-                                            (change)="addArchivo($event, tipoArchivo.CERTIFICADO_ESTUDIO)">
-                                    </div>
-                                </div>
-                                <small *ngIf="false" id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                            </div>
-                        </div>
-                        <div class="column"></div>
                     </div>
                 </div>
             </ng-container>
@@ -467,10 +491,8 @@
             </div>
             <div class="rowFooter">
                 <div class="column">
-                    <button type="button" class="btn" (click)="previousStep()">
-                        <p class="h4">
-                            <fa-icon class="estilo_label" style="padding-left: 0rem;" icon="chevron-left"></fa-icon>
-                        </p>
+                    <button type="button" class="btn boton_siguiente text-white" (click)="previousStep()">
+                        {{labels.ATRAS}}
                     </button>
                 </div>
                 <div class="column">
@@ -652,64 +674,75 @@
                                 <small *ngIf="false" id="emailHelp"
                                     class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
-                            <div class="column">
-                                <div class="form-group">
-                                    <p class="estilo_label">{{labels.TELEFONO_EMPRESA_LABEL}} <span
-                                            class="estilo_campo_requerido">*</span></p>
-                                    <input type="number" class="estilo_inputs" formControlName="telefonoEmpresa">
-                                    <small *ngIf="false" id="emailHelp"
-                                        class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                                </div>
+                        </div>
+                        <div class="column">
+                            <div class="form-group">
+                                <p class="estilo_label">{{labels.TELEFONO_EMPRESA_LABEL}} <span
+                                        class="estilo_campo_requerido">*</span></p>
+                                <input type="number" class="estilo_inputs" formControlName="telefonoEmpresa">
+                                <small *ngIf="false" id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="column">
-                                <div class="form-group">
-                                    <p class="estilo_label">{{labels.CARGO_LABEL}} <span
-                                            class="estilo_campo_requerido">*</span></p>
-                                    <select formControlName="cargo" class="estilo_inputs">
-                                        <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
-                                        <option
-                                            [ngValue]="cargo.id === experienciaLaboral.at(indexLaboral).get('cargo')!.value?.id ? experienciaLaboral.at(indexLaboral).get('cargo')!.value : cargo"
-                                            *ngFor="let cargo of cargos">
-                                            {{ cargo.cargo }}
-                                        </option>
-                                    </select>
-                                    <small *ngIf="false" id="emailHelp"
-                                        class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="form-group">
-                                    <p class="estilo_label">{{labels.DEPENDENCIA_LABEL}} <span
-                                            class="estilo_campo_requerido">*</span></p>
-                                    <input type="text" class="estilo_inputs" formControlName="dependencia">
-                                    <small *ngIf="false" id="emailHelp"
-                                        class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                                </div>
+                    <div class="row">
+                        <div class="column">
+                            <div class="form-group">
+                                <p class="estilo_label">{{labels.CARGO_LABEL}} <span
+                                        class="estilo_campo_requerido">*</span></p>
+                                <select formControlName="cargo" class="estilo_inputs">
+                                    <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
+                                    <option
+                                        [ngValue]="cargo.id === experienciaLaboral.at(indexLaboral).get('cargo')!.value?.id ? experienciaLaboral.at(indexLaboral).get('cargo')!.value : cargo"
+                                        *ngFor="let cargo of cargos">
+                                        {{ cargo.cargo }}
+                                    </option>
+                                </select>
+                                <small *ngIf="false" id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
                         </div>
+                        <div class="column">
+                            <div class="form-group">
+                                <p class="estilo_label">{{labels.DEPENDENCIA_LABEL}} <span
+                                        class="estilo_campo_requerido">*</span></p>
+                                <input type="text" class="estilo_inputs" formControlName="dependencia">
+                                <small *ngIf="false" id="emailHelp"
+                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="column">
-                                <div class="form-group">
-                                    <p class="estilo_label">{{labels.ADJUNTE_CERTIFICADO_LABORAL_LABEL}} <span
-                                            class="estilo_campo_requerido">*</span></p>
-                                    <div class="input_group">
-                                        <div class="file_upload_licence file-upload text-secondary"
-                                            (click)="certificadolaboral.click()">
-                                            <label for="file" class="label_file">
-                                                <fa-icon icon="images" class="float-right"></fa-icon>
-                                            </label>
-                                            <input class="file" type="file" #certificadolaboral accept=".png, .jpeg, .jpg"
-                                                (change)="addArchivo($event, tipoArchivo.CERTIFICADO_ESTUDIO)">
+                    <div class="row">
+                        <div class="column">
+                            <div class="form-group">
+                                <p class="estilo_label">{{labels.ADJUNTE_CERTIFICADO_LABORAL_LABEL}} <span
+                                        class="estilo_campo_requerido">*</span></p>
+                                <div class="input_group">                                    
+                                    <div class="file_upload_licence">
+                                        <!-- <input type="checkbox" class="checkbox" formControlName="licencenciaConduccion"> -->
+                                        <div *ngIf="archivos.length>0; else elseBlock" class='name_file'>
+                                            <div *ngFor="let archivo of archivos">
+                                                <div *ngIf="archivo.tipo==tipoArchivo.CERTIFICADO_ESTUDIO">
+                                                    <label>{{archivo.nombre}}</label>
+                                                </div>
+                                            </div>
                                         </div>
+                                        <ng-template #elseBlock class='name_file'>
+                                            <label>{{labels.PLACEHOLDER_CERTIFICADO}}</label>
+                                        </ng-template>
+                                        <input class="file" type="file" #certificadolaboral accept=".png, .jpeg, .jpg, .pdf"
+                                            (change)="addArchivo($event, tipoArchivo.CERTIFICADO_ESTUDIO)">
+                                        <label for="file" class="label_file" (click)="certificadolaboral.click()">
+                                            <fa-icon icon="images" class="float-right"></fa-icon>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="column"></div>
                         </div>
+                        <div class="column"></div>
+                    </div>
                     </div>
                 </ng-container>
                 <div class="row" style="padding-bottom: 1rem;">
@@ -721,10 +754,8 @@
                 </div>
                 <div class="rowFooter">
                     <div class="column">
-                        <button type="button" class="btn" (click)="previousStep()">
-                            <p class="h4">
-                                <fa-icon class="estilo_label" style="padding-left: 0rem;" icon="chevron-left"></fa-icon>
-                            </p>
+                        <button type="button" class="btn boton_siguiente text-white" (click)="previousStep()">
+                            {{labels.ATRAS}}
                         </button>
                     </div>
                     <div class="column">
