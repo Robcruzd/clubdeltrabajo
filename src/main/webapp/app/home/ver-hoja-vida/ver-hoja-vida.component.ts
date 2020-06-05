@@ -21,6 +21,9 @@ export class VerHojaVidaComponent implements OnInit {
   persona!: number;
   archivos!: Array<Archivo> | undefined;
   archivo!: File;
+  informacionAcademica: any[] = [];
+  idiomas: any[] = [];
+  informacionLaboral: any[] = [];
 
   constructor(
     private router: Router,
@@ -67,13 +70,15 @@ export class VerHojaVidaComponent implements OnInit {
   }
 
   private getContent(): Object {
+    this.cargarDatos();
     return {
       content: [
         { text: 'HOJA DE VIDA', style: 'header' },
-        { text: 'DATOS DE CONTACTO', style: 'subheader' },
+        { text: 'DATOS DE CONTACTO', style: 'subheader', alignment: 'center' },
         {
           style: 'tableExample',
           table: {
+            widths: ['*', '*', '*'],
             body: [
               ['Teléfono', 'Dirección', 'Correo electrónico'],
               [
@@ -84,14 +89,17 @@ export class VerHojaVidaComponent implements OnInit {
             ]
           }
         },
-        { text: 'PERFIL LABORAL', style: 'subheader' },
+        { text: 'PERFIL LABORAL', style: 'subheader', alignment: 'center' },
         {
           style: 'tableExample',
+          layout: 'noBorders',
           table: {
             widths: ['*'],
             body: [[this.hojaVidaVo?.informacionPersonal.perfilProfesional]]
           }
-        }
+        },
+        this.cargarTablaInformacionAcademica(),
+        this.cargarTablaInformacionLaboral()
       ],
       styles: {
         header: {
@@ -114,7 +122,88 @@ export class VerHojaVidaComponent implements OnInit {
         }
       },
       defaultStyle: {
-        // alignment: 'justify'
+        alignment: 'justify'
+      }
+    };
+  }
+
+  cargarDatos(): void {
+    // cargar informacion academica
+    this.hojaVidaVo?.informacionAcademica.forEach(item => {
+      this.informacionAcademica.push([item.institucion?.institucion, item.fechaFin, item.tituloOtorgado, item.estado]);
+    });
+
+    this.hojaVidaVo?.experienciaLaboral.forEach(item => {
+      this.informacionLaboral.push([item.nombreEmpresa, item.cargo?.cargo, item.fechaFin, item.ciudad]);
+    });
+  }
+
+  private cargarTablaInformacionAcademica(): Object {
+    return {
+      style: 'tableExample',
+      table: {
+        widths: ['*', '*', '*', '*'],
+        body: [
+          [{ text: 'EDUCACIÓN', style: 'tableHeader', colSpan: 4, alignment: 'center' }, {}, {}, {}],
+          [
+            {
+              text: 'Institución',
+              style: 'tableHeader',
+              alignment: 'center'
+            },
+            {
+              text: 'Fecha',
+              style: 'tableHeader',
+              alignment: 'center'
+            },
+            {
+              text: 'Titulo',
+              style: 'tableHeader',
+              alignment: 'center'
+            },
+            {
+              text: 'Ciudad',
+              style: 'tableHeader',
+              alignment: 'center'
+            }
+          ],
+          ...this.informacionAcademica
+        ]
+      }
+    };
+  }
+
+  private cargarTablaInformacionLaboral(): Object {
+    return {
+      style: 'tableExample',
+      table: {
+        widths: ['*', '*', '*', '*'],
+        body: [
+          [{ text: 'EXPERIENCIA', style: 'tableHeader', colSpan: 4, alignment: 'center' }, {}, {}, {}],
+          [
+            {
+              text: 'Empresa',
+              style: 'tableHeader',
+              alignment: 'center'
+            },
+            {
+              text: 'Cargo',
+              style: 'tableHeader',
+              alignment: 'center'
+            },
+            {
+              text: 'Fecha',
+              style: 'tableHeader',
+              alignment: 'center'
+            },
+            {
+              text: 'Ciudad',
+              style: 'tableHeader',
+              alignment: 'center'
+            }
+          ],
+          ...this.informacionLaboral
+        ]
       }
     };
   }
