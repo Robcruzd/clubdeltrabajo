@@ -29,7 +29,13 @@ export class VerHojaVidaComponent implements OnInit {
     private apiService: ApiService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (!this.accountService.isAuthenticated()) {
+      this.router.navigate(['/']);
+      return;
+    }
+    this.cargarCuentaUsuario();
+  }
 
   regresarPerfil(): void {
     this.router.navigate(['perfil']);
@@ -47,12 +53,69 @@ export class VerHojaVidaComponent implements OnInit {
     this.hojaVidaService.find(this.persona).subscribe(response => {
       this.hojaVidaVo = response.body;
       this.archivos = this.hojaVidaVo?.archivos;
-      if (this.archivos?.length !== 0) {
-        this.archivo = this.apiService.dataURLtoFile(
-          this.archivos![0].archivo,
-          this.archivos![0].nombre ? this.archivos![0].nombre : commonMessages.NOMBRE_ARCHIVO_DEFAULT
-        );
-      }
     });
+  }
+
+  descargar(): void {
+    if (this.archivos?.length !== 0) {
+      this.apiService.downloadFile(this.archivos![0].nombre, this.archivos![0].archivo);
+    }
+  }
+
+  generatePdf(): void {
+    this.apiService.pdfMake.createPdf(this.getContent()).open();
+  }
+
+  private getContent(): Object {
+    return {
+      content: [
+        { text: 'HOJA DE VIDA', style: 'header' },
+        { text: 'DATOS DE CONTACTO', style: 'subheader' },
+        {
+          style: 'tableExample',
+          table: {
+            body: [
+              ['Teléfono', 'Dirección', 'Correo electrónico'],
+              [
+                this.hojaVidaVo?.informacionPersonal.telefono,
+                this.hojaVidaVo?.informacionPersonal.direccionResidencia,
+                this.hojaVidaVo?.persona.email
+              ]
+            ]
+          }
+        },
+        { text: 'PERFIL LABORAL', style: 'subheader' },
+        {
+          style: 'tableExample',
+          table: {
+            widths: ['*'],
+            body: [[this.hojaVidaVo?.informacionPersonal.perfilProfesional]]
+          }
+        }
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          margin: [0, 0, 0, 10]
+        },
+        subheader: {
+          fontSize: 16,
+          bold: true,
+          margin: [0, 10, 0, 5]
+        },
+        tableExample: {
+          margin: [0, 5, 0, 15]
+        },
+        tableHeader: {
+          bold: true,
+          fontSize: 13,
+          color: 'black'
+        }
+      },
+      defaultStyle: {
+        // alignment: 'justify'
+      }
+    };
   }
 }
