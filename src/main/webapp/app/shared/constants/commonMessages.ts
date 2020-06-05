@@ -106,9 +106,12 @@ export const commonMessages = {
   CODIGO_COLOMBIA: 'CO',
   INGRESE_VALOR_LABEL: 'Ingrese ',
   DIRECCION_RED_SOCIAL: 'Dirección red social ',
+  NOMBRE_ARCHIVO_DEFAULT: 'archivo',
   RECUPERACION_PASSWORD_LABEL: 'Revise su correo electrónico para obtener más ' + 'información sobre cómo restablecer su contraseña.',
   CORREO_NO_EXISTE_LABEL: 'El correo electrónico ingresado no pertenece a ningún usuario. ' + 'Digite nuevamente.',
   FALTA_CLAVE_REINICIO_LABEL: 'Falta clave de reinicio.',
   LONGITUD_MINIMA_PASSWORD: 'La longitud mínima debe ser 4 caracteres.',
+  ARCHIVOS_PERMITIDOS: ['jpg', 'jpeg', 'png', 'pdf'],
+  ERROR_ARCHIVO_NO_SOPORTADO: 'Formato de archivo no soportado. Solo se aceptan imágenes o archivos PDF',
   OPCION_PERFIL_LABEL: 'Perfil'
 };

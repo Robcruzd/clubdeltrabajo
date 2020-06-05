@@ -10,14 +10,16 @@
         <div class="col-md-5">
             <div class="informacion-hoja-vida">
                 <div style="margin-bottom: 15px;">
-                    <h2 class="titulo">Juan Pérez</h2>
-                    <label style="color: #072278; font-weight: bold;">CC</label>
-                    <label style="color: #645d5d; font-size: 13px;"> 1234567</label>
+                    <h2 class="titulo">{{hojaVidaVo?.persona.nombre}} {{hojaVidaVo?.persona.apellido}}</h2>
+                    <label
+                        style="color: #072278; font-weight: bold;">CC</label>
+                    <label style="color: #645d5d; font-size: 13px;"> {{hojaVidaVo?.persona.numeroDocumento}}</label>
                     <label style="color: #072278; font-weight: bold;">Título</label>
                     <label style="color: #645d5d; font-size: 13px;"> Conductor</label>
                     <br>
-                    <label style="color: #072278; font-weight: bold;">Código</label>
-                    <label style="color: #645d5d; font-size: 13px;"> 1234567</label>
+                    <label
+                        style="color: #072278; font-weight: bold;">Contacto</label>
+                    <label style="color: #645d5d; font-size: 13px;"> {{this.hojaVidaVo?.informacionPersonal.telefono}}</label>
                 </div>
                 <div>
                     <p class="texto-hoja-vida">"Sed ut perspiciatis quae ab illo inventore veritatis et quasi architecto
@@ -46,7 +48,7 @@
                     <p class="pie-pagina">www.clubdeltrabajo.com</p>
                 </div>
             </div>
-            <button class="btn ml-auto shadow-none boton-descargar">{{lblDescargar}}</button>
+            <button (click)="generatePdf()" class="btn ml-auto shadow-none boton-descargar">{{lblDescargar}}</button>
         </div>
     </div>
 </div>
