@@ -1,13 +1,31 @@
-<div class="navbar" *ngIf="show">
+<div class="navbar">
     <img class="logo" [routerLink]="['/']" src="../../../content/images/logo_empresa.png">
     <div class="opciones">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a *ngFor="let item of lstOpcionesMenu" class="nav-item nav-link item"
-                        [routerLink]="[item.ruta]">{{item.etiqueta}}</a>
-                    <button class="btn shadow-none boton-ingresar" (click)="ventanaInicioSesion()">{{lblIngresar}}</button>
-                    <button class="btn shadow-none boton-salir" style="display: none;">{{lblSalir}}</button>
+                    <div class="navbar-nav" [ngStyle]="{'visibility' : showElement ? 'visible' : 'hidden'}">
+                        <a *ngFor="let item of lstOpcionesMenu" class="nav-item nav-link item"
+                            [routerLink]="[item.ruta]">{{item.etiqueta}}</a>
+                    </div>
+                    <div ngbDropdown *ngIf="logged" style="display: inline-flex; margin-left: 50px;">
+                        <p class="nombreUsuario">¡Hola {{nombre}}!</p>
+                        <img class="perfil dropdown-toggle" ngbDropdownToggle href="javascript:void(0);"
+                            id="account-menu" src="../../../content/images/Image 28.png">
+                        <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu aria-labelledby="account-menu">
+                            <a class="dropdown-item elemento" (click)="verPerfil()" id="perfil">
+                                <fa-icon icon="user" fixedWidth="true"></fa-icon>
+                                <span>{{lblPerfil}}</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item elemento" (click)="cerrarSesion()" id="salir">
+                                <fa-icon icon="sign-out-alt" fixedWidth="true"></fa-icon>
+                                <span>{{lblSalir}}</span>
+                            </a>
+                        </div>
+                    </div>
+                    <button *ngIf="!logged" class="btn shadow-none boton-ingresar"
+                        (click)="ventanaInicioSesion()">{{lblIngresar}}</button>
                 </div>
             </div>
         </nav>

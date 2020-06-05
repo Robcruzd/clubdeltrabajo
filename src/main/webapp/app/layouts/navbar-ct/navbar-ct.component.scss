@@ -10,7 +10,7 @@
 
 .logo {
   top: 39px;
-  margin-left: 103px;
+  margin-left: 80px;
   width: 354px;
   height: 100px;
   opacity: 1;
@@ -26,7 +26,7 @@
 
 .opciones {
   position: absolute;
-  left: 35%;
+  left: 30%;
 }
 
 .item {
@@ -46,7 +46,7 @@
 .boton-ingresar,
 .boton-salir {
   top: 59px;
-  margin-left: 100px;
+  margin-left: 180px;
   width: 117px;
   height: 33px;
   background: #2699fb 0% 0% no-repeat padding-box;
@@ -59,4 +59,26 @@
   letter-spacing: 0px;
   color: #ffffff;
   opacity: 1;
+}
+
+.nombreUsuario {
+  margin-top: 8px;
+  color: #26b1fb;
+}
+
+.perfil {
+  margin: -10px 0 0 5px;
+  left: 1122px;
+  width: 56px;
+  height: 56px;
+  // background: transparent url('img/Image 27.png') 0% 0% no-repeat padding-box;
+  opacity: 1;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.elemento:hover {
+  background: aliceblue !important;
 }

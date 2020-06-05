@@ -112,5 +112,6 @@ export const commonMessages = {
   FALTA_CLAVE_REINICIO_LABEL: 'Falta clave de reinicio.',
   LONGITUD_MINIMA_PASSWORD: 'La longitud mínima debe ser 4 caracteres.',
   ARCHIVOS_PERMITIDOS: ['jpg', 'jpeg', 'png', 'pdf'],
-  ERROR_ARCHIVO_NO_SOPORTADO: 'Formato de archivo no soportado. Solo se aceptan imágenes o archivos PDF'
+  ERROR_ARCHIVO_NO_SOPORTADO: 'Formato de archivo no soportado. Solo se aceptan imágenes o archivos PDF',
+  OPCION_PERFIL_LABEL: 'Perfil'
 };
