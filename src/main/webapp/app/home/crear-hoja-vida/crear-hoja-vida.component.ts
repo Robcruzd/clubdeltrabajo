@@ -66,6 +66,7 @@ export class CrearHojaVidaComponent implements OnInit {
   persona!: number;
   redesSociales: Array<IOpcionVo> = commonMessages.ARRAY_REDES_SOCIALES;
   redSocial = ' ';
+  pruebaFile: File[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -138,6 +139,7 @@ export class CrearHojaVidaComponent implements OnInit {
       direccionResidencia: ['', [Validators.required]],
       genero: ['', [Validators.required]],
       ciudad: [null, [Validators.required]],
+      departamento: [null, [Validators.required]],
       telefono: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       discapacidad: [null],
@@ -515,14 +517,15 @@ export class CrearHojaVidaComponent implements OnInit {
 
   cargarMunicipios(value: Object): void {
     this.municipios = [];
-    if (this.step === 0) {
-      this.municipios = this.geografia.map(item => {
-        return {
-          codigo: item.codigoMpio,
-          nombre: item.nombreMpio
-        };
-      });
-    } else if (value && Object.entries(value).length > 0) {
+    // if (this.step === 0) {
+    //   this.municipios = this.geografia.map(item => {
+    //     return {
+    //       codigo: item.codigoMpio,
+    //       nombre: item.nombreMpio
+    //     };
+    //   });
+    // } else
+    if (value && Object.entries(value).length > 0) {
       this.municipios = this.geografia
         .filter(item => item.codigoDpto === value['departamento'])
         .map(item => {
@@ -574,6 +577,7 @@ export class CrearHojaVidaComponent implements OnInit {
   addArchivo(event: any, tipoDocumento: number): void {
     const file: File = event.target.files[0];
     const archivo = new Archivo();
+    let flag = 0;
     const extension = file.name.split('.').pop() || '';
     if (!commonMessages.ARCHIVOS_PERMITIDOS.includes(extension)) {
       alertify.set('notifier', 'position', 'top-right');
@@ -584,12 +588,22 @@ export class CrearHojaVidaComponent implements OnInit {
     archivo.nombre = file.name;
     archivo.extension = extension;
     archivo.usuario = new Persona(this.persona);
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      archivo.archivo = reader.result;
-      this.archivos.push(archivo);
-    };
+    this.pruebaFile = event;
+
+    this.archivos.forEach((archiv, index) => {
+      if (archiv.tipo === tipoDocumento) {
+        this.archivos.splice(index, 1, archivo);
+        flag++;
+      }
+    });
+    if (flag === 0) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        archivo.archivo = reader.result;
+        this.archivos.push(archivo);
+      };
+    }
   }
 
   procesarRedSocial(value: string | undefined): string | undefined {
