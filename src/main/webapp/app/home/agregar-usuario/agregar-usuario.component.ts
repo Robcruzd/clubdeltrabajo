@@ -5,11 +5,12 @@ import { commonMessages } from '../../shared/constants/commonMessages';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../../core/user/user.model';
 import { TipoUsuario } from '../../shared/model/tipo-usuario.model';
-import { TipoDocumento } from '../../shared/model/tipo-documento.model';
+import { TipoDocumento, ITipoDocumento } from '../../shared/model/tipo-documento.model';
 import { UsuarioVo } from '../../shared/vo/usuario-vo';
 import { PersonaService } from '../../entities/persona/persona.service';
 import { Router } from '@angular/router';
-
+import { TipoDocumentoService } from '../../entities/tipo-documento/tipo-documento.service';
+import { HttpResponse } from '@angular/common/http';
 declare let alertify: any;
 
 @Component({
@@ -35,16 +36,19 @@ export class AgregarUsuarioComponent implements OnInit {
   personaNatural: any;
   document = new Document();
   isOpen = false;
+  documentos: Array<ITipoDocumento> = [];
 
   constructor(
     private modalService: NgbModal,
     private personaService: PersonaService,
     private languageService: JhiLanguageService,
-    private router: Router
+    private router: Router,
+    private tipoDocumentoService: TipoDocumentoService
   ) {}
 
   ngOnInit(): void {
     this.user.password = '';
+    this.cargarTipoDocumento();
   }
 
   onCrearUsuario(): void {
@@ -95,7 +99,6 @@ export class AgregarUsuarioComponent implements OnInit {
       this.persona;
       this.personaNatural;
       this.user;
-      this.tipoDocumento.id = 1;
       this.personaNatural;
       this.persona.tipoUsuario = this.tipoUsuario;
       this.persona.tipoDocumento = this.tipoDocumento;
@@ -103,6 +106,8 @@ export class AgregarUsuarioComponent implements OnInit {
       this.user.email = this.persona.email;
       this.user.activated = true;
       this.user.createdBy = 'admin';
+      this.user.firstName = this.persona.nombre;
+      this.user.lastName = this.persona.apellido;
       this.user.langKey = this.languageService.getCurrentLanguage();
       this.usuarioVo.persona = this.persona;
       this.usuarioVo.usuario = this.user;
@@ -134,5 +139,14 @@ export class AgregarUsuarioComponent implements OnInit {
   openScrollableContent(longContent: any): void {
     const modalRef: NgbModalRef = this.modalService.open(longContent, { scrollable: true });
     modalRef.result.finally(() => (this.isOpen = false));
+  }
+
+  cargarTipoDocumento(): void {
+    this.tipoDocumentoService
+      .query({
+        page: 0,
+        size: 20
+      })
+      .subscribe((res: HttpResponse<ITipoDocumento[]>) => (this.documentos = res.body || []));
   }
 }

@@ -47,6 +47,7 @@ export class CrearHojaVidaComponent implements OnInit {
   paises: Array<IOpcionVo> = [];
   departamentos: Array<IOpcionVo> = [];
   municipios: Array<IOpcionVo> = [];
+  municipiosPersonal: Array<IOpcionVo> = [];
   discapacidades: Array<IOpcionVo> = commonMessages.ARRAY_DISCAPACIDADES;
   documentos: Array<ITipoDocumento> = [];
   dias: number[] = this.apiService.getDias();
@@ -249,7 +250,8 @@ export class CrearHojaVidaComponent implements OnInit {
         discapacidad: hojaVida.informacionPersonal.discapacidad,
         redesSociales: hojaVida.informacionPersonal.redesSociales,
         perfilProfesional: hojaVida.informacionPersonal.perfilProfesional,
-        licencenciaConduccion: hojaVida.informacionPersonal.licencenciaConduccion
+        licencenciaConduccion: hojaVida.informacionPersonal.licencenciaConduccion,
+        departamento: hojaVida.informacionPersonal.departamento
       });
 
       // cargar perfil profesional
@@ -380,6 +382,7 @@ export class CrearHojaVidaComponent implements OnInit {
           alertify.set('notifier', 'position', 'top-right');
           alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
           this.hojaVidaVo = response.body;
+          this.router.navigate(['/perfil']);
         }
       },
       () => {
@@ -410,6 +413,7 @@ export class CrearHojaVidaComponent implements OnInit {
       lugarNacimiento: this.formPersonal.get(['lugarNacimiento'])!.value,
       direccionResidencia: this.formPersonal.get(['direccionResidencia'])!.value,
       genero: this.formPersonal.get(['genero'])!.value,
+      departamento: this.formPersonal.get(['departamento'])!.value as number,
       ciudad: this.formPersonal.get(['ciudad'])!.value as number,
       telefono: this.formPersonal.get(['telefono'])!.value,
       discapacidad: this.formPersonal.get(['discapacidad'])!.value,
@@ -494,7 +498,8 @@ export class CrearHojaVidaComponent implements OnInit {
     this.apiService.getInformacionGeografica().subscribe(geografia => {
       this.geografia = geografia;
       this.cargarDepartamentos();
-      this.cargarMunicipios({});
+      this.cargarMunicipios(0);
+      this.cargarMunicipiosPersonal(0);
     });
   }
 
@@ -514,25 +519,51 @@ export class CrearHojaVidaComponent implements OnInit {
     return self.findIndex(item => item.codigoDpto === value.codigoDpto) === index;
   }
 
+  cargarMunicipiosPersonal(value: Object): void {
+    this.municipiosPersonal = [];
+    if(value === 0){
+      this.municipiosPersonal = this.geografia.map(item => {    
+        return {
+          codigo: item.codigoMpio,
+          nombre: item.nombreMpio
+        };
+      });
+    }
+    else{
+      if(value && Object.entries(value).length > 0) {
+        this.municipiosPersonal = this.geografia
+          .filter(item => item.codigoDpto === value['departamento'])
+          .map(item => {
+            return {
+              codigo: item.codigoMpio,
+              nombre: item.nombreMpio
+            };
+          });
+      }
+    }
+  }
+
   cargarMunicipios(value: Object): void {
     this.municipios = [];
-    // if (this.step === 0) {
-    //   this.municipios = this.geografia.map(item => {
-    //     return {
-    //       codigo: item.codigoMpio,
-    //       nombre: item.nombreMpio
-    //     };
-    //   });
-    // } else
-    if (value && Object.entries(value).length > 0) {
-      this.municipios = this.geografia
-        .filter(item => item.codigoDpto === value['departamento'])
-        .map(item => {
-          return {
-            codigo: item.codigoMpio,
-            nombre: item.nombreMpio
-          };
-        });
+    if(value === 0){
+      this.municipios = this.geografia.map(item => {    
+        return {
+          codigo: item.codigoMpio,
+          nombre: item.nombreMpio
+        };
+      });
+    }
+    else{      
+      if(value && Object.entries(value).length > 0) {
+        this.municipios = this.geografia
+          .filter(item => item.codigoDpto === value['departamento'])
+          .map(item => {
+            return {
+              codigo: item.codigoMpio,
+              nombre: item.nombreMpio
+            };
+          });
+      }
     }
   }
 
@@ -642,6 +673,10 @@ export class CrearHojaVidaComponent implements OnInit {
         .get(['departamento'])
         ?.enable();
     }
+  }
+
+  volverPerfil(): void {
+    this.router.navigate(['/perfil']);
   }
 
   // getters
