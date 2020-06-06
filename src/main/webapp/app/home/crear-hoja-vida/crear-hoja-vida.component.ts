@@ -66,7 +66,6 @@ export class CrearHojaVidaComponent implements OnInit {
   persona!: number;
   redesSociales: Array<IOpcionVo> = commonMessages.ARRAY_REDES_SOCIALES;
   redSocial = ' ';
-  pruebaFile: File[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -227,7 +226,7 @@ export class CrearHojaVidaComponent implements OnInit {
     if (hojaVida === null) {
       return;
     }
-
+    this.archivos = this.hojaVidaVo?.archivos || [];
     // Cargar informacion personal
     if (this.hojaVidaVo?.informacionPersonal !== null) {
       this.formPersonal.patchValue({
@@ -576,28 +575,34 @@ export class CrearHojaVidaComponent implements OnInit {
   // cargar archivos
   addArchivo(event: any, tipoDocumento: number): void {
     const file: File = event.target.files[0];
-    const archivo = new Archivo();
-    let flag = 0;
+
     const extension = file.name.split('.').pop() || '';
     if (!commonMessages.ARCHIVOS_PERMITIDOS.includes(extension)) {
       alertify.set('notifier', 'position', 'top-right');
       alertify.error(commonMessages.ERROR_ARCHIVO_NO_SOPORTADO);
       return;
     }
-    archivo.tipo = tipoDocumento;
-    archivo.nombre = file.name;
-    archivo.extension = extension;
-    archivo.usuario = new Persona(this.persona);
-    this.pruebaFile = event;
 
-    this.archivos.forEach((archiv, index) => {
-      if (archiv.tipo === tipoDocumento) {
-        this.archivos.splice(index, 1, archivo);
-        flag++;
-      }
-    });
-    if (flag === 0) {
-      const reader = new FileReader();
+    // Buscar si el tipo de archivo ya fue agregado => index = -1 cuando no hay coincidencias
+    const index = this.archivos.findIndex(item => item.tipo === tipoDocumento);
+
+    const reader = new FileReader();
+    if (index >= 0) {
+      this.archivos[index].nombre = file.name;
+      this.archivos[index].extension = extension;
+      this.archivos[index].usuario = new Persona(this.persona);
+
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.archivos[index].archivo = reader.result;
+      };
+    } else {
+      const archivo = new Archivo();
+      archivo.tipo = tipoDocumento;
+      archivo.nombre = file.name;
+      archivo.extension = extension;
+      archivo.usuario = new Persona(this.persona);
+
       reader.readAsDataURL(file);
       reader.onload = () => {
         archivo.archivo = reader.result;
