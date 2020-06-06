@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Account } from 'app/core/user/account.model';
 import { commonMessages } from 'app/shared/constants/commonMessages';
-import { LOGO_BASE64, USER_DEFAULT } from 'app/shared/constants/constantes.constants';
+import { LOCATION_BASE64, LOGO_BASE64, USER_DEFAULT } from 'app/shared/constants/constantes.constants';
 import { Archivo } from 'app/shared/model/archivo.model';
 import { HojaVidaVo } from 'app/shared/vo/hoja-vida-vo';
 import { AccountService } from '../../core/auth/account.service';
+import { INBOX_BASE64, PHONE_BASE64 } from '../../shared/constants/constantes.constants';
 import { ApiService } from '../../shared/services/api.service';
 import { HojaVidaService } from '../../shared/services/hoja-vida.service';
 
@@ -112,23 +113,45 @@ export class VerHojaVidaComponent implements OnInit {
                   ]
                 },
                 {
-                  // color: 'white',
-                  fillColor: '#0070C0',
-                  type: 'none',
-                  ul: [
-                    {
-                      text: this.hojaVidaVo?.informacionPersonal.direccionResidencia,
-                      style: 'header'
-                    },
-                    {
-                      text: this.hojaVidaVo?.persona.email,
-                      style: 'header'
-                    },
-                    {
-                      text: this.hojaVidaVo?.informacionPersonal.telefono,
-                      style: 'header'
-                    }
-                  ]
+                  fillColor: '#1a9fff',
+                  table: {
+                    body: [
+                      [
+                        {
+                          image: LOCATION_BASE64,
+                          alignment: 'center',
+                          fit: [25, 25]
+                        },
+                        {
+                          text: this.hojaVidaVo?.informacionPersonal.direccionResidencia,
+                          style: 'header'
+                        }
+                      ],
+                      [
+                        {
+                          image: INBOX_BASE64,
+                          alignment: 'center',
+                          fit: [25, 25]
+                        },
+                        {
+                          text: this.hojaVidaVo?.persona.email,
+                          style: 'header'
+                        }
+                      ],
+                      [
+                        {
+                          image: PHONE_BASE64,
+                          alignment: 'center',
+                          fit: [25, 25]
+                        },
+                        {
+                          text: this.hojaVidaVo?.informacionPersonal.telefono,
+                          style: 'header'
+                        }
+                      ]
+                    ]
+                  },
+                  layout: 'noBorders'
                 }
               ]
             ]
@@ -149,6 +172,12 @@ export class VerHojaVidaComponent implements OnInit {
           bold: true,
           alignment: 'center',
           margin: [0, 10, 0, 10]
+        },
+        title: {
+          fontSize: 15,
+          bold: true,
+          alignment: 'justify',
+          margin: [0, 10, 0, 0]
         }
       },
       defaultStyle: {
@@ -167,7 +196,7 @@ export class VerHojaVidaComponent implements OnInit {
           stack: [
             {
               text: `${item.tituloOtorgado}`,
-              style: 'header'
+              style: 'title'
             },
             {
               text: `${item.institucion?.institucion}`
@@ -187,7 +216,7 @@ export class VerHojaVidaComponent implements OnInit {
           stack: [
             {
               text: item.nombreEmpresa,
-              style: 'header'
+              style: 'title'
             },
             {
               text: 'Puesto/cargo'
@@ -206,18 +235,37 @@ export class VerHojaVidaComponent implements OnInit {
         }
       ]);
     });
+
+    // Cargar idiomas
+    this.hojaVidaVo?.idiomas.forEach(item => {
+      this.idiomas.push([
+        {
+          text: item.idIdioma?.idioma
+        },
+        {
+          canvas: [
+            {
+              type: 'rect',
+              x: 0,
+              y: 0,
+              w: 80,
+              h: 10,
+              r: 6,
+              color: '#1a9fff'
+            }
+          ]
+        }
+      ]);
+    });
   }
 
   private cargarInformacionDinamica(): Object {
     return {
       layout: 'noBorders',
       table: {
-        widths: ['*', '*'],
+        widths: ['43%', '4%', '43%'],
         body: [
-          [
-            { text: 'PERFIL LABORAL', style: 'header' },
-            { text: 'EXPERIENCIA LABORAL', style: 'header' }
-          ],
+          [{ text: 'PERFIL LABORAL', style: 'header' }, '', { text: 'EXPERIENCIA LABORAL', style: 'header' }],
           [
             [
               this.hojaVidaVo?.informacionPersonal.perfilProfesional,
@@ -225,26 +273,60 @@ export class VerHojaVidaComponent implements OnInit {
                 layout: 'noBorders',
                 table: {
                   widths: ['*'],
-                  body: [[{ text: 'FORMACIÓN ACADEMICA', style: 'header' }], ...this.informacionAcademica]
+                  body: [[{ text: 'FORMACIÓN ACADÉMICA', style: 'header' }], ...this.informacionAcademica]
                 }
               },
               {
                 layout: 'noBorders',
                 table: {
-                  widths: ['*'],
+                  widths: ['*', '*'],
                   body: [
                     [
-                      {
-                        text: 'IDIOMAS',
-                        style: 'header'
-                      }
+                      { text: 'IDIOMAS', style: 'header' },
+                      { text: '', style: 'header' }
                     ],
-                    ['Idioma 1'],
-                    ['Idioma 2']
+                    ...this.idiomas
                   ]
                 }
               }
             ],
+            {
+              canvas: [
+                {
+                  type: 'line',
+                  x1: 10,
+                  y1: 0,
+                  x2: 10,
+                  y2: 500,
+                  lineWidth: 2,
+                  color: '#1a9fff'
+                },
+                {
+                  type: 'ellipse',
+                  x: 10,
+                  y: 35,
+                  color: '#1a9fff',
+                  r1: 10,
+                  r2: 10
+                },
+                {
+                  type: 'ellipse',
+                  x: 10,
+                  y: 215,
+                  color: '#1a9fff',
+                  r1: 10,
+                  r2: 10
+                },
+                {
+                  type: 'ellipse',
+                  x: 10,
+                  y: 415,
+                  color: '#1a9fff',
+                  r1: 10,
+                  r2: 10
+                }
+              ]
+            },
             [
               {
                 layout: 'noBorders',
