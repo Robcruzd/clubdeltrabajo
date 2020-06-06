@@ -63,6 +63,9 @@ public class InformacionPersonal implements Serializable {
     @NotNull
     @JsonIgnoreProperties("informacionPersonals")
     private Persona usuario;
+    
+    @Column(name = "departamento")
+    private Integer departamento;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -215,9 +218,19 @@ public class InformacionPersonal implements Serializable {
     public void setUsuario(Persona persona) {
         this.usuario = persona;
     }
+    
+    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
+    public Integer getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(Integer departamento) {
+		this.departamento = departamento;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

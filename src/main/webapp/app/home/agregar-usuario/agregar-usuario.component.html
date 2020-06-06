@@ -6,7 +6,7 @@
         <p class="estilo_titulo">Regístrate y entra al club.</p>
         <div class="typePersona">
             <label style="color: white;">Persona Natural </label><input type="radio" value="1" name="usuario" [(ngModel)]="tipoUsuario.id" ngChecked="true" />
-            <label style="color: white;">Persona Juridica </label><input type="radio" value="juridica" name="usuario" ngModel>
+            <label style="color: white; display: none;">Persona Juridica </label><input style="display: none;" type="radio" value="juridica" name="usuario" ngModel>
         </div>
         <div class="inputs">
             <label style="color: white;">Nombre</label>
@@ -30,8 +30,18 @@
             </label>
         </div>
         <div class="inputs">
-            <label style="color: white;">Numero de Documento</label>
-            <input type="number" class="estilo_inputs" [(ngModel)]="persona.numeroDocumento">
+            <div>
+                <label style="color: white;">Numero de Documento</label>
+            </div>
+            <select class="select_documento" [(ngModel)]="tipoDocumento.id">
+                <option [ngValue]="null" disabled>Seleccione un tipo</option>
+                <option
+                    [ngValue]="documento.id"
+                    *ngFor="let documento of documentos">
+                    {{ documento.nombreTipo }}
+                </option>
+            </select>
+            <input type="number" class="input_documento" [(ngModel)]="persona.numeroDocumento">
             <label *ngIf="mensajeNumDoc" class="text-danger">
                 {{mensajeNumDoc}}
             </label>

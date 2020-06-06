@@ -13,19 +13,19 @@
                         <label style="color: #072278; font-weight: bold;">CC</label>
                         <label style="color: #645d5d; font-size: 13px;"> {{persona?.numeroDocumento}}</label>
                         <br>
-                        <label style="color: #072278; font-weight: bold;">Código</label>
-                        <label style="color: #645d5d; font-size: 13px;">{{persona?.id}}</label>
+                        <label style="color: #072278; font-weight: bold;">Email</label>
+                        <label style="color: #645d5d; font-size: 13px;">{{persona?.email}}</label>
                     </div>
                 </div>
             </div>
             <div class="text-center" style="margin-bottom: 40px; margin-left: 13.5px; width: 100%;">
                 <button (click)="verHojaVida()" class="btn ml-auto shadow-none boton-base boton-ver-hv">{{lblVerHojaVida}}</button>
-                <button class="btn ml-auto shadow-none boton-base boton-busca-empleo">
-                    <fa-icon icon="suitcase" style="margin-right: 5px;"></fa-icon>
+                <button class="btn ml-auto shadow-none boton-base boton-busca-empleo" style="display: none;">
+                    <fa-icon icon="suitcase" style="margin-right: 5px; "></fa-icon>
                     {{lblBuscaEmpleo}}
                 </button>
-                <button class="btn ml-auto shadow-none boton-base boton-ver-ofertas">
-                    <fa-icon icon="bell" style="margin-right: 5px;"></fa-icon>
+                <button class="btn ml-auto shadow-none boton-base boton-ver-ofertas" style="display: none;">
+                    <fa-icon icon="bell" style="margin-right: 5px; display: none;"></fa-icon>
                     {{lblVerOfertas}}
                 </button>
                 <button (click)="editarHojaVida()" class="btn ml-auto shadow-none boton-base boton-editar-hv">

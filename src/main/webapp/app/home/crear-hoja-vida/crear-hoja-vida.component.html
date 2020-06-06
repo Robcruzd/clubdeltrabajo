@@ -114,7 +114,7 @@
                             <p class="estilo_label">{{labels.DEPARTAMENTO_LABEL}} <span
                                     class="estilo_campo_requerido">*</span></p>
                             <select formControlName="departamento" class="estilo_inputs"
-                            (change)="cargarMunicipios(formPersonal.value)">
+                                (change)="cargarMunicipiosPersonal(formPersonal.value)">
                                 <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                                 <option
                                     [ngValue]="departamento.codigo == formPersonal.get('departamento')!.value? formPersonal.get('departamento')!.value : departamento.codigo"
@@ -132,12 +132,11 @@
                             <p class="estilo_label">{{labels.CIUDAD_LABEL}} <span
                                     class="estilo_campo_requerido">*</span>
                             </p>
-                            <select formControlName="ciudad" class="estilo_inputs"
-                                >
+                            <select formControlName="ciudad" class="estilo_inputs">
                                 <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                                 <option
                                     [ngValue]="municipio.codigo == formPersonal.get('ciudad')!.value ? formPersonal.get('ciudad')!.value : municipio.codigo"
-                                    *ngFor="let municipio of municipios">
+                                    *ngFor="let municipio of municipiosPersonal">
                                     {{ municipio.nombre }}
                                 </option>
                             </select>
@@ -268,7 +267,7 @@
 
                 <div class="rowFooter">
                     <div class="column">
-                        <button type="button" class="btn boton_siguiente text-white" (click)="previousStep()">
+                        <button type="button" class="btn boton_siguiente text-white" (click)="volverPerfil()">
                             {{labels.ATRAS}}
                         </button>
                     </div>
@@ -724,7 +723,7 @@
                                         <!-- <input type="checkbox" class="checkbox" formControlName="licencenciaConduccion"> -->
                                         <div *ngIf="archivos.length>0; else elseBlock" class='name_file'>
                                             <div *ngFor="let archivo of archivos">
-                                                <div *ngIf="archivo.tipo==tipoArchivo.CERTIFICADO_ESTUDIO">
+                                                <div *ngIf="archivo.tipo==tipoArchivo.CERTIFICADO_LABORAL">
                                                     <label>{{archivo.nombre}}</label>
                                                 </div>
                                             </div>
