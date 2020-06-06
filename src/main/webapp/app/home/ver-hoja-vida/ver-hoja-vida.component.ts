@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Account } from 'app/core/user/account.model';
 import { commonMessages } from 'app/shared/constants/commonMessages';
+import { LOGO_BASE64, USER_DEFAULT } from 'app/shared/constants/constantes.constants';
 import { Archivo } from 'app/shared/model/archivo.model';
 import { HojaVidaVo } from 'app/shared/vo/hoja-vida-vo';
 import { AccountService } from '../../core/auth/account.service';
@@ -72,56 +73,86 @@ export class VerHojaVidaComponent implements OnInit {
   private getContent(): Object {
     this.cargarDatos();
     return {
+      footer: {
+        columns: [
+          '',
+          {
+            image: LOGO_BASE64,
+            width: 150,
+            height: 150,
+            alignment: 'right',
+            fit: [150, 150],
+            pageBreak: 'after',
+            margin: [0, -10, 10, 0]
+          }
+        ]
+      },
       content: [
-        { text: 'HOJA DE VIDA', style: 'header' },
-        { text: 'DATOS DE CONTACTO', style: 'subheader', alignment: 'center' },
         {
-          style: 'tableExample',
           table: {
-            widths: ['*', '*', '*'],
+            widths: ['20%', '40%', '40%'],
             body: [
-              ['Teléfono', 'Dirección', 'Correo electrónico'],
               [
-                this.hojaVidaVo?.informacionPersonal.telefono,
-                this.hojaVidaVo?.informacionPersonal.direccionResidencia,
-                this.hojaVidaVo?.persona.email
+                {
+                  image: USER_DEFAULT,
+                  width: 100,
+                  height: 100
+                },
+                {
+                  type: 'none',
+                  ul: [
+                    {
+                      text: this.hojaVidaVo?.persona.nombre,
+                      style: 'headernames'
+                    },
+                    {
+                      text: this.hojaVidaVo?.persona.apellido,
+                      style: 'headernames'
+                    }
+                  ]
+                },
+                {
+                  // color: 'white',
+                  fillColor: '#0070C0',
+                  type: 'none',
+                  ul: [
+                    {
+                      text: this.hojaVidaVo?.informacionPersonal.direccionResidencia,
+                      style: 'header'
+                    },
+                    {
+                      text: this.hojaVidaVo?.persona.email,
+                      style: 'header'
+                    },
+                    {
+                      text: this.hojaVidaVo?.informacionPersonal.telefono,
+                      style: 'header'
+                    }
+                  ]
+                }
               ]
             ]
-          }
+          },
+          layout: 'noBorders'
         },
-        { text: 'PERFIL LABORAL', style: 'subheader', alignment: 'center' },
-        {
-          style: 'tableExample',
-          layout: 'noBorders',
-          table: {
-            widths: ['*'],
-            body: [[this.hojaVidaVo?.informacionPersonal.perfilProfesional]]
-          }
-        },
-        this.cargarTablaInformacionAcademica(),
-        this.cargarTablaInformacionLaboral()
+        this.cargarInformacionDinamica()
       ],
       styles: {
         header: {
-          fontSize: 18,
+          fontSize: 15,
           bold: true,
-          margin: [0, 0, 0, 10]
+          alignment: 'justify',
+          margin: [0, 10, 0, 10]
         },
-        subheader: {
-          fontSize: 16,
+        headernames: {
+          fontSize: 25,
           bold: true,
-          margin: [0, 10, 0, 5]
-        },
-        tableExample: {
-          margin: [0, 5, 0, 15]
-        },
-        tableHeader: {
-          bold: true,
-          fontSize: 13,
-          color: 'black'
+          alignment: 'center',
+          margin: [0, 10, 0, 10]
         }
       },
       defaultStyle: {
+        columnGap: 20,
         alignment: 'justify'
       }
     };
@@ -129,80 +160,101 @@ export class VerHojaVidaComponent implements OnInit {
 
   cargarDatos(): void {
     // cargar informacion academica
+
     this.hojaVidaVo?.informacionAcademica.forEach(item => {
-      this.informacionAcademica.push([item.institucion?.institucion, item.fechaFin, item.tituloOtorgado, item.estado]);
+      this.informacionAcademica.push([
+        {
+          stack: [
+            {
+              text: `${item.tituloOtorgado}`,
+              style: 'header'
+            },
+            {
+              text: `${item.institucion?.institucion}`
+            },
+            {
+              text: `${item.fechaInicio} / ${item.fechaFin}`
+            }
+          ]
+        }
+      ]);
     });
 
+    // Cargar informacion laboral
     this.hojaVidaVo?.experienciaLaboral.forEach(item => {
-      this.informacionLaboral.push([item.nombreEmpresa, item.cargo?.cargo, item.fechaFin, item.ciudad]);
+      this.informacionLaboral.push([
+        {
+          stack: [
+            {
+              text: item.nombreEmpresa,
+              style: 'header'
+            },
+            {
+              text: 'Puesto/cargo'
+            },
+
+            {
+              text: item.cargo?.cargo
+            },
+            {
+              text: `${item.fechaInicio} / ${item.fechaFin}`
+            },
+            {
+              text: item.ciudad ? item.ciudad : item.ciudadExtranjera
+            }
+          ]
+        }
+      ]);
     });
   }
 
-  private cargarTablaInformacionAcademica(): Object {
+  private cargarInformacionDinamica(): Object {
     return {
-      style: 'tableExample',
+      layout: 'noBorders',
       table: {
-        widths: ['*', '*', '*', '*'],
+        widths: ['*', '*'],
         body: [
-          [{ text: 'EDUCACIÓN', style: 'tableHeader', colSpan: 4, alignment: 'center' }, {}, {}, {}],
           [
-            {
-              text: 'Institución',
-              style: 'tableHeader',
-              alignment: 'center'
-            },
-            {
-              text: 'Fecha',
-              style: 'tableHeader',
-              alignment: 'center'
-            },
-            {
-              text: 'Titulo',
-              style: 'tableHeader',
-              alignment: 'center'
-            },
-            {
-              text: 'Ciudad',
-              style: 'tableHeader',
-              alignment: 'center'
-            }
+            { text: 'PERFIL LABORAL', style: 'header' },
+            { text: 'EXPERIENCIA LABORAL', style: 'header' }
           ],
-          ...this.informacionAcademica
-        ]
-      }
-    };
-  }
-
-  private cargarTablaInformacionLaboral(): Object {
-    return {
-      style: 'tableExample',
-      table: {
-        widths: ['*', '*', '*', '*'],
-        body: [
-          [{ text: 'EXPERIENCIA', style: 'tableHeader', colSpan: 4, alignment: 'center' }, {}, {}, {}],
           [
-            {
-              text: 'Empresa',
-              style: 'tableHeader',
-              alignment: 'center'
-            },
-            {
-              text: 'Cargo',
-              style: 'tableHeader',
-              alignment: 'center'
-            },
-            {
-              text: 'Fecha',
-              style: 'tableHeader',
-              alignment: 'center'
-            },
-            {
-              text: 'Ciudad',
-              style: 'tableHeader',
-              alignment: 'center'
-            }
-          ],
-          ...this.informacionLaboral
+            [
+              this.hojaVidaVo?.informacionPersonal.perfilProfesional,
+              {
+                layout: 'noBorders',
+                table: {
+                  widths: ['*'],
+                  body: [[{ text: 'FORMACIÓN ACADEMICA', style: 'header' }], ...this.informacionAcademica]
+                }
+              },
+              {
+                layout: 'noBorders',
+                table: {
+                  widths: ['*'],
+                  body: [
+                    [
+                      {
+                        text: 'IDIOMAS',
+                        style: 'header'
+                      }
+                    ],
+                    ['Idioma 1'],
+                    ['Idioma 2']
+                  ]
+                }
+              }
+            ],
+            [
+              {
+                layout: 'noBorders',
+                table: {
+                  widths: ['*'],
+                  body: [[''], ...this.informacionLaboral]
+                }
+              }
+            ]
+          ]
         ]
       }
     };
