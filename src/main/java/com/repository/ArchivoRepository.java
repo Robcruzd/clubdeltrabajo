@@ -16,4 +16,6 @@ import org.springframework.stereotype.Repository;
 public interface ArchivoRepository extends JpaRepository<Archivo, Long>, JpaSpecificationExecutor<Archivo> {
 
     List<Archivo> findByUsuario(Persona usuario);
+
+    Archivo findFirstByUsuarioAndTipoOrderByIdDesc(Persona usuario, Integer tipo);
 }

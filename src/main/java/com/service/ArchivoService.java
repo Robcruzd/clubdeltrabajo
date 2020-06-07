@@ -1,6 +1,7 @@
 package com.service;
 
 import com.domain.Archivo;
+import com.domain.Persona;
 import com.repository.ArchivoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,5 +83,21 @@ public class ArchivoService {
     public void delete(Long id) {
         log.debug("Request to delete Archivo : {}", id);
         archivoRepository.deleteById(id);
+    }
+
+    /**
+     * Get one archivo by usuario and tipo.
+     *
+     * @param usuario the persona.
+     * @param tipo the tipo of archivo.
+     * @return the entity.
+     */
+    @Transactional(readOnly = true)
+    public Optional<Archivo> get(Long usuarioId, Integer tipo) {
+        log.debug("Request to get Archivo : {}", usuarioId);
+        Persona usuario = new Persona();
+        usuario.setId(usuarioId);
+        Optional<Archivo> opt = Optional.ofNullable(archivoRepository.findFirstByUsuarioAndTipoOrderByIdDesc(usuario, tipo));
+		return opt;
     }
 }

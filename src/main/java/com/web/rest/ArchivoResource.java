@@ -69,21 +69,6 @@ public class ArchivoResource {
     }
     
     /**
-	 * {@code POST  /archivos/hoja-vida} : save all the archivos.
-	 *
-	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
-	 *         of archivos in body.
-	 */
-	@PostMapping("/archivos/hoja-vida")
-	public ResponseEntity<List<Archivo>> saveAllArchivos(List<Archivo> archivos) {
-		log.debug("REST request to save Archivos {}", archivos);
-		List<Archivo> result = archivoService.saveAll(archivos);
-		return ResponseEntity.ok().headers(
-				HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, String.valueOf(result.size())))
-				.body(result);
-	}
-
-    /**
      * {@code PUT  /archivos} : Updates an existing archivo.
      *
      * @param archivo the archivo to update.
@@ -155,5 +140,18 @@ public class ArchivoResource {
         log.debug("REST request to delete Archivo : {}", id);
         archivoService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * {@code GET  /archivos/:id} : get the "id" archivo.
+     *
+     * @param id the id of the archivo to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the archivo, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/archivos/perfil/{usuarioid}/tipo/{tipo}")
+    public ResponseEntity<Archivo> get(@PathVariable Long usuarioid, @PathVariable Integer tipo) {
+        log.debug("REST request to get Archivo : {}", usuarioid);
+        Optional<Archivo> archivo = archivoService.get(usuarioid, tipo);
+        return ResponseUtil.wrapOrNotFound(archivo);
     }
 }
