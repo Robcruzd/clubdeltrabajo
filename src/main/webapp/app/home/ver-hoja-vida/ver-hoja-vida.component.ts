@@ -11,6 +11,7 @@ import { AccountService } from '../../core/auth/account.service';
 import { INBOX_BASE64, PHONE_BASE64 } from '../../shared/constants/constantes.constants';
 import { ApiService } from '../../shared/services/api.service';
 import { HojaVidaService } from '../../shared/services/hoja-vida.service';
+import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
 
 @Component({
   selector: 'jhi-ver-hoja-vida',
@@ -30,6 +31,8 @@ export class VerHojaVidaComponent implements OnInit {
   informacionLaboral: any[] = [];
   geografia: Array<GeografiaVo> = [];
   municipios: Array<IOpcionVo> = [];
+  urlImageDefault = '../../../content/images/Image 28.png';
+  imagen!: Archivo;
 
   constructor(
     private router: Router,
@@ -63,6 +66,7 @@ export class VerHojaVidaComponent implements OnInit {
     this.hojaVidaService.find(this.persona).subscribe(response => {
       this.hojaVidaVo = response.body;
       this.archivos = this.hojaVidaVo?.archivos;
+      this.imagen = this.archivos?.find(item => item.tipo === TipoArchivo.IMAGEN_PERFIL) || new Archivo();
     });
   }
 
@@ -100,7 +104,7 @@ export class VerHojaVidaComponent implements OnInit {
             body: [
               [
                 {
-                  image: USER_DEFAULT,
+                  image: this.imagen?.archivo || USER_DEFAULT,
                   width: 100,
                   height: 100
                 },
@@ -236,7 +240,7 @@ export class VerHojaVidaComponent implements OnInit {
               text: `${item.fechaInicio} / ${item.fechaFin}`
             },
             {
-              text: item.ciudad ? this.getCiudad(item.ciudad) : item.ciudadExtranjera
+              text: item.ciudad ? this.getCiudad(item.ciudad + '') : item.ciudadExtranjera
             }
           ]
         }
@@ -391,7 +395,7 @@ export class VerHojaVidaComponent implements OnInit {
     });
   }
 
-  private getCiudad(codigo: string | number): string {
+  private getCiudad(codigo: string): string {
     const ciudad = this.municipios.find(item => item.codigo === codigo);
 
     return ciudad?.nombre || '';
