@@ -12,7 +12,7 @@ build_a:
 deploy_a:
   stage: deploy
   script:
-    - gradlew
+    - ./gradlew
 
 deploy_b:
   stage: deploy
