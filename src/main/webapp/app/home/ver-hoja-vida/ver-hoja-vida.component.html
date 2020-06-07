@@ -1,5 +1,6 @@
-<div class="container">
+<div class="container" style="margin: 40px 0 40px 0">
     <div class="row">
+        <div class="col-md-3"></div>
         <div class="col-md-2 text-center">
             <img class="foto-perfil" src="../../../content/images/Image 28.png">
             <img class="codigo" src="../../../content/images/frame.png">
@@ -9,46 +10,9 @@
         </div>
         <div class="col-md-5">
             <div class="informacion-hoja-vida">
-                <div style="margin-bottom: 15px;">
-                    <h2 class="titulo">{{hojaVidaVo?.persona.nombre}} {{hojaVidaVo?.persona.apellido}}</h2>
-                    <label
-                        style="color: #072278; font-weight: bold;">CC</label>
-                    <label style="color: #645d5d; font-size: 13px;"> {{hojaVidaVo?.persona.numeroDocumento}}</label>
-                    <label style="color: #072278; font-weight: bold;">Título</label>
-                    <label style="color: #645d5d; font-size: 13px;"> Conductor</label>
-                    <br>
-                    <label
-                        style="color: #072278; font-weight: bold;">Contacto</label>
-                    <label style="color: #645d5d; font-size: 13px;"> {{this.hojaVidaVo?.informacionPersonal.telefono}}</label>
-                </div>
-                <div>
-                    <p class="texto-hoja-vida">"Sed ut perspiciatis quae ab illo inventore veritatis et quasi architecto
-                        beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-                        odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-                        Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,
-                        sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
-                        voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit
-                        laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui
-                        in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat
-                        quo voluptas nulla pariatur?"</p>
-                    <p class="texto-hoja-vida" style="margin-bottom: 40px;">"Sed ut perspiciatis unde omnis iste natus
-                        error sit voluptatem
-                        accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
-                        veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
-                        voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                        voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                        consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
-                        magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam
-                        corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure
-                        reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui
-                        dolorem eum fugiat quo voluptas nulla pariatur?"</p>
-                    <div style="text-align: right;">
-                        <img class="logo" src="../../../content/images/logo_cdt.png">
-                    </div>
-                    <p class="pie-pagina">www.clubdeltrabajo.com</p>
-                </div>
+                <pdf-viewer [src]="pdfHojaVida64Render" [original-size]="false"></pdf-viewer>
             </div>
-            <button (click)="generatePdf()" class="btn ml-auto shadow-none boton-descargar">{{lblDescargar}}</button>
+            <button (click)="descargarArchivoComprimido()" class="btn ml-auto shadow-none boton-descargar">{{lblDescargar}}</button>
         </div>
     </div>
 </div>

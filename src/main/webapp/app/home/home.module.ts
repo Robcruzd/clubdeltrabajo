@@ -1,3 +1,4 @@
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { QRCodeModule } from 'angularx-qrcode';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -27,7 +28,8 @@ import { NuevoCorreoComponent } from './nuevo-correo/nuevo-correo.component';
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    QRCodeModule
+    QRCodeModule,
+    PdfViewerModule
   ],
   declarations: [
     HomeComponent,

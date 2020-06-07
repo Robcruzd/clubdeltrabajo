@@ -101,6 +101,10 @@
             opacity: 1;
           }
 
+          .select_documento:focus {
+            outline: none;
+          }
+
           .input_documento {
             width: 65%;
             height: 3rem;
@@ -163,6 +167,17 @@
             border-radius: 1.5rem 0rem 0rem 1.5rem;
             border-width: 0rem;
             opacity: 1;
+            &:focus {
+              outline: none;
+            }
+          }
+
+          .dia,
+          .mes,
+          .anio {
+            &:focus {
+              outline: none;
+            }
           }
 
           .file_upload_licence {
@@ -239,6 +254,10 @@
           opacity: 1;
           padding-right: 1rem;
           padding-left: 1rem;
+        }
+
+        .estilo_inputs:focus {
+          outline: none;
         }
 
         .genero {
