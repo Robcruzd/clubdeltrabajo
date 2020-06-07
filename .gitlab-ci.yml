@@ -2,7 +2,7 @@ stages:
   - build
   - deploy
 
-image: ctproject
+image: 'node:latest'
 
 build_a:
   stage: build
