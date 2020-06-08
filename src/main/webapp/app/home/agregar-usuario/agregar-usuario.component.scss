@@ -95,6 +95,10 @@
         opacity: 1;
       }
 
+      .select_documento:focus {
+        outline: none;
+      }
+
       .input_documento {
         width: 79%;
         height: 3rem;
@@ -102,6 +106,10 @@
         border-width: 0rem;
         border-radius: 0rem 1.5rem 1.5rem 0rem;
         opacity: 1;
+      }
+
+      .input_documento:focus {
+        outline: none;
       }
     }
 
