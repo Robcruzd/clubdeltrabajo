@@ -116,5 +116,7 @@ export const commonMessages = {
   LONGITUD_MINIMA_PASSWORD: 'La longitud mínima debe ser 4 caracteres.',
   ARCHIVOS_PERMITIDOS: ['jpg', 'jpeg', 'png', 'pdf'],
   ERROR_ARCHIVO_NO_SOPORTADO: 'Formato de archivo no soportado. Solo se aceptan imágenes o archivos PDF',
-  OPCION_PERFIL_LABEL: 'Perfil'
+  OPCION_PERFIL_LABEL: 'Perfil',
+  IMAGEN_LABEL: 'Cambiar foto',
+  ERROR_IMAGEN_NO_SOPORTADA: 'Error, solo se permite subir imágenes'
 };

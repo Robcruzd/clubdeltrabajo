@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-2 text-center">
-            <img class="foto-perfil" src="../../../content/images/Image 28.png">
+            <img class="foto-perfil rounded-circle" [src]="imagen?.archivo || urlImageDefault">
             <img class="codigo" src="../../../content/images/frame.png">
             <button class="btn shadow-none bg-transparent boton-regresar" (click)="regresarPerfil()">
                 <fa-icon icon="chevron-left"></fa-icon>

@@ -1,0 +1,20 @@
+stages:
+  - build
+  - deploy
+
+image: 'node:latest'
+
+build_a:
+  stage: build
+  script:
+    - npm install
+
+deploy_a:
+  stage: deploy
+  script:
+    - ./gradlew
+
+deploy_b:
+  stage: deploy
+  script:
+    - npm start

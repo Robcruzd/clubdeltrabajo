@@ -3,7 +3,7 @@
   left: 211px;
   margin-bottom: 14px;
   width: 472px;
-  height: 273px;
+  height: 305px;
   background: #f0f0f0 0% 0% no-repeat padding-box;
   border-radius: 26px;
   opacity: 1;
@@ -109,4 +109,19 @@
   font-size: 12px;
   font-family: 'Arial';
   color: #645d5d;
+}
+
+input[type='file'] {
+  display: none;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin-left: 39px;
+  width: 168px;
+  background: #f0f0f0 0% 0% no-repeat padding-box;
+  border-radius: 16px;
 }

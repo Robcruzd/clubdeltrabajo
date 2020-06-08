@@ -8,10 +8,10 @@
                         <a *ngFor="let item of lstOpcionesMenu" class="nav-item nav-link item"
                             [routerLink]="[item.ruta]">{{item.etiqueta}}</a>
                     </div>
-                    <div ngbDropdown *ngIf="logged" style="display: inline-flex; margin-left: 150px;">
-                        <p class="nombreUsuario">¡Hola {{nombre}}!</p>
-                        <img class="perfil dropdown-toggle" ngbDropdownToggle href="javascript:void(0);"
-                            id="account-menu" src="../../../content/images/Image 28.png">
+                    <div ngbDropdown *ngIf="logged" style="display: inline-flex; margin-left: 50px;">
+                        <p class="nombreUsuario">¡Hola {{account?.firstName}}!</p>
+                        <img class="perfil dropdown-toggle rounded-circle" ngbDropdownToggle href="javascript:void(0);"
+                            id="account-menu" [src]="imagen?.archivo || urlImageDefault">
                         <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu aria-labelledby="account-menu">
                             <a class="dropdown-item elemento" (click)="verPerfil()" id="perfil">
                                 <fa-icon icon="user" fixedWidth="true"></fa-icon>

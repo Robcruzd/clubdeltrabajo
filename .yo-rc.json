@@ -37,6 +37,15 @@
     "enableTranslation": true,
     "nativeLanguage": "es",
     "languages": ["es", "en"],
-    "blueprints": []
+    "blueprints": [],
+    "aws": {
+      "applicationName": "ct-project",
+      "environmentName": "ct-project-env",
+      "bucketName": "ct-project",
+      "instanceType": "t2.micro",
+      "awsRegion": "us-east-2",
+      "dbName": "ctProjectDB",
+      "dbInstanceClass": "db.t2.micro"
+    }
   }
 }
