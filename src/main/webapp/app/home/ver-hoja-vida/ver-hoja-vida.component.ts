@@ -76,9 +76,8 @@ export class VerHojaVidaComponent implements OnInit {
     });
   }
 
-  async descargarArchivoComprimido(): Promise<any> {
+  descargarArchivoComprimido(): void {
     const zip = new JSZip();
-    this.pdfHojaVida64 = await this.generarPdf();
     if (this.archivos?.length !== 0) {
       this.archivos?.forEach(item => {
         const nombreArchivo: any = item.nombre;
@@ -88,9 +87,9 @@ export class VerHojaVidaComponent implements OnInit {
         zip.file(nombreArchivo, archivo64, { base64: true });
       });
     }
-    zip.file('CV' + this.account?.firstName + this.account?.lastName + '.pdf', this.pdfHojaVida64, { base64: true });
+    zip.file('CV' + this.hojaVidaVo?.persona.nombre + this.hojaVidaVo?.persona.apellido + '.pdf', this.pdfHojaVida64, { base64: true });
     zip.generateAsync({ type: 'blob' }).then((data: any) => {
-      saveAs(data, this.account?.firstName + '' + this.account?.lastName + '.zip');
+      saveAs(data, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.zip');
     });
   }
 
@@ -113,7 +112,7 @@ export class VerHojaVidaComponent implements OnInit {
       const pdfGenerado64 = this.apiService.pdfMake.createPdf(this.getContent());
       pdfGenerado64.getBase64((data: any) => {
         this.pdfHojaVida64 = data;
-        resolve(this.pdfHojaVida64);
+        resolve(data);
       });
     });
   }
