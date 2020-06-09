@@ -59,9 +59,13 @@
                         <fa-icon icon="user-tie"></fa-icon>
                         <p class="texto-experiencia">{{item?.cargo.cargo}}</p>
                     </div>
-                    <div style="display: flex; margin-bottom: 20px;">
+                    <div style="display: flex;">
                         <fa-icon icon="thumbtack"></fa-icon>
                         <p class="texto-experiencia">{{item?.fechaInicio}} / {{item?.fechaFin}}</p>
+                    </div>
+                    <div *ngIf="item?.ciudad" style="display: flex; margin-bottom: 20px;">
+                        <fa-icon icon="globe-americas"></fa-icon>
+                        <p class="texto-experiencia">{{item?.ciudad}}</p>
                     </div>
                 </div>
             </div>

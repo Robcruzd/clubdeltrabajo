@@ -43,7 +43,8 @@ import {
   faUpload,
   faBuilding,
   faUserTie,
-  faThumbtack
+  faThumbtack,
+  faGlobeAmericas
   // jhipster-needle-add-icon-import
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -92,6 +93,7 @@ export const fontAwesomeIcons = [
   faUpload,
   faBuilding,
   faUserTie,
-  faThumbtack
+  faThumbtack,
+  faGlobeAmericas
   // jhipster-needle-add-icon-import
 ];
