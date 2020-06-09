@@ -53,7 +53,6 @@ export class VerHojaVidaComponent implements OnInit {
     }
     this.cargarCuentaUsuario();
     this.consultarInformacionGeografica();
-    this.visualizarArchivoPDF();
   }
 
   regresarPerfil(): void {
@@ -73,6 +72,7 @@ export class VerHojaVidaComponent implements OnInit {
       this.hojaVidaVo = response.body;
       this.archivos = this.hojaVidaVo?.archivos;
       this.imagen = this.archivos?.find(item => item.tipo === TipoArchivo.IMAGEN_PERFIL) || new Archivo();
+      this.visualizarArchivoPDF();
     });
   }
 
@@ -106,17 +106,6 @@ export class VerHojaVidaComponent implements OnInit {
   async visualizarArchivoPDF(): Promise<any> {
     const data64 = await this.generarPdf();
     this.pdfHojaVida64Render = this.base64ToUint8Array(data64);
-
-    /*
-        if (this.archivos?.length !== 0) {
-          this.archivos?.forEach(item => {
-            const nombreArchivo: any = item.nombre;
-            const archivo: any = item.archivo;
-            const i = archivo.indexOf('base64,');
-            const archivo64 = archivo.slice(i + 7);
-          });
-        }*/
-    // this.apiService.downloadFile(this.archivos![0].nombre, this.archivos![0].archivo);
   }
 
   async generarPdf(): Promise<any> {
@@ -124,7 +113,7 @@ export class VerHojaVidaComponent implements OnInit {
       const pdfGenerado64 = this.apiService.pdfMake.createPdf(this.getContent());
       pdfGenerado64.getBase64((data: any) => {
         this.pdfHojaVida64 = data;
-        resolve(data);
+        resolve(this.pdfHojaVida64);
       });
     });
   }

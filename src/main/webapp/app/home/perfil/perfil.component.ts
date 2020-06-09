@@ -6,6 +6,8 @@ import { ArchivoService } from '../../entities/archivo/archivo.service';
 import { PersonaService } from '../../entities/persona/persona.service';
 import { Archivo } from '../../shared/model/archivo.model';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
+import { HojaVidaVo } from './../../shared/vo/hoja-vida-vo';
+import { HojaVidaService } from './../../shared/services/hoja-vida.service';
 
 declare let alertify: any;
 
@@ -25,17 +27,20 @@ export class PerfilComponent implements OnInit {
   tipoArchivo = TipoArchivo;
   imagen!: Archivo;
   ulrImgDefault = '../../../content/images/Image 28.png';
+  hojaVidaVo!: HojaVidaVo | null;
 
   constructor(
     private router: Router,
     private accountService: AccountService,
     private personaService: PersonaService,
+    private service: HojaVidaService,
     private archivoService: ArchivoService
   ) {}
 
   ngOnInit(): void {
     this.qrCard = 'Perfil de presentación Juan Pérez.';
     this.cargarInformacionCuenta();
+    this.cargarHojaVida();
   }
 
   obtenerIdUsuario(): Promise<any> {
@@ -59,6 +64,13 @@ export class PerfilComponent implements OnInit {
       },
       () => (alertify.set('notifier', 'position', 'top-right'), alertify.error(commonMessages.HTTP_ERROR_LABEL))
     );
+  }
+
+  async cargarHojaVida(): Promise<any> {
+    const cuenta = await this.obtenerIdUsuario();
+    this.service.find(cuenta.user).subscribe(response => {
+      this.hojaVidaVo = response.body;
+    });
   }
 
   consultarImagen(): void {
