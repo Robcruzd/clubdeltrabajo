@@ -605,6 +605,12 @@ export class CrearHojaVidaComponent implements OnInit {
   addArchivo(event: any, tipoDocumento: number): void {
     const file: File = event.target.files[0];
 
+    if (file.size > commonMessages.TAMANO_MAXIMO_PERMITIDO) {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error(commonMessages.ERROR_TAMANO_EXCEDIDO);
+      return;
+    }
+
     const extension = file.name.split('.').pop() || '';
     if (!commonMessages.ARCHIVOS_PERMITIDOS.includes(extension)) {
       alertify.set('notifier', 'position', 'top-right');
