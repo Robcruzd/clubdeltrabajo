@@ -119,5 +119,7 @@ export const commonMessages = {
   OPCION_PERFIL_LABEL: 'Perfil',
   IMAGEN_LABEL: 'Cambiar foto',
   ERROR_IMAGEN_NO_SOPORTADA: 'Error, solo se permite subir imágenes',
-  IMAGENES_SOPORTADAS: ['jpg', 'jpeg', 'png']
+  IMAGENES_SOPORTADAS: ['jpg', 'jpeg', 'png'],
+  TAMANO_MAXIMO_PERMITIDO: 2000000, // 2MB
+  ERROR_TAMANO_EXCEDIDO: 'Error. Tamaño máximo permitodo 2MB'
 };
