@@ -38,6 +38,8 @@ export class VerHojaVidaComponent implements OnInit {
   imagen!: Archivo;
   pdfHojaVida64: any;
   pdfHojaVida64Render: any;
+  pdfHojaVida64RenderDescarga: any;
+  pdfGeneradoHojaVida: Archivo = new Archivo();
 
   constructor(
     private router: Router,
@@ -79,6 +81,7 @@ export class VerHojaVidaComponent implements OnInit {
   descargarArchivoComprimido(): void {
     const zip = new JSZip();
     if (this.archivos?.length !== 0) {
+      /*
       this.archivos?.forEach(item => {
         const nombreArchivo: any = item.nombre;
         const archivo: any = item.archivo;
@@ -86,8 +89,11 @@ export class VerHojaVidaComponent implements OnInit {
         const archivo64 = archivo.slice(i + 7);
         zip.file(nombreArchivo, archivo64, { base64: true });
       });
+      */
     }
-    zip.file('CV' + this.hojaVidaVo?.persona.nombre + this.hojaVidaVo?.persona.apellido + '.pdf', this.pdfHojaVida64, { base64: true });
+    zip.file('CV' + this.hojaVidaVo?.persona.nombre + this.hojaVidaVo?.persona.apellido + '.pdf', this.pdfHojaVida64RenderDescarga, {
+      base64: true
+    });
     zip.generateAsync({ type: 'blob' }).then((data: any) => {
       saveAs(data, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.zip');
     });
@@ -104,7 +110,18 @@ export class VerHojaVidaComponent implements OnInit {
 
   async visualizarArchivoPDF(): Promise<any> {
     const data64 = await this.generarPdf();
-    this.pdfHojaVida64Render = this.base64ToUint8Array(data64);
+    this.pdfGeneradoHojaVida.nombre = 'CV' + this.hojaVidaVo?.persona.nombre + this.hojaVidaVo?.persona.apellido + '.pdf';
+    this.pdfGeneradoHojaVida.extension = 'pdf';
+    this.pdfGeneradoHojaVida.usuario = this.hojaVidaVo?.persona;
+    this.pdfGeneradoHojaVida.tipo = 100;
+    this.pdfGeneradoHojaVida.archivo = 'data:application/pdf;base64,' + data64;
+    this.hojaVidaService.createPDFHojaVida(this.pdfGeneradoHojaVida).subscribe((response: any) => {
+      const archivo = response.body;
+      const i = archivo.archivo.indexOf('base64,');
+      const archivo64 = archivo.archivo.slice(i + 7);
+      this.pdfHojaVida64RenderDescarga = archivo64;
+      this.pdfHojaVida64Render = this.base64ToUint8Array(archivo64);
+    });
   }
 
   async generarPdf(): Promise<any> {
