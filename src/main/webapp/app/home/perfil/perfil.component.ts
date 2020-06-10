@@ -90,16 +90,9 @@ export class PerfilComponent implements OnInit {
   }
 
   cargarImagen(event: any, tipoDocumento: number): void {
-    // Se elimina la opción pdf
-    const archivosPermitidos = commonMessages.ARCHIVOS_PERMITIDOS;
-    archivosPermitidos.splice(
-      commonMessages.ARCHIVOS_PERMITIDOS.findIndex(item => item === 'pdf'),
-      1
-    );
-
     const file: File = event.target.files[0];
     const extension = file.name.split('.').pop() || '';
-    if (!archivosPermitidos.includes(extension)) {
+    if (!commonMessages.IMAGENES_SOPORTADAS.includes(extension)) {
       alertify.set('notifier', 'position', 'top-right');
       alertify.error(commonMessages.ERROR_IMAGEN_NO_SOPORTADA);
       return;
