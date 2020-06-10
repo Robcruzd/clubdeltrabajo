@@ -118,5 +118,6 @@ export const commonMessages = {
   ERROR_ARCHIVO_NO_SOPORTADO: 'Formato de archivo no soportado. Solo se aceptan imágenes o archivos PDF',
   OPCION_PERFIL_LABEL: 'Perfil',
   IMAGEN_LABEL: 'Cambiar foto',
-  ERROR_IMAGEN_NO_SOPORTADA: 'Error, solo se permite subir imágenes'
+  ERROR_IMAGEN_NO_SOPORTADA: 'Error, solo se permite subir imágenes',
+  IMAGENES_SOPORTADAS: ['jpg', 'jpeg', 'png']
 };
