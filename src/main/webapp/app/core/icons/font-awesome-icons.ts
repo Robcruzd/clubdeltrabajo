@@ -40,7 +40,11 @@ import {
   faMapMarkerAlt,
   faExclamationCircle,
   faImages,
-  faUpload
+  faUpload,
+  faBuilding,
+  faUserTie,
+  faThumbtack,
+  faGlobeAmericas
   // jhipster-needle-add-icon-import
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -86,6 +90,10 @@ export const fontAwesomeIcons = [
   faMapMarkerAlt,
   faExclamationCircle,
   faImages,
-  faUpload
+  faUpload,
+  faBuilding,
+  faUserTie,
+  faThumbtack,
+  faGlobeAmericas
   // jhipster-needle-add-icon-import
 ];

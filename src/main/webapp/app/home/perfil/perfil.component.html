@@ -26,8 +26,7 @@
                 </div>
             </div>
             <div class="text-center" style="margin-bottom: 40px; margin-left: 13.5px; width: 100%;">
-                <button (click)="verHojaVida()"
-                    class="btn ml-auto shadow-none boton-base boton-ver-hv">{{lblVerHojaVida}}</button>
+                <button (click)="verHojaVida()" class="btn ml-auto shadow-none boton-base boton-ver-hv">{{lblVerHojaVida}}</button>
                 <button class="btn ml-auto shadow-none boton-base boton-busca-empleo" style="display: none;">
                     <fa-icon icon="suitcase" style="margin-right: 5px; "></fa-icon>
                     {{lblBuscaEmpleo}}
@@ -42,25 +41,35 @@
                 </button>
             </div>
             <div class="row" style="justify-content: center; margin-left: 15px;">
-                <a href="https://www.procuraduria.gov.co/portal/" target="_blank"><img class="procuraduria"
-                        src="../../../content/images/Image 29.png"></a>
-                <a href="https://www.contraloria.gov.co/" target="_blank"><img class="contraloria"
-                        src="../../../content/images/Image 30.png"></a>
-                <a href="https://www.policia.gov.co/" target="_blank"><img class="policia"
-                        src="../../../content/images/Image 31.png"></a>
+                <a href="https://www.procuraduria.gov.co/portal/" target="_blank"><img class="procuraduria" src="../../../content/images/Image 29.png"></a>
+                <a href="https://www.contraloria.gov.co/" target="_blank"><img class="contraloria" src="../../../content/images/Image 30.png"></a>
+                <a href="https://www.policia.gov.co/" target="_blank"><img class="policia" src="../../../content/images/Image 31.png"></a>
             </div>
         </div>
         <div class="column">
             <h2 class="titulo">{{persona?.nombre}} {{persona?.apellido}}</h2>
-            <p class="texto-hoja-vida">"Sed ut perspiciatis quae ab illo inventore veritatis et quasi architecto
-                beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-                odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-                Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,
-                sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
-                voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit
-                laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui
-                in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat
-                quo voluptas nulla pariatur?"</p>
+            <p class="texto-hoja-vida">{{hojaVidaVo?.informacionPersonal?.perfilProfesional}}</p><br><br>
+            <div *ngIf="hojaVidaVo?.experienciaLaboral.length > 0">
+                <h4 class="titulo-experiencia">EXPERIENCIA LABORAL</h4><br>
+                <div *ngFor="let item of hojaVidaVo?.experienciaLaboral">
+                    <div style="display: flex;">
+                        <fa-icon icon="building"></fa-icon>
+                        <p class="texto-experiencia">{{item?.nombreEmpresa}}</p>
+                    </div>
+                    <div style="display: flex;">
+                        <fa-icon icon="user-tie"></fa-icon>
+                        <p class="texto-experiencia">{{item?.cargo?.cargo}}</p>
+                    </div>
+                    <div style="display: flex;">
+                        <fa-icon icon="thumbtack"></fa-icon>
+                        <p class="texto-experiencia">{{item?.fechaInicio}} / {{item?.fechaFin}}</p>
+                    </div>
+                    <div *ngIf="item?.ciudad" style="display: flex; margin-bottom: 20px;">
+                        <fa-icon icon="globe-americas"></fa-icon>
+                        <p class="texto-experiencia">{{item?.ciudad}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

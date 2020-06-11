@@ -13,6 +13,9 @@ import { ApiService } from '../../shared/services/api.service';
 import { HojaVidaService } from '../../shared/services/hoja-vida.service';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
 
+import * as JSZip from 'jszip';
+import { saveAs } from 'file-saver';
+
 @Component({
   selector: 'jhi-ver-hoja-vida',
   templateUrl: './ver-hoja-vida.component.html',
@@ -33,6 +36,8 @@ export class VerHojaVidaComponent implements OnInit {
   municipios: Array<IOpcionVo> = [];
   urlImageDefault = '../../../content/images/Image 28.png';
   imagen!: Archivo;
+  pdfHojaVida64: any;
+  pdfHojaVida64Render: any;
 
   constructor(
     private router: Router,
@@ -67,17 +72,49 @@ export class VerHojaVidaComponent implements OnInit {
       this.hojaVidaVo = response.body;
       this.archivos = this.hojaVidaVo?.archivos;
       this.imagen = this.archivos?.find(item => item.tipo === TipoArchivo.IMAGEN_PERFIL) || new Archivo();
+      this.visualizarArchivoPDF();
     });
   }
 
-  descargar(): void {
+  descargarArchivoComprimido(): void {
+    const zip = new JSZip();
     if (this.archivos?.length !== 0) {
-      this.apiService.downloadFile(this.archivos![0].nombre, this.archivos![0].archivo);
+      this.archivos?.forEach(item => {
+        const nombreArchivo: any = item.nombre;
+        const archivo: any = item.archivo;
+        const i = archivo.indexOf('base64,');
+        const archivo64 = archivo.slice(i + 7);
+        zip.file(nombreArchivo, archivo64, { base64: true });
+      });
     }
+    zip.file('CV' + this.hojaVidaVo?.persona.nombre + this.hojaVidaVo?.persona.apellido + '.pdf', this.pdfHojaVida64, { base64: true });
+    zip.generateAsync({ type: 'blob' }).then((data: any) => {
+      saveAs(data, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.zip');
+    });
   }
 
-  generatePdf(): void {
-    this.apiService.pdfMake.createPdf(this.getContent()).open();
+  base64ToUint8Array(base64: any): any {
+    const raw = atob(base64);
+    const uint8Array = new Uint8Array(raw.length);
+    for (let i = 0; i < raw.length; i++) {
+      uint8Array[i] = raw.charCodeAt(i);
+    }
+    return uint8Array;
+  }
+
+  async visualizarArchivoPDF(): Promise<any> {
+    const data64 = await this.generarPdf();
+    this.pdfHojaVida64Render = this.base64ToUint8Array(data64);
+  }
+
+  async generarPdf(): Promise<any> {
+    return new Promise(resolve => {
+      const pdfGenerado64 = this.apiService.pdfMake.createPdf(this.getContent());
+      pdfGenerado64.getBase64((data: any) => {
+        this.pdfHojaVida64 = data;
+        resolve(data);
+      });
+    });
   }
 
   private getContent(): Object {

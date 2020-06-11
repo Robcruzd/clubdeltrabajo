@@ -104,6 +104,10 @@
             font-weight: bold;
           }
 
+          .select_documento:focus {
+            outline: none;
+          }
+
           .input_documento {
             width: 50%;
             height: 3rem;
@@ -175,6 +179,17 @@
             opacity: 1;
             padding-left: 1.5rem;
             font-weight: bold;
+            &:focus {
+              outline: none;
+            }
+          }
+
+          .dia,
+          .mes,
+          .anio {
+            &:focus {
+              outline: none;
+            }
           }
 
           .file_upload_licence {
@@ -253,6 +268,10 @@
           opacity: 1;
           padding-right: 1rem;
           padding-left: 1.5rem;
+        }
+
+        .estilo_inputs:focus {
+          outline: none;
         }
 
         .genero {

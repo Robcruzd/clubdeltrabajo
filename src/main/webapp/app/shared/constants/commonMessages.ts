@@ -1,7 +1,7 @@
 export const commonMessages = {
   PLACEHOLDER_CERTIFICADO: 'Adjunte certificado',
   PLACEHOLDER_LICENCIA: 'Adjunte licencia',
-  ATRAS: 'Atras',
+  ATRAS: 'Atrás',
   RESULTADO_BUSQUEDA_LABEL: 'Resultados para',
   SALARIO_LABEL: 'Salario (en millones de pesos)',
   CIUDAD_LABEL: 'Ciudad',
@@ -118,5 +118,8 @@ export const commonMessages = {
   ERROR_ARCHIVO_NO_SOPORTADO: 'Formato de archivo no soportado. Solo se aceptan imágenes o archivos PDF',
   OPCION_PERFIL_LABEL: 'Perfil',
   IMAGEN_LABEL: 'Cambiar foto',
-  ERROR_IMAGEN_NO_SOPORTADA: 'Error, solo se permite subir imágenes'
+  ERROR_IMAGEN_NO_SOPORTADA: 'Error, solo se permite subir imágenes',
+  IMAGENES_SOPORTADAS: ['jpg', 'jpeg', 'png'],
+  TAMANO_MAXIMO_PERMITIDO: 2000000, // 2MB
+  ERROR_TAMANO_EXCEDIDO: 'Error. Tamaño máximo permitodo 2MB'
 };

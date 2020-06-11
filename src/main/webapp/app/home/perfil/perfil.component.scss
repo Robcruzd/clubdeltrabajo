@@ -148,6 +148,26 @@
         display: none;
       }
 
+      .texto-experiencia {
+        text-align: justify;
+        font-size: 12px;
+        font-family: 'Arial';
+        color: #645d5d;
+        margin: 3px 0 0 20px;
+      }
+
+      .titulo-experiencia {
+        text-align: justify;
+        font-size: 20px !important;
+        font-weight: bold;
+        font-family: 'Arial';
+        color: #072278;
+      }
+
+      input[type='file'] {
+        display: none;
+      }
+
       .custom-file-upload {
         border: 1px solid #ccc;
         display: inline-block;

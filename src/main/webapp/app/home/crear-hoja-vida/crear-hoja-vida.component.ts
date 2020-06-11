@@ -521,16 +521,15 @@ export class CrearHojaVidaComponent implements OnInit {
 
   cargarMunicipiosPersonal(value: Object): void {
     this.municipiosPersonal = [];
-    if(value === 0){
-      this.municipiosPersonal = this.geografia.map(item => {    
+    if (value === 0) {
+      this.municipiosPersonal = this.geografia.map(item => {
         return {
           codigo: item.codigoMpio,
           nombre: item.nombreMpio
         };
       });
-    }
-    else{
-      if(value && Object.entries(value).length > 0) {
+    } else {
+      if (value && Object.entries(value).length > 0) {
         this.municipiosPersonal = this.geografia
           .filter(item => item.codigoDpto === value['departamento'])
           .map(item => {
@@ -545,16 +544,15 @@ export class CrearHojaVidaComponent implements OnInit {
 
   cargarMunicipios(value: Object): void {
     this.municipios = [];
-    if(value === 0){
-      this.municipios = this.geografia.map(item => {    
+    if (value === 0) {
+      this.municipios = this.geografia.map(item => {
         return {
           codigo: item.codigoMpio,
           nombre: item.nombreMpio
         };
       });
-    }
-    else{      
-      if(value && Object.entries(value).length > 0) {
+    } else {
+      if (value && Object.entries(value).length > 0) {
         this.municipios = this.geografia
           .filter(item => item.codigoDpto === value['departamento'])
           .map(item => {
@@ -607,6 +605,12 @@ export class CrearHojaVidaComponent implements OnInit {
   addArchivo(event: any, tipoDocumento: number): void {
     const file: File = event.target.files[0];
 
+    if (file.size > commonMessages.TAMANO_MAXIMO_PERMITIDO) {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error(commonMessages.ERROR_TAMANO_EXCEDIDO);
+      return;
+    }
+
     const extension = file.name.split('.').pop() || '';
     if (!commonMessages.ARCHIVOS_PERMITIDOS.includes(extension)) {
       alertify.set('notifier', 'position', 'top-right');
@@ -614,8 +618,11 @@ export class CrearHojaVidaComponent implements OnInit {
       return;
     }
 
-    // Buscar si el tipo de archivo ya fue agregado => index = -1 cuando no hay coincidencias
-    const index = this.archivos.findIndex(item => item.tipo === tipoDocumento);
+    // La cédula y la licencia de conducción deben ser documentos que se suben una única vez
+    let index = -1;
+    if (tipoDocumento === TipoArchivo.DOCUMENTO_IDENTIDAD || tipoDocumento === TipoArchivo.LICENCIA_CONDUCCION) {
+      index = this.archivos.findIndex(item => item.tipo === tipoDocumento);
+    }
 
     const reader = new FileReader();
     if (index >= 0) {
