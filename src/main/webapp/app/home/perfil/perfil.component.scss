@@ -1,127 +1,163 @@
-.card-presentacion {
-  top: 184px;
-  left: 211px;
-  margin-bottom: 14px;
-  width: 472px;
-  height: 305px;
-  background: #f0f0f0 0% 0% no-repeat padding-box;
-  border-radius: 26px;
-  opacity: 1;
-}
+.container_perfil {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 
-.codigo {
-  right: 0;
-  position: absolute;
-  margin: 10px 0 0 10px;
-  width: 81px;
-  height: 81px;
-  //background: transparent url('../../../content/images/frame.png') 0% 0% no-repeat padding-box;
-  mix-blend-mode: multiply;
-  opacity: 1;
-}
+  .box_perfil {
+    background: transparent linear-gradient(181deg, #2e437e 0%, #1a2152 100%) 0% 0% no-repeat padding-box;
+    border-radius: 1.875rem 1.875rem 4.438rem 4.438rem;
+    display: flex;
+    flex-direction: row;
+    width: 85%;
+    align-self: center;
+    margin: 2rem 0rem;
+    padding: 1rem;
 
-.logo {
-  width: 250px;
-  opacity: 1;
-}
+    .column {
+      display: flex;
+      flex-direction: column;
+      width: 49%;
+      align-items: center;
 
-.foto-perfil {
-  top: 133px;
-  margin-left: 39px;
-  width: 168px;
-  height: 168px;
-  //background: transparent url('../../../content/images/Image\ 28.png') 0% 0% no-repeat padding-box;
-  opacity: 1;
-  margin-bottom: 7px;
-}
+      .card-presentacion {
+        margin-bottom: 14px;
+        width: 95%;
+        background: #f0f0f0 0% 0% no-repeat padding-box;
+        border-radius: 26px;
+        opacity: 1;
 
-.boton-base {
-  top: 471px;
-  left: 244px;
-  width: 407px;
-  height: 48px;
-  opacity: 1;
-  border-radius: 24px;
-  text-align: center;
-  font-size: 12px;
-  font-family: 'Arial';
-  font-weight: bold;
-  letter-spacing: 0px;
-  color: #ffffff;
-}
+        .codigo {
+          width: 81px;
+          height: 81px;
+          margin: 1rem;
+          //background: transparent url('../../../content/images/frame.png') 0% 0% no-repeat padding-box;
+          mix-blend-mode: multiply;
+          opacity: 1;
+          align-self: flex-end;
+        }
 
-.boton-ver-hv {
-  background: #020d52 0% 0% no-repeat padding-box;
-}
+        .logo {
+          width: 250px;
+          opacity: 1;
+        }
 
-.boton-busca-empleo {
-  background: #2699fb 0% 0% no-repeat padding-box;
-}
+        .foto-perfil {
+          top: 133px;
+          margin-left: 39px;
+          width: 168px;
+          height: 168px;
+          //background: transparent url('../../../content/images/Image\ 28.png') 0% 0% no-repeat padding-box;
+          opacity: 1;
+          margin-bottom: 7px;
+        }
 
-.boton-ver-ofertas {
-  background: #fb8826 0% 0% no-repeat padding-box;
-}
+        .titulo_div {
+          align-self: baseline;
 
-.boton-editar-hv {
-  background: #f0f0f0 0% 0% no-repeat padding-box;
-  color: #2699fb !important;
-}
+          .titulo {
+            align-self: flex-start;
+            font-size: 30px;
+            font-family: 'Arial';
+            font-weight: bold;
+            color: #072278;
+          }
 
-.procuraduria {
-  top: 693px;
-  left: 244px;
-  width: 91px;
-  height: 120px;
-  //background: transparent url('img/Image 29.png') 0% 0% no-repeat padding-box;
-  opacity: 1;
-  margin: 0 auto;
-}
+          .label_card {
+            align-self: flex-start;
+            color: #072278;
+            font-weight: bold;
+          }
 
-.contraloria {
-  top: 686px;
-  left: 361px;
-  width: 157px;
-  height: 157px;
-  //background: transparent url('img/Image 30.png') 0% 0% no-repeat padding-box;
-  opacity: 1;
-  margin: 0 auto;
-}
+          .label_card2 {
+            color: #645d5d;
+            font-size: 13px;
+          }
+        }
+      }
 
-.policia {
-  top: 705px;
-  left: 539px;
-  width: 112px;
-  height: 108px;
-  //background: transparent url('img/Image 31.png') 0% 0% no-repeat padding-box;
-  opacity: 1;
-  margin: 0 auto;
-}
+      .boton-base {
+        top: 471px;
+        left: 244px;
+        width: 407px;
+        height: 48px;
+        opacity: 1;
+        border-radius: 24px;
+        text-align: center;
+        font-size: 12px;
+        font-family: 'Arial';
+        font-weight: bold;
+        letter-spacing: 0px;
+        color: #ffffff;
+      }
 
-.titulo {
-  font-size: 30px;
-  font-family: 'Arial';
-  font-weight: bold;
-  color: #072278;
-}
+      .boton-ver-hv {
+        background: #020d52 0% 0% no-repeat padding-box;
+        margin-bottom: 1rem;
+      }
 
-.texto-hoja-vida {
-  text-align: justify;
-  font-size: 12px;
-  font-family: 'Arial';
-  color: #645d5d;
-}
+      .boton-busca-empleo {
+        background: #2699fb 0% 0% no-repeat padding-box;
+      }
 
-input[type='file'] {
-  display: none;
-}
+      .boton-ver-ofertas {
+        background: #fb8826 0% 0% no-repeat padding-box;
+      }
 
-.custom-file-upload {
-  border: 1px solid #ccc;
-  display: inline-block;
-  padding: 6px 12px;
-  cursor: pointer;
-  margin-left: 39px;
-  width: 168px;
-  background: #f0f0f0 0% 0% no-repeat padding-box;
-  border-radius: 16px;
+      .boton-editar-hv {
+        background: #f0f0f0 0% 0% no-repeat padding-box;
+        color: #2699fb !important;
+      }
+
+      .procuraduria {
+        width: 112px;
+        //background: transparent url('img/Image 29.png') 0% 0% no-repeat padding-box;
+        opacity: 1;
+        margin: 0 auto;
+      }
+
+      .contraloria {
+        width: 140px;
+        //background: transparent url('img/Image 30.png') 0% 0% no-repeat padding-box;
+        opacity: 1;
+        margin: 0 auto;
+      }
+
+      .policia {
+        width: 112px;
+        //background: transparent url('img/Image 31.png') 0% 0% no-repeat padding-box;
+        opacity: 1;
+        margin: 0 auto;
+      }
+
+      .titulo {
+        font-size: 30px;
+        font-family: 'Arial';
+        font-weight: bold;
+        color: #ffffff;
+      }
+
+      .texto-hoja-vida {
+        text-align: justify;
+        font-size: 12px;
+        font-family: 'Arial';
+        color: #ffffff;
+        padding: 1rem;
+      }
+
+      input[type='file'] {
+        display: none;
+      }
+
+      .custom-file-upload {
+        border: 1px solid #ccc;
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+        margin-left: 39px;
+        width: 168px;
+        background: #f0f0f0 0% 0% no-repeat padding-box;
+        border-radius: 16px;
+      }
+    }
+  }
 }

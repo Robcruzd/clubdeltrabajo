@@ -44,7 +44,7 @@
       "bucketName": "ct-project",
       "instanceType": "t2.micro",
       "awsRegion": "us-east-2",
-      "dbName": "ctProjectDB",
+      "dbName": "ctProject",
       "dbInstanceClass": "db.t2.micro"
     }
   }

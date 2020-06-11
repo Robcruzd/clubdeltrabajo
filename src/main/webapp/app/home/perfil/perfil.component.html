@@ -1,10 +1,9 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-5">
+<div class="container_perfil">
+    <div class="box_perfil">
+        <div class="column">
             <div class="card-presentacion">
-                <qrcode class="codigo" [qrdata]="qrCard" [width]="81"></qrcode>
                 <div class="row">
-                    <div class="col-md-6" style="padding-top: 25px;">
+                    <div class="column">
                         <img class="logo text-center" src="../../../content/images/logo_cdt.png">
                         <img class="foto-perfil rounded-circle" [src]="imagen?.archivo || ulrImgDefault">
                         <label for="file-upload" class="custom-file-upload text-center">
@@ -13,13 +12,16 @@
                         <input id="file-upload" type="file" accept=".png, .jpeg, .jpg"
                             (change)="cargarImagen($event, tipoArchivo.IMAGEN_PERFIL)" />
                     </div>
-                    <div class="col-md-6" style="margin-top: 110px;">
-                        <h2 class="titulo" *ngIf="true">{{persona?.nombre}} {{persona?.apellido}}</h2>
-                        <label style="color: #072278; font-weight: bold;">CC</label>
-                        <label style="color: #645d5d; font-size: 13px;"> {{persona?.numeroDocumento}}</label>
-                        <br>
-                        <label style="color: #072278; font-weight: bold;">Email</label>
-                        <label style="color: #645d5d; font-size: 13px;">{{persona?.email}}</label>
+                    <div class="column">
+                        <qrcode class="codigo" [qrdata]="qrCard" [width]="81"></qrcode>
+                        <div class="titulo_div">
+                            <h2 class="titulo" *ngIf="true">{{persona?.nombre}} {{persona?.apellido}}</h2>
+                            <label class="label_card">CC</label>
+                            <label class='label_card2'> {{persona?.numeroDocumento}}</label>
+                            <br>
+                            <label class="label_card">Email</label>
+                            <label class="label_card2">{{persona?.email}}</label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -48,7 +50,7 @@
                         src="../../../content/images/Image 31.png"></a>
             </div>
         </div>
-        <div class="col-md-4" style="margin-left:30px;">
+        <div class="column">
             <h2 class="titulo">{{persona?.nombre}} {{persona?.apellido}}</h2>
             <p class="texto-hoja-vida">"Sed ut perspiciatis quae ab illo inventore veritatis et quasi architecto
                 beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
