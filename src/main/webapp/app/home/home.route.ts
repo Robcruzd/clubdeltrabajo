@@ -9,6 +9,7 @@ import { CrearHojaVidaComponent } from './crear-hoja-vida/crear-hoja-vida.compon
 import { InicioSesionComponent } from './inicio-sesion/inicio-sesion.component';
 import { RestaurarContrasenaComponent } from './restaurar-contrasena/restaurar-contrasena.component';
 import { NuevoCorreoComponent } from './nuevo-correo/nuevo-correo.component';
+import { InformacionEmpresaComponent } from './informacion-empresa/informacion-empresa.component';
 
 export const HOME_ROUTE: Routes = [
   {
@@ -54,5 +55,9 @@ export const HOME_ROUTE: Routes = [
   {
     path: 'nuevo-correo',
     component: NuevoCorreoComponent
+  },
+  {
+    path: 'informacion-empresa',
+    component: InformacionEmpresaComponent
   }
 ];
