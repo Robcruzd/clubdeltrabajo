@@ -64,7 +64,7 @@
                         <fa-icon icon="thumbtack"></fa-icon>
                         <p class="texto-experiencia">{{item?.fechaInicio}} / {{item?.fechaFin}}</p>
                     </div>
-                    <div *ngIf="item?.ciudad" style="display: flex; margin-bottom: 20px;">
+                    <div *ngIf="item?.ciudad || item.ciudadExtranjera" style="display: flex; margin-bottom: 20px;">                        
                         <fa-icon icon="globe-americas"></fa-icon>
                         <p class="texto-experiencia">{{item.ciudad ? this.getCiudad(item.ciudad + '') : item.ciudadExtranjera}}</p>
                     </div>

@@ -40,6 +40,7 @@ export class VerHojaVidaComponent implements OnInit {
   pdfHojaVida64Render: any;
   pdfHojaVida64RenderDescarga: any;
   pdfGeneradoHojaVida: Archivo = new Archivo();
+  cargado = false;
 
   constructor(
     private router: Router,
@@ -81,7 +82,6 @@ export class VerHojaVidaComponent implements OnInit {
   descargarArchivoComprimido(): void {
     const zip = new JSZip();
     if (this.archivos?.length !== 0) {
-      /*
       this.archivos?.forEach(item => {
         const nombreArchivo: any = item.nombre;
         const archivo: any = item.archivo;
@@ -89,7 +89,6 @@ export class VerHojaVidaComponent implements OnInit {
         const archivo64 = archivo.slice(i + 7);
         zip.file(nombreArchivo, archivo64, { base64: true });
       });
-      */
     }
     zip.file('CV' + this.hojaVidaVo?.persona.nombre + this.hojaVidaVo?.persona.apellido + '.pdf', this.pdfHojaVida64RenderDescarga, {
       base64: true
@@ -97,6 +96,10 @@ export class VerHojaVidaComponent implements OnInit {
     zip.generateAsync({ type: 'blob' }).then((data: any) => {
       saveAs(data, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.zip');
     });
+  }
+
+  descargarPDF(): void {
+    saveAs(this.pdfHojaVida64RenderDescarga, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.pdf');
   }
 
   base64ToUint8Array(base64: any): any {
@@ -121,6 +124,7 @@ export class VerHojaVidaComponent implements OnInit {
       const archivo64 = archivo.archivo.slice(i + 7);
       this.pdfHojaVida64RenderDescarga = archivo64;
       this.pdfHojaVida64Render = this.base64ToUint8Array(archivo64);
+      this.cargado = true;
     });
   }
 
@@ -154,7 +158,7 @@ export class VerHojaVidaComponent implements OnInit {
       content: [
         {
           table: {
-            widths: ['20%', '40%', '40%'],
+            widths: ['20%', '40%', 'auto'],
             body: [
               [
                 {
@@ -176,7 +180,7 @@ export class VerHojaVidaComponent implements OnInit {
                   ]
                 },
                 {
-                  fillColor: '#1a9fff',
+                  fillColor: '#304580',
                   table: {
                     body: [
                       [
@@ -200,7 +204,8 @@ export class VerHojaVidaComponent implements OnInit {
                         },
                         {
                           text: this.hojaVidaVo?.persona.email,
-                          style: 'header'
+                          style: 'header',
+                          margin: [0, 5, 12, 0]
                         }
                       ],
                       [
