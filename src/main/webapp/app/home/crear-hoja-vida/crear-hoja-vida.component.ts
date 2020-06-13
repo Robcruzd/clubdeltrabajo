@@ -12,6 +12,7 @@ import { CargoService } from '../../entities/cargo/cargo.service';
 import { IdiomaService } from '../../entities/idioma/idioma.service';
 import { InstitucionService } from '../../entities/institucion/institucion.service';
 import { TipoDocumentoService } from '../../entities/tipo-documento/tipo-documento.service';
+import { TipoLicenciaService } from '../../entities/tipo-licencia/tipo-licencia.service';
 import { commonMessages } from '../../shared/constants/commonMessages';
 import { DATE_FORMAT } from '../../shared/constants/input.constants';
 import { Archivo, IArchivo } from '../../shared/model/archivo.model';
@@ -29,6 +30,7 @@ import { GeografiaVo } from '../../shared/vo/geografia-vo';
 import { HojaVidaVo } from '../../shared/vo/hoja-vida-vo';
 import { IOpcionVo } from '../../shared/vo/opcion-vo';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
+import { ITipoLicencia } from '../../shared/model/tipo-licencia.model';
 
 declare let alertify: any;
 
@@ -67,6 +69,7 @@ export class CrearHojaVidaComponent implements OnInit {
   persona!: number;
   redesSociales: Array<IOpcionVo> = commonMessages.ARRAY_REDES_SOCIALES;
   redSocial = ' ';
+  licencias: Array<ITipoLicencia> = [];
 
   constructor(
     private fb: FormBuilder,
@@ -77,7 +80,8 @@ export class CrearHojaVidaComponent implements OnInit {
     private institucionService: InstitucionService,
     private cargoService: CargoService,
     private accountService: AccountService,
-    private router: Router
+    private router: Router,
+    private tipoLicenciaService: TipoLicenciaService
   ) {}
 
   ngOnInit(): void {
@@ -92,6 +96,7 @@ export class CrearHojaVidaComponent implements OnInit {
     this.consultarInformacionGeografica();
     this.cargarPaises();
     this.cargarTipoDocumento();
+    this.cargarTipoLicencia();
     this.cargarIdiomas();
     this.cargarInstituciones();
     this.cargarCargos();
@@ -145,6 +150,7 @@ export class CrearHojaVidaComponent implements OnInit {
       discapacidad: [null],
       redesSociales: [null],
       perfilProfesional: [''],
+      tipoLicencia: [null, [Validators.required]],
       licencenciaConduccion: [false]
     });
   }
@@ -572,6 +578,15 @@ export class CrearHojaVidaComponent implements OnInit {
         size: 20
       })
       .subscribe((res: HttpResponse<ITipoDocumento[]>) => (this.documentos = res.body || []));
+  }
+
+  cargarTipoLicencia(): void {
+    this.tipoLicenciaService
+      .query({
+        page: 0,
+        size: 20
+      })
+      .subscribe((res: HttpResponse<ITipoLicencia[]>) => (this.licencias = res.body || []));
   }
 
   cargarInstituciones(): void {

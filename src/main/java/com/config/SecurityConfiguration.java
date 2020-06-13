@@ -63,7 +63,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(problemSupport)
         .and()
             .headers()
-            .contentSecurityPolicy("default-src 'self'; frame-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:")
+            .contentSecurityPolicy("default-src 'self' https://www.datos.gov.co https://restcountries.eu;"+
+                "frame-src 'self' https: data:;"+
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' http://cdn.jsdelivr.net https://storage.googleapis.com;"+
+                "style-src 'self' 'unsafe-inline' http://cdn.jsdelivr.net  https://fonts.googleapis.com;"+
+                "img-src 'self' data:;"+
+                "font-src 'self' https://fonts.gstatic.com data:;")
         .and()
             .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN)
         .and()
@@ -81,6 +86,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/account/reset-password/init").permitAll()
             .antMatchers("/api/account/reset-password/finish").permitAll()
+            .antMatchers("/api/registrar").permitAll()
             .antMatchers("/api/**").permitAll()
             .antMatchers("/management/health").permitAll()
             .antMatchers("/management/info").permitAll()

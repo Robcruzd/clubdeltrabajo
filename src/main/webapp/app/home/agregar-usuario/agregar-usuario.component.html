@@ -1,6 +1,3 @@
-<header class="navbarRegistroUsuario">
-    <img src="../../../content/images/logo_empresa.png" alt="" class="imagen_logo">
-</header>
 <body class="estilo_body">
     <div class="div_centro">
         <p class="estilo_titulo">Regístrate y entra al club.</p>
@@ -33,15 +30,17 @@
             <div>
                 <label style="color: white;">Numero de Documento</label>
             </div>
-            <select class="select_documento" [(ngModel)]="tipoDocumento.id">
-                <option [ngValue]="null" disabled>Seleccione un tipo</option>
-                <option
-                    [ngValue]="documento.id"
-                    *ngFor="let documento of documentos">
-                    {{ documento.nombreTipo }}
-                </option>
-            </select>
-            <input type="number" class="input_documento" [(ngModel)]="persona.numeroDocumento">
+            <div class="row_documento">
+                <select class="select_documento" [(ngModel)]="tipoDocumento.id">
+                    <option [ngValue]="null" disabled>Seleccione un tipo</option>
+                    <option
+                        [ngValue]="documento.id"
+                        *ngFor="let documento of documentos">
+                        {{ documento.nombreTipo }}
+                    </option>
+                </select>
+                <input type="number" class="input_documento" [(ngModel)]="persona.numeroDocumento">
+            </div>
             <label *ngIf="mensajeNumDoc" class="text-danger">
                 {{mensajeNumDoc}}
             </label>
