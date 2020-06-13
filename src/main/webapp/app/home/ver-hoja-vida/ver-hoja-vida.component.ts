@@ -122,7 +122,7 @@ export class VerHojaVidaComponent implements OnInit {
       const archivo = response.body;
       const i = archivo.archivo.indexOf('base64,');
       const archivo64 = archivo.archivo.slice(i + 7);
-      this.pdfHojaVida64RenderDescarga = archivo64;
+      this.pdfHojaVida64RenderDescarga = archivo.archivo;
       this.pdfHojaVida64Render = this.base64ToUint8Array(archivo64);
       this.cargado = true;
     });
