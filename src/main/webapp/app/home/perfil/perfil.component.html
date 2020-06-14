@@ -49,7 +49,7 @@
         <div class="column">
             <h2 class="titulo">{{persona?.nombre}} {{persona?.apellido}}</h2>
             <p class="texto-hoja-vida">{{hojaVidaVo?.informacionPersonal?.perfilProfesional}}</p><br><br>
-            <div *ngIf="hojaVidaVo?.experienciaLaboral.length > 0">
+            <div *ngIf="hojaVidaVo?.experienciaLaboral.length > 0" class="experiencias">
                 <h4 class="titulo-experiencia">EXPERIENCIA LABORAL</h4><br>
                 <div *ngFor="let item of hojaVidaVo?.experienciaLaboral">
                     <div style="display: flex;">

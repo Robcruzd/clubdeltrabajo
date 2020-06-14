@@ -150,7 +150,7 @@ export class CrearHojaVidaComponent implements OnInit {
       discapacidad: [null],
       redesSociales: [null],
       perfilProfesional: [''],
-      tipoLicencia: [null, [Validators.required]],
+      tipoLicencia: [null],
       licencenciaConduccion: [false]
     });
   }
