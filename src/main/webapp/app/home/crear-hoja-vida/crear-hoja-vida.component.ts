@@ -12,7 +12,6 @@ import { CargoService } from '../../entities/cargo/cargo.service';
 import { IdiomaService } from '../../entities/idioma/idioma.service';
 import { InstitucionService } from '../../entities/institucion/institucion.service';
 import { TipoDocumentoService } from '../../entities/tipo-documento/tipo-documento.service';
-import { TipoLicenciaService } from '../../entities/tipo-licencia/tipo-licencia.service';
 import { commonMessages } from '../../shared/constants/commonMessages';
 import { DATE_FORMAT } from '../../shared/constants/input.constants';
 import { Archivo, IArchivo } from '../../shared/model/archivo.model';
@@ -28,9 +27,8 @@ import { ApiService } from '../../shared/services/api.service';
 import { HojaVidaService } from '../../shared/services/hoja-vida.service';
 import { GeografiaVo } from '../../shared/vo/geografia-vo';
 import { HojaVidaVo } from '../../shared/vo/hoja-vida-vo';
-import { IOpcionVo } from '../../shared/vo/opcion-vo';
+import { IOpcionVo, IOpcionVoDescripcion } from '../../shared/vo/opcion-vo';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
-import { ITipoLicencia } from '../../shared/model/tipo-licencia.model';
 
 declare let alertify: any;
 
@@ -59,6 +57,7 @@ export class CrearHojaVidaComponent implements OnInit {
   estadoNivelEstudio: IOpcionVo[] = commonMessages.ARRAY_ESTADO_NIVEL_ESTUDIO;
   idiomas: Array<IIdioma> = [];
   nivelIdioma: Array<IOpcionVo> = commonMessages.ARRAY_NIVEL_IDIOMA;
+  tipoLicenciaConduccion: Array<IOpcionVoDescripcion> = commonMessages.ARRAY_TIPOS_LICENCIA_CONDUCCION;
   archivos: Array<IArchivo> = [];
   tipoArchivo = TipoArchivo;
   mostrar!: boolean;
@@ -69,7 +68,6 @@ export class CrearHojaVidaComponent implements OnInit {
   persona!: number;
   redesSociales: Array<IOpcionVo> = commonMessages.ARRAY_REDES_SOCIALES;
   redSocial = ' ';
-  licencias: Array<ITipoLicencia> = [];
 
   constructor(
     private fb: FormBuilder,
@@ -80,8 +78,7 @@ export class CrearHojaVidaComponent implements OnInit {
     private institucionService: InstitucionService,
     private cargoService: CargoService,
     private accountService: AccountService,
-    private router: Router,
-    private tipoLicenciaService: TipoLicenciaService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -96,7 +93,6 @@ export class CrearHojaVidaComponent implements OnInit {
     this.consultarInformacionGeografica();
     this.cargarPaises();
     this.cargarTipoDocumento();
-    this.cargarTipoLicencia();
     this.cargarIdiomas();
     this.cargarInstituciones();
     this.cargarCargos();
@@ -150,8 +146,7 @@ export class CrearHojaVidaComponent implements OnInit {
       discapacidad: [null],
       redesSociales: [null],
       perfilProfesional: [''],
-      tipoLicencia: [null, [Validators.required]],
-      licencenciaConduccion: [false]
+      tipoLicenciaConduccion: [null]
     });
   }
 
@@ -256,8 +251,8 @@ export class CrearHojaVidaComponent implements OnInit {
         discapacidad: hojaVida.informacionPersonal.discapacidad,
         redesSociales: hojaVida.informacionPersonal.redesSociales,
         perfilProfesional: hojaVida.informacionPersonal.perfilProfesional,
-        licencenciaConduccion: hojaVida.informacionPersonal.licencenciaConduccion,
-        departamento: hojaVida.informacionPersonal.departamento
+        tipoLicenciaConduccion: hojaVida.informacionPersonal.tipoLicenciaConduccion,
+        departamento: hojaVida.informacionPersonal.departamento,
       });
 
       // cargar perfil profesional
@@ -424,7 +419,7 @@ export class CrearHojaVidaComponent implements OnInit {
       telefono: this.formPersonal.get(['telefono'])!.value,
       discapacidad: this.formPersonal.get(['discapacidad'])!.value,
       redesSociales: this.procesarRedSocial(this.formPersonal.get(['redesSociales'])!.value),
-      licencenciaConduccion: this.formPersonal.get(['licencenciaConduccion'])!.value,
+      tipoLicenciaConduccion : this.formPersonal.get(['tipoLicenciaConduccion'])!.value,
       perfilProfesional: this.formPerfil.get(['perfilProfesional'])!.value,
       usuario: new Persona(this.persona)
     };
@@ -578,15 +573,6 @@ export class CrearHojaVidaComponent implements OnInit {
         size: 20
       })
       .subscribe((res: HttpResponse<ITipoDocumento[]>) => (this.documentos = res.body || []));
-  }
-
-  cargarTipoLicencia(): void {
-    this.tipoLicenciaService
-      .query({
-        page: 0,
-        size: 20
-      })
-      .subscribe((res: HttpResponse<ITipoLicencia[]>) => (this.licencias = res.body || []));
   }
 
   cargarInstituciones(): void {
