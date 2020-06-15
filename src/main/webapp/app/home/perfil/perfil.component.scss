@@ -4,14 +4,22 @@
   justify-content: center;
 
   .box_perfil {
-    background: transparent linear-gradient(181deg, #2e437e 0%, #1a2152 100%) 0% 0% no-repeat padding-box;
-    border-radius: 1.875rem 1.875rem 4.438rem 4.438rem;
     display: flex;
     flex-direction: row;
     width: 85%;
     align-self: center;
     margin: 2rem 0rem;
-    padding: 1rem;
+    padding: 2rem 1rem;
+
+    .column2 {
+      display: flex;
+      flex-direction: column;
+      width: 49%;
+      align-items: center;
+      background: transparent linear-gradient(181deg, #2e437e 0%, #1a2152 100%) 0% 0% no-repeat padding-box;
+      border-radius: 1.875rem;
+      padding: 1rem;
+    }
 
     .column {
       display: flex;
@@ -109,24 +117,51 @@
       }
 
       .procuraduria {
-        width: 112px;
+        width: 80px;
         //background: transparent url('img/Image 29.png') 0% 0% no-repeat padding-box;
         opacity: 1;
         margin: 0 auto;
       }
 
       .contraloria {
-        width: 140px;
+        width: 108px;
         //background: transparent url('img/Image 30.png') 0% 0% no-repeat padding-box;
         opacity: 1;
         margin: 0 auto;
       }
 
       .policia {
-        width: 112px;
+        width: 80px;
         //background: transparent url('img/Image 31.png') 0% 0% no-repeat padding-box;
         opacity: 1;
         margin: 0 auto;
+      }
+
+      .experiencias {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .icono_experiencia {
+          color: white;
+        }
+
+        .texto-experiencia {
+          text-align: justify;
+          font-size: 12px;
+          font-family: 'Arial';
+          color: #ffffff;
+          margin: 3px 0 0 20px;
+        }
+
+        .titulo-experiencia {
+          text-align: justify;
+          font-size: 20px !important;
+          font-weight: bold;
+          font-family: 'Arial';
+          color: #ffffff;
+        }
       }
 
       .titulo {
@@ -146,22 +181,6 @@
 
       input[type='file'] {
         display: none;
-      }
-
-      .texto-experiencia {
-        text-align: justify;
-        font-size: 12px;
-        font-family: 'Arial';
-        color: #645d5d;
-        margin: 3px 0 0 20px;
-      }
-
-      .titulo-experiencia {
-        text-align: justify;
-        font-size: 20px !important;
-        font-weight: bold;
-        font-family: 'Arial';
-        color: #072278;
       }
 
       input[type='file'] {

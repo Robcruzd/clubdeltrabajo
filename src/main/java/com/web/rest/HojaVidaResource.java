@@ -1,5 +1,6 @@
 package com.web.rest;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.domain.Archivo;
 import com.domain.vo.HojaVidaVo;
 import com.service.HojaVidaService;
 
@@ -61,6 +63,19 @@ public class HojaVidaResource {
 						result.getInformacionPersonal().getUsuario().getId().toString()))
 				.body(result);
 	}
+	
+	@PostMapping("/hoja-vida/archivo")
+	public ResponseEntity<Archivo> getPDFCompleto(@Valid @RequestBody Archivo archivo)
+			throws URISyntaxException, IOException {
+		Archivo archivoGenerado = service.crearArchivoPDF(archivo);
+		if(archivoGenerado != null) {
+			return ResponseEntity.created(new URI("/api/hoja-vida/archivo/" + archivoGenerado.getUsuario().getId()))
+				.headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME,
+						archivoGenerado.getUsuario().getId().toString()))
+				.body(archivoGenerado);
+		}
+		return null;
+	}
 
 	/**
 	 * {@code GET  /hoja-vida/:id} : get the "id" persona.
@@ -68,6 +83,7 @@ public class HojaVidaResource {
 	 * @param id the id of the persona to retrieve its curriculum.
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
 	 *         the hojaVida, or with status {@code 404 (Not Found)}.
+	 * @throws IOException 
 	 */
 	@GetMapping("/hoja-vida/{id}")
 	public ResponseEntity<HojaVidaVo> get(@PathVariable Long id) {

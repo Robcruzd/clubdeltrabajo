@@ -8,6 +8,9 @@ import { Archivo } from '../../shared/model/archivo.model';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
 import { HojaVidaVo } from './../../shared/vo/hoja-vida-vo';
 import { HojaVidaService } from './../../shared/services/hoja-vida.service';
+import { GeografiaVo } from 'app/shared/vo/geografia-vo';
+import { ApiService } from 'app/shared/services/api.service';
+import { IOpcionVo } from 'app/shared/vo/opcion-vo';
 
 declare let alertify: any;
 
@@ -28,19 +31,23 @@ export class PerfilComponent implements OnInit {
   imagen!: Archivo;
   ulrImgDefault = '../../../content/images/Image 28.png';
   hojaVidaVo!: HojaVidaVo | null;
+  geografia: Array<GeografiaVo> = [];
+  municipios: Array<IOpcionVo> = [];
 
   constructor(
     private router: Router,
     private accountService: AccountService,
     private personaService: PersonaService,
     private service: HojaVidaService,
-    private archivoService: ArchivoService
+    private archivoService: ArchivoService,
+    private apiService: ApiService
   ) {}
 
   ngOnInit(): void {
     this.qrCard = 'Perfil de presentación Juan Pérez.';
     this.cargarInformacionCuenta();
     this.cargarHojaVida();
+    this.consultarInformacionGeografica();
   }
 
   obtenerIdUsuario(): Promise<any> {
@@ -140,5 +147,27 @@ export class PerfilComponent implements OnInit {
         }
       );
     }
+  }
+
+  consultarInformacionGeografica(): void {
+    this.apiService.getInformacionGeografica().subscribe(geografia => {
+      this.geografia = geografia;
+      this.cargarMunicipios();
+    });
+  }
+
+  private cargarMunicipios(): void {
+    this.municipios = this.geografia.map(item => {
+      return {
+        codigo: item.codigoMpio,
+        nombre: item.nombreMpio
+      };
+    });
+  }
+
+  getCiudad(codigo: string): string {
+    const ciudad = this.municipios.find(item => item.codigo === codigo);
+
+    return ciudad?.nombre || '';
   }
 }

@@ -2,17 +2,22 @@
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-2 text-center">
-            <img class="foto-perfil rounded-circle" [src]="imagen?.archivo || urlImageDefault">           
+            <img class="foto-perfil rounded-circle" [src]="imagen?.archivo || urlImageDefault">
             <img class="codigo" src="../../../content/images/frame.png">
             <button class="btn shadow-none bg-transparent boton-regresar" (click)="regresarPerfil()">
                 <fa-icon icon="chevron-left"></fa-icon>
             </button>
         </div>
-        <div class="col-md-5" style="min-width: 590px;">
+        <div class="col-md-5" style="max-width: 590px;">
             <div class="informacion-hoja-vida">
-                <pdf-viewer [src]="pdfHojaVida64Render" [original-size]="false"></pdf-viewer>
+                <div *ngIf="!cargado" class="spinner-grow text-dark center-spinner" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div style="height: 100%;" *ngIf="cargado">
+                    <pdf-viewer [zoom]="0.9" [src]="pdfHojaVida64Render" [render-text-mode]="1" [original-size]="false" [show-all]="true"></pdf-viewer>
+                </div>
             </div>
-            <button (click)="descargarArchivoComprimido()" class="btn ml-auto shadow-none boton-descargar">{{lblDescargar}}</button>
+            <button *ngIf="cargado" (click)="descargarPDF()" class="btn ml-auto shadow-none boton-descargar">{{lblDescargar}}</button>
         </div>
     </div>
 </div>

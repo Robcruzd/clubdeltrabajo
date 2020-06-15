@@ -38,6 +38,9 @@ export class VerHojaVidaComponent implements OnInit {
   imagen!: Archivo;
   pdfHojaVida64: any;
   pdfHojaVida64Render: any;
+  pdfHojaVida64RenderDescarga: any;
+  pdfGeneradoHojaVida: Archivo = new Archivo();
+  cargado = false;
 
   constructor(
     private router: Router,
@@ -87,10 +90,16 @@ export class VerHojaVidaComponent implements OnInit {
         zip.file(nombreArchivo, archivo64, { base64: true });
       });
     }
-    zip.file('CV' + this.hojaVidaVo?.persona.nombre + this.hojaVidaVo?.persona.apellido + '.pdf', this.pdfHojaVida64, { base64: true });
+    zip.file('CV' + this.hojaVidaVo?.persona.nombre + this.hojaVidaVo?.persona.apellido + '.pdf', this.pdfHojaVida64RenderDescarga, {
+      base64: true
+    });
     zip.generateAsync({ type: 'blob' }).then((data: any) => {
       saveAs(data, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.zip');
     });
+  }
+
+  descargarPDF(): void {
+    saveAs(this.pdfHojaVida64RenderDescarga, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.pdf');
   }
 
   base64ToUint8Array(base64: any): any {
@@ -104,7 +113,19 @@ export class VerHojaVidaComponent implements OnInit {
 
   async visualizarArchivoPDF(): Promise<any> {
     const data64 = await this.generarPdf();
-    this.pdfHojaVida64Render = this.base64ToUint8Array(data64);
+    this.pdfGeneradoHojaVida.nombre = 'CV' + this.hojaVidaVo?.persona.nombre + this.hojaVidaVo?.persona.apellido + '.pdf';
+    this.pdfGeneradoHojaVida.extension = 'pdf';
+    this.pdfGeneradoHojaVida.usuario = this.hojaVidaVo?.persona;
+    this.pdfGeneradoHojaVida.tipo = 100;
+    this.pdfGeneradoHojaVida.archivo = 'data:application/pdf;base64,' + data64;
+    this.hojaVidaService.createPDFHojaVida(this.pdfGeneradoHojaVida).subscribe((response: any) => {
+      const archivo = response.body;
+      const i = archivo.archivo.indexOf('base64,');
+      const archivo64 = archivo.archivo.slice(i + 7);
+      this.pdfHojaVida64RenderDescarga = archivo.archivo;
+      this.pdfHojaVida64Render = this.base64ToUint8Array(archivo64);
+      this.cargado = true;
+    });
   }
 
   async generarPdf(): Promise<any> {
@@ -137,7 +158,7 @@ export class VerHojaVidaComponent implements OnInit {
       content: [
         {
           table: {
-            widths: ['20%', '40%', '40%'],
+            widths: ['20%', '40%', 'auto'],
             body: [
               [
                 {
@@ -159,7 +180,7 @@ export class VerHojaVidaComponent implements OnInit {
                   ]
                 },
                 {
-                  fillColor: '#1a9fff',
+                  fillColor: '#304580',
                   table: {
                     body: [
                       [
@@ -183,7 +204,8 @@ export class VerHojaVidaComponent implements OnInit {
                         },
                         {
                           text: this.hojaVidaVo?.persona.email,
-                          style: 'header'
+                          style: 'header',
+                          margin: [0, 5, 12, 0]
                         }
                       ],
                       [
