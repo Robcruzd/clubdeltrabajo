@@ -2,15 +2,13 @@ package com.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+
 import io.github.jhipster.service.Criteria;
-import io.github.jhipster.service.filter.BooleanFilter;
-import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.FloatFilter;
 import io.github.jhipster.service.filter.IntegerFilter;
+import io.github.jhipster.service.filter.LocalDateFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
-import io.github.jhipster.service.filter.LocalDateFilter;
 
 /**
  * Criteria class for the {@link com.domain.InformacionPersonal} entity. This class is used
@@ -43,11 +41,11 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
 
     private StringFilter redesSociales;
 
-    private BooleanFilter licencenciaConduccion;
-
     private StringFilter perfilProfesional;
 
     private LongFilter usuarioId;
+    
+    private StringFilter tipoLicenciaConduccion;
 
     public InformacionPersonalCriteria() {
     }
@@ -62,9 +60,9 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
         this.telefono = other.telefono == null ? null : other.telefono.copy();
         this.discapacidad = other.discapacidad == null ? null : other.discapacidad.copy();
         this.redesSociales = other.redesSociales == null ? null : other.redesSociales.copy();
-        this.licencenciaConduccion = other.licencenciaConduccion == null ? null : other.licencenciaConduccion.copy();
         this.perfilProfesional = other.perfilProfesional == null ? null : other.perfilProfesional.copy();
         this.usuarioId = other.usuarioId == null ? null : other.usuarioId.copy();
+        this.tipoLicenciaConduccion = other.tipoLicenciaConduccion == null ? null : other.tipoLicenciaConduccion.copy();
     }
 
     @Override
@@ -144,14 +142,6 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
         this.redesSociales = redesSociales;
     }
 
-    public BooleanFilter getLicencenciaConduccion() {
-        return licencenciaConduccion;
-    }
-
-    public void setLicencenciaConduccion(BooleanFilter licencenciaConduccion) {
-        this.licencenciaConduccion = licencenciaConduccion;
-    }
-
     public StringFilter getPerfilProfesional() {
         return perfilProfesional;
     }
@@ -167,9 +157,16 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
     public void setUsuarioId(LongFilter usuarioId) {
         this.usuarioId = usuarioId;
     }
+    
+    public StringFilter getTipoLicenciaConduccion() {
+		return tipoLicenciaConduccion;
+	}
 
+	public void setTipoLicenciaConduccion(StringFilter tipoLicenciaConduccion) {
+		this.tipoLicenciaConduccion = tipoLicenciaConduccion;
+	}
 
-    @Override
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -188,9 +185,9 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
             Objects.equals(telefono, that.telefono) &&
             Objects.equals(discapacidad, that.discapacidad) &&
             Objects.equals(redesSociales, that.redesSociales) &&
-            Objects.equals(licencenciaConduccion, that.licencenciaConduccion) &&
             Objects.equals(perfilProfesional, that.perfilProfesional) &&
-            Objects.equals(usuarioId, that.usuarioId);
+            Objects.equals(usuarioId, that.usuarioId) &&
+        	Objects.equals(tipoLicenciaConduccion, that.tipoLicenciaConduccion);
     }
 
     @Override
@@ -205,9 +202,9 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
         telefono,
         discapacidad,
         redesSociales,
-        licencenciaConduccion,
         perfilProfesional,
-        usuarioId
+        usuarioId,
+        tipoLicenciaConduccion
         );
     }
 
@@ -223,7 +220,6 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
                 (telefono != null ? "telefono=" + telefono + ", " : "") +
                 (discapacidad != null ? "discapacidad=" + discapacidad + ", " : "") +
                 (redesSociales != null ? "redesSociales=" + redesSociales + ", " : "") +
-                (licencenciaConduccion != null ? "licencenciaConduccion=" + licencenciaConduccion + ", " : "") +
                 (perfilProfesional != null ? "perfilProfesional=" + perfilProfesional + ", " : "") +
                 (usuarioId != null ? "usuarioId=" + usuarioId + ", " : "") +
             "}";
