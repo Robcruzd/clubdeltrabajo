@@ -7,14 +7,14 @@
         </div>
         <div class="inputs">
             <label style="color: white;">Nombre</label>
-            <input type="text" class="estilo_inputs" [(ngModel)]="persona.nombre">
+            <input type="text" class="estilo_inputs" [(ngModel)]="persona.nombre"  (ngModelChange)="persona.nombre = $event.toUpperCase()">
             <label *ngIf="mensajeNombre" class="text-danger">
                 {{mensajeNombre}}
             </label>
         </div>
         <div class="inputs">
             <label style="color: white;">Apellidos</label>
-            <input type="text" class="estilo_inputs" [(ngModel)]="persona.apellido">
+            <input type="text" class="estilo_inputs" [(ngModel)]="persona.apellido" (ngModelChange)="persona.apellido = $event.toUpperCase()">
             <label *ngIf="mensajeApellido" class="text-danger">
                 {{mensajeApellido}}
             </label>
