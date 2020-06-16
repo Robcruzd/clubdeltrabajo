@@ -15,6 +15,7 @@ export interface IInformacionPersonal {
   licencenciaConduccion?: boolean;
   perfilProfesional?: string;
   usuario?: IPersona;
+  tipoLicenciaConduccion?: string;
 }
 
 export class InformacionPersonal implements IInformacionPersonal {
@@ -29,10 +30,8 @@ export class InformacionPersonal implements IInformacionPersonal {
     public telefono?: string,
     public discapacidad?: number,
     public redesSociales?: string,
-    public licencenciaConduccion?: boolean,
     public perfilProfesional?: string,
-    public usuario?: IPersona
-  ) {
-    this.licencenciaConduccion = this.licencenciaConduccion || false;
-  }
+    public usuario?: IPersona,
+    public tipoLicenciaConduccion?: string
+  ) {}
 }

@@ -102,7 +102,6 @@ public class InformacionPersonalResourceIT {
             .telefono(DEFAULT_TELEFONO)
             .discapacidad(DEFAULT_DISCAPACIDAD)
             .redesSociales(DEFAULT_REDES_SOCIALES)
-            .licencenciaConduccion(DEFAULT_LICENCENCIA_CONDUCCION)
             .perfilProfesional(DEFAULT_PERFIL_PROFESIONAL);
         // Add required entity
         Persona persona;
@@ -132,7 +131,6 @@ public class InformacionPersonalResourceIT {
             .telefono(UPDATED_TELEFONO)
             .discapacidad(UPDATED_DISCAPACIDAD)
             .redesSociales(UPDATED_REDES_SOCIALES)
-            .licencenciaConduccion(UPDATED_LICENCENCIA_CONDUCCION)
             .perfilProfesional(UPDATED_PERFIL_PROFESIONAL);
         // Add required entity
         Persona persona;
@@ -175,7 +173,6 @@ public class InformacionPersonalResourceIT {
         assertThat(testInformacionPersonal.getTelefono()).isEqualTo(DEFAULT_TELEFONO);
         assertThat(testInformacionPersonal.getDiscapacidad()).isEqualTo(DEFAULT_DISCAPACIDAD);
         assertThat(testInformacionPersonal.getRedesSociales()).isEqualTo(DEFAULT_REDES_SOCIALES);
-        assertThat(testInformacionPersonal.isLicencenciaConduccion()).isEqualTo(DEFAULT_LICENCENCIA_CONDUCCION);
         assertThat(testInformacionPersonal.getPerfilProfesional()).isEqualTo(DEFAULT_PERFIL_PROFESIONAL);
     }
 
@@ -1296,7 +1293,6 @@ public class InformacionPersonalResourceIT {
             .telefono(UPDATED_TELEFONO)
             .discapacidad(UPDATED_DISCAPACIDAD)
             .redesSociales(UPDATED_REDES_SOCIALES)
-            .licencenciaConduccion(UPDATED_LICENCENCIA_CONDUCCION)
             .perfilProfesional(UPDATED_PERFIL_PROFESIONAL);
 
         restInformacionPersonalMockMvc.perform(put("/api/informacion-personals")
@@ -1316,7 +1312,6 @@ public class InformacionPersonalResourceIT {
         assertThat(testInformacionPersonal.getTelefono()).isEqualTo(UPDATED_TELEFONO);
         assertThat(testInformacionPersonal.getDiscapacidad()).isEqualTo(UPDATED_DISCAPACIDAD);
         assertThat(testInformacionPersonal.getRedesSociales()).isEqualTo(UPDATED_REDES_SOCIALES);
-        assertThat(testInformacionPersonal.isLicencenciaConduccion()).isEqualTo(UPDATED_LICENCENCIA_CONDUCCION);
         assertThat(testInformacionPersonal.getPerfilProfesional()).isEqualTo(UPDATED_PERFIL_PROFESIONAL);
     }
 

@@ -1,13 +1,19 @@
 package com.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import java.io.Serializable;
-import java.util.Objects;
 import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A InformacionPersonal.
@@ -53,9 +59,6 @@ public class InformacionPersonal implements Serializable {
     @Column(name = "redes_sociales")
     private String redesSociales;
 
-    @Column(name = "licencencia_conduccion")
-    private Boolean licencenciaConduccion;
-
     @Column(name = "perfil_profesional")
     private String perfilProfesional;
 
@@ -66,6 +69,9 @@ public class InformacionPersonal implements Serializable {
     
     @Column(name = "departamento")
     private Integer departamento;
+    
+    @Column(name = "tipo_licencia_conduccion")
+    private String tipoLicenciaConduccion;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -180,19 +186,6 @@ public class InformacionPersonal implements Serializable {
         this.redesSociales = redesSociales;
     }
 
-    public Boolean isLicencenciaConduccion() {
-        return licencenciaConduccion;
-    }
-
-    public InformacionPersonal licencenciaConduccion(Boolean licencenciaConduccion) {
-        this.licencenciaConduccion = licencenciaConduccion;
-        return this;
-    }
-
-    public void setLicencenciaConduccion(Boolean licencenciaConduccion) {
-        this.licencenciaConduccion = licencenciaConduccion;
-    }
-
     public String getPerfilProfesional() {
         return perfilProfesional;
     }
@@ -229,6 +222,14 @@ public class InformacionPersonal implements Serializable {
 	public void setDepartamento(Integer departamento) {
 		this.departamento = departamento;
 	}
+	
+	public String getTipoLicenciaConduccion() {
+		return tipoLicenciaConduccion;
+	}
+
+	public void setTipoLicenciaConduccion(String tipoLicenciaConduccion) {
+		this.tipoLicenciaConduccion = tipoLicenciaConduccion;
+	}
 
 	@Override
     public boolean equals(Object o) {
@@ -258,7 +259,6 @@ public class InformacionPersonal implements Serializable {
             ", telefono='" + getTelefono() + "'" +
             ", discapacidad=" + getDiscapacidad() +
             ", redesSociales='" + getRedesSociales() + "'" +
-            ", licencenciaConduccion='" + isLicencenciaConduccion() + "'" +
             ", perfilProfesional='" + getPerfilProfesional() + "'" +
             "}";
     }

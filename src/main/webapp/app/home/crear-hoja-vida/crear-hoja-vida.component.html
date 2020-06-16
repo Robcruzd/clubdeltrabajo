@@ -206,15 +206,14 @@
                             <p class="estilo_label">{{labels.LICENCIA_CONDUCCION_LABEL}}</p>
                             <div class="input_group">
                                 <div class="file_upload_licence">
-                                    <!-- <input type="checkbox" class="checkbox" formControlName="licencenciaConduccion"> -->
-                                    <select class='name_file' formControlName="licencia">
-                                        <option [ngValue]="null" selected>{{labels.SELECCIONE_LABEL}}</option>
+                                    <select class='name_file' formControlName="tipoLicenciaConduccion">
+                                        <option [ngValue]="null" *ngIf="!formPersonal.get('tipoLicenciaConduccion')!.value" selected>{{labels.SELECCIONE_LABEL}}</option>
                                         <option
-                                            [ngValue]="licencia.id === formPersonal.get('tipoLicencia')!.value?.id ? formPersonal.get('tipoLicencia')!.value : licencia"
-                                            *ngFor="let licencia of licencias">
-                                            {{ licencia.nombreTipo }}
+                                            [ngValue]="licencia.codigo === formPersonal.get('tipoLicenciaConduccion')!.value ? formPersonal.get('tipoLicenciaConduccion')!.value : licencia.codigo"
+                                            *ngFor="let licencia of tipoLicenciaConduccion">
+                                            {{ licencia.codigo }}
                                         </option>
-                                    </select>
+                                    </select>                                       
                                     <input type="file" #licencia class="file"
                                         (change)="addArchivo($event, tipoArchivo.LICENCIA_CONDUCCION)" />
                                     <label for="file" class="label_file" (click)="licencia.click()">

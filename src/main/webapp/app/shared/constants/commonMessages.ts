@@ -121,5 +121,15 @@ export const commonMessages = {
   ERROR_IMAGEN_NO_SOPORTADA: 'Error, solo se permite subir imágenes',
   IMAGENES_SOPORTADAS: ['jpg', 'jpeg', 'png'],
   TAMANO_MAXIMO_PERMITIDO: 2000000, // 2MB
-  ERROR_TAMANO_EXCEDIDO: 'Error. Tamaño máximo permitodo 2MB'
+  ERROR_TAMANO_EXCEDIDO: 'Error. Tamaño máximo permitodo 2MB',
+  ARRAY_TIPOS_LICENCIA_CONDUCCION: [
+    { codigo: 'A1', descripcion: 'motocicletas de menos de 125 centímetros cúbicos' },
+    { codigo: 'A2', descripcion: 'motocicletas de más de 125 centímetros cúbicos' },
+    { codigo: 'B1', descripcion: 'automóviles, motocarros, cuatrimotos, camperos, camionetas y microbuses' },
+    { codigo: 'B2', descripcion: 'camiones rígidos, busetas y buses' },
+    { codigo: 'B3', descripcion: 'vehículos articulados y tractocamiones de servicio particular' },
+    { codigo: 'C1', descripcion: 'automóviles, motocarros, cuatrimotos, camperos, camionetas y microbuses' },
+    { codigo: 'C2', descripcion: 'camiones rígidos, busetas y buses' },
+    { codigo: 'C3', descripcion: 'vehículos articulados de servicio público' },
+  ],
 };
