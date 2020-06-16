@@ -103,6 +103,10 @@
             border-radius: 1rem;
             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
           }
+
+          .text_area:focus {
+            outline: none;
+          }
         }
 
         .boton_enviar {

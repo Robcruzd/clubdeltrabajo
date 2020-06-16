@@ -3,29 +3,54 @@
         <h2 class="estilo_titulo">Hablemos</h2>
         <div class="div_interno">
             <div class="column">
-                <div class="inputs">
-                    <label class="estilo_label" style="color: white;">Nombre</label>
-                    <input type="text" class="estilo_inputs">
-                </div>
-                <div class="inputs">
-                    <label class="estilo_label" style="color: white;">Apellidos</label>
-                    <input type="text" class="estilo_inputs">
-                </div>
-                <div class="inputs">
-                    <label class="estilo_label" style="color: white;">Email</label>
-                    <input type="text" class="estilo_inputs">
-                </div>
-                <div class="inputs">
-                    <label class="estilo_label" style="color: white;">Teléfono</label>
-                    <input type="text" class="estilo_inputs">
-                </div>
-                <div class="inputs">
-                    <label class="estilo_label" style="color: white;">Mensaje</label>
-                    <textarea class="text_area" rows="5"></textarea>
-                </div>
-                <button class="btn boton_enviar shadow-none"  style="color:white; " >Enviar</button>
+                <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+                    <div class="inputs">
+                        <label class="estilo_label" style="color: white;">Nombre *</label>
+                        <input type="text" class="estilo_inputs" formControlName="nombre">
+                        <div *ngIf="formulario.get('nombre')!.invalid && (formulario.get('nombre')!.dirty || formulario.get('nombre')!.touched)">
+                            <small class="form-text text-danger" *ngIf="formulario.get('nombre')?.errors?.required">
+                                Este campo es obligatorio.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="inputs">
+                        <label class="estilo_label" style="color: white;">Apellidos *</label>
+                        <input type="text" class="estilo_inputs" formControlName="apellidos">
+                        <div *ngIf="formulario.get('apellidos')!.invalid && (formulario.get('apellidos')!.dirty || formulario.get('apellidos')!.touched)">
+                            <small class="form-text text-danger" *ngIf="formulario.get('apellidos')?.errors?.required">
+                                Este campo es obligatorio.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="inputs">
+                        <label class="estilo_label" style="color: white;">Email *</label>
+                        <input type="text" class="estilo_inputs" formControlName="email">
+                        <div *ngIf="formulario.get('email')!.invalid && (formulario.get('email')!.dirty || formulario.get('email')!.touched)">
+                            <small class="form-text text-danger" *ngIf="formulario.get('email')?.errors?.required">
+                                Este campo es obligatorio.
+                            </small>
+                            <small class="form-text text-danger" *ngIf="formulario.get('email')?.errors?.email">
+                                El correo es inválido.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="inputs">
+                        <label class="estilo_label" style="color: white;">Teléfono</label>
+                        <input type="text" class="estilo_inputs" formControlName="telefono">
+                    </div>
+                    <div class="inputs">
+                        <label class="estilo_label" style="color: white;">Mensaje *</label>
+                        <textarea class="text_area" rows="5" formControlName="mensaje"></textarea>
+                        <div *ngIf="formulario.get('mensaje')!.invalid && (formulario.get('mensaje')!.dirty || formulario.get('mensaje')!.touched)">
+                            <small class="form-text text-danger" *ngIf="formulario.get('mensaje')?.errors?.required">
+                                Este campo es obligatorio.
+                            </small>
+                        </div>
+                    </div>
+                    <button class="btn boton_enviar shadow-none" [disabled]="formulario.invalid" style="color:white; ">Enviar</button>
+                </form>
             </div>
-            <div class="column" style="justify-content: space-between;">
+            <div class="column">
                 <div class="textos">
                     <h2 class="estilo_titulo">Teléfonos:</h2>
                     <p class="estilo_text">123 456 7890</p>

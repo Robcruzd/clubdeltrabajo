@@ -1,11 +1,8 @@
 package com.service;
 
-import com.domain.User;
-
-import io.github.jhipster.config.JHipsterProperties;
-
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
@@ -20,6 +17,11 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
+import com.domain.User;
+import com.domain.vo.InformacionEmpresaVo;
+
+import io.github.jhipster.config.JHipsterProperties;
+
 /**
  * Service for sending emails.
  * <p>
@@ -33,6 +35,8 @@ public class MailService {
     private static final String USER = "user";
 
     private static final String BASE_URL = "baseUrl";
+    
+    private static final String INFORMACION = "informacion";
 
     private final JHipsterProperties jHipsterProperties;
 
@@ -87,6 +91,20 @@ public class MailService {
         String subject = messageSource.getMessage(titleKey, null, locale);
         sendEmail(user.getEmail(), subject, content, false, true);
     }
+    
+    @Async
+    public void sendEmailFromTemplateCustom(Object object, String templateName, String titleKey) {
+        Locale locale = Locale.forLanguageTag("es");
+        Context context = new Context(locale);
+        String emailCt = "jbernaldelgado09@gmail.com";
+        context.setVariable(INFORMACION, object);
+        context.setVariable(BASE_URL, "http://localhost:9000");
+        // jHipsterProperties.getMail().getBaseUrl()
+        // "http://localhost:9000"
+        String content = templateEngine.process(templateName, context);
+        String subject = messageSource.getMessage(titleKey, null, locale);
+        sendEmail(emailCt, subject, content, false, true);
+    }
 
     @Async
     public void sendActivationEmail(User user) {
@@ -104,5 +122,11 @@ public class MailService {
     public void sendPasswordResetMail(User user) {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title");
+    }
+    
+    @Async
+    public void sendInformacionEmpresa(InformacionEmpresaVo informacionEmpresa) {
+        log.debug("Sending password reset email to '{}'", informacionEmpresa.getNombre() + ' ' + informacionEmpresa.getApellidos());
+        sendEmailFromTemplateCustom(informacionEmpresa, "mail/informacionEmpresaEmail", "informacionEmpresa.title");
     }
 }

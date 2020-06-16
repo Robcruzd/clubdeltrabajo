@@ -130,6 +130,8 @@ export const commonMessages = {
     { codigo: 'B3', descripcion: 'vehículos articulados y tractocamiones de servicio particular' },
     { codigo: 'C1', descripcion: 'automóviles, motocarros, cuatrimotos, camperos, camionetas y microbuses' },
     { codigo: 'C2', descripcion: 'camiones rígidos, busetas y buses' },
-    { codigo: 'C3', descripcion: 'vehículos articulados de servicio público' },
+    { codigo: 'C3', descripcion: 'vehículos articulados de servicio público' }
   ],
+  ENVIO_DATOS_CORRECTO: 'Datos enviados correctamente',
+  ENVIO_DATOS_ERROR: 'Error en el envío de datos'
 };
