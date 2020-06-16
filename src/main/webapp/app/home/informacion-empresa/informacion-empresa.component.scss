@@ -49,6 +49,18 @@
           .estilo_text {
             margin: 0rem;
           }
+
+          .iconos {
+            display: flex;
+            flex-direction: row;
+            margin-top: 0.5rem;
+
+            .icono {
+              width: 1.2rem;
+              height: 1.2rem;
+              margin-right: 0.5rem;
+            }
+          }
         }
 
         .inputs {
