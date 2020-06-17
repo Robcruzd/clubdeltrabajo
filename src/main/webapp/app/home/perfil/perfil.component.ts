@@ -11,6 +11,7 @@ import { HojaVidaService } from './../../shared/services/hoja-vida.service';
 import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { ApiService } from 'app/shared/services/api.service';
 import { IOpcionVo } from 'app/shared/vo/opcion-vo';
+import { Account } from 'app/core/user/account.model';
 
 declare let alertify: any;
 
@@ -33,6 +34,9 @@ export class PerfilComponent implements OnInit {
   hojaVidaVo!: HojaVidaVo | null;
   geografia: Array<GeografiaVo> = [];
   municipios: Array<IOpcionVo> = [];
+  account!: Account | null;
+  personaInicial!: number;
+  archivos!: Array<Archivo> | undefined;
 
   constructor(
     private router: Router,
@@ -40,7 +44,8 @@ export class PerfilComponent implements OnInit {
     private personaService: PersonaService,
     private service: HojaVidaService,
     private archivoService: ArchivoService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private hojaVidaService: HojaVidaService
   ) {}
 
   ngOnInit(): void {
@@ -48,6 +53,35 @@ export class PerfilComponent implements OnInit {
     this.cargarInformacionCuenta();
     this.cargarHojaVida();
     this.consultarInformacionGeografica();
+    this.cargarCuentaUsuario();
+  }
+
+  cargarCuentaUsuario(): void {
+    this.accountService.getAuthenticationState().subscribe(account => {
+      this.account = account;
+      this.personaInicial = this.account?.user || 0;
+      this.getHojaVida();
+    });
+  }
+
+  getHojaVida(): void {
+    this.hojaVidaService.find(this.personaInicial).subscribe(response => {
+      this.hojaVidaVo = response.body;
+      this.archivos = this.hojaVidaVo?.archivos;
+      this.imagen = this.archivos?.find(item => item.tipo === TipoArchivo.IMAGEN_PERFIL) || new Archivo();
+      if(this.hojaVidaVo?.informacionPersonal === null && this.imagen.archivo !== undefined){
+        alertify.alert('Atención!','Debe registrar su hoja de vida en el boton Editar Hoja de Vida').setting({
+          'label':'Aceptar'}).show();
+      }
+      else if(this.imagen.archivo === undefined && this.hojaVidaVo?.informacionPersonal === null){
+        alertify.alert('Atención!','Debe insertar su foto de perfil').setting({
+          'label':'Aceptar'}).show();
+      }
+      else if(this.hojaVidaVo?.informacionPersonal === null && this.imagen.archivo === undefined){
+        alertify.alert('Atención!','Debe insertar su foto de perfil y registrar su hoja de vida en el boton Editar Hoja de Vida').setting({
+          'label':'Aceptar'}).show();
+      }
+    });
   }
 
   obtenerIdUsuario(): Promise<any> {
