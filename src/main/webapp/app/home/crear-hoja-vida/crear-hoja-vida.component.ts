@@ -252,7 +252,7 @@ export class CrearHojaVidaComponent implements OnInit {
         redesSociales: hojaVida.informacionPersonal.redesSociales,
         perfilProfesional: hojaVida.informacionPersonal.perfilProfesional,
         tipoLicenciaConduccion: hojaVida.informacionPersonal.tipoLicenciaConduccion,
-        departamento: hojaVida.informacionPersonal.departamento,
+        departamento: hojaVida.informacionPersonal.departamento
       });
 
       // cargar perfil profesional
@@ -419,7 +419,7 @@ export class CrearHojaVidaComponent implements OnInit {
       telefono: this.formPersonal.get(['telefono'])!.value,
       discapacidad: this.formPersonal.get(['discapacidad'])!.value,
       redesSociales: this.procesarRedSocial(this.formPersonal.get(['redesSociales'])!.value),
-      tipoLicenciaConduccion : this.formPersonal.get(['tipoLicenciaConduccion'])!.value,
+      tipoLicenciaConduccion: this.formPersonal.get(['tipoLicenciaConduccion'])!.value,
       perfilProfesional: this.formPerfil.get(['perfilProfesional'])!.value,
       usuario: new Persona(this.persona)
     };
@@ -498,6 +498,8 @@ export class CrearHojaVidaComponent implements OnInit {
   consultarInformacionGeografica(): void {
     this.apiService.getInformacionGeografica().subscribe(geografia => {
       this.geografia = geografia;
+      const bogota = { codigoDpto: '100', nombreDpto: 'Bogotá D.C.', codigoMpio: '100000', nombreMpio: 'Bogotá D.C.' };
+      this.geografia.push(bogota);
       this.cargarDepartamentos();
       this.cargarMunicipios(0);
       this.cargarMunicipiosPersonal(0);
@@ -545,6 +547,8 @@ export class CrearHojaVidaComponent implements OnInit {
 
   cargarMunicipios(value: Object): void {
     this.municipios = [];
+    // eslint-disable-next-line no-console
+    console.log(this.geografia);
     if (value === 0) {
       this.municipios = this.geografia.map(item => {
         return {

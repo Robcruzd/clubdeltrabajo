@@ -58,12 +58,13 @@ export const commonMessages = {
   DEPENDENCIA_LABEL: 'Dependencia',
   ADJUNTE_CERTIFICADO_LABORAL_LABEL: 'Adjunte certificado laboral',
   ARRAY_DISCAPACIDADES: [
-    { codigo: 1, nombre: 'Discapacidad física' },
-    { codigo: 2, nombre: 'Discapacidad sensorial' },
-    { codigo: 3, nombre: 'Discapacidad intelectual' },
-    { codigo: 4, nombre: 'Discapacidad psíquica' },
-    { codigo: 5, nombre: 'Discapacidad visceral' },
-    { codigo: 6, nombre: 'Discapacidad múltiple' }
+    { codigo: 1, nombre: 'Ninguna' },
+    { codigo: 2, nombre: 'Discapacidad física' },
+    { codigo: 3, nombre: 'Discapacidad sensorial' },
+    { codigo: 4, nombre: 'Discapacidad intelectual' },
+    { codigo: 5, nombre: 'Discapacidad psíquica' },
+    { codigo: 6, nombre: 'Discapacidad visceral' },
+    { codigo: 7, nombre: 'Discapacidad múltiple' }
   ],
   PLACEHOLDER_DIA: 'DD',
   PLACEHOLDER_MES: 'MM',
