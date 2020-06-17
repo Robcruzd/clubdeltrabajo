@@ -3,11 +3,18 @@
     <div class="div_centro">
         <h3 class="titulo1">Bienvenido al club</h3>
         <p class="text">Si ya estás registrado inicia sesión.</p>
-        <input class="input_inicio_sesion" maxlength="50" type="text" 
-                name="username" [(ngModel)]="login.username" placeholder="Correo"
-                [ngModelOptions]="{standalone: true}">
-        <input class="input_inicio_sesion" maxlength="30" type="password" name="password" [(ngModel)]="login.password" placeholder="Contraseña"
-                  [ngModelOptions]="{standalone: true}">
+        <input class="input_inicio_sesion" maxlength="50" type="text" name="username" [(ngModel)]="login.username"
+            placeholder="Correo" [ngModelOptions]="{standalone: true}">
+        <small class="form-text text-danger" style="margin-top: 0px;" *ngIf="usernameInvalid">
+            Este campo es obligatorio.
+        </small>
+        <br>
+        <input class="input_inicio_sesion" maxlength="30" type="password" name="password" [(ngModel)]="login.password"
+            placeholder="Contraseña" [ngModelOptions]="{standalone: true}">
+        <small class="form-text text-danger" style="margin-top: 0px;" *ngIf="passwordInvalid">
+            Este campo es obligatorio.
+        </small>
+        <br>
         <button class="button_iniciar_sesion" (click)="ventanaPerfil()">Iniciar sesión</button>
         <a class="recoverPassword" (click)="ventanaRecuperar()">Olvidaste tu contraseña?</a>
         <p class="goRegister">¿No te has registrado? <a (click)="ventanaRegistrar()">Hazlo aquí</a></p>
