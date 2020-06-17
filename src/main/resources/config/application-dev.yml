@@ -47,7 +47,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/ctproject
     username: postgres
-    password:
+    password: Maldit4se4R
     hikari:
       poolName: Hikari
       auto-commit: false
