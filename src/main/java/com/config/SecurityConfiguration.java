@@ -65,7 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .headers()
             .contentSecurityPolicy("default-src 'self' https://www.datos.gov.co https://restcountries.eu;"+
                 "frame-src 'self' https: data:;"+
-                "script-src 'self' 'unsafe-inline' 'unsafe-eval' http://cdn.jsdelivr.net https://storage.googleapis.com;"+
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com http://cdn.jsdelivr.net https://storage.googleapis.com;"+
                 "style-src 'self' 'unsafe-inline' http://cdn.jsdelivr.net  https://fonts.googleapis.com;"+
                 "img-src 'self' data:;"+
                 "font-src 'self' https://fonts.gstatic.com data:;")
