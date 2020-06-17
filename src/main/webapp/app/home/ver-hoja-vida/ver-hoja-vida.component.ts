@@ -180,7 +180,7 @@ export class VerHojaVidaComponent implements OnInit {
                   ]
                 },
                 {
-                  fillColor: '#304580',
+                  fillColor: '#1A2050',
                   table: {
                     body: [
                       [

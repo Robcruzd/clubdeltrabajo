@@ -13,30 +13,50 @@ declare let alertify: any;
 export class InicioSesionComponent implements OnInit {
   username = '';
   password = '';
-  login = new Login(this.username,this.password,false);
+  usernameInvalid = false;
+  passwordInvalid = false;
+  login = new Login(this.username, this.password, false);
 
-  constructor(private router: Router,private loginService: LoginService) {}
+  constructor(private router: Router, private loginService: LoginService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  ventanaRegistrar(): void{
+  ventanaRegistrar(): void {
     this.router.navigate(['/agregar-usuario']);
   }
 
-  ventanaPerfil(): void{
-    this.login.rememberMe = false;
-    this.loginService.login(this.login).subscribe(
+  ventanaPerfil(): void {
+    this.usernameInvalid = false;
+    this.passwordInvalid = false;
+    if (this.login.username.length === 0) {
+      this.usernameInvalid = true;
+    }
+    if (this.login.password.length === 0) {
+      this.passwordInvalid = true;
+    }
+    if (!this.usernameInvalid && !this.passwordInvalid) {
+      this.login.rememberMe = false;
+      this.loginService.login(this.login).subscribe(
         () => {
           this.router.navigate(['/perfil']);
         },
-        () => (alertify.set('notifier','position', 'top-right'),
-        alertify.error('Fallo ingreso!'))
+        error => this.validarError(error.error)
       );
+    }
   }
 
-  ventanaRecuperar(): void{
+  ventanaRecuperar(): void {
     this.router.navigate(['/restaurar-contrasena']);
   }
 
+  validarError(error: any): void {
+    if (error.detail === 'Credenciales erróneas') {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error('Credenciales erróneas!');
+    } else {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error('Fallo en el inicio de sesión!');
+    }
+    this.router.navigate(['/inicio-sesion']);
+  }
 }
