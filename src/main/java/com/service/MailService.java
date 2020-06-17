@@ -84,7 +84,7 @@ public class MailService {
         Locale locale = Locale.forLanguageTag(user.getLangKey());
         Context context = new Context(locale);
         context.setVariable(USER, user);
-        context.setVariable(BASE_URL, "http://localhost:9000");
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         // jHipsterProperties.getMail().getBaseUrl()
         // "http://localhost:9000"
         String content = templateEngine.process(templateName, context);
@@ -98,7 +98,7 @@ public class MailService {
         Context context = new Context(locale);
         String emailCt = "jbernaldelgado09@gmail.com";
         context.setVariable(INFORMACION, object);
-        context.setVariable(BASE_URL, "http://localhost:9000");
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         // jHipsterProperties.getMail().getBaseUrl()
         // "http://localhost:9000"
         String content = templateEngine.process(templateName, context);

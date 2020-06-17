@@ -35,7 +35,7 @@
                     <fa-icon icon="bell" style="margin-right: 5px; display: none;"></fa-icon>
                     {{lblVerOfertas}}
                 </button>
-                <button (click)="editarHojaVida()" class="btn ml-auto shadow-none boton-base boton-editar-hv">
+                <button (click)="editarHojaVida()" class="btn ml-auto shadow-none boton-base boton-busca-empleo">
                     <fa-icon icon="id-card" style="margin-right: 5px;"></fa-icon>
                     {{lblEditarHojaVida}}
                 </button>
@@ -45,28 +45,32 @@
                 <a href="https://www.contraloria.gov.co/" target="_blank"><img class="contraloria" src="../../../content/images/Image 30.png"></a>
                 <a href="https://www.policia.gov.co/" target="_blank"><img class="policia" src="../../../content/images/Image 31.png"></a>
             </div>
+            <div class="row" style="justify-content: space-around; width: 60%;">
+                <a href="https://srvcnpc.policia.gov.co/PSC/frm_cnp_consulta.aspx" target="_blank"><img class="procuraduria" src="../../../content/images/medidas-correctivas.jpg"></a>
+                <a href="https://consulta2.simit.org.co/Simit/indexA.jsp" target="_blank"><img class="contraloria" src="../../../content/images/sim.jpg"></a>
+            </div>
         </div>
         <div class="column2">
-            <h2 class="titulo">{{persona?.nombre}} {{persona?.apellido}}</h2>
-            <p class="texto-hoja-vida">{{hojaVidaVo?.informacionPersonal?.perfilProfesional}}</p><br><br>
+            <h2 class="titulo color-letra">{{persona?.nombre}} {{persona?.apellido}}</h2>
+            <p class="texto-hoja-vida color-letra">{{hojaVidaVo?.informacionPersonal?.perfilProfesional}}</p><br><br>
             <div *ngIf="hojaVidaVo?.experienciaLaboral.length > 0" class="experiencias">
-                <h4 class="titulo-experiencia">EXPERIENCIA LABORAL</h4><br>
+                <h4 class="titulo-experiencia color-letra">EXPERIENCIA LABORAL</h4><br>
                 <div *ngFor="let item of hojaVidaVo?.experienciaLaboral">
                     <div style="display: flex;">
-                        <fa-icon icon="building" class="icono_experiencia"></fa-icon>
-                        <p class="texto-experiencia">{{item?.nombreEmpresa}}</p>
+                        <fa-icon icon="building" class="icono_experiencia color-letra"></fa-icon>&nbsp;
+                        <p class="texto-experiencia color-letra">{{item?.nombreEmpresa}}</p>
                     </div>
                     <div style="display: flex;">
-                        <fa-icon icon="user-tie" class="icono_experiencia"></fa-icon>
-                        <p class="texto-experiencia">{{item?.cargo?.cargo}}</p>
+                        <fa-icon icon="user-tie" class="icono_experiencia color-letra"></fa-icon>&nbsp;
+                        <p class="texto-experiencia color-letra">{{item?.cargo?.cargo}}</p>
                     </div>
                     <div style="display: flex;">
-                        <fa-icon icon="thumbtack" class="icono_experiencia"></fa-icon>
-                        <p class="texto-experiencia">{{item?.fechaInicio}} / {{item?.fechaFin}}</p>
+                        <fa-icon icon="thumbtack" class="icono_experiencia color-letra"></fa-icon>&nbsp;
+                        <p class="texto-experiencia color-letra">{{item?.fechaInicio}} / {{item?.fechaFin}}</p>
                     </div>
                     <div *ngIf="item?.ciudad || item.ciudadExtranjera" style="display: flex; margin-bottom: 20px;">                        
-                        <fa-icon icon="globe-americas" class="icono_experiencia"></fa-icon>
-                        <p class="texto-experiencia">{{item.ciudad ? this.getCiudad(item.ciudad + '') : item.ciudadExtranjera}}</p>
+                        <fa-icon icon="globe-americas" class="icono_experiencia color-letra"></fa-icon>&nbsp;
+                        <p class="texto-experiencia color-letra">{{item.ciudad ? this.getCiudad(item.ciudad + '') : item.ciudadExtranjera}}</p>
                     </div>
                 </div>
             </div>

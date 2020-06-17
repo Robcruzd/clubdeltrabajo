@@ -117,7 +117,7 @@ public class InformacionPersonalQueryService extends QueryService<InformacionPer
                     root -> root.join(InformacionPersonal_.usuario, JoinType.LEFT).get(Persona_.id)));
             }
             if (criteria.getTipoLicenciaConduccion() != null) {
-                specification = specification.and(buildSpecification(criteria.getTipoLicenciaConduccion(), InformacionPersonal_.licenciaConduccion));
+                specification = specification.and(buildSpecification(criteria.getTipoLicenciaConduccion(), InformacionPersonal_.tipoLicenciaConduccion));
             }
         }
         return specification;
