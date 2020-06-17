@@ -110,7 +110,7 @@ export const commonMessages = {
   INGRESE_VALOR_LABEL: 'Ingrese ',
   DIRECCION_RED_SOCIAL: 'Dirección red social ',
   NOMBRE_ARCHIVO_DEFAULT: 'archivo',
-  RECUPERACION_PASSWORD_LABEL: 'Revise su correo electrónico para obtener más ' + 'información sobre cómo restablecer su contraseña.',
+  RECUPERACION_PASSWORD_LABEL: 'Revise su correo electrónico para obtener más ' + 'información sobre cómo restablecer su contraseña.' + 'si no te llegó dicho correo(no olvides revisar tu correo no deseado)',
   CORREO_NO_EXISTE_LABEL: 'El correo electrónico ingresado no pertenece a ningún usuario. ' + 'Digite nuevamente.',
   FALTA_CLAVE_REINICIO_LABEL: 'Falta clave de reinicio.',
   LONGITUD_MINIMA_PASSWORD: 'La longitud mínima debe ser 4 caracteres.',
