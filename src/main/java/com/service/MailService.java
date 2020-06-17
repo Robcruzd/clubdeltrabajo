@@ -84,6 +84,7 @@ public class MailService {
         Locale locale = Locale.forLanguageTag(user.getLangKey());
         Context context = new Context(locale);
         context.setVariable(USER, user);
+        System.out.println("Templaaaaaaaaaaaaate: "+jHipsterProperties.getMail());
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         // jHipsterProperties.getMail().getBaseUrl()
         // "http://localhost:9000"

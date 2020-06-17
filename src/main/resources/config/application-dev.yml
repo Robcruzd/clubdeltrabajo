@@ -67,7 +67,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: jbdnetflix2020@gmail.com
-    password: Jnetflix
+    password: afudpvxluuaekqsk
     protocol: smtp
     tls: true
     properties.mail.smtp:
