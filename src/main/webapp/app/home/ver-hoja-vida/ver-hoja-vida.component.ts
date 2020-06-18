@@ -321,7 +321,7 @@ export class VerHojaVidaComponent implements OnInit {
               w: this.getPorcentaje(item.nivel || 'BA'),
               h: 10,
               r: 6,
-              color: '#1a9fff'
+              color: '#1A2050'
             }
           ]
         }
@@ -387,13 +387,13 @@ export class VerHojaVidaComponent implements OnInit {
                   x2: 10,
                   y2: 600,
                   lineWidth: 2,
-                  color: '#1a9fff'
+                  color: '#1A2050'
                 },
                 {
                   type: 'ellipse',
                   x: 10,
                   y: 35,
-                  color: '#1a9fff',
+                  color: '#1A2050',
                   r1: 10,
                   r2: 10
                 },
@@ -401,7 +401,7 @@ export class VerHojaVidaComponent implements OnInit {
                   type: 'ellipse',
                   x: 10,
                   y: 215,
-                  color: '#1a9fff',
+                  color: '#1A2050',
                   r1: 10,
                   r2: 10
                 },
@@ -409,7 +409,7 @@ export class VerHojaVidaComponent implements OnInit {
                   type: 'ellipse',
                   x: 10,
                   y: 415,
-                  color: '#1a9fff',
+                  color: '#1A2050',
                   r1: 10,
                   r2: 10
                 },
@@ -417,7 +417,7 @@ export class VerHojaVidaComponent implements OnInit {
                   type: 'ellipse',
                   x: 10,
                   y: 575,
-                  color: '#1a9fff',
+                  color: '#1A2050',
                   r1: 10,
                   r2: 10
                 }
