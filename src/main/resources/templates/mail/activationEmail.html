@@ -13,9 +13,9 @@
         <p th:text="#{email.activation.text1}">
             Your JHipster account has been created, please click on the URL below to activate it:
         </p>
-        <div style="position: relative; text-align: center">
-            <img th:src="@{|${baseUrl}/content/images/Bienvenido2.jpg|}" width="400px" height="500px"/>
-            <div style="font-size: 10px; position: absolute; top: 83%; left: 50%; transform: translate(-50%, -50%)">
+        <div style="text-align: center; position: relative">
+            <img th:src="@{|${baseUrl}/content/images/Bienvenido.jpg|}" width="400px" height="500px"/>
+            <div style="display: none; font-size: 10px; position: absolute; top: 83%; left: 50%; transform: translate(-50%, -50%)">
                 <p th:text="'Usuario: ' + ${user.login}"></p>
                 <p th:text="'Contraseña: ' + ${user.password}"></p>
             </div>
