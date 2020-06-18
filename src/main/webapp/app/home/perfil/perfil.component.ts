@@ -73,7 +73,7 @@ export class PerfilComponent implements OnInit {
         alertify.alert('Atención!','Debe registrar su hoja de vida en el boton Editar Hoja de Vida').setting({
           'label':'Aceptar'}).show();
       }
-      else if(this.imagen.archivo === undefined && this.hojaVidaVo?.informacionPersonal === null){
+      else if(this.imagen.archivo === undefined && this.hojaVidaVo?.informacionPersonal !== null){
         alertify.alert('Atención!','Debe insertar su foto de perfil').setting({
           'label':'Aceptar'}).show();
       }
