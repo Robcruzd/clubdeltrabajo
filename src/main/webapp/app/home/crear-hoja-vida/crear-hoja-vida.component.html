@@ -46,7 +46,7 @@
                                     <label class='label_file' for="file">
                                         <fa-icon icon="images" class="float-right"></fa-icon>
                                     </label>
-                                    <input type="file" #tipodocumento class='file' 
+                                    <input type="file" #tipodocumento class='file' accept=".png, .jpeg, .jpg, .pdf"
                                         (change)="addArchivo($event, tipoArchivo.DOCUMENTO_IDENTIDAD)" />
                                 </div>
                                 <small *ngIf="false" id="emailHelp"
@@ -214,7 +214,7 @@
                                             {{ licencia.codigo }}
                                         </option>
                                     </select>                                       
-                                    <input type="file" #licencia class="file"
+                                    <input type="file" #licencia class="file" accept=".png, .jpeg, .jpg, .pdf"
                                         (change)="addArchivo($event, tipoArchivo.LICENCIA_CONDUCCION)" />
                                     <label for="file" class="label_file" (click)="licencia.click()">
                                         <fa-icon icon="images" class="float-right"></fa-icon>
@@ -270,7 +270,7 @@
                     </div>
                     <div class="column">
                         <button type="button" class="btn boton_siguiente text-white float-right"
-                            
+                        [disabled]="formPersonal.invalid" 
                             (click)="nextStep()">
                             {{labels.SIGUIENTE_LABEL}}
                         </button>
@@ -401,7 +401,7 @@
                                             <label for="file" class="label_file">
                                                 <fa-icon icon="images" class="float-right"></fa-icon>
                                             </label>
-                                            <input class='file' type="file" accept=".png, .jpeg, .jpg" #certificadoestudio
+                                            <input class='file' type="file" accept=".png, .jpeg, .jpg, .pdf" #certificadoestudio
                                                 (change)="addArchivo($event, tipoArchivo.CERTIFICADO_ESTUDIO)">
                                     </div>
                                 </div>
