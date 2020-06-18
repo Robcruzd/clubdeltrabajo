@@ -83,7 +83,7 @@ export class CrearHojaVidaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (!this.accountService.isAuthenticated) {
+    if (!this.accountService.isAuthenticated()) {
       this.router.navigate(['/']);
       return;
     }

@@ -95,7 +95,9 @@ public class AccountResource {
         Persona result = personaService.save(usuarioVo.getPersona());
         usuarioVo.getUsuario().setUser(result.getId());
         User user = userService.registerUser(usuarioVo.getUsuario(), usuarioVo.getUsuario().getPassword());
-        mailService.sendActivationEmail(user);
+        User userEmail = user;
+        userEmail.setPassword(usuarioVo.getUsuario().getPassword());
+        mailService.sendActivationEmail(userEmail);
         return ResponseEntity.created(new URI("/api/personas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);

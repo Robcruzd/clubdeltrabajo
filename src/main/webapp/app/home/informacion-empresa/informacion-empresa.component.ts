@@ -1,3 +1,4 @@
+import { AccountService } from './../../core/auth/account.service';
 import { Router } from '@angular/router';
 import { commonMessages } from './../../shared/constants/commonMessages';
 import { InformacionEmpresaService } from './../../shared/services/informacion-empresa.service';
@@ -16,9 +17,18 @@ export class InformacionEmpresaComponent implements OnInit {
   formulario!: FormGroup;
   informacionEmpresaVo!: InformacionEmpresaVo | null;
 
-  constructor(private fb: FormBuilder, private informacionEmpresaService: InformacionEmpresaService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private informacionEmpresaService: InformacionEmpresaService,
+    private router: Router,
+    private accountService: AccountService
+  ) {}
 
   ngOnInit(): void {
+    if (!this.accountService.isAuthenticated()) {
+      this.router.navigate(['/']);
+      return;
+    }
     this.crearFormulario();
   }
 
@@ -45,7 +55,7 @@ export class InformacionEmpresaComponent implements OnInit {
           alertify.set('notifier', 'position', 'top-right');
           alertify.success(commonMessages.ENVIO_DATOS_CORRECTO);
           this.informacionEmpresaVo = response.body;
-          this.router.navigate(['/']);
+          this.router.navigate(['/perfil']);
         }
       },
       () => {
