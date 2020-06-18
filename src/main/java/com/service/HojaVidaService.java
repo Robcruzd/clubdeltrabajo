@@ -143,20 +143,22 @@ public class HojaVidaService {
 				pdfMergerUtility.addSource(inputStreamItems);
 			}
 			else {
-				PDDocument documento = new PDDocument();
-				ByteArrayOutputStream out = new ByteArrayOutputStream();
-				PDPage page = new PDPage();
-				documento.addPage(page);
-				PDPageContentStream contents = new PDPageContentStream(documento, page);
-				ByteArrayInputStream bais = new ByteArrayInputStream(bytesItems);
-				BufferedImage bim = ImageIO.read(bais);
-				PDImageXObject pdImage = LosslessFactory.createFromImage(documento, bim);
-				contents.drawImage(pdImage, 70, 250);
-		        contents.close();
-		        documento.save(out);
-		        documento.close();
-		        ByteArrayInputStream inputStreamImages = new ByteArrayInputStream(out.toByteArray());
-				pdfMergerUtility.addSource(inputStreamImages);
+				if(item.getTipo() != 5) {
+					PDDocument documento = new PDDocument();
+					ByteArrayOutputStream out = new ByteArrayOutputStream();
+					PDPage page = new PDPage();
+					documento.addPage(page);
+					PDPageContentStream contents = new PDPageContentStream(documento, page);
+					ByteArrayInputStream bais = new ByteArrayInputStream(bytesItems);
+					BufferedImage bim = ImageIO.read(bais);
+					PDImageXObject pdImage = LosslessFactory.createFromImage(documento, bim);
+					contents.drawImage(pdImage, 70, 250);
+			        contents.close();
+			        documento.save(out);
+			        documento.close();
+			        ByteArrayInputStream inputStreamImages = new ByteArrayInputStream(out.toByteArray());
+					pdfMergerUtility.addSource(inputStreamImages);
+				}
 			}
 		}
 		pdfMergerUtility.setDestinationStream(outputStream);

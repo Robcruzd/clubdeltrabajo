@@ -757,8 +757,9 @@
                     <div class="column">
                         <button type="submit" class="btn boton_siguiente text-white float-right"
                             [disabled]="false">
-                            {{labels.GUARDAR_LABEL}}
-                        </button>
+                            <div *ngIf="cargando">{{labels.GUARDAR_LABEL}}</div>
+                            <span *ngIf="!cargando" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>    
+                        </button>      
                     </div>
                 </div>
             </div>

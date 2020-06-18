@@ -68,6 +68,7 @@ export class CrearHojaVidaComponent implements OnInit {
   persona!: number;
   redesSociales: Array<IOpcionVo> = commonMessages.ARRAY_REDES_SOCIALES;
   redSocial = ' ';
+  cargando = true;
 
   constructor(
     private fb: FormBuilder,
@@ -348,6 +349,7 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.cargando = false;
     this.hojaVidaVo = new HojaVidaVo();
 
     // cargar informacion personal
