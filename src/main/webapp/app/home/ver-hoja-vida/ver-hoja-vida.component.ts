@@ -164,7 +164,7 @@ export class VerHojaVidaComponent implements OnInit {
                 {
                   image: this.imagen?.archivo || USER_DEFAULT,
                   width: 100,
-                  height: 100
+                  height: 90
                 },
                 {
                   type: 'none',
@@ -187,12 +187,12 @@ export class VerHojaVidaComponent implements OnInit {
                         {
                           image: LOCATION_BASE64,
                           alignment: 'center',
-                          fit: [25, 25],
-                          margin: [0, 7]
+                          fit: [20, 20],
+                          margin: [0, 2]
                         },
                         {
                           text: this.hojaVidaVo?.informacionPersonal.direccionResidencia,
-                          style: 'header'
+                          style: 'headerInfo'
                         }
                       ],
                       [
@@ -200,12 +200,12 @@ export class VerHojaVidaComponent implements OnInit {
                           image: INBOX_BASE64,
                           alignment: 'center',
                           fit: [20, 20],
-                          margin: [0, 7]
+                          margin: [0, 2]
                         },
                         {
                           text: this.hojaVidaVo?.persona.email,
-                          style: 'header',
-                          margin: [0, 5, 12, 0]
+                          style: 'headerInfo',
+                          margin: [0, 0, 12, 0]
                         }
                       ],
                       [
@@ -213,11 +213,11 @@ export class VerHojaVidaComponent implements OnInit {
                           image: PHONE_BASE64,
                           alignment: 'center',
                           fit: [20, 20],
-                          margin: [0, 7]
+                          margin: [0, 2]
                         },
                         {
                           text: this.hojaVidaVo?.informacionPersonal.telefono,
-                          style: 'header'
+                          style: 'headerInfo'
                         }
                       ]
                     ]
@@ -237,6 +237,12 @@ export class VerHojaVidaComponent implements OnInit {
           bold: true,
           alignment: 'justify',
           margin: [0, 10, 0, 0]
+        },
+        headerInfo: {
+          fontSize: 15,
+          bold: true,
+          alignment: 'justify',
+          margin: [0, 2, 0, 0]
         },
         headernames: {
           fontSize: 30,
