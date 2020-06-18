@@ -97,7 +97,7 @@ public class MailService {
     public void sendEmailFromTemplateCustom(Object object, String templateName, String titleKey) {
         Locale locale = Locale.forLanguageTag("es");
         Context context = new Context(locale);
-        String emailCt = "jbernaldelgado09@gmail.com";
+        String emailCt = "infoclubdeltrabajo@gmail.com";
         context.setVariable(INFORMACION, object);
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         // jHipsterProperties.getMail().getBaseUrl()
