@@ -1,14 +1,14 @@
-<div class="navbar">
+<div class="navbar-ct">
     <img class="logo" [routerLink]="['/']" src="../../../content/images/logo_empresa.png">
-    <div class="opciones">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <div class="navbar-nav" [ngStyle]="{'visibility' : showElement ? 'visible' : 'hidden'}">
+    <!-- <div class="opciones"> -->
+        <nav class="nav-navbar">
+            <!-- <div class="collapse navbar-collapse" id="navbarNavAltMarkup"> -->
+                <!-- <div class="navbar-nav"> -->
+                    <div class="opciones" [ngStyle]="{'visibility' : showElement ? 'visible' : 'hidden'}">
                         <a *ngFor="let item of lstOpcionesMenu" class="nav-item nav-link item"
                             [routerLink]="[item.ruta]">{{item.etiqueta}}</a>
                     </div>
-                    <div ngbDropdown *ngIf="logged" style="display: inline-flex; margin-left: 150px;">
+                    <div ngbDropdown *ngIf="logged" style="display: inline-flex;">
                         <p class="nombreUsuario">¡Hola {{account?.firstName}}!</p>
                         <img class="perfil dropdown-toggle rounded-circle" ngbDropdownToggle href="javascript:void(0);"
                             id="account-menu" [src]="imagen?.archivo || urlImageDefault">
@@ -26,8 +26,8 @@
                     </div>
                     <button *ngIf="!logged" class="btn shadow-none boton-ingresar"
                         (click)="ventanaInicioSesion()">{{lblIngresar}}</button>
-                </div>
-            </div>
+                <!-- </div> -->
+            <!-- </div> -->
         </nav>
-    </div>
+    <!-- </div> -->
 </div>

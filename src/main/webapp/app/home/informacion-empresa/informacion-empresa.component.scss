@@ -93,13 +93,6 @@
             outline: none;
           }
 
-          .estilo_imagen {
-            height: 100%;
-            bottom: 0rem;
-            background: transparent 0% 0% no-repeat padding-box;
-            mix-blend-mode: lighten;
-          }
-
           .text_area {
             display: block;
             width: 100%;
@@ -119,6 +112,22 @@
           .text_area:focus {
             outline: none;
           }
+
+          .estilo_campo_requerido {
+            text-align: left;
+            margin-bottom: 0.5rem;
+            font: Regular 23px/27px Arial;
+            letter-spacing: 0px;
+            color: #fd2b4c;
+            opacity: 1;
+          }
+        }
+
+        .estilo_imagen {
+          height: 100%;
+          bottom: 0rem;
+          background: transparent 0% 0% no-repeat padding-box;
+          mix-blend-mode: lighten;
         }
 
         .boton_enviar {
