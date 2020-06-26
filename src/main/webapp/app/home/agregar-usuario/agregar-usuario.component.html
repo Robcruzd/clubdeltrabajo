@@ -1,75 +1,91 @@
 <body class="estilo_body">
     <div class="div_centro">
         <p class="estilo_titulo">Regístrate y entra al club.</p>
-        <div class="typePersona">
-            <label style="color: white;">Persona Natural </label><input type="radio" value="1" name="usuario" [(ngModel)]="tipoUsuario.id" ngChecked="true" />
-            <label style="color: white; display: none;">Persona Juridica </label><input style="display: none;" type="radio" value="juridica" name="usuario" ngModel>
+        <div class="inputs" style="text-align: center; display: none;">
+            <div class="typePersona">
+                <label style="color: white; ">Persona Natural </label>
+                <input type="radio" value="1" name="usuario" [(ngModel)]="tipoUsuario.id" ngChecked="true" />
+                <label style="color: white; display: none;">Persona Jurídica </label>
+                <input style="display: none;" type="radio" value="juridica" name="usuario" ngModel>
+            </div>
+            <small *ngIf="mensajeTipoPersona" class="text-danger">
+                {{mensajeTipoPersona}}
+            </small>
         </div>
         <div class="inputs">
             <label style="color: white;">Nombre</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="persona.nombre"  (ngModelChange)="persona.nombre = $event.toUpperCase()">
-            <label *ngIf="mensajeNombre" class="text-danger">
+            <small *ngIf="mensajeNombre" class="text-danger">
                 {{mensajeNombre}}
-            </label>
+            </small>
         </div>
         <div class="inputs">
             <label style="color: white;">Apellidos</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="persona.apellido" (ngModelChange)="persona.apellido = $event.toUpperCase()">
-            <label *ngIf="mensajeApellido" class="text-danger">
+            <small *ngIf="mensajeApellido" class="text-danger">
                 {{mensajeApellido}}
-            </label>
+            </small>
         </div>
         <div class="inputs">
-            <label style="color: white;">Email</label>
+            <label style="color: white;">Correo Electrónico</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="persona.email">
-            <label *ngIf="mensajeEmail" class="text-danger">
+            <small *ngIf="mensajeEmail" class="text-danger">
                 {{mensajeEmail}}
-            </label>
+            </small>
         </div>
         <div class="inputs">
             <div>
-                <label style="color: white;">Numero de Documento</label>
+                <label style="color: white;">Número de Documento</label>
             </div>
             <div class="row_documento">
                 <select class="select_documento" [(ngModel)]="tipoDocumento.id">
-                    <option [ngValue]="null" disabled>Seleccione un tipo</option>
+                    <option [ngValue]="null" class="option_docu" disabled>Seleccione un tipo</option>
                     <option
+                        class="option_docu"
                         [ngValue]="documento.id"
                         *ngFor="let documento of documentos">
                         {{ documento.nombreTipo }}
                     </option>
                 </select>
-                <input type="number" class="input_documento" [(ngModel)]="persona.numeroDocumento">
+                <div *ngIf="tipoDocumento.id===4" class="input_documento">
+                    <input type="text" class="input_documento" style="width: 100%;" [(ngModel)]="persona.numeroDocumento">
+                </div>
+                <div *ngIf="tipoDocumento.id!==4" class="input_documento">
+                    <input type="number" class="input_documento" style="width: 100%;" [(ngModel)]="persona.numeroDocumento">
+                </div>
             </div>
-            <label *ngIf="mensajeNumDoc" class="text-danger">
+            <small *ngIf="mensajeNumDoc" class="text-danger">
                 {{mensajeNumDoc}}
-            </label>
+            </small>
         </div>
         <div class="inputs">
             <label style="color: white;">Contraseña</label>
             <input type="password" class="estilo_inputs" [(ngModel)]="user.password">
-            <label *ngIf="mensajeClave" class="text-danger">
+            <small *ngIf="mensajeClave" class="text-danger">
                 {{mensajeClave}}
-            </label>
+            </small>
         </div>
         <div class="inputs">
             <label style="color: white;">Confirmar Contraseña</label>
             <input type="password" class="estilo_inputs" [(ngModel)]="ConfirmarClave">
-            <label *ngIf="mensajeConfClave" class="text-danger">
+            <small *ngIf="mensajeConfClave" class="text-danger">
                 {{mensajeConfClave}}
-            </label>
+            </small>
         </div>
-        <button class="btn boton_registrar shadow-none"  style="color:white; " [(disabled)]="!condiciones" (click)="onCrearUsuario()">Registrarme</button>
-        <div class="terminos">
-            <input type="radio" value="terminos" name="terminos" [(ngModel)]="condiciones" >
-            <label class="label-terminos" style="color: white;">Acepto los 
-                <a style="color: #03ECFF;" (click)="openScrollableContent(longContent)">Términos, Condiciones y Póliticas de Privacidad.</a>
-            </label>
+        <button class="btn boton_registrar shadow-none"  style="color:white; " (click)="onCrearUsuario()">Registrarme</button>
+        <div class="inputs" style="align-items: center;">
+            <div class="terminos">
+                <input type="radio" value="terminos" name="terminos" [(ngModel)]="condiciones" class="radioB" ngChecked="true"/>
+                <label class="label-terminos" style="color: white;">Acepto los 
+                    <a style="color: #03ECFF;" (click)="openScrollableContent(longContent)">Términos, Condiciones y Políticas de Privacidad.</a>
+                </label>
+            </div>
+            <small *ngIf="mensajeTerminos" class="text-danger">
+                {{mensajeTerminos}}
+            </small>
         </div>
         <a class="ya-registrado" style="color: #03ECFF;" (click)="ventanaInicioSesionRegistrado()">¡Ya estoy registrado!</a>
-       
     </div>
-
 </body>
 
 <ng-template #longContent let-modal>

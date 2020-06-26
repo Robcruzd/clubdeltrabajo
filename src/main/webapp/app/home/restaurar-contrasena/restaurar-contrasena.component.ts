@@ -44,6 +44,10 @@ export class RestaurarContrasenaComponent implements OnInit {
     }
   }
 
+  ventanaInicioSesionRegistrado(): void {
+    this.router.navigate(['/inicio-sesion']);
+  }
+
   validarRespuesta(): void {
     if (this.respuesta) {
       this.success = true;

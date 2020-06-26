@@ -31,6 +31,8 @@ export class AgregarUsuarioComponent implements OnInit {
   mensajeNumDoc: any;
   mensajeClave: any;
   mensajeConfClave: any;
+  mensajeTipoPersona: any;
+  mensajeTerminos: any;
   validacionIncorrecta: any = false;
   condiciones: any;
   personaNatural: any;
@@ -53,6 +55,10 @@ export class AgregarUsuarioComponent implements OnInit {
 
   onCrearUsuario(): void {
     const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const NOMBRE_REGEX = /^[A-ZÑÁÉÍÓÚ ]{1,30}$/;
+    const CONTRASENA_REGEX = /.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*/;
+    const PASAPORTE_REGEX = /^[0-9,A-Z,a-z]{6,11}$/;
+    const CEDULA_REGEX = /^[0-9]{6,10}$/;
     this.validacionIncorrecta = false;
     this.mensajeNombre = '';
     this.mensajeApellido = '';
@@ -60,9 +66,23 @@ export class AgregarUsuarioComponent implements OnInit {
     this.mensajeNumDoc = '';
     this.mensajeClave = '';
     this.mensajeConfClave = '';
+    this.mensajeTipoPersona = '';
+    this.mensajeTerminos = '';
 
+    // if (!this.tipoUsuario.id) {
+    //   this.mensajeTipoPersona = "*Seleccione tipo de persona";
+    //   this.validacionIncorrecta = true;
+    // }
+    if (!this.persona.nombre?.match(NOMBRE_REGEX)) {
+      this.mensajeNombre = 'El nombre contine carácteres no permitidos';
+      this.validacionIncorrecta = true;
+    }
     if (!this.persona.nombre) {
       this.mensajeNombre = commonMessages.CAMPO_REQUERIDO;
+      this.validacionIncorrecta = true;
+    }
+    if (!this.persona.apellido?.match(NOMBRE_REGEX)) {
+      this.mensajeApellido = 'El apellido contiene carácteres no permitidos';
       this.validacionIncorrecta = true;
     }
     if (!this.persona.apellido) {
@@ -81,6 +101,24 @@ export class AgregarUsuarioComponent implements OnInit {
       this.mensajeNumDoc = commonMessages.CAMPO_REQUERIDO;
       this.validacionIncorrecta = true;
     }
+    if (this.tipoDocumento.id === 4 && !this.persona.numeroDocumento && !this.persona.numeroDocumento?.match(PASAPORTE_REGEX)) {
+      this.mensajeNumDoc = '*El documento solo puede tener de 6 a 11 carácteres entre minúsculas, mayúsculas y números';
+      this.validacionIncorrecta = true;
+    }
+    if (this.tipoDocumento.id !== 4 && !this.persona.numeroDocumento && !this.persona.numeroDocumento?.match(CEDULA_REGEX)) {
+      this.mensajeNumDoc = '*El documento debe contener de 6 a 10 números';
+      this.validacionIncorrecta = true;
+    }
+    // eslint-disable-next-line no-console
+    console.log(this.tipoDocumento);
+    if (this.tipoDocumento.id === undefined) {
+      this.mensajeNumDoc = '*Seleccione un tipo de Documento';
+      this.validacionIncorrecta = true;
+    }
+    if (!this.user.password?.match(CONTRASENA_REGEX)) {
+      this.mensajeClave = '*La contraseña debe contener al menos 8 caracteres entre letras mayúsculas, minúsculas y números';
+      this.validacionIncorrecta = true;
+    }
     if (!this.user.password) {
       this.mensajeClave = commonMessages.CAMPO_REQUERIDO;
       this.validacionIncorrecta = true;
@@ -89,17 +127,20 @@ export class AgregarUsuarioComponent implements OnInit {
       this.mensajeConfClave = commonMessages.CAMPO_REQUERIDO;
       this.validacionIncorrecta = true;
     }
-
     if (this.user.password !== this.ConfirmarClave) {
       this.mensajeConfClave = commonMessages.CONTRASENA_NO_COINCIDEN;
       this.validacionIncorrecta = true;
     }
+    if (!this.condiciones) {
+      this.mensajeTerminos = '*Debe aceptar los términos y condiciones';
+      this.validacionIncorrecta = true;
+    }
 
     if (this.validacionIncorrecta === false) {
+      this.tipoUsuario.id = 1; //eliminar esta línea al activar tipo usuario jurídico
       this.persona;
       this.personaNatural;
       this.user;
-      this.personaNatural;
       this.persona.tipoUsuario = this.tipoUsuario;
       this.persona.tipoDocumento = this.tipoDocumento;
       this.user.login = this.persona.email;
@@ -147,6 +188,17 @@ export class AgregarUsuarioComponent implements OnInit {
         page: 0,
         size: 20
       })
-      .subscribe((res: HttpResponse<ITipoDocumento[]>) => (this.documentos = res.body || []));
+      .subscribe((res: HttpResponse<ITipoDocumento[]>) => {
+        if (res.body !== null) {
+          this.documentos = res.body
+            .map(item => {
+              return {
+                id: item.id,
+                nombreTipo: item.nombreTipo
+              };
+            })
+            .sort((a: ITipoDocumento, b: ITipoDocumento) => (a.nombreTipo! > b.nombreTipo! ? 1 : b.nombreTipo! > a.nombreTipo! ? -1 : 0));
+        }
+      });
   }
 }

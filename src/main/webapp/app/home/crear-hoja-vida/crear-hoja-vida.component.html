@@ -493,6 +493,7 @@
                 </div>
                 <div class="column">
                     <button type="button" class="btn boton_siguiente text-white float-right"
+                    [disabled]="informacionAcademica.invalid" 
                         (click)="nextStep()">
                         {{labels.SIGUIENTE_LABEL}}
                     </button>
@@ -756,6 +757,7 @@
                     </div>
                     <div class="column">
                         <button type="submit" class="btn boton_siguiente text-white float-right"
+                            [disabled]="experienciaLaboral.invalid" 
                             [disabled]="false">
                             <div *ngIf="cargando">{{labels.GUARDAR_LABEL}}</div>
                             <span *ngIf="!cargando" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>    
