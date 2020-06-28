@@ -34,7 +34,7 @@ export class InformacionEmpresaComponent implements OnInit {
 
   crearFormulario(): void {
     this.formulario = this.fb.group({
-      nombre: ['', [Validators.required, Validators.name]],
+      nombre: ['', [Validators.required]],
       apellidos: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       telefono: [''],

@@ -11,18 +11,22 @@
                         <div class="form-group">
                             <p class="estilo_label">{{labels.NOMBRE_LABEL}} <span
                                     class="estilo_campo_requerido">*</span></p>
-                            <input type="text" class="estilo_inputs" formControlName="nombre">
-                            <small *ngIf="false" id="emailHelp"
-                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <input type="text" class="estilo_inputs" formControlName="nombre" oninput="this.value = this.value.toUpperCase()">
+                            <small *ngIf="formPersonal.get('nombre')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPersonal.get('nombre')?.errors?.pattern"
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
                         </div>
                     </div>
                     <div class="column">
                         <div class="form-group">
                             <p class="estilo_label">{{labels.APELLIDO_LABEL}} <span
                                     class="estilo_campo_requerido">*</span></p>
-                            <input type="text" class="estilo_inputs" formControlName="apellido">
-                            <small *ngIf="false" id="emailHelp"
-                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <input type="text" class="estilo_inputs" formControlName="apellido" oninput="this.value = this.value.toUpperCase()">
+                            <small *ngIf="formPersonal.get('apellido')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPersonal.get('apellido')?.errors?.pattern"
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
                         </div>
                     </div>
                 </div>
@@ -33,7 +37,7 @@
                             <p class="estilo_label">{{labels.NUMERO_DOCUMENTO_LABEL}} <span
                                     class="estilo_campo_requerido">*</span></p>
                             <div class='input_group'>
-                                <select class='select_documento' formControlName="tipoDocumento">
+                                <select class='select_documento' formControlName="tipoDocumento" (change)="onChangeTipoDoc($event)">
                                     <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                                     <option
                                         [ngValue]="documento.id === formPersonal.get('tipoDocumento')!.value?.id ? formPersonal.get('tipoDocumento')!.value : documento"
@@ -41,7 +45,13 @@
                                         {{ documento.nombreTipo }}
                                     </option>
                                 </select>
-                                <input type="number" class="input_documento" formControlName="numeroDocumento">
+                                <!-- <input type="text" class="input_documento" formControlName="numeroDocumento"> -->
+                                <div *ngIf="formPersonal.get('tipoDocumento')!.value?.id===4" class="input_documento">
+                                    <input type="text" class="input_documento" style="width: 100%;" formControlName="numeroDocumento">
+                                </div>
+                                <div *ngIf="formPersonal.get('tipoDocumento')!.value?.id!==4" class="input_documento">
+                                    <input type="number" class="input_documento" style="width: 100%;" formControlName="numeroDocumento">
+                                </div>
                                 <div class="file_upload" (click)="tipodocumento.click()">
                                     <label class='label_file' for="file">
                                         <fa-icon icon="images" class="float-right"></fa-icon>
@@ -49,9 +59,13 @@
                                     <input type="file" #tipodocumento class='file' accept=".png, .jpeg, .jpg, .pdf"
                                         (change)="addArchivo($event, tipoArchivo.DOCUMENTO_IDENTIDAD)" />
                                 </div>
-                                <small *ngIf="false" id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
+                            <small *ngIf="formPersonal.get('tipoDocumento')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPersonal.get('numeroDocumento')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPersonal.get('numeroDocumento')?.errors?.pattern"
+                                class="form-text text-danger">{{mensajeDocumento}}</small>
                         </div>
                     </div>
                     <div class="column">
@@ -82,18 +96,19 @@
                                     </select>
                             </div>
                             </ng-container>
-                            <small *ngIf="false" id="emailHelp"
-                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPersonal.get('fechaNacimiento')?.get('dia')?.errors?.required || formPersonal.get('fechaNacimiento')?.get('mes')?.errors?.required || formPersonal.get('fechaNacimiento')?.get('anio')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
                     </div>
                 </div>
-
 
                 <div class="row">
                     <div class="column">
                         <div class="form-group">
                             <p class="estilo_label">{{labels.LUGAR_NACIMIENTO_LABEL}}</p>
                             <input type="text" class="estilo_inputs" formControlName="lugarNacimiento">
+                            <small *ngIf="formPersonal.get('lugarNacimiento')?.errors?.pattern"
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
                         </div>
                     </div>
 
@@ -102,8 +117,10 @@
                             <p class="estilo_label">{{labels.DIRECCION_RESIDENCIA_LABEL}} <span
                                     class="estilo_campo_requerido">*</span></p>
                             <input type="text" class="estilo_inputs" formControlName="direccionResidencia">
-                            <small *ngIf="false" id="emailHelp"
-                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPersonal.get('direccionResidencia')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPersonal.get('direccionResidencia')?.errors?.pattern"
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
                         </div>
                     </div>
                 </div>
@@ -122,8 +139,8 @@
                                     {{ departamento.nombre }}
                                 </option>
                             </select>
-                            <small *ngIf="false" id="emailHelp"
-                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPersonal.get('departamento')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
                     </div>
 
@@ -140,10 +157,8 @@
                                     {{ municipio.nombre }}
                                 </option>
                             </select>
-                            <small *ngIf="false" id="emailHelp"
-                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                            <small *ngIf="false" id="emailHelp"
-                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPersonal.get('ciudad')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
                     </div>
                 </div>
@@ -154,8 +169,10 @@
                             <p class="estilo_label">{{labels.CONTACTO_LABEL}} <span
                                     class="estilo_campo_requerido">*</span></p>
                             <input type="number" class="estilo_inputs" formControlName="telefono">
-                            <small *ngIf="false" id="emailHelp"
-                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPersonal.get('telefono')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPersonal.get('telefono')?.errors?.pattern"
+                                class="form-text text-danger">*El teléfono solo puede contener de 7 a 10 números</small>
                         </div>
                     </div>
                     <div class="column">
@@ -163,8 +180,10 @@
                             <p class="estilo_label">{{labels.CORREO_ELECTRONICO_LABEL}} <span
                                     class="estilo_campo_requerido">*</span></p>
                             <input type="text" class="estilo_inputs" formControlName="email">
-                            <small *ngIf="false" id="emailHelp"
-                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPersonal.get('email')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPersonal.get('email')?.errors?.email"
+                                class="form-text text-danger">*El correo es inválido.</small>
                         </div>
                     </div>
                 </div>
@@ -187,15 +206,18 @@
                     <div class="column">
                         <div class="form-group">
                             <p class="estilo_label">{{labels.REDES_SOCIALES_LABEL}}</p>
-                            <select formControlName="redesSociales" class="estilo_inputs">
-                                <option *ngIf="!formPersonal.get('redesSociales')!.value" [ngValue]="null" selected>
-                                    {{labels.SELECCIONE_LABEL}}</option>
-                                <option
-                                    [ngValue]="red.codigo === formPersonal.get('redesSociales')!.value ? formPersonal.get('redesSociales')!.value: red.codigo"
-                                    *ngFor="let red of redesSociales">
-                                    {{ red.nombre }}
-                                </option>
-                            </select>
+                            <div class='input_group'>
+                                <select formControlName="redesSociales" class="select_redSocial">
+                                    <option *ngIf="!formPersonal.get('redesSociales')!.value" [ngValue]="null" selected>
+                                        {{labels.SELECCIONE_LABEL}}</option>
+                                    <option
+                                        [ngValue]="red.codigo === formPersonal.get('redesSociales')!.value ? formPersonal.get('redesSociales')!.value: red.codigo"
+                                        *ngFor="let red of redesSociales">
+                                        {{ red.nombre }}
+                                    </option>
+                                </select>
+                                <input type="text" class="input_redSocial" (change)="setRedSocial($event)" [value]="redSocial">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -224,10 +246,6 @@
                         </div>
                     </div>
                     <div class="column">
-                        <div class="form-group">
-                        <p class="estilo_label">{{labels.DIRECCION_RED_SOCIAL}}</p>
-                        <input type="text" class="estilo_inputs" (change)="setRedSocial($event)" [value]="redSocial">
-                        </div>
                     </div>
                 </div>
 
@@ -246,9 +264,9 @@
                                     <input type="radio" [value]="labels.FEMENINO" formControlName="genero">
                                     <span class="text-white">{{labels.FEMENINO}}</span>
                                 </label>
-                                <small *ngIf="false" id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
+                            <small *ngIf="formPersonal.get('genero')?.errors?.required"
+                                    class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
                     </div>
                     <div class="column">
@@ -297,8 +315,8 @@
                                         {{ nivel.nombre }}
                                     </option>
                                 </select>
-                                <small *ngIf="false" id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="informacionAcademica.at(indexAcademica).get('nivelEstudio')?.errors?.required"
+                                    class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
                         </div>
                         <div class="column">
@@ -314,8 +332,8 @@
                                         {{ estado.nombre }}
                                     </option>
                                 </select>
-                                <small *ngIf="false" id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="informacionAcademica.at(indexAcademica).get('estado')?.errors?.required"
+                                    class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
                         </div>
                     </div>
@@ -350,7 +368,7 @@
                                     </div>
                                 </ng-container>
                                 <small *ngIf="false" id="emailHelp"
-                                        class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                        class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
                         </div>
                         <div class="column">
@@ -383,8 +401,8 @@
                                 </div>
 
                                 </ng-container>
-                                <small *ngIf="false" id="emailHelp"
-                                        class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="informacionAcademica.at(indexAcademica).get('fechaFin')?.get('dia')?.errors?.required || informacionAcademica.at(indexAcademica).get('fechaFin')?.get('mes')?.errors?.required || informacionAcademica.at(indexAcademica).get('fechaFin')?.get('anio')?.errors?.required"
+                                        class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
                         </div>
                     </div>
@@ -405,8 +423,10 @@
                                                 (change)="addArchivo($event, tipoArchivo.CERTIFICADO_ESTUDIO)">
                                     </div>
                                 </div>
-                                <small *ngIf="false" id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="informacionAcademica.at(indexAcademica).get('tituloOtorgado')?.errors?.required"
+                                    class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="informacionAcademica.at(indexAcademica).get('tituloOtorgado')?.errors?.pattern"
+                                    class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
                             </div>
                         </div>
                         <div class="column">
@@ -420,8 +440,8 @@
                                         {{ institucion.institucion }}
                                     </option>
                                 </select>
-                                <small *ngIf="false" id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="informacionAcademica.at(indexAcademica).get('institucion')?.errors?.required"
+                                    class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
                         </div>
                     </div>
@@ -454,14 +474,11 @@
                                         {{ item.idioma }}
                                     </option>
                                 </select>
-                                <small *ngIf="false" id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
                         </div>
                         <div class="column">
                             <div class="form-group">
-                                <p class="estilo_label">{{labels.NIVEL_IDIOMA_LABEL}} <span
-                                        class="estilo_campo_requerido">*</span></p>
+                                <p class="estilo_label">{{labels.NIVEL_IDIOMA_LABEL}}</p>
                                 <select formControlName="nivel" class="estilo_inputs">
                                     <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
                                     <option
@@ -470,8 +487,6 @@
                                         {{ nivel.nombre }}
                                     </option>
                                 </select>
-                                <small *ngIf="false" id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
                         </div>
                     </div>
@@ -511,8 +526,10 @@
                             <p class="estilo_label">{{labels.PERFIL_LABEL}} <span class="estilo_campo_requerido">
                                     *</span></p>
                             <textarea formControlName="perfilProfesional" class="form-control" rows="5"></textarea>
-                            <small *ngIf="false" id="emailHelp"
-                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPerfil.get('perfilProfesional')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPerfil.get('perfilProfesional')?.errors?.pattern"
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
                         </div>
                 </div>
             </form>
@@ -529,8 +546,10 @@
                                     <p class="estilo_label">{{labels.NOMBRE_EMPRESA_LABEL}} <span
                                             class="estilo_campo_requerido">*</span></p>
                                     <input type="text" class="estilo_inputs" formControlName="nombreEmpresa">
-                                    <small *ngIf="false" id="emailHelp"
-                                        class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                    <small *ngIf="experienciaLaboral.at(indexLaboral).get('nombreEmpresa')?.errors?.required"
+                                        class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                    <small *ngIf="experienciaLaboral.at(indexLaboral).get('nombreEmpresa')?.errors?.pattern"
+                                        class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
                                 </div>
                             </div>
                             <div class="column">
@@ -560,9 +579,9 @@
                                                 </option>
                                             </select>
                                         </div>
-                                        <small *ngIf="false" id="emailHelp"
-                                            class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                                     </ng-container>
+                                    <small *ngIf="experienciaLaboral.at(indexLaboral).get('fechaInicio')?.get('dia')?.errors?.required || experienciaLaboral.at(indexLaboral).get('fechaInicio')?.get('mes')?.errors?.required || experienciaLaboral.at(indexLaboral).get('fechaInicio')?.get('anio')?.errors?.required"
+                                        class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                                 </div>
                             </div>
                         </div>
@@ -596,9 +615,9 @@
                                                 </option>
                                             </select>
                                         </div>
-                                        <small *ngIf="false" id="emailHelp"
-                                            class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                                     </ng-container>
+                                    <small *ngIf="experienciaLaboral.at(indexLaboral).get('fechaFin')?.get('dia')?.errors?.required || experienciaLaboral.at(indexLaboral).get('fechaFin')?.get('mes')?.errors?.required || experienciaLaboral.at(indexLaboral).get('fechaFin')?.get('anio')?.errors?.required"
+                                        class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                                 </div>
                             </div>
                             <div class="column">
@@ -607,8 +626,10 @@
                                             class="estilo_campo_requerido">*</span>
                                     </p>
                                     <input type="text" class="estilo_inputs" formControlName="direccion">
-                                    <small *ngIf="false" id="emailHelp"
-                                        class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                    <small *ngIf="experienciaLaboral.at(indexLaboral).get('direccion')?.errors?.required"
+                                        class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                    <small *ngIf="experienciaLaboral.at(indexLaboral).get('direccion')?.errors?.pattern"
+                                        class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
                                 </div>
                             </div>
                         </div>
@@ -627,8 +648,8 @@
                                         {{ pais.nombre }}
                                     </option>
                                 </select>
-                                <small *ngIf="false" id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="experienciaLaboral.at(indexLaboral).get('pais')?.errors?.required"
+                                    class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
                         </div>
 
@@ -645,8 +666,8 @@
                                         {{ departamento.nombre }}
                                     </option>
                                 </select>
-                                <small *ngIf="false" id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="experienciaLaboral.at(indexLaboral).get('departamento')?.errors?.required"
+                                    class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
                         </div>
                     </div>
@@ -668,8 +689,12 @@
                                 <input *ngIf="experienciaLaboral.at(indexLaboral).get('pais')!.value != labels.CODIGO_COLOMBIA"
                                     type="text" class="estilo_inputs" formControlName="ciudadExtranjera" 
                                     [placeholder]="labels.INGRESE_VALOR_LABEL + labels.CIUDAD_LABEL">
-                                <small *ngIf="false" id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="experienciaLaboral.at(indexLaboral).get('ciudad')?.errors?.required"
+                                    class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="experienciaLaboral.at(indexLaboral).get('ciudadExtranjera')?.errors?.required"
+                                    class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="experienciaLaboral.at(indexLaboral).get('ciudadExtranjera')?.errors?.pattern"
+                                    class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
                             </div>
                         </div>
                         <div class="column">
@@ -677,8 +702,10 @@
                                 <p class="estilo_label">{{labels.TELEFONO_EMPRESA_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
                                 <input type="number" class="estilo_inputs" formControlName="telefonoEmpresa">
-                                <small *ngIf="false" id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="experienciaLaboral.at(indexLaboral).get('telefonoEmpresa')?.errors?.required"
+                                    class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="experienciaLaboral.at(indexLaboral).get('telefonoEmpresa')?.errors?.pattern"
+                                    class="form-text text-danger">*El teléfono debe contener de 7 a 10 números</small>
                             </div>
                         </div>
                     </div>
@@ -696,8 +723,8 @@
                                         {{ cargo.cargo }}
                                     </option>
                                 </select>
-                                <small *ngIf="false" id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="experienciaLaboral.at(indexLaboral).get('cargo')?.errors?.required"
+                                    class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
                         </div>
                         <div class="column">
@@ -705,8 +732,10 @@
                                 <p class="estilo_label">{{labels.DEPENDENCIA_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
                                 <input type="text" class="estilo_inputs" formControlName="dependencia">
-                                <small *ngIf="false" id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="experienciaLaboral.at(indexLaboral).get('dependencia')?.errors?.required"
+                                    class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="experienciaLaboral.at(indexLaboral).get('dependencia')?.errors?.pattern"
+                                    class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
                             </div>
                         </div>
                     </div>
@@ -757,8 +786,7 @@
                     </div>
                     <div class="column">
                         <button type="submit" class="btn boton_siguiente text-white float-right"
-                            [disabled]="experienciaLaboral.invalid" 
-                            [disabled]="false">
+                            [disabled]="experienciaLaboral.invalid">
                             <div *ngIf="cargando">{{labels.GUARDAR_LABEL}}</div>
                             <span *ngIf="!cargando" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>    
                         </button>      

@@ -55,7 +55,7 @@ export class AgregarUsuarioComponent implements OnInit {
 
   onCrearUsuario(): void {
     const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    const NOMBRE_REGEX = /^[A-ZÑÁÉÍÓÚ ]{1,30}$/;
+    const NOMBRE_REGEX = /^[A-ZÑÁÉÍÓÚ ]$/;
     const CONTRASENA_REGEX = /.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*/;
     const PASAPORTE_REGEX = /^[0-9,A-Z,a-z]{6,11}$/;
     const CEDULA_REGEX = /^[0-9]{6,10}$/;
@@ -109,8 +109,6 @@ export class AgregarUsuarioComponent implements OnInit {
       this.mensajeNumDoc = '*El documento debe contener de 6 a 10 números';
       this.validacionIncorrecta = true;
     }
-    // eslint-disable-next-line no-console
-    console.log(this.tipoDocumento);
     if (this.tipoDocumento.id === undefined) {
       this.mensajeNumDoc = '*Seleccione un tipo de Documento';
       this.validacionIncorrecta = true;

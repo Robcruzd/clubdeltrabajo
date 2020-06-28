@@ -69,6 +69,10 @@ export class CrearHojaVidaComponent implements OnInit {
   redesSociales: Array<IOpcionVo> = commonMessages.ARRAY_REDES_SOCIALES;
   redSocial = ' ';
   cargando = true;
+  CEDULA_REGEX = '^[0-9]{6,10}$';
+  mensajeDocumento: any = '*El documento debe contener de 6 a 10 números';
+  mensajeArchivoDoc: any = '';
+  mensajeArchivoTitulo: any = '';
 
   constructor(
     private fb: FormBuilder,
@@ -87,6 +91,8 @@ export class CrearHojaVidaComponent implements OnInit {
       this.router.navigate(['/']);
       return;
     }
+
+    this.documentos;
     this.step = 0;
     this.mostrar = false;
     this.cargarCuentaUsuario();
@@ -128,21 +134,29 @@ export class CrearHojaVidaComponent implements OnInit {
   crearFormularioInformacionPersonal(): void {
     this.formPersonal = this.fb.group({
       id: [''],
-      nombre: ['', [Validators.required]],
-      apellido: ['', [Validators.required]],
+      nombre: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
+      apellido: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
       tipoDocumento: [null, [Validators.required]],
-      numeroDocumento: ['', [Validators.required]],
+      numeroDocumento: ['', [Validators.required, Validators.pattern(this.CEDULA_REGEX)]],
       fechaNacimiento: this.fb.group({
         dia: [null, [Validators.required]],
         mes: [null, [Validators.required]],
         anio: [null, [Validators.required]]
       }),
-      lugarNacimiento: [''],
-      direccionResidencia: ['', [Validators.required]],
+      lugarNacimiento: ['', [Validators.pattern('^[A-Za-zÑÁÉÍÓÚñáéíóú ]{0,}$')]],
+      direccionResidencia: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            '^(Autopista|Avenida|Avenida Calle|Avenida Carrera|Avenida|Carrera|Calle|Carrera|Circunvalar|Diagonal|Kilometro|Transversal|AUTOP|AV|AC|AK|CL|KR|CCV|DG|KM|TV)(\\s)?([a-zA-Z]{0,15}|[0-9]{1,3})(\\s)?[a-zA-Z]?(\\s)?(bis)?(\\s)?(Este|Norte|Occidente|Oeste|Sur)?(\\s)?(#(\\s)?[0-9]{1,2}(\\s)?[a-zA-Z]?(\\s)?(bis)?(\\s)?(Este|Norte|Occidente|Oeste|Sur)?(\\s)?(-)?(\\s)?[0-9]{1,3}(\\s)?(Este|Norte|Occidente|Oeste|Sur)?)?((\\s)?(Agrupación|Altillo|Apartamento|Apartamento Sótano|Barrio|Bloque|Bodega|Cabecera Municipal|Callejón|Camino|Carretera|Casa|Caserio|Célula|Centro|Centro Comercial|Centro Urbano|Circular|Condominio|Conjunto|Consultorio|Corregimiento|Deposito|Deposito |Sótano|Edificio|Entrada|Esquina|Etapa|Finca|Garaje|Garaje Sótano|Grada|Inferior|Inspección de Policia|Interior|Kilometro|Local|Local Mezzanine|Local Sótano|Lote|Manzana|Manzanita|Mejora|Mezzanine|Módulo|Municipio|Núcleo|Oficina|Oficina Sótano|Parcela|Parcelación|Pasaje|Penthouse|Piso|Porteria|Predio|Principal|Puente|Quebrada|Salon|Sector|Semisótano|Suite|Supermanzana|Terraza|Torre|Troncal|Unidad|Urbanización|Vereda|Via|Zona|AGN|AL|APTO|AS|BR|BL|BG|CM|CLJ|CN|CT|CA|CAS|CEL|CE|CECO|CEUR|CIR|CDM|CONJ|CS|CO|DP|DS|ED|EN|ESQ|ET|FCA|GJ|GS|GR|INF|IP|IN|KM|LC|LM|LS|LT|MZ|MZTA|MJ|MN|MD|MUN|NCO|OF|OS|PA|PCN|PSJ|PH|PI|PT|PD|PPAL|PN|QDA|SA|SEC|SS|SU|SMZ|TZ|TO|TRL|UN|URB|VDA|VIA|ZN)?(\\s)?[1-9][0-9]{0,3})*$'
+          )
+        ]
+      ],
       genero: ['', [Validators.required]],
       ciudad: [null, [Validators.required]],
       departamento: [null, [Validators.required]],
-      telefono: ['', [Validators.required]],
+      telefono: ['', [Validators.required, Validators.pattern('^[0-9]{7,10}$')]],
       email: ['', [Validators.required, Validators.email]],
       discapacidad: [null],
       redesSociales: [null],
@@ -155,7 +169,7 @@ export class CrearHojaVidaComponent implements OnInit {
     return this.fb.group({
       id: [''],
       nivelEstudio: [null, [Validators.required]],
-      estado: [null],
+      estado: [null, [Validators.required]],
       fechaInicio: this.fb.group({
         dia: [null, [Validators.required]],
         mes: [null, [Validators.required]],
@@ -166,9 +180,9 @@ export class CrearHojaVidaComponent implements OnInit {
         mes: [null, [Validators.required]],
         anio: [null, [Validators.required]]
       }),
-      tituloOtorgado: [''],
+      tituloOtorgado: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚñáéíóú ]{0,}$')]],
       usuario: [''],
-      institucion: [null]
+      institucion: [null, [Validators.required]]
     });
   }
 
@@ -192,7 +206,7 @@ export class CrearHojaVidaComponent implements OnInit {
   crearItemExperienciaLaboral(): FormGroup {
     return this.fb.group({
       id: [''],
-      nombreEmpresa: [''],
+      nombreEmpresa: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú ]{0,}$')]],
       fechaInicio: this.fb.group({
         dia: [null, [Validators.required]],
         mes: [null, [Validators.required]],
@@ -203,15 +217,23 @@ export class CrearHojaVidaComponent implements OnInit {
         mes: [null, [Validators.required]],
         anio: [null, [Validators.required]]
       }),
-      direccion: [''],
-      ciudad: [null],
-      departamento: [null],
-      pais: [null],
-      ciudadExtranjera: [''],
-      telefonoEmpresa: [''],
+      direccion: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            '^(Autopista|Avenida|Avenida Calle|Avenida Carrera|Avenida|Carrera|Calle|Carrera|Circunvalar|Diagonal|Kilometro|Transversal|AUTOP|AV|AC|AK|CL|KR|CCV|DG|KM|TV)(\\s)?([a-zA-Z]{0,15}|[0-9]{1,3})(\\s)?[a-zA-Z]?(\\s)?(bis)?(\\s)?(Este|Norte|Occidente|Oeste|Sur)?(\\s)?(#(\\s)?[0-9]{1,2}(\\s)?[a-zA-Z]?(\\s)?(bis)?(\\s)?(Este|Norte|Occidente|Oeste|Sur)?(\\s)?(-)?(\\s)?[0-9]{1,3}(\\s)?(Este|Norte|Occidente|Oeste|Sur)?)?((\\s)?(Agrupación|Altillo|Apartamento|Apartamento Sótano|Barrio|Bloque|Bodega|Cabecera Municipal|Callejón|Camino|Carretera|Casa|Caserio|Célula|Centro|Centro Comercial|Centro Urbano|Circular|Condominio|Conjunto|Consultorio|Corregimiento|Deposito|Deposito |Sótano|Edificio|Entrada|Esquina|Etapa|Finca|Garaje|Garaje Sótano|Grada|Inferior|Inspección de Policia|Interior|Kilometro|Local|Local Mezzanine|Local Sótano|Lote|Manzana|Manzanita|Mejora|Mezzanine|Módulo|Municipio|Núcleo|Oficina|Oficina Sótano|Parcela|Parcelación|Pasaje|Penthouse|Piso|Porteria|Predio|Principal|Puente|Quebrada|Salon|Sector|Semisótano|Suite|Supermanzana|Terraza|Torre|Troncal|Unidad|Urbanización|Vereda|Via|Zona|AGN|AL|APTO|AS|BR|BL|BG|CM|CLJ|CN|CT|CA|CAS|CEL|CE|CECO|CEUR|CIR|CDM|CONJ|CS|CO|DP|DS|ED|EN|ESQ|ET|FCA|GJ|GS|GR|INF|IP|IN|KM|LC|LM|LS|LT|MZ|MZTA|MJ|MN|MD|MUN|NCO|OF|OS|PA|PCN|PSJ|PH|PI|PT|PD|PPAL|PN|QDA|SA|SEC|SS|SU|SMZ|TZ|TO|TRL|UN|URB|VDA|VIA|ZN)?(\\s)?[1-9][0-9]{0,3})*$'
+          )
+        ]
+      ],
+      ciudad: [{ disabled: true, value: null }, [Validators.required]],
+      departamento: [{ disabled: true, value: null }, [Validators.required]],
+      pais: [null, [Validators.required]],
+      ciudadExtranjera: [{ disabled: false, value: '' }, [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú ]{0,}$')]],
+      telefonoEmpresa: ['', [Validators.required, Validators.pattern('^[0-9]{7,10}$')]],
       usuario: [''],
-      dependencia: [''],
-      cargo: [null]
+      dependencia: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú ]{0,}$')]],
+      cargo: [null, [Validators.required]]
     });
   }
 
@@ -221,7 +243,7 @@ export class CrearHojaVidaComponent implements OnInit {
 
   crearFormularioPerfil(): void {
     this.formPerfil = this.fb.group({
-      perfilProfesional: ['', [Validators.required]]
+      perfilProfesional: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.: ]{0,}$')]]
     });
   }
 
@@ -340,7 +362,40 @@ export class CrearHojaVidaComponent implements OnInit {
 
   nextStep(): void {
     if (this.step === 3) return;
-    this.step++;
+    let flag = 0;
+    switch (this.step) {
+      case 0:
+        this.archivos.forEach(archivo => {
+          if (archivo.tipo === TipoArchivo.DOCUMENTO_IDENTIDAD) {
+            flag++;
+          }
+        });
+        if (flag === 0) {
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.error('Debe adjuntar el documento de identidad');
+        } else {
+          this.step++;
+        }
+        break;
+      case 1:
+        this.informacionAcademica.length;
+        this.archivos.forEach(archivo => {
+          if (archivo.tipo === TipoArchivo.CERTIFICADO_ESTUDIO) {
+            flag++;
+          }
+        });
+        if (flag < this.informacionAcademica.length) {
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.error('Debe adjuntar el título a cada estudio');
+        } else {
+          this.step++;
+        }
+        break;
+      case 3:
+        return;
+      default:
+        this.step++;
+    }
   }
 
   previousStep(): void {
@@ -349,50 +404,61 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.cargando = false;
-    this.hojaVidaVo = new HojaVidaVo();
-
-    // cargar informacion personal
-    this.hojaVidaVo.informacionPersonal = this.procesarInformacionPersonal();
-    this.hojaVidaVo.persona = this.procesarPersona();
-
-    // cargar informacion academica
-    const academica: IInformacionAcademica[] = [];
-    for (let index = 0; index < this.informacionAcademica.length; index++) {
-      academica.push(this.procesarInformacionAcademica(this.informacionAcademica.at(index).value));
-    }
-    this.hojaVidaVo.informacionAcademica = academica;
-
-    // cargar idiomas
-    const idioma: IPersona[] = [];
-    for (let index = 0; index < this.idioma.length; index++) {
-      idioma.push(this.procesarIdiomas(this.idioma.at(index).value));
-    }
-    this.hojaVidaVo.idiomas = idioma;
-
-    // cargar informacion laboral
-    const laboral: IInformacionLaboral[] = [];
-    for (let index = 0; index < this.experienciaLaboral.length; index++) {
-      laboral.push(this.procesarExperienciaLaboral(this.experienciaLaboral.at(index).value));
-    }
-    this.hojaVidaVo.experienciaLaboral = laboral;
-    // Cargar archivos
-    if (this.archivos.length !== 0) this.hojaVidaVo.archivos = this.archivos;
-
-    this.service.create(this.hojaVidaVo).subscribe(
-      response => {
-        if (response.body !== null) {
-          alertify.set('notifier', 'position', 'top-right');
-          alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
-          this.hojaVidaVo = response.body;
-          this.router.navigate(['/perfil']);
-        }
-      },
-      () => {
-        alertify.set('notifier', 'position', 'top-right');
-        alertify.error(commonMessages.HTTP_ERROR_LABEL);
+    let flag = 0;
+    this.archivos.forEach(archivo => {
+      if (archivo.tipo === TipoArchivo.CERTIFICADO_LABORAL) {
+        flag++;
       }
-    );
+    });
+    if (flag < this.experienciaLaboral.length) {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error('Debe adjuntar el certificado de cada experiencia');
+    } else {
+      this.cargando = false;
+      this.hojaVidaVo = new HojaVidaVo();
+
+      // cargar informacion personal
+      this.hojaVidaVo.informacionPersonal = this.procesarInformacionPersonal();
+      this.hojaVidaVo.persona = this.procesarPersona();
+
+      // cargar informacion academica
+      const academica: IInformacionAcademica[] = [];
+      for (let index = 0; index < this.informacionAcademica.length; index++) {
+        academica.push(this.procesarInformacionAcademica(this.informacionAcademica.at(index).value));
+      }
+      this.hojaVidaVo.informacionAcademica = academica;
+
+      // cargar idiomas
+      const idioma: IPersona[] = [];
+      for (let index = 0; index < this.idioma.length; index++) {
+        idioma.push(this.procesarIdiomas(this.idioma.at(index).value));
+      }
+      this.hojaVidaVo.idiomas = idioma;
+
+      // cargar informacion laboral
+      const laboral: IInformacionLaboral[] = [];
+      for (let index = 0; index < this.experienciaLaboral.length; index++) {
+        laboral.push(this.procesarExperienciaLaboral(this.experienciaLaboral.at(index).value));
+      }
+      this.hojaVidaVo.experienciaLaboral = laboral;
+      // Cargar archivos
+      if (this.archivos.length !== 0) this.hojaVidaVo.archivos = this.archivos;
+
+      this.service.create(this.hojaVidaVo).subscribe(
+        response => {
+          if (response.body !== null) {
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+            this.hojaVidaVo = response.body;
+            this.router.navigate(['/perfil']);
+          }
+        },
+        () => {
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.error(commonMessages.HTTP_ERROR_LABEL);
+        }
+      );
+    }
   }
 
   procesarPersona(): IPersona {
@@ -549,8 +615,6 @@ export class CrearHojaVidaComponent implements OnInit {
 
   cargarMunicipios(value: Object): void {
     this.municipios = [];
-    // eslint-disable-next-line no-console
-    console.log(this.geografia);
     if (value === 0) {
       this.municipios = this.geografia.map(item => {
         return {
@@ -675,17 +739,57 @@ export class CrearHojaVidaComponent implements OnInit {
     this.redSocial = event.target.value;
   }
 
-  onChangePais(index: number): void {
+  onChangePais(index: any): void {
     if (this.experienciaLaboral.at(index).get(['pais'])!.value !== commonMessages.CODIGO_COLOMBIA) {
       this.experienciaLaboral
         .at(index)
         .get(['departamento'])
         ?.disable();
+      this.experienciaLaboral
+        .at(index)
+        .get(['departamento'])
+        ?.setValue(null);
+      this.experienciaLaboral
+        .at(index)
+        .get(['ciudad'])
+        ?.disable();
+      this.experienciaLaboral
+        .at(index)
+        .get(['ciudad'])
+        ?.setValue(null);
+      this.experienciaLaboral
+        .at(index)
+        .get(['ciudadExtranjera'])
+        ?.enable();
+      this.experienciaLaboral
+        .at(index)
+        .get(['ciudadExtranjera'])
+        ?.setValue('');
     } else {
+      this.experienciaLaboral
+        .at(index)
+        .get(['ciudad'])
+        ?.enable();
+      this.experienciaLaboral
+        .at(index)
+        .get(['departamento'])
+        ?.setValue(null);
       this.experienciaLaboral
         .at(index)
         .get(['departamento'])
         ?.enable();
+      this.experienciaLaboral
+        .at(index)
+        .get(['ciudad'])
+        ?.setValue(null);
+      this.experienciaLaboral
+        .at(index)
+        .get(['ciudadExtranjera'])
+        ?.disable();
+      this.experienciaLaboral
+        .at(index)
+        .get(['ciudadExtranjera'])
+        ?.setValue('');
     }
   }
 
@@ -708,5 +812,21 @@ export class CrearHojaVidaComponent implements OnInit {
 
   get experienciaLaboral(): FormArray {
     return this.globalForm.get('experienciaLaboral') as FormArray;
+  }
+
+  onChangeTipoDoc(event: any): any {
+    // eslint-disable-next-line no-console
+    console.log(event.target.value);
+    if (event.target.value === '2: Object') {
+      // eslint-disable-next-line no-console
+      console.log('its working');
+      this.mensajeDocumento = '*El documento solo puede tener de 6 a 11 carácteres entre minúsculas, mayúsculas y números';
+      this.formPersonal.get('numeroDocumento')?.setValue('');
+      this.formPersonal.get('numeroDocumento')?.setValidators([Validators.required, Validators.pattern('^[0-9A-Za-z]{6,11}$')]);
+    } else {
+      this.mensajeDocumento = '*El documento debe contener de 6 a 10 números';
+      this.formPersonal.get('numeroDocumento')?.setValue('');
+      this.formPersonal.get('numeroDocumento')?.setValidators([Validators.required, Validators.pattern('^[0-9]{6,11}$')]);
+    }
   }
 }
