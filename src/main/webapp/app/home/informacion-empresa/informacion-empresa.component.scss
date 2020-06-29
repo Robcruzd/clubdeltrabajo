@@ -17,6 +17,16 @@
     padding-top: 2rem;
     opacity: 1;
 
+    // .estilo_imagen {
+    //   height: 70%;
+    //   position: absolute;
+    //   right: 10%;
+    //   bottom: 0rem;
+    //   padding-left: 100%;
+    //   background: transparent 0% 0% no-repeat padding-box;
+    //   mix-blend-mode: lighten;
+    // }
+
     .estilo_titulo {
       font-size: 25px;
       width: 100%;
@@ -124,7 +134,9 @@
         }
 
         .estilo_imagen {
-          height: 100%;
+          padding-left: 5rem;
+          height: auto;
+          width: fit-content;
           bottom: 0rem;
           background: transparent 0% 0% no-repeat padding-box;
           mix-blend-mode: lighten;
