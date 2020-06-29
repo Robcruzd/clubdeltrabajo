@@ -278,7 +278,7 @@ export class VerHojaVidaComponent implements OnInit {
               text: `${item.institucion?.institucion}`
             },
             {
-              text: `${item.fechaInicio} / ${item.fechaFin}`
+              text: `${item.fechaFin}`
             }
           ]
         }

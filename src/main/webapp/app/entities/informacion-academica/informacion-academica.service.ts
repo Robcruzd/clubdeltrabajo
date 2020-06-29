@@ -51,10 +51,6 @@ export class InformacionAcademicaService {
 
   protected convertDateFromClient(informacionAcademica: IInformacionAcademica): IInformacionAcademica {
     const copy: IInformacionAcademica = Object.assign({}, informacionAcademica, {
-      fechaInicio:
-        informacionAcademica.fechaInicio && informacionAcademica.fechaInicio.isValid()
-          ? informacionAcademica.fechaInicio.format(DATE_FORMAT)
-          : undefined,
       fechaFin:
         informacionAcademica.fechaFin && informacionAcademica.fechaFin.isValid()
           ? informacionAcademica.fechaFin.format(DATE_FORMAT)
@@ -65,7 +61,6 @@ export class InformacionAcademicaService {
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
-      res.body.fechaInicio = res.body.fechaInicio ? moment(res.body.fechaInicio) : undefined;
       res.body.fechaFin = res.body.fechaFin ? moment(res.body.fechaFin) : undefined;
     }
     return res;
@@ -74,7 +69,6 @@ export class InformacionAcademicaService {
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     if (res.body) {
       res.body.forEach((informacionAcademica: IInformacionAcademica) => {
-        informacionAcademica.fechaInicio = informacionAcademica.fechaInicio ? moment(informacionAcademica.fechaInicio) : undefined;
         informacionAcademica.fechaFin = informacionAcademica.fechaFin ? moment(informacionAcademica.fechaFin) : undefined;
       });
     }

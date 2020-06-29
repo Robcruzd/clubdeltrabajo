@@ -16,6 +16,12 @@ export interface IInformacionPersonal {
   perfilProfesional?: string;
   usuario?: IPersona;
   tipoLicenciaConduccion?: string;
+  anioExperiencia?: number;
+  mesExperiencia?: number;
+  aspiracionSalarial?: number;
+  mudarme?: boolean;
+  viajar?: boolean;
+  paisPermisoTrabajo?: string;
 }
 
 export class InformacionPersonal implements IInformacionPersonal {
@@ -32,6 +38,12 @@ export class InformacionPersonal implements IInformacionPersonal {
     public redesSociales?: string,
     public perfilProfesional?: string,
     public usuario?: IPersona,
-    public tipoLicenciaConduccion?: string
+    public tipoLicenciaConduccion?: string,
+    public anioExperiencia?: number,
+    public mesExperiencia?: number,
+    public aspiracionSalarial?: number,
+    public mudarme?: boolean,
+    public viajar?: boolean,
+    public paisPermisoTrabajo?: string
   ) {}
 }
