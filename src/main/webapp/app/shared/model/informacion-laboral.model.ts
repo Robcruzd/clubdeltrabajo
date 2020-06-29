@@ -16,6 +16,7 @@ export interface IInformacionLaboral {
   ciudadExtranjera?: string;
   usuario?: IPersona;
   cargo?: ICargo;
+  nivelCargo? : number;
 }
 
 export class InformacionLaboral implements IInformacionLaboral {
@@ -32,6 +33,7 @@ export class InformacionLaboral implements IInformacionLaboral {
     public dependencia?: string,
     public ciudadExtranjera?: string,
     public usuario?: IPersona,
-    public cargo?: ICargo
+    public cargo?: ICargo,
+    public nivelCargo? : number
   ) {}
 }

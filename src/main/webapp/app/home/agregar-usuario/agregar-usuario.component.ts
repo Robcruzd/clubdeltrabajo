@@ -135,7 +135,8 @@ export class AgregarUsuarioComponent implements OnInit {
     }
 
     if (this.validacionIncorrecta === false) {
-      this.tipoUsuario.id = 1; //eliminar esta línea al activar tipo usuario jurídico
+      // eliminar esta línea al activar tipo usuario jurídico
+      this.tipoUsuario.id = 1; 
       this.persona;
       this.personaNatural;
       this.user;

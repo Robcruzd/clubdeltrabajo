@@ -1,16 +1,22 @@
 package com.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import java.io.Serializable;
-import java.util.Objects;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
- * A InformacionAcademica.
+ * A InformacionAcademica.	
  */
 @Entity
 @Table(name = "ct_informacion_academica_tb")
@@ -30,9 +36,6 @@ public class InformacionAcademica implements Serializable {
     @Column(name = "estado", nullable = false)
     private Integer estado;
 
-    @Column(name = "fecha_inicio")
-    private LocalDate fechaInicio;
-
     @Column(name = "fecha_fin")
     private LocalDate fechaFin;
 
@@ -43,10 +46,15 @@ public class InformacionAcademica implements Serializable {
     @NotNull
     @JsonIgnoreProperties("informacionAcademicas")
     private Persona usuario;
+    
+    @NotNull
+    @Column(name = "institucion", nullable = false)
+    private String institucion;
+    
+    @NotNull
+    @Column(name = "ciudad_academica", nullable = false)
+    private Integer ciudadAcademica;
 
-    @ManyToOne
-    @JsonIgnoreProperties("informacionAcademicas")
-    private Institucion institucion;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -81,19 +89,6 @@ public class InformacionAcademica implements Serializable {
 
     public void setEstado(Integer estado) {
         this.estado = estado;
-    }
-
-    public LocalDate getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public InformacionAcademica fechaInicio(LocalDate fechaInicio) {
-        this.fechaInicio = fechaInicio;
-        return this;
-    }
-
-    public void setFechaInicio(LocalDate fechaInicio) {
-        this.fechaInicio = fechaInicio;
     }
 
     public LocalDate getFechaFin() {
@@ -135,21 +130,25 @@ public class InformacionAcademica implements Serializable {
         this.usuario = persona;
     }
 
-    public Institucion getInstitucion() {
-        return institucion;
-    }
-
-    public InformacionAcademica institucion(Institucion institucion) {
-        this.institucion = institucion;
-        return this;
-    }
-
-    public void setInstitucion(Institucion institucion) {
-        this.institucion = institucion;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
+    public String getInstitucion() {
+		return institucion;
+	}
+
+	public void setInstitucion(String institucion) {
+		this.institucion = institucion;
+	}
+
+	public Integer getCiudadAcademica() {
+		return ciudadAcademica;
+	}
+
+	public void setCiudadAcademica(Integer ciudadAcademica) {
+		this.ciudadAcademica = ciudadAcademica;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -171,7 +170,6 @@ public class InformacionAcademica implements Serializable {
             "id=" + getId() +
             ", nivelEstudio=" + getNivelEstudio() +
             ", estado=" + getEstado() +
-            ", fechaInicio='" + getFechaInicio() + "'" +
             ", fechaFin='" + getFechaFin() + "'" +
             ", tituloOtorgado='" + getTituloOtorgado() + "'" +
             "}";

@@ -1,13 +1,20 @@
 package com.web.rest;
 
-import com.CtProjectApp;
-import com.domain.InformacionAcademica;
-import com.domain.Persona;
-import com.domain.Institucion;
-import com.repository.InformacionAcademicaRepository;
-import com.service.InformacionAcademicaService;
-import com.service.dto.InformacionAcademicaCriteria;
-import com.service.InformacionAcademicaQueryService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,15 +25,12 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.CtProjectApp;
+import com.domain.InformacionAcademica;
+import com.domain.Persona;
+import com.repository.InformacionAcademicaRepository;
+import com.service.InformacionAcademicaService;
 
 /**
  * Integration tests for the {@link InformacionAcademicaResource} REST controller.
@@ -63,9 +67,6 @@ public class InformacionAcademicaResourceIT {
     private InformacionAcademicaService informacionAcademicaService;
 
     @Autowired
-    private InformacionAcademicaQueryService informacionAcademicaQueryService;
-
-    @Autowired
     private EntityManager em;
 
     @Autowired
@@ -83,7 +84,6 @@ public class InformacionAcademicaResourceIT {
         InformacionAcademica informacionAcademica = new InformacionAcademica()
             .nivelEstudio(DEFAULT_NIVEL_ESTUDIO)
             .estado(DEFAULT_ESTADO)
-            .fechaInicio(DEFAULT_FECHA_INICIO)
             .fechaFin(DEFAULT_FECHA_FIN)
             .tituloOtorgado(DEFAULT_TITULO_OTORGADO);
         // Add required entity
@@ -108,7 +108,6 @@ public class InformacionAcademicaResourceIT {
         InformacionAcademica informacionAcademica = new InformacionAcademica()
             .nivelEstudio(UPDATED_NIVEL_ESTUDIO)
             .estado(UPDATED_ESTADO)
-            .fechaInicio(UPDATED_FECHA_INICIO)
             .fechaFin(UPDATED_FECHA_FIN)
             .tituloOtorgado(UPDATED_TITULO_OTORGADO);
         // Add required entity
@@ -146,7 +145,6 @@ public class InformacionAcademicaResourceIT {
         InformacionAcademica testInformacionAcademica = informacionAcademicaList.get(informacionAcademicaList.size() - 1);
         assertThat(testInformacionAcademica.getNivelEstudio()).isEqualTo(DEFAULT_NIVEL_ESTUDIO);
         assertThat(testInformacionAcademica.getEstado()).isEqualTo(DEFAULT_ESTADO);
-        assertThat(testInformacionAcademica.getFechaInicio()).isEqualTo(DEFAULT_FECHA_INICIO);
         assertThat(testInformacionAcademica.getFechaFin()).isEqualTo(DEFAULT_FECHA_FIN);
         assertThat(testInformacionAcademica.getTituloOtorgado()).isEqualTo(DEFAULT_TITULO_OTORGADO);
     }
@@ -764,20 +762,14 @@ public class InformacionAcademicaResourceIT {
     public void getAllInformacionAcademicasByInstitucionIsEqualToSomething() throws Exception {
         // Initialize the database
         informacionAcademicaRepository.saveAndFlush(informacionAcademica);
-        Institucion institucion = InstitucionResourceIT.createEntity(em);
-        em.persist(institucion);
-        em.flush();
-        informacionAcademica.setInstitucion(institucion);
-        informacionAcademicaRepository.saveAndFlush(informacionAcademica);
-        Long institucionId = institucion.getId();
-
+        
         // Get all the informacionAcademicaList where institucion equals to institucionId
-        defaultInformacionAcademicaShouldBeFound("institucionId.equals=" + institucionId);
+        defaultInformacionAcademicaShouldBeFound("institucionId.equals=" + DEFAULT_TITULO_OTORGADO);
 
         // Get all the informacionAcademicaList where institucion equals to institucionId + 1
-        defaultInformacionAcademicaShouldNotBeFound("institucionId.equals=" + (institucionId + 1));
+        defaultInformacionAcademicaShouldNotBeFound("institucionId.equals=" + UPDATED_TITULO_OTORGADO);
     }
-
+    
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -840,7 +832,6 @@ public class InformacionAcademicaResourceIT {
         updatedInformacionAcademica
             .nivelEstudio(UPDATED_NIVEL_ESTUDIO)
             .estado(UPDATED_ESTADO)
-            .fechaInicio(UPDATED_FECHA_INICIO)
             .fechaFin(UPDATED_FECHA_FIN)
             .tituloOtorgado(UPDATED_TITULO_OTORGADO);
 
@@ -855,7 +846,6 @@ public class InformacionAcademicaResourceIT {
         InformacionAcademica testInformacionAcademica = informacionAcademicaList.get(informacionAcademicaList.size() - 1);
         assertThat(testInformacionAcademica.getNivelEstudio()).isEqualTo(UPDATED_NIVEL_ESTUDIO);
         assertThat(testInformacionAcademica.getEstado()).isEqualTo(UPDATED_ESTADO);
-        assertThat(testInformacionAcademica.getFechaInicio()).isEqualTo(UPDATED_FECHA_INICIO);
         assertThat(testInformacionAcademica.getFechaFin()).isEqualTo(UPDATED_FECHA_FIN);
         assertThat(testInformacionAcademica.getTituloOtorgado()).isEqualTo(UPDATED_TITULO_OTORGADO);
     }

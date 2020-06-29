@@ -72,6 +72,24 @@ public class InformacionPersonal implements Serializable {
     
     @Column(name = "tipo_licencia_conduccion")
     private String tipoLicenciaConduccion;
+    
+    @Column(name = "anio_experiencia")
+    private Integer anioExperiencia;
+    
+    @Column(name = "mes_experiencia")
+    private Integer mesExperiencia;
+    
+    @Column(name = "aspiracion_salarial")
+    private Integer aspiracionSalarial;
+    
+    @Column(name = "mudarme")
+    private Boolean mudarme;
+    
+    @Column(name = "viajar")
+    private Boolean viajar;
+    
+    @Column(name = "pais_permiso_trabajo")
+    private String paisPermisoTrabajo;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -229,6 +247,54 @@ public class InformacionPersonal implements Serializable {
 
 	public void setTipoLicenciaConduccion(String tipoLicenciaConduccion) {
 		this.tipoLicenciaConduccion = tipoLicenciaConduccion;
+	}
+
+	public Integer getAnioExperiencia() {
+		return anioExperiencia;
+	}
+
+	public void setAnioExperiencia(Integer anioExperiencia) {
+		this.anioExperiencia = anioExperiencia;
+	}
+
+	public Integer getMesExperiencia() {
+		return mesExperiencia;
+	}
+
+	public void setMesExperiencia(Integer mesExperiencia) {
+		this.mesExperiencia = mesExperiencia;
+	}
+
+	public Integer getAspiracionSalarial() {
+		return aspiracionSalarial;
+	}
+
+	public void setAspiracionSalarial(Integer aspiracionSalarial) {
+		this.aspiracionSalarial = aspiracionSalarial;
+	}
+	
+	public Boolean getMudarme() {
+		return mudarme;
+	}
+
+	public void setMudarme(Boolean mudarme) {
+		this.mudarme = mudarme;
+	}
+
+	public Boolean getViajar() {
+		return viajar;
+	}
+
+	public void setViajar(Boolean viajar) {
+		this.viajar = viajar;
+	}
+
+	public String getPaisPermisoTrabajo() {
+		return paisPermisoTrabajo;
+	}
+
+	public void setPaisPermisoTrabajo(String paisPermisoTrabajo) {
+		this.paisPermisoTrabajo = paisPermisoTrabajo;
 	}
 
 	@Override

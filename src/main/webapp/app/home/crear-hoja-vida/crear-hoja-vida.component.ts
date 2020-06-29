@@ -1,6 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators, FormControlName } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Account } from 'app/core/user/account.model';
 import { ICargo } from 'app/shared/model/cargo.model';
@@ -42,6 +42,8 @@ export class CrearHojaVidaComponent implements OnInit {
   globalForm!: FormGroup;
   formPersonal!: FormGroup;
   formPerfil!: FormGroup;
+  anioExperiencia!: FormControlName;
+  mesExperiencia!: FormControlName;
   step!: number;
   geografia: Array<GeografiaVo> = [];
   paises: Array<IOpcionVo> = [];
@@ -53,6 +55,8 @@ export class CrearHojaVidaComponent implements OnInit {
   dias: number[] = this.apiService.getDias();
   meses: number[] = this.apiService.getMeses();
   anios: number[] = this.apiService.getAnios();
+  aniosExperiencia: IOpcionVo[] = commonMessages.ARRAY_ANIOS_EXPERIENCIA;
+  mesesExperiencia: IOpcionVo[] = commonMessages.ARRAY_MESES_EXPERIENCIA;
   nivelEstudio: IOpcionVo[] = commonMessages.ARRAY_NIVEL_ESTUDIOS;
   estadoNivelEstudio: IOpcionVo[] = commonMessages.ARRAY_ESTADO_NIVEL_ESTUDIO;
   idiomas: Array<IIdioma> = [];
@@ -74,6 +78,14 @@ export class CrearHojaVidaComponent implements OnInit {
   mensajeArchivoDoc: any = '';
   mensajeArchivoTitulo: any = '';
 
+  nivelCargo: IOpcionVo[] = commonMessages.ARRAY_NIVEL_CARGO;
+  aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
+  colorMudarse: any | null;
+  colorViajar: any | null;
+  valorMudarme = false;
+  valorViajar = false;
+  banderaColorMudarse = false;
+  banderaColorViajar = false;
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -170,11 +182,7 @@ export class CrearHojaVidaComponent implements OnInit {
       id: [''],
       nivelEstudio: [null, [Validators.required]],
       estado: [null, [Validators.required]],
-      fechaInicio: this.fb.group({
-        dia: [null, [Validators.required]],
-        mes: [null, [Validators.required]],
-        anio: [null, [Validators.required]]
-      }),
+      ciudadAcademica: [null, [Validators.required]],
       fechaFin: this.fb.group({
         dia: [null, [Validators.required]],
         mes: [null, [Validators.required]],
@@ -182,7 +190,7 @@ export class CrearHojaVidaComponent implements OnInit {
       }),
       tituloOtorgado: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚñáéíóú ]{0,}$')]],
       usuario: [''],
-      institucion: [null, [Validators.required]]
+      institucion: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚñáéíóú ]{0,}$')]]
     });
   }
 
@@ -233,7 +241,8 @@ export class CrearHojaVidaComponent implements OnInit {
       telefonoEmpresa: ['', [Validators.required, Validators.pattern('^[0-9]{7,10}$')]],
       usuario: [''],
       dependencia: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú ]{0,}$')]],
-      cargo: [null, [Validators.required]]
+      cargo: [null, [Validators.required]],
+      nivelCargo: [null, [Validators.required]]	    
     });
   }
 
@@ -243,13 +252,25 @@ export class CrearHojaVidaComponent implements OnInit {
 
   crearFormularioPerfil(): void {
     this.formPerfil = this.fb.group({
-      perfilProfesional: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.: ]{0,}$')]]
+      perfilProfesional: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.: ]{0,}$')]],
+      anioExperiencia: [null, [Validators.required]],
+      mesExperiencia: [null, [Validators.required]],
+      aspiracionSalarial: ['', [Validators.required]],
+      paisPermisoTrabajo: ['']
     });
   }
 
   updateForm(hojaVida: HojaVidaVo | null): void {
     if (hojaVida === null) {
       return;
+    }
+    if (hojaVida.informacionPersonal.mudarme === true){
+      this.banderaColorMudarse = true;
+      this.valorMudarme = true;
+    }
+    if (hojaVida.informacionPersonal.viajar === true){
+      this.banderaColorViajar= true;
+      this.valorViajar = true;
     }
     this.archivos = this.hojaVidaVo?.archivos || [];
     // Cargar informacion personal
@@ -279,7 +300,14 @@ export class CrearHojaVidaComponent implements OnInit {
       });
 
       // cargar perfil profesional
-      this.formPerfil.patchValue({ perfilProfesional: hojaVida.informacionPersonal.perfilProfesional });
+      this.formPerfil.patchValue({ 
+        perfilProfesional: hojaVida.informacionPersonal.perfilProfesional, 
+        anioExperiencia: hojaVida.informacionPersonal.anioExperiencia,
+        mesExperiencia: hojaVida.informacionPersonal.mesExperiencia,
+        aspiracionSalarial: hojaVida.informacionPersonal.aspiracionSalarial,
+        paisPermisoTrabajo: hojaVida.informacionPersonal.paisPermisoTrabajo
+      });
+
       this.cargarRedSocial();
     } else {
       this.formPersonal.get('nombre')?.setValue(this.hojaVidaVo.persona.nombre);
@@ -299,11 +327,7 @@ export class CrearHojaVidaComponent implements OnInit {
           id: academica.id,
           nivelEstudio: academica.nivelEstudio,
           estado: academica.estado,
-          fechaInicio: {
-            dia: this.getDia(academica.fechaInicio),
-            mes: this.getMes(academica.fechaInicio),
-            anio: this.getAnio(academica.fechaInicio)
-          },
+          ciudadAcademica: academica.ciudadAcademica,
           fechaFin: {
             dia: this.getDia(academica.fechaFin),
             mes: this.getMes(academica.fechaFin),
@@ -353,7 +377,8 @@ export class CrearHojaVidaComponent implements OnInit {
           telefonoEmpresa: experiencia.telefonoEmpresa,
           usuario: experiencia.usuario,
           dependencia: experiencia.dependencia,
-          cargo: experiencia.cargo
+          cargo: experiencia.cargo,
+          nivelCargo: experiencia.nivelCargo
         });
         this.onChangePais(index);
       }
@@ -489,6 +514,12 @@ export class CrearHojaVidaComponent implements OnInit {
       redesSociales: this.procesarRedSocial(this.formPersonal.get(['redesSociales'])!.value),
       tipoLicenciaConduccion: this.formPersonal.get(['tipoLicenciaConduccion'])!.value,
       perfilProfesional: this.formPerfil.get(['perfilProfesional'])!.value,
+      anioExperiencia: this.formPerfil.get(['anioExperiencia'])!.value,
+      mesExperiencia: this.formPerfil.get(['mesExperiencia'])!.value,
+      aspiracionSalarial: this.formPerfil.get(['aspiracionSalarial'])!.value,
+      mudarme: this.valorMudarme,
+      viajar: this.valorViajar,
+      paisPermisoTrabajo: this.formPerfil.get(['paisPermisoTrabajo'])!.value,
       usuario: new Persona(this.persona)
     };
   }
@@ -499,7 +530,7 @@ export class CrearHojaVidaComponent implements OnInit {
       id: academica['id'],
       nivelEstudio: academica['nivelEstudio'],
       estado: academica['estado'],
-      fechaInicio: this.getFecha(academica['fechaInicio']),
+      ciudadAcademica: academica['ciudadAcademica'],
       fechaFin: this.getFecha(academica['fechaFin']),
       tituloOtorgado: academica['tituloOtorgado'],
       usuario: new Persona(this.persona),
@@ -522,7 +553,8 @@ export class CrearHojaVidaComponent implements OnInit {
       ciudadExtranjera: experiencia['ciudadExtranjera'],
       usuario: new Persona(this.persona),
       dependencia: experiencia['dependencia'],
-      cargo: experiencia['cargo']
+      cargo: experiencia['cargo'],
+      nivelCargo: experiencia['nivelCargo']
     };
   }
 
@@ -796,6 +828,32 @@ export class CrearHojaVidaComponent implements OnInit {
   volverPerfil(): void {
     this.router.navigate(['/perfil']);
   }
+
+  removeItemExperienciaLaboral(): void {
+    this.experienciaLaboral.removeAt(this.experienciaLaboral.length -1);
+  }
+
+  clickMudarse() : void{
+    this.colorMudarse = document.getElementById('buttonMudarse');
+    if(this.colorMudarse.style.backgroundColor === 'rgb(163, 170, 175)'){
+      this.valorMudarme = false;
+      this.colorMudarse.style.backgroundColor = '#FFFFFF';
+    }else{
+      this.valorMudarme = true;
+      this.colorMudarse.style.backgroundColor = '#A3AAAF';
+    }
+  }
+
+  clickViajar(): void{
+    this.colorViajar = document.getElementById('buttonViajar');
+    if(this.colorViajar.style.backgroundColor === 'rgb(163, 170, 175)'){
+      this.valorViajar = false;
+      this.colorViajar.style.backgroundColor = '#FFFFFF';
+    }else{
+      this.valorViajar = true;
+      this.colorViajar.style.backgroundColor = '#A3AAAF';
+    }
+  }  
 
   // getters
   get informacionPersonal(): FormArray {

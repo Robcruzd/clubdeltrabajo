@@ -6,7 +6,7 @@ export interface IInformacionAcademica {
   id?: number;
   nivelEstudio?: number;
   estado?: number;
-  fechaInicio?: Moment;
+  ciudadAcademica?: number;
   fechaFin?: Moment;
   tituloOtorgado?: string;
   usuario?: IPersona;
@@ -18,7 +18,7 @@ export class InformacionAcademica implements IInformacionAcademica {
     public id?: number,
     public nivelEstudio?: number,
     public estado?: number,
-    public fechaInicio?: Moment,
+    public ciudadAcademica?: number,
     public fechaFin?: Moment,
     public tituloOtorgado?: string,
     public usuario?: IPersona,
