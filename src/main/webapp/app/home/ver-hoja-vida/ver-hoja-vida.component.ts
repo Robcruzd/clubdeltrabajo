@@ -181,6 +181,8 @@ export class VerHojaVidaComponent implements OnInit {
                 },
                 {
                   fillColor: '#1A2050',
+                  borderRadius: [12, 12, 12, 12],
+                  color: '#ffffff',
                   table: {
                     body: [
                       [
@@ -188,7 +190,9 @@ export class VerHojaVidaComponent implements OnInit {
                           image: LOCATION_BASE64,
                           alignment: 'center',
                           fit: [20, 20],
-                          margin: [0, 2]
+                          margin: [0, 2],
+                          fillColor: '#1A2050',
+                          color: '#ffffff'
                         },
                         {
                           text: this.hojaVidaVo?.informacionPersonal.direccionResidencia,
@@ -200,12 +204,14 @@ export class VerHojaVidaComponent implements OnInit {
                           image: INBOX_BASE64,
                           alignment: 'center',
                           fit: [20, 20],
-                          margin: [0, 2]
+                          margin: [0, 2],
+                          color: '#ffffff'
                         },
                         {
                           text: this.hojaVidaVo?.persona.email,
                           style: 'headerInfo',
-                          margin: [0, 0, 12, 0]
+                          margin: [0, 0, 12, 0],
+                          color: '#ffffff'
                         }
                       ],
                       [
@@ -213,7 +219,8 @@ export class VerHojaVidaComponent implements OnInit {
                           image: PHONE_BASE64,
                           alignment: 'center',
                           fit: [20, 20],
-                          margin: [0, 2]
+                          margin: [0, 2],
+                          color: '#ffffff'
                         },
                         {
                           text: this.hojaVidaVo?.informacionPersonal.telefono,
@@ -387,12 +394,12 @@ export class VerHojaVidaComponent implements OnInit {
             {
               canvas: [
                 {
-                  type: 'line',
-                  x1: 10,
-                  y1: 0,
-                  x2: 10,
-                  y2: 600,
-                  lineWidth: 2,
+                  type: 'ellipse',
+                  x: 10,
+                  y: 300,
+                  r1: 1,
+                  r2: 300,
+                  //lineWidth: 2,
                   color: '#1A2050'
                 },
                 {
