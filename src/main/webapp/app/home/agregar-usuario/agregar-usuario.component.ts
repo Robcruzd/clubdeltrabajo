@@ -55,7 +55,7 @@ export class AgregarUsuarioComponent implements OnInit {
 
   onCrearUsuario(): void {
     const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    const NOMBRE_REGEX = /^[A-ZÑÁÉÍÓÚ ]$/;
+    const NOMBRE_REGEX = /^[a-zA-ZÑÁÉÍÓÚñáéíóú ]{1,}$/;
     const CONTRASENA_REGEX = /.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*/;
     const PASAPORTE_REGEX = /^[0-9,A-Z,a-z]{6,11}$/;
     const CEDULA_REGEX = /^[0-9]{6,10}$/;
@@ -136,7 +136,7 @@ export class AgregarUsuarioComponent implements OnInit {
 
     if (this.validacionIncorrecta === false) {
       // eliminar esta línea al activar tipo usuario jurídico
-      this.tipoUsuario.id = 1; 
+      this.tipoUsuario.id = 1;
       this.persona;
       this.personaNatural;
       this.user;

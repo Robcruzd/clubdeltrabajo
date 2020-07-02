@@ -6,7 +6,7 @@
   .box_perfil {
     display: flex;
     flex-direction: row;
-    width: 85%;
+    width: 950px;
     align-self: center;
     margin: 2rem 0rem;
     padding: 2rem 1rem;
@@ -14,7 +14,7 @@
     .column2 {
       display: flex;
       flex-direction: column;
-      width: 49%;
+      width: 470px;
       align-items: center;
       background: transparent linear-gradient(181deg, #2e437e 0%, #1a2152 100%) 0% 0% no-repeat padding-box;
       border-radius: 1.875rem;
@@ -24,7 +24,7 @@
     .column {
       display: flex;
       flex-direction: column;
-      width: 49%;
+      width: 470px;
       align-items: center;
 
       .card-presentacion {
@@ -33,6 +33,13 @@
         background: #f0f0f0 0% 0% no-repeat padding-box;
         border-radius: 26px;
         opacity: 1;
+
+        .columncard {
+          display: flex;
+          flex-direction: column;
+          width: 49%;
+          align-items: center;
+        }
 
         .codigo {
           width: 81px;
@@ -117,21 +124,21 @@
       }
 
       .procuraduria {
-        width: 80px;
+        width: 60px;
         //background: transparent url('img/Image 29.png') 0% 0% no-repeat padding-box;
         opacity: 1;
         margin: 0 auto;
       }
 
       .contraloria {
-        width: 108px;
+        width: 88px;
         //background: transparent url('img/Image 30.png') 0% 0% no-repeat padding-box;
         opacity: 1;
         margin: 0 auto;
       }
 
       .policia {
-        width: 80px;
+        width: 60px;
         //background: transparent url('img/Image 31.png') 0% 0% no-repeat padding-box;
         opacity: 1;
         margin: 0 auto;

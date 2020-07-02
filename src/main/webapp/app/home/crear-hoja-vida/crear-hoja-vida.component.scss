@@ -60,6 +60,7 @@
       flex-direction: column;
       align-items: center;
       width: 90%;
+      margin-bottom: 1rem;
     }
 
     .column {
@@ -215,7 +216,7 @@
 
           .file_upload_licence {
             width: 100%;
-            height: 3rem;
+            min-height: 3rem;
             background: #ffffff 0% 0% no-repeat padding-box;
             border-radius: 1.5rem;
             border-width: 0rem;
@@ -234,7 +235,6 @@
             .name_file {
               width: 85%;
               padding-left: 1rem;
-              height: 3rem;
               background: #ffffff 0% 0% no-repeat padding-box;
               border-radius: 1.5rem 0rem 0rem 1.5rem;
               border-width: 0rem;
@@ -308,7 +308,7 @@
 
         .estilo_inputs {
           width: 100%;
-          height: 3rem;
+          min-height: 3rem;
           font-weight: bold;
           background: #ffffff 0% 0% no-repeat padding-box;
           border-radius: 1.5rem;
@@ -317,12 +317,8 @@
           padding-right: 1rem;
           padding-left: 1.5rem;
 
-
-
-          
-	  .mudarse{
+          .mudarse {
             width: 49%;
-            height: 3rem;
             background: #ffffff 0% 0% no-repeat padding-box;
             border-radius: 0rem 0rem 0rem 0rem;
             border-width: 0rem;
@@ -331,17 +327,16 @@
             font-weight: bold;
           }
 
-          .viajar{
+          .viajar {
             width: 49%;
-            height: 3rem;
             background: #ffffff 0% 0% no-repeat padding-box;
             border-radius: 0rem 0rem 0rem 0rem;
             border-width: 0rem;
             padding-left: 1rem;
             opacity: 1;
             font-weight: bold;
-          }	 	
-}
+          }
+        }
 
         .estilo_inputs:focus {
           outline: none;
@@ -371,7 +366,7 @@
   }
 
   .boton_siguiente {
-    height: 48px;
+    min-height: 3rem;
     width: 50%;
     background: #2699fb 0% 0% no-repeat padding-box;
     border-radius: 24px;
@@ -380,7 +375,7 @@
   }
 
   .boton_agregar {
-    height: 48px;
+    min-height: 3rem;
     width: 50%;
     background: #fb8826 0% 0% no-repeat padding-box;
     border-radius: 24px;

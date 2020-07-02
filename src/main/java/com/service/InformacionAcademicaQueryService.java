@@ -91,9 +91,9 @@ public class InformacionAcademicaQueryService extends QueryService<InformacionAc
             if (criteria.getEstado() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getEstado(), InformacionAcademica_.estado));
             }
-            if (criteria.getFechaInicio() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getFechaInicio(), InformacionAcademica_.fechaInicio));
-            }
+            // if (criteria.getFechaInicio() != null) {
+            //     specification = specification.and(buildRangeSpecification(criteria.getFechaInicio(), InformacionAcademica_.fechaInicio));
+            // }
             if (criteria.getFechaFin() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getFechaFin(), InformacionAcademica_.fechaFin));
             }
@@ -104,10 +104,10 @@ public class InformacionAcademicaQueryService extends QueryService<InformacionAc
                 specification = specification.and(buildSpecification(criteria.getUsuarioId(),
                     root -> root.join(InformacionAcademica_.usuario, JoinType.LEFT).get(Persona_.id)));
             }
-            if (criteria.getInstitucionId() != null) {
-                specification = specification.and(buildSpecification(criteria.getInstitucionId(),
-                    root -> root.join(InformacionAcademica_.institucion, JoinType.LEFT).get(Institucion_.id)));
-            }
+            // if (criteria.getInstitucionId() != null) {
+            //     specification = specification.and(buildSpecification(criteria.getInstitucionId(),
+            //         root -> root.join(InformacionAcademica_.institucion, JoinType.LEFT).get(Institucion_.id)));
+            // }
         }
         return specification;
     }

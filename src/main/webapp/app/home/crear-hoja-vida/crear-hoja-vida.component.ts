@@ -161,7 +161,7 @@ export class CrearHojaVidaComponent implements OnInit {
         [
           Validators.required,
           Validators.pattern(
-            '^(Autopista|Avenida|Avenida Calle|Avenida Carrera|Avenida|Carrera|Calle|Carrera|Circunvalar|Diagonal|Kilometro|Transversal|AUTOP|AV|AC|AK|CL|KR|CCV|DG|KM|TV)(\\s)?([a-zA-Z]{0,15}|[0-9]{1,3})(\\s)?[a-zA-Z]?(\\s)?(bis)?(\\s)?(Este|Norte|Occidente|Oeste|Sur)?(\\s)?(#(\\s)?[0-9]{1,2}(\\s)?[a-zA-Z]?(\\s)?(bis)?(\\s)?(Este|Norte|Occidente|Oeste|Sur)?(\\s)?(-)?(\\s)?[0-9]{1,3}(\\s)?(Este|Norte|Occidente|Oeste|Sur)?)?((\\s)?(Agrupación|Altillo|Apartamento|Apartamento Sótano|Barrio|Bloque|Bodega|Cabecera Municipal|Callejón|Camino|Carretera|Casa|Caserio|Célula|Centro|Centro Comercial|Centro Urbano|Circular|Condominio|Conjunto|Consultorio|Corregimiento|Deposito|Deposito |Sótano|Edificio|Entrada|Esquina|Etapa|Finca|Garaje|Garaje Sótano|Grada|Inferior|Inspección de Policia|Interior|Kilometro|Local|Local Mezzanine|Local Sótano|Lote|Manzana|Manzanita|Mejora|Mezzanine|Módulo|Municipio|Núcleo|Oficina|Oficina Sótano|Parcela|Parcelación|Pasaje|Penthouse|Piso|Porteria|Predio|Principal|Puente|Quebrada|Salon|Sector|Semisótano|Suite|Supermanzana|Terraza|Torre|Troncal|Unidad|Urbanización|Vereda|Via|Zona|AGN|AL|APTO|AS|BR|BL|BG|CM|CLJ|CN|CT|CA|CAS|CEL|CE|CECO|CEUR|CIR|CDM|CONJ|CS|CO|DP|DS|ED|EN|ESQ|ET|FCA|GJ|GS|GR|INF|IP|IN|KM|LC|LM|LS|LT|MZ|MZTA|MJ|MN|MD|MUN|NCO|OF|OS|PA|PCN|PSJ|PH|PI|PT|PD|PPAL|PN|QDA|SA|SEC|SS|SU|SMZ|TZ|TO|TRL|UN|URB|VDA|VIA|ZN)?(\\s)?[1-9][0-9]{0,3})*$'
+            '^(Autopista|autopista|Avenida|avenida|Avenida Calle|avenida calle|Avenida Carrera|avenida carrera|Avenida|avenida|Carrera|carrera|Calle|calle|Carrera|carrera|Circunvalar|circunvalar|Diagonal|diagonal|Kilometro|kilometro|Transversal|transversal|AUTOP|autop|AV|av|AC|ac|AK|ak|CL|cl|KR|kr|CCV|ccv|DG|dg|KM|km|TV|tv)(\\s)?([a-zA-Z]{0,15}|[0-9]{1,3})(\\s)?[a-zA-Z]?(\\s)?(bis)?(\\s)?(Este|este|Norte|norte|Occidente|occidente|Oeste|oeste|Sur|sur)?(\\s)?(#(\\s)?[0-9]{1,2}(\\s)?[a-zA-Z]?(\\s)?(bis)?(\\s)?(Este|este|Norte|norte|Occidente|occidente|Oeste|oeste|Sur|sur)?(\\s)?(-)?(\\s)?[0-9]{1,3}(\\s)?(Este|este|Norte|norte|Occidente|occidente|Oeste|oeste|Sur|sur)?)?((\\s)?(Agrupación|agrupación|Altillo|altillo|Apartamento|apartamento|Apartamento Sótano|apartamento sótano|Barrio|barrio|Bloque|bloque|Bodega|bodega|Cabecera Municipal|cabecera municipal|Callejón|callejón|Camino|camino|Carretera|carretera|Casa|casa|Caserio|caserio|Célula|celula|Centro|centro|Centro Comercial|centro comercial|Centro Urbano|centro urbano|Circular|circular|Condominio|condominio|Conjunto|conjunto|Consultorio|consultorio|Corregimiento|corregimiento|Deposito|deposito|Deposito |deposito |Sótano|sótano|Edificio|edificio|Entrada|entrada|Esquina|esquina|Etapa|etapa|Finca|finca|Garaje|garaje|Garaje Sótano|garaje sótano|Grada|grada|Inferior|inferior|Inspección de Policia|inspección de policia|Interior|interior|Kilometro|kilometro|Local|local|Local Mezzanine|local mezzanine|Local Sótano|local sótano|Lote|lote|Manzana|manzana|Manzanita|manzanita|Mejora|mejora|Mezzanine|mezzanine|Módulo|módulo|Municipio|municipio|Núcleo|núcleo|Oficina|oficina|Oficina Sótano|oficina sótano|Parcela|parcela|Parcelación|parcelación|Pasaje|pasaje|Penthouse|penthouse|Piso|piso|Porteria|porteria|Predio|predio|Principal|principal|Puente|puente|Quebrada|quebrada|Salon|salon|Sector|sector|Semisótano|semisótano|Suite|suite|Supermanzana|supermanzana|Terraza|terraza|Torre|torre|Troncal|troncal|Unidad|unidad|Urbanización|urbanización|Vereda|vereda|Via|via|Zona|zona|AGN|agn|AL|al|APTO|apto|AS|as|BR|br|BL|bl|BG|bg|CM|cm|CLJ|clj|CN|cn|CT|ct|CA|ca|CAS|cas|CEL|cel|CE|ce|CECO|ceco|CEUR|ceur|CIR|cir|CDM|cdm|CONJ|conj|CS|cs|CO|co|DP|dp|DS|ds|ED|ed|EN|en|ESQ|esq|ET|et|FCA|fca|GJ|gj|GS|gs|GR|gr|INF|inf|IP|ip|IN|in|KM|km|LC|lc|LM|lm|LS|ls|LT|lt|MZ|mz|MZTA|mzta|MJ|mj|MN|mn|MD|md|MUN|mun|NCO|nco|OF|of|OS|os|PA|pa|PCN|pcn|PSJ|psj|PH|ph|PI|pi|PT|pt|PD|pd|PPAL|ppal|PN|pn|QDA|dqa|SA|sa|SEC|sec|SS|ss|SU|su|SMZ|smz|TZ|tz|TO|to|TRL|trl|UN|un|URB|urb|VDA|vda|VIA|via|ZN|zn)?(\\s)?[1-9][0-9]{0,3})*$'
           )
         ]
       ],
@@ -230,7 +230,7 @@ export class CrearHojaVidaComponent implements OnInit {
         [
           Validators.required,
           Validators.pattern(
-            '^(Autopista|Avenida|Avenida Calle|Avenida Carrera|Avenida|Carrera|Calle|Carrera|Circunvalar|Diagonal|Kilometro|Transversal|AUTOP|AV|AC|AK|CL|KR|CCV|DG|KM|TV)(\\s)?([a-zA-Z]{0,15}|[0-9]{1,3})(\\s)?[a-zA-Z]?(\\s)?(bis)?(\\s)?(Este|Norte|Occidente|Oeste|Sur)?(\\s)?(#(\\s)?[0-9]{1,2}(\\s)?[a-zA-Z]?(\\s)?(bis)?(\\s)?(Este|Norte|Occidente|Oeste|Sur)?(\\s)?(-)?(\\s)?[0-9]{1,3}(\\s)?(Este|Norte|Occidente|Oeste|Sur)?)?((\\s)?(Agrupación|Altillo|Apartamento|Apartamento Sótano|Barrio|Bloque|Bodega|Cabecera Municipal|Callejón|Camino|Carretera|Casa|Caserio|Célula|Centro|Centro Comercial|Centro Urbano|Circular|Condominio|Conjunto|Consultorio|Corregimiento|Deposito|Deposito |Sótano|Edificio|Entrada|Esquina|Etapa|Finca|Garaje|Garaje Sótano|Grada|Inferior|Inspección de Policia|Interior|Kilometro|Local|Local Mezzanine|Local Sótano|Lote|Manzana|Manzanita|Mejora|Mezzanine|Módulo|Municipio|Núcleo|Oficina|Oficina Sótano|Parcela|Parcelación|Pasaje|Penthouse|Piso|Porteria|Predio|Principal|Puente|Quebrada|Salon|Sector|Semisótano|Suite|Supermanzana|Terraza|Torre|Troncal|Unidad|Urbanización|Vereda|Via|Zona|AGN|AL|APTO|AS|BR|BL|BG|CM|CLJ|CN|CT|CA|CAS|CEL|CE|CECO|CEUR|CIR|CDM|CONJ|CS|CO|DP|DS|ED|EN|ESQ|ET|FCA|GJ|GS|GR|INF|IP|IN|KM|LC|LM|LS|LT|MZ|MZTA|MJ|MN|MD|MUN|NCO|OF|OS|PA|PCN|PSJ|PH|PI|PT|PD|PPAL|PN|QDA|SA|SEC|SS|SU|SMZ|TZ|TO|TRL|UN|URB|VDA|VIA|ZN)?(\\s)?[1-9][0-9]{0,3})*$'
+            '^(Autopista|autopista|Avenida|avenida|Avenida Calle|avenida calle|Avenida Carrera|avenida carrera|Avenida|avenida|Carrera|carrera|Calle|calle|Carrera|carrera|Circunvalar|circunvalar|Diagonal|diagonal|Kilometro|kilometro|Transversal|transversal|AUTOP|autop|AV|av|AC|ac|AK|ak|CL|cl|KR|kr|CCV|ccv|DG|dg|KM|km|TV|tv)(\\s)?([a-zA-Z]{0,15}|[0-9]{1,3})(\\s)?[a-zA-Z]?(\\s)?(bis)?(\\s)?(Este|este|Norte|norte|Occidente|occidente|Oeste|oeste|Sur|sur)?(\\s)?(#(\\s)?[0-9]{1,2}(\\s)?[a-zA-Z]?(\\s)?(bis)?(\\s)?(Este|este|Norte|norte|Occidente|occidente|Oeste|oeste|Sur|sur)?(\\s)?(-)?(\\s)?[0-9]{1,3}(\\s)?(Este|este|Norte|norte|Occidente|occidente|Oeste|oeste|Sur|sur)?)?((\\s)?(Agrupación|agrupación|Altillo|altillo|Apartamento|apartamento|Apartamento Sótano|apartamento sótano|Barrio|barrio|Bloque|bloque|Bodega|bodega|Cabecera Municipal|cabecera municipal|Callejón|callejón|Camino|camino|Carretera|carretera|Casa|casa|Caserio|caserio|Célula|celula|Centro|centro|Centro Comercial|centro comercial|Centro Urbano|centro urbano|Circular|circular|Condominio|condominio|Conjunto|conjunto|Consultorio|consultorio|Corregimiento|corregimiento|Deposito|deposito|Deposito |deposito |Sótano|sótano|Edificio|edificio|Entrada|entrada|Esquina|esquina|Etapa|etapa|Finca|finca|Garaje|garaje|Garaje Sótano|garaje sótano|Grada|grada|Inferior|inferior|Inspección de Policia|inspección de policia|Interior|interior|Kilometro|kilometro|Local|local|Local Mezzanine|local mezzanine|Local Sótano|local sótano|Lote|lote|Manzana|manzana|Manzanita|manzanita|Mejora|mejora|Mezzanine|mezzanine|Módulo|módulo|Municipio|municipio|Núcleo|núcleo|Oficina|oficina|Oficina Sótano|oficina sótano|Parcela|parcela|Parcelación|parcelación|Pasaje|pasaje|Penthouse|penthouse|Piso|piso|Porteria|porteria|Predio|predio|Principal|principal|Puente|puente|Quebrada|quebrada|Salon|salon|Sector|sector|Semisótano|semisótano|Suite|suite|Supermanzana|supermanzana|Terraza|terraza|Torre|torre|Troncal|troncal|Unidad|unidad|Urbanización|urbanización|Vereda|vereda|Via|via|Zona|zona|AGN|agn|AL|al|APTO|apto|AS|as|BR|br|BL|bl|BG|bg|CM|cm|CLJ|clj|CN|cn|CT|ct|CA|ca|CAS|cas|CEL|cel|CE|ce|CECO|ceco|CEUR|ceur|CIR|cir|CDM|cdm|CONJ|conj|CS|cs|CO|co|DP|dp|DS|ds|ED|ed|EN|en|ESQ|esq|ET|et|FCA|fca|GJ|gj|GS|gs|GR|gr|INF|inf|IP|ip|IN|in|KM|km|LC|lc|LM|lm|LS|ls|LT|lt|MZ|mz|MZTA|mzta|MJ|mj|MN|mn|MD|md|MUN|mun|NCO|nco|OF|of|OS|os|PA|pa|PCN|pcn|PSJ|psj|PH|ph|PI|pi|PT|pt|PD|pd|PPAL|ppal|PN|pn|QDA|dqa|SA|sa|SEC|sec|SS|ss|SU|su|SMZ|smz|TZ|tz|TO|to|TRL|trl|UN|un|URB|urb|VDA|vda|VIA|via|ZN|zn)?(\\s)?[1-9][0-9]{0,3})*$'
           )
         ]
       ],
@@ -242,7 +242,7 @@ export class CrearHojaVidaComponent implements OnInit {
       usuario: [''],
       dependencia: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú ]{0,}$')]],
       cargo: [null, [Validators.required]],
-      nivelCargo: [null, [Validators.required]]	    
+      nivelCargo: [null, [Validators.required]]
     });
   }
 
@@ -255,8 +255,8 @@ export class CrearHojaVidaComponent implements OnInit {
       perfilProfesional: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.: ]{0,}$')]],
       anioExperiencia: [null, [Validators.required]],
       mesExperiencia: [null, [Validators.required]],
-      aspiracionSalarial: ['', [Validators.required]],
-      paisPermisoTrabajo: ['']
+      aspiracionSalarial: [null, [Validators.required]],
+      paisPermisoTrabajo: ['', [Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,. ]{0,}$')]]
     });
   }
 
@@ -264,12 +264,12 @@ export class CrearHojaVidaComponent implements OnInit {
     if (hojaVida === null) {
       return;
     }
-    if (hojaVida.informacionPersonal.mudarme === true){
+    if (hojaVida.informacionPersonal.mudarme === true) {
       this.banderaColorMudarse = true;
       this.valorMudarme = true;
     }
-    if (hojaVida.informacionPersonal.viajar === true){
-      this.banderaColorViajar= true;
+    if (hojaVida.informacionPersonal.viajar === true) {
+      this.banderaColorViajar = true;
       this.valorViajar = true;
     }
     this.archivos = this.hojaVidaVo?.archivos || [];
@@ -300,8 +300,8 @@ export class CrearHojaVidaComponent implements OnInit {
       });
 
       // cargar perfil profesional
-      this.formPerfil.patchValue({ 
-        perfilProfesional: hojaVida.informacionPersonal.perfilProfesional, 
+      this.formPerfil.patchValue({
+        perfilProfesional: hojaVida.informacionPersonal.perfilProfesional,
         anioExperiencia: hojaVida.informacionPersonal.anioExperiencia,
         mesExperiencia: hojaVida.informacionPersonal.mesExperiencia,
         aspiracionSalarial: hojaVida.informacionPersonal.aspiracionSalarial,
@@ -309,6 +309,7 @@ export class CrearHojaVidaComponent implements OnInit {
       });
 
       this.cargarRedSocial();
+      this.cargarMunicipiosPersonal(this.formPersonal.value);
     } else {
       this.formPersonal.get('nombre')?.setValue(this.hojaVidaVo.persona.nombre);
       this.formPersonal.get('apellido')?.setValue(this.hojaVidaVo.persona.apellido);
@@ -370,17 +371,18 @@ export class CrearHojaVidaComponent implements OnInit {
             anio: this.getAnio(experiencia.fechaFin)
           },
           direccion: experiencia.direccion,
-          ciudad: experiencia.ciudad,
-          departamento: experiencia.departamento,
           pais: experiencia.pais,
           ciudadExtranjera: experiencia.ciudadExtranjera,
           telefonoEmpresa: experiencia.telefonoEmpresa,
           usuario: experiencia.usuario,
           dependencia: experiencia.dependencia,
           cargo: experiencia.cargo,
-          nivelCargo: experiencia.nivelCargo
+          nivelCargo: experiencia.nivelCargo,
+          ciudad: experiencia.ciudad,
+          departamento: experiencia.departamento
         });
-        this.onChangePais(index);
+        this.updatePais(index);
+        this.cargarMunicipios(this.experienciaLaboral.at(index).value);
       }
     }
   }
@@ -625,22 +627,25 @@ export class CrearHojaVidaComponent implements OnInit {
   cargarMunicipiosPersonal(value: Object): void {
     this.municipiosPersonal = [];
     if (value === 0) {
-      this.municipiosPersonal = this.geografia.map(item => {
-        return {
-          codigo: item.codigoMpio,
-          nombre: item.nombreMpio
-        };
-      });
+      this.municipiosPersonal = this.geografia
+        .map(item => {
+          return {
+            codigo: item.codigoMpio,
+            nombre: item.nombreMpio
+          };
+        })
+        .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0));
     } else {
       if (value && Object.entries(value).length > 0) {
         this.municipiosPersonal = this.geografia
-          .filter(item => item.codigoDpto === value['departamento'])
+          .filter(item => item.codigoDpto === value['departamento'].toString())
           .map(item => {
             return {
               codigo: item.codigoMpio,
               nombre: item.nombreMpio
             };
-          });
+          })
+          .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0));
       }
     }
   }
@@ -648,22 +653,25 @@ export class CrearHojaVidaComponent implements OnInit {
   cargarMunicipios(value: Object): void {
     this.municipios = [];
     if (value === 0) {
-      this.municipios = this.geografia.map(item => {
-        return {
-          codigo: item.codigoMpio,
-          nombre: item.nombreMpio
-        };
-      });
+      this.municipios = this.geografia
+        .map(item => {
+          return {
+            codigo: item.codigoMpio,
+            nombre: item.nombreMpio
+          };
+        })
+        .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0));
     } else {
       if (value && Object.entries(value).length > 0) {
         this.municipios = this.geografia
-          .filter(item => item.codigoDpto === value['departamento'])
+          .filter(item => item.codigoDpto === value['departamento'].toString())
           .map(item => {
             return {
               codigo: item.codigoMpio,
               nombre: item.nombreMpio
             };
-          });
+          })
+          .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0));
       }
     }
   }
@@ -674,7 +682,18 @@ export class CrearHojaVidaComponent implements OnInit {
         page: 0,
         size: 20
       })
-      .subscribe((res: HttpResponse<ITipoDocumento[]>) => (this.documentos = res.body || []));
+      .subscribe((res: HttpResponse<ITipoDocumento[]>) => {
+        if (res.body !== null) {
+          this.documentos = res.body
+            .map(item => {
+              return {
+                id: item.id,
+                nombreTipo: item.nombreTipo
+              };
+            })
+            .sort((a: ITipoDocumento, b: ITipoDocumento) => (a.nombreTipo! > b.nombreTipo! ? 1 : b.nombreTipo! > a.nombreTipo! ? -1 : 0));
+        }
+      });
   }
 
   cargarInstituciones(): void {
@@ -683,7 +702,18 @@ export class CrearHojaVidaComponent implements OnInit {
         page: 0,
         size: 200
       })
-      .subscribe((res: HttpResponse<IInstitucion[]>) => (this.instituciones = res.body || []));
+      .subscribe((res: HttpResponse<IInstitucion[]>) => {
+        if (res.body !== null) {
+          this.instituciones = res.body
+            .map(item => {
+              return {
+                id: item.id,
+                institucion: item.institucion
+              };
+            })
+            .sort((a: IInstitucion, b: IInstitucion) => (a.institucion! > b.institucion! ? 1 : b.institucion! > a.institucion! ? -1 : 0));
+        }
+      });
   }
 
   cargarCargos(): void {
@@ -701,7 +731,18 @@ export class CrearHojaVidaComponent implements OnInit {
         page: 0,
         size: 20
       })
-      .subscribe((res: HttpResponse<IIdioma[]>) => (this.idiomas = res.body || []));
+      .subscribe((res: HttpResponse<IIdioma[]>) => {
+        if (res.body !== null) {
+          this.idiomas = res.body
+            .map(item => {
+              return {
+                id: item.id,
+                idioma: item.idioma
+              };
+            })
+            .sort((a: IIdioma, b: IIdioma) => (a.idioma! > b.idioma! ? 1 : b.idioma! > a.idioma! ? -1 : 0));
+        }
+      });
   }
 
   // cargar archivos
@@ -771,6 +812,48 @@ export class CrearHojaVidaComponent implements OnInit {
     this.redSocial = event.target.value;
   }
 
+  updatePais(index: any): void {
+    if (this.experienciaLaboral.at(index).get(['pais'])!.value !== commonMessages.CODIGO_COLOMBIA) {
+      this.experienciaLaboral
+        .at(index)
+        .get(['departamento'])
+        ?.disable();
+      this.experienciaLaboral
+        .at(index)
+        .get(['departamento'])
+        ?.setValue(null);
+      this.experienciaLaboral
+        .at(index)
+        .get(['ciudad'])
+        ?.disable();
+      this.experienciaLaboral
+        .at(index)
+        .get(['ciudad'])
+        ?.setValue(null);
+      this.experienciaLaboral
+        .at(index)
+        .get(['ciudadExtranjera'])
+        ?.enable();
+    } else {
+      this.experienciaLaboral
+        .at(index)
+        .get(['ciudad'])
+        ?.enable();
+      this.experienciaLaboral
+        .at(index)
+        .get(['departamento'])
+        ?.enable();
+      this.experienciaLaboral
+        .at(index)
+        .get(['ciudadExtranjera'])
+        ?.disable();
+      this.experienciaLaboral
+        .at(index)
+        .get(['ciudadExtranjera'])
+        ?.setValue('');
+    }
+  }
+
   onChangePais(index: any): void {
     if (this.experienciaLaboral.at(index).get(['pais'])!.value !== commonMessages.CODIGO_COLOMBIA) {
       this.experienciaLaboral
@@ -830,30 +913,30 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   removeItemExperienciaLaboral(): void {
-    this.experienciaLaboral.removeAt(this.experienciaLaboral.length -1);
+    this.experienciaLaboral.removeAt(this.experienciaLaboral.length - 1);
   }
 
-  clickMudarse() : void{
+  clickMudarse(): void {
     this.colorMudarse = document.getElementById('buttonMudarse');
-    if(this.colorMudarse.style.backgroundColor === 'rgb(163, 170, 175)'){
+    if (this.colorMudarse.style.backgroundColor === 'rgb(163, 170, 175)') {
       this.valorMudarme = false;
       this.colorMudarse.style.backgroundColor = '#FFFFFF';
-    }else{
+    } else {
       this.valorMudarme = true;
       this.colorMudarse.style.backgroundColor = '#A3AAAF';
     }
   }
 
-  clickViajar(): void{
+  clickViajar(): void {
     this.colorViajar = document.getElementById('buttonViajar');
-    if(this.colorViajar.style.backgroundColor === 'rgb(163, 170, 175)'){
+    if (this.colorViajar.style.backgroundColor === 'rgb(163, 170, 175)') {
       this.valorViajar = false;
       this.colorViajar.style.backgroundColor = '#FFFFFF';
-    }else{
+    } else {
       this.valorViajar = true;
       this.colorViajar.style.backgroundColor = '#A3AAAF';
     }
-  }  
+  }
 
   // getters
   get informacionPersonal(): FormArray {

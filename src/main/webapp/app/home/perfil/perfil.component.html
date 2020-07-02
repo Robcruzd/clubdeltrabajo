@@ -3,7 +3,7 @@
         <div class="column">
             <div class="card-presentacion">
                 <div class="row">
-                    <div class="column">
+                    <div class="columncard">
                         <img class="logo text-center" src="../../../content/images/logo_cdt.png">
                         <img class="foto-perfil rounded-circle" [src]="imagen?.archivo || ulrImgDefault">
                         <label for="file-upload" class="custom-file-upload text-center">
@@ -12,7 +12,7 @@
                         <input id="file-upload" type="file" accept=".png, .jpeg, .jpg"
                             (change)="cargarImagen($event, tipoArchivo.IMAGEN_PERFIL)" />
                     </div>
-                    <div class="column">
+                    <div class="columncard">
                         <qrcode class="codigo" [qrdata]="qrCard" [width]="81"></qrcode>
                         <div class="titulo_div">
                             <h2 class="titulo" *ngIf="true">{{persona?.nombre}} {{persona?.apellido}}</h2>

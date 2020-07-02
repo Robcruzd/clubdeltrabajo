@@ -351,8 +351,8 @@
                                         {{ municipio.nombre }}
                                     </option>
                                 </select>
-                                <small *ngIf="false" id="emailHelp"
-                                        class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="informacionAcademica.at(indexAcademica).get('ciudadAcademica')?.errors?.required"
+                                    class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
                         </div>
                         <div class="column">
@@ -420,8 +420,10 @@
                                 <div class="input_group">
                                     <input type="text" class="estilo_inputs" formControlName="institucion">
                                 </div>
-                                <small *ngIf="false" id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="informacionAcademica.at(indexAcademica).get('institucion')?.errors?.required"
+                                    class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="informacionAcademica.at(indexAcademica).get('institucion')?.errors?.pattern"
+                                    class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
                             </div>
                         </div>
                     </div>
@@ -533,24 +535,24 @@
                                         </option>
                                     </select>
                                 </div>
-                                <small *ngIf="false" id="emailHelp"
-                                    class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <small *ngIf="formPerfil.get('mesExperiencia')?.errors?.required || formPerfil.get('anioExperiencia')?.errors?.required"
+                                        class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
                     </div>
                     <div class="column">
                         <div class="form-group">
                             <p class="estilo_label">¿Aspiración salarial? (en millones de pesos) <span
                                 class="estilo_campo_requerido">*</span></p>
-                                <select formControlName="aspiracionSalarial" class="estilo_inputs">
-                                    <option [ngValue]="null" disabled>Seleccione una opción</option>
-                                    <option *ngFor="let aspiracion of aspiracionesSalariales" 
-                                    [ngValue]="aspiracion.codigo === formPerfil.get('aspiracionSalarial')!.value? formPerfil.get('aspiracionSalarial')!.value: aspiracion.codigo">
-                                        {{ aspiracion.nombre }}
-                                    </option>
-                                </select>
-                            <small *ngIf="false" id="emailHelp"
-                                class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                        </div>    
+                            <select formControlName="aspiracionSalarial" class="estilo_inputs">
+                                <option [ngValue]="null" disabled>Seleccione una opción</option>
+                                <option *ngFor="let aspiracion of aspiracionesSalariales" 
+                                [ngValue]="aspiracion.codigo === formPerfil.get('aspiracionSalarial')!.value? formPerfil.get('aspiracionSalarial')!.value: aspiracion.codigo">
+                                    {{ aspiracion.nombre }}
+                                </option>
+                            </select>
+                            <small *ngIf="formPerfil.get('aspiracionSalarial')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -562,15 +564,15 @@
                                         <button id="buttonMudarse" class="mudarse" (click)="clickMudarse()" [ngStyle]="{'background-color' : banderaColorMudarse ? '#A3AAAF' : '#FFFFFF'}">Puedo mudarme a otra ciudad o pais</button>
                                         <button id="buttonViajar" class="viajar" (click)="clickViajar()" [ngStyle]="{'background-color' : banderaColorViajar ? '#A3AAAF' : '#FFFFFF'}">Puedo viajar a otra ciudad o pais</button>
                                     </div>
-                                    <small *ngIf="false" id="emailHelp"
-                                        class="form-text text-muted">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                                 </div>    
                             </div>
                     </div>
                     <div class="column">
                         <div class="form-group">
                             <p class="estilo_label">¿En cuales paises tiene permisos de trabajo?</p>
-                            <input type="text" formControlName="paisPermisoTrabajo" class="estilo_inputs">    
+                            <input type="text" formControlName="paisPermisoTrabajo" class="estilo_inputs">  
+                            <small *ngIf="formPerfil.get('paisPermisoTrabajo')?.errors?.pattern"
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>  
                         </div>    
                     </div>
                 </div>
