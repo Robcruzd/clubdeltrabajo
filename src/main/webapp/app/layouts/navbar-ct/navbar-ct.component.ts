@@ -59,6 +59,10 @@ export class NavbarCtComponent implements OnInit {
     this.router.navigate(['/inicio-sesion']);
   }
 
+  cambiarContrasena(): void {
+    this.router.navigate(['/restaurar-contrasena']);
+  }
+
   cerrarSesion(): void {
     this.logged = false;
     this.showElement = false;

@@ -6,7 +6,8 @@
   .box_perfil {
     display: flex;
     flex-direction: row;
-    width: 950px;
+    min-width: 950px;
+    width: min-content;
     align-self: center;
     margin: 2rem 0rem;
     padding: 2rem 1rem;
@@ -14,7 +15,7 @@
     .column2 {
       display: flex;
       flex-direction: column;
-      width: 470px;
+      min-width: 470px;
       align-items: center;
       background: transparent linear-gradient(181deg, #2e437e 0%, #1a2152 100%) 0% 0% no-repeat padding-box;
       border-radius: 1.875rem;
@@ -24,20 +25,24 @@
     .column {
       display: flex;
       flex-direction: column;
-      width: 470px;
       align-items: center;
 
       .card-presentacion {
         margin-bottom: 14px;
-        width: 95%;
+        margin-right: 1rem;
         background: #f0f0f0 0% 0% no-repeat padding-box;
         border-radius: 26px;
         opacity: 1;
 
+        .rownamecard {
+          display: flex;
+          flex-direction: row;
+        }
+
         .columncard {
           display: flex;
           flex-direction: column;
-          width: 49%;
+          min-width: 250px;
           align-items: center;
         }
 

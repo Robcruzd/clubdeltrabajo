@@ -430,7 +430,7 @@
                     <div class="row">
                         <div class="column">
                             <button type="button" (click)="removeItemInformacionAcademica(indexAcademica)"
-                            class="btn boton_agregar text-white float-right">Quitar Estudios</button>
+                            class="btn boton_agregar text-white float-right">Quitar Estudio</button>
                         </div>
                         <div class="column"></div>
                     </div>
@@ -848,10 +848,12 @@
                             class="btn boton_agregar text-white float-right">Quitar Experiencia</button>
                         </div>
                         <div class="column">
-                            <p class="estilo_label">Estado del empleo</p>
-                            <div class="input_group">
-                                <input type="checkbox" formControlName="trabajoActual" (change)="onChangeTrabajoActual(indexLaboral, $event.target.checked)" [checked]="trabajoActual">
-                                <label class="estilo_label">Trabajo actualmente en esta empresa</label>
+                            <div class="form-group">
+                                <p class="estilo_label">Estado del empleo</p>
+                                <div class="genero">
+                                    <input style='margin-top: 3px;' type="checkbox" formControlName="trabajoActual" (change)="onChangeTrabajoActual(indexLaboral, $event.target.checked)" [checked]="trabajoActual">
+                                    <label class="estilo_label">Trabajo actualmente en esta empresa</label>
+                                </div>
                             </div>
                         </div>
                     </div>
