@@ -37,8 +37,7 @@ public class InformacionLaboral implements Serializable {
     @Column(name = "fecha_inicio", nullable = false)
     private LocalDate fechaInicio;
 
-    @NotNull
-    @Column(name = "fecha_fin", nullable = false)
+    @Column(name = "fecha_fin", nullable = true)
     private LocalDate fechaFin;
 
     @NotNull
@@ -78,6 +77,9 @@ public class InformacionLaboral implements Serializable {
     
     @Column(name = "nivel_cargo")
     private Integer nivelCargo;
+    
+    @Column(name = "trabajo_actual")
+    private Boolean trabajoActual;
     
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -251,6 +253,14 @@ public class InformacionLaboral implements Serializable {
 
 	public void setNivelCargo(Integer nivelCargo) {
 		this.nivelCargo = nivelCargo;
+	}
+	
+	public Boolean getTrabajoActual() {
+		return trabajoActual;
+	}
+
+	public void setTrabajoActual(Boolean trabajoActual) {
+		this.trabajoActual = trabajoActual;
 	}
 
 	@Override

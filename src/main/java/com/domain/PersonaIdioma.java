@@ -22,17 +22,14 @@ public class PersonaIdioma implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotNull
     @Column(name = "nivel", nullable = false)
     private String nivel;
 
     @ManyToOne(optional = false)
-    @NotNull
     @JsonIgnoreProperties("personaIdiomas")
     private Persona idPersona;
 
     @ManyToOne(optional = false)
-    @NotNull
     @JsonIgnoreProperties("personaIdiomas")
     private Idioma idIdioma;
 

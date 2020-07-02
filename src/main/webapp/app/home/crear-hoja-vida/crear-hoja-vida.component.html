@@ -427,6 +427,13 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="column">
+                            <button type="button" (click)="removeItemInformacionAcademica(indexAcademica)"
+                            class="btn boton_agregar text-white float-right">Quitar Estudios</button>
+                        </div>
+                        <div class="column"></div>
+                    </div>
                 </div>
             </ng-container>
             <div class="row">
@@ -471,6 +478,13 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <button type="button" (click)="removeItemIdioma(indexIdioma)"
+                            class="btn boton_agregar text-white float-right">Quitar Idioma</button>
+                        </div>
+                        <div class="column"></div>
                     </div>
                 </div>
             </ng-container>
@@ -830,10 +844,15 @@
                     </div>
                     <div class="row">
                         <div class="column">
-                            <button type="button" (click)="removeItemExperienciaLaboral()"
+                            <button type="button" (click)="removeItemExperienciaLaboral(indexLaboral)"
                             class="btn boton_agregar text-white float-right">Quitar Experiencia</button>
                         </div>
                         <div class="column">
+                            <p class="estilo_label">Estado del empleo</p>
+                            <div class="input_group">
+                                <input type="checkbox" formControlName="trabajoActual" (change)="onChangeTrabajoActual(indexLaboral, $event.target.checked)" [checked]="trabajoActual">
+                                <label class="estilo_label">Trabajo actualmente en esta empresa</label>
+                            </div>
                         </div>
                     </div>
                     </div>

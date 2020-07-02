@@ -44,6 +44,7 @@ export class CrearHojaVidaComponent implements OnInit {
   formPerfil!: FormGroup;
   anioExperiencia!: FormControlName;
   mesExperiencia!: FormControlName;
+  trabajoActual!: FormControlName;
   step!: number;
   geografia: Array<GeografiaVo> = [];
   paises: Array<IOpcionVo> = [];
@@ -242,7 +243,8 @@ export class CrearHojaVidaComponent implements OnInit {
       usuario: [''],
       dependencia: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú ]{0,}$')]],
       cargo: [null, [Validators.required]],
-      nivelCargo: [null, [Validators.required]]
+      nivelCargo: [null, [Validators.required]],
+      trabajoActual: [false]	    
     });
   }
 
@@ -379,10 +381,14 @@ export class CrearHojaVidaComponent implements OnInit {
           cargo: experiencia.cargo,
           nivelCargo: experiencia.nivelCargo,
           ciudad: experiencia.ciudad,
-          departamento: experiencia.departamento
+          departamento: experiencia.departamento,
+	        trabajoActual: experiencia.trabajoActual	        
         });
         this.updatePais(index);
         this.cargarMunicipios(this.experienciaLaboral.at(index).value);
+	if(experiencia.trabajoActual === true){
+          this.experienciaLaboral.at(index).get(['fechaFin'])?.disable();
+        }      
       }
     }
   }
@@ -556,7 +562,8 @@ export class CrearHojaVidaComponent implements OnInit {
       usuario: new Persona(this.persona),
       dependencia: experiencia['dependencia'],
       cargo: experiencia['cargo'],
-      nivelCargo: experiencia['nivelCargo']
+      nivelCargo: experiencia['nivelCargo'],
+      trabajoActual: experiencia['trabajoActual']
     };
   }
 
@@ -571,11 +578,18 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   getFecha(fecha: Object): Moment {
-    const dia = fecha['dia'] < 10 ? '0' + fecha['dia'] : fecha['dia'];
-    const mes = fecha['mes'] < 10 ? '0' + fecha['mes'] : fecha['mes'];
-    const anio = fecha['anio'];
-
-    return moment(`${anio}/${mes}/${dia}`, DATE_FORMAT);
+    if(fecha === undefined){
+      const dia = null;
+      const mes = null;
+      const anio = null;
+      return moment(`${anio}/${mes}/${dia}`, DATE_FORMAT);
+    }else{
+      const dia = fecha['dia'] < 10 ? '0' + fecha['dia'] : fecha['dia'];
+      const mes = fecha['mes'] < 10 ? '0' + fecha['mes'] : fecha['mes'];
+      const anio = fecha['anio'];
+      return moment(`${anio}/${mes}/${dia}`, DATE_FORMAT);
+    }
+    
   }
 
   getDia(fecha: any): number | null {
@@ -912,11 +926,20 @@ export class CrearHojaVidaComponent implements OnInit {
     this.router.navigate(['/perfil']);
   }
 
-  removeItemExperienciaLaboral(): void {
-    this.experienciaLaboral.removeAt(this.experienciaLaboral.length - 1);
+  removeItemExperienciaLaboral(index: any): void {
+    this.experienciaLaboral.removeAt(index);
   }
 
-  clickMudarse(): void {
+
+  removeItemInformacionAcademica(index: any): void {
+    this.informacionAcademica.removeAt(index);
+  }
+
+  removeItemIdioma(index: any): void {
+    this.idioma.removeAt(index);
+  }
+
+clickMudarse(): void {
     this.colorMudarse = document.getElementById('buttonMudarse');
     if (this.colorMudarse.style.backgroundColor === 'rgb(163, 170, 175)') {
       this.valorMudarme = false;
@@ -938,6 +961,16 @@ export class CrearHojaVidaComponent implements OnInit {
     }
   }
 
+
+  onChangeTrabajoActual(index: any, isChecked: boolean) : void {
+    // eslint-disable-next-line no-console
+    console.log("evento");
+    if(isChecked) {
+      this.experienciaLaboral.at(index).get(['fechaFin'])?.disable();
+    } else {
+      this.experienciaLaboral.at(index).get(['fechaFin'])?.enable();
+    }
+  }
   // getters
   get informacionPersonal(): FormArray {
     return this.globalForm.get('informacionPersonal') as FormArray;
