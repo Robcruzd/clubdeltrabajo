@@ -158,7 +158,7 @@ export class VerHojaVidaComponent implements OnInit {
       content: [
         {
           table: {
-            widths: ['20%', '40%', 'auto'],
+            width: ['20%', '40%', 'auto'],
             body: [
               [
                 {
@@ -254,7 +254,8 @@ export class VerHojaVidaComponent implements OnInit {
         headernames: {
           fontSize: 30,
           bold: true,
-          alignment: 'center'
+          alignment: 'justify',
+          paddingLeft: 5
         },
         title: {
           fontSize: 15,
