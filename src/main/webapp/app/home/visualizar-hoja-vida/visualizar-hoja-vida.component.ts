@@ -146,7 +146,7 @@ export class VisualizarHojaVidaComponent implements OnInit {
     });
   }
 
-  private getCiudad(codigo: string): string {
+  public getCiudad(codigo: string): string {
     const ciudad = this.municipios.find(item => item.codigo === codigo);
 
     return ciudad?.nombre || '';
