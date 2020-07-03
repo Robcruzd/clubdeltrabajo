@@ -26,9 +26,7 @@
 <kendo-pdf-export #pdf>
     <div class="container-pdf">
         <div class="box-left">
-            <div class="foto-perfil rounded-circle">
-            <img class="foto-perfil rounded-circle" [src]="imagen?.archivo || urlImageDefault">
-            </div>
+            <img class="foto-perfil" [src]="imagen?.archivo || urlImageDefault">
             <h4 class="title">SOBRE MI</h4>
             <div class='linea-base'></div>
             <p class="text" style="margin-top: 5px;">{{hojaVidaVo?.informacionPersonal?.perfilProfesional}}</p>

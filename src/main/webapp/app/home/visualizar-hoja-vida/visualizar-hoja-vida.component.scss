@@ -1,3 +1,27 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url('../../../content/fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: bold;
+  src: url('../../../content/fonts/Roboto/Roboto-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: italic;
+  src: url('../../../content/fonts/Roboto/Roboto-Italic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-weight: bold;
+  font-style: italic;
+  src: url('../../../content/fonts/Roboto/Roboto-Italic.ttf') format('truetype');
+}
+
 .foto-perfil {
   top: 133px;
   left: 327px;
@@ -96,11 +120,15 @@
   opacity: 1;
 }
 
+kendo-pdf-export {
+  font-family: 'Roboto', sans-serif, 'Arial';
+}
+
 .container-pdf {
   display: flex;
   flex-direction: row;
   width: 560px;
-  height: 1000px;
+  height: 1046px;
 
   h1,
   h5,
@@ -130,7 +158,7 @@
   .box-left {
     background-color: #dfdfdf;
     display: flex;
-    width: 350px;
+    min-width: 300px;
     flex-direction: column;
     padding: 1rem;
 
@@ -138,15 +166,17 @@
       width: 0.8rem;
       height: 0.8rem;
       margin-right: 0.5rem;
+      margin-top: 5px;
     }
 
     .foto-perfil {
-      width: 200px;
-      height: 200px;
+      width: 240px;
+      height: 240px;
       opacity: 1;
       margin-top: 1rem;
       margin-bottom: 7px;
-      border-radius: 10rem;
+      align-self: center;
+      border-radius: 9rem;
     }
 
     .contacto-icons {
@@ -158,7 +188,7 @@
 
   .box-right {
     background-color: white;
-    width: 500px;
+    min-width: 440px;
     display: flex;
     padding: 1rem;
     flex-direction: column;
