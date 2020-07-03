@@ -163,8 +163,9 @@ export class VerHojaVidaComponent implements OnInit {
               [
                 {
                   image: this.imagen?.archivo || USER_DEFAULT,
-                  width: 100,
-                  height: 90
+                  width: 99,
+                  height: 132,
+                  alignment: 'center'
                 },
                 {
                   type: 'none',
@@ -180,9 +181,9 @@ export class VerHojaVidaComponent implements OnInit {
                   ]
                 },
                 {
-                  fillColor: '#1A2050',
-                  borderRadius: [12, 12, 12, 12],
+                  borderRadius: 20,
                   color: '#ffffff',
+                  borderColor: ['#1A2050', '#1A2050', '#1A2050', '#1A2050'],
                   table: {
                     body: [
                       [
@@ -192,11 +193,13 @@ export class VerHojaVidaComponent implements OnInit {
                           fit: [20, 20],
                           margin: [0, 2],
                           fillColor: '#1A2050',
-                          color: '#ffffff'
+                          borderColor: ['#1A2050', '#1A2050', '#1A2050', '#1A2050']
                         },
                         {
                           text: this.hojaVidaVo?.informacionPersonal.direccionResidencia,
-                          style: 'headerInfo'
+                          style: 'headerInfo',
+                          fillColor: '#1A2050',
+                          borderColor: ['#1A2050', '#1A2050', '#1A2050', '#1A2050']
                         }
                       ],
                       [
@@ -205,13 +208,17 @@ export class VerHojaVidaComponent implements OnInit {
                           alignment: 'center',
                           fit: [20, 20],
                           margin: [0, 2],
-                          color: '#ffffff'
+                          color: '#ffffff',
+                          fillColor: '#1A2050',
+                          borderColor: ['#1A2050', '#1A2050', '#1A2050', '#1A2050']
                         },
                         {
                           text: this.hojaVidaVo?.persona.email,
                           style: 'headerInfo',
+                          fillColor: '#1A2050',
                           margin: [0, 0, 12, 0],
-                          color: '#ffffff'
+                          color: '#ffffff',
+                          borderColor: ['#1A2050', '#1A2050', '#1A2050', '#1A2050']
                         }
                       ],
                       [
@@ -220,16 +227,20 @@ export class VerHojaVidaComponent implements OnInit {
                           alignment: 'center',
                           fit: [20, 20],
                           margin: [0, 2],
-                          color: '#ffffff'
+                          fillColor: '#1A2050',
+                          color: '#ffffff',
+                          borderColor: ['#1A2050', '#1A2050', '#1A2050', '#1A2050']
                         },
                         {
                           text: this.hojaVidaVo?.informacionPersonal.telefono,
-                          style: 'headerInfo'
+                          style: 'headerInfo',
+                          borderColor: ['#1A2050', '#1A2050', '#1A2050', '#1A2050'],
+                          fillColor: '#1A2050'
                         }
                       ]
                     ]
-                  },
-                  layout: 'noBorders'
+                  }
+                  // layout: 'noBorders'
                 }
               ]
             ]
@@ -397,16 +408,16 @@ export class VerHojaVidaComponent implements OnInit {
                 {
                   type: 'ellipse',
                   x: 10,
-                  y: 300,
+                  y: 280,
                   r1: 1,
-                  r2: 300,
+                  r2: 280,
                   // lineWidth: 2,
                   color: '#1A2050'
                 },
                 {
                   type: 'ellipse',
                   x: 10,
-                  y: 35,
+                  y: 10,
                   color: '#1A2050',
                   r1: 10,
                   r2: 10
@@ -414,7 +425,7 @@ export class VerHojaVidaComponent implements OnInit {
                 {
                   type: 'ellipse',
                   x: 10,
-                  y: 215,
+                  y: 200,
                   color: '#1A2050',
                   r1: 10,
                   r2: 10
@@ -422,7 +433,7 @@ export class VerHojaVidaComponent implements OnInit {
                 {
                   type: 'ellipse',
                   x: 10,
-                  y: 415,
+                  y: 405,
                   color: '#1A2050',
                   r1: 10,
                   r2: 10
@@ -430,7 +441,7 @@ export class VerHojaVidaComponent implements OnInit {
                 {
                   type: 'ellipse',
                   x: 10,
-                  y: 575,
+                  y: 560,
                   color: '#1A2050',
                   r1: 10,
                   r2: 10

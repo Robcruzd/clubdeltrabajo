@@ -69,17 +69,27 @@ export class PerfilComponent implements OnInit {
       this.hojaVidaVo = response.body;
       this.archivos = this.hojaVidaVo?.archivos;
       this.imagen = this.archivos?.find(item => item.tipo === TipoArchivo.IMAGEN_PERFIL) || new Archivo();
-      if(this.hojaVidaVo?.informacionPersonal === null && this.imagen.archivo !== undefined){
-        alertify.alert('Atención!','Debe registrar su hoja de vida en el boton Editar Hoja de Vida').setting({
-          'label':'Aceptar'}).show();
-      }
-      else if(this.imagen.archivo === undefined && this.hojaVidaVo?.informacionPersonal !== null){
-        alertify.alert('Atención!','Debe insertar su foto de perfil').setting({
-          'label':'Aceptar'}).show();
-      }
-      else if(this.hojaVidaVo?.informacionPersonal === null && this.imagen.archivo === undefined){
-        alertify.alert('Atención!','Debe insertar su foto de perfil y registrar su hoja de vida en el boton Editar Hoja de Vida').setting({
-          'label':'Aceptar'}).show();
+      if (this.hojaVidaVo?.informacionPersonal === null && this.imagen.archivo !== undefined) {
+        alertify
+          .alert('Atención!', 'Debe registrar su hoja de vida en el boton Editar Hoja de Vida')
+          .setting({
+            label: 'Aceptar'
+          })
+          .show();
+      } else if (this.imagen.archivo === undefined && this.hojaVidaVo?.informacionPersonal !== null) {
+        alertify
+          .alert('Atención!', 'Debe insertar su foto de perfil')
+          .setting({
+            label: 'Aceptar'
+          })
+          .show();
+      } else if (this.hojaVidaVo?.informacionPersonal === null && this.imagen.archivo === undefined) {
+        alertify
+          .alert('Atención!', 'Debe insertar su foto de perfil y registrar su hoja de vida en el boton Editar Hoja de Vida')
+          .setting({
+            label: 'Aceptar'
+          })
+          .show();
       }
     });
   }
@@ -127,7 +137,7 @@ export class PerfilComponent implements OnInit {
   }
 
   verHojaVida(): void {
-    this.router.navigate(['hoja-vida']);
+    this.router.navigate(['visualizar-hoja-vida']);
   }
 
   cargarImagen(event: any, tipoDocumento: number): void {
