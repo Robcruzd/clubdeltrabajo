@@ -35,6 +35,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   abrirBuscarTrabajo(): void {
-    this.router.navigate(['/visualizar-hoja-vida']);
+    this.router.navigate(['/agregar-usuario']);
   }
 }

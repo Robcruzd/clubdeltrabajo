@@ -1,19 +1,29 @@
 .container-pdf {
   display: flex;
   flex-direction: row;
-  width: 1000px;
-  height: 1500px;
+  width: 830px;
+  height: 1300px;
 
   h1,
-  h2,
-  h3,
+  h5,
+  h3 {
+    font-weight: bold;
+    margin-bottom: 0rem;
+  }
+
   h4 {
     font-weight: bold;
+    margin-bottom: 0rem;
+    margin-top: 1.5rem;
+  }
+
+  p {
+    margin-bottom: 0rem;
   }
 
   .linea-base {
-    width: 100px;
-    height: 2px;
+    width: 180px;
+    height: 2.5px;
     background-color: black;
     border-bottom: black;
     border-bottom-width: 2px;
@@ -21,11 +31,9 @@
 
   .box-left {
     background-color: #dfdfdf;
-    width: 40%;
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    align-items: center;
 
     .icono {
       width: 1.2rem;
@@ -34,18 +42,17 @@
     }
 
     .foto-perfil {
-      top: 133px;
-      left: 327px;
-      width: 168px;
-      height: 168px;
-      //background: transparent url('../../../content/images/Image\ 28.png') 0% 0% no-repeat padding-box;
+      width: 280px;
+      height: 280px;
       opacity: 1;
+      margin-top: 1rem;
       margin-bottom: 7px;
     }
 
     .contacto-icons {
       display: flex;
       flex-direction: row;
+      margin-top: 10px;
     }
   }
 
@@ -53,7 +60,13 @@
     background-color: white;
     width: 60%;
     display: flex;
+    padding: 1rem;
     flex-direction: column;
+
+    .experiencias {
+      padding-left: 3rem;
+      padding-top: 1.5rem;
+    }
   }
 }
 

@@ -1,48 +1,55 @@
-<div class="container-pdf">
-    <div class="box-left">
-        <img class="foto-perfil rounded-circle" [src]="imagen?.archivo || urlImageDefault">
-        <h3 class="title">Sobre Mi</h3>
-        <div class='linea-base'></div>
-        <p class="text">Texto</p>
-        <h3 class="title">Contacto</h3>
-        <div class='linea-base'></div>
-        <div class="contacto-icons">
-            <img class="icono" src="../../../content/images/instagram.png">
-            <p class="text">Teléfono</p>
+<kendo-pdf-export #pdf paperSize="A4" margin="2cm">
+    <div class="container-pdf">
+        <div class="box-left">
+            <img class="foto-perfil rounded-circle" [src]="imagen?.archivo || urlImageDefault">
+            <h4 class="title">SOBRE MI</h4>
+            <div class='linea-base'></div>
+            <p class="text" style="margin-top: 5px;">{{hojaVidaVo?.informacionPersonal?.perfilProfesional}}</p>
+            <h4 class="title">CONTACTO</h4>
+            <div class='linea-base'></div>
+            <div class="contacto-icons">
+                <img class="icono" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABJ0lEQVRIidXVLUsEURTG8Z+OICgYNBq0GQSjwaLB7bYtJpufwuQnEBYMgmhQq80iBi2CBhGLQRG2GBRsirqGuwt3x9mF2ZlFfODCnbmH5885577w3zUQzStYwVAqZgeXZcDe0MgYe0VMB6P5a4eYmSKAWGeyM/jERK+mcQZXHWISoT+FAd0audQrINY4Pvwu0TsWywDAccr8C6tlmcNyCrBZpjnh4F1EgFuMlA2ZF0rTguwXMUsy/tUxhoXm95zQ/PMioLSGca29Hxva7y7CNl8Tss6tSTylIAcYba4n2I3WnnGCLTnOzaxQshjyiCqOZF8tDdznyWQKd13MskY9D4DQ9G189wvQUgU3/QQQdk4Vpzpn9FAEEGsa6zgUGvsivB+1sgB/rx/ir3ZmFWUVPQAAAABJRU5ErkJggg=="/>
+                <p class="text" >{{hojaVidaVo?.informacionPersonal?.telefono}}</p>
+            </div>
+            <div class="contacto-icons">
+                <img class="icono" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABMElEQVRIidWUvUoDURCFP3VhmygExMYHEGzTpsuTxCIp1EBeY0ms43PkIUxgIXa2Qto0SSSg4k+RWfZ6M/uT2cYcOLDMnD3n7p17F/4BQqAHTIA34QS4l14lXALPwE8GZ6IxISwwd0NMX9JTzFZCv35nCZh6JkPgBAiAB6/3ZAlYeysPnF6g9FUc5wS877GYD0vAi/N8CkRsVx4AA6CWoS2NPrvDXPN3axL2LQEXwEYx87kRrQnDEgEDqznAObDIMV+IphJucgLaVc0BjoCxYj6W3t7oOCaR1OrAq1Ofk25N5NQ7ZQJi54UvoCX1JvApbEqtJZpEHxeZN0iHp/0hb4U+QtLD0MgLeMR+9JIjPcoS1ICliK4NAVfAN9ubfqYJuhRfqrJUhx0bzTQWDvtw8AvwsLAXmzPv8wAAAABJRU5ErkJggg=="/>
+                <p class="text">{{hojaVidaVo?.informacionPersonal?.direccionResidencia}}</p>
+            </div>
+            <div class="contacto-icons">
+                <img class="icono" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAA/klEQVRIie3TIUsEURQF4G9HiyzYDBbFLgbDRoOIKCx2sZisRqvRatxqtBr0D2jZZDWpaxZEi6KMwTfwVmaHhzOCyB44Yd6595zLe3cY4y9hHbfIa/IOa4VpFgVsYb6BQeewUiZk2MNTjekfg0eraoJZnPzA/BQzVcbn6EbfXWlvcoPVqG8H/bKAouHM1z3CFA7xWmL8hmO0Q+0CLiJ9ZECOFxxgImhLuIr0SywGbRL7eP7mURlQsI/loGfYDiy2r4PrEb1JATk+0MN0VNvGEd4r+pIDCt5jN3CQUI/hfS1NrYEWw3/yr+B/BTw06DsoO9yUth0p27bR4LBj1MQnwB2aS1VuVgwAAAAASUVORK5CYII="/>
+                <p class="text">{{hojaVidaVo?.informacionPersonal?.email}}</p>
+            </div>
         </div>
-        <div class="contacto-icons">
-            <img class="icono" src="../../../content/images/instagram.png">
-            <p class="text">Ubicación</p>
-        </div>
-        <div class="contacto-icons">
-            <img class="icono" src="../../../content/images/instagram.png">
-            <p class="text">Correo Electrónico</p>
+        <div class="box-right">
+            <h1 style="margin-top: 1.5rem;"><span style="color: grey;">{{hojaVidaVo?.informacionPersonal?.nombre}}</span> {{hojaVidaVo?.informacionPersonal?.apellido}}</h1>
+            <div class="experiencias" *ngFor="let item of hojaVidaVo?.experienciaLaboral">
+                <div *ngIf="item.trabajoActual==true">
+                    <h3 style="margin-bottom: 1rem;">{{item.cargo}}</h3>
+                </div>
+            </div>
+            <h4>EXPERIENCIA PROFESIONAL</h4>
+            <div class='linea-base'></div>
+            <div class="experiencias" *ngFor="let item of hojaVidaVo?.experienciaLaboral">
+                <h5>{{item?.cargo?.cargo}}</h5>
+                <ul style="padding-left: 1.5rem;">
+                    <li>{{item?.nombreEmpresa}}</li>
+                    <li>{{item?.fechaInicio}} / {{item?.fechaFin}}</li>
+                    <li>{{item.ciudad ? this.getCiudad(item.ciudad + '') : item.ciudadExtranjera}}</li>
+                </ul>
+            </div>
+            <h4>FORMACIÓN</h4>
+            <div class='linea-base'></div>
+            <div class="experiencias" *ngFor="let item of hojaVidaVo?.informacionAcademica">
+                <h5>{{item?.tituloOtorgado}}</h5>
+                <p>{{item?.institucion}}</p>
+                <p>{{item?.fechaFin}}</p>
+                <p>{{item?.estado}}</p>
+            </div>
+            <h4>IDIOMAS</h4>
+            <div class='linea-base'></div>
+            <div class="experiencias" *ngFor="let item of hojaVidaVo?.idiomas">
+                <p>Inglés : Alto</p>
+            </div>
         </div>
     </div>
-    <div class="box-right">
-        <h1>NOMBRE APELLIDO</h1>
-        <h2>CARGO/PUESTO</h2>
-        <h3>EXPERIENCIA PROFESIONAL</h3>
-        <div class='linea-base'></div>
-        <div>
-            <h4></h4>
-            <p></p>
-            <p></p>
-            <p></p>
-        </div>
-        <h3>FORMACIÓN</h3>
-        <div>
-            <h4></h4>
-            <p></p>
-            <p></p>
-            <p></p>
-        </div>
-        <h3>IDIOMAS</h3>
-        <div>
-            <h4></h4>
-            <p></p>
-            <p></p>
-            <p></p>
-        </div>
-    </div>
-</div>
+</kendo-pdf-export>
