@@ -400,7 +400,7 @@ export class VerHojaVidaComponent implements OnInit {
                   y: 300,
                   r1: 1,
                   r2: 300,
-                  //lineWidth: 2,
+                  // lineWidth: 2,
                   color: '#1A2050'
                 },
                 {
