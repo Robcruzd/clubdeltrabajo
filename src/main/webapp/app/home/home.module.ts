@@ -20,6 +20,7 @@ import { RestaurarContrasenaComponent } from './restaurar-contrasena/restaurar-c
 import { NuevoCorreoComponent } from './nuevo-correo/nuevo-correo.component';
 import { InformacionEmpresaComponent } from './informacion-empresa/informacion-empresa.component';
 import { VisualizarHojaVidaComponent } from './visualizar-hoja-vida/visualizar-hoja-vida.component';
+import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { VisualizarHojaVidaComponent } from './visualizar-hoja-vida/visualizar-h
     FormsModule,
     ReactiveFormsModule,
     QRCodeModule,
-    PdfViewerModule
+    PdfViewerModule,
+    PDFExportModule
   ],
   declarations: [
     HomeComponent,
