@@ -76,7 +76,7 @@ export class VisualizarHojaVidaComponent implements OnInit {
     this.hojaVidaService.find(this.persona).subscribe(response => {
       this.hojaVidaVo = response.body;
       this.urlImageDefault =
-        this.hojaVidaVo?.informacionPersonal.genero === 'F'
+        this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
           ? '../../../content/images/Image 28_F.png'
           : '../../../content/images/Image 28_M.png';
       this.qrCard = 'Perfil de presentación ' + this.account?.firstName + ' ' + this.account?.lastName;
@@ -97,17 +97,6 @@ export class VisualizarHojaVidaComponent implements OnInit {
       uint8Array[i] = raw.charCodeAt(i);
     }
     return uint8Array;
-  }
-
-  export(pdfComponent: any): void {
-    pdfComponent
-      .export()
-      .then((group: Group) => exportPDF(group))
-      .then((dataUri: any) => {
-        const base64 = dataUri.replace('data:application/pdf;base64,', '');
-        // eslint-disable-next-line no-console
-        console.log(base64);
-      });
   }
 
   async visualizarArchivoPDF(): Promise<any> {
@@ -137,8 +126,6 @@ export class VisualizarHojaVidaComponent implements OnInit {
           const base64 = dataUri.replace('data:application/pdf;base64,', '');
           this.pdfHojaVida64 = base64;
           resolve(this.pdfHojaVida64);
-          // eslint-disable-next-line no-console
-          console.log(base64);
         });
     });
   }
