@@ -111,3 +111,15 @@
     }
   }
 }
+
+::ng-deep {
+  .ajs-button.ajs-ok {
+    color: #f0f0f0 !important;
+    background: #020d52 !important;
+    border-radius: 5px !important;
+  }
+
+  .ajs-header {
+    background: #f0f0f0 !important;
+  }
+}

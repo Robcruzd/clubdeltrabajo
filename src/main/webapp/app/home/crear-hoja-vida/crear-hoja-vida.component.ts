@@ -52,6 +52,7 @@ export class CrearHojaVidaComponent implements OnInit {
   municipios: Array<IOpcionVo> = [];
   municipiosPersonal: Array<IOpcionVo> = [];
   discapacidades: Array<IOpcionVo> = commonMessages.ARRAY_DISCAPACIDADES;
+  estadosCiviles: Array<IOpcionVo> = commonMessages.ARRAY_ESTADOS_CIVILES;
   documentos: Array<ITipoDocumento> = [];
   dias: number[] = this.apiService.getDias();
   meses: number[] = this.apiService.getMeses();
@@ -59,6 +60,7 @@ export class CrearHojaVidaComponent implements OnInit {
   aniosExperiencia: IOpcionVo[] = commonMessages.ARRAY_ANIOS_EXPERIENCIA;
   mesesExperiencia: IOpcionVo[] = commonMessages.ARRAY_MESES_EXPERIENCIA;
   nivelEstudio: IOpcionVo[] = commonMessages.ARRAY_NIVEL_ESTUDIOS;
+  nivelEducativoProfesion: IOpcionVo[] = commonMessages.ARRAY_NIVEL_EDUCATIVO_PROFESION;
   estadoNivelEstudio: IOpcionVo[] = commonMessages.ARRAY_ESTADO_NIVEL_ESTUDIO;
   idiomas: Array<IIdioma> = [];
   nivelIdioma: Array<IOpcionVo> = commonMessages.ARRAY_NIVEL_IDIOMA;
@@ -174,7 +176,11 @@ export class CrearHojaVidaComponent implements OnInit {
       discapacidad: [null],
       redesSociales: [null],
       perfilProfesional: [''],
-      tipoLicenciaConduccion: [null]
+      tipoLicenciaConduccion: [null],
+      estadoCivil: [null],
+      activoNotificaciones: [''],
+      nivelEducativoProfesion: [null, [Validators.required]],
+      profesion: [null, [Validators.required]]
     });
   }
 
@@ -244,7 +250,7 @@ export class CrearHojaVidaComponent implements OnInit {
       dependencia: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú ]{0,}$')]],
       cargo: [null, [Validators.required]],
       nivelCargo: [null, [Validators.required]],
-      trabajoActual: [false]	    
+      trabajoActual: [false]
     });
   }
 
@@ -266,11 +272,11 @@ export class CrearHojaVidaComponent implements OnInit {
     if (hojaVida === null) {
       return;
     }
-    if (hojaVida.informacionPersonal.mudarme === true) {
+    if (hojaVida.informacionPersonal && hojaVida.informacionPersonal.mudarme === true) {
       this.banderaColorMudarse = true;
       this.valorMudarme = true;
     }
-    if (hojaVida.informacionPersonal.viajar === true) {
+    if (hojaVida.informacionPersonal && hojaVida.informacionPersonal.viajar === true) {
       this.banderaColorViajar = true;
       this.valorViajar = true;
     }
@@ -297,8 +303,12 @@ export class CrearHojaVidaComponent implements OnInit {
         discapacidad: hojaVida.informacionPersonal.discapacidad,
         redesSociales: hojaVida.informacionPersonal.redesSociales,
         perfilProfesional: hojaVida.informacionPersonal.perfilProfesional,
-        tipoLicenciaConduccion: hojaVida.informacionPersonal.tipoLicenciaConduccion,
-        departamento: hojaVida.informacionPersonal.departamento
+        tipoLicenciaConduccion: JSON.parse(hojaVida.informacionPersonal.tipoLicenciaConduccion!),
+        departamento: hojaVida.informacionPersonal.departamento,
+        estadoCivil: hojaVida.informacionPersonal.estadoCivil,
+        nivelEducativoProfesion: hojaVida.informacionPersonal.nivelEducativoProfesion,
+        profesion: hojaVida.informacionPersonal.profesion,
+        activoNotificaciones: hojaVida.informacionPersonal.activoNotificaciones ? this.labels.SI_LABEL : this.labels.NO_LABEL
       });
 
       // cargar perfil profesional
@@ -382,13 +392,16 @@ export class CrearHojaVidaComponent implements OnInit {
           nivelCargo: experiencia.nivelCargo,
           ciudad: experiencia.ciudad,
           departamento: experiencia.departamento,
-	        trabajoActual: experiencia.trabajoActual	        
+          trabajoActual: experiencia.trabajoActual
         });
         this.updatePais(index);
         this.cargarMunicipios(this.experienciaLaboral.at(index).value);
-	if(experiencia.trabajoActual === true){
-          this.experienciaLaboral.at(index).get(['fechaFin'])?.disable();
-        }      
+        if (experiencia.trabajoActual === true) {
+          this.experienciaLaboral
+            .at(index)
+            .get(['fechaFin'])
+            ?.disable();
+        }
       }
     }
   }
@@ -520,7 +533,7 @@ export class CrearHojaVidaComponent implements OnInit {
       telefono: this.formPersonal.get(['telefono'])!.value,
       discapacidad: this.formPersonal.get(['discapacidad'])!.value,
       redesSociales: this.procesarRedSocial(this.formPersonal.get(['redesSociales'])!.value),
-      tipoLicenciaConduccion: this.formPersonal.get(['tipoLicenciaConduccion'])!.value,
+      tipoLicenciaConduccion: JSON.stringify(this.formPersonal.get(['tipoLicenciaConduccion'])!.value),
       perfilProfesional: this.formPerfil.get(['perfilProfesional'])!.value,
       anioExperiencia: this.formPerfil.get(['anioExperiencia'])!.value,
       mesExperiencia: this.formPerfil.get(['mesExperiencia'])!.value,
@@ -528,7 +541,11 @@ export class CrearHojaVidaComponent implements OnInit {
       mudarme: this.valorMudarme,
       viajar: this.valorViajar,
       paisPermisoTrabajo: this.formPerfil.get(['paisPermisoTrabajo'])!.value,
-      usuario: new Persona(this.persona)
+      usuario: new Persona(this.persona),
+      estadoCivil: this.formPersonal.get('estadoCivil')!.value,
+      nivelEducativoProfesion: this.formPersonal.get('nivelEducativoProfesion')!.value,
+      profesion: this.formPersonal.get('profesion')!.value,
+      activoNotificaciones: this.formPersonal.get('activoNotificaciones')!.value === this.labels.SI_LABEL ? true : false
     };
   }
 
@@ -578,18 +595,17 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   getFecha(fecha: Object): Moment {
-    if(fecha === undefined){
+    if (fecha === undefined) {
       const dia = null;
       const mes = null;
       const anio = null;
       return moment(`${anio}/${mes}/${dia}`, DATE_FORMAT);
-    }else{
+    } else {
       const dia = fecha['dia'] < 10 ? '0' + fecha['dia'] : fecha['dia'];
       const mes = fecha['mes'] < 10 ? '0' + fecha['mes'] : fecha['mes'];
       const anio = fecha['anio'];
       return moment(`${anio}/${mes}/${dia}`, DATE_FORMAT);
     }
-    
   }
 
   getDia(fecha: any): number | null {
@@ -930,7 +946,6 @@ export class CrearHojaVidaComponent implements OnInit {
     this.experienciaLaboral.removeAt(index);
   }
 
-
   removeItemInformacionAcademica(index: any): void {
     this.informacionAcademica.removeAt(index);
   }
@@ -939,7 +954,7 @@ export class CrearHojaVidaComponent implements OnInit {
     this.idioma.removeAt(index);
   }
 
-clickMudarse(): void {
+  clickMudarse(): void {
     this.colorMudarse = document.getElementById('buttonMudarse');
     if (this.colorMudarse.style.backgroundColor === 'rgb(163, 170, 175)') {
       this.valorMudarme = false;
@@ -961,14 +976,17 @@ clickMudarse(): void {
     }
   }
 
-
-  onChangeTrabajoActual(index: any, isChecked: boolean) : void {
-    // eslint-disable-next-line no-console
-    console.log("evento");
-    if(isChecked) {
-      this.experienciaLaboral.at(index).get(['fechaFin'])?.disable();
+  onChangeTrabajoActual(index: any, isChecked: boolean): void {
+    if (isChecked) {
+      this.experienciaLaboral
+        .at(index)
+        .get(['fechaFin'])
+        ?.disable();
     } else {
-      this.experienciaLaboral.at(index).get(['fechaFin'])?.enable();
+      this.experienciaLaboral
+        .at(index)
+        .get(['fechaFin'])
+        ?.enable();
     }
   }
   // getters
@@ -989,8 +1007,6 @@ clickMudarse(): void {
   }
 
   onChangeTipoDoc(event: any): any {
-    // eslint-disable-next-line no-console
-    console.log(event.target.value);
     if (event.target.value === '2: Object') {
       // eslint-disable-next-line no-console
       console.log('its working');

@@ -22,6 +22,10 @@ export interface IInformacionPersonal {
   mudarme?: boolean;
   viajar?: boolean;
   paisPermisoTrabajo?: string;
+  estadoCivil?: number;
+  nivelEducativoProfesion?: number;
+  profesion?: string;
+  activoNotificaciones?: boolean;
 }
 
 export class InformacionPersonal implements IInformacionPersonal {

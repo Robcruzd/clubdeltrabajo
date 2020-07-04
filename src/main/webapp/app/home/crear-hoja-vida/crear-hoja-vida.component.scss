@@ -117,6 +117,10 @@
             font-weight: bold;
           }
 
+          .input_documento:focus {
+            outline: none;
+          }
+
           .file_upload {
             width: 15%;
             height: 3rem;
@@ -242,6 +246,10 @@
               font-weight: bold;
             }
 
+            .name_file:focus {
+              outline: none;
+            }
+
             label {
               margin-bottom: 0rem;
             }
@@ -295,6 +303,10 @@
             font-weight: bold;
           }
 
+          .select_redSocial:focus {
+            outline: none;
+          }
+
           .input_redSocial {
             width: 60%;
             height: 3rem;
@@ -303,6 +315,10 @@
             border-width: 0rem;
             opacity: 1;
             font-weight: bold;
+          }
+
+          .input_redSocial:focus {
+            outline: none;
           }
         }
 
@@ -320,21 +336,31 @@
           .mudarse {
             width: 49%;
             background: #ffffff 0% 0% no-repeat padding-box;
+            height: 100%;
             border-radius: 0rem 0rem 0rem 0rem;
             border-width: 0rem;
             padding-left: 1rem;
             opacity: 1;
             font-weight: bold;
+
+            &:focus {
+              outline: none;
+            }
           }
 
           .viajar {
             width: 49%;
             background: #ffffff 0% 0% no-repeat padding-box;
+            height: 100%;
             border-radius: 0rem 0rem 0rem 0rem;
             border-width: 0rem;
             padding-left: 1rem;
             opacity: 1;
             font-weight: bold;
+
+            &:focus {
+              outline: none;
+            }
           }
         }
 
@@ -346,6 +372,15 @@
           display: flex;
           flex-direction: row;
           align-self: flex-start;
+          color: white;
+
+          .radio-inline {
+            margin-left: 1rem;
+          }
+        }
+
+        .notificaciones {
+          text-align: center;
           color: white;
 
           .radio-inline {
@@ -418,4 +453,23 @@
   visibility: hidden;
   width: 0;
   height: 0;
+}
+
+.multiSelect {
+  width: 100%;
+  height: 48px;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: white !important;
+  height: 48px;
+  padding: 0 0.75em 0 0.75em !important;
+}
+
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-select-arrow-wrapper {
+  transform: translateY(0%) !important;
 }

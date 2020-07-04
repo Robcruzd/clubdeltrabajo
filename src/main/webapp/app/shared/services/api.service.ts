@@ -12,11 +12,13 @@ import { IOpcionVo } from '../vo/opcion-vo';
 export class ApiService {
   private readonly pdfFonts: any;
   pdfMake: any;
+  htmlToPdfmake: any;
 
   constructor(private http: HttpClient) {
     this.pdfMake = require('pdfmake/build/pdfmake.js');
     this.pdfFonts = require('pdfmake/build/vfs_fonts.js');
     this.pdfMake.vfs = this.pdfFonts.pdfMake.vfs;
+    this.htmlToPdfmake = require('html-to-pdfmake');
   }
 
   getCiudades(): Observable<GeografiaVo[]> {

@@ -13,11 +13,11 @@
     width: 35rem;
     opacity: 1;
 
-    :focus {
+    &:focus {
       outline: none;
     }
 
-    :hover {
+    &:hover {
       cursor: pointer;
     }
   }

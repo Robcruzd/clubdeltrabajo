@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Archivo } from 'app/shared/model/archivo.model';
 import { Group, pdf } from '@progress/kendo-drawing';
 import { Router } from '@angular/router';
@@ -20,11 +20,10 @@ const { exportPDF } = pdf;
   styleUrls: ['./visualizar-hoja-vida.component.scss']
 })
 export class VisualizarHojaVidaComponent implements OnInit {
-
-  @ViewChild('pdf') pdfExport : any;
+  @ViewChild('pdf') pdfExport: any;
 
   imagen!: Archivo;
-  urlImageDefault = '../../../content/images/Image 28.png';
+  urlImageDefault = '';
   lblDescargar = commonMessages.DESCARGAR_HOJAVIDA_LABEL;
 
   hojaVidaVo!: HojaVidaVo | null;
@@ -43,6 +42,7 @@ export class VisualizarHojaVidaComponent implements OnInit {
   pdfGeneradoHojaVida: Archivo = new Archivo();
   cargado = false;
   showElement = true;
+  qrCard: any;
 
   constructor(
     private router: Router,
@@ -75,6 +75,11 @@ export class VisualizarHojaVidaComponent implements OnInit {
   getHojaVida(): void {
     this.hojaVidaService.find(this.persona).subscribe(response => {
       this.hojaVidaVo = response.body;
+      this.urlImageDefault =
+        this.hojaVidaVo?.informacionPersonal.genero === 'F'
+          ? '../../../content/images/Image 28_F.png'
+          : '../../../content/images/Image 28_M.png';
+      this.qrCard = 'Perfil de presentación ' + this.account?.firstName + ' ' + this.account?.lastName;
       this.archivos = this.hojaVidaVo?.archivos;
       this.imagen = this.archivos?.find(item => item.tipo === TipoArchivo.IMAGEN_PERFIL) || new Archivo();
       this.visualizarArchivoPDF();
@@ -94,12 +99,15 @@ export class VisualizarHojaVidaComponent implements OnInit {
     return uint8Array;
   }
 
-  export(pdfComponent: any):void {
-    pdfComponent.export().then((group: Group) => exportPDF(group)).then((dataUri:any) => {
-      const base64 = dataUri.replace('data:application/pdf;base64,', '');
-      // eslint-disable-next-line no-console
-      console.log(base64);
-    });
+  export(pdfComponent: any): void {
+    pdfComponent
+      .export()
+      .then((group: Group) => exportPDF(group))
+      .then((dataUri: any) => {
+        const base64 = dataUri.replace('data:application/pdf;base64,', '');
+        // eslint-disable-next-line no-console
+        console.log(base64);
+      });
   }
 
   async visualizarArchivoPDF(): Promise<any> {
@@ -122,13 +130,16 @@ export class VisualizarHojaVidaComponent implements OnInit {
 
   async generarPdf(): Promise<any> {
     return new Promise(resolve => {
-      this.pdfExport.export().then((group: Group) => exportPDF(group)).then((dataUri:any) => {
-        const base64 = dataUri.replace('data:application/pdf;base64,', '');
-        this.pdfHojaVida64 = base64;
-        resolve(this.pdfHojaVida64);
-        // eslint-disable-next-line no-console
-        console.log(base64);
-      });
+      this.pdfExport
+        .export()
+        .then((group: Group) => exportPDF(group))
+        .then((dataUri: any) => {
+          const base64 = dataUri.replace('data:application/pdf;base64,', '');
+          this.pdfHojaVida64 = base64;
+          resolve(this.pdfHojaVida64);
+          // eslint-disable-next-line no-console
+          console.log(base64);
+        });
     });
   }
 
@@ -153,9 +164,7 @@ export class VisualizarHojaVidaComponent implements OnInit {
 
     return ciudad?.nombre || '';
   }
-
 }
-
 
 // ---------------------------
 // import { Component } from '@angular/core';
@@ -189,7 +198,7 @@ export class VisualizarHojaVidaComponent implements OnInit {
 // export class AppComponent {
 //   public data: InvoiceRow[] = invoiceData;
 //   prueba(test : any) : void {
-    
+
 //   }
 //   export(pdfComponent: any) {
 //     let processedUri: any
