@@ -1,3 +1,5 @@
+import { HojaVidaVo } from './../../shared/vo/hoja-vida-vo';
+import { HojaVidaService } from './../../shared/services/hoja-vida.service';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AccountService } from 'app/core/auth/account.service';
@@ -23,7 +25,8 @@ export class NavbarCtComponent implements OnInit {
   account!: Account | null;
   imagen!: Archivo;
   persona!: number;
-  urlImageDefault = '../../../content/images/Image 28.png';
+  urlImageDefault = '';
+  hojaVidaVo!: HojaVidaVo | null;
 
   lstOpcionesMenu: any = [
     { id: 1, etiqueta: 'Inicio', ruta: '/' },
@@ -35,7 +38,8 @@ export class NavbarCtComponent implements OnInit {
     private router: Router,
     private loginService: LoginService,
     private accountService: AccountService,
-    private archivoService: ArchivoService
+    private archivoService: ArchivoService,
+    private hojaVidaService: HojaVidaService
   ) {}
 
   ngOnInit(): void {
@@ -47,6 +51,13 @@ export class NavbarCtComponent implements OnInit {
         this.accountService.getAuthenticationState().subscribe(account => {
           this.account = account;
           this.persona = account?.user || 0;
+          this.hojaVidaService.find(this.persona).subscribe(response => {
+            this.hojaVidaVo = response.body;
+            this.urlImageDefault =
+              this.hojaVidaVo?.informacionPersonal.genero === 'F'
+                ? '../../../content/images/Image 28_F.png'
+                : '../../../content/images/Image 28_M.png';
+          });
           if (this.showNavbar) {
             this.consultarImagen();
           }

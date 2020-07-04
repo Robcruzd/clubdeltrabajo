@@ -73,10 +73,11 @@
 
         .titulo_div {
           align-self: baseline;
+          margin-right: 10px;
 
           .titulo {
             align-self: flex-start;
-            font-size: 30px;
+            font-size: 22px !important;
             font-family: 'Arial';
             font-weight: bold;
             color: #072278;
@@ -129,21 +130,24 @@
       }
 
       .procuraduria {
-        width: 60px;
+        width: 70px;
+        height: 80px;
         //background: transparent url('img/Image 29.png') 0% 0% no-repeat padding-box;
         opacity: 1;
         margin: 0 auto;
       }
 
       .contraloria {
-        width: 88px;
+        width: 90px;
+        height: 80px;
         //background: transparent url('img/Image 30.png') 0% 0% no-repeat padding-box;
         opacity: 1;
         margin: 0 auto;
       }
 
       .policia {
-        width: 60px;
+        width: 70px;
+        height: 80px;
         //background: transparent url('img/Image 31.png') 0% 0% no-repeat padding-box;
         opacity: 1;
         margin: 0 auto;
@@ -177,7 +181,7 @@
       }
 
       .titulo {
-        font-size: 30px;
+        font-size: 30px !important;
         font-family: 'Arial';
         font-weight: bold;
         color: #ffffff;
@@ -215,4 +219,16 @@
 
 .color-letra {
   color: #ffffff;
+}
+
+::ng-deep {
+  .ajs-button.ajs-ok {
+    color: #f0f0f0 !important;
+    background: #020d52 !important;
+    border-radius: 5px !important;
+  }
+
+  .ajs-header {
+    background: #f0f0f0 !important;
+  }
 }

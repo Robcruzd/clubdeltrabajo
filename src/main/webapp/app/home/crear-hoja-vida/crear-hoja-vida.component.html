@@ -1,5 +1,4 @@
 
-
 <div class="container estilo_body">
     <form [formGroup]="globalForm" (ngSubmit)="onSubmit()">
         <ng-container *ngIf="step === 0" >
@@ -228,14 +227,11 @@
                             <p class="estilo_label">{{labels.LICENCIA_CONDUCCION_LABEL}}</p>
                             <div class="input_group">
                                 <div class="file_upload_licence">
-                                    <select class='name_file' formControlName="tipoLicenciaConduccion">
-                                        <option [ngValue]="null" *ngIf="!formPersonal.get('tipoLicenciaConduccion')!.value" selected>{{labels.SELECCIONE_LABEL}}</option>
-                                        <option
-                                            [ngValue]="licencia.codigo === formPersonal.get('tipoLicenciaConduccion')!.value ? formPersonal.get('tipoLicenciaConduccion')!.value : licencia.codigo"
-                                            *ngFor="let licencia of tipoLicenciaConduccion">
-                                            {{ licencia.codigo }}
-                                        </option>
-                                    </select>                                       
+                                    <mat-form-field appearance="fill" class="multiSelect">
+                                        <mat-select formControlName="tipoLicenciaConduccion" multiple>
+                                            <mat-option *ngFor="let licencia of tipoLicenciaConduccion"" [value]="licencia.codigo === formPersonal.get('tipoLicenciaConduccion')!.value ? formPersonal.get('tipoLicenciaConduccion')!.value : licencia.codigo">{{ licencia.codigo }}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>                                    
                                     <input type="file" #licencia class="file" accept=".png, .jpeg, .jpg, .pdf"
                                         (change)="addArchivo($event, tipoArchivo.LICENCIA_CONDUCCION)" />
                                     <label for="file" class="label_file" (click)="licencia.click()">
@@ -246,6 +242,47 @@
                         </div>
                     </div>
                     <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.ESTADO_CIVIL_LABEL}}</p>
+                            <select formControlName="estadoCivil" class="estilo_inputs">
+                                <option *ngIf="!formPersonal.get('estadoCivil')!.value" [ngValue]="null" selected>
+                                    {{labels.SELECCIONE_LABEL}}</option>
+                                <option
+                                    [ngValue]="estadoCivil.codigo === formPersonal.get('estadoCivil')!.value ? formPersonal.get('estadoCivil')!.value: estadoCivil.codigo"
+                                    *ngFor="let estadoCivil of estadosCiviles">
+                                    {{ estadoCivil.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.NIVEL_EDUCATIVO_PROFESION_LABEL}}
+                                <span class="estilo_campo_requerido">*</span>
+                            </p>
+                            <select formControlName="nivelEducativoProfesion" class="estilo_inputs">
+                                <option *ngIf="!formPersonal.get('nivelEducativoProfesion')!.value" [ngValue]="null" selected>
+                                    {{labels.SELECCIONE_LABEL}}</option>
+                                <option
+                                    [ngValue]="nivelEducativoProfesion.codigo === formPersonal.get('nivelEducativoProfesion')!.value ? formPersonal.get('nivelEducativoProfesion')!.value: nivelEducativoProfesion.codigo"
+                                    *ngFor="let nivelEducativoProfesion of nivelEducativoProfesion">
+                                    {{ nivelEducativoProfesion.nombre }}
+                                </option>
+                            </select>
+                            <small *ngIf="formPersonal.get('nivelEducativoProfesion')?.errors?.required"
+                                    class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.PROFESION_LABEL}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <input type="text" class="estilo_inputs" formControlName="profesion">
+                            <small *ngIf="formPersonal.get('profesion')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        </div>
                     </div>
                 </div>
 
@@ -270,6 +307,19 @@
                         </div>
                     </div>
                     <div class="column">
+                        <div class="form-group">
+                            <div class="notificaciones">
+                                <label class="radio-inline">{{labels.NOTIFICACIONES_LABEL}}</label>
+                                <label class="radio-inline">
+                                    <input type="radio" checked="checked" [value]="labels.SI_LABEL" formControlName="activoNotificaciones">
+                                    <span class="text-white">{{labels.SI_LABEL}}</span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" [value]="labels.NO_LABEL" formControlName="activoNotificaciones">
+                                    <span class="text-white">{{labels.NO_LABEL}}</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">

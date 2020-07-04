@@ -30,7 +30,7 @@ export class PerfilComponent implements OnInit {
   persona: any;
   tipoArchivo = TipoArchivo;
   imagen!: Archivo;
-  ulrImgDefault = '../../../content/images/Image 28.png';
+  ulrImgDefault = '';
   hojaVidaVo!: HojaVidaVo | null;
   geografia: Array<GeografiaVo> = [];
   municipios: Array<IOpcionVo> = [];
@@ -49,7 +49,6 @@ export class PerfilComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.qrCard = 'Perfil de presentación Juan Pérez.';
     this.cargarInformacionCuenta();
     this.cargarHojaVida();
     this.consultarInformacionGeografica();
@@ -67,25 +66,30 @@ export class PerfilComponent implements OnInit {
   getHojaVida(): void {
     this.hojaVidaService.find(this.personaInicial).subscribe(response => {
       this.hojaVidaVo = response.body;
+      this.ulrImgDefault =
+        this.hojaVidaVo?.informacionPersonal.genero === 'F'
+          ? '../../../content/images/Image 28_F.png'
+          : '../../../content/images/Image 28_M.png';
+      this.qrCard = 'Perfil de presentación ' + this.account?.firstName + ' ' + this.account?.lastName;
       this.archivos = this.hojaVidaVo?.archivos;
       this.imagen = this.archivos?.find(item => item.tipo === TipoArchivo.IMAGEN_PERFIL) || new Archivo();
       if (this.hojaVidaVo?.informacionPersonal === null && this.imagen.archivo !== undefined) {
         alertify
-          .alert('Atención!', 'Debe registrar su hoja de vida en el boton Editar Hoja de Vida')
+          .alert('ATENCIÓN', 'Debe registrar su hoja de vida en el botón Editar Hoja de Vida')
           .setting({
             label: 'Aceptar'
           })
           .show();
       } else if (this.imagen.archivo === undefined && this.hojaVidaVo?.informacionPersonal !== null) {
         alertify
-          .alert('Atención!', 'Debe insertar su foto de perfil')
+          .alert('ATENCIÓN', 'Debe insertar su foto de perfil')
           .setting({
             label: 'Aceptar'
           })
           .show();
       } else if (this.hojaVidaVo?.informacionPersonal === null && this.imagen.archivo === undefined) {
         alertify
-          .alert('Atención!', 'Debe insertar su foto de perfil y registrar su hoja de vida en el boton Editar Hoja de Vida')
+          .alert('ATENCIÓN', 'Debe insertar su foto de perfil y registrar su hoja de vida en el botón Editar Hoja de Vida')
           .setting({
             label: 'Aceptar'
           })

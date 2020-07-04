@@ -8,7 +8,7 @@
     "node_modules"
   ],
   "dependencies": {
-    "@angular/animations": "9.0.4",
+    "@angular/animations": "^9.0.4",
     "@angular/cdk": "^9.2.4",
     "@angular/common": "9.0.4",
     "@angular/compiler": "9.0.4",
@@ -37,6 +37,7 @@
     "bootstrap": "4.4.1",
     "bootswatch": "4.4.1",
     "file-saver": "^2.0.2",
+    "html-to-pdfmake": "^2.0.6",
     "jszip": "^3.4.0",
     "moment": "2.24.0",
     "ng-jhipster": "0.12.0",

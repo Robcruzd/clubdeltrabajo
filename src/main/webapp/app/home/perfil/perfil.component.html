@@ -13,7 +13,7 @@
                             (change)="cargarImagen($event, tipoArchivo.IMAGEN_PERFIL)" />
                     </div>
                     <div class="columncard">
-                        <qrcode class="codigo" [qrdata]="qrCard" [width]="81"></qrcode>
+                        <qrcode class="codigo" *ngIf="qrCard" [qrdata]="qrCard" [width]="81"></qrcode>
                         <div class="titulo_div">
                             <h2 class="titulo" *ngIf="true">{{persona?.nombre}} {{persona?.apellido}}</h2>
                             <label class="label_card">CC</label>
@@ -21,6 +21,12 @@
                             <br>
                             <label class="label_card">Email</label>
                             <label class="label_card2">{{persona?.email}}</label>
+                            <br>
+                            <label class="label_card" *ngIf="hojaVidaVo?.informacionPersonal?.telefono">Celular</label>
+                            <label class="label_card2" *ngIf="hojaVidaVo?.informacionPersonal?.telefono">{{hojaVidaVo?.informacionPersonal?.telefono}}</label>
+                            <br>
+                            <label class="label_card" *ngIf="hojaVidaVo?.informacionPersonal?.profesion">Profesión</label>
+                            <label class="label_card2" *ngIf="hojaVidaVo?.informacionPersonal?.profesion">{{hojaVidaVo?.informacionPersonal?.profesion}}</label>
                         </div>
                     </div>
                 </div>

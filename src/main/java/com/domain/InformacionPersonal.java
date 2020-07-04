@@ -90,6 +90,18 @@ public class InformacionPersonal implements Serializable {
     
     @Column(name = "pais_permiso_trabajo")
     private String paisPermisoTrabajo;
+    
+    @Column(name = "estado_civil")
+    private Integer estadoCivil;
+    
+    @Column(name = "nivel_educativo_profesion")
+    private Integer nivelEducativoProfesion;
+    
+    @Column(name = "profesion")
+    private String profesion;
+    
+    @Column(name = "activo_notificaciones")
+    private Boolean activoNotificaciones;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -234,22 +246,22 @@ public class InformacionPersonal implements Serializable {
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     public Integer getDepartamento() {
-		return departamento;
-	}
+        return departamento;
+    }
 
-	public void setDepartamento(Integer departamento) {
-		this.departamento = departamento;
-	}
-	
-	public String getTipoLicenciaConduccion() {
-		return tipoLicenciaConduccion;
-	}
+    public void setDepartamento(Integer departamento) {
+        this.departamento = departamento;
+    }
+    
+    public String getTipoLicenciaConduccion() {
+        return tipoLicenciaConduccion;
+    }
 
-	public void setTipoLicenciaConduccion(String tipoLicenciaConduccion) {
-		this.tipoLicenciaConduccion = tipoLicenciaConduccion;
-	}
-
-	public Integer getAnioExperiencia() {
+    public void setTipoLicenciaConduccion(String tipoLicenciaConduccion) {
+        this.tipoLicenciaConduccion = tipoLicenciaConduccion;
+    }
+    
+    public Integer getAnioExperiencia() {
 		return anioExperiencia;
 	}
 
@@ -297,7 +309,39 @@ public class InformacionPersonal implements Serializable {
 		this.paisPermisoTrabajo = paisPermisoTrabajo;
 	}
 
-	@Override
+    public Integer getEstadoCivil() {
+        return estadoCivil;
+    }
+
+    public void setEstadoCivil(Integer estadoCivil) {
+        this.estadoCivil = estadoCivil;
+    }
+
+    public Integer getNivelEducativoProfesion() {
+        return nivelEducativoProfesion;
+    }
+
+    public void setNivelEducativoProfesion(Integer nivelEducativoProfesion) {
+        this.nivelEducativoProfesion = nivelEducativoProfesion;
+    }
+
+    public String getProfesion() {
+		return profesion;
+	}
+
+	public void setProfesion(String profesion) {
+		this.profesion = profesion;
+	}
+
+	public Boolean getActivoNotificaciones() {
+        return activoNotificaciones;
+    }
+
+    public void setActivoNotificaciones(Boolean activoNotificaciones) {
+        this.activoNotificaciones = activoNotificaciones;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

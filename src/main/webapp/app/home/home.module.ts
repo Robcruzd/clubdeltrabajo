@@ -21,6 +21,8 @@ import { NuevoCorreoComponent } from './nuevo-correo/nuevo-correo.component';
 import { InformacionEmpresaComponent } from './informacion-empresa/informacion-empresa.component';
 import { VisualizarHojaVidaComponent } from './visualizar-hoja-vida/visualizar-hoja-vida.component';
 import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
+import { MatSelectModule } from '@angular/material/select';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -33,7 +35,9 @@ import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
     ReactiveFormsModule,
     QRCodeModule,
     PdfViewerModule,
-    PDFExportModule
+    PDFExportModule,
+    MatSelectModule,
+    BrowserAnimationsModule
   ],
   declarations: [
     HomeComponent,
