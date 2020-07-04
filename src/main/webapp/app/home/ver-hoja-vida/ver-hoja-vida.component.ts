@@ -34,7 +34,7 @@ export class VerHojaVidaComponent implements OnInit {
   informacionLaboral: any[] = [];
   geografia: Array<GeografiaVo> = [];
   municipios: Array<IOpcionVo> = [];
-  urlImageDefault = '';
+  urlImageDefault = '../../../content/images/Image 28.png';
   imagen!: Archivo;
   pdfHojaVida64: any;
   pdfHojaVida64Render: any;
@@ -74,12 +74,8 @@ export class VerHojaVidaComponent implements OnInit {
   getHojaVida(): void {
     this.hojaVidaService.find(this.persona).subscribe(response => {
       this.hojaVidaVo = response.body;
-      this.urlImageDefault =
-        this.hojaVidaVo?.informacionPersonal.genero === 'F'
-          ? '../../../content/images/Image 28_F.png'
-          : '../../../content/images/Image 28_M.png';
-      this.qrCard = 'Perfil de presentación ' + this.account?.firstName + ' ' + this.account?.lastName;
       this.archivos = this.hojaVidaVo?.archivos;
+      this.qrCard = 'Perfil de presentación ' + this.account?.firstName + ' ' + this.account?.lastName;
       this.imagen = this.archivos?.find(item => item.tipo === TipoArchivo.IMAGEN_PERFIL) || new Archivo();
       this.visualizarArchivoPDF();
     });
@@ -146,58 +142,32 @@ export class VerHojaVidaComponent implements OnInit {
 
   private getContent(): Object {
     this.cargarDatos();
-    const html = this.apiService.htmlToPdfmake(`
-      <div>
-      <table border="0">
-        <tr>
-          <td style="text-align:center; max-width: 150px; max-height: 150px;">
-            <img src="${this.imagen?.archivo || USER_DEFAULT}">
-          </td>
-          <td>Cell</td>
-          <td style="border:1px solid red; border-radius: 10px;">Cell with red borders</td>
-        </tr>
-      </table>
-
-
-  <div style="width: 100px; height: 100px; 
-border: solid 1px #ccc; display: inline-block;">
- <p>This is the first div element.</p>
- </div>
-
-<div style="width: 100px; height: 100px; 
-border: solid 1px #ccc; display: inline-block;">
-<p>This is second div element.</p>
-</div>
-    <div style="max-width: 150px; max-height: 150px; display: inline-block;">
-    </div>
-    <div style="width: 200px; font-weight: bold; font-size: 30px; display: inline-block;">
-      <p style="text-align: center;">${this.hojaVidaVo?.persona.nombre}</p>
-      <p style="text-align: center;">${this.hojaVidaVo?.persona.apellido}</p> 
-    </div>
-    <div style="height: 150px; width: 100%; border-radius:10px; border: 1px black solid; display: inline-block;">
-      <div style="background-color:#1A2050; border-radius:10px;">
-        Blah
-      </div>
-    </div>
-  </div>
-  `);
-
     return {
-      content: [html],
-      styles: {}
-    };
-
-    /* {
+      footer: {
+        columns: [
+          '',
+          {
+            image: LOGO_BASE64,
+            width: 150,
+            height: 150,
+            alignment: 'right',
+            fit: [150, 150],
+            pageBreak: 'after',
+            margin: [0, -10, 10, 0]
+          }
+        ]
+      },
       content: [
         {
           table: {
-            widths: ['20%', '40%', 'auto'],
+            width: ['20%', '40%', 'auto'],
             body: [
               [
                 {
                   image: this.imagen?.archivo || USER_DEFAULT,
-                  width: 100,
-                  height: 90
+                  width: 99,
+                  height: 132,
+                  alignment: 'center'
                 },
                 {
                   type: 'none',
@@ -213,7 +183,9 @@ border: solid 1px #ccc; display: inline-block;">
                   ]
                 },
                 {
-                  fillColor: '#1A2050',
+                  borderRadius: 20,
+                  color: '#ffffff',
+                  borderColor: ['#1A2050', '#1A2050', '#1A2050', '#1A2050'],
                   table: {
                     body: [
                       [
@@ -221,11 +193,15 @@ border: solid 1px #ccc; display: inline-block;">
                           image: LOCATION_BASE64,
                           alignment: 'center',
                           fit: [20, 20],
-                          margin: [0, 2]
+                          margin: [0, 2],
+                          fillColor: '#1A2050',
+                          borderColor: ['#1A2050', '#1A2050', '#1A2050', '#1A2050']
                         },
                         {
                           text: this.hojaVidaVo?.informacionPersonal.direccionResidencia,
-                          style: 'headerInfo'
+                          style: 'headerInfo',
+                          fillColor: '#1A2050',
+                          borderColor: ['#1A2050', '#1A2050', '#1A2050', '#1A2050']
                         }
                       ],
                       [
@@ -233,12 +209,18 @@ border: solid 1px #ccc; display: inline-block;">
                           image: INBOX_BASE64,
                           alignment: 'center',
                           fit: [20, 20],
-                          margin: [0, 2]
+                          margin: [0, 2],
+                          color: '#ffffff',
+                          fillColor: '#1A2050',
+                          borderColor: ['#1A2050', '#1A2050', '#1A2050', '#1A2050']
                         },
                         {
                           text: this.hojaVidaVo?.persona.email,
                           style: 'headerInfo',
-                          margin: [0, 0, 12, 0]
+                          fillColor: '#1A2050',
+                          margin: [0, 0, 12, 0],
+                          color: '#ffffff',
+                          borderColor: ['#1A2050', '#1A2050', '#1A2050', '#1A2050']
                         }
                       ],
                       [
@@ -246,16 +228,21 @@ border: solid 1px #ccc; display: inline-block;">
                           image: PHONE_BASE64,
                           alignment: 'center',
                           fit: [20, 20],
-                          margin: [0, 2]
+                          margin: [0, 2],
+                          fillColor: '#1A2050',
+                          color: '#ffffff',
+                          borderColor: ['#1A2050', '#1A2050', '#1A2050', '#1A2050']
                         },
                         {
                           text: this.hojaVidaVo?.informacionPersonal.telefono,
-                          style: 'headerInfo'
+                          style: 'headerInfo',
+                          borderColor: ['#1A2050', '#1A2050', '#1A2050', '#1A2050'],
+                          fillColor: '#1A2050'
                         }
                       ]
                     ]
-                  },
-                  layout: 'noBorders'
+                  }
+                  // layout: 'noBorders'
                 }
               ]
             ]
@@ -264,20 +251,6 @@ border: solid 1px #ccc; display: inline-block;">
         },
         this.cargarInformacionDinamica()
       ],
-      footer: {
-        columns: [
-          '',
-          {
-            image: LOGO_BASE64,
-            width: 150,
-            height: 150,
-            alignment: 'right',
-            fit: [150, 150],
-            pageBreak: 'after',
-            margin: [0, -10, 10, 0]
-          }
-        ]
-      },
       styles: {
         header: {
           fontSize: 15,
@@ -294,7 +267,8 @@ border: solid 1px #ccc; display: inline-block;">
         headernames: {
           fontSize: 30,
           bold: true,
-          alignment: 'center'
+          alignment: 'justify',
+          paddingLeft: 5
         },
         title: {
           fontSize: 15,
@@ -307,7 +281,7 @@ border: solid 1px #ccc; display: inline-block;">
         columnGap: 20,
         alignment: 'justify'
       }
-    }; */
+    };
   }
 
   cargarDatos(): void {
