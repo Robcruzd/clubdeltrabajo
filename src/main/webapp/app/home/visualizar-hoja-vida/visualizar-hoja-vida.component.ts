@@ -42,6 +42,7 @@ export class VisualizarHojaVidaComponent implements OnInit {
   pdfHojaVida64RenderDescarga: any;
   pdfGeneradoHojaVida: Archivo = new Archivo();
   cargado = false;
+  showElement = true;
 
   constructor(
     private router: Router,
@@ -115,6 +116,7 @@ export class VisualizarHojaVidaComponent implements OnInit {
       this.pdfHojaVida64RenderDescarga = archivo.archivo;
       this.pdfHojaVida64Render = this.base64ToUint8Array(archivo64);
       this.cargado = true;
+      this.showElement = false;
     });
   }
 
