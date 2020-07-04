@@ -22,8 +22,7 @@
     </div>
 </div>
 
-<!-- <div style="text-align: center; display: none;"> -->
-<kendo-pdf-export #pdf>
+<kendo-pdf-export #pdf [ngStyle]="{'visibility' : showElement ? 'visible' : 'hidden'}">
     <div class="container-pdf">
         <div class="box-left">
             <img class="foto-perfil" [src]="imagen?.archivo || urlImageDefault">
@@ -83,4 +82,3 @@
         </div>
     </div>
 </kendo-pdf-export>
-<!-- </div> -->
