@@ -51,6 +51,7 @@ export class CrearHojaVidaComponent implements OnInit {
   departamentos: Array<IOpcionVo> = [];
   municipios: Array<IOpcionVo> = [];
   municipiosPersonal: Array<IOpcionVo> = [];
+  municipiosAcademica: Array<IOpcionVo> = [];
   discapacidades: Array<IOpcionVo> = commonMessages.ARRAY_DISCAPACIDADES;
   estadosCiviles: Array<IOpcionVo> = commonMessages.ARRAY_ESTADOS_CIVILES;
   documentos: Array<ITipoDocumento> = [];
@@ -635,6 +636,7 @@ export class CrearHojaVidaComponent implements OnInit {
       this.cargarDepartamentos();
       this.cargarMunicipios(0);
       this.cargarMunicipiosPersonal(0);
+      this.cargarMunicipiosAcademica(0);
     });
   }
 
@@ -678,6 +680,18 @@ export class CrearHojaVidaComponent implements OnInit {
           .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0));
       }
     }
+  }
+
+  cargarMunicipiosAcademica(value: Object): void {
+    this.municipiosAcademica = [];
+    this.municipiosAcademica = this.geografia
+      .map(item => {
+        return {
+          codigo: item.codigoMpio,
+          nombre: item.nombreMpio
+        };
+      })
+      .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0));
   }
 
   cargarMunicipios(value: Object): void {
