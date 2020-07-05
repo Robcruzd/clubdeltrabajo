@@ -32,6 +32,8 @@ import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
 
 declare let alertify: any;
 
+/* eslint-disable */
+
 @Component({
   selector: 'jhi-crear-hoja-vida',
   templateUrl: './crear-hoja-vida.component.html',
@@ -1021,11 +1023,7 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   onChangeTipoDoc(event: any): any {
-    // eslint-disable-next-line no-console
-    console.log('event: ', event.target.selectedOptions[0].label);
     if (event.target.selectedOptions[0].label === 'Pasaporte') {
-      // eslint-disable-next-line no-console
-      console.log('its working');
       this.mensajeDocumento = '*El documento solo puede tener de 6 a 11 carácteres entre minúsculas, mayúsculas y números';
       this.formPersonal.get('numeroDocumento')?.setValue('');
       this.formPersonal.get('numeroDocumento')?.setValidators([Validators.required, Validators.pattern('^[0-9A-Za-z]{6,11}$')]);
