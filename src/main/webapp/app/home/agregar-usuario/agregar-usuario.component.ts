@@ -57,7 +57,7 @@ export class AgregarUsuarioComponent implements OnInit {
     const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const NOMBRE_REGEX = /^[a-zA-ZÑÁÉÍÓÚñáéíóú ]{1,}$/;
     const CONTRASENA_REGEX = /.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*/;
-    const PASAPORTE_REGEX = /^[0-9,A-Z,a-z]{6,11}$/;
+    const PASAPORTE_REGEX = /^[0-9A-Za-z]{6,11}$/;
     const CEDULA_REGEX = /^[0-9]{6,10}$/;
     this.validacionIncorrecta = false;
     this.mensajeNombre = '';
@@ -101,11 +101,21 @@ export class AgregarUsuarioComponent implements OnInit {
       this.mensajeNumDoc = commonMessages.CAMPO_REQUERIDO;
       this.validacionIncorrecta = true;
     }
-    if (this.tipoDocumento.id === 4 && !this.persona.numeroDocumento && !this.persona.numeroDocumento?.match(PASAPORTE_REGEX)) {
+    // eslint-disable-next-line no-console
+    console.log('tipo: ', this.persona.numeroDocumento);
+    if (
+      this.tipoDocumento.nombreTipo === 'Pasaporte' &&
+      this.persona.numeroDocumento &&
+      !this.persona.numeroDocumento.toString()?.match(PASAPORTE_REGEX)
+    ) {
       this.mensajeNumDoc = '*El documento solo puede tener de 6 a 11 carácteres entre minúsculas, mayúsculas y números';
       this.validacionIncorrecta = true;
     }
-    if (this.tipoDocumento.id !== 4 && !this.persona.numeroDocumento && !this.persona.numeroDocumento?.match(CEDULA_REGEX)) {
+    if (
+      this.tipoDocumento.nombreTipo !== 'Pasaporte' &&
+      this.persona.numeroDocumento &&
+      !this.persona.numeroDocumento.toString()?.match(CEDULA_REGEX)
+    ) {
       this.mensajeNumDoc = '*El documento debe contener de 6 a 10 números';
       this.validacionIncorrecta = true;
     }

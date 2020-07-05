@@ -38,19 +38,19 @@
                 <label style="color: white;">Número de Documento</label>
             </div>
             <div class="row_documento">
-                <select class="select_documento" [(ngModel)]="tipoDocumento.id">
+                <select class="select_documento" [(ngModel)]="tipoDocumento">
                     <option [ngValue]="null" class="option_docu" disabled>Seleccione un tipo</option>
                     <option
                         class="option_docu"
-                        [ngValue]="documento.id"
+                        [ngValue]="documento"
                         *ngFor="let documento of documentos">
                         {{ documento.nombreTipo }}
                     </option>
                 </select>
-                <div *ngIf="tipoDocumento.id===4" class="input_documento">
+                <div *ngIf="tipoDocumento.nombreTipo==='Pasaporte'" class="input_documento">
                     <input type="text" class="input_documento" style="width: 100%;" [(ngModel)]="persona.numeroDocumento">
                 </div>
-                <div *ngIf="tipoDocumento.id!==4" class="input_documento">
+                <div *ngIf="tipoDocumento.nombreTipo!=='Pasaporte'" class="input_documento">
                     <input type="number" class="input_documento" style="width: 100%;" [(ngModel)]="persona.numeroDocumento">
                 </div>
             </div>

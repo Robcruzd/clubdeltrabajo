@@ -1021,7 +1021,9 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   onChangeTipoDoc(event: any): any {
-    if (event.target.value === '2: Object') {
+    // eslint-disable-next-line no-console
+    console.log('event: ', event.target.selectedOptions[0].label);
+    if (event.target.selectedOptions[0].label === 'Pasaporte') {
       // eslint-disable-next-line no-console
       console.log('its working');
       this.mensajeDocumento = '*El documento solo puede tener de 6 a 11 carácteres entre minúsculas, mayúsculas y números';
