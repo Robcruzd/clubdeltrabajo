@@ -101,6 +101,7 @@ export class VisualizarHojaVidaComponent implements OnInit {
 
   async visualizarArchivoPDF(): Promise<any> {
     const data64 = await this.generarPdf();
+    this.showElement = false;
     this.pdfGeneradoHojaVida.nombre = 'CV' + this.hojaVidaVo?.persona.nombre + this.hojaVidaVo?.persona.apellido + '.pdf';
     this.pdfGeneradoHojaVida.extension = 'pdf';
     this.pdfGeneradoHojaVida.usuario = this.hojaVidaVo?.persona;
@@ -113,7 +114,6 @@ export class VisualizarHojaVidaComponent implements OnInit {
       this.pdfHojaVida64RenderDescarga = archivo.archivo;
       this.pdfHojaVida64Render = this.base64ToUint8Array(archivo64);
       this.cargado = true;
-      this.showElement = false;
     });
   }
 
