@@ -92,6 +92,10 @@ export class CrearHojaVidaComponent implements OnInit {
   valorViajar = false;
   banderaColorMudarse = false;
   banderaColorViajar = false;
+  aniosFin: number[] = [];
+  mesFin: number[] = [];
+  diasFin: number[] = [];
+
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -121,6 +125,7 @@ export class CrearHojaVidaComponent implements OnInit {
     this.cargarIdiomas();
     this.cargarInstituciones();
     this.cargarCargos();
+    this.cargarAniosFin(0, 0);
     this.crearFormularioInformacionPersonal();
     this.crearFormularioPerfil();
     this.getHojaVida();
@@ -162,15 +167,7 @@ export class CrearHojaVidaComponent implements OnInit {
         anio: [null, [Validators.required]]
       }),
       lugarNacimiento: ['', [Validators.pattern('^[A-Za-zÑÁÉÍÓÚñáéíóú ]{0,}$')]],
-      direccionResidencia: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(
-            '^(Autopista|autopista|Avenida|avenida|Avenida Calle|avenida calle|Avenida Carrera|avenida carrera|Avenida|avenida|Carrera|carrera|Calle|calle|Carrera|carrera|Circunvalar|circunvalar|Diagonal|diagonal|Kilometro|kilometro|Transversal|transversal|AUTOP|autop|AV|av|AC|ac|AK|ak|CL|cl|KR|kr|CCV|ccv|DG|dg|KM|km|TV|tv)(\\s)?([a-zA-Z]{0,15}|[0-9]{1,3})(\\s)?[a-zA-Z]?(\\s)?(bis)?(\\s)?(Este|este|Norte|norte|Occidente|occidente|Oeste|oeste|Sur|sur)?(\\s)?(#(\\s)?[0-9]{1,2}(\\s)?[a-zA-Z]?(\\s)?(bis)?(\\s)?(Este|este|Norte|norte|Occidente|occidente|Oeste|oeste|Sur|sur)?(\\s)?(-)?(\\s)?[0-9]{1,3}(\\s)?(Este|este|Norte|norte|Occidente|occidente|Oeste|oeste|Sur|sur)?)?((\\s)?(Agrupación|agrupación|Altillo|altillo|Apartamento|apartamento|Apartamento Sótano|apartamento sótano|Barrio|barrio|Bloque|bloque|Bodega|bodega|Cabecera Municipal|cabecera municipal|Callejón|callejón|Camino|camino|Carretera|carretera|Casa|casa|Caserio|caserio|Célula|celula|Centro|centro|Centro Comercial|centro comercial|Centro Urbano|centro urbano|Circular|circular|Condominio|condominio|Conjunto|conjunto|Consultorio|consultorio|Corregimiento|corregimiento|Deposito|deposito|Deposito |deposito |Sótano|sótano|Edificio|edificio|Entrada|entrada|Esquina|esquina|Etapa|etapa|Finca|finca|Garaje|garaje|Garaje Sótano|garaje sótano|Grada|grada|Inferior|inferior|Inspección de Policia|inspección de policia|Interior|interior|Kilometro|kilometro|Local|local|Local Mezzanine|local mezzanine|Local Sótano|local sótano|Lote|lote|Manzana|manzana|Manzanita|manzanita|Mejora|mejora|Mezzanine|mezzanine|Módulo|módulo|Municipio|municipio|Núcleo|núcleo|Oficina|oficina|Oficina Sótano|oficina sótano|Parcela|parcela|Parcelación|parcelación|Pasaje|pasaje|Penthouse|penthouse|Piso|piso|Porteria|porteria|Predio|predio|Principal|principal|Puente|puente|Quebrada|quebrada|Salon|salon|Sector|sector|Semisótano|semisótano|Suite|suite|Supermanzana|supermanzana|Terraza|terraza|Torre|torre|Troncal|troncal|Unidad|unidad|Urbanización|urbanización|Vereda|vereda|Via|via|Zona|zona|AGN|agn|AL|al|APTO|apto|AS|as|BR|br|BL|bl|BG|bg|CM|cm|CLJ|clj|CN|cn|CT|ct|CA|ca|CAS|cas|CEL|cel|CE|ce|CECO|ceco|CEUR|ceur|CIR|cir|CDM|cdm|CONJ|conj|CS|cs|CO|co|DP|dp|DS|ds|ED|ed|EN|en|ESQ|esq|ET|et|FCA|fca|GJ|gj|GS|gs|GR|gr|INF|inf|IP|ip|IN|in|KM|km|LC|lc|LM|lm|LS|ls|LT|lt|MZ|mz|MZTA|mzta|MJ|mj|MN|mn|MD|md|MUN|mun|NCO|nco|OF|of|OS|os|PA|pa|PCN|pcn|PSJ|psj|PH|ph|PI|pi|PT|pt|PD|pd|PPAL|ppal|PN|pn|QDA|dqa|SA|sa|SEC|sec|SS|ss|SU|su|SMZ|smz|TZ|tz|TO|to|TRL|trl|UN|un|URB|urb|VDA|vda|VIA|via|ZN|zn)?(\\s)?[1-9][0-9]{0,3})*$'
-          )
-        ]
-      ],
+      direccionResidencia: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú#. -]{0,}$')]],
       genero: ['', [Validators.required]],
       ciudad: [null, [Validators.required]],
       departamento: [null, [Validators.required]],
@@ -235,15 +232,7 @@ export class CrearHojaVidaComponent implements OnInit {
         mes: [null, [Validators.required]],
         anio: [null, [Validators.required]]
       }),
-      direccion: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(
-            '^(Autopista|autopista|Avenida|avenida|Avenida Calle|avenida calle|Avenida Carrera|avenida carrera|Avenida|avenida|Carrera|carrera|Calle|calle|Carrera|carrera|Circunvalar|circunvalar|Diagonal|diagonal|Kilometro|kilometro|Transversal|transversal|AUTOP|autop|AV|av|AC|ac|AK|ak|CL|cl|KR|kr|CCV|ccv|DG|dg|KM|km|TV|tv)(\\s)?([a-zA-Z]{0,15}|[0-9]{1,3})(\\s)?[a-zA-Z]?(\\s)?(bis)?(\\s)?(Este|este|Norte|norte|Occidente|occidente|Oeste|oeste|Sur|sur)?(\\s)?(#(\\s)?[0-9]{1,2}(\\s)?[a-zA-Z]?(\\s)?(bis)?(\\s)?(Este|este|Norte|norte|Occidente|occidente|Oeste|oeste|Sur|sur)?(\\s)?(-)?(\\s)?[0-9]{1,3}(\\s)?(Este|este|Norte|norte|Occidente|occidente|Oeste|oeste|Sur|sur)?)?((\\s)?(Agrupación|agrupación|Altillo|altillo|Apartamento|apartamento|Apartamento Sótano|apartamento sótano|Barrio|barrio|Bloque|bloque|Bodega|bodega|Cabecera Municipal|cabecera municipal|Callejón|callejón|Camino|camino|Carretera|carretera|Casa|casa|Caserio|caserio|Célula|celula|Centro|centro|Centro Comercial|centro comercial|Centro Urbano|centro urbano|Circular|circular|Condominio|condominio|Conjunto|conjunto|Consultorio|consultorio|Corregimiento|corregimiento|Deposito|deposito|Deposito |deposito |Sótano|sótano|Edificio|edificio|Entrada|entrada|Esquina|esquina|Etapa|etapa|Finca|finca|Garaje|garaje|Garaje Sótano|garaje sótano|Grada|grada|Inferior|inferior|Inspección de Policia|inspección de policia|Interior|interior|Kilometro|kilometro|Local|local|Local Mezzanine|local mezzanine|Local Sótano|local sótano|Lote|lote|Manzana|manzana|Manzanita|manzanita|Mejora|mejora|Mezzanine|mezzanine|Módulo|módulo|Municipio|municipio|Núcleo|núcleo|Oficina|oficina|Oficina Sótano|oficina sótano|Parcela|parcela|Parcelación|parcelación|Pasaje|pasaje|Penthouse|penthouse|Piso|piso|Porteria|porteria|Predio|predio|Principal|principal|Puente|puente|Quebrada|quebrada|Salon|salon|Sector|sector|Semisótano|semisótano|Suite|suite|Supermanzana|supermanzana|Terraza|terraza|Torre|torre|Troncal|troncal|Unidad|unidad|Urbanización|urbanización|Vereda|vereda|Via|via|Zona|zona|AGN|agn|AL|al|APTO|apto|AS|as|BR|br|BL|bl|BG|bg|CM|cm|CLJ|clj|CN|cn|CT|ct|CA|ca|CAS|cas|CEL|cel|CE|ce|CECO|ceco|CEUR|ceur|CIR|cir|CDM|cdm|CONJ|conj|CS|cs|CO|co|DP|dp|DS|ds|ED|ed|EN|en|ESQ|esq|ET|et|FCA|fca|GJ|gj|GS|gs|GR|gr|INF|inf|IP|ip|IN|in|KM|km|LC|lc|LM|lm|LS|ls|LT|lt|MZ|mz|MZTA|mzta|MJ|mj|MN|mn|MD|md|MUN|mun|NCO|nco|OF|of|OS|os|PA|pa|PCN|pcn|PSJ|psj|PH|ph|PI|pi|PT|pt|PD|pd|PPAL|ppal|PN|pn|QDA|dqa|SA|sa|SEC|sec|SS|ss|SU|su|SMZ|smz|TZ|tz|TO|to|TRL|trl|UN|un|URB|urb|VDA|vda|VIA|via|ZN|zn)?(\\s)?[1-9][0-9]{0,3})*$'
-          )
-        ]
-      ],
+      direccion: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú#. -]{0,}$')]],
       ciudad: [{ disabled: true, value: null }, [Validators.required]],
       departamento: [{ disabled: true, value: null }, [Validators.required]],
       pais: [null, [Validators.required]],
@@ -624,6 +613,76 @@ export class CrearHojaVidaComponent implements OnInit {
   getAnio(fecha: any): number | null {
     const date = moment(fecha, DATE_FORMAT);
     return date ? Number(date.format('YYYY')) : null;
+  }
+
+  cargarAniosFin(value: Object, index: number): void {
+    this.aniosFin = [];
+    console.log('anios: ', this.apiService.getAnios());
+    if (value === 0) {
+      this.aniosFin = this.apiService.getAnios();
+    } else if (value && Object.entries(value).length > 0) {
+      this.aniosFin = this.apiService.getAnios().filter(item => item >= value['fechaInicio']?.anio);
+      if (
+        this.experienciaLaboral
+          .at(index)
+          .get(['fechaFin'])
+          ?.get(['anio'])?.value < this.aniosFin[0]
+      ) {
+        this.experienciaLaboral
+          .at(index)
+          .get(['fechaFin'])
+          ?.get(['anio'])
+          ?.setValue(this.aniosFin[0]);
+      }
+    }
+    this.cargarMesFin(value, index);
+  }
+
+  cargarMesFin(value: Object, index: number): void {
+    this.mesFin = [];
+    console.log('value: ', value, Object.entries(value).length);
+    if (value === 0 || value['fechaFin']?.anio > value['fechaInicio']?.anio) {
+      console.log('if: ', value['fechaFin']?.anio, ' ', value['fechaInicio']?.anio);
+      this.mesFin = this.apiService.getMeses();
+    } else if (value && Object.entries(value).length > 0) {
+      console.log('else: ', value['fechaInicio']?.mes);
+      this.mesFin = this.apiService.getMeses().filter(item => item >= value['fechaInicio']?.mes);
+      if (
+        this.experienciaLaboral
+          .at(index)
+          .get(['fechaFin'])
+          ?.get(['mes'])?.value < this.mesFin[0]
+      ) {
+        this.experienciaLaboral
+          .at(index)
+          .get(['fechaFin'])
+          ?.get(['mes'])
+          ?.setValue(this.mesFin[0]);
+      }
+    }
+    this.cargarDiasFin(value, index);
+  }
+
+  cargarDiasFin(value: Object, index: number): void {
+    this.diasFin = [];
+    console.log('anios: ', this.apiService.getDias());
+    if (value === 0 || value['fechaFin']?.anio > value['fechaInicio']?.anio || value['fechaFin']?.mes > value['fechaInicio']?.mes) {
+      this.diasFin = this.apiService.getDias();
+    } else if (value && Object.entries(value).length > 0) {
+      this.diasFin = this.apiService.getDias().filter(item => item >= value['fechaInicio']?.dia);
+      if (
+        this.experienciaLaboral
+          .at(index)
+          .get(['fechaFin'])
+          ?.get(['dia'])?.value < this.diasFin[0]
+      ) {
+        this.experienciaLaboral
+          .at(index)
+          .get(['fechaFin'])
+          ?.get(['dia'])
+          ?.setValue(this.diasFin[0]);
+      }
+    }
   }
 
   cargarPaises(): void {

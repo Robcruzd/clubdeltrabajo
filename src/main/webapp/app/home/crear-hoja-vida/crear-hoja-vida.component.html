@@ -666,21 +666,24 @@
                                             class="estilo_campo_requerido">*</span></p>
                                     <ng-container formGroupName="fechaInicio">
                                         <div class='input_group'>
-                                            <select formControlName="dia" class="dia">
+                                            <select formControlName="dia" class="dia"
+                                            (change)="cargarDiasFin(experienciaLaboral.at(indexLaboral).value, indexLaboral)">
                                                 <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_DIA}}</option>
                                                 <option *ngFor="let dia of dias" [ngValue]="dia">
                                                     {{ dia }}
                                                 </option>
                                             </select>
 
-                                            <select formControlName="mes" class="mes">
+                                            <select formControlName="mes" class="mes"
+                                            (change)="cargarMesFin(experienciaLaboral.at(indexLaboral).value, indexLaboral)">
                                                 <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_MES}}</option>
                                                 <option *ngFor="let mes of meses" [ngValue]="mes">
                                                     {{ mes }}
                                                 </option>
                                             </select>
 
-                                            <select formControlName="anio" class="anio">
+                                            <select formControlName="anio" class="anio"
+                                            (change)="cargarAniosFin(experienciaLaboral.at(indexLaboral).value, indexLaboral)">
                                                 <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_ANIO}}</option>
                                                 <option *ngFor="let anio of anios" [ngValue]="anio">
                                                     {{ anio }}
@@ -704,21 +707,23 @@
                                         <div class='input_group'>
                                             <select formControlName="dia" class="dia">
                                                 <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_DIA}}</option>
-                                                <option *ngFor="let dia of dias" [ngValue]="dia">
+                                                <option *ngFor="let dia of diasFin" [ngValue]="dia">
                                                     {{ dia }}
                                                 </option>
                                             </select>
 
-                                            <select formControlName="mes" class="mes">
+                                            <select formControlName="mes" class="mes"
+                                            (change)="cargarDiasFin(experienciaLaboral.at(indexLaboral).value, indexLaboral)">
                                                 <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_MES}}</option>
-                                                <option *ngFor="let mes of meses" [ngValue]="mes">
+                                                <option *ngFor="let mes of mesFin" [ngValue]="mes">
                                                     {{ mes }}
                                                 </option>
                                             </select>
 
-                                            <select formControlName="anio" class="anio">
+                                            <select formControlName="anio" class="anio"
+                                            (change)="cargarMesFin(experienciaLaboral.at(indexLaboral).value, indexLaboral)">
                                                 <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_ANIO}}</option>
-                                                <option *ngFor="let anio of anios" [ngValue]="anio">
+                                                <option *ngFor="let anio of aniosFin" [ngValue]="anio">
                                                     {{ anio }}
                                                 </option>
                                             </select>
