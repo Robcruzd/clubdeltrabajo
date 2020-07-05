@@ -67,7 +67,7 @@ export class PerfilComponent implements OnInit {
     this.hojaVidaService.find(this.personaInicial).subscribe(response => {
       this.hojaVidaVo = response.body;
       this.ulrImgDefault =
-        this.hojaVidaVo?.informacionPersonal.genero === 'F'
+        this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
           ? '../../../content/images/Image 28_F.png'
           : '../../../content/images/Image 28_M.png';
       this.qrCard = 'Perfil de presentación ' + this.account?.firstName + ' ' + this.account?.lastName;

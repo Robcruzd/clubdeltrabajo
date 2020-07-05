@@ -74,6 +74,11 @@ export class VerHojaVidaComponent implements OnInit {
   getHojaVida(): void {
     this.hojaVidaService.find(this.persona).subscribe(response => {
       this.hojaVidaVo = response.body;
+      this.urlImageDefault =
+        this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
+          ? '../../../content/images/Image 28_F.png'
+          : '../../../content/images/Image 28_M.png';
+      this.qrCard = 'Perfil de presentación ' + this.account?.firstName + ' ' + this.account?.lastName;
       this.archivos = this.hojaVidaVo?.archivos;
       this.qrCard = 'Perfil de presentación ' + this.account?.firstName + ' ' + this.account?.lastName;
       this.imagen = this.archivos?.find(item => item.tipo === TipoArchivo.IMAGEN_PERFIL) || new Archivo();

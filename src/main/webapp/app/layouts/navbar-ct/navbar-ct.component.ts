@@ -54,7 +54,7 @@ export class NavbarCtComponent implements OnInit {
           this.hojaVidaService.find(this.persona).subscribe(response => {
             this.hojaVidaVo = response.body;
             this.urlImageDefault =
-              this.hojaVidaVo?.informacionPersonal.genero === 'F'
+              this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
                 ? '../../../content/images/Image 28_F.png'
                 : '../../../content/images/Image 28_M.png';
           });
