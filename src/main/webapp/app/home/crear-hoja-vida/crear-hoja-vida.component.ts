@@ -244,7 +244,7 @@ export class CrearHojaVidaComponent implements OnInit {
       cargo: [null, [Validators.required]],
       nivelCargo: [null, [Validators.required]],
       trabajoActual: [false],
-      cargoDiferente: ['']
+      cargoDiferente: [{ disabled: true, value: '' }, [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú ]{0,}$')]]
     });
   }
 
@@ -397,8 +397,13 @@ export class CrearHojaVidaComponent implements OnInit {
             .get(['fechaFin'])
             ?.disable();
         }
-        if(experiencia.cargo?.cargo === 'Otro'){
+        console.log('cargo: ', experiencia.cargo);
+        if (experiencia.cargo?.cargo === 'Otro') {
           this.cargoElement = true;
+          this.experienciaLaboral
+            .at(index)
+            .get(['cargoDiferente'])
+            ?.enable();
         }
       }
     }
@@ -774,9 +779,10 @@ export class CrearHojaVidaComponent implements OnInit {
         })
         .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0));
     } else {
+      console.log('value muni: ', value);
       if (value && Object.entries(value).length > 0) {
         this.municipios = this.geografia
-          .filter(item => item.codigoDpto === value['departamento'].toString())
+          .filter(item => item.codigoDpto === value['departamento']?.toString())
           .map(item => {
             return {
               codigo: item.codigoMpio,
@@ -1099,12 +1105,23 @@ export class CrearHojaVidaComponent implements OnInit {
       this.formPersonal.get('numeroDocumento')?.setValidators([Validators.required, Validators.pattern('^[0-9]{6,11}$')]);
     }
   }
-  onChangeCargo(index: any , event: any): any {
+  onChangeCargo(index: any, event: any): any {
     if (event.target.selectedOptions[0].label === 'Otro') {
       this.cargoElement = true;
-      this.experienciaLaboral.at(index).get(['cargoDiferente'])?.setValue('');
+      this.experienciaLaboral
+        .at(index)
+        .get(['cargoDiferente'])
+        ?.enable();
+      this.experienciaLaboral
+        .at(index)
+        .get(['cargoDiferente'])
+        ?.setValue('');
     } else {
       this.cargoElement = false;
+      this.experienciaLaboral
+        .at(index)
+        .get(['cargoDiferente'])
+        ?.disable();
     }
   }
 }
