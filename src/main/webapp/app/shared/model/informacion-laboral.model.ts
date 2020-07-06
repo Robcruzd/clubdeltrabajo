@@ -18,6 +18,7 @@ export interface IInformacionLaboral {
   cargo?: ICargo;
   nivelCargo? : number;
   trabajoActual? : boolean;
+  cargoDiferente? : string;
 }
 
 export class InformacionLaboral implements IInformacionLaboral {
@@ -36,6 +37,7 @@ export class InformacionLaboral implements IInformacionLaboral {
     public usuario?: IPersona,
     public cargo?: ICargo,
     public nivelCargo? : number,
-    public trabajoActual? : boolean
+    public trabajoActual? : boolean,
+    public cargoDiferente? : string
   ) {}
 }

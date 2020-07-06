@@ -81,6 +81,9 @@ public class InformacionLaboral implements Serializable {
     @Column(name = "trabajo_actual")
     private Boolean trabajoActual;
     
+    @Column(name = "cargo_diferente")
+    private String cargoDiferente;
+    
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -261,6 +264,14 @@ public class InformacionLaboral implements Serializable {
 
 	public void setTrabajoActual(Boolean trabajoActual) {
 		this.trabajoActual = trabajoActual;
+	}
+
+	public String getCargoDiferente() {
+		return cargoDiferente;
+	}
+
+	public void setCargoDiferente(String cargoDiferente) {
+		this.cargoDiferente = cargoDiferente;
 	}
 
 	@Override

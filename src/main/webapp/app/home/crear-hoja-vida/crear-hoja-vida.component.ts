@@ -92,6 +92,7 @@ export class CrearHojaVidaComponent implements OnInit {
   valorViajar = false;
   banderaColorMudarse = false;
   banderaColorViajar = false;
+  cargoElement = false;
   aniosFin: number[] = [];
   mesFin: number[] = [];
   diasFin: number[] = [];
@@ -242,7 +243,8 @@ export class CrearHojaVidaComponent implements OnInit {
       dependencia: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú ]{0,}$')]],
       cargo: [null, [Validators.required]],
       nivelCargo: [null, [Validators.required]],
-      trabajoActual: [false]
+      trabajoActual: [false],
+      cargoDiferente: ['']
     });
   }
 
@@ -384,7 +386,8 @@ export class CrearHojaVidaComponent implements OnInit {
           nivelCargo: experiencia.nivelCargo,
           ciudad: experiencia.ciudad,
           departamento: experiencia.departamento,
-          trabajoActual: experiencia.trabajoActual
+          trabajoActual: experiencia.trabajoActual,
+          cargoDiferente: experiencia.cargoDiferente
         });
         this.updatePais(index);
         this.cargarMunicipios(this.experienciaLaboral.at(index).value);
@@ -393,6 +396,9 @@ export class CrearHojaVidaComponent implements OnInit {
             .at(index)
             .get(['fechaFin'])
             ?.disable();
+        }
+        if(experiencia.cargo?.cargo === 'Otro'){
+          this.cargoElement = true;
         }
       }
     }
@@ -572,7 +578,8 @@ export class CrearHojaVidaComponent implements OnInit {
       dependencia: experiencia['dependencia'],
       cargo: experiencia['cargo'],
       nivelCargo: experiencia['nivelCargo'],
-      trabajoActual: experiencia['trabajoActual']
+      trabajoActual: experiencia['trabajoActual'],
+      cargoDiferente: experiencia['cargoDiferente']
     };
   }
 
@@ -697,7 +704,7 @@ export class CrearHojaVidaComponent implements OnInit {
       this.cargarDepartamentos();
       this.cargarMunicipios(0);
       this.cargarMunicipiosPersonal(0);
-      this.cargarMunicipiosAcademica(0);
+      this.cargarMunicipiosAcademica();
     });
   }
 
@@ -743,7 +750,7 @@ export class CrearHojaVidaComponent implements OnInit {
     }
   }
 
-  cargarMunicipiosAcademica(value: Object): void {
+  cargarMunicipiosAcademica(): void {
     this.municipiosAcademica = [];
     this.municipiosAcademica = this.geografia
       .map(item => {
@@ -1090,6 +1097,14 @@ export class CrearHojaVidaComponent implements OnInit {
       this.mensajeDocumento = '*El documento debe contener de 6 a 10 números';
       this.formPersonal.get('numeroDocumento')?.setValue('');
       this.formPersonal.get('numeroDocumento')?.setValidators([Validators.required, Validators.pattern('^[0-9]{6,11}$')]);
+    }
+  }
+  onChangeCargo(index: any , event: any): any {
+    if (event.target.selectedOptions[0].label === 'Otro') {
+      this.cargoElement = true;
+      this.experienciaLaboral.at(index).get(['cargoDiferente'])?.setValue('');
+    } else {
+      this.cargoElement = false;
     }
   }
 }

@@ -828,14 +828,17 @@
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.CARGO_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
-                                <select formControlName="cargo" class="estilo_inputs">
-                                    <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
-                                    <option
-                                        [ngValue]="cargo.id === experienciaLaboral.at(indexLaboral).get('cargo')!.value?.id ? experienciaLaboral.at(indexLaboral).get('cargo')!.value : cargo"
-                                        *ngFor="let cargo of cargos">
-                                        {{ cargo.cargo }}
-                                    </option>
-                                </select>
+                                <div class='input_group'>
+                                    <select formControlName="cargo" class="select_cargo" (change)="onChangeCargo(indexLaboral, $event)" [ngStyle]="{'width' : cargoElement ? '35%' : '100%'}">
+                                        <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
+                                        <option
+                                            [ngValue]="cargo.id === experienciaLaboral.at(indexLaboral).get('cargo')!.value?.id ? experienciaLaboral.at(indexLaboral).get('cargo')!.value : cargo"
+                                            *ngFor="let cargo of cargos">
+                                            {{ cargo.cargo }}
+                                        </option>
+                                    </select>
+                                    <input type="text" class="input_cargo" formControlName="cargoDiferente" [ngStyle]="{'visibility' : cargoElement ? 'visible' : 'hidden'}">    
+                                </div>
                                 <small *ngIf="experienciaLaboral.at(indexLaboral).get('cargo')?.errors?.required"
                                     class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
