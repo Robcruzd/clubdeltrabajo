@@ -13,7 +13,6 @@
     padding: 2rem 1rem;
 
     .column2 {
-      display: flex;
       flex-direction: column;
       min-width: 470px;
       align-items: center;
@@ -230,5 +229,243 @@
 
   .ajs-header {
     background: #f0f0f0 !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .hdvCelular {
+    display: flex;
+  }
+
+  .hdvDesktop {
+    display: none;
+  }
+
+  .container_perfil {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .box_perfil {
+      display: flex;
+      flex-direction: row;
+      min-width: auto;
+      width: min-content;
+      align-self: center;
+      margin: 2rem 0rem;
+      padding: 2rem 1rem;
+
+      .column2 {
+        flex-direction: column;
+        min-width: 95%;
+        align-items: center;
+        background: transparent linear-gradient(181deg, #2e437e 0%, #1a2152 100%) 0% 0% no-repeat padding-box;
+        border-radius: 1.875rem;
+        padding: 1rem;
+      }
+
+      .column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .card-presentacion {
+          margin-bottom: 14px;
+          margin-right: 0rem;
+          background: #f0f0f0 0% 0% no-repeat padding-box;
+          border-radius: 26px;
+          opacity: 1;
+
+          .rownamecard {
+            display: flex;
+            flex-direction: row;
+          }
+
+          .columncard {
+            display: flex;
+            flex-direction: column;
+            min-width: 50%;
+            align-items: center;
+          }
+
+          .codigo {
+            width: 81px;
+            height: 81px;
+            margin: 1rem;
+            //background: transparent url('../../../content/images/frame.png') 0% 0% no-repeat padding-box;
+            mix-blend-mode: multiply;
+            opacity: 1;
+            align-self: flex-end;
+          }
+
+          .logo {
+            width: 100%;
+            opacity: 1;
+          }
+
+          .foto-perfil {
+            top: 0px;
+            margin-left: 0px;
+            width: 80%;
+            height: auto;
+            //background: transparent url('../../../content/images/Image\ 28.png') 0% 0% no-repeat padding-box;
+            opacity: 1;
+            margin-bottom: 7px;
+          }
+
+          .titulo_div {
+            align-self: baseline;
+            margin-right: 10px;
+
+            .titulo {
+              align-self: flex-start;
+              font-size: 22px !important;
+              font-family: 'Arial';
+              font-weight: bold;
+              color: #072278;
+            }
+
+            .label_card {
+              align-self: flex-start;
+              color: #072278;
+              font-weight: bold;
+            }
+
+            .label_card2 {
+              color: #645d5d;
+              font-size: 13px;
+            }
+          }
+        }
+
+        .boton-base {
+          top: 471px;
+          left: 244px;
+          width: 407px;
+          height: 48px;
+          opacity: 1;
+          border-radius: 24px;
+          text-align: center;
+          font-size: 12px;
+          font-family: 'Arial';
+          font-weight: bold;
+          letter-spacing: 0px;
+          color: #ffffff;
+        }
+
+        .boton-ver-hv {
+          background: #020d52 0% 0% no-repeat padding-box;
+          margin-bottom: 1rem;
+        }
+
+        .boton-busca-empleo {
+          background: #2699fb 0% 0% no-repeat padding-box;
+        }
+
+        .boton-ver-ofertas {
+          background: #fb8826 0% 0% no-repeat padding-box;
+        }
+
+        .boton-editar-hv {
+          background: #f0f0f0 0% 0% no-repeat padding-box;
+          color: #2699fb !important;
+        }
+
+        .procuraduria {
+          width: 60px;
+          //height: 80px;
+          //background: transparent url('img/Image 29.png') 0% 0% no-repeat padding-box;
+          opacity: 1;
+          margin: 0 auto;
+        }
+
+        .contraloria {
+          width: 88px;
+          //height: 80px;
+          //background: transparent url('img/Image 30.png') 0% 0% no-repeat padding-box;
+          opacity: 1;
+          margin: 0 auto;
+        }
+
+        .policia {
+          width: 60px;
+          //height: 80px;
+          //background: transparent url('img/Image 31.png') 0% 0% no-repeat padding-box;
+          opacity: 1;
+          margin: 0 auto;
+        }
+
+        .experiencias {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+
+          .icono_experiencia {
+            color: white;
+          }
+
+          .texto-experiencia {
+            text-align: justify;
+            font-size: 12px;
+            font-family: 'Arial';
+            color: #ffffff;
+            margin: 3px 0 0 20px;
+          }
+
+          .titulo-experiencia {
+            text-align: justify;
+            font-size: 20px !important;
+            font-weight: bold;
+            font-family: 'Arial';
+            color: #ffffff;
+          }
+        }
+
+        .titulo {
+          font-size: 30px !important;
+          font-family: 'Arial';
+          font-weight: bold;
+          color: #ffffff;
+        }
+
+        .texto-hoja-vida {
+          text-align: justify;
+          font-size: 12px;
+          font-family: 'Arial';
+          color: #ffffff;
+          padding: 1rem;
+        }
+
+        input[type='file'] {
+          display: none;
+        }
+
+        input[type='file'] {
+          display: none;
+        }
+
+        .custom-file-upload {
+          border: 1px solid #ccc;
+          display: inline-block;
+          padding: 6px 12px;
+          cursor: pointer;
+          margin-left: 39px;
+          width: 168px;
+          background: #f0f0f0 0% 0% no-repeat padding-box;
+          border-radius: 16px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .hdvCelular {
+    display: none;
+  }
+
+  .hdvDesktop {
+    display: flex;
   }
 }

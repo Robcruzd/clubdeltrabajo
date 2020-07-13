@@ -1,10 +1,14 @@
 .navbar-ct {
+  @extend .navbar-ct2;
+  display: flex;
+}
+
+.navbar-ct2 {
   width: 100%;
   height: 20vh;
   background: transparent linear-gradient(0deg, #304580 0%, #1a2050 100%) 0% 0% no-repeat padding-box;
   opacity: 1;
   flex-wrap: nowrap;
-  display: flex;
   flex-direction: row;
   align-items: center;
 
@@ -81,5 +85,111 @@
     .elemento:hover {
       background: aliceblue !important;
     }
+  }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .navbar-ct2 {
+    display: none;
+  }
+
+  .navbar-ct {
+    display: flex;
+    width: 100%;
+    height: auto;
+    background: transparent linear-gradient(0deg, #304580 0%, #1a2050 100%) 0% 0% no-repeat padding-box;
+    opacity: 1;
+    flex-wrap: initial;
+    flex-direction: column-reverse;
+    align-items: initial;
+
+    .logo {
+      padding-left: 0rem;
+      width: 100%;
+
+      &:focus {
+        outline: none;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .nav-navbar {
+      display: flex;
+      width: 60%;
+      justify-content: space-between;
+      padding-right: 5%;
+
+      .opciones {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .item {
+          text-align: center;
+          font-size: 15px;
+          font-family: 'Open Sans';
+          font-weight: normal;
+          letter-spacing: 0px;
+          color: #ffffff !important;
+          opacity: 1;
+        }
+      }
+
+      .boton-ingresar,
+      .boton-salir {
+        width: 117px;
+        background: #2699fb 0% 0% no-repeat padding-box;
+        border-radius: 49px;
+        opacity: 1;
+        text-align: center;
+        font-size: 15px;
+        font-family: 'Open Sans';
+        font-weight: normal;
+        letter-spacing: 0px;
+        color: #ffffff;
+        opacity: 1;
+      }
+
+      .nombreUsuario {
+        margin: 0rem;
+        align-self: center;
+        color: #26b1fb;
+      }
+
+      .perfil {
+        margin: -10px 0 0 5px;
+        left: 1122px;
+        width: 56px;
+        height: 56px;
+        // background: transparent url('img/Image 27.png') 0% 0% no-repeat padding-box;
+        opacity: 1;
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      .elemento:hover {
+        background: aliceblue !important;
+      }
+    }
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .navbar-ct2 {
+    display: flex;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .example {
+    background: blue;
   }
 }

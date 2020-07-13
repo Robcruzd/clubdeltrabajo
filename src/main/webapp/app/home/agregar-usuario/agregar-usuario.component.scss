@@ -6,12 +6,12 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-width: 15vh;
+  min-width: 15vw;
   min-height: 15vh;
   height: 100% !important;
   .imagen_logo {
     opacity: 1;
-    max-width: 60vh;
+    max-width: 60vw;
     max-height: 60vh;
     margin: 0;
   }
@@ -24,7 +24,7 @@
   align-content: center;
   align-items: center;
   width: 100%;
-  min-width: 100vh;
+  min-width: 100vw;
   min-height: 80vh;
   height: 100% !important;
   background-image: url('../../../content/images/FondoRegistro.jpg');
@@ -38,7 +38,7 @@
     flex-direction: column;
     align-items: center;
     border-radius: 2.5rem 2.5rem 2.5rem 2.5rem;
-    width: 60vh;
+    width: 60vw;
     min-height: 90vh;
     height: 100%;
     padding: 2rem;
@@ -157,5 +157,102 @@
       margin-top: 1.5rem;
       align-items: center;
     }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .estilo_body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    min-width: 100vw;
+    min-height: 100vh;
+    background: transparent linear-gradient(0deg, #314681 0%, #1a2050 100%) 0% 0% no-repeat padding-box;
+
+    .estilo_logo {
+      display: initial;
+      width: 100%;
+      padding: 2rem 0rem;
+    }
+
+    .div_centro {
+      width: 80%;
+      min-height: 90vh;
+      height: 100%;
+      padding: 0rem;
+      background: initial;
+      margin-bottom: 0rem;
+      margin-top: 0rem;
+
+      .estilo_titulo {
+        width: 100%;
+        height: auto;
+        padding: 0.8rem 0rem;
+        text-align: center;
+        font: Bold 20px Roboto;
+      }
+
+      .inputs {
+        width: 100%;
+
+        .estilo_inputs {
+          width: 100%;
+          height: auto;
+          padding: 0.8rem 0rem 0.8rem 1.5rem;
+        }
+
+        .estilo_inputs:focus {
+          outline: none;
+        }
+
+        .row_documento {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          background: #ffffff 0% 0% no-repeat padding-box;
+          border-radius: 1.5rem;
+
+          .select_documento {
+            width: 35%;
+            height: auto;
+            padding: 0.8rem 0rem;
+
+            .option_docu {
+              font-weight: bold;
+            }
+          }
+
+          .select_documento:focus {
+            outline: none;
+          }
+
+          .input_documento {
+            width: 65%;
+            height: auto;
+            padding: 0.8rem 0rem;
+          }
+        }
+      }
+
+      .boton_registrar {
+        width: 100%;
+        height: auto;
+        padding: 0.8rem 0rem;
+      }
+
+      .terminos {
+        width: 90%;
+      }
+    }
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .estilo_logo {
+    display: none;
   }
 }

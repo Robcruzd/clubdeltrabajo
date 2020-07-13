@@ -27,6 +27,7 @@ export class NavbarCtComponent implements OnInit {
   persona!: number;
   urlImageDefault = '';
   hojaVidaVo!: HojaVidaVo | null;
+  hideNavbar = false;
 
   lstOpcionesMenu: any = [
     { id: 1, etiqueta: 'Inicio', ruta: '/' },
@@ -43,12 +44,22 @@ export class NavbarCtComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (this.router.url === '/' || this.router.url === '/inicio-sesion' || this.router.url === '/agregar-usuario') {
+      this.hideNavbar = true;
+    } else {
+      this.hideNavbar = false;
+    }
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
         this.showNavbar = this.accountService.isAuthenticated() ? true : false;
         this.showElement = this.accountService.isAuthenticated() ? true : false;
         this.logged = this.accountService.isAuthenticated() ? true : false;
         this.accountService.getAuthenticationState().subscribe(account => {
+          if (this.router.url === '/' || this.router.url === '/inicio-sesion' || this.router.url === '/agregar-usuario') {
+            this.hideNavbar = true;
+          } else {
+            this.hideNavbar = false;
+          }
           this.account = account;
           this.persona = account?.user || 0;
           this.hojaVidaService.find(this.persona).subscribe(response => {

@@ -1,4 +1,5 @@
 <body class="estilo_body">
+    <img class="estilo_logo" src="../../../content/images/logo_cdt_fondo2.png">
     <div class="div_centro">
         <p class="estilo_titulo">Regístrate y entra al club.</p>
         <div class="inputs" style="text-align: center; display: none;">
@@ -47,10 +48,10 @@
                         {{ documento.nombreTipo }}
                     </option>
                 </select>
-                <div *ngIf="tipoDocumento.nombreTipo==='Pasaporte'" class="input_documento">
+                <div *ngIf="tipoDocumento.nombreTipo==='Pasaporte'">
                     <input type="text" class="input_documento" style="width: 100%;" [(ngModel)]="persona.numeroDocumento">
                 </div>
-                <div *ngIf="tipoDocumento.nombreTipo!=='Pasaporte'" class="input_documento">
+                <div *ngIf="tipoDocumento.nombreTipo!=='Pasaporte'" >
                     <input type="number" class="input_documento" style="width: 100%;" [(ngModel)]="persona.numeroDocumento">
                 </div>
             </div>

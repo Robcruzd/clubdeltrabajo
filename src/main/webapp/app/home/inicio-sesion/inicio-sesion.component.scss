@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-width: 100vh;
+  min-width: 100vw;
   min-height: 80vh;
   height: 100% !important;
   background: transparent linear-gradient(0deg, #314681 0%, #1a2050 100%) 0% 0% no-repeat padding-box;
@@ -32,13 +32,11 @@
 
     .titulo1 {
       color: white;
-      font-size: 1.25rem;
       font: 0.75rem OpenSans;
       margin-bottom: 1rem;
     }
     .text {
       color: white;
-      font-size: 0.75rem;
       font: 0.75rem Roboto;
       margin-bottom: 1.3rem;
     }
@@ -77,7 +75,6 @@
     }
 
     a {
-      font-size: 0.75rem;
       color: #03ecff;
       font: 0.75rem Roboto;
     }
@@ -85,10 +82,105 @@
       margin-top: 1rem;
     }
     .goRegister {
-      font-size: 0.75rem;
       font: 0.75rem Roboto;
       margin-top: 1rem;
       color: white;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .estilo_home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-width: 100vw;
+    min-height: 100vh;
+    height: 100% !important;
+    background: transparent linear-gradient(0deg, #314681 0%, #1a2050 100%) 0% 0% no-repeat padding-box;
+
+    .logo {
+      flex: 1;
+      width: 100%;
+      background: transparent 0% 0% no-repeat padding-box;
+      mix-blend-mode: lighten;
+      position: relative;
+      padding: 2rem 0rem;
+    }
+
+    .div_centro {
+      display: flex;
+      width: 80%;
+      flex: 8;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0rem;
+      height: auto;
+      margin-bottom: 1rem;
+      background: initial;
+      opacity: 1;
+
+      .titulo1 {
+        color: white;
+        font: Bold 20px Roboto;
+        margin-bottom: 1rem;
+      }
+      .text {
+        color: white;
+        font: 0.75rem Roboto;
+        margin-bottom: 1.3rem;
+      }
+      .input_inicio_sesion {
+        width: 100%;
+        height: auto;
+        padding: 0.8rem 0rem;
+        padding-left: 1.5rem;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border-radius: 24px;
+        opacity: 1;
+        color: #2699fb;
+        font-size: 0.875rem;
+        border-width: 0rem;
+      }
+
+      .input_inicio_sesion:focus {
+        outline: none;
+      }
+
+      .button_iniciar_sesion {
+        width: 100%;
+        height: auto;
+        padding: 0.8rem 0rem;
+        background: #2699fb 0% 0% no-repeat padding-box;
+        border-radius: 24px;
+        margin-bottom: 1rem;
+        text-align: center;
+        font: Bold 16px/19px Arial;
+        letter-spacing: 0px;
+        color: #ffffff;
+        opacity: 1;
+        border-width: 0rem;
+      }
+
+      .button_iniciar_sesion:focus {
+        outline: none;
+      }
+
+      a {
+        color: #03ecff;
+        font: 0.75rem Roboto;
+      }
+      .recoverPassword {
+        margin-top: 1rem;
+      }
+      .goRegister {
+        font: 0.75rem Roboto;
+        margin-top: 1rem;
+        color: white;
+      }
     }
   }
 }

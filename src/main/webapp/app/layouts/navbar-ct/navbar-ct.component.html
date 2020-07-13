@@ -1,4 +1,4 @@
-<div class="navbar-ct">
+<div class="navbar-ct" [ngClass]="{ 'navbar-ct':hideNavbar!==true, 'navbar-ct2':hideNavbar }">
     <img class="logo" [routerLink]="['/']" src="../../../content/images/logo_empresa.png">
     <!-- <div class="opciones"> -->
         <nav class="nav-navbar">
@@ -8,6 +8,7 @@
                         <a *ngFor="let item of lstOpcionesMenu" class="nav-item nav-link item"
                             [routerLink]="[item.ruta]">{{item.etiqueta}}</a>
                     </div>
+
                     <div ngbDropdown *ngIf="logged" style="display: inline-flex;">
                         <p class="nombreUsuario">¡Hola {{account?.firstName}}!</p>
                         <img class="perfil dropdown-toggle rounded-circle" ngbDropdownToggle href="javascript:void(0);"

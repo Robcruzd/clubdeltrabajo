@@ -37,4 +37,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   abrirBuscarTrabajo(): void {
     this.router.navigate(['/agregar-usuario']);
   }
+
+  ventanaInicioSesion(): void {
+    this.router.navigate(['/inicio-sesion']);
+  }
 }
