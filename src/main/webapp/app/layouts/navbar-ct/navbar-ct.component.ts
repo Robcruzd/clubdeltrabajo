@@ -85,6 +85,10 @@ export class NavbarCtComponent implements OnInit {
     this.router.navigate(['/restaurar-contrasena']);
   }
 
+  contactenos(): void {
+    this.router.navigate(['/informacion-empresa']);
+  }
+
   cerrarSesion(): void {
     this.logged = false;
     this.showElement = false;

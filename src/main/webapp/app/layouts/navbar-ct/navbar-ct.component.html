@@ -8,12 +8,36 @@
                         <a *ngFor="let item of lstOpcionesMenu" class="nav-item nav-link item"
                             [routerLink]="[item.ruta]">{{item.etiqueta}}</a>
                     </div>
-
+                    <div ngbDropdown *ngIf="logged" class="dropdownBurger">
+                        <img class="burger dropdown-toggle rounded-circle" ngbDropdownToggle href="javascript:void(0);"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAAg0lEQVRoge3WMQoDMQxEUSnnWHKfzUFyce09JsWSYNQZgizMf53AxYyrMQMAYBeSXpJCfYWkc8zsqUCY2VH6a/PC3Z/fIxdQfZ557v7L/VgZ5B9ygWtJijkxHrnAOz9oJuzOCAAdiS1Ugi3UCluoGFsIQGdiC5VgC7XCFirGFgIA7OUDCr8ZYRVLYKMAAAAASUVORK5CYII=">
+                        <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu aria-labelledby="account-menu">
+                            <a class="dropdown-item elemento" (click)="verPerfil()" id="perfil">
+                                <fa-icon icon="user" fixedWidth="true"></fa-icon>
+                                <span>{{lblPerfil}}</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item elemento" (click)="contactenos()" id="contactenos">
+                                <fa-icon icon="user" fixedWidth="true"></fa-icon>
+                                <span>Contáctenos</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item elemento" (click)="cambiarContrasena()" id="cambiarContrasena">
+                                <fa-icon icon="sign-out-alt" fixedWidth="true"></fa-icon>
+                                <span>Cambiar contraseña</span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item elemento" (click)="cerrarSesion()" id="salir">
+                                <fa-icon icon="sign-out-alt" fixedWidth="true"></fa-icon>
+                                <span>{{lblSalir}}</span>
+                            </a>
+                        </div>
+                    </div>
                     <div ngbDropdown *ngIf="logged" style="display: inline-flex;">
                         <p class="nombreUsuario">¡Hola {{account?.firstName}}!</p>
                         <img class="perfil dropdown-toggle rounded-circle" ngbDropdownToggle href="javascript:void(0);"
                             id="account-menu" [src]="imagen?.archivo || urlImageDefault">
-                        <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu aria-labelledby="account-menu">
+                        <div class="dropdown-menu dropdown-menu-right dropdownPhoto" ngbDropdownMenu aria-labelledby="account-menu">
                             <a class="dropdown-item elemento" (click)="verPerfil()" id="perfil">
                                 <fa-icon icon="user" fixedWidth="true"></fa-icon>
                                 <span>{{lblPerfil}}</span>
@@ -32,6 +56,20 @@
                     </div>
                     <button *ngIf="!logged" class="btn shadow-none boton-ingresar"
                         (click)="ventanaInicioSesion()">{{lblIngresar}}</button>
+                    <div ngbDropdown *ngIf="!logged" class="dropdownBurger">
+                        <img class="burger dropdown-toggle rounded-circle" ngbDropdownToggle href="javascript:void(0);"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAAg0lEQVRoge3WMQoDMQxEUSnnWHKfzUFyce09JsWSYNQZgizMf53AxYyrMQMAYBeSXpJCfYWkc8zsqUCY2VH6a/PC3Z/fIxdQfZ557v7L/VgZ5B9ygWtJijkxHrnAOz9oJuzOCAAdiS1Ugi3UCluoGFsIQGdiC5VgC7XCFirGFgIA7OUDCr8ZYRVLYKMAAAAASUVORK5CYII=">
+                        <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu aria-labelledby="account-menu">
+                            <a class="dropdown-item elemento" (click)="ventanaInicioSesion()" id="contactenos">
+                                <fa-icon icon="user" fixedWidth="true"></fa-icon>
+                                <span>{{lblIngresar}}</span>
+                            </a>
+                            <a class="dropdown-item elemento" (click)="contactenos()" id="contactenos">
+                                <fa-icon icon="user" fixedWidth="true"></fa-icon>
+                                <span>Contáctenos</span>
+                            </a>
+                        </div>
+                    </div>
                 <!-- </div> -->
             <!-- </div> -->
         </nav>

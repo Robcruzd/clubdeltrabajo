@@ -130,24 +130,30 @@
 
       .procuraduria {
         width: 60px;
-        //height: 80px;
-        //background: transparent url('img/Image 29.png') 0% 0% no-repeat padding-box;
         opacity: 1;
         margin: 0 auto;
       }
 
       .contraloria {
         width: 88px;
-        //height: 80px;
-        //background: transparent url('img/Image 30.png') 0% 0% no-repeat padding-box;
         opacity: 1;
         margin: 0 auto;
       }
 
       .policia {
         width: 60px;
-        //height: 80px;
-        //background: transparent url('img/Image 31.png') 0% 0% no-repeat padding-box;
+        opacity: 1;
+        margin: 0 auto;
+      }
+
+      .srvcpolicia {
+        width: 60px;
+        opacity: 1;
+        margin: 0 auto;
+      }
+
+      .simit {
+        width: 88px;
         opacity: 1;
         margin: 0 auto;
       }
@@ -249,19 +255,21 @@
     .box_perfil {
       display: flex;
       flex-direction: row;
-      min-width: auto;
-      width: min-content;
+      min-width: min-content;
+      width: auto;
       align-self: center;
-      margin: 2rem 0rem;
-      padding: 2rem 1rem;
+      margin: 0rem 0rem;
+      padding: 1rem 0.5rem;
 
       .column2 {
         flex-direction: column;
-        min-width: 95%;
+        width: 100%;
         align-items: center;
         background: transparent linear-gradient(181deg, #2e437e 0%, #1a2152 100%) 0% 0% no-repeat padding-box;
         border-radius: 1.875rem;
         padding: 1rem;
+        margin-bottom: 1rem;
+        min-width: min-content;
       }
 
       .column {
@@ -284,7 +292,8 @@
           .columncard {
             display: flex;
             flex-direction: column;
-            min-width: 50%;
+            min-width: min-content;
+            width: 50%;
             align-items: center;
           }
 
@@ -339,10 +348,9 @@
         }
 
         .boton-base {
-          top: 471px;
-          left: 244px;
-          width: 407px;
-          height: 48px;
+          width: 80%;
+          height: auto;
+          padding: 0.8rem 0rem;
           opacity: 1;
           border-radius: 24px;
           text-align: center;
@@ -355,7 +363,7 @@
 
         .boton-ver-hv {
           background: #020d52 0% 0% no-repeat padding-box;
-          margin-bottom: 1rem;
+          margin-bottom: 0.1rem;
         }
 
         .boton-busca-empleo {
@@ -371,28 +379,40 @@
           color: #2699fb !important;
         }
 
-        .procuraduria {
-          width: 60px;
-          //height: 80px;
-          //background: transparent url('img/Image 29.png') 0% 0% no-repeat padding-box;
-          opacity: 1;
-          margin: 0 auto;
-        }
+        .rowIAS {
+          flex-direction: row;
+          flex-wrap: nowrap;
+          width: 100%;
 
-        .contraloria {
-          width: 88px;
-          //height: 80px;
-          //background: transparent url('img/Image 30.png') 0% 0% no-repeat padding-box;
-          opacity: 1;
-          margin: 0 auto;
-        }
+          .procuraduria {
+            width: 20%;
+            opacity: 1;
+            margin: 0px;
+          }
 
-        .policia {
-          width: 60px;
-          //height: 80px;
-          //background: transparent url('img/Image 31.png') 0% 0% no-repeat padding-box;
-          opacity: 1;
-          margin: 0 auto;
+          .contraloria {
+            width: 30%;
+            opacity: 1;
+            margin: 0px;
+          }
+
+          .policia {
+            width: 20%;
+            opacity: 1;
+            margin: 0px;
+          }
+
+          .srvcpolicia {
+            width: 33%;
+            opacity: 1;
+            margin: 0px;
+          }
+
+          .simit {
+            width: 45%;
+            opacity: 1;
+            margin: 0px;
+          }
         }
 
         .experiencias {
@@ -450,8 +470,8 @@
           display: inline-block;
           padding: 6px 12px;
           cursor: pointer;
-          margin-left: 39px;
-          width: 168px;
+          margin-left: 0px;
+          width: 75%;
           background: #f0f0f0 0% 0% no-repeat padding-box;
           border-radius: 16px;
         }
