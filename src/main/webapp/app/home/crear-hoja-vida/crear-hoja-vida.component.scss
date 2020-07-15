@@ -494,3 +494,73 @@
 ::ng-deep .mat-form-field-appearance-fill .mat-select-arrow-wrapper {
   transform: translateY(0%) !important;
 }
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .estilo_body {
+    width: 100%;
+    min-width: 100vw;
+    align-self: center;
+    justify-self: center;
+    background: transparent linear-gradient(0deg, #314681 0%, #1a2050 100%) 0% 0% no-repeat padding-box;
+    border-radius: 0rem;
+    opacity: 1;
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+    padding: 0rem;
+    padding-top: 3rem;
+
+    .ngnum11 {
+      margin-top: 2rem;
+      padding: 1rem 2rem 1rem 2rem;
+
+      .row {
+        flex-direction: column;
+
+        .column {
+          width: 100%;
+
+          .form-group {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .ngnum0,
+    .ngnum1 {
+      margin: 0rem 2rem 0rem 2rem;
+
+      .row {
+        flex-direction: column;
+
+        .column {
+          width: 100%;
+
+          .form-group {
+            width: 100%;
+          }
+        }
+
+        .form-group-perfil {
+          width: 100%;
+        }
+      }
+    }
+    .boton_siguiente {
+      width: 100%;
+    }
+
+    .boton_agregar {
+      width: 100%;
+    }
+
+    .rowFooter {
+      flex-direction: column;
+
+      .column {
+        width: 100%;
+      }
+    }
+  }
+}

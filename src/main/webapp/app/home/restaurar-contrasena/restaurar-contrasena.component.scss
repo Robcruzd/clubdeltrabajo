@@ -123,3 +123,46 @@
     background: #f0f0f0 !important;
   }
 }
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .logo {
+    display: none;
+  }
+
+  .estilo_home {
+    .div_centro {
+      width: 100%;
+      padding: 2rem;
+      height: 100%;
+      margin-bottom: 0rem;
+      margin-top: 0rem;
+      background: initial;
+
+      .titulo1 {
+        text-align: center;
+      }
+
+      .inputs {
+        width: 100%;
+
+        .label-restaurar {
+          font: 1rem Roboto;
+        }
+        .estilo_input {
+          width: 100%;
+          height: auto;
+          padding-top: 0.8rem;
+          padding-bottom: 0.8rem;
+        }
+      }
+
+      .button_iniciar_sesion {
+        width: 100%;
+        height: auto;
+        padding-top: 0.8rem;
+        padding-bottom: 0.8rem;
+      }
+    }
+  }
+}
