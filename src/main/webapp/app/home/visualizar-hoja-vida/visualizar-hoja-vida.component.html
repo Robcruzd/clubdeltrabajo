@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<kendo-pdf-export #pdf *ngIf="showElement">
+<kendo-pdf-export #pdf >
     <div class="container-pdf">
         <div class="box-left">
             <img class="foto-perfil" [src]="imagen?.archivo || urlImageDefault">
@@ -45,10 +45,10 @@
             </div>
         </div>
         <div class="box-right">
-            <h1 style="margin-top: 1.5rem;"><span style="color: grey;">{{hojaVidaVo?.informacionPersonal?.usuario?.nombre}}</span> {{hojaVidaVo?.informacionPersonal?.usuario?.apellido}}</h1>
+            <h1><span style="color: grey;">{{hojaVidaVo?.informacionPersonal?.usuario?.nombre}}</span> {{hojaVidaVo?.informacionPersonal?.usuario?.apellido}}</h1>
             <div style="padding-left: 3rem;" *ngFor="let item of hojaVidaVo?.experienciaLaboral">
                 <div *ngIf="item.trabajoActual==true">
-                    <h3 style="margin-bottom: 1rem;">{{item?.cargo?.cargo}}</h3>
+                    <h3>{{item?.cargo?.cargo}}</h3>
                 </div>
             </div>
             <h4>EXPERIENCIA PROFESIONAL</h4>

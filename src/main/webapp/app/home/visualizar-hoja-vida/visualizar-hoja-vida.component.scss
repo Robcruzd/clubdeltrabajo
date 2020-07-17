@@ -130,11 +130,20 @@ kendo-pdf-export {
   width: 560px;
   height: 1046px;
 
-  h1,
-  h5,
-  h3 {
+  h1 {
     font-weight: bold;
     margin-bottom: 0rem;
+    margin-top: 1.5rem;
+  }
+
+  h5 {
+    font-weight: bold;
+    margin-bottom: 0rem;
+  }
+
+  h3 {
+    font-weight: bold;
+    margin-bottom: 1rem;
   }
 
   h4 {
@@ -196,6 +205,131 @@ kendo-pdf-export {
     .experiencias {
       padding-left: 3rem;
       padding-top: 1.5rem;
+    }
+  }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .container {
+    .row {
+      width: 100%;
+
+      .col-md-5 {
+        width: 100%;
+        max-width: 100vw;
+
+        .informacion-hoja-vida {
+          top: 0px;
+          left: 0px;
+          width: 90vw;
+          height: 530px;
+          border: 1px solid #ebebeb;
+          opacity: 1;
+          margin-bottom: 14px;
+
+          .pdfViewer {
+            width: 85vw;
+          }
+        }
+      }
+    }
+  }
+
+  .container-pdf {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-width: min-content;
+    height: 1.7 * 100vw;
+
+    h1 {
+      font-weight: bold;
+      margin-bottom: 0rem;
+      font-size: 8vw;
+      margin-top: 1rem;
+    }
+
+    h5 {
+      font-weight: bold;
+      margin-bottom: 0rem;
+      font-size: 3.15vw;
+    }
+
+    h3 {
+      font-weight: bold;
+      margin-bottom: 0rem;
+      font-size: 5.4vw;
+    }
+
+    h4 {
+      font-weight: bold;
+      margin-bottom: 0rem;
+      margin-top: 1rem;
+      font-size: 3.75vw;
+    }
+
+    p {
+      margin-bottom: 0rem;
+      font-size: 2.5vw;
+    }
+
+    ul {
+      font-size: 2.5vw;
+    }
+
+    .linea-base {
+      width: 21.6%;
+      height: 2.5px;
+      background-color: black;
+      border-bottom: black;
+      border-bottom-width: 2px;
+    }
+
+    .box-left {
+      background-color: #dfdfdf;
+      display: flex;
+      width: 40.54%;
+      min-width: min-content;
+      flex-direction: column;
+      padding: 1rem;
+
+      .icono {
+        width: 0.8rem;
+        height: auto;
+        margin-right: 0.5rem;
+        margin-top: 5px;
+      }
+
+      .foto-perfil {
+        width: 85%;
+        height: auto;
+        opacity: 1;
+        margin-top: 0.5rem;
+        margin-bottom: 2px;
+        align-self: center;
+        border-radius: 9rem;
+      }
+
+      .contacto-icons {
+        display: flex;
+        flex-direction: row;
+        margin-top: 2px;
+      }
+    }
+
+    .box-right {
+      background-color: white;
+      width: 59.46%;
+      min-width: min-content;
+      display: flex;
+      padding: 0.5rem 1rem;
+      flex-direction: column;
+
+      .experiencias {
+        padding-left: 6.48%;
+        padding-top: 1rem;
+      }
     }
   }
 }
