@@ -82,14 +82,14 @@ export class PerfilComponent implements OnInit {
           .show();
       } else if (this.imagen.archivo === undefined && this.hojaVidaVo?.informacionPersonal !== null) {
         alertify
-          .alert('ATENCIÓN', 'Debe insertar su foto de perfil')
+          .alert('ATENCIÓN', 'Debe insertar su foto de perfil.')
           .setting({
             label: 'Aceptar'
           })
           .show();
       } else if (this.hojaVidaVo?.informacionPersonal === null && this.imagen.archivo === undefined) {
         alertify
-          .alert('ATENCIÓN', 'Debe insertar su foto de perfil y registrar su hoja de vida en el botón Editar Hoja de Vida')
+          .alert('ATENCIÓN', 'Debe insertar su foto de perfil y registrar su hoja de vida en el botón Editar Hoja de Vida.')
           .setting({
             label: 'Aceptar'
           })
