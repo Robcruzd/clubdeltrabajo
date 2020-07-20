@@ -265,5 +265,6 @@ export const commonMessages = {
     { codigo: 15, nombre: 'Especialización Tecnológica' },
     { codigo: 16, nombre: 'Especialización Técnica' }
   ],
-  PROFESION_LABEL: 'Profesión'
+  PROFESION_LABEL: 'Profesión',
+  NUMERO_VECES_EXCEDIDO: 'Solamente es permitido 2 archivos por registro.'
 };
