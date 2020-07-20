@@ -11,6 +11,7 @@ type EntityArrayResponseType = HttpResponse<IArchivo[]>;
 @Injectable({ providedIn: 'root' })
 export class ArchivoService {
   public resourceUrl = SERVER_API_URL + 'api/archivos';
+  public s3Service = SERVER_API_URL + 'api/uploadFileS3';
 
   constructor(protected http: HttpClient) {}
 
@@ -37,5 +38,11 @@ export class ArchivoService {
 
   get(usuarioid: number, tipo: number): Observable<EntityResponseType> {
     return this.http.get<IArchivo>(`${this.resourceUrl}/perfil/${usuarioid}/tipo/${tipo}`, { observe: 'response' });
+  }
+
+  uploadS3(file: File): any {
+    // eslint-disable-next-line no-console
+    console.log('file: ', file);
+    return this.http.post(this.s3Service, file);
   }
 }

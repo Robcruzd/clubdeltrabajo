@@ -141,4 +141,5 @@ public class TipoDocumentoResource {
         tipoDocumentoService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+    
 }

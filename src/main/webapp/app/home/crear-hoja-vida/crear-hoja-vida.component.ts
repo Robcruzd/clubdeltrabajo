@@ -29,6 +29,7 @@ import { GeografiaVo } from '../../shared/vo/geografia-vo';
 import { HojaVidaVo } from '../../shared/vo/hoja-vida-vo';
 import { IOpcionVo, IOpcionVoDescripcion } from '../../shared/vo/opcion-vo';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
+import { ArchivoService } from '../../entities/archivo/archivo.service';
 
 declare let alertify: any;
 
@@ -106,7 +107,8 @@ export class CrearHojaVidaComponent implements OnInit {
     private institucionService: InstitucionService,
     private cargoService: CargoService,
     private accountService: AccountService,
-    private router: Router
+    private router: Router,
+    private archivo: ArchivoService
   ) {}
 
   ngOnInit(): void {
@@ -491,7 +493,11 @@ export class CrearHojaVidaComponent implements OnInit {
       }
       this.hojaVidaVo.experienciaLaboral = laboral;
       // Cargar archivos
-      if (this.archivos.length !== 0) this.hojaVidaVo.archivos = this.archivos;
+      if (this.archivos.length !== 0) {
+        console.log('archivos: ', this.archivos);
+
+        this.hojaVidaVo.archivos = this.archivos;
+      }
 
       this.service.create(this.hojaVidaVo).subscribe(
         response => {
@@ -909,6 +915,9 @@ export class CrearHojaVidaComponent implements OnInit {
         this.archivos.push(archivo);
       };
     }
+    this.archivo.uploadS3(file).subscribe((res: any) => {
+      console.log(res);
+    });
   }
 
   procesarRedSocial(value: string | undefined): string | undefined {

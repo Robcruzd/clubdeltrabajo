@@ -4,6 +4,7 @@ import { LoginModalService } from 'app/core/login/login-modal.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
 import { Router } from '@angular/router';
+import { ArchivoService } from '../entities/archivo/archivo.service';
 
 @Component({
   selector: 'jhi-home',
@@ -14,7 +15,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   account: Account | null = null;
   authSubscription?: Subscription;
 
-  constructor(private accountService: AccountService, private loginModalService: LoginModalService, private router: Router) {}
+  constructor(
+    private accountService: AccountService,
+    private loginModalService: LoginModalService,
+    private router: Router,
+    private archivo: ArchivoService
+  ) {}
 
   ngOnInit(): void {
     this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
