@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<kendo-pdf-export #pdf >
+<kendo-pdf-export #pdf *ngIf="showElement">
     <div class="container-pdf">
         <div class="box-left">
             <img class="foto-perfil" [src]="imagen?.archivo || urlImageDefault">
