@@ -1,5 +1,5 @@
 .estilo_body {
-  width: 70%;
+  width: 59rem;
   align-self: center;
   justify-self: center;
   background: transparent linear-gradient(181deg, #2e437e 0%, #1a2152 100%) 0% 0% no-repeat padding-box;
@@ -9,6 +9,7 @@
   margin-bottom: 3rem;
   padding: 0rem;
   padding-top: 3rem;
+  max-width: none;
 
   .ngnum0 {
     margin: 0rem 5rem 0rem 5rem;
@@ -68,6 +69,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+
+      .archivo_subido {
+        color: #82c91e;
+        position: absolute;
+        margin-top: 38px;
+        margin-left: 24rem;
+      }
 
       .form-group {
         display: flex;
@@ -523,6 +531,9 @@
           .form-group {
             width: 100%;
           }
+          .archivo_subido {
+            margin-left: 97%;
+          }
         }
       }
     }
@@ -539,6 +550,10 @@
 
           .form-group {
             width: 100%;
+          }
+
+          .archivo_subido {
+            margin-left: 97%;
           }
         }
 
@@ -563,11 +578,4 @@
       }
     }
   }
-}
-
-.archivo_subido {
-  color: #82c91e;
-  position: absolute;
-  margin-top: 38px;
-  left: 260px;
 }
