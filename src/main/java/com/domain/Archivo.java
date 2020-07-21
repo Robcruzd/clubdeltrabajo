@@ -42,6 +42,14 @@ public class Archivo implements Serializable {
     @NotNull
     @JsonIgnoreProperties("archivos")
     private Persona usuario;
+    
+    @ManyToOne(optional = false)
+    @JsonIgnoreProperties("informacionAcademica")
+    private InformacionAcademica informacionAcademica;
+
+    @ManyToOne(optional = false)
+    @JsonIgnoreProperties("informacionLaboral")
+    private InformacionLaboral informacionLaboral;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -116,9 +124,26 @@ public class Archivo implements Serializable {
     public void setUsuario(Persona persona) {
         this.usuario = persona;
     }
+    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
+    public InformacionAcademica getInformacionAcademica() {
+		return informacionAcademica;
+	}
+
+	public void setInformacionAcademica(InformacionAcademica informacionAcademica) {
+		this.informacionAcademica = informacionAcademica;
+	}
+
+    public InformacionLaboral getInformacionLaboral() {
+		return informacionLaboral;
+	}
+
+	public void setInformacionLaboral(InformacionLaboral informacionLaboral) {
+		this.informacionLaboral = informacionLaboral;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

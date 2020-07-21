@@ -42,7 +42,7 @@ export class ArchivoService {
 
   uploadS3(file: File): any {
     // eslint-disable-next-line no-console
-    console.log('file: ', file);
+    console.log('file: ');
     return this.http.post(this.s3Service, file);
   }
 }

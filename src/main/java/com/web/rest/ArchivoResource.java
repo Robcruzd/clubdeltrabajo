@@ -185,6 +185,7 @@ public class ArchivoResource {
         Region usWest2 = Region.getRegion(Regions.US_WEST_2);
         s3.setRegion(usWest2);
 
+        log.debug("Filse: ", file);
         String bucketName = "my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958";
         String key = "MyObjectKey";
 
@@ -218,7 +219,7 @@ public class ArchivoResource {
              * specific to your applications.
              */
             System.out.println("Uploading a new object to S3 from a file\n");
-            s3.putObject(new PutObjectRequest(bucketName, key, file));
+            s3.putObject(new PutObjectRequest(bucketName, key, createSampleFile()));
 
             
             // System.out.println("Downloading an object");
@@ -274,18 +275,18 @@ public class ArchivoResource {
     //  *
     //  * @throws IOException
     //  */
-    // private static File createSampleFile() throws IOException {
-    //     File file = File.createTempFile("aws-java-sdk-", ".txt");
-    //     file.deleteOnExit();
+    private static File createSampleFile() throws IOException {
+        File file = File.createTempFile("aws-java-sdk-", ".txt");
+        file.deleteOnExit();
 
-    //     Writer writer = new OutputStreamWriter(new FileOutputStream(file));
-    //     writer.write("abcdefghijklmnopqrstuvwxyz\n");
-    //     writer.write("01234567890112345678901234\n");
-    //     writer.write("!@#$%^&*()-=[]{};':',.<>/?\n");
-    //     writer.write("01234567890112345678901234\n");
-    //     writer.write("abcdefghijklmnopqrstuvwxyz\n");
-    //     writer.close();
+        Writer writer = new OutputStreamWriter(new FileOutputStream(file));
+        writer.write("abcdefghijklmnopqrstuvwxyz\n");
+        writer.write("01234567890112345678901234\n");
+        writer.write("!@#$%^&*()-=[]{};':',.<>/?\n");
+        writer.write("01234567890112345678901234\n");
+        writer.write("abcdefghijklmnopqrstuvwxyz\n");
+        writer.close();
 
-    //     return file;
-    // }
+        return file;
+    }
 }

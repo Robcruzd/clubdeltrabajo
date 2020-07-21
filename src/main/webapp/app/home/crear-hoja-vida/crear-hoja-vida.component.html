@@ -32,6 +32,7 @@
 
                 <div class="row">
                     <div class="column">
+                        <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="this.cargadoDocumento" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
                         <div class="form-group">
                             <p class="estilo_label">{{labels.NUMERO_DOCUMENTO_LABEL}} <span
                                     class="estilo_campo_requerido">*</span></p>
@@ -223,6 +224,7 @@
 
                 <div class="row">
                     <div class="column">
+                        <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="this.cargadoLicencia" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
                         <div class="form-group">
                             <p class="estilo_label">{{labels.LICENCIA_CONDUCCION_LABEL}}</p>
                             <div class="input_group">
@@ -443,6 +445,7 @@
 
                     <div class="row">
                         <div class="column">
+                            <fa-icon [id]="indexAcademica" icon="check-circle" size="2x" class="archivo_subido" style="visibility: hidden;" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.TITULO_OTORGADO_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
@@ -454,7 +457,7 @@
                                                 <fa-icon icon="images" class="float-right"></fa-icon>
                                             </label>
                                             <input class='file' type="file" accept=".png, .jpeg, .jpg, .pdf" #certificadoestudio
-                                                (change)="addArchivo($event, tipoArchivo.CERTIFICADO_ESTUDIO)">
+                                                (change)="addArchivo($event, tipoArchivo.CERTIFICADO_ESTUDIO, indexAcademica)">
                                     </div>
                                 </div>
                                 <small *ngIf="informacionAcademica.at(indexAcademica).get('tituloOtorgado')?.errors?.required"
@@ -863,6 +866,7 @@
 
                     <div class="row">
                         <div class="column">
+                            <fa-icon [id]="indexLaboral" icon="check-circle" size="2x" class="archivo_subido" style="visibility: hidden;" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.ADJUNTE_CERTIFICADO_LABORAL_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
@@ -880,7 +884,7 @@
                                             <label>{{labels.PLACEHOLDER_CERTIFICADO}}</label>
                                         </ng-template>
                                         <input class="file" type="file" #certificadolaboral accept=".png, .jpeg, .jpg, .pdf"
-                                            (change)="addArchivo($event, tipoArchivo.CERTIFICADO_LABORAL)">
+                                            (change)="addArchivo($event, tipoArchivo.CERTIFICADO_LABORAL, indexLaboral)">
                                         <label for="file" class="label_file" (click)="certificadolaboral.click()">
                                             <fa-icon icon="images" class="float-right"></fa-icon>
                                         </label>

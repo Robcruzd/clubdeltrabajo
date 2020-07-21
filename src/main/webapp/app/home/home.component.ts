@@ -6,6 +6,32 @@ import { Account } from 'app/core/user/account.model';
 import { Router } from '@angular/router';
 import { ArchivoService } from '../entities/archivo/archivo.service';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const AWS = require('aws-sdk');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const uuid = require('node-uuid');
+
+// const region = 'us-west-2'; // Region
+// Initialize the Amazon Cognito credentials provider
+AWS.config.region = 'us-west-2'; // Region
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+  IdentityPoolId: 'us-west-2:502913e8-37b5-45d4-aedf-b98fd98f2523'
+});
+
+// AWS.config.update({
+//   region: 'us-west-2',
+//   credentials: cred
+// });
+// Create an S3 client
+const s3 = new AWS.S3(AWS.config);
+
+// eslint-disable-next-line no-console
+console.log('cognito: ', s3);
+
+// Create a bucket and upload something into it
+const bucketName = 'node-sdk-sample-' + uuid.v4();
+const keyName = 'hello_world.txt';
+
 @Component({
   selector: 'jhi-home',
   templateUrl: './home.component.html',
@@ -24,6 +50,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
+    s3.createBucket({ Bucket: bucketName }, function(): any {
+      const params = { Bucket: bucketName, Key: keyName, Body: 'Hello World!' };
+      s3.putObject(params, function(err: any, data: any): any {
+        if (err)
+          // eslint-disable-next-line no-console
+          console.log(err, data);
+        // eslint-disable-next-line no-console
+        else console.log('Successfully uploaded data to ' + bucketName + '/' + keyName);
+      });
+    });
   }
 
   isAuthenticated(): boolean {

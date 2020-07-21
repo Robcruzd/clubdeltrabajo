@@ -1,3 +1,5 @@
+import { IInformacionLaboral } from './informacion-laboral.model';
+import { IInformacionAcademica } from './informacion-academica.model';
 import { IPersona } from 'app/shared/model/persona.model';
 
 export interface IArchivo {
@@ -7,6 +9,8 @@ export interface IArchivo {
   nombre?: string;
   extension?: string;
   usuario?: IPersona;
+  informacionAcademica?: IInformacionAcademica;
+  informacionLaboral?: IInformacionLaboral;
 }
 
 export class Archivo implements IArchivo {
@@ -16,6 +20,8 @@ export class Archivo implements IArchivo {
     public archivo?: string | ArrayBuffer | null,
     public nombre?: string,
     public extension?: string,
-    public usuario?: IPersona
+    public usuario?: IPersona,
+    public informacionAcademica?: IInformacionAcademica,
+    public informacionLaboral?: IInformacionLaboral
   ) {}
 }
