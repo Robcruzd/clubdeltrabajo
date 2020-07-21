@@ -55,7 +55,7 @@ public class HojaVidaResource {
 	@PostMapping("/hoja-vida")
 	public ResponseEntity<HojaVidaVo> createHojaVida(@Valid @RequestBody HojaVidaVo hojaVida)
 			throws URISyntaxException {
-		log.debug("REST request to save hoja vida : {}", hojaVida);
+//		log.debug("REST request to save hoja vida : {}", hojaVida);
 
 		HojaVidaVo result = service.save(hojaVida);
 		return ResponseEntity.created(new URI("/api/hoja-vida/" + result.getInformacionPersonal().getUsuario().getId()))
@@ -87,7 +87,7 @@ public class HojaVidaResource {
 	 */
 	@GetMapping("/hoja-vida/{id}")
 	public ResponseEntity<HojaVidaVo> get(@PathVariable Long id) {
-		log.debug("REST request to get Idioma : {}", id);
+//		log.debug("REST request to get Idioma : {}", id);
 		Optional<HojaVidaVo> hojaVida = service.get(id);
 		return ResponseUtil.wrapOrNotFound(hojaVida);
 	}
@@ -101,7 +101,7 @@ public class HojaVidaResource {
 	 */
 	@PutMapping("/hoja-vida")
 	public ResponseEntity<HojaVidaVo> update(@Valid @RequestBody HojaVidaVo hojaVida) {
-		log.debug("REST request to update Hoja de vida : {}");
+//		log.debug("REST request to update Hoja de vida : {}");
 		HojaVidaVo result = service.save(hojaVida);
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME,
 				hojaVida.getInformacionPersonal().getUsuario().getId().toString())).body(result);
