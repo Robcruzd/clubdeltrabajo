@@ -50,16 +50,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
-    s3.createBucket({ Bucket: bucketName }, function(): any {
-      const params = { Bucket: bucketName, Key: keyName, Body: 'Hello World!' };
-      s3.putObject(params, function(err: any, data: any): any {
-        if (err)
-          // eslint-disable-next-line no-console
-          console.log(err, data);
-        // eslint-disable-next-line no-console
-        else console.log('Successfully uploaded data to ' + bucketName + '/' + keyName);
-      });
-    });
+    // s3.createBucket({ Bucket: bucketName }, function(): any {
+    // const params = { Bucket: 'my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958', Key: keyName, Body: 'Hello World!' };
+    // s3.putObject(params, function(err: any, data: any): any {
+    //   if (err)
+    //     // eslint-disable-next-line no-console
+    //     console.log(err, data);
+    //   // eslint-disable-next-line no-console
+    //   else console.log('Successfully uploaded data to ' + bucketName + '/' + keyName);
+    // });
+    // });
   }
 
   isAuthenticated(): boolean {

@@ -31,6 +31,32 @@ import { IOpcionVo, IOpcionVoDescripcion } from '../../shared/vo/opcion-vo';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
 import { ArchivoService } from '../../entities/archivo/archivo.service';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const AWS = require('aws-sdk');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const uuid = require('node-uuid');
+
+// const region = 'us-west-2'; // Region
+// Initialize the Amazon Cognito credentials provider
+AWS.config.region = 'us-west-2'; // Region
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+  IdentityPoolId: 'us-west-2:502913e8-37b5-45d4-aedf-b98fd98f2523'
+});
+
+// AWS.config.update({
+//   region: 'us-west-2',
+//   credentials: cred
+// });
+// Create an S3 client
+const s3 = new AWS.S3(AWS.config);
+
+// eslint-disable-next-line no-console
+console.log('cognito: ', s3);
+
+// Create a bucket and upload something into it
+const bucketName = 'my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958';
+const keyName = 'hello_world.pdf';
+
 declare let alertify: any;
 
 /* eslint-disable */
@@ -976,6 +1002,24 @@ export class CrearHojaVidaComponent implements OnInit {
       // Icono
       document.getElementById('' + indice)?.setAttribute('style', 'visibility: visible');
     }
+
+    const params = { Bucket: 'my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958', Key: keyName, Body: file };
+    s3.getObject({ Bucket: 'my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958', Key: keyName }, function(err: any, data: any): any {
+      if (err)
+        // eslint-disable-next-line no-console
+        console.log(err);
+      // eslint-disable-next-line no-console
+      else console.log(data);
+    });
+    console.log('file: ', file);
+
+    s3.putObject(params, function(err: any, data: any): any {
+      if (err)
+        // eslint-disable-next-line no-console
+        console.log(err, data);
+      // eslint-disable-next-line no-console
+      else console.log('Successfully uploaded data to ' + bucketName + '/' + keyName);
+    });
 
     const reader = new FileReader();
     if (index >= 0) {
