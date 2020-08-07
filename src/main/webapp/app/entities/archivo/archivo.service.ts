@@ -40,7 +40,7 @@ export class ArchivoService {
     return this.http.get<IArchivo>(`${this.resourceUrl}/perfil/${usuarioid}/tipo/${tipo}`, { observe: 'response' });
   }
 
-  uploadS3(file: File): any {
+  uploadS3(file: FormData): any {
     // eslint-disable-next-line no-console
     console.log('file: ');
     return this.http.post(this.s3Service, file);

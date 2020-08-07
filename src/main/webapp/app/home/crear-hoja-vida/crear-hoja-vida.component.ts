@@ -956,7 +956,7 @@ export class CrearHojaVidaComponent implements OnInit {
           nVecesLicencia++;
         }
       });
-      if (nVecesLicencia > 2) {
+      if (nVecesLicencia >= 2) {
         alertify.set('notifier', 'position', 'top-right');
         alertify.error(commonMessages.NUMERO_VECES_EXCEDIDO);
         return;
@@ -1003,22 +1003,41 @@ export class CrearHojaVidaComponent implements OnInit {
       document.getElementById('' + indice)?.setAttribute('style', 'visibility: visible');
     }
 
-    const params = { Bucket: 'my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958', Key: keyName, Body: file };
-    s3.getObject({ Bucket: 'my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958', Key: keyName }, function(err: any, data: any): any {
-      if (err)
-        // eslint-disable-next-line no-console
-        console.log(err);
-      // eslint-disable-next-line no-console
-      else console.log(data);
-    });
-    console.log('file: ', file);
+    // const params = { Bucket: 'my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958', Key: keyName, Body: file };
+    // s3.getObject({ Bucket: 'my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958', Key: keyName }, function(err: any, data: any): any {
+    //   // eslint-disable-next-line no-console
+    //   if (err) console.log(err);
+    //   // eslint-disable-next-line no-console
+    //   else {console.log('data: ',data);
+    //     console.log('file base64: ',data.Body.toString('base64'));
+    //     var signatures = {
+    //       JVBERi0: "application/pdf",
+    //       R0lGODdh: "image/gif",
+    //       R0lGODlh: "image/gif",
+    //       iVBORw0KGgo: "image/png"
+    //     };
 
-    s3.putObject(params, function(err: any, data: any): any {
-      if (err)
-        // eslint-disable-next-line no-console
-        console.log(err, data);
-      // eslint-disable-next-line no-console
-      else console.log('Successfully uploaded data to ' + bucketName + '/' + keyName);
+    //     for (var s in signatures) {
+    //       if (data.Body.toString('base64').indexOf(s) === 0) {
+    //         console.log('mimetype: ',signatures[s]);
+    //       }
+    //     }
+    //   }
+    // });
+    // console.log('file: ', file);
+
+    // s3.putObject(params, function(err: any, data: any): any {
+    //   if (err)
+    //     // eslint-disable-next-line no-console
+    //     console.log(err, data);
+    //   // eslint-disable-next-line no-console
+    //   else console.log('Successfully uploaded data to ' + bucketName + '/' + keyName);
+    // });
+
+    const formData = new FormData();
+    formData.append('file', file);
+    this.archivo.uploadS3(formData).subscribe((res: any) => {
+      console.log(res);
     });
 
     const reader = new FileReader();
@@ -1028,9 +1047,7 @@ export class CrearHojaVidaComponent implements OnInit {
       this.archivos[index].usuario = new Persona(this.persona);
 
       reader.readAsDataURL(file);
-      // this.archivo.uploadS3(file).subscribe((res: any) => {
-      //   console.log(res);
-      // });
+
       reader.onload = () => {
         this.archivos[index].archivo = reader.result;
       };
