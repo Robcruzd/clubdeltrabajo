@@ -238,7 +238,7 @@
   }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 900px) {
   .hdvCelular {
     display: flex;
   }
@@ -325,6 +325,7 @@
           .titulo_div {
             align-self: baseline;
             margin-right: 10px;
+            align-self: center;
 
             .titulo {
               align-self: flex-start;
@@ -480,7 +481,7 @@
   }
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 900px) {
   .hdvCelular {
     display: none;
   }

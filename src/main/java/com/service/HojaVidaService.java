@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
@@ -83,7 +84,7 @@ public class HojaVidaService {
 	 * @return the persisted entity.
 	 */
 	public HojaVidaVo save(HojaVidaVo hojaVida) {
-		log.debug("Request to save Hoja de vida : {}", hojaVida);
+//		log.debug("Request to save Hoja de vida : {}", hojaVida);
 		if (hojaVida.getPersona() != null) this.personaRepository.save(hojaVida.getPersona());
 		if (hojaVida.getInformacionPersonal() != null) this.personalRepository.save(hojaVida.getInformacionPersonal());
 		if (hojaVida.getIdiomas() != null && !hojaVida.getIdiomas().isEmpty()) this.idiomaRepository.saveAll(hojaVida.getIdiomas());
@@ -95,10 +96,16 @@ public class HojaVidaService {
 		if (hojaVida.getInformacionAcademica() != null && !hojaVida.getInformacionAcademica().isEmpty()) {
 			for (InformacionAcademica infAca: hojaVida.getInformacionAcademica()) {
 				Optional<InformacionAcademica> informacionAcademicaBusqueda = this.academicaRepository.findById(infAca.getId());
-				if (informacionAcademicaBusqueda.get().getId() != null) {
+				if (informacionAcademicaBusqueda.isPresent()) {
 					this.academicaRepository.save(infAca);
 					if (hojaVida.getArchivos() != null && !hojaVida.getArchivos().isEmpty()) {
-						List<Archivo> archivosInformacionAcademica = hojaVida.getArchivos().stream().filter(f -> f.getInformacionAcademica().getId().equals(infAca.getId())).collect(Collectors.toList());
+						List<Archivo> archivosInformacionAcademica = new ArrayList<Archivo>();
+						for(Archivo dato :  hojaVida.getArchivos()) {
+							if(dato.getInformacionAcademica() != null && dato.getInformacionAcademica().getId().equals(infAca.getId())) {
+								archivosInformacionAcademica.add(dato);
+							}
+						}
+//						List<Archivo> archivosInformacionAcademica = hojaVida.getArchivos().stream().filter(f -> f.getInformacionAcademica().getId().equals(infAca.getId())).collect(Collectors.toList());
 						archivosInformacionAcademica.stream().map(f -> {
 							f.setInformacionAcademica(infAca);
 							return f;
@@ -111,7 +118,13 @@ public class HojaVidaService {
 					infAca.setId(null);
 					InformacionAcademica informacionAcademicaGuardado = this.academicaRepository.save(infAca);
 					if (hojaVida.getArchivos() != null && !hojaVida.getArchivos().isEmpty()) {
-						List<Archivo> archivosInformacionAcademica = hojaVida.getArchivos().stream().filter(f -> f.getInformacionAcademica().getId().equals(index)).collect(Collectors.toList());
+						List<Archivo> archivosInformacionAcademica = new ArrayList<Archivo>();
+						for(Archivo dato :  hojaVida.getArchivos()) {
+							if(dato.getInformacionAcademica() != null && dato.getInformacionAcademica().getId().equals(index)) {
+								archivosInformacionAcademica.add(dato);
+							}
+						}
+//						List<Archivo> archivosInformacionAcademica = hojaVida.getArchivos().stream().filter(f -> f.getInformacionAcademica().getId().equals(index)).collect(Collectors.toList());
 						archivosInformacionAcademica.stream().map(f -> {
 							f.setInformacionAcademica(informacionAcademicaGuardado);
 							return f;
@@ -126,10 +139,16 @@ public class HojaVidaService {
 		if (hojaVida.getExperienciaLaboral() != null && !hojaVida.getExperienciaLaboral().isEmpty()) {
 			for (InformacionLaboral infLab: hojaVida.getExperienciaLaboral()) {
 				Optional<InformacionLaboral> informacionLaboralBusqueda = this.experienciaRepository.findById(infLab.getId());
-				if (informacionLaboralBusqueda.get().getId() != null) {
+				if (informacionLaboralBusqueda.isPresent()) {
 					this.experienciaRepository.save(infLab);
 					if (hojaVida.getArchivos() != null && !hojaVida.getArchivos().isEmpty()) {
-						List<Archivo> archivosInformacionLaboral = hojaVida.getArchivos().stream().filter(f -> f.getInformacionLaboral().getId().equals(infLab.getId())).collect(Collectors.toList());
+						List<Archivo> archivosInformacionLaboral = new ArrayList<Archivo>();
+						for(Archivo dato :  hojaVida.getArchivos()) {
+							if(dato.getInformacionLaboral() != null && dato.getInformacionLaboral().getId().equals(infLab.getId())) {
+								archivosInformacionLaboral.add(dato);
+							}
+						}
+//						List<Archivo> archivosInformacionLaboral = hojaVida.getArchivos().stream().filter(f -> f.getInformacionLaboral().getId().equals(infLab.getId())).collect(Collectors.toList());
 						archivosInformacionLaboral.stream().map(f -> {
 							f.setInformacionLaboral(infLab);
 							return f;
@@ -142,7 +161,13 @@ public class HojaVidaService {
 					infLab.setId(null);
 					InformacionLaboral informacionLaboralGuardado = this.experienciaRepository.save(infLab);
 					if (hojaVida.getArchivos() != null && !hojaVida.getArchivos().isEmpty()) {
-						List<Archivo> archivosInformacionLaboral = hojaVida.getArchivos().stream().filter(f -> f.getInformacionLaboral().getId().equals(index)).collect(Collectors.toList());
+						List<Archivo> archivosInformacionLaboral = new ArrayList<Archivo>();
+						for(Archivo dato :  hojaVida.getArchivos()) {
+							if(dato.getInformacionLaboral() != null && dato.getInformacionLaboral().getId().equals(index)) {
+								archivosInformacionLaboral.add(dato);
+							}
+						}
+//						List<Archivo> archivosInformacionLaboral = hojaVida.getArchivos().stream().filter(f -> f.getInformacionLaboral().getId().equals(index)).collect(Collectors.toList());
 						archivosInformacionLaboral.stream().map(f -> {
 							f.setInformacionLaboral(informacionLaboralGuardado);
 							return f;
@@ -153,6 +178,18 @@ public class HojaVidaService {
 				}
 			}
 		}
+		
+		List<Archivo> archivosDiferentes = new ArrayList<Archivo>();
+		for(Archivo dato :  hojaVida.getArchivos()) {
+			if(dato.getTipo() == 3 || dato.getTipo() == 4) {
+				archivosDiferentes.add(dato);
+			}
+		}
+		archivosDiferentes.stream().map(f -> {
+			return f;
+		}).forEach(f -> {
+			this.archivoRepository.save(f);
+		});
 	}
 
 	/**

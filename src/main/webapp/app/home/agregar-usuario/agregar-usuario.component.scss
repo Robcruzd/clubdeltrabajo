@@ -160,7 +160,7 @@
   }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 900px) {
   .estilo_body {
     display: flex;
     flex-direction: column;
@@ -251,7 +251,7 @@
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 900px) {
   .estilo_logo {
     display: none;
   }

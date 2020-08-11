@@ -240,9 +240,10 @@ export const commonMessages = {
   NOTIFICACIONES_LABEL: 'Desea recibir notificaciones, alertas y mensajes de Club del Trabajo en su correo electrónico?',
   ARRAY_ESTADOS_CIVILES: [
     { codigo: 1, nombre: 'Soltero' },
-    { codigo: 2, nombre: 'Casado' },
-    { codigo: 3, nombre: 'Viudo' },
-    { codigo: 4, nombre: 'Divorciado' }
+    { codigo: 2, nombre: 'Unión Libre' },
+    { codigo: 3, nombre: 'Casado' },
+    { codigo: 4, nombre: 'Viudo' },
+    { codigo: 5, nombre: 'Divorciado' }
   ],
   SI_LABEL: 'Si',
   NO_LABEL: 'No',

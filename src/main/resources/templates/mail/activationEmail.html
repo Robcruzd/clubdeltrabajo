@@ -6,9 +6,6 @@
         <link rel="shortcut icon" th:href="@{|${baseUrl}/favicon.ico|}" />
     </head>
     <body>
-        <div style="text-align: center; background: #1a2050; height: 100px;">
-            <img th:src="@{|${baseUrl}/content/images/logo_empresa.png|}" width="50%" height="100px"/>
-        </div>
         <p th:text="#{email.reset.greeting(${user.firstName} + ' ' + ${user.lastName})}">
             Dear
         </p>

@@ -167,7 +167,7 @@ kendo-pdf-export {
   .box-left {
     background-color: #dfdfdf;
     display: flex;
-    min-width: 300px;
+    min-width: 240px;
     flex-direction: column;
     padding: 1rem;
 
@@ -179,8 +179,8 @@ kendo-pdf-export {
     }
 
     .foto-perfil {
-      width: 240px;
-      height: 240px;
+      width: 100%;
+      //height: 240px;
       opacity: 1;
       margin-top: 1rem;
       margin-bottom: 7px;
@@ -197,7 +197,7 @@ kendo-pdf-export {
 
   .box-right {
     background-color: white;
-    min-width: 440px;
+    min-width: 380px;
     display: flex;
     padding: 1rem;
     flex-direction: column;
@@ -210,7 +210,7 @@ kendo-pdf-export {
 }
 
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 900px) {
   .container {
     .row {
       width: 100%;
@@ -236,100 +236,100 @@ kendo-pdf-export {
     }
   }
 
-  .container-pdf {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    min-width: min-content;
-    height: 1.7 * 100vw;
+  // .container-pdf {
+  //   display: flex;
+  //   flex-direction: row;
+  //   width: 100%;
+  //   min-width: min-content;
+  //   height: 1.7 * 100vw;
 
-    h1 {
-      font-weight: bold;
-      margin-bottom: 0rem;
-      font-size: 8vw;
-      margin-top: 1rem;
-    }
+  //   h1 {
+  //     font-weight: bold;
+  //     margin-bottom: 0rem;
+  //     font-size: 8vw;
+  //     margin-top: 1rem;
+  //   }
 
-    h5 {
-      font-weight: bold;
-      margin-bottom: 0rem;
-      font-size: 3.15vw;
-    }
+  //   h5 {
+  //     font-weight: bold;
+  //     margin-bottom: 0rem;
+  //     font-size: 3.15vw;
+  //   }
 
-    h3 {
-      font-weight: bold;
-      margin-bottom: 0rem;
-      font-size: 5.4vw;
-    }
+  //   h3 {
+  //     font-weight: bold;
+  //     margin-bottom: 0rem;
+  //     font-size: 5.4vw;
+  //   }
 
-    h4 {
-      font-weight: bold;
-      margin-bottom: 0rem;
-      margin-top: 1rem;
-      font-size: 3.75vw;
-    }
+  //   h4 {
+  //     font-weight: bold;
+  //     margin-bottom: 0rem;
+  //     margin-top: 1rem;
+  //     font-size: 3.75vw;
+  //   }
 
-    p {
-      margin-bottom: 0rem;
-      font-size: 2.5vw;
-    }
+  //   p {
+  //     margin-bottom: 0rem;
+  //     font-size: 2.5vw;
+  //   }
 
-    ul {
-      font-size: 2.5vw;
-    }
+  //   ul {
+  //     font-size: 2.5vw;
+  //   }
 
-    .linea-base {
-      width: 21.6%;
-      height: 2.5px;
-      background-color: black;
-      border-bottom: black;
-      border-bottom-width: 2px;
-    }
+  //   .linea-base {
+  //     width: 21.6%;
+  //     height: 2.5px;
+  //     background-color: black;
+  //     border-bottom: black;
+  //     border-bottom-width: 2px;
+  //   }
 
-    .box-left {
-      background-color: #dfdfdf;
-      display: flex;
-      width: 40.54%;
-      min-width: min-content;
-      flex-direction: column;
-      padding: 1rem;
+  //   .box-left {
+  //     background-color: #dfdfdf;
+  //     display: flex;
+  //     width: 40.54%;
+  //     min-width: min-content;
+  //     flex-direction: column;
+  //     padding: 1rem;
 
-      .icono {
-        width: 0.8rem;
-        height: auto;
-        margin-right: 0.5rem;
-        margin-top: 5px;
-      }
+  //     .icono {
+  //       width: 0.8rem;
+  //       height: auto;
+  //       margin-right: 0.5rem;
+  //       margin-top: 5px;
+  //     }
 
-      .foto-perfil {
-        width: 85%;
-        height: auto;
-        opacity: 1;
-        margin-top: 0.5rem;
-        margin-bottom: 2px;
-        align-self: center;
-        border-radius: 9rem;
-      }
+  //     .foto-perfil {
+  //       width: 85%;
+  //       height: auto;
+  //       opacity: 1;
+  //       margin-top: 0.5rem;
+  //       margin-bottom: 2px;
+  //       align-self: center;
+  //       border-radius: 9rem;
+  //     }
 
-      .contacto-icons {
-        display: flex;
-        flex-direction: row;
-        margin-top: 2px;
-      }
-    }
+  //     .contacto-icons {
+  //       display: flex;
+  //       flex-direction: row;
+  //       margin-top: 2px;
+  //     }
+  //   }
 
-    .box-right {
-      background-color: white;
-      width: 59.46%;
-      min-width: min-content;
-      display: flex;
-      padding: 0.5rem 1rem;
-      flex-direction: column;
+  //   .box-right {
+  //     background-color: white;
+  //     width: 59.46%;
+  //     min-width: min-content;
+  //     display: flex;
+  //     padding: 0.5rem 1rem;
+  //     flex-direction: column;
 
-      .experiencias {
-        padding-left: 6.48%;
-        padding-top: 1rem;
-      }
-    }
-  }
+  //     .experiencias {
+  //       padding-left: 6.48%;
+  //       padding-top: 1rem;
+  //     }
+  //   }
+  // }
 }

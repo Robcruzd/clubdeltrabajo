@@ -1,5 +1,5 @@
 .estilo_body {
-  width: 70%;
+  width: 59rem;
   align-self: center;
   justify-self: center;
   background: transparent linear-gradient(181deg, #2e437e 0%, #1a2152 100%) 0% 0% no-repeat padding-box;
@@ -9,6 +9,7 @@
   margin-bottom: 3rem;
   padding: 0rem;
   padding-top: 3rem;
+  max-width: none;
 
   .ngnum0 {
     margin: 0rem 5rem 0rem 5rem;
@@ -68,6 +69,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+
+      .archivo_subido {
+        color: #82c91e;
+        position: absolute;
+        margin-top: 38px;
+        margin-left: 24rem;
+      }
 
       .form-group {
         display: flex;
@@ -360,7 +368,6 @@
             height: 100%;
             border-radius: 0rem 0rem 0rem 0rem;
             border-width: 0rem;
-            padding-left: 1rem;
             opacity: 1;
             font-weight: bold;
 
@@ -375,7 +382,6 @@
             height: 100%;
             border-radius: 0rem 0rem 0rem 0rem;
             border-width: 0rem;
-            padding-left: 1rem;
             opacity: 1;
             font-weight: bold;
 
@@ -496,7 +502,7 @@
 }
 
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 900px) {
   .estilo_body {
     width: 100%;
     min-width: 100vw;
@@ -523,6 +529,9 @@
           .form-group {
             width: 100%;
           }
+          .archivo_subido {
+            margin-left: 94%;
+          }
         }
       }
     }
@@ -539,6 +548,14 @@
 
           .form-group {
             width: 100%;
+
+            .estilo_inputs {
+              height: min-content;
+            }
+          }
+
+          .archivo_subido {
+            margin-left: 94%;
           }
         }
 
@@ -563,11 +580,4 @@
       }
     }
   }
-}
-
-.archivo_subido {
-  color: #82c91e;
-  position: absolute;
-  margin-top: 38px;
-  left: 260px;
 }
