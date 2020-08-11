@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LoginModalService } from 'app/core/login/login-modal.service';
 import { AccountService } from 'app/core/auth/account.service';
@@ -40,6 +40,8 @@ const keyName = 'hello_world.txt';
 export class HomeComponent implements OnInit, OnDestroy {
   account: Account | null = null;
   authSubscription?: Subscription;
+  @ViewChild('fileInput')
+  inputEl!: ElementRef;
 
   constructor(
     private accountService: AccountService,
@@ -50,16 +52,19 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
-    // s3.createBucket({ Bucket: bucketName }, function(): any {
-    // const params = { Bucket: 'my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958', Key: keyName, Body: 'Hello World!' };
-    // s3.putObject(params, function(err: any, data: any): any {
-    //   if (err)
-    //     // eslint-disable-next-line no-console
-    //     console.log(err, data);
-    //   // eslint-disable-next-line no-console
-    //   else console.log('Successfully uploaded data to ' + bucketName + '/' + keyName);
-    // });
-    // });
+  }
+
+  addArchivo(event: any): void {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      const file: File = fileList[0];
+      const formData: FormData = new FormData();
+      formData.append('file', file, file.name);
+      // this.archivo.uploadS3(formData).subscribe((res: any) => {
+      //   // eslint-disable-next-line no-console
+      //   console.log(res);
+      // });
+    }
   }
 
   isAuthenticated(): boolean {

@@ -181,32 +181,53 @@ public class ArchivoResource {
     }
 
     @PostMapping("/uploadFileS3")
-    public ResponseEntity<?> createFile(@RequestPart("file") MultipartFile file) throws IOException {
-        log.debug("hooooooooooooooooooooooooooooooooooooooooolaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:", file);
-
-        //File myObj = new File("filename.txt");
-        File filef = new File("clubtrabajo/src/main/resources/banner.txt");
+    public String createFile(@RequestParam MultipartFile file) throws IOException {
+        File filef = new File(file.getOriginalFilename());
         
- 
-        file.transferTo(filef);
-        // AmazonS3 amazonS3 = AmazonS3ClientBuilder
-        //     .standard()
-        //     .withCredentials(new DefaultAWSCredentialsProviderChain())
-        //     .withRegion(Regions.DEFAULT_REGION)
-        //     .build();
+        
+        FileOutputStream fos = new FileOutputStream(filef);
+        fos.write(file.getBytes());
+        fos.close();
         AmazonS3 s3 = new AmazonS3Client();
         Region usWest2 = Region.getRegion(Regions.US_WEST_2);
         s3.setRegion(usWest2);
-        // TransferManager tm = TransferManagerBuilder.standard()
-        //     .withS3Client(s3)
-        //     .withMultipartUploadThreshold((long) (5 * 1024 * 1025))
-        //     .build();
 
         String bucketName = "my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958";
-        String keyName = "MyObjectKey";
-        //String file = new File("documents/my-picture.jpg");
-        s3.putObject(bucketName, keyName, filef);
-        return new ResponseEntity<Object>("Archivo", HttpStatus.OK);
+        String keyName = file.getOriginalFilename();
+        try{
+            System.out.println("Uploading "+file.getOriginalFilename()+" a new object to S3 from a file\n");
+            s3.putObject(new PutObjectRequest(bucketName, keyName, filef));
+            return "OK";
+        } catch (AmazonServiceException ase) {
+            System.out.println("Caught an AmazonServiceException, which means your request made it "
+                    + "to Amazon S3, but was rejected with an error response for some reason.");
+            System.out.println("Error Message:    " + ase.getMessage());
+            System.out.println("HTTP Status Code: " + ase.getStatusCode());
+            System.out.println("AWS Error Code:   " + ase.getErrorCode());
+            System.out.println("Error Type:       " + ase.getErrorType());
+            System.out.println("Request ID:       " + ase.getRequestId());
+            return "Error Message:    " + ase.getMessage();
+        } catch (AmazonClientException ace) {
+            System.out.println("Caught an AmazonClientException, which means the client encountered "
+                    + "a serious internal problem while trying to communicate with S3, "
+                    + "such as not being able to access the network.");
+            System.out.println("Error Message: " + ace.getMessage());
+            return "Error Message:    " + ace.getMessage();
+        }
+    }
+
+    @PostMapping("/downloadFileS3")
+    public Object downloadFile(@RequestParam MultipartFile file) throws IOException {
+        AmazonS3 s3 = new AmazonS3Client();
+        Region usWest2 = Region.getRegion(Regions.US_WEST_2);
+        s3.setRegion(usWest2);
+
+        String bucketName = "my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958";
+        String keyName = file.getOriginalFilename();
+
+        System.out.println("Downloading an object");
+        S3Object object = s3.getObject(new GetObjectRequest(bucketName, keyName));
+        return object.getObjectContent();
     }
         // AmazonS3 s3 = new AmazonS3Client();
         // Region usWest2 = Region.getRegion(Regions.US_WEST_2);
@@ -255,53 +276,7 @@ public class ArchivoResource {
         //     //displayTextInputStream(object.getObjectContent());
 
         //     // System.out.println("Listing objects");
-        //     // ObjectListing objectListing = s3.listObjects(new ListObjectsRequest()
-        //     //         .withBucketName(bucketName)
-        //     //         .withPrefix("My"));
-        //     // for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
-        //     //     System.out.println(" - " + objectSummary.getKey() + "  " +
-        //     //             "(size = " + objectSummary.getSize() + ")");
-        //     // }
-        //     // System.out.println();
-
-        //     // /*
-        //     //  * Delete an object - Unless versioning has been turned on for your bucket,
-        //     //  * there is no way to undelete an object, so use caution when deleting objects.
-        //     //  */
-        //     // System.out.println("Deleting an object\n");
-        //     // s3.deleteObject(bucketName, key);
-
-        //     // /*
-        //     //  * Delete a bucket - A bucket must be completely empty before it can be
-        //     //  * deleted, so remember to delete any objects from your buckets before
-        //     //  * you try to delete them.
-        //     //  */
-        //     // System.out.println("Deleting bucket " + bucketName + "\n");
-        //     // s3.deleteBucket(bucketName);
-        // } catch (AmazonServiceException ase) {
-        //     System.out.println("Caught an AmazonServiceException, which means your request made it "
-        //             + "to Amazon S3, but was rejected with an error response for some reason.");
-        //     System.out.println("Error Message:    " + ase.getMessage());
-        //     System.out.println("HTTP Status Code: " + ase.getStatusCode());
-        //     System.out.println("AWS Error Code:   " + ase.getErrorCode());
-        //     System.out.println("Error Type:       " + ase.getErrorType());
-        //     System.out.println("Request ID:       " + ase.getRequestId());
-        // } catch (AmazonClientException ace) {
-        //     System.out.println("Caught an AmazonClientException, which means the client encountered "
-        //             + "a serious internal problem while trying to communicate with S3, "
-        //             + "such as not being able to access the network.");
-        //     System.out.println("Error Message: " + ace.getMessage());
-        // }
-    // }
-
-    // /**
-    //  * Creates a temporary file with text data to demonstrate uploading a file
-    //  * to Amazon S3
-    //  *
-    //  * @return A newly created temporary file with text data.
-    //  *
-    //  * @throws IOException
-    //  */
+ 
     private static File createSampleFile() throws IOException {
         File file = File.createTempFile("aws-java-sdk-", ".txt");
         file.deleteOnExit();
@@ -315,5 +290,16 @@ public class ArchivoResource {
         writer.close();
 
         return file;
+    }
+
+    private static void displayTextInputStream(InputStream input) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+        while (true) {
+            String line = reader.readLine();
+            if (line == null) break;
+
+            System.out.println("    " + line);
+        }
+        System.out.println();
     }
 }

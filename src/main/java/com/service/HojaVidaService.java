@@ -39,6 +39,20 @@ import com.repository.InformacionPersonalRepository;
 import com.repository.PersonaIdiomaRepository;
 import com.repository.PersonaRepository;
 
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.ListObjectsRequest;
+import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
+
 @Service
 @Transactional
 public class HojaVidaService {
@@ -189,6 +203,33 @@ public class HojaVidaService {
 		PDFMergerUtility pdfMergerUtility = new PDFMergerUtility();
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		ByteArrayInputStream pdfInputStream = null;
+
+		AmazonS3 s3 = new AmazonS3Client();
+        Region usWest2 = Region.getRegion(Regions.US_WEST_2);
+        s3.setRegion(usWest2);
+
+        String bucketName = "my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958";
+        String keyName = "MyObjectKey";
+        System.out.println("Uploading a new object to S3 from a file\n");
+        //s3.putObject(new PutObjectRequest(bucketName, keyName, filef));
+
+        System.out.println("Downloading an object");
+        // S3Object object = s3.getObject(new GetObjectRequest(bucketName, keyName));
+		// InputStream inputStreamItemaws = object.getObjectContent();
+		// pdfMergerUtility.addSource(inputStreamItemaws);
+
+		// System.out.println("Listing objects");
+        //     ObjectListing objectListing = s3.listObjects(new ListObjectsRequest()
+        //             .withBucketName(bucketName)
+        //             .withPrefix(archivoHojaVida.getUsuario().getEmail()));
+        //     for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
+		// 		InputStream inputStreamItemaws = objectSummary.getObjectContent();
+		// 		pdfMergerUtility.addSource(inputStreamItemaws);
+        //         System.out.println(" - " + objectSummary.getKey() + "  " +
+        //                 "(size = " + objectSummary.getSize() + ")");
+        //     }
+        // System.out.println();
+		
 		List<Archivo> listaArchivos = this.archivoRepository.findByUsuario(archivoHojaVida.getUsuario());
 		Archivo archivo = new Archivo();
 		String cadena64 = archivoHojaVida.getArchivo().replaceFirst("^.*,", "");
@@ -196,31 +237,50 @@ public class HojaVidaService {
 		InputStream inputStream = new ByteArrayInputStream(bytesHojaVida);
 		pdfMergerUtility.addSource(inputStream);
 		for(Archivo item: listaArchivos) {
-			String cadena64Items = item.getArchivo().replaceFirst("^.*,", "");
-			byte[] bytesItems = Base64.getDecoder().decode(cadena64Items);
-			if (item.getExtension().equals("pdf"))
-			{
-				InputStream inputStreamItems = new ByteArrayInputStream(bytesItems);
-				pdfMergerUtility.addSource(inputStreamItems);
+			//System.out.println("Downloadinggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg an object: "+item.getArchivo());
+			try {
+			S3Object object = s3.getObject(new GetObjectRequest(bucketName, "robcruzd@hotmail.com"));
+			InputStream inputStreamItemaws = object.getObjectContent();
+			pdfMergerUtility.addSource(inputStreamItemaws);
+			} catch (AmazonServiceException ase) {
+				System.out.println("Caught an AmazonServiceException, which means your request made it "
+						+ "to Amazon S3, but was rejected with an error response for some reason.");
+				System.out.println("Error Message:    " + ase.getMessage());
+				System.out.println("HTTP Status Code: " + ase.getStatusCode());
+				System.out.println("AWS Error Code:   " + ase.getErrorCode());
+				System.out.println("Error Type:       " + ase.getErrorType());
+				System.out.println("Request ID:       " + ase.getRequestId());
+			} catch (AmazonClientException ace) {
+				System.out.println("Caught an AmazonClientException, which means the client encountered "
+						+ "a serious internal problem while trying to communicate with S3, "
+						+ "such as not being able to access the network.");
+				System.out.println("Error Message: " + ace.getMessage());
 			}
-			else {
-				if(item.getTipo() != 5) {
-					PDDocument documento = new PDDocument();
-					ByteArrayOutputStream out = new ByteArrayOutputStream();
-					PDPage page = new PDPage();
-					documento.addPage(page);
-					PDPageContentStream contents = new PDPageContentStream(documento, page);
-					ByteArrayInputStream bais = new ByteArrayInputStream(bytesItems);
-					BufferedImage bim = ImageIO.read(bais);
-					PDImageXObject pdImage = LosslessFactory.createFromImage(documento, bim);
-					contents.drawImage(pdImage, 70, 250);
-			        contents.close();
-			        documento.save(out);
-			        documento.close();
-			        ByteArrayInputStream inputStreamImages = new ByteArrayInputStream(out.toByteArray());
-					pdfMergerUtility.addSource(inputStreamImages);
-				}
-			}
+			// String cadena64Items = item.getArchivo().replaceFirst("^.*,", "");
+			// byte[] bytesItems = Base64.getDecoder().decode(cadena64Items);
+			// if (item.getExtension().equals("pdf"))
+			// {
+			// 	InputStream inputStreamItems = new ByteArrayInputStream(bytesItems);
+			// 	pdfMergerUtility.addSource(inputStreamItems);
+			// }
+			// else {
+			// 	if(item.getTipo() != 5) {
+			// 		PDDocument documento = new PDDocument();
+			// 		ByteArrayOutputStream out = new ByteArrayOutputStream();
+			// 		PDPage page = new PDPage();
+			// 		documento.addPage(page);
+			// 		PDPageContentStream contents = new PDPageContentStream(documento, page);
+			// 		ByteArrayInputStream bais = new ByteArrayInputStream(bytesItems);
+			// 		BufferedImage bim = ImageIO.read(bais);
+			// 		PDImageXObject pdImage = LosslessFactory.createFromImage(documento, bim);
+			// 		contents.drawImage(pdImage, 70, 250);
+			//         contents.close();
+			//         documento.save(out);
+			//         documento.close();
+			//         ByteArrayInputStream inputStreamImages = new ByteArrayInputStream(out.toByteArray());
+			// 		pdfMergerUtility.addSource(inputStreamImages);
+			// 	}
+			// }
 		}
 		pdfMergerUtility.setDestinationStream(outputStream);
 		pdfMergerUtility.mergeDocuments(MemoryUsageSetting.setupMainMemoryOnly());

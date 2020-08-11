@@ -32,30 +32,7 @@ import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
 import { ArchivoService } from '../../entities/archivo/archivo.service';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const AWS = require('aws-sdk');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const uuid = require('node-uuid');
-
-// const region = 'us-west-2'; // Region
-// Initialize the Amazon Cognito credentials provider
-AWS.config.region = 'us-west-2'; // Region
-AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-  IdentityPoolId: 'us-west-2:502913e8-37b5-45d4-aedf-b98fd98f2523'
-});
-
-// AWS.config.update({
-//   region: 'us-west-2',
-//   credentials: cred
-// });
-// Create an S3 client
-const s3 = new AWS.S3(AWS.config);
-
-// eslint-disable-next-line no-console
-console.log('cognito: ', s3);
-
-// Create a bucket and upload something into it
-const bucketName = 'my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958';
-const keyName = 'hello_world.pdf';
 
 declare let alertify: any;
 
@@ -123,6 +100,7 @@ export class CrearHojaVidaComponent implements OnInit {
   aniosFin: number[] = [];
   mesFin: number[] = [];
   diasFin: number[] = [];
+  archivosaws: any = [];
 
   cargadoDocumento = false;
   cargadoLicencia = false;
@@ -564,6 +542,16 @@ export class CrearHojaVidaComponent implements OnInit {
       this.service.create(this.hojaVidaVo).subscribe(
         response => {
           if (response.body !== null) {
+            this.archivosaws.forEach((element: { file: File; name: string }) => {
+              const formData = new FormData();
+              console.log('file: ', element.file);
+              console.log('name: ', element.name);
+              formData.append('file', element.file, element.name);
+              this.archivo.uploadS3(formData).subscribe((res: any) => {
+                console.log(res);
+              });
+            });
+            console.log('response: ', response);
             alertify.set('notifier', 'position', 'top-right');
             alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
             this.hojaVidaVo = response.body;
@@ -1003,42 +991,11 @@ export class CrearHojaVidaComponent implements OnInit {
       document.getElementById('' + indice)?.setAttribute('style', 'visibility: visible');
     }
 
-    // const params = { Bucket: 'my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958', Key: keyName, Body: file };
-    // s3.getObject({ Bucket: 'my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958', Key: keyName }, function(err: any, data: any): any {
-    //   // eslint-disable-next-line no-console
-    //   if (err) console.log(err);
-    //   // eslint-disable-next-line no-console
-    //   else {console.log('data: ',data);
-    //     console.log('file base64: ',data.Body.toString('base64'));
-    //     var signatures = {
-    //       JVBERi0: "application/pdf",
-    //       R0lGODdh: "image/gif",
-    //       R0lGODlh: "image/gif",
-    //       iVBORw0KGgo: "image/png"
-    //     };
-
-    //     for (var s in signatures) {
-    //       if (data.Body.toString('base64').indexOf(s) === 0) {
-    //         console.log('mimetype: ',signatures[s]);
-    //       }
-    //     }
-    //   }
+    // const formData = new FormData();
+    // formData.append('file', file, file.name);
+    // this.archivo.uploadS3(formData).subscribe((res: any) => {
+    //   console.log(res);
     // });
-    // console.log('file: ', file);
-
-    // s3.putObject(params, function(err: any, data: any): any {
-    //   if (err)
-    //     // eslint-disable-next-line no-console
-    //     console.log(err, data);
-    //   // eslint-disable-next-line no-console
-    //   else console.log('Successfully uploaded data to ' + bucketName + '/' + keyName);
-    // });
-
-    const formData = new FormData();
-    formData.append('file', file);
-    this.archivo.uploadS3(formData).subscribe((res: any) => {
-      console.log(res);
-    });
 
     const reader = new FileReader();
     if (index >= 0) {
@@ -1046,11 +1003,17 @@ export class CrearHojaVidaComponent implements OnInit {
       this.archivos[index].extension = extension;
       this.archivos[index].usuario = new Persona(this.persona);
 
-      reader.readAsDataURL(file);
+      //this.archivos[index].archivo = reader.result;
+      let fileaws = {};
+      fileaws['file'] = file;
+      fileaws['name'] = '' + this.formPersonal.get('email')!.value + this.archivos.length;
+      // fileaws['name'] = this.archivos[index].archivo;
 
-      reader.onload = () => {
-        this.archivos[index].archivo = reader.result;
-      };
+      this.archivosaws.push(fileaws);
+      // reader.readAsDataURL(file);
+      // reader.onload = () => {
+      //   this.archivos[index].archivo = reader.result;
+      // };
     } else {
       const archivo = new Archivo();
       archivo.tipo = tipoDocumento;
@@ -1087,11 +1050,17 @@ export class CrearHojaVidaComponent implements OnInit {
           }
         }
       }
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        archivo.archivo = reader.result;
-        this.archivos.push(archivo);
-      };
+      archivo.archivo = '' + this.formPersonal.get('email')!.value + this.archivos.length;
+      let fileaws = {};
+      fileaws['file'] = file;
+      fileaws['name'] = '' + this.formPersonal.get('email')!.value + this.archivos.length;
+      this.archivosaws.push(fileaws);
+      this.archivos.push(archivo);
+      // reader.readAsDataURL(file);
+      // reader.onload = () => {
+      //   archivo.archivo = reader.result;
+      //   this.archivos.push(archivo);
+      // };
     }
 
     if (tipoDocumento === TipoArchivo.DOCUMENTO_IDENTIDAD) {
