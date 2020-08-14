@@ -56,7 +56,7 @@
                                     <label class='label_file' for="file">
                                         <fa-icon icon="images" class="float-right"></fa-icon>
                                     </label>
-                                    <input type="file" #tipodocumento class='file' accept=".png, .jpeg, .jpg, .pdf"
+                                    <input type="file" #tipodocumento class='file' accept=".pdf"
                                         (change)="addArchivo($event, tipoArchivo.DOCUMENTO_IDENTIDAD)" />
                                 </div>
                             </div>
@@ -234,7 +234,7 @@
                                             <mat-option *ngFor="let licencia of tipoLicenciaConduccion"" [value]="licencia.codigo === formPersonal.get('tipoLicenciaConduccion')!.value ? formPersonal.get('tipoLicenciaConduccion')!.value : licencia.codigo">{{ licencia.codigo }}</mat-option>
                                         </mat-select>
                                     </mat-form-field>                                    
-                                    <input type="file" #licencia class="file" accept=".png, .jpeg, .jpg, .pdf"
+                                    <input type="file" #licencia class="file" accept=".pdf"
                                         (change)="addArchivo($event, tipoArchivo.LICENCIA_CONDUCCION)" />
                                     <label for="file" class="label_file" (click)="licencia.click()">
                                         <fa-icon icon="images" class="float-right"></fa-icon>
@@ -456,7 +456,7 @@
                                             <label for="file" class="label_file">
                                                 <fa-icon icon="images" class="float-right"></fa-icon>
                                             </label>
-                                            <input class='file' type="file" accept=".png, .jpeg, .jpg, .pdf" #certificadoestudio
+                                            <input class='file' type="file" accept=".pdf" #certificadoestudio
                                                 (change)="addArchivo($event, tipoArchivo.CERTIFICADO_ESTUDIO, indexAcademica)">
                                     </div>
                                 </div>
@@ -883,7 +883,7 @@
                                         <ng-template #elseBlock class='name_file'>
                                             <label>{{labels.PLACEHOLDER_CERTIFICADO}}</label>
                                         </ng-template>
-                                        <input class="file" type="file" #certificadolaboral accept=".png, .jpeg, .jpg, .pdf"
+                                        <input class="file" type="file" #certificadolaboral accept=".pdf"
                                             (change)="addArchivo($event, tipoArchivo.CERTIFICADO_LABORAL, indexLaboral)">
                                         <label for="file" class="label_file" (click)="certificadolaboral.click()">
                                             <fa-icon icon="images" class="float-right"></fa-icon>

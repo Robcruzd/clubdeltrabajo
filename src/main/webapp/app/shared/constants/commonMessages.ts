@@ -119,13 +119,13 @@ export const commonMessages = {
   CORREO_NO_EXISTE_LABEL: 'El correo electrónico ingresado no pertenece a ningún usuario. ' + 'Digite nuevamente.',
   FALTA_CLAVE_REINICIO_LABEL: 'Falta clave de reinicio.',
   LONGITUD_MINIMA_PASSWORD: 'La longitud mínima debe ser 4 caracteres.',
-  ARCHIVOS_PERMITIDOS: ['jpg', 'jpeg', 'png', 'pdf'],
+  ARCHIVOS_PERMITIDOS: ['pdf'],
   ERROR_ARCHIVO_NO_SOPORTADO: 'Formato de archivo no soportado. Solo se aceptan imágenes o archivos PDF',
   OPCION_PERFIL_LABEL: 'Perfil',
   IMAGEN_LABEL: 'Cambiar foto',
   ERROR_IMAGEN_NO_SOPORTADA: 'Error, solo se permite subir imágenes',
   IMAGENES_SOPORTADAS: ['jpg', 'jpeg', 'png'],
-  TAMANO_MAXIMO_PERMITIDO: 2000000, // 2MB
+  TAMANO_MAXIMO_PERMITIDO: 1000000, // 1MB
   ERROR_TAMANO_EXCEDIDO: 'Error. Tamaño máximo permitodo 2MB',
   ARRAY_TIPOS_LICENCIA_CONDUCCION: [
     { codigo: 'A1', descripcion: 'motocicletas de menos de 125 centímetros cúbicos' },

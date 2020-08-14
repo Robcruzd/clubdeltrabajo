@@ -147,6 +147,12 @@ export class PerfilComponent implements OnInit {
   cargarImagen(event: any, tipoDocumento: number): void {
     const file: File = event.target.files[0];
     const extension = file.name.split('.').pop() || '';
+
+    if (file.size > commonMessages.TAMANO_MAXIMO_PERMITIDO) {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error(commonMessages.ERROR_TAMANO_EXCEDIDO);
+      return;
+    }
     if (!commonMessages.IMAGENES_SOPORTADAS.includes(extension)) {
       alertify.set('notifier', 'position', 'top-right');
       alertify.error(commonMessages.ERROR_IMAGEN_NO_SOPORTADA);

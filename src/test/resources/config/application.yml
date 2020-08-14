@@ -80,6 +80,11 @@ server:
   port: 10344
   address: localhost
 
+amazonProperties:
+  endpointUrl:
+  accessKey:
+  secretKey:
+  bucketName:
 # ===================================================================
 # JHipster specific properties
 #

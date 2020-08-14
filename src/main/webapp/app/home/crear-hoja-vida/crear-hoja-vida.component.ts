@@ -31,9 +31,6 @@ import { IOpcionVo, IOpcionVoDescripcion } from '../../shared/vo/opcion-vo';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
 import { ArchivoService } from '../../entities/archivo/archivo.service';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const uuid = require('node-uuid');
-
 declare let alertify: any;
 
 /* eslint-disable */
@@ -534,8 +531,6 @@ export class CrearHojaVidaComponent implements OnInit {
       this.hojaVidaVo.experienciaLaboral = laboral;
       // Cargar archivos
       if (this.archivos.length !== 0) {
-        console.log('archivos: ', this.archivos);
-
         this.hojaVidaVo.archivos = this.archivos;
       }
 
@@ -544,14 +539,9 @@ export class CrearHojaVidaComponent implements OnInit {
           if (response.body !== null) {
             this.archivosaws.forEach((element: { file: File; name: string }) => {
               const formData = new FormData();
-              console.log('file: ', element.file);
-              console.log('name: ', element.name);
               formData.append('file', element.file, element.name);
-              this.archivo.uploadS3(formData).subscribe((res: any) => {
-                console.log(res);
-              });
+              this.archivo.uploadS3(formData).subscribe((res: any) => {});
             });
-            console.log('response: ', response);
             alertify.set('notifier', 'position', 'top-right');
             alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
             this.hojaVidaVo = response.body;
@@ -684,7 +674,6 @@ export class CrearHojaVidaComponent implements OnInit {
   }
   cargarAniosFin(value: Object, index: number): void {
     this.aniosFin = [];
-    console.log('anios: ', this.apiService.getAnios());
     if (value === 0) {
       this.aniosFin = this.apiService.getAnios();
     } else if (value && Object.entries(value).length > 0) {
@@ -707,12 +696,9 @@ export class CrearHojaVidaComponent implements OnInit {
 
   cargarMesFin(value: Object, index: number): void {
     this.mesFin = [];
-    console.log('value: ', value, Object.entries(value).length);
     if (value === 0 || value['fechaFin']?.anio > value['fechaInicio']?.anio) {
-      console.log('if: ', value['fechaFin']?.anio, ' ', value['fechaInicio']?.anio);
       this.mesFin = this.apiService.getMeses();
     } else if (value && Object.entries(value).length > 0) {
-      console.log('else: ', value['fechaInicio']?.mes);
       this.mesFin = this.apiService.getMeses().filter(item => item >= value['fechaInicio']?.mes);
       if (
         this.experienciaLaboral
@@ -732,7 +718,6 @@ export class CrearHojaVidaComponent implements OnInit {
 
   cargarDiasFin(value: Object, index: number): void {
     this.diasFin = [];
-    console.log('anios: ', this.apiService.getDias());
     if (value === 0 || value['fechaFin']?.anio > value['fechaInicio']?.anio || value['fechaFin']?.mes > value['fechaInicio']?.mes) {
       this.diasFin = this.apiService.getDias();
     } else if (value && Object.entries(value).length > 0) {
@@ -994,7 +979,6 @@ export class CrearHojaVidaComponent implements OnInit {
     // const formData = new FormData();
     // formData.append('file', file, file.name);
     // this.archivo.uploadS3(formData).subscribe((res: any) => {
-    //   console.log(res);
     // });
 
     const reader = new FileReader();
@@ -1003,11 +987,11 @@ export class CrearHojaVidaComponent implements OnInit {
       this.archivos[index].extension = extension;
       this.archivos[index].usuario = new Persona(this.persona);
 
-      //this.archivos[index].archivo = reader.result;
+      //this.archivos[index].archivo = '' + this.formPersonal.get('email')!.value + new Date().getTime();
       let fileaws = {};
       fileaws['file'] = file;
-      fileaws['name'] = '' + this.formPersonal.get('email')!.value + this.archivos.length;
-      // fileaws['name'] = this.archivos[index].archivo;
+      //fileaws['name'] = '' + this.formPersonal.get('email')!.value + new Date().getTime();
+      fileaws['name'] = this.archivos[index].archivo;
 
       this.archivosaws.push(fileaws);
       // reader.readAsDataURL(file);
@@ -1050,10 +1034,10 @@ export class CrearHojaVidaComponent implements OnInit {
           }
         }
       }
-      archivo.archivo = '' + this.formPersonal.get('email')!.value + this.archivos.length;
+      archivo.archivo = '' + this.formPersonal.get('email')!.value + new Date().getTime();
       let fileaws = {};
       fileaws['file'] = file;
-      fileaws['name'] = '' + this.formPersonal.get('email')!.value + this.archivos.length;
+      fileaws['name'] = archivo.archivo;
       this.archivosaws.push(fileaws);
       this.archivos.push(archivo);
       // reader.readAsDataURL(file);

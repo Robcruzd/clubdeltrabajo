@@ -101,8 +101,6 @@ export class AgregarUsuarioComponent implements OnInit {
       this.mensajeNumDoc = commonMessages.CAMPO_REQUERIDO;
       this.validacionIncorrecta = true;
     }
-    // eslint-disable-next-line no-console
-    console.log('tipo: ', this.persona.numeroDocumento);
     if (
       this.tipoDocumento.nombreTipo === 'Pasaporte' &&
       this.persona.numeroDocumento &&

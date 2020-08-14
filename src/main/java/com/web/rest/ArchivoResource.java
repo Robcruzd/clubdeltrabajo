@@ -182,38 +182,7 @@ public class ArchivoResource {
 
     @PostMapping("/uploadFileS3")
     public String createFile(@RequestParam MultipartFile file) throws IOException {
-        File filef = new File(file.getOriginalFilename());
-        
-        
-        FileOutputStream fos = new FileOutputStream(filef);
-        fos.write(file.getBytes());
-        fos.close();
-        AmazonS3 s3 = new AmazonS3Client();
-        Region usWest2 = Region.getRegion(Regions.US_WEST_2);
-        s3.setRegion(usWest2);
-
-        String bucketName = "my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958";
-        String keyName = file.getOriginalFilename();
-        try{
-            System.out.println("Uploading "+file.getOriginalFilename()+" a new object to S3 from a file\n");
-            s3.putObject(new PutObjectRequest(bucketName, keyName, filef));
-            return "OK";
-        } catch (AmazonServiceException ase) {
-            System.out.println("Caught an AmazonServiceException, which means your request made it "
-                    + "to Amazon S3, but was rejected with an error response for some reason.");
-            System.out.println("Error Message:    " + ase.getMessage());
-            System.out.println("HTTP Status Code: " + ase.getStatusCode());
-            System.out.println("AWS Error Code:   " + ase.getErrorCode());
-            System.out.println("Error Type:       " + ase.getErrorType());
-            System.out.println("Request ID:       " + ase.getRequestId());
-            return "Error Message:    " + ase.getMessage();
-        } catch (AmazonClientException ace) {
-            System.out.println("Caught an AmazonClientException, which means the client encountered "
-                    + "a serious internal problem while trying to communicate with S3, "
-                    + "such as not being able to access the network.");
-            System.out.println("Error Message: " + ace.getMessage());
-            return "Error Message:    " + ace.getMessage();
-        }
+        return archivoService.uploadFile(file);
     }
 
     @PostMapping("/downloadFileS3")

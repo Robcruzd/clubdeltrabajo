@@ -190,12 +190,8 @@ export class VisualizarHojaVidaComponent implements OnInit {
 //   export(pdfComponent: any) {
 //     let processedUri: any
 //     let baseprocess = pdfComponent.export().then((group: Group) => exportPDF(group)).then((dataUri) => {
-//       console.log("base 64");
-//       console.log(dataUri);
 //       const base64 = dataUri.replace('data:application/pdf;base64,', '');
 //       processedUri = dataUri
-//       console.log("base 64");
-//       console.log(base64);
 //     });
 //   }
 // }

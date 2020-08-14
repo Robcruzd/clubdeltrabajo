@@ -23,46 +23,79 @@ export const HOME_ROUTE: Routes = [
   },
   {
     path: 'resultados-busqueda',
-    component: ResultadosBusquedaComponent
+    component: ResultadosBusquedaComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
   },
   {
     path: 'hoja-vida',
-    component: VerHojaVidaComponent
+    component: VerHojaVidaComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
   },
   {
     path: 'perfil',
-    component: PerfilComponent
+    component: PerfilComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
   },
   {
     path: 'buscar-trabajo',
-    component: BuscarTrabajoComponent
+    component: BuscarTrabajoComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
   },
   {
     path: 'agregar-usuario',
-    component: AgregarUsuarioComponent
+    component: AgregarUsuarioComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
   },
   {
     path: 'crear-hoja-vida',
-    component: CrearHojaVidaComponent
+    component: CrearHojaVidaComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
   },
   {
     path: 'inicio-sesion',
-    component: InicioSesionComponent
+    component: InicioSesionComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
   },
   {
     path: 'restaurar-contrasena',
-    component: RestaurarContrasenaComponent
+    component: RestaurarContrasenaComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
   },
   {
     path: 'nuevo-correo',
-    component: NuevoCorreoComponent
+    component: NuevoCorreoComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
   },
   {
     path: 'informacion-empresa',
-    component: InformacionEmpresaComponent
+    component: InformacionEmpresaComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
   },
   {
     path: 'visualizar-hoja-vida',
-    component: VisualizarHojaVidaComponent
+    component: VisualizarHojaVidaComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
   }
 ];

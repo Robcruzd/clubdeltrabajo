@@ -91,6 +91,11 @@ spring:
 server:
   port: 8080
 
+amazonProperties:
+  endpointUrl:
+  accessKey:
+  secretKey:
+  bucketName:
 # ===================================================================
 # JHipster specific properties
 #

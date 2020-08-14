@@ -41,8 +41,6 @@ export class ArchivoService {
   }
 
   uploadS3(file: FormData): any {
-    // eslint-disable-next-line no-console
-    console.log('file: ', name);
-    return this.http.post(this.s3Service, file);
+    return this.http.post(this.s3Service, file, { responseType: 'text' });
   }
 }
