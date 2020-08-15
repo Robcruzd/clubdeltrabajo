@@ -32,7 +32,6 @@
 
                 <div class="row">
                     <div class="column">
-                        <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="this.cargadoDocumento" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
                         <div class="form-group">
                             <p class="estilo_label">{{labels.NUMERO_DOCUMENTO_LABEL}} <span
                                     class="estilo_campo_requerido">*</span></p>
@@ -58,6 +57,7 @@
                                     </label>
                                     <input type="file" #tipodocumento class='file' accept=".pdf"
                                         (change)="addArchivo($event, tipoArchivo.DOCUMENTO_IDENTIDAD)" />
+                                    <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="this.cargadoDocumento" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
                                 </div>
                             </div>
                             <small *ngIf="formPersonal.get('tipoDocumento')?.errors?.required"

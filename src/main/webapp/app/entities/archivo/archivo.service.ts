@@ -11,7 +11,8 @@ type EntityArrayResponseType = HttpResponse<IArchivo[]>;
 @Injectable({ providedIn: 'root' })
 export class ArchivoService {
   public resourceUrl = SERVER_API_URL + 'api/archivos';
-  public s3Service = SERVER_API_URL + 'api/uploadFileS3';
+  public uploads3Service = SERVER_API_URL + 'api/uploadFileS3';
+  public deletes3Service = SERVER_API_URL + 'api/deleteFileS3';
 
   constructor(protected http: HttpClient) {}
 
@@ -41,6 +42,10 @@ export class ArchivoService {
   }
 
   uploadS3(file: FormData): any {
-    return this.http.post(this.s3Service, file, { responseType: 'text' });
+    return this.http.post(this.uploads3Service, file, { responseType: 'text' });
+  }
+
+  deleteS3(name: string): any {
+    return this.http.post(this.deletes3Service, name, { responseType: 'text' });
   }
 }

@@ -185,19 +185,24 @@ public class ArchivoResource {
         return archivoService.uploadFile(file);
     }
 
-    @PostMapping("/downloadFileS3")
-    public Object downloadFile(@RequestParam MultipartFile file) throws IOException {
-        AmazonS3 s3 = new AmazonS3Client();
-        Region usWest2 = Region.getRegion(Regions.US_WEST_2);
-        s3.setRegion(usWest2);
-
-        String bucketName = "my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958";
-        String keyName = file.getOriginalFilename();
-
-        System.out.println("Downloading an object");
-        S3Object object = s3.getObject(new GetObjectRequest(bucketName, keyName));
-        return object.getObjectContent();
+    @PostMapping("/deleteFileS3")
+    public String deleteFile(@RequestParam String name) throws IOException {
+        return archivoService.deleteFile(name);
     }
+
+    // @PostMapping("/downloadFileS3")
+    // public Object downloadFile(@RequestParam MultipartFile file) throws IOException {
+    //     AmazonS3 s3 = new AmazonS3Client();
+    //     Region usWest2 = Region.getRegion(Regions.US_WEST_2);
+    //     s3.setRegion(usWest2);
+
+    //     String bucketName = "my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958";
+    //     String keyName = file.getOriginalFilename();
+
+    //     System.out.println("Downloading an object");
+    //     S3Object object = s3.getObject(new GetObjectRequest(bucketName, keyName));
+    //     return object.getObjectContent();
+    // }
         // AmazonS3 s3 = new AmazonS3Client();
         // Region usWest2 = Region.getRegion(Regions.US_WEST_2);
         // s3.setRegion(usWest2);

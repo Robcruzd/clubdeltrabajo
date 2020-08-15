@@ -930,9 +930,23 @@ export class CrearHojaVidaComponent implements OnInit {
         }
       });
       if (nVecesLicencia >= 2) {
-        alertify.set('notifier', 'position', 'top-right');
-        alertify.error(commonMessages.NUMERO_VECES_EXCEDIDO);
-        return;
+        alertify
+          .confirm(
+            'ATENCIÓN',
+            'Ya ha subido 2 documentos, ¿Desea cambiarlos?',
+            () => {
+              this.archivos.forEach(element => {
+                if (element.tipo === tipoDocumento) {
+                  this.archivo.deleteS3(element.archivo?.toString()!);
+                  this.archivo.delete(element.id!);
+                }
+              });
+            },
+            () => {
+              return;
+            }
+          )
+          .set('labels', { ok: 'Sí', cancel: 'No' });
       }
     }
 
@@ -949,10 +963,24 @@ export class CrearHojaVidaComponent implements OnInit {
             nVecesAcademica++;
           }
         });
-        if (nVecesAcademica === 2) {
-          alertify.set('notifier', 'position', 'top-right');
-          alertify.error(commonMessages.NUMERO_VECES_EXCEDIDO);
-          return;
+        if (nVecesAcademica >= 2) {
+          alertify
+            .confirm(
+              'ATENCIÓN',
+              'Ya ha subido 2 documentos, ¿Desea cambiarlos?',
+              () => {
+                this.archivos.forEach(element => {
+                  if (element.tipo === tipoDocumento && element.informacionAcademica!.id === indice) {
+                    this.archivo.deleteS3(element.archivo?.toString()!);
+                    this.archivo.delete(element.id!);
+                  }
+                });
+              },
+              () => {
+                return;
+              }
+            )
+            .set('labels', { ok: 'Sí', cancel: 'No' });
         }
       }
       // Icono
@@ -966,20 +994,29 @@ export class CrearHojaVidaComponent implements OnInit {
             nVecesLaboral++;
           }
         });
-        if (nVecesLaboral === 2) {
-          alertify.set('notifier', 'position', 'top-right');
-          alertify.error(commonMessages.NUMERO_VECES_EXCEDIDO);
-          return;
+        if (nVecesLaboral >= 2) {
+          alertify
+            .confirm(
+              'ATENCIÓN',
+              'Ya ha subido 2 documentos, ¿Desea cambiarlos?',
+              () => {
+                this.archivos.forEach(element => {
+                  if (element.tipo === tipoDocumento && element.informacionLaboral!.id === indice) {
+                    this.archivo.deleteS3(element.archivo?.toString()!);
+                    this.archivo.delete(element.id!);
+                  }
+                });
+              },
+              () => {
+                return;
+              }
+            )
+            .set('labels', { ok: 'Sí', cancel: 'No' });
         }
       }
       // Icono
       document.getElementById('' + indice)?.setAttribute('style', 'visibility: visible');
     }
-
-    // const formData = new FormData();
-    // formData.append('file', file, file.name);
-    // this.archivo.uploadS3(formData).subscribe((res: any) => {
-    // });
 
     const reader = new FileReader();
     if (index >= 0) {
@@ -987,17 +1024,11 @@ export class CrearHojaVidaComponent implements OnInit {
       this.archivos[index].extension = extension;
       this.archivos[index].usuario = new Persona(this.persona);
 
-      //this.archivos[index].archivo = '' + this.formPersonal.get('email')!.value + new Date().getTime();
       let fileaws = {};
       fileaws['file'] = file;
-      //fileaws['name'] = '' + this.formPersonal.get('email')!.value + new Date().getTime();
       fileaws['name'] = this.archivos[index].archivo;
 
       this.archivosaws.push(fileaws);
-      // reader.readAsDataURL(file);
-      // reader.onload = () => {
-      //   this.archivos[index].archivo = reader.result;
-      // };
     } else {
       const archivo = new Archivo();
       archivo.tipo = tipoDocumento;
@@ -1040,11 +1071,6 @@ export class CrearHojaVidaComponent implements OnInit {
       fileaws['name'] = archivo.archivo;
       this.archivosaws.push(fileaws);
       this.archivos.push(archivo);
-      // reader.readAsDataURL(file);
-      // reader.onload = () => {
-      //   archivo.archivo = reader.result;
-      //   this.archivos.push(archivo);
-      // };
     }
 
     if (tipoDocumento === TipoArchivo.DOCUMENTO_IDENTIDAD) {

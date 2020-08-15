@@ -147,28 +147,45 @@ public class ArchivoService {
 
     public String uploadFile(MultipartFile file) {
 
-        // File filef = new File(file.getOriginalFilename());
-        // try {
-        //     FileOutputStream fos = new FileOutputStream(filef);
-        //     fos.write(file.getBytes());
-        //     fos.close();
-        // } catch (Exception e) {
-        //    e.printStackTrace();
-        // }
-        
-        //AmazonS3 s3 = new AmazonS3Client();
         Region usEast2 = Region.getRegion(Regions.US_EAST_2);
         s3client.setRegion(usEast2);
         
-
-        //String bucketName = "my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958";
         try{
             String keyName = file.getOriginalFilename();
             InputStream is=file.getInputStream();
             System.out.println("Uploading "+file.getOriginalFilename()+" a new object to S3 from a file\n");
             s3client.putObject(new PutObjectRequest(bucketName, keyName, is, new ObjectMetadata()));
             //filef.delete();
-            return "OK";
+            return "upload OK";
+        } catch (AmazonServiceException ase) {
+            System.out.println("Caught an AmazonServiceException, which means your request made it "
+                    + "to Amazon S3, but was rejected with an error response for some reason.");
+            System.out.println("Error Message:    " + ase.getMessage());
+            System.out.println("HTTP Status Code: " + ase.getStatusCode());
+            System.out.println("AWS Error Code:   " + ase.getErrorCode());
+            System.out.println("Error Type:       " + ase.getErrorType());
+            System.out.println("Request ID:       " + ase.getRequestId());
+            return "Error Message:    " + ase.getMessage();
+        } catch (AmazonClientException ace) {
+            System.out.println("Caught an AmazonClientException, which means the client encountered "
+                    + "a serious internal problem while trying to communicate with S3, "
+                    + "such as not being able to access the network.");
+            System.out.println("Error Message: " + ace.getMessage());
+            return "Error Message:    " + ace.getMessage();
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
+    public String deleteFile(String keyName) {
+
+        Region usEast2 = Region.getRegion(Regions.US_EAST_2);
+        s3client.setRegion(usEast2);
+        
+        try{
+            System.out.println("Deleting an object\n");
+            s3client.deleteObject(bucketName, keyName);
+            return "delete OK";
         } catch (AmazonServiceException ase) {
             System.out.println("Caught an AmazonServiceException, which means your request made it "
                     + "to Amazon S3, but was rejected with an error response for some reason.");

@@ -73,8 +73,8 @@
       .archivo_subido {
         color: #82c91e;
         position: absolute;
-        margin-top: 38px;
-        margin-left: 24rem;
+        //margin-top: 38px;
+        margin-left: 3.3rem;
       }
 
       .form-group {
@@ -501,6 +501,18 @@
   transform: translateY(0%) !important;
 }
 
+::ng-deep {
+  .ajs-button.ajs-ok {
+    color: #f0f0f0 !important;
+    background: #020d52 !important;
+    border-radius: 5px !important;
+  }
+
+  .ajs-header {
+    background: #f0f0f0 !important;
+  }
+}
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 900px) {
   .estilo_body {
@@ -530,7 +542,8 @@
             width: 100%;
           }
           .archivo_subido {
-            margin-left: 94%;
+            margin-left: 0rem;
+            right: 0;
           }
         }
       }
@@ -555,7 +568,8 @@
           }
 
           .archivo_subido {
-            margin-left: 94%;
+            margin-left: 0rem;
+            right: 0;
           }
         }
 
