@@ -186,7 +186,8 @@ public class ArchivoResource {
     }
 
     @PostMapping("/deleteFileS3")
-    public String deleteFile(@RequestParam String name) throws IOException {
+    public String deleteFile(@RequestBody String name) throws IOException {
+        log.debug("REST request to get Archivo : {}", name);
         return archivoService.deleteFile(name);
     }
 

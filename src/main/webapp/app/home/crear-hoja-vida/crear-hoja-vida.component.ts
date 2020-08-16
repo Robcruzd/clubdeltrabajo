@@ -936,9 +936,16 @@ export class CrearHojaVidaComponent implements OnInit {
             'Ya ha subido 2 documentos, ¿Desea cambiarlos?',
             () => {
               this.archivos.forEach(element => {
-                if (element.tipo === tipoDocumento) {
-                  this.archivo.deleteS3(element.archivo?.toString()!);
-                  this.archivo.delete(element.id!);
+                if (element.tipo === TipoArchivo.LICENCIA_CONDUCCION) {
+                  // console.log(element.archivo?.toString()!,'   ',element.id!);
+                  // this.archivo.deleteS3(element.archivo?.toString()!).subscribe((res: any) => {
+                  //   console.log(res);
+                  // });
+                  if (element.id !== undefined) {
+                    this.archivo.delete(element.id!).subscribe((res: any) => {
+                      console.log(res);
+                    });
+                  }
                 }
               });
             },

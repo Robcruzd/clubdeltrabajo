@@ -51,9 +51,9 @@
                                 <div *ngIf="formPersonal.get('tipoDocumento')!.value?.id!==4" class="input_documento">
                                     <input type="number" class="input_documento" style="width: 100%;" formControlName="numeroDocumento">
                                 </div>
-                                <div class="file_upload" (click)="tipodocumento.click()">
+                                <div class="file_upload" >
                                     <label class='label_file' for="file">
-                                        <fa-icon icon="images" class="float-right"></fa-icon>
+                                        <fa-icon icon="images" class="float-right" (click)="tipodocumento.click()"></fa-icon>
                                     </label>
                                     <input type="file" #tipodocumento class='file' accept=".pdf"
                                         (change)="addArchivo($event, tipoArchivo.DOCUMENTO_IDENTIDAD)" />
@@ -224,21 +224,23 @@
 
                 <div class="row">
                     <div class="column">
-                        <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="this.cargadoLicencia" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
                         <div class="form-group">
                             <p class="estilo_label">{{labels.LICENCIA_CONDUCCION_LABEL}}</p>
                             <div class="input_group">
                                 <div class="file_upload_licence">
                                     <mat-form-field appearance="fill" class="multiSelect">
                                         <mat-select formControlName="tipoLicenciaConduccion" multiple>
-                                            <mat-option *ngFor="let licencia of tipoLicenciaConduccion"" [value]="licencia.codigo === formPersonal.get('tipoLicenciaConduccion')!.value ? formPersonal.get('tipoLicenciaConduccion')!.value : licencia.codigo">{{ licencia.codigo }}</mat-option>
+                                            <mat-option *ngFor="let licencia of tipoLicenciaConduccion" [value]="licencia.codigo === formPersonal.get('tipoLicenciaConduccion')!.value ? formPersonal.get('tipoLicenciaConduccion')!.value : licencia.codigo">{{ licencia.codigo }}</mat-option>
                                         </mat-select>
-                                    </mat-form-field>                                    
-                                    <input type="file" #licencia class="file" accept=".pdf"
-                                        (change)="addArchivo($event, tipoArchivo.LICENCIA_CONDUCCION)" />
-                                    <label for="file" class="label_file" (click)="licencia.click()">
-                                        <fa-icon icon="images" class="float-right"></fa-icon>
-                                    </label>
+                                    </mat-form-field>
+                                    <div class="file_upload">                                  
+                                        <input type="file" #licencia class="file" accept=".pdf"
+                                            (change)="addArchivo($event, tipoArchivo.LICENCIA_CONDUCCION)" />
+                                        <label for="file">
+                                            <fa-icon icon="images" (click)="licencia.click()" class="float-right"></fa-icon>
+                                        </label>
+                                        <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="this.cargadoLicencia" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -445,19 +447,19 @@
 
                     <div class="row">
                         <div class="column">
-                            <fa-icon [id]="indexAcademica" icon="check-circle" size="2x" class="archivo_subido" style="visibility: hidden;" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.TITULO_OTORGADO_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
                                 <div class="input_group">
                                     <input type="text" class="estilo_titulo_otorgado" formControlName="tituloOtorgado">
-                                    <div class="file_upload text-secondary"
+                                    <div class="file_upload"
                                             (click)="certificadoestudio.click()">
                                             <label for="file" class="label_file">
                                                 <fa-icon icon="images" class="float-right"></fa-icon>
                                             </label>
                                             <input class='file' type="file" accept=".pdf" #certificadoestudio
                                                 (change)="addArchivo($event, tipoArchivo.CERTIFICADO_ESTUDIO, indexAcademica)">
+                                            <fa-icon [id]="indexAcademica" icon="check-circle" size="2x" class="archivo_subido" style="visibility: hidden;" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
                                     </div>
                                 </div>
                                 <small *ngIf="informacionAcademica.at(indexAcademica).get('tituloOtorgado')?.errors?.required"
@@ -866,7 +868,6 @@
 
                     <div class="row">
                         <div class="column">
-                            <fa-icon [id]="indexLaboral" icon="check-circle" size="2x" class="archivo_subido" style="visibility: hidden;" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.ADJUNTE_CERTIFICADO_LABORAL_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></p>
@@ -883,11 +884,14 @@
                                         <ng-template #elseBlock class='name_file'>
                                             <label>{{labels.PLACEHOLDER_CERTIFICADO}}</label>
                                         </ng-template>
-                                        <input class="file" type="file" #certificadolaboral accept=".pdf"
-                                            (change)="addArchivo($event, tipoArchivo.CERTIFICADO_LABORAL, indexLaboral)">
-                                        <label for="file" class="label_file" (click)="certificadolaboral.click()">
-                                            <fa-icon icon="images" class="float-right"></fa-icon>
-                                        </label>
+                                        <div class="file_upload">
+                                            <input class="file" type="file" #certificadolaboral accept=".pdf"
+                                                (change)="addArchivo($event, tipoArchivo.CERTIFICADO_LABORAL, indexLaboral)">
+                                            <label for="file" (click)="certificadolaboral.click()">
+                                                <fa-icon icon="images" class="float-right"></fa-icon>
+                                            </label>
+                                            <fa-icon [id]="indexLaboral" icon="check-circle" size="2x" class="archivo_subido" style="visibility: hidden;" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -103,10 +103,10 @@ server:
 #        enabled-protocols: TLSv1.2
 
 amazonProperties:
-  endpointUrl:
-  accessKey:
-  secretKey:
-  bucketName:
+  endpointUrl: https://s3.us-east-2.amazonaws.com
+  accessKey: AKIAQUADP2ZJGCD6WNP7
+  secretKey: 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
+  bucketName: cdt-bucket-12650f52-428c-446a-9290-5931a2cd3958
 # ===================================================================
 # JHipster specific properties
 #
