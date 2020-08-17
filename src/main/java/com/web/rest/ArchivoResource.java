@@ -159,9 +159,10 @@ public class ArchivoResource {
      *
      * @param id the id of the archivo to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
+     * @throws Exception 
      */
     @DeleteMapping("/archivos/{id}")
-    public ResponseEntity<Void> deleteArchivo(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteArchivo(@PathVariable Long id) throws Exception {
         log.debug("REST request to delete Archivo : {}", id);
         archivoService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();

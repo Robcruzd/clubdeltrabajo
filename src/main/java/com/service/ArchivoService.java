@@ -39,6 +39,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.UUID;
 
 /**
@@ -58,6 +62,13 @@ public class ArchivoService {
     private String accessKey;
     @Value("${amazonProperties.secretKey}")
     private String secretKey;
+    
+    @Value("${spring.datasource.url}")
+    private String urlConnection;
+    @Value("${spring.datasource.username}")
+    private String userConnection;
+    @Value("${spring.datasource.password}")
+    private String passConnection;
 
     @PostConstruct
     private void initializeAmazon() {
@@ -123,10 +134,17 @@ public class ArchivoService {
      * Delete the archivo by id.
      *
      * @param id the id of the entity.
+     * @throws SQLException 
+     * @throws Exception 
      */
-    public void delete(Long id) {
+    public void delete(Long id) throws Exception {
         log.debug("Request to delete Archivo : {}", id);
-        archivoRepository.deleteById(id);
+		Class.forName("org.postgresql.Driver");
+		Connection connection = DriverManager.getConnection(urlConnection, userConnection, passConnection);
+		PreparedStatement st = connection.prepareStatement("DELETE FROM ct_archivo_tb WHERE id = ?");
+		st.setFloat(1, id);
+		st.executeUpdate(); 
+        //archivoRepository.deleteById(id);
     }
 
     /**
