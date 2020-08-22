@@ -19,6 +19,14 @@
       background: transparent linear-gradient(181deg, #2e437e 0%, #1a2152 100%) 0% 0% no-repeat padding-box;
       border-radius: 1.875rem;
       padding: 1rem;
+
+      .texto-hoja-vida {
+        text-align: justify;
+        font-size: 12px;
+        font-family: 'Arial';
+        color: #ffffff;
+        padding: 1rem;
+      }
     }
 
     .column {
@@ -192,14 +200,6 @@
         color: #ffffff;
       }
 
-      .texto-hoja-vida {
-        text-align: justify;
-        font-size: 12px;
-        font-family: 'Arial';
-        color: #ffffff;
-        padding: 1rem;
-      }
-
       input[type='file'] {
         display: none;
       }
@@ -270,6 +270,14 @@
         padding: 1rem;
         margin-bottom: 1rem;
         min-width: min-content;
+
+        .texto-hoja-vida {
+          text-align: justify;
+          font-size: 12px;
+          font-family: 'Arial';
+          color: #ffffff;
+          padding: 1rem;
+        }
       }
 
       .column {
@@ -448,14 +456,6 @@
           font-family: 'Arial';
           font-weight: bold;
           color: #ffffff;
-        }
-
-        .texto-hoja-vida {
-          text-align: justify;
-          font-size: 12px;
-          font-family: 'Arial';
-          color: #ffffff;
-          padding: 1rem;
         }
 
         input[type='file'] {

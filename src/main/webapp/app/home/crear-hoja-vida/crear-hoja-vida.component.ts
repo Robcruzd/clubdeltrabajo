@@ -635,6 +635,7 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   procesarIdiomas(idioma: Object): IPersonaIdioma {
+    console.log('object idioma: ', idioma);
     return {
       ...new PersonaIdioma(),
       id: idioma['id'],
@@ -922,8 +923,26 @@ export class CrearHojaVidaComponent implements OnInit {
       return;
     }
 
-    if (tipoDocumento === TipoArchivo.LICENCIA_CONDUCCION) {
-      nVecesLicencia++;
+    // La cédula debe ser documento que se suben una única vez
+    let index = -1;
+    if (tipoDocumento === TipoArchivo.DOCUMENTO_IDENTIDAD) {
+      index = this.archivos.findIndex(item => item.tipo === tipoDocumento);
+      if (index >= 0) {
+        this.archivos[index].nombre = file.name;
+        this.archivos[index].extension = extension;
+        this.archivos[index].usuario = new Persona(this.persona);
+
+        let fileaws = {};
+        fileaws['file'] = file;
+        fileaws['name'] = this.archivos[index].archivo;
+
+        this.archivosaws.push(fileaws);
+        this.cargadoDocumento = true;
+      } else {
+        this.cargarArchivo(file, tipoDocumento, extension, indice);
+        this.cargadoDocumento = true;
+      }
+    } else if (tipoDocumento === TipoArchivo.LICENCIA_CONDUCCION) {
       this.archivos.forEach(archivo => {
         if (archivo.tipo === tipoDocumento) {
           nVecesLicencia++;
@@ -933,37 +952,38 @@ export class CrearHojaVidaComponent implements OnInit {
         alertify
           .confirm(
             'ATENCIÓN',
-            'Ya ha subido 2 documentos, ¿Desea cambiarlos?',
+            'Ya ha subido 2 documentos, ¿Desea reemplazarlos?',
             () => {
+              let archivostemp: IArchivo[] = [];
               this.archivos.forEach(element => {
                 if (element.tipo === TipoArchivo.LICENCIA_CONDUCCION) {
-                  // console.log(element.archivo?.toString()!,'   ',element.id!);
-                  // this.archivo.deleteS3(element.archivo?.toString()!).subscribe((res: any) => {
-                  //   console.log(res);
-                  // });
+                  console.log(element.archivo?.toString()!, '   ', element.id!);
+                  this.archivo.deleteS3(element.archivo?.toString()!).subscribe((res: any) => {
+                    console.log(res);
+                  });
                   if (element.id !== undefined) {
                     this.archivo.delete(element.id!).subscribe((res: any) => {
                       console.log(res);
                     });
                   }
+                } else {
+                  archivostemp.push(element);
                 }
               });
+              this.archivos = archivostemp;
+              this.cargarArchivo(file, tipoDocumento, extension, indice);
             },
             () => {
+              console.log('confirm no licencia');
               return;
             }
           )
           .set('labels', { ok: 'Sí', cancel: 'No' });
+      } else {
+        this.cargarArchivo(file, tipoDocumento, extension, indice);
       }
-    }
-
-    // La cédula debe ser documento que se suben una única vez
-    let index = -1;
-    if (tipoDocumento === TipoArchivo.DOCUMENTO_IDENTIDAD) {
-      index = this.archivos.findIndex(item => item.tipo === tipoDocumento);
-    }
-
-    if (tipoDocumento === TipoArchivo.CERTIFICADO_ESTUDIO) {
+      this.cargadoLicencia = true;
+    } else if (tipoDocumento === TipoArchivo.CERTIFICADO_ESTUDIO) {
       if (indice != undefined) {
         this.archivosCargadosIAcademica.forEach(posicion => {
           if (posicion === indice) {
@@ -974,27 +994,46 @@ export class CrearHojaVidaComponent implements OnInit {
           alertify
             .confirm(
               'ATENCIÓN',
-              'Ya ha subido 2 documentos, ¿Desea cambiarlos?',
+              'Ya ha subido 2 documentos, ¿Desea reemplazarlos?',
               () => {
+                let archivostemp: IArchivo[] = [];
                 this.archivos.forEach(element => {
-                  if (element.tipo === tipoDocumento && element.informacionAcademica!.id === indice) {
-                    this.archivo.deleteS3(element.archivo?.toString()!);
-                    this.archivo.delete(element.id!);
+                  if (
+                    element.tipo === tipoDocumento &&
+                    element.informacionAcademica?.id === this.informacionAcademica.at(indice).get('id')!.value
+                  ) {
+                    this.archivo.deleteS3(element.archivo?.toString()!).subscribe((res: any) => {
+                      console.log(res);
+                    });
+                    if (element.id !== undefined) {
+                      this.archivo.delete(element.id!).subscribe((res: any) => {
+                        console.log(res);
+                      });
+                    }
+                  } else {
+                    archivostemp.push(element);
                   }
                 });
+                this.archivos = archivostemp;
+                this.cargarArchivo(file, tipoDocumento, extension, indice);
               },
               () => {
                 return;
               }
             )
             .set('labels', { ok: 'Sí', cancel: 'No' });
+        } else {
+          this.cargarArchivo(file, tipoDocumento, extension, indice);
         }
+      } else {
+        this.cargarArchivo(file, tipoDocumento, extension, indice);
       }
       // Icono
       document.getElementById('' + indice)?.setAttribute('style', 'visibility: visible');
-    }
-
-    if (tipoDocumento === TipoArchivo.CERTIFICADO_LABORAL) {
+      if (indice != undefined) {
+        this.archivosCargadosIAcademica.push(indice);
+      }
+    } else if (tipoDocumento === TipoArchivo.CERTIFICADO_LABORAL) {
       if (indice != undefined) {
         this.archivosCargadosILaboral.forEach(posicion => {
           if (posicion === indice) {
@@ -1005,94 +1044,108 @@ export class CrearHojaVidaComponent implements OnInit {
           alertify
             .confirm(
               'ATENCIÓN',
-              'Ya ha subido 2 documentos, ¿Desea cambiarlos?',
+              'Ya ha subido 2 documentos, ¿Desea reemplazarlos?',
               () => {
+                let archivostemp: IArchivo[] = [];
                 this.archivos.forEach(element => {
-                  if (element.tipo === tipoDocumento && element.informacionLaboral!.id === indice) {
-                    this.archivo.deleteS3(element.archivo?.toString()!);
-                    this.archivo.delete(element.id!);
+                  if (
+                    element.tipo === tipoDocumento &&
+                    element.informacionLaboral?.id === this.experienciaLaboral.at(indice).get('id')!.value
+                  ) {
+                    this.archivo.deleteS3(element.archivo?.toString()!).subscribe((res: any) => {
+                      console.log(res);
+                    });
+                    if (element.id !== undefined) {
+                      this.archivo.delete(element.id!).subscribe((res: any) => {
+                        console.log(res);
+                      });
+                    }
+                  } else {
+                    archivostemp.push(element);
                   }
                 });
+                this.archivos = archivostemp;
+                this.cargarArchivo(file, tipoDocumento, extension, indice);
               },
               () => {
                 return;
               }
             )
             .set('labels', { ok: 'Sí', cancel: 'No' });
+        } else {
+          this.cargarArchivo(file, tipoDocumento, extension, indice);
         }
+      } else {
+        this.cargarArchivo(file, tipoDocumento, extension, indice);
       }
       // Icono
       document.getElementById('' + indice)?.setAttribute('style', 'visibility: visible');
-    }
-
-    const reader = new FileReader();
-    if (index >= 0) {
-      this.archivos[index].nombre = file.name;
-      this.archivos[index].extension = extension;
-      this.archivos[index].usuario = new Persona(this.persona);
-
-      let fileaws = {};
-      fileaws['file'] = file;
-      fileaws['name'] = this.archivos[index].archivo;
-
-      this.archivosaws.push(fileaws);
-    } else {
-      const archivo = new Archivo();
-      archivo.tipo = tipoDocumento;
-      archivo.nombre = file.name;
-      archivo.extension = extension;
-      archivo.usuario = new Persona(this.persona);
-
-      if (tipoDocumento === TipoArchivo.CERTIFICADO_ESTUDIO) {
-        if (indice != undefined) {
-          let id = this.informacionAcademica.at(indice).get('id')!.value;
-          archivo.informacionAcademica = new InformacionAcademica();
-          if (id != undefined && id != '') {
-            archivo.informacionAcademica.id = id;
-          } else {
-            this.informacionAcademica
-              .at(indice)
-              .get('id')!
-              .setValue(indice);
-            archivo.informacionAcademica.id = indice;
-          }
-        }
-      } else if (tipoDocumento === TipoArchivo.CERTIFICADO_LABORAL) {
-        if (indice != undefined) {
-          let id = this.experienciaLaboral.at(indice).get('id')!.value;
-          archivo.informacionLaboral = new InformacionLaboral();
-          if (id != undefined && id != '') {
-            archivo.informacionLaboral!.id = id;
-          } else {
-            this.experienciaLaboral
-              .at(indice)
-              .get('id')!
-              .setValue(indice);
-            archivo.informacionLaboral.id = indice;
-          }
-        }
-      }
-      archivo.archivo = '' + this.formPersonal.get('email')!.value + new Date().getTime();
-      let fileaws = {};
-      fileaws['file'] = file;
-      fileaws['name'] = archivo.archivo;
-      this.archivosaws.push(fileaws);
-      this.archivos.push(archivo);
-    }
-
-    if (tipoDocumento === TipoArchivo.DOCUMENTO_IDENTIDAD) {
-      this.cargadoDocumento = true;
-    } else if (tipoDocumento === TipoArchivo.LICENCIA_CONDUCCION) {
-      this.cargadoLicencia = true;
-    } else if (tipoDocumento === TipoArchivo.CERTIFICADO_ESTUDIO) {
-      if (indice != undefined) {
-        this.archivosCargadosIAcademica.push(indice);
-      }
-    } else if (tipoDocumento === TipoArchivo.CERTIFICADO_LABORAL) {
       if (indice != undefined) {
         this.archivosCargadosILaboral.push(indice);
       }
     }
+  }
+
+  cargarArchivo(file: File, tipoDocumento: number, extension: string, indice?: number) {
+    const reader = new FileReader();
+
+    console.log('creando archivo init');
+    const archivo = new Archivo();
+    archivo.tipo = tipoDocumento;
+    archivo.nombre = file.name;
+    archivo.extension = extension;
+    archivo.usuario = new Persona(this.persona);
+
+    if (tipoDocumento === TipoArchivo.CERTIFICADO_ESTUDIO) {
+      if (indice != undefined) {
+        let id = this.informacionAcademica.at(indice).get('id')!.value;
+        archivo.informacionAcademica = new InformacionAcademica();
+        if (id != undefined && id != '') {
+          archivo.informacionAcademica.id = id;
+        } else {
+          this.informacionAcademica
+            .at(indice)
+            .get('id')!
+            .setValue(indice);
+          archivo.informacionAcademica.id = indice;
+        }
+      }
+    } else if (tipoDocumento === TipoArchivo.CERTIFICADO_LABORAL) {
+      if (indice != undefined) {
+        let id = this.experienciaLaboral.at(indice).get('id')!.value;
+        archivo.informacionLaboral = new InformacionLaboral();
+        if (id != undefined && id != '') {
+          archivo.informacionLaboral!.id = id;
+        } else {
+          this.experienciaLaboral
+            .at(indice)
+            .get('id')!
+            .setValue(indice);
+          archivo.informacionLaboral.id = indice;
+        }
+      }
+    }
+    archivo.archivo = '' + this.formPersonal.get('email')!.value + new Date().getTime();
+    let fileaws = {};
+    fileaws['file'] = file;
+    fileaws['name'] = archivo.archivo;
+    this.archivosaws.push(fileaws);
+    this.archivos.push(archivo);
+    console.log('adicionando archivo fin');
+
+    // if (tipoDocumento === TipoArchivo.DOCUMENTO_IDENTIDAD) {
+    //   this.cargadoDocumento = true;
+    // } else if (tipoDocumento === TipoArchivo.LICENCIA_CONDUCCION) {
+    //   this.cargadoLicencia = true;
+    // } else if (tipoDocumento === TipoArchivo.CERTIFICADO_ESTUDIO) {
+    //   if (indice != undefined) {
+    //     this.archivosCargadosIAcademica.push(indice);
+    //   }
+    // } else if (tipoDocumento === TipoArchivo.CERTIFICADO_LABORAL) {
+    //   if (indice != undefined) {
+    //     this.archivosCargadosILaboral.push(indice);
+    //   }
+    // }
   }
 
   procesarRedSocial(value: string | undefined): string | undefined {

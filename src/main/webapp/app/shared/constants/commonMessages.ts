@@ -89,10 +89,10 @@ export const commonMessages = {
     { codigo: 3, nombre: 'Completo' }
   ],
   ARRAY_NIVEL_IDIOMA: [
-    { codigo: 'BA', nombre: 'Básico' },
-    { codigo: 'CO', nombre: 'Conversacional' },
-    { codigo: 'A', nombre: 'Avanzado' },
-    { codigo: 'LN', nombre: 'Lengua Nativa' }
+    { codigo: 'Básico', nombre: 'Básico' },
+    { codigo: 'Conversacional', nombre: 'Conversacional' },
+    { codigo: 'Avanzado', nombre: 'Avanzado' },
+    { codigo: 'Lengua Nativa', nombre: 'Lengua Nativa' }
   ],
   IDIOMAS_LABEL: 'Idiomas',
   NIVEL_IDIOMA_LABEL: 'Nivel del idioma',
@@ -126,7 +126,7 @@ export const commonMessages = {
   ERROR_IMAGEN_NO_SOPORTADA: 'Error, solo se permite subir imágenes',
   IMAGENES_SOPORTADAS: ['jpg', 'jpeg', 'png'],
   TAMANO_MAXIMO_PERMITIDO: 1000000, // 1MB
-  ERROR_TAMANO_EXCEDIDO: 'Error. Tamaño máximo permitodo 2MB',
+  ERROR_TAMANO_EXCEDIDO: 'Error. Tamaño máximo permitido 1MB',
   ARRAY_TIPOS_LICENCIA_CONDUCCION: [
     { codigo: 'A1', descripcion: 'motocicletas de menos de 125 centímetros cúbicos' },
     { codigo: 'A2', descripcion: 'motocicletas de más de 125 centímetros cúbicos' },
@@ -148,7 +148,7 @@ export const commonMessages = {
     { codigo: 6, nombre: 'Profesional senior' },
     { codigo: 7, nombre: 'Profesional' },
     { codigo: 8, nombre: 'Profesional Junior' },
-    { codigo: 9, nombre: 'Auxiliar, existencial y otros' }
+    { codigo: 9, nombre: 'Auxiliar, asistencial y otros' }
   ],
   ARRAY_ASPIRACION_SALARIAL: [
     { codigo: 1, nombre: 'Menos de $1' },
