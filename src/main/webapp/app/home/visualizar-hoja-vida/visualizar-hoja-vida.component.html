@@ -3,7 +3,7 @@
         <div class="col-md-3"></div>
         <div class="col-md-2 text-center">
             <img class="foto-perfil rounded-circle" [src]="imagen?.archivo || urlImageDefault">
-            <qrcode class="codigo" *ngIf="qrCard" [qrdata]="qrCard" [width]="81"></qrcode>
+            <qrcode style="display: none;" class="codigo" *ngIf="qrCard" [qrdata]="qrCard" [width]="81"></qrcode>
             <button class="btn shadow-none bg-transparent boton-regresar" (click)="regresarPerfil()">
                 <fa-icon icon="chevron-left"></fa-icon>
             </button>
@@ -47,24 +47,28 @@
         <div class="box-right">
             <h1><span style="color: grey;">{{hojaVidaVo?.informacionPersonal?.usuario?.nombre}}</span> {{hojaVidaVo?.informacionPersonal?.usuario?.apellido}}</h1>
             <div style="padding-left: 3rem;" *ngFor="let item of hojaVidaVo?.experienciaLaboral">
-                <div *ngIf="item.trabajoActual==true">
-                    <h3>{{item?.cargo?.cargo}}</h3>
-                </div>
+                <h3>{{hojaVidaVo?.informacionPersonal?.profesion}}</h3>
+                <!-- <div *ngIf="item.trabajoActual==true">
+                    <div *ngIf="item.cargo?.cargo!=='Otro'">
+                        
+                    </div>
+                    <div *ngIf="item.cargo?.cargo==='Otro'">
+                        <h3>{{item?.cargoDiferente}}</h3>
+                    </div>
+                </div> -->
             </div>
             <h4>EXPERIENCIA PROFESIONAL</h4>
             <div class='linea-base'></div>
             <div class="experiencias" *ngFor="let item of hojaVidaVo?.experienciaLaboral">
                 <h5>{{item?.cargo?.cargo}}</h5>
-                <ul style="padding-left: 1.5rem;">
-                    <li>{{item?.nombreEmpresa}}</li>
-                    <div *ngIf="item.trabajoActual==true">
-                        <li>{{item?.fechaInicio}} / Actualidad</li>
-                    </div>
-                    <div *ngIf="item.trabajoActual!=true">
-                        <li>{{item?.fechaInicio}} / {{item?.fechaFin}}</li>
-                    </div>
-                    <li>{{item.ciudad ? this.getCiudad(item.ciudad + '') : item.ciudadExtranjera}}</li>
-                </ul>
+                <p>{{item?.nombreEmpresa}}</p>
+                <div *ngIf="item.trabajoActual==true">
+                    <p>{{item?.fechaInicio}} / Actualidad</p>
+                </div>
+                <div *ngIf="item.trabajoActual!=true">
+                    <p>{{item?.fechaInicio}} / {{item?.fechaFin}}</p>
+                </div>
+                <p>{{item.ciudad ? this.getCiudad('' + item.ciudad) : item.ciudadExtranjera}}</p>
             </div>
             <h4>FORMACIÓN</h4>
             <div class='linea-base'></div>
@@ -72,12 +76,16 @@
                 <h5>{{item?.tituloOtorgado}}</h5>
                 <p>{{item?.institucion}}</p>
                 <p>{{item?.fechaFin}}</p>
-                <p>{{item?.estado}}</p>
+                <p>{{this.getEstado(item?.estado)}}</p>
             </div>
-            <h4>IDIOMAS</h4>
-            <div class='linea-base'></div>
-            <div class="experiencias" *ngFor="let item of hojaVidaVo?.idiomas">
-                <p>{{item?.idIdioma?.idioma}} : {{item?.nivel}}</p>
+            <div *ngIf="hojaVidaVo?.idiomas">
+                <h4>IDIOMAS</h4>
+                <div class='linea-base'></div>
+                <div class="experiencias">
+                    <div *ngFor="let item of hojaVidaVo?.idiomas">
+                        <p>{{item?.idIdioma?.idioma}} : {{this.getIdioma(item?.nivel + '')}}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

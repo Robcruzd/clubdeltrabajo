@@ -56,9 +56,9 @@ export class AgregarUsuarioComponent implements OnInit {
   onCrearUsuario(): void {
     const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const NOMBRE_REGEX = /^[a-zA-ZÑÁÉÍÓÚñáéíóú ]{1,}$/;
-    const CONTRASENA_REGEX = /.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*/;
-    const PASAPORTE_REGEX = /^[0-9A-Za-z]{6,11}$/;
-    const CEDULA_REGEX = /^[0-9]{6,10}$/;
+    const CONTRASENA_REGEX = /.*(?=.{8,20})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*/;
+    const PASAPORTE_REGEX = /^[0-9A-Za-z]{6,18}$/;
+    const CEDULA_REGEX = /^[0-9]{6,18}$/;
     this.validacionIncorrecta = false;
     this.mensajeNombre = '';
     this.mensajeApellido = '';
@@ -106,7 +106,7 @@ export class AgregarUsuarioComponent implements OnInit {
       this.persona.numeroDocumento &&
       !this.persona.numeroDocumento.toString()?.match(PASAPORTE_REGEX)
     ) {
-      this.mensajeNumDoc = '*El documento solo puede tener de 6 a 11 carácteres entre minúsculas, mayúsculas y números';
+      this.mensajeNumDoc = '*El documento solo puede tener de 6 a 18 carácteres entre minúsculas, mayúsculas y números';
       this.validacionIncorrecta = true;
     }
     if (
@@ -114,7 +114,7 @@ export class AgregarUsuarioComponent implements OnInit {
       this.persona.numeroDocumento &&
       !this.persona.numeroDocumento.toString()?.match(CEDULA_REGEX)
     ) {
-      this.mensajeNumDoc = '*El documento debe contener de 6 a 10 números';
+      this.mensajeNumDoc = '*El documento debe contener de 6 a 18 números';
       this.validacionIncorrecta = true;
     }
     if (this.tipoDocumento.id === undefined) {
@@ -122,7 +122,7 @@ export class AgregarUsuarioComponent implements OnInit {
       this.validacionIncorrecta = true;
     }
     if (!this.user.password?.match(CONTRASENA_REGEX)) {
-      this.mensajeClave = '*La contraseña debe contener al menos 8 caracteres entre letras mayúsculas, minúsculas y números';
+      this.mensajeClave = '*La contraseña debe contener de 8 a 20 carácteres entre letras mayúsculas, minúsculas y números';
       this.validacionIncorrecta = true;
     }
     if (!this.user.password) {
@@ -164,12 +164,25 @@ export class AgregarUsuarioComponent implements OnInit {
           () => {
             this.ventanaInicioSesion();
           },
-          () => (alertify.set('notifier', 'position', 'top-right'), alertify.error('Fallo registro de usuario!'))
+          error => {
+            // eslint-disable-next-line no-console
+            console.log('error: ', error);
+            alertify.set('notifier', 'position', 'top-right'), alertify.error('Fallo registro de usuario!');
+          }
         );
       } else {
-        this.personaService.crearUsuario(this.usuarioVo).subscribe(() => {
-          this.ventanaInicioSesion();
-        });
+        this.personaService.crearUsuario(this.usuarioVo).subscribe(
+          () => {
+            this.ventanaInicioSesion();
+          },
+          error => {
+            if (error.error?.errorKey === 'userexists') {
+              alertify.set('notifier', 'position', 'top-right'), alertify.error('Usuario ya registrado!');
+            } else {
+              alertify.set('notifier', 'position', 'top-right'), alertify.error('Fallo registro de usuario!');
+            }
+          }
+        );
       }
     }
   }

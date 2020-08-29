@@ -95,6 +95,8 @@ export class PerfilComponent implements OnInit {
           })
           .show();
       }
+      // eslint-disable-next-line no-console
+      console.log(this.hojaVidaVo);
     });
   }
 
@@ -206,6 +208,8 @@ export class PerfilComponent implements OnInit {
   consultarInformacionGeografica(): void {
     this.apiService.getInformacionGeografica().subscribe(geografia => {
       this.geografia = geografia;
+      const bogota = { codigoDpto: '100', nombreDpto: 'Bogotá D.C.', codigoMpio: '100000', nombreMpio: 'Bogotá D.C.' };
+      this.geografia.push(bogota);
       this.cargarMunicipios();
     });
   }

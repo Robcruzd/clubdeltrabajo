@@ -40,12 +40,14 @@ export class ApiService {
   getPaises(): Observable<IOpcionVo[]> {
     return this.http.get<any[]>(URL_PAISES).pipe(
       map(element =>
-        element.map(item => {
-          return {
-            codigo: item.alpha2Code,
-            nombre: item.name
-          };
-        })
+        element
+          .map(item => {
+            return {
+              codigo: item.alpha2Code,
+              nombre: item.translations.es ? item.translations.es : item.name
+            };
+          })
+          .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0))
       )
     );
   }

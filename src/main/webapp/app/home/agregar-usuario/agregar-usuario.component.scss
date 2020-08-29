@@ -102,6 +102,8 @@
           font-weight: bold;
           opacity: 1;
           margin-left: 1.5rem;
+          border-right-width: 0.5px;
+          border-color: lightgray;
 
           .option_docu {
             font-weight: bold;
@@ -119,6 +121,7 @@
           border-width: 0rem;
           border-radius: 0rem 1.5rem 1.5rem 0rem;
           opacity: 1;
+          padding-left: 0.5rem;
         }
       }
 
@@ -144,6 +147,7 @@
 
       .radioB {
         margin-top: 5px;
+        margin-right: 5px;
       }
 
       .label-terminos {
@@ -230,9 +234,9 @@
           }
 
           .input_documento {
-            width: 65%;
+            width: 100%;
             height: auto;
-            padding: 0.8rem 0rem;
+            padding: 0.8rem 0rem 0.8rem 0.8rem;
           }
         }
       }

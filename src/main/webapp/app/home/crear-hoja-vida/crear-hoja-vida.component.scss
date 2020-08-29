@@ -141,7 +141,8 @@
             width: 50%;
             height: 3rem;
             background: #ffffff 0% 0% no-repeat padding-box;
-            border-width: 0rem;
+            border-width: 0rem 1px;
+            border-color: lightgray;
             opacity: 1;
             font-weight: bold;
           }
@@ -152,7 +153,7 @@
 
           .file_upload {
             width: 15%;
-            height: 3rem;
+            height: 100%;
             background: #ffffff 0% 0% no-repeat padding-box;
             border-radius: 0rem 1.5rem 1.5rem 0rem;
             border-width: 0rem;
@@ -186,7 +187,8 @@
             width: 33.3%;
             height: 3rem;
             background: #ffffff 0% 0% no-repeat padding-box;
-            border-width: 0rem;
+            border-width: 0rem 1px;
+            border-color: lightgray;
             padding-left: 1rem;
             opacity: 1;
             font-weight: bold;
@@ -204,18 +206,19 @@
           }
 
           .mesExperiencia {
-            width: 50%;
+            width: 25%;
             height: 3rem;
             background: #ffffff 0% 0% no-repeat padding-box;
-            border-radius: 0rem 1.5rem 1.5rem 0rem;
             border-width: 0rem;
             padding-left: 1rem;
             opacity: 1;
             font-weight: bold;
+            border-width: 0rem 1px;
+            border-color: lightgray;
           }
 
           .anioExperiencia {
-            width: 50%;
+            width: 25%;
             height: 3rem;
             background: #ffffff 0% 0% no-repeat padding-box;
             border-radius: 1.5rem 0rem 0rem 1.5rem;
@@ -223,6 +226,27 @@
             padding-left: 1rem;
             opacity: 1;
             font-weight: bold;
+            border-width: 0rem 1px;
+            border-color: lightgray;
+          }
+
+          .aniosTexto {
+            background-color: white;
+            min-height: 3rem;
+            width: 25%;
+            text-align: center;
+            margin: 0rem;
+            padding-top: 0.75rem;
+          }
+
+          .mesesTexto {
+            background-color: white;
+            min-height: 3rem;
+            width: 25%;
+            text-align: center;
+            margin: 0rem;
+            padding-top: 0.75rem;
+            border-radius: 0rem 1.5rem 1.5rem 0rem;
           }
 
           .estilo_titulo_otorgado {
@@ -250,7 +274,7 @@
           .file_upload_licence {
             width: 100%;
             min-height: 3rem;
-            background: #ffffff 0% 0% no-repeat padding-box;
+            background: linear-gradient(to right, rgba(255, 255, 255, 1) 85%, rgba(0, 0, 0, 1) 20%);
             border-radius: 1.5rem;
             border-width: 0rem;
             opacity: 1;
@@ -273,6 +297,10 @@
               border-width: 0rem;
               opacity: 1;
               font-weight: bold;
+              min-height: 3rem;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
             }
 
             .name_file:focus {
@@ -326,7 +354,8 @@
             height: 3rem;
             background: #ffffff 0% 0% no-repeat padding-box;
             border-radius: 1.5rem 0rem 0rem 1.5rem;
-            border-width: 0rem;
+            border-width: 0rem 1px 0rem 0rem;
+            border-color: lightgray;
             padding-left: 1.5rem;
             opacity: 1;
             font-weight: bold;
@@ -367,13 +396,18 @@
             background: #ffffff 0% 0% no-repeat padding-box;
             height: 100%;
             border-radius: 0rem 0rem 0rem 0rem;
-            border-width: 0rem;
+            border-width: 0rem 1px 0rem 0rem;
+            border-color: lightgray;
             opacity: 1;
             font-weight: bold;
 
             &:focus {
               outline: none;
             }
+          }
+
+          .mat-form-field-wrapper {
+            padding-bottom: 0rem;
           }
 
           .viajar {
@@ -483,14 +517,21 @@
 }
 
 .multiSelect {
-  width: 85%;
+  width: 84%;
   height: 48px;
+  border-width: 0rem 1px 0rem 0rem;
+  border-color: lightgray;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-wrapper {
+  padding-bottom: 0rem;
 }
 
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
   background-color: white !important;
   height: 48px;
   padding: 0 0.75em 0 0.75em !important;
+  border-radius: 0rem;
 }
 
 ::ng-deep .mat-form-field-underline {

@@ -80,7 +80,9 @@ export const commonMessages = {
     { codigo: 7, nombre: 'Universidad / Carrera profesional' },
     { codigo: 8, nombre: 'Postgrado / Especialización' },
     { codigo: 9, nombre: 'Postgrado / Maestría' },
-    { codigo: 10, nombre: 'Postgrado / Doctorado' }
+    { codigo: 10, nombre: 'Postgrado / Doctorado' },
+    { codigo: 11, nombre: 'Diplomado / Curso' },
+    { codigo: 12, nombre: 'Otro' }
   ],
   ARRAY_ESTADO_NIVEL_ESTUDIO: [
     { codigo: 0, nombre: 'Incompleto' },
@@ -89,10 +91,10 @@ export const commonMessages = {
     { codigo: 3, nombre: 'Completo' }
   ],
   ARRAY_NIVEL_IDIOMA: [
-    { codigo: 'Básico', nombre: 'Básico' },
-    { codigo: 'Conversacional', nombre: 'Conversacional' },
-    { codigo: 'Avanzado', nombre: 'Avanzado' },
-    { codigo: 'Lengua Nativa', nombre: 'Lengua Nativa' }
+    { codigo: 'BA', nombre: 'Básico' },
+    { codigo: 'CO', nombre: 'Conversacional' },
+    { codigo: 'A', nombre: 'Avanzado' },
+    { codigo: 'LN', nombre: 'Lengua Nativa' }
   ],
   IDIOMAS_LABEL: 'Idiomas',
   NIVEL_IDIOMA_LABEL: 'Nivel del idioma',
@@ -125,8 +127,8 @@ export const commonMessages = {
   IMAGEN_LABEL: 'Cambiar foto',
   ERROR_IMAGEN_NO_SOPORTADA: 'Error, solo se permite subir imágenes',
   IMAGENES_SOPORTADAS: ['jpg', 'jpeg', 'png'],
-  TAMANO_MAXIMO_PERMITIDO: 1000000, // 1MB
-  ERROR_TAMANO_EXCEDIDO: 'Error. Tamaño máximo permitido 1MB',
+  TAMANO_MAXIMO_PERMITIDO: 3000000, // 3MB
+  ERROR_TAMANO_EXCEDIDO: 'Error. Tamaño máximo permitido 3MB',
   ARRAY_TIPOS_LICENCIA_CONDUCCION: [
     { codigo: 'A1', descripcion: 'motocicletas de menos de 125 centímetros cúbicos' },
     { codigo: 'A2', descripcion: 'motocicletas de más de 125 centímetros cúbicos' },

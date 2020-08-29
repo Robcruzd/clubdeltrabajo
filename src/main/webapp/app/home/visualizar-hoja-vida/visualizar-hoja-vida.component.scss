@@ -30,6 +30,7 @@
   //background: transparent url('../../../content/images/Image\ 28.png') 0% 0% no-repeat padding-box;
   opacity: 1;
   margin-bottom: 7px;
+  border-radius: 10rem;
 }
 
 .codigo {
@@ -128,7 +129,7 @@ kendo-pdf-export {
   display: flex;
   flex-direction: row;
   width: 560px;
-  height: 800px;
+  min-height: 800px;
 
   h1 {
     font-weight: bold;
@@ -167,8 +168,7 @@ kendo-pdf-export {
   .box-left {
     background-color: #dfdfdf;
     display: flex;
-    min-width: 240px;
-    height: min-content;
+    min-width: min-content;
     flex-direction: column;
     padding: 1rem;
 
@@ -180,18 +180,20 @@ kendo-pdf-export {
     }
 
     .foto-perfil {
-      width: 100%;
+      width: 14.25rem;
+      height: auto;
       opacity: 1;
       margin-top: 1rem;
       margin-bottom: 7px;
       align-self: center;
-      border-radius: 9rem;
+      border-radius: 10rem;
     }
 
     .contacto-icons {
       display: flex;
       flex-direction: row;
       margin-top: 10px;
+      min-width: min-content;
     }
   }
 

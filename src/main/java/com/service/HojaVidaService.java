@@ -271,7 +271,7 @@ public class HojaVidaService {
         //String bucketName = "my-first-s3-bucket-12650f52-428c-446a-9290-5931a2cd3958";
         System.out.println("Downloading an object");
 		
-		List<Archivo> listaArchivos = this.archivoRepository.findByUsuario(archivoHojaVida.getUsuario());
+		List<Archivo> listaArchivos = this.archivoRepository.findByUsuarioOrderByTipoAsc(archivoHojaVida.getUsuario());
 		Archivo archivo = new Archivo();
 		String cadena64 = archivoHojaVida.getArchivo().replaceFirst("^.*,", "");
 		byte[] bytesHojaVida = Base64.getDecoder().decode(cadena64);

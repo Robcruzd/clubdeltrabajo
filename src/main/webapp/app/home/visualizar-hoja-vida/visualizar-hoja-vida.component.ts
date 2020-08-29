@@ -25,7 +25,8 @@ export class VisualizarHojaVidaComponent implements OnInit {
   imagen!: Archivo;
   urlImageDefault = '';
   lblDescargar = commonMessages.DESCARGAR_HOJAVIDA_LABEL;
-
+  estadoNivelEstudio: IOpcionVo[] = commonMessages.ARRAY_ESTADO_NIVEL_ESTUDIO;
+  nivelIdioma: Array<IOpcionVo> = commonMessages.ARRAY_NIVEL_IDIOMA;
   hojaVidaVo!: HojaVidaVo | null;
   account!: Account | null;
   persona!: number;
@@ -56,7 +57,6 @@ export class VisualizarHojaVidaComponent implements OnInit {
       this.router.navigate(['/']);
       return;
     }
-    this.cargarCuentaUsuario();
     this.consultarInformacionGeografica();
   }
 
@@ -75,6 +75,8 @@ export class VisualizarHojaVidaComponent implements OnInit {
   getHojaVida(): void {
     this.hojaVidaService.find(this.persona).subscribe(response => {
       this.hojaVidaVo = response.body;
+      // eslint-disable-next-line no-console
+      console.log(this.hojaVidaVo);
       this.urlImageDefault =
         this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
           ? '../../../content/images/Image 28_F.png'
@@ -133,7 +135,10 @@ export class VisualizarHojaVidaComponent implements OnInit {
   consultarInformacionGeografica(): void {
     this.apiService.getInformacionGeografica().subscribe(geografia => {
       this.geografia = geografia;
+      const bogota = { codigoDpto: '100', nombreDpto: 'Bogotá D.C.', codigoMpio: '100000', nombreMpio: 'Bogotá D.C.' };
+      this.geografia.push(bogota);
       this.cargarMunicipios();
+      this.cargarCuentaUsuario();
     });
   }
 
@@ -148,8 +153,23 @@ export class VisualizarHojaVidaComponent implements OnInit {
 
   public getCiudad(codigo: string): string {
     const ciudad = this.municipios.find(item => item.codigo === codigo);
-
+    // eslint-disable-next-line no-console
+    console.log(codigo);
+    // eslint-disable-next-line no-console
+    console.log(ciudad);
     return ciudad?.nombre || '';
+  }
+
+  public getEstado(codigo: number): string {
+    const estado = this.estadoNivelEstudio.find(item => item.codigo === codigo);
+
+    return estado?.nombre || '';
+  }
+
+  public getIdioma(codigo: string): string {
+    const nivelIdioma = this.nivelIdioma.find(item => item.codigo === codigo);
+
+    return nivelIdioma?.nombre || '';
   }
 }
 

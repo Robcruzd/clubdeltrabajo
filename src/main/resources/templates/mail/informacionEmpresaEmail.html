@@ -3,10 +3,10 @@
     <head>
         <title th:text="#{informacionEmpresa.title}">Company Information</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="shortcut icon" th:href="@{|${baseUrl}/favicon.ico|}" />
+        <link rel="shortcut icon" th:href="@{|https://www.clubdeltrabajo.com/favicon.ico|}" />
     </head>
     <body>
-        <img th:src="@{|${baseUrl}/content/images/logo_cdt_fondo.png|}" width="100%" height="100px"/>
+        <img th:src="@{|https://www.clubdeltrabajo.com/content/images/logo_cdt_fondo.png|}" width="100%" height="100px"/>
        	<br/>
         <p th:text="'Nombre: ' + ${informacion.nombre} + ' ' + ${informacion.apellidos}"></p>
         <p th:text="'Correo: ' + ${informacion.email}"></p>

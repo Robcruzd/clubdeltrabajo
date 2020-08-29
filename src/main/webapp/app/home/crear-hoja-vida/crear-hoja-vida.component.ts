@@ -80,8 +80,8 @@ export class CrearHojaVidaComponent implements OnInit {
   redesSociales: Array<IOpcionVo> = commonMessages.ARRAY_REDES_SOCIALES;
   redSocial = ' ';
   cargando = true;
-  CEDULA_REGEX = '^[0-9]{6,10}$';
-  mensajeDocumento: any = '*El documento debe contener de 6 a 10 números';
+  CEDULA_REGEX = '^[0-9]{6,18}$';
+  mensajeDocumento: any = '*El documento debe contener de 6 a 18 números';
   mensajeArchivoDoc: any = '';
   mensajeArchivoTitulo: any = '';
 
@@ -261,11 +261,11 @@ export class CrearHojaVidaComponent implements OnInit {
 
   crearFormularioPerfil(): void {
     this.formPerfil = this.fb.group({
-      perfilProfesional: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.: ]{0,}$')]],
+      perfilProfesional: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.:\n ]{0,}$')]],
       anioExperiencia: [null, [Validators.required]],
       mesExperiencia: [null, [Validators.required]],
       aspiracionSalarial: [null, [Validators.required]],
-      paisPermisoTrabajo: ['', [Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,. ]{0,}$')]]
+      paisPermisoTrabajo: [null]
     });
   }
 
@@ -318,7 +318,7 @@ export class CrearHojaVidaComponent implements OnInit {
         anioExperiencia: hojaVida.informacionPersonal.anioExperiencia,
         mesExperiencia: hojaVida.informacionPersonal.mesExperiencia,
         aspiracionSalarial: hojaVida.informacionPersonal.aspiracionSalarial,
-        paisPermisoTrabajo: hojaVida.informacionPersonal.paisPermisoTrabajo
+        paisPermisoTrabajo: JSON.parse(hojaVida.informacionPersonal.paisPermisoTrabajo!)
       });
 
       this.cargarRedSocial();
@@ -526,6 +526,7 @@ export class CrearHojaVidaComponent implements OnInit {
       // cargar informacion laboral
       const laboral: IInformacionLaboral[] = [];
       for (let index = 0; index < this.experienciaLaboral.length; index++) {
+        console.log('experiencia Laboral: ', this.experienciaLaboral);
         laboral.push(this.procesarExperienciaLaboral(this.experienciaLaboral.at(index).value));
       }
       this.hojaVidaVo.experienciaLaboral = laboral;
@@ -589,7 +590,7 @@ export class CrearHojaVidaComponent implements OnInit {
       aspiracionSalarial: this.formPerfil.get(['aspiracionSalarial'])!.value,
       mudarme: this.valorMudarme,
       viajar: this.valorViajar,
-      paisPermisoTrabajo: this.formPerfil.get(['paisPermisoTrabajo'])!.value,
+      paisPermisoTrabajo: JSON.stringify(this.formPerfil.get(['paisPermisoTrabajo'])!.value),
       usuario: new Persona(this.persona),
       estadoCivil: this.formPersonal.get('estadoCivil')!.value,
       nivelEducativoProfesion: this.formPersonal.get('nivelEducativoProfesion')!.value,
@@ -1333,13 +1334,13 @@ export class CrearHojaVidaComponent implements OnInit {
 
   onChangeTipoDoc(event: any): any {
     if (event.target.selectedOptions[0].label === 'Pasaporte') {
-      this.mensajeDocumento = '*El documento solo puede tener de 6 a 11 carácteres entre minúsculas, mayúsculas y números';
+      this.mensajeDocumento = '*El documento solo puede tener de 6 a 18 carácteres entre minúsculas, mayúsculas y números';
       this.formPersonal.get('numeroDocumento')?.setValue('');
-      this.formPersonal.get('numeroDocumento')?.setValidators([Validators.required, Validators.pattern('^[0-9A-Za-z]{6,11}$')]);
+      this.formPersonal.get('numeroDocumento')?.setValidators([Validators.required, Validators.pattern('^[0-9A-Za-z]{6,18}$')]);
     } else {
-      this.mensajeDocumento = '*El documento debe contener de 6 a 10 números';
+      this.mensajeDocumento = '*El documento debe contener de 6 a 18 números';
       this.formPersonal.get('numeroDocumento')?.setValue('');
-      this.formPersonal.get('numeroDocumento')?.setValidators([Validators.required, Validators.pattern('^[0-9]{6,11}$')]);
+      this.formPersonal.get('numeroDocumento')?.setValidators([Validators.required, Validators.pattern('^[0-9]{6,18}$')]);
     }
   }
 

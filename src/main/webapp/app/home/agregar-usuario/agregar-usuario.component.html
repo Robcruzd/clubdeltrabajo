@@ -48,10 +48,10 @@
                         {{ documento.nombreTipo }}
                     </option>
                 </select>
-                <div *ngIf="tipoDocumento.nombreTipo==='Pasaporte'">
+                <div *ngIf="tipoDocumento.nombreTipo==='Pasaporte'" style="width: 100%;">
                     <input type="text" class="input_documento" style="width: 100%;" [(ngModel)]="persona.numeroDocumento">
                 </div>
-                <div *ngIf="tipoDocumento.nombreTipo!=='Pasaporte'" >
+                <div *ngIf="tipoDocumento.nombreTipo!=='Pasaporte'" style="width: 100%;">
                     <input type="number" class="input_documento" style="width: 100%;" [(ngModel)]="persona.numeroDocumento">
                 </div>
             </div>

@@ -17,5 +17,7 @@ public interface ArchivoRepository extends JpaRepository<Archivo, Long>, JpaSpec
 
     List<Archivo> findByUsuario(Persona usuario);
 
+    List<Archivo> findByUsuarioOrderByTipoAsc(Persona usuario);
+
     Archivo findFirstByUsuarioAndTipoOrderByIdDesc(Persona usuario, Integer tipo);
 }
