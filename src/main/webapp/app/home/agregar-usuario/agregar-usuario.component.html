@@ -73,6 +73,24 @@
                 {{mensajeConfClave}}
             </small>
         </div>
+        <div> 
+            <label style="color: white;">¿Eres humano?</label>
+            <label style="color: white;">¿Cuanto es?</label>
+            <button (click)="crearCaptcha()">
+                <fa-icon icon="sync" style="margin-right: 5px; "></fa-icon>
+            </button>
+            <input type="text" [(ngModel)]="textoCaptcha" disabled>  
+            <label *ngIf="captchaValidado">
+                <fa-icon icon="check-circle" style="margin-right: 5px; color:greenyellow;"></fa-icon>
+            </label>
+            <input type="text" [(ngModel)]="criterioCaptcha"/>
+            <button (click)="validarCaptcha()">
+                Resolver
+            </button>
+            <small *ngIf="mensajeCaptcha" class="text-danger">
+                {{mensajeCaptcha}}
+            </small>
+        </div>
         <button class="btn boton_registrar shadow-none"  style="color:white; " (click)="onCrearUsuario()">Registrarme</button>
         <div class="inputs" style="align-items: center;">
             <div class="terminos">

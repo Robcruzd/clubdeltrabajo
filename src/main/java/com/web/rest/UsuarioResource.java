@@ -1,6 +1,7 @@
 package com.web.rest;
 
 import com.domain.Usuario;
+import com.domain.vo.DatosCaptcha;
 import com.service.UsuarioService;
 import com.web.rest.errors.BadRequestAlertException;
 import com.service.dto.UsuarioCriteria;
@@ -140,5 +141,10 @@ public class UsuarioResource {
         log.debug("REST request to delete Usuario : {}", id);
         usuarioService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+    
+    @GetMapping("/usuarios/validar-captcha")
+    public Boolean validarCaptcha(DatosCaptcha datosCaptcha) {
+        return usuarioQueryService.validarCaptcha(datosCaptcha);
     }
 }

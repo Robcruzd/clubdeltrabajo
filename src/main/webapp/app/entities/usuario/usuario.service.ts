@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IUsuario } from 'app/shared/model/usuario.model';
+import { DatosCaptcha } from '../../shared/vo/datos-captcha';
 
 type EntityResponseType = HttpResponse<IUsuario>;
 type EntityArrayResponseType = HttpResponse<IUsuario[]>;
@@ -12,6 +13,7 @@ type EntityArrayResponseType = HttpResponse<IUsuario[]>;
 @Injectable({ providedIn: 'root' })
 export class UsuarioService {
   public resourceUrl = SERVER_API_URL + 'api/usuarios';
+  public resourceUrlCatpcha = SERVER_API_URL + 'api/usuarios/validar-captcha';
 
   constructor(protected http: HttpClient) {}
 
@@ -34,5 +36,10 @@ export class UsuarioService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  validarCaptcha(datosCaptcha?:DatosCaptcha): Observable<HttpResponse<boolean>>{
+    const options = createRequestOption(datosCaptcha);
+    return this.http.get<boolean>(this.resourceUrlCatpcha, { params: options, observe: 'response' });
   }
 }
