@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import io.github.jhipster.service.QueryService;
 
 import com.domain.Usuario;
+import com.domain.vo.DatosCaptcha;
 import com.domain.*; // for static metamodels
 import com.repository.UsuarioRepository;
 import com.service.dto.UsuarioCriteria;
@@ -82,19 +83,31 @@ public class UsuarioQueryService extends QueryService<Usuario> {
     protected Specification<Usuario> createSpecification(UsuarioCriteria criteria) {
         Specification<Usuario> specification = Specification.where(null);
         if (criteria != null) {
-            if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Usuario_.id));
-            }
-            if (criteria.getUsuario() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getUsuario(), Usuario_.usuario));
-            }
-            if (criteria.getClave() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getClave(), Usuario_.clave));
-            }
-            if (criteria.getEstado() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getEstado(), Usuario_.estado));
-            }
+//            if (criteria.getId() != null) {
+//                specification = specification.and(buildRangeSpecification(criteria.getId(), Usuario_.id));
+//            }
+//            if (criteria.getUsuario() != null) {
+//                specification = specification.and(buildRangeSpecification(criteria.getUsuario(), Usuario_.usuario));
+//            }
+//            if (criteria.getClave() != null) {
+//                specification = specification.and(buildStringSpecification(criteria.getClave(), Usuario_.clave));
+//            }
+//            if (criteria.getEstado() != null) {
+//                specification = specification.and(buildStringSpecification(criteria.getEstado(), Usuario_.estado));
+//            }
         }
         return specification;
+    }
+    
+    @Transactional(readOnly = true)
+    public Boolean validarCaptcha(DatosCaptcha datosCaptcha) {
+    	Integer suma= datosCaptcha.getVar1() + datosCaptcha.getVar2();
+    	if(datosCaptcha.getResult() == suma) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    		
     }
 }
