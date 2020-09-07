@@ -13,8 +13,9 @@
   align-items: center;
 
   .logo {
-    padding-left: 80px;
-    width: 35rem;
+    padding-left: 5.202vw;
+    min-width: 36.411vw;
+    width: 40%;
     opacity: 1;
 
     &:focus {
@@ -36,11 +37,11 @@
       width: 100%;
       flex-direction: row;
       align-items: center;
-      justify-content: space-around;
+      justify-content: space-evenly;
 
       .item {
         text-align: center;
-        font-size: 15px;
+        font-size: 0.975vw;
         font-family: 'Open Sans';
         font-weight: normal;
         letter-spacing: 0px;
@@ -51,12 +52,13 @@
 
     .boton-ingresar,
     .boton-salir {
-      width: 117px;
+      width: 7.607vw;
+      height: 3.121vw;
       background: #2699fb 0% 0% no-repeat padding-box;
-      border-radius: 49px;
+      border-radius: 50rem;
       opacity: 1;
       text-align: center;
-      font-size: 15px;
+      font-size: 0.975vw;
       font-family: 'Open Sans';
       font-weight: normal;
       letter-spacing: 0px;
@@ -68,13 +70,14 @@
       margin: 0rem;
       align-self: center;
       color: #26b1fb;
+      font-size: 0.975vw;
     }
 
     .perfil {
-      margin: -10px 0 0 5px;
-      left: 1122px;
-      width: 56px;
-      height: 56px;
+      margin: -0.65vw 0 0 0.325vw;
+      left: 72.952vw;
+      width: 3.641vw;
+      height: 3.641vw;
       // background: transparent url('img/Image 27.png') 0% 0% no-repeat padding-box;
       opacity: 1;
 
@@ -164,6 +167,7 @@
         margin: 0rem;
         align-self: center;
         color: #26b1fb;
+        font-size: 12px;
       }
 
       .perfil {

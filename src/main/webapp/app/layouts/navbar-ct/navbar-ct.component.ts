@@ -31,8 +31,8 @@ export class NavbarCtComponent implements OnInit {
 
   lstOpcionesMenu: any = [
     { id: 1, etiqueta: 'Inicio', ruta: '/' },
-    { id: 3, etiqueta: 'Contáctenos', ruta: '/informacion-empresa' },
-    { id: 5, etiqueta: 'Registro', ruta: '/agregar-usuario' }
+    { id: 3, etiqueta: 'Contáctenos', ruta: '/informacion-empresa' }
+    // { id: 5, etiqueta: 'Registro', ruta: '/agregar-usuario' }
   ];
 
   constructor(

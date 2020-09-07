@@ -1,5 +1,5 @@
 import { JhiLanguageService } from 'ng-jhipster';
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Persona } from '../../shared/model/persona.model';
 import { commonMessages } from '../../shared/constants/commonMessages';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -42,12 +42,12 @@ export class AgregarUsuarioComponent implements OnInit {
   document = new Document();
   isOpen = false;
   documentos: Array<ITipoDocumento> = [];
-  criterioCaptcha="";
-  textoCaptcha="";
-  var1=0;
-  var2=0;
+  criterioCaptcha = '';
+  textoCaptcha = '';
+  var1 = 0;
+  var2 = 0;
   captchaValidado = false;
-  mensajeCaptcha:any;
+  mensajeCaptcha: any;
 
   constructor(
     private modalService: NgbModal,
@@ -55,7 +55,7 @@ export class AgregarUsuarioComponent implements OnInit {
     private languageService: JhiLanguageService,
     private router: Router,
     private tipoDocumentoService: TipoDocumentoService,
-    private usuarioService:UsuarioService,
+    private usuarioService: UsuarioService
   ) {}
 
   ngOnInit(): void {
@@ -154,7 +154,7 @@ export class AgregarUsuarioComponent implements OnInit {
       this.validacionIncorrecta = true;
     }
 
-    if(!this.captchaValidado){
+    if (!this.captchaValidado) {
       this.mensajeCaptcha = '*Debe resolver el captcha';
       this.validacionIncorrecta = true;
     }
@@ -182,8 +182,6 @@ export class AgregarUsuarioComponent implements OnInit {
             this.ventanaInicioSesion();
           },
           error => {
-            // eslint-disable-next-line no-console
-            console.log('error: ', error);
             alertify.set('notifier', 'position', 'top-right'), alertify.error('Fallo registro de usuario!');
           }
         );
@@ -239,24 +237,25 @@ export class AgregarUsuarioComponent implements OnInit {
       });
   }
 
-  crearCaptcha():any{
-    this.var1= Math.round(Math.random()*5);
-    this.var2= Math.round(Math.random()*5);
-    this.textoCaptcha = this.var1.toString() + " + " + this.var2.toString(); 
+  crearCaptcha(): any {
+    this.var1 = Math.floor(Math.random() * 100);
+    this.var2 = Math.floor(Math.random() * 100);
+    this.textoCaptcha = this.var1.toString() + ' + ' + this.var2.toString();
   }
 
-  validarCaptcha(): any{
+  validarCaptcha(): any {
     this.datosCaptcha = new DatosCaptcha();
-    this.datosCaptcha.var1= this.var1;
-    this.datosCaptcha.var2= this.var2;
-    this.datosCaptcha.result= parseInt(this.criterioCaptcha, 10);
+    this.datosCaptcha.var1 = this.var1;
+    this.datosCaptcha.var2 = this.var2;
+    this.datosCaptcha.result = parseInt(this.criterioCaptcha, 10);
     this.usuarioService.validarCaptcha(this.datosCaptcha).subscribe(response => {
-      if(response.body === true){
+      if (response.body === true) {
         this.captchaValidado = true;
         this.mensajeCaptcha = '';
-      }else{
+      } else {
         this.mensajeCaptcha = '*Suma incorrecta';
         this.captchaValidado = false;
+        this.crearCaptcha();
       }
     });
   }

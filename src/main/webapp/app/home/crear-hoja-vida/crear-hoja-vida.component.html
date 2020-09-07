@@ -45,10 +45,10 @@
                                     </option>
                                 </select>
                                 <!-- <input type="text" class="input_documento" formControlName="numeroDocumento"> -->
-                                <div *ngIf="formPersonal.get('tipoDocumento')!.value?.id===4" class="input_documento">
+                                <div *ngIf="formPersonal.get('tipoDocumento')!.value?.id===4" >
                                     <input type="text" class="input_documento" style="width: 100%;" formControlName="numeroDocumento">
                                 </div>
-                                <div *ngIf="formPersonal.get('tipoDocumento')!.value?.id!==4" class="input_documento">
+                                <div *ngIf="formPersonal.get('tipoDocumento')!.value?.id!==4" >
                                     <input type="number" class="input_documento" style="width: 100%;" formControlName="numeroDocumento">
                                 </div>
                                 <div class="file_upload" >
@@ -236,7 +236,7 @@
                                     <div class="file_upload" style="width: 16%;">                                  
                                         <input type="file" #licencia class="file" accept=".pdf"
                                             (change)="addArchivo($event, tipoArchivo.LICENCIA_CONDUCCION)" />
-                                        <label for="file" style="padding-left: 0.5rem;">
+                                        <label for="file" style="padding-left: 0.520vw;">
                                             <fa-icon icon="images" (click)="licencia.click()" class="float-right"></fa-icon>
                                         </label>
                                         <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="this.cargadoLicencia" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
@@ -298,11 +298,15 @@
                                 <label class="radio-inline">{{labels.GENERO_LABEL}} <span
                                         class="estilo_campo_requerido">*</span></label>
                                 <label class="radio-inline">
-                                    <input type="radio" [value]="labels.MASCULINO" formControlName="genero">
+                                    <div class="div_radiobutton">
+                                        <input class="radio-button" type="radio" [value]="labels.MASCULINO" formControlName="genero">
+                                    </div>
                                     <span class="text-white">{{labels.MASCULINO}}</span>
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" [value]="labels.FEMENINO" formControlName="genero">
+                                    <div class="div_radiobutton">
+                                        <input class="radio-button" type="radio" [value]="labels.FEMENINO" formControlName="genero">
+                                    </div>
                                     <span class="text-white">{{labels.FEMENINO}}</span>
                                 </label>
                             </div>
@@ -315,11 +319,15 @@
                             <div class="notificaciones">
                                 <label class="radio-inline">{{labels.NOTIFICACIONES_LABEL}}</label>
                                 <label class="radio-inline">
-                                    <input type="radio" checked="checked" [value]="labels.SI_LABEL" formControlName="activoNotificaciones">
+                                    <div class="div_radio-noti" >
+                                        <input class="radio-button" type="radio" checked="checked" [value]="labels.SI_LABEL" formControlName="activoNotificaciones">
+                                    </div>
                                     <span class="text-white">{{labels.SI_LABEL}}</span>
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" [value]="labels.NO_LABEL" formControlName="activoNotificaciones">
+                                    <div class="div_radio-noti" >
+                                        <input class="radio-button" type="radio" [value]="labels.NO_LABEL" formControlName="activoNotificaciones">
+                                    </div>
                                     <span class="text-white">{{labels.NO_LABEL}}</span>
                                 </label>
                             </div>
@@ -485,7 +493,7 @@
                     <div class="row">
                         <div class="column">
                             <button type="button" (click)="removeItemInformacionAcademica(indexAcademica)"
-                            class="btn boton_agregar text-white float-right">Quitar Estudio</button>
+                            class="btn boton_quitar text-white float-right">Quitar Estudio</button>
                         </div>
                         <div class="column"></div>
                     </div>
@@ -494,7 +502,7 @@
             <div class="row">
                 <div class="column"></div>
                 <div class="column">
-                    <button style="margin-top: -3rem;" class="btn boton_agregar text-white float-right" (click)="addItemInformacionAcademica()"
+                    <button class="btn boton_agregar text-white float-right" (click)="addItemInformacionAcademica()"
                         type="button">{{labels.AGREGAR_ESTUDIOS_LABEL}}
                     </button>
                 </div>
@@ -537,7 +545,7 @@
                     <div class="row">
                         <div class="column">
                             <button type="button" (click)="removeItemIdioma(indexIdioma)"
-                            class="btn boton_agregar text-white float-right">Quitar Idioma</button>
+                            class="btn boton_quitar text-white float-right">Quitar Idioma</button>
                         </div>
                         <div class="column"></div>
                     </div>
@@ -546,7 +554,7 @@
             <div class="row">
                 <div class="column"></div>
                 <div class="column">
-                    <button style="margin-top: -3rem;" type="button" (click)="addItemIdioma()" class="btn boton_agregar text-white float-right">
+                    <button type="button" (click)="addItemIdioma()" class="btn boton_agregar text-white float-right">
                         {{labels.AGREGAR_IDIOMA_LABEL}}
                     </button>
                 </div>
@@ -576,7 +584,7 @@
                         <div class="form-group-perfil">
                             <p class="estilo_label">{{labels.PERFIL_LABEL}} <span class="estilo_campo_requerido">
                                     *</span></p>
-                            <textarea formControlName="perfilProfesional" class="form-control" rows="5"></textarea>
+                            <textarea formControlName="perfilProfesional" class="form-control text-area" rows="5"></textarea>
                             <small *ngIf="formPerfil.get('perfilProfesional')?.errors?.required"
                                 class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             <small *ngIf="formPerfil.get('perfilProfesional')?.errors?.pattern"
@@ -657,7 +665,7 @@
         </div>
         </ng-container>
         <ng-container formArrayName="experienciaLaboral" *ngIf="step === 2">
-            <div class="ngnum0" style="padding-top: 1rem;">
+            <div class="ngnum0" style="padding-top: 1.04vw;">
                 <p class="estilo_titulo">{{labels.EXPERIENCIA_LABORAL_LABEL}}</p>
                 <ng-container *ngFor="let laboral of experienciaLaboral.controls; index as indexLaboral">
                     <div [formGroupName]="indexLaboral">
@@ -843,7 +851,7 @@
                                         class="estilo_campo_requerido">*</span></p>
                                 <div class='input_group'> 
                                     <select formControlName="cargo" class="select_cargo" (change)="onChangeCargo(indexLaboral, $event)" 
-                                    [ngStyle]="{'width' : cargoElement ? '35%' : '100%', 'borderRadius' : cargoElement ? '' : '1.5rem'}">
+                                    [ngStyle]="{'width' : cargoElement ? '35%' : '100%', 'borderRadius' : cargoElement ? '' : '50rem'}">
                                         <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
                                         <option
                                             [ngValue]="cargo.id === experienciaLaboral.at(indexLaboral).get('cargo')!.value?.id ? experienciaLaboral.at(indexLaboral).get('cargo')!.value : cargo"
@@ -895,7 +903,7 @@
                                         <div class="file_upload">
                                             <input class="file" type="file" #certificadolaboral accept=".pdf"
                                                 (change)="addArchivo($event, tipoArchivo.CERTIFICADO_LABORAL, indexLaboral)">
-                                            <label for="file" (click)="certificadolaboral.click()" style="padding-left: 0.5rem;">
+                                            <label for="file" (click)="certificadolaboral.click()" style="padding-left: 0.52vw;">
                                                 <fa-icon icon="images" class="float-right"></fa-icon>
                                             </label>
                                             <fa-icon [id]="indexLaboral" icon="check-circle" size="2x" class="archivo_subido" style="visibility: hidden;" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
@@ -926,7 +934,9 @@
                             <div class="form-group">
                                 <p class="estilo_label">Estado del empleo</p>
                                 <div class="genero">
-                                    <input style='margin-top: 3px;' type="checkbox" formControlName="trabajoActual" (change)="onChangeTrabajoActual(indexLaboral, $event.target.checked)" [checked]="trabajoActual">
+                                    <div class="div-checkbox">
+                                        <input class="checkbox-estado" style='margin-top: 0.195vw;' type="checkbox" formControlName="trabajoActual" (change)="onChangeTrabajoActual(indexLaboral, $event.target.checked)" [checked]="trabajoActual">
+                                    </div>
                                     <label class="estilo_label">Trabajo actualmente en esta empresa</label>
                                 </div>
                             </div>
@@ -936,7 +946,7 @@
                     <div class="row" >
                         <div class="column">
                             <button type="button" (click)="removeItemExperienciaLaboral(indexLaboral)"
-                            class="btn boton_agregar text-white float-right">Quitar Experiencia</button>
+                            class="btn boton_quitar text-white float-right">Quitar Experiencia</button>
                         </div>
                         <div class="column"></div>
                     </div>
@@ -945,7 +955,7 @@
                 <div class="row" >
                     <div class="column"></div>
                     <div class="column">
-                        <button style="margin-top: -3rem;" type="button" (click)="addItemExperienciaLaboral()"
+                        <button type="button" (click)="addItemExperienciaLaboral()"
                         class="btn boton_agregar text-white float-right">{{labels.AGREGAR_EXPERIENCIA_LABEL}}</button>
                     </div>
                 </div>

@@ -46,8 +46,6 @@ export class ArchivoService {
   }
 
   deleteS3(name: string): any {
-    // eslint-disable-next-line no-console
-    console.log('name: ', name);
     return this.http.post(this.deletes3Service, name, { responseType: 'text' });
   }
 }

@@ -36,7 +36,7 @@
   .estilo_imagen {
     height: 85%;
     position: absolute;
-    right: 5rem;
+    right: 5.202vw;
     bottom: 0rem;
     padding-left: 100%;
     background: transparent 0% 0% no-repeat padding-box;
@@ -44,21 +44,21 @@
   }
 
   .div_centro {
-    border-radius: 2.5rem 2.5rem 2.5rem 2.5rem;
+    border-radius: 2.601vw;
     display: flex;
     flex-direction: column;
     width: 70%;
     height: 100%;
-    padding: 3rem 5rem;
-    margin-left: 3rem;
+    padding: 3.121vw 5.202vw;
+    margin-left: 3.121vw;
     background: transparent linear-gradient(270deg, rgba(48, 69, 128, 0.3) 0%, rgba(26, 32, 80, 1) 100%) 0% 0% no-repeat padding-box;
     z-index: 1;
 
     .titulo2 {
-      width: 26.5rem;
-      height: 8.25rem;
+      width: 27.568vw;
+      height: 8.583vw;
       text-align: left;
-      font: Bold 38px/44px Roboto;
+      font: Bold 2.471vw Roboto;
       letter-spacing: 0px;
       color: #ffffff;
       z-index: 10;
@@ -67,24 +67,24 @@
     }
 
     .texto3 {
-      width: 273px;
-      height: 72px;
+      width: 17.75vw;
+      height: 4.681vw;
       text-align: left;
-      font: Regular 20px/24px Roboto;
+      font: 1.3vw Roboto;
       letter-spacing: 0.4px;
       color: #ffffff;
       opacity: 1;
     }
 
     .boton-buscar-trabajo {
-      width: 295px;
-      height: 48px;
+      width: 19.181vw;
+      height: 3.121vw;
       background: #2699fb 0% 0% no-repeat padding-box;
-      border-radius: 24px;
+      border-radius: 50rem;
       opacity: 1;
-      margin-bottom: 1rem;
+      margin-bottom: 1.04vw;
       text-align: center;
-      font: Bold 16px/19px Arial;
+      font: Bold 1.04vw Arial;
       letter-spacing: 0px;
       color: #ffffff;
       opacity: 1;
@@ -92,20 +92,20 @@
 
     .texto-boton-1 {
       text-align: center;
-      font: Bold 16px/19px Arial;
+      font: Bold 1.04vw Arial;
       letter-spacing: 0px;
       color: #ffffff;
       opacity: 1;
     }
 
     .boton-ofrecer-trabajo {
-      width: 295px;
-      height: 48px;
+      width: 19.181vw;
+      height: 3.121vw;
       background: #fb8826 0% 0% no-repeat padding-box;
-      border-radius: 24px;
+      border-radius: 50rem;
       opacity: 1;
       text-align: center;
-      font: Bold 16px/19px Arial;
+      font: Bold 1.04vw Arial;
       letter-spacing: 0px;
       color: #ffffff;
       opacity: 1;
@@ -169,7 +169,7 @@
         width: auto;
         height: auto;
         text-align: left;
-        font: Regular 15px Roboto;
+        font: 15px Roboto;
         letter-spacing: 0.4px;
         color: #ffffff;
         opacity: 1;

@@ -6,26 +6,53 @@
   .box_perfil {
     display: flex;
     flex-direction: row;
-    min-width: 950px;
+    min-width: 61.769vw;
     width: min-content;
     align-self: center;
-    margin: 2rem 0rem;
-    padding: 2rem 1rem;
+    margin: 2.081vw 0rem;
+    padding: 2.081vw 1.04vw;
 
     .column2 {
       flex-direction: column;
-      min-width: 470px;
+      min-width: 30.559vw;
       align-items: center;
       background: transparent linear-gradient(181deg, #2e437e 0%, #1a2152 100%) 0% 0% no-repeat padding-box;
-      border-radius: 1.875rem;
-      padding: 1rem;
+      border-radius: 1.951vw;
+      padding: 1.04vw;
 
       .texto-hoja-vida {
         text-align: justify;
-        font-size: 12px;
+        font-size: 0.78vw;
         font-family: 'Arial';
         color: #ffffff;
-        padding: 1rem;
+        padding: 1.04vw;
+      }
+
+      .experiencias {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .icono_experiencia {
+          color: white;
+        }
+
+        .texto-experiencia {
+          text-align: justify;
+          font-size: 0.78vw;
+          font-family: 'Arial';
+          color: #ffffff;
+          margin: 0.195vw 0 0 1.3vw;
+        }
+
+        .titulo-experiencia {
+          text-align: justify;
+          font-size: 1.3vw !important;
+          font-weight: bold;
+          font-family: 'Arial';
+          color: #ffffff;
+        }
       }
     }
 
@@ -35,10 +62,10 @@
       align-items: center;
 
       .card-presentacion {
-        margin-bottom: 14px;
-        margin-right: 1rem;
+        margin-bottom: 0.91vw;
+        margin-right: 1.04vw;
         background: #f0f0f0 0% 0% no-repeat padding-box;
-        border-radius: 26px;
+        border-radius: 1.691vw;
         opacity: 1;
 
         .rownamecard {
@@ -49,14 +76,14 @@
         .columncard {
           display: flex;
           flex-direction: column;
-          min-width: 250px;
+          min-width: 16.255vw;
           align-items: center;
         }
 
         .codigo {
-          width: 81px;
-          height: 81px;
-          margin: 1rem;
+          width: 5.267vw;
+          height: 5.267vw;
+          margin: 1.04vw;
           //background: transparent url('../../../content/images/frame.png') 0% 0% no-repeat padding-box;
           mix-blend-mode: multiply;
           opacity: 1;
@@ -64,28 +91,28 @@
         }
 
         .logo {
-          width: 250px;
+          width: 9.753vw;
           opacity: 1;
         }
 
         .foto-perfil {
-          top: 133px;
-          margin-left: 39px;
-          width: 168px;
-          height: 168px;
+          top: 8.648vw;
+          margin-left: 2.536vw;
+          width: 10.923vw;
+          height: 10.923vw;
           //background: transparent url('../../../content/images/Image\ 28.png') 0% 0% no-repeat padding-box;
           opacity: 1;
-          margin-bottom: 7px;
+          margin-bottom: 0.455vw;
         }
 
         .titulo_div {
           align-self: baseline;
-          margin-top: 10px;
-          margin-right: 10px;
+          margin-top: 0.65vw;
+          margin-right: 0.65vw;
 
           .titulo {
             align-self: flex-start;
-            font-size: 22px !important;
+            font-size: 1.43vw !important;
             font-family: 'Arial';
             font-weight: bold;
             color: #072278;
@@ -95,24 +122,25 @@
             align-self: flex-start;
             color: #072278;
             font-weight: bold;
+            font-size: 0.975vw;
           }
 
           .label_card2 {
             color: #645d5d;
-            font-size: 13px;
+            font-size: 0.845vw;
           }
         }
       }
 
       .boton-base {
-        top: 471px;
-        left: 244px;
-        width: 407px;
-        height: 48px;
+        top: 30.624vw;
+        left: 15.865vw;
+        width: 26.463vw;
+        height: 3.121vw;
         opacity: 1;
-        border-radius: 24px;
+        border-radius: 50rem;
         text-align: center;
-        font-size: 12px;
+        font-size: 0.78vw;
         font-family: 'Arial';
         font-weight: bold;
         letter-spacing: 0px;
@@ -121,7 +149,7 @@
 
       .boton-ver-hv {
         background: #020d52 0% 0% no-repeat padding-box;
-        margin-bottom: 1rem;
+        margin-bottom: 1.04vw;
       }
 
       .boton-busca-empleo {
@@ -138,64 +166,37 @@
       }
 
       .procuraduria {
-        width: 60px;
+        width: 3.901vw;
         opacity: 1;
         margin: 0 auto;
       }
 
       .contraloria {
-        width: 88px;
+        width: 5.722vw;
         opacity: 1;
         margin: 0 auto;
       }
 
       .policia {
-        width: 60px;
+        width: 3.901vw;
         opacity: 1;
         margin: 0 auto;
       }
 
       .srvcpolicia {
-        width: 60px;
+        width: 3.091vw;
         opacity: 1;
         margin: 0 auto;
       }
 
       .simit {
-        width: 88px;
+        width: 5.722vw;
         opacity: 1;
         margin: 0 auto;
       }
 
-      .experiencias {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-
-        .icono_experiencia {
-          color: white;
-        }
-
-        .texto-experiencia {
-          text-align: justify;
-          font-size: 12px;
-          font-family: 'Arial';
-          color: #ffffff;
-          margin: 3px 0 0 20px;
-        }
-
-        .titulo-experiencia {
-          text-align: justify;
-          font-size: 20px !important;
-          font-weight: bold;
-          font-family: 'Arial';
-          color: #ffffff;
-        }
-      }
-
       .titulo {
-        font-size: 30px !important;
+        font-size: 1.951vw !important;
         font-family: 'Arial';
         font-weight: bold;
         color: #ffffff;
@@ -212,12 +213,13 @@
       .custom-file-upload {
         border: 1px solid #ccc;
         display: inline-block;
-        padding: 6px 12px;
+        padding: 0.39vw 0.78vw;
         cursor: pointer;
-        margin-left: 39px;
-        width: 168px;
+        margin-left: 2.536vw;
+        width: 10.923vw;
+        font-size: 0.975vw;
         background: #f0f0f0 0% 0% no-repeat padding-box;
-        border-radius: 16px;
+        border-radius: 50rem;
       }
     }
   }
@@ -231,7 +233,7 @@
   .ajs-button.ajs-ok {
     color: #f0f0f0 !important;
     background: #020d52 !important;
-    border-radius: 5px !important;
+    border-radius: 0.325vw !important;
   }
 
   .ajs-header {
@@ -348,6 +350,7 @@
               align-self: flex-start;
               color: #072278;
               font-weight: bold;
+              font-size: 15px;
             }
 
             .label_card2 {
@@ -474,6 +477,7 @@
           cursor: pointer;
           margin-left: 0px;
           width: 75%;
+          font-size: 15px;
           background: #f0f0f0 0% 0% no-repeat padding-box;
           border-radius: 16px;
         }

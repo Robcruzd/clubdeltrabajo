@@ -75,8 +75,6 @@ export class VisualizarHojaVidaComponent implements OnInit {
   getHojaVida(): void {
     this.hojaVidaService.find(this.persona).subscribe(response => {
       this.hojaVidaVo = response.body;
-      // eslint-disable-next-line no-console
-      console.log(this.hojaVidaVo);
       this.urlImageDefault =
         this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
           ? '../../../content/images/Image 28_F.png'
@@ -153,10 +151,6 @@ export class VisualizarHojaVidaComponent implements OnInit {
 
   public getCiudad(codigo: string): string {
     const ciudad = this.municipios.find(item => item.codigo === codigo);
-    // eslint-disable-next-line no-console
-    console.log(codigo);
-    // eslint-disable-next-line no-console
-    console.log(ciudad);
     return ciudad?.nombre || '';
   }
 

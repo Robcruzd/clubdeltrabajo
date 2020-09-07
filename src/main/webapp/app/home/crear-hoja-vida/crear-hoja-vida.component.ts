@@ -526,7 +526,6 @@ export class CrearHojaVidaComponent implements OnInit {
       // cargar informacion laboral
       const laboral: IInformacionLaboral[] = [];
       for (let index = 0; index < this.experienciaLaboral.length; index++) {
-        console.log('experiencia Laboral: ', this.experienciaLaboral);
         laboral.push(this.procesarExperienciaLaboral(this.experienciaLaboral.at(index).value));
       }
       this.hojaVidaVo.experienciaLaboral = laboral;
@@ -636,7 +635,6 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   procesarIdiomas(idioma: Object): IPersonaIdioma {
-    console.log('object idioma: ', idioma);
     return {
       ...new PersonaIdioma(),
       id: idioma['id'],
@@ -958,7 +956,6 @@ export class CrearHojaVidaComponent implements OnInit {
               let archivostemp: IArchivo[] = [];
               this.archivos.forEach(element => {
                 if (element.tipo === TipoArchivo.LICENCIA_CONDUCCION) {
-                  console.log(element.archivo?.toString()!, '   ', element.id!);
                   this.archivo.deleteS3(element.archivo?.toString()!).subscribe((res: any) => {
                     console.log(res);
                   });

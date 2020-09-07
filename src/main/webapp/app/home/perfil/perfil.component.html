@@ -54,25 +54,25 @@
                                 <p class="texto-experiencia color-letra">{{item?.fechaInicio}} / {{item?.fechaFin}}</p>
                             </div>
                         </div>
-                        <div *ngIf="item?.ciudad || item.ciudadExtranjera" style="display: flex; margin-bottom: 20px;">                        
+                        <div *ngIf="item?.ciudad || item.ciudadExtranjera" style="display: flex; margin-bottom: 1.3vw;">                        
                             <fa-icon icon="globe-americas" class="icono_experiencia color-letra"></fa-icon>&nbsp;
                             <p class="texto-experiencia color-letra">{{item.ciudad ? this.getCiudad(item.ciudad + '') : item.ciudadExtranjera}}</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="text-center" style="margin-bottom: 40px; width: 100%;">
+            <div class="text-center" style="margin-bottom: 2.601vw; width: 100%;">
                 <button (click)="verHojaVida()" class="btn ml-auto shadow-none boton-base boton-ver-hv">{{lblVerHojaVida}}</button>
                 <button class="btn ml-auto shadow-none boton-base boton-busca-empleo" style="display: none;">
-                    <fa-icon icon="suitcase" style="margin-right: 5px; "></fa-icon>
+                    <fa-icon icon="suitcase" style="margin-right: 0.325vw; "></fa-icon>
                     {{lblBuscaEmpleo}}
                 </button>
                 <button class="btn ml-auto shadow-none boton-base boton-ver-ofertas" style="display: none;">
-                    <fa-icon icon="bell" style="margin-right: 5px; display: none;"></fa-icon>
+                    <fa-icon icon="bell" style="margin-right: 0.325vw; display: none;"></fa-icon>
                     {{lblVerOfertas}}
                 </button>
                 <button (click)="editarHojaVida()" class="btn ml-auto shadow-none boton-base boton-busca-empleo">
-                    <fa-icon icon="id-card" style="margin-right: 5px;"></fa-icon>
+                    <fa-icon icon="id-card" style="margin-right: 0.325vw;"></fa-icon>
                     {{lblEditarHojaVida}}
                 </button>
             </div>
@@ -87,10 +87,10 @@
             </div>
         </div>
         <div class="column2 hdvDesktop">
-            <h2 class="titulo color-letra" style="text-align: center;">{{persona?.nombre}} {{persona?.apellido}}</h2>
+            <h2 class="titulo color-letra" style="text-align: center; font-size: 2.601vw;">{{persona?.nombre}} {{persona?.apellido}}</h2>
             <p class="texto-hoja-vida color-letra">{{hojaVidaVo?.informacionPersonal?.perfilProfesional}}</p><br><br>
             <div *ngIf="hojaVidaVo?.experienciaLaboral.length > 0" class="experiencias">
-                <h4 class="titulo-experiencia color-letra">EXPERIENCIA LABORAL</h4><br>
+                <h4 class="titulo-experiencia color-letra" style="font-size: 1.463vw;">EXPERIENCIA LABORAL</h4><br>
                 <div *ngFor="let item of hojaVidaVo?.experienciaLaboral">
                     <div style="display: flex;">
                         <fa-icon icon="building" class="icono_experiencia color-letra"></fa-icon>&nbsp;
@@ -109,7 +109,7 @@
                             <p class="texto-experiencia color-letra">{{item?.fechaInicio}} / {{item?.fechaFin}}</p>
                         </div>
                     </div>
-                    <div *ngIf="item?.ciudad || item.ciudadExtranjera" style="display: flex; margin-bottom: 20px;">                        
+                    <div *ngIf="item?.ciudad || item.ciudadExtranjera" style="display: flex; margin-bottom: 1.3vw;">                        
                         <fa-icon icon="globe-americas" class="icono_experiencia color-letra"></fa-icon>&nbsp;
                         <p class="texto-experiencia color-letra">{{item.ciudad ? this.getCiudad(item.ciudad + '') : item.ciudadExtranjera}}</p>
                     </div>

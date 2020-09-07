@@ -27,12 +27,12 @@ export class NuevoCorreoComponent implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute, private router: Router, private passwordResetFinishService: PasswordResetFinishService) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      if (params['key']) {
-        this.key = params['key'];
-      }
-      this.initialized = true;
-    });
+    // this.route.queryParams.subscribe(params => {
+    //   if (params['key']) {
+    //     this.key = params['key'];
+    //   }
+    //   this.initialized = true;
+    // });
   }
 
   ngAfterViewInit(): void {

@@ -95,8 +95,6 @@ export class PerfilComponent implements OnInit {
           })
           .show();
       }
-      // eslint-disable-next-line no-console
-      console.log(this.hojaVidaVo);
     });
   }
 

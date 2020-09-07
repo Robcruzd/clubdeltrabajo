@@ -14,7 +14,7 @@
             </small>
         </div>
         <div class="inputs">
-            <label style="color: white;">Nombre</label>
+            <label style="color: white;">Nombres</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="persona.nombre"  (ngModelChange)="persona.nombre = $event.toUpperCase()">
             <small *ngIf="mensajeNombre" class="text-danger">
                 {{mensajeNombre}}
@@ -73,20 +73,25 @@
                 {{mensajeConfClave}}
             </small>
         </div>
-        <div> 
-            <label style="color: white;">¿Eres humano?</label>
-            <label style="color: white;">¿Cuanto es?</label>
-            <button (click)="crearCaptcha()">
-                <fa-icon icon="sync" style="margin-right: 5px; "></fa-icon>
-            </button>
-            <input type="text" [(ngModel)]="textoCaptcha" disabled>  
-            <label *ngIf="captchaValidado">
-                <fa-icon icon="check-circle" style="margin-right: 5px; color:greenyellow;"></fa-icon>
-            </label>
-            <input type="text" [(ngModel)]="criterioCaptcha"/>
-            <button (click)="validarCaptcha()">
-                Resolver
-            </button>
+        <div class="inputs">
+            <div class="row">
+                <label style="color: white;">¿Cuanto es?</label>
+            </div>
+            <div class="row_documento">
+                <button class="icon-reload" (click)="crearCaptcha()">
+                    <fa-icon icon="sync"></fa-icon>
+                </button>
+                <input class="input-question" type="text" [(ngModel)]="textoCaptcha" disabled>  
+                <label *ngIf="captchaValidado">
+                    <fa-icon icon="check-circle" class="validado" size="2x" style="margin-right: 0.325vw; color:greenyellow;"></fa-icon>
+                </label>
+            </div>
+            <div class="row_documento" style="margin-top: 0.520vw;">
+                <input class="input-answer" type="text" [(ngModel)]="criterioCaptcha"/>
+                <button class="button-resolver" (click)="validarCaptcha()">
+                    Resolver
+                </button>
+            </div>
             <small *ngIf="mensajeCaptcha" class="text-danger">
                 {{mensajeCaptcha}}
             </small>
