@@ -181,6 +181,7 @@ export class AgregarUsuarioComponent implements OnInit {
           () => {
             this.ventanaInicioSesion();
           },
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           error => {
             alertify.set('notifier', 'position', 'top-right'), alertify.error('Fallo registro de usuario!');
           }
