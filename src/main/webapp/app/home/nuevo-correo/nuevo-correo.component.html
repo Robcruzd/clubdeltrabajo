@@ -3,17 +3,28 @@
     <div class="div_centro">
         <h3 class="titulo1">Cambiar contraseña</h3>
         <div class="inputs">
-            <input class="estilo_input" maxlength="30" type="password" name="nombre" [(ngModel)]="password"
+            <div class="row_documento" style="margin-top: 0.520vw;">
+                <input class="input-answer" maxlength="30" [type]="inputPrimero" name="nombre" [(ngModel)]="password"
                 placeholder="Nueva contraseña" [ngModelOptions]="{standalone: true}">
-            <label *ngIf="mensajeClave" class="text-danger">
-                {{mensajeClave}}
-            </label>
-            <input class="estilo_input" maxlength="30" type="password" name="nombre" [(ngModel)]="confirmPassword"
+                <button class="button-resolver" (click)="clicPrimerInput()">
+                    <img class="icono" [src]="eyePrimero">
+                </button>
+                <label *ngIf="mensajeClave" class="text-danger">
+                    {{mensajeClave}}
+                </label>
+            </div>
+            <div class="row_documento" style="margin-top: 0.520vw;">
+                <input class="input-answer" maxlength="30" [type]="inputSegundo" name="nombre" [(ngModel)]="confirmPassword"
                 placeholder="Confirmar contraseña" [ngModelOptions]="{standalone: true}">
-            <label *ngIf="mensajeConfClave" class="text-danger">
-                {{mensajeConfClave}}
-            </label>
+                <button class="button-resolver" (click)="clicSegundoInput()">
+                    <img class="icono" [src]="eyeSegundo">
+                </button>
+                <label *ngIf="mensajeConfClave" class="text-danger">
+                    {{mensajeConfClave}}
+                </label>
+            </div>
         </div>
+        <br/>
         <button class="button_cambiar_contrasenia" (click)="confirmarPassword()">Cambiar</button>
     </div>
 </div>

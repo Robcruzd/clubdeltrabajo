@@ -16,6 +16,8 @@ export class InicioSesionComponent implements OnInit {
   usernameInvalid = false;
   passwordInvalid = false;
   login = new Login(this.username, this.password, false);
+  eyePrimero = "../../../content/images/eye.svg";
+  inputPrimero = "password";
 
   constructor(private router: Router, private loginService: LoginService) {}
 
@@ -59,4 +61,16 @@ export class InicioSesionComponent implements OnInit {
     }
     this.router.navigate(['/inicio-sesion']);
   }
+
+  clicPrimerInput():void{
+    if(this.eyePrimero === "../../../content/images/eye.svg"){
+      this.eyePrimero = "../../../content/images/eye-slash.svg";
+      this.inputPrimero = "text";
+    }
+    else{
+      this.eyePrimero = "../../../content/images/eye.svg";
+      this.inputPrimero = "password";
+    }
+  }
+
 }

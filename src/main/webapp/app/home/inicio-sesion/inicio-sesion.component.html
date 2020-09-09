@@ -9,8 +9,13 @@
             Este campo es obligatorio.
         </small>
         <br>
-        <input class="input_inicio_sesion" maxlength="30" type="password" name="password" [(ngModel)]="login.password"
+        <div class="row_documento" style="margin-top: 0.520vw;">
+            <input class="input-answer" maxlength="30" [type]="inputPrimero" name="password" [(ngModel)]="login.password"
             placeholder="Contraseña" [ngModelOptions]="{standalone: true}">
+            <button class="button-resolver" (click)="clicPrimerInput()">
+                <img class="icono" [src]="eyePrimero">
+            </button>
+        </div>
         <small class="form-text text-danger" style="margin-top: 0px;" *ngIf="passwordInvalid">
             Este campo es obligatorio.
         </small>

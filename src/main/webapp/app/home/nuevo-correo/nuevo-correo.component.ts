@@ -23,6 +23,10 @@ export class NuevoCorreoComponent implements OnInit, AfterViewInit {
   claveNoEnviada = commonMessages.FALTA_CLAVE_REINICIO_LABEL;
   mensajeConfClave: any;
   mensajeClave: any;
+  eyePrimero = "../../../content/images/eye.svg";
+  eyeSegundo = "../../../content/images/eye.svg";
+  inputPrimero = "password";
+  inputSegundo = "password";
 
   constructor(private route: ActivatedRoute, private router: Router, private passwordResetFinishService: PasswordResetFinishService) {}
 
@@ -84,5 +88,27 @@ export class NuevoCorreoComponent implements OnInit, AfterViewInit {
     alertify.set('notifier', 'position', 'top-right');
     alertify.success('Actualizado correctamente!');
     this.router.navigate(['/inicio-sesion']);
+  }
+
+  clicPrimerInput():void{
+    if(this.eyePrimero === "../../../content/images/eye.svg"){
+      this.eyePrimero = "../../../content/images/eye-slash.svg";
+      this.inputPrimero = "text";
+    }
+    else{
+      this.eyePrimero = "../../../content/images/eye.svg";
+      this.inputPrimero = "password";
+    }
+  }
+
+  clicSegundoInput():void{
+    if(this.eyeSegundo === "../../../content/images/eye.svg"){
+      this.eyeSegundo = "../../../content/images/eye-slash.svg";
+      this.inputSegundo = "text";
+    }
+    else{
+      this.eyeSegundo = "../../../content/images/eye.svg";
+      this.inputSegundo = "password";
+    }
   }
 }
