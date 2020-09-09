@@ -49,6 +49,11 @@ export class AgregarUsuarioComponent implements OnInit {
   captchaValidado = false;
   mensajeCaptcha: any;
 
+  eyePrimero = "../../../content/images/eye.svg";
+  eyeSegundo = "../../../content/images/eye.svg";
+  inputPrimero = "password";
+  inputSegundo = "password";
+
   constructor(
     private modalService: NgbModal,
     private personaService: PersonaService,
@@ -259,5 +264,27 @@ export class AgregarUsuarioComponent implements OnInit {
         this.crearCaptcha();
       }
     });
+  }
+
+  clicPrimerInput():void{
+    if(this.eyePrimero === "../../../content/images/eye.svg"){
+      this.eyePrimero = "../../../content/images/eye-slash.svg";
+      this.inputPrimero = "text";
+    }
+    else{
+      this.eyePrimero = "../../../content/images/eye.svg";
+      this.inputPrimero = "password";
+    }
+  }
+
+  clicSegundoInput():void{
+    if(this.eyeSegundo === "../../../content/images/eye.svg"){
+      this.eyeSegundo = "../../../content/images/eye-slash.svg";
+      this.inputSegundo = "text";
+    }
+    else{
+      this.eyeSegundo = "../../../content/images/eye.svg";
+      this.inputSegundo = "password";
+    }
   }
 }

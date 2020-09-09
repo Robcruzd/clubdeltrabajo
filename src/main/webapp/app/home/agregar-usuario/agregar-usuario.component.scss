@@ -75,6 +75,37 @@
       display: flex;
       flex-direction: column;
 
+      .iconoEye {
+        width: 1.248vw;
+        height: 1.248vw;
+        margin-right: 0.52vw;
+      }
+
+      .contra {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border-radius: 50rem;
+        font-size: 0.975vw;
+
+        .input-contra {
+          border-width: 0rem;
+          height: 3.121vw;
+          border-radius: 50rem;
+          width: 80%;
+          padding: 0rem 1.04vw;
+        }
+
+        .button-eye {
+          border-width: 0rem;
+          width: 20%;
+          border-radius: 0rem 50rem 50rem 0rem;
+          background: #2699fb 0% 0% no-repeat padding-box;
+          color: white;
+        }
+      }
+
       .estilo_inputs {
         padding-left: 1.56vw;
         width: 100%;

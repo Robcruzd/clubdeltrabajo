@@ -61,14 +61,24 @@
         </div>
         <div class="inputs">
             <label style="color: white;">Contraseña</label>
-            <input type="password" class="estilo_inputs" [(ngModel)]="user.password">
+            <div class="contra" style="margin-top: 0.520vw;">
+                <input class="input-contra" maxlength="30" [type]="inputPrimero" [(ngModel)]="user.password">
+                <button class="button-eye" (click)="clicPrimerInput()">
+                    <img class="iconoEye" [src]="eyePrimero">
+                </button>
+            </div>
             <small *ngIf="mensajeClave" class="text-danger">
                 {{mensajeClave}}
             </small>
         </div>
         <div class="inputs">
             <label style="color: white;">Confirmar Contraseña</label>
-            <input type="password" class="estilo_inputs" [(ngModel)]="ConfirmarClave">
+            <div class="contra" style="margin-top: 0.520vw;">
+                <input class="input-contra" maxlength="30" [type]="inputSegundo" [(ngModel)]="ConfirmarClave">
+                <button class="button-eye" (click)="clicSegundoInput()">
+                    <img class="iconoEye" [src]="eyeSegundo">
+                </button>
+            </div>
             <small *ngIf="mensajeConfClave" class="text-danger">
                 {{mensajeConfClave}}
             </small>
