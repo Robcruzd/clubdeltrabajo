@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../../core/login/login.service';
 import { Login } from '../../core/login/login.model';
+import { flatMap } from 'rxjs/operators';
+import { ActivateService } from 'app/account/activate/activate.service';
 
 declare let alertify: any;
 
@@ -16,12 +18,24 @@ export class InicioSesionComponent implements OnInit {
   usernameInvalid = false;
   passwordInvalid = false;
   login = new Login(this.username, this.password, false);
-  eyePrimero = "../../../content/images/eye.svg";
-  inputPrimero = "password";
+  eyePrimero = '../../../content/images/eye.svg';
+  inputPrimero = 'password';
 
-  constructor(private router: Router, private loginService: LoginService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private activateService: ActivateService,
+    private router: Router,
+    private loginService: LoginService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.queryParams.pipe(flatMap(params => this.activateService.get(params.key))).subscribe(
+      // eslint-disable-next-line no-console
+      () => console.log('success'),
+      // eslint-disable-next-line no-console
+      () => console.log('error')
+    );
+  }
 
   ventanaRegistrar(): void {
     this.router.navigate(['/agregar-usuario']);
@@ -62,15 +76,13 @@ export class InicioSesionComponent implements OnInit {
     this.router.navigate(['/inicio-sesion']);
   }
 
-  clicPrimerInput():void{
-    if(this.eyePrimero === "../../../content/images/eye.svg"){
-      this.eyePrimero = "../../../content/images/eye-slash.svg";
-      this.inputPrimero = "text";
-    }
-    else{
-      this.eyePrimero = "../../../content/images/eye.svg";
-      this.inputPrimero = "password";
+  clicPrimerInput(): void {
+    if (this.eyePrimero === '../../../content/images/eye.svg') {
+      this.eyePrimero = '../../../content/images/eye-slash.svg';
+      this.inputPrimero = 'text';
+    } else {
+      this.eyePrimero = '../../../content/images/eye.svg';
+      this.inputPrimero = 'password';
     }
   }
-
 }

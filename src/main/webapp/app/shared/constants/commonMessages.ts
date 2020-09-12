@@ -115,8 +115,12 @@ export const commonMessages = {
   DIRECCION_RED_SOCIAL: 'Dirección red social ',
   NOMBRE_ARCHIVO_DEFAULT: 'archivo',
   RECUPERACION_PASSWORD_LABEL:
-    'Revise su correo electrónico para obtener más ' +
-    'información sobre cómo restablecer su contraseña. ' +
+    'Revisa tu correo electrónico para obtener más ' +
+    'información sobre cómo restablecer tu contraseña. ' +
+    'Si no te llegó el correo a la bandeja de entrada, revisa en Correos no deseados.',
+  ACTIVACION_CUENTA_LABEL:
+    'Revisa tu correo electrónico para obtener más ' +
+    'información sobre cómo activar tu cuenta. ' +
     'Si no te llegó el correo a la bandeja de entrada, revisa en Correos no deseados.',
   CORREO_NO_EXISTE_LABEL: 'El correo electrónico ingresado no pertenece a ningún usuario. ' + 'Digite nuevamente.',
   FALTA_CLAVE_REINICIO_LABEL: 'Falta clave de reinicio.',

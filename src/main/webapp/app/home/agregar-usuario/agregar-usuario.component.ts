@@ -48,11 +48,12 @@ export class AgregarUsuarioComponent implements OnInit {
   var2 = 0;
   captchaValidado = false;
   mensajeCaptcha: any;
+  mensajeActivacionCuenta = commonMessages.ACTIVACION_CUENTA_LABEL;
 
-  eyePrimero = "../../../content/images/eye.svg";
-  eyeSegundo = "../../../content/images/eye.svg";
-  inputPrimero = "password";
-  inputSegundo = "password";
+  eyePrimero = '../../../content/images/eye.svg';
+  eyeSegundo = '../../../content/images/eye.svg';
+  inputPrimero = 'password';
+  inputSegundo = 'password';
 
   constructor(
     private modalService: NgbModal,
@@ -174,7 +175,7 @@ export class AgregarUsuarioComponent implements OnInit {
       this.persona.tipoDocumento = this.tipoDocumento;
       this.user.login = this.persona.email;
       this.user.email = this.persona.email;
-      this.user.activated = true;
+      this.user.activated = false;
       this.user.createdBy = 'admin';
       this.user.firstName = this.persona.nombre;
       this.user.lastName = this.persona.apellido;
@@ -211,7 +212,18 @@ export class AgregarUsuarioComponent implements OnInit {
   ventanaInicioSesion(): void {
     alertify.set('notifier', 'position', 'top-right');
     alertify.success('Ingresado correctamente!');
-    this.router.navigate(['/inicio-sesion']);
+    alertify
+      .alert()
+      .setting({
+        label: 'Entendido',
+        title: '<b> INFORMACIÓN </b>',
+        onok: () => {
+          this.ventanaInicioSesionRegistrado();
+        }
+      })
+      .setContent('<p>' + this.mensajeActivacionCuenta + '</p>')
+      .show();
+    // this.router.navigate(['/inicio-sesion']);
   }
 
   ventanaInicioSesionRegistrado(): void {
@@ -266,25 +278,23 @@ export class AgregarUsuarioComponent implements OnInit {
     });
   }
 
-  clicPrimerInput():void{
-    if(this.eyePrimero === "../../../content/images/eye.svg"){
-      this.eyePrimero = "../../../content/images/eye-slash.svg";
-      this.inputPrimero = "text";
-    }
-    else{
-      this.eyePrimero = "../../../content/images/eye.svg";
-      this.inputPrimero = "password";
+  clicPrimerInput(): void {
+    if (this.eyePrimero === '../../../content/images/eye.svg') {
+      this.eyePrimero = '../../../content/images/eye-slash.svg';
+      this.inputPrimero = 'text';
+    } else {
+      this.eyePrimero = '../../../content/images/eye.svg';
+      this.inputPrimero = 'password';
     }
   }
 
-  clicSegundoInput():void{
-    if(this.eyeSegundo === "../../../content/images/eye.svg"){
-      this.eyeSegundo = "../../../content/images/eye-slash.svg";
-      this.inputSegundo = "text";
-    }
-    else{
-      this.eyeSegundo = "../../../content/images/eye.svg";
-      this.inputSegundo = "password";
+  clicSegundoInput(): void {
+    if (this.eyeSegundo === '../../../content/images/eye.svg') {
+      this.eyeSegundo = '../../../content/images/eye-slash.svg';
+      this.inputSegundo = 'text';
+    } else {
+      this.eyeSegundo = '../../../content/images/eye.svg';
+      this.inputSegundo = 'password';
     }
   }
 }
