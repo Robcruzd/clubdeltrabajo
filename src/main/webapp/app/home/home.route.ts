@@ -11,6 +11,7 @@ import { RestaurarContrasenaComponent } from './restaurar-contrasena/restaurar-c
 import { NuevoCorreoComponent } from './nuevo-correo/nuevo-correo.component';
 import { InformacionEmpresaComponent } from './informacion-empresa/informacion-empresa.component';
 import { VisualizarHojaVidaComponent } from './visualizar-hoja-vida/visualizar-hoja-vida.component';
+import { SolicitarRegistroComponent } from './solicitar-registro/solicitar-registro.component';
 
 export const HOME_ROUTE: Routes = [
   {
@@ -94,6 +95,13 @@ export const HOME_ROUTE: Routes = [
   {
     path: 'visualizar-hoja-vida',
     component: VisualizarHojaVidaComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
+  },
+  {
+    path: 'solicitar-registro',
+    component: SolicitarRegistroComponent,
     data: {
       pageTitle: 'home.title'
     }

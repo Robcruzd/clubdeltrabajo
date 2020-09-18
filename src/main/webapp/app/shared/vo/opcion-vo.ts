@@ -7,3 +7,8 @@ export interface IOpcionVoDescripcion {
   codigo: string | number;
   descripcion: string;
 }
+
+export interface IOpcionVoMunicipio {
+  codigo: string | number;
+  municipio: string;
+}

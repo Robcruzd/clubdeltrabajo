@@ -165,7 +165,7 @@ jhipster:
   #     allow-credentials: true
   #     max-age: 1800
   mail:
-    from: ctProject@localhost
+    from: info@clubdeltrabajo.com
   swagger:
     default-include-pattern: /api/.*
     title: ctProject API

@@ -37,23 +37,34 @@ export class BuscarTrabajoComponent implements OnInit {
     this.ciudades = [];
     const filterValue = value.toLowerCase();
     for (const valor of this.data) {
-      this.ciudades.push(valor.municipio);
+      this.ciudades.push(valor.municipio + ' (' + valor.departamento + ')');
     }
-    return this.ciudades.filter(option => option.toLowerCase().includes(filterValue));
+    // eslint-disable-next-line no-console
+    console.log(this.ciudades);
+    return this.ciudades.filter(option => option.toLowerCase().startsWith(filterValue)).sort();
   }
 
   private _filterProfesiones(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.profesiones.filter(option => option.toLowerCase().includes(filterValue));
+    return this.profesiones.filter(option => option.toLowerCase().includes(filterValue)).sort();
   }
 
   traerCiudad(): void {
     this.ciudadServices.getCiudades().subscribe(response => {
       this.data = response;
-      this.filteredOptionsCiudades = this.myControlCiudades.valueChanges.pipe(
-        startWith(''),
-        map(value => this._filterCiudades(value))
-      );
+      // eslint-disable-next-line no-console
+      console.log('response: ', response);
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      const bogota = {
+        c_digo_dane_del_departamento: '5',
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        c_digo_dane_del_municipio: '5001',
+        departamento: 'Bogotá D.C.',
+        region: 'Región Centro Oriente',
+        municipio: 'Bogotá D.C.'
+      };
+      this.data.push(bogota);
+      this.filteredOptionsCiudades = this.myControlCiudades.valueChanges.pipe(map(value => this._filterCiudades(value)));
     });
   }
 

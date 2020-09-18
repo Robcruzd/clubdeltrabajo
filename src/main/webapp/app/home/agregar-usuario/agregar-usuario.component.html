@@ -2,12 +2,12 @@
     <img class="estilo_logo" src="../../../content/images/logo_cdt_fondo2.png">
     <div class="div_centro">
         <p class="estilo_titulo">Regístrate y entra al club.</p>
-        <div class="inputs" style="text-align: center; display: none;">
+        <div class="inputs" style="text-align: center;">
             <div class="typePersona">
                 <label style="color: white; ">Persona Natural </label>
                 <input type="radio" value="1" name="usuario" [(ngModel)]="tipoUsuario.id" ngChecked="true" />
-                <label style="color: white; display: none;">Persona Jurídica </label>
-                <input style="display: none;" type="radio" value="juridica" name="usuario" ngModel>
+                <label style="color: white;">Persona Jurídica </label>
+                <input type="radio" value="juridica" name="usuario" ngModel>
             </div>
             <small *ngIf="mensajeTipoPersona" class="text-danger">
                 {{mensajeTipoPersona}}

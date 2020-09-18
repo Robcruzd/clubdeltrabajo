@@ -1,0 +1,46 @@
+.estilo_body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  min-width: 100vw;
+  min-height: 80vh;
+  height: 100% !important;
+  background-image: url('../../../content/images/BuscarTrabajo.jpg');
+  background-color: #cccccc;
+  /* Used if the image is unavailable */
+  background-position: center;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: cover;
+  //background: transparent linear-gradient(0deg, #314681 0%, #1a2050 100%) 0% 0% no-repeat padding-box;
+
+  .titulo {
+    //font: bold 26px 'Roboto';
+    font-size: 26px;
+    font-family: 'Roboto';
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    opacity: 1;
+  }
+
+  .registro_empresa {
+    width: 220px;
+    height: 43px;
+    background: #2699fb 0% 0% no-repeat padding-box;
+    border-radius: 24px;
+    opacity: 1;
+  }
+
+  .solucion_para_tu_empresa {
+    width: 220px;
+    height: 43px;
+    background: #fb8826 0% 0% no-repeat padding-box;
+    border-radius: 24px;
+    opacity: 1;
+  }
+}

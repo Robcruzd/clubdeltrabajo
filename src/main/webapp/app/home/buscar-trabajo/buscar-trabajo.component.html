@@ -6,7 +6,7 @@
             <input type="text" placeholder="{{lblSeleccioneProfesion}}" [formControl]="myControlProfesiones"
                 [matAutocomplete]="autoProfesiones" class="inputCiudades icon login">
             <mat-autocomplete #autoProfesiones="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptionsProfesiones | async" [value]="option">
+                <mat-option *ngFor="let option of filteredOptionsProfesiones | async" [value]="option" style="font-weight: bold;">
                     {{option}}
                 </mat-option>
             </mat-autocomplete>
@@ -16,7 +16,7 @@
             <input type="text" placeholder="{{lblSeleccioneCiudad}}" [matAutocomplete]="autoCiudades"
                 [formControl]="myControlCiudades" class="inputCiudades">
             <mat-autocomplete #autoCiudades="matAutocomplete">
-                <mat-option *ngFor="let datos of filteredOptionsCiudades | async" [value]="datos">
+                <mat-option *ngFor="let datos of filteredOptionsCiudades | async" [value]="datos" style="font-weight: bold;">
                     {{datos}}
                 </mat-option>
             </mat-autocomplete>
