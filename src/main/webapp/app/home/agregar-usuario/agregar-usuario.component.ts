@@ -49,6 +49,7 @@ export class AgregarUsuarioComponent implements OnInit {
   captchaValidado = false;
   mensajeCaptcha: any;
   mensajeActivacionCuenta = commonMessages.ACTIVACION_CUENTA_LABEL;
+  Politicas = commonMessages.POLITICAS;
 
   eyePrimero = '../../../content/images/eye.svg';
   eyeSegundo = '../../../content/images/eye.svg';

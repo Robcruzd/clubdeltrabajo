@@ -24,9 +24,9 @@
   align-content: center;
   align-items: center;
   width: 100%;
-  min-width: 100vw;
+  min-width: 98vw;
   min-height: 80vh;
-  height: 100% !important;
+  height: 100%;
   background-image: url('../../../content/images/FondoRegistro.jpg');
   background-color: #666666; /* Used if the image is unavailable */
   background-position: center; /* Center the image */
@@ -39,7 +39,7 @@
     align-items: center;
     border-radius: 2.601vw;
     width: 26.196vw;
-    min-height: 90vh;
+    // min-height: 80vh;
     height: 100%;
     padding: 2.081vw;
     z-index: 1;
@@ -255,7 +255,7 @@
     align-content: center;
     align-items: center;
     width: 100%;
-    min-width: 100vw;
+    min-width: 98vw;
     min-height: 100vh;
     background: transparent linear-gradient(0deg, #314681 0%, #1a2050 100%) 0% 0% no-repeat padding-box;
 
@@ -267,7 +267,7 @@
 
     .div_centro {
       width: 80%;
-      min-height: 90vh;
+      min-height: 80vh;
       height: 100%;
       padding: 0rem;
       background: initial;
@@ -337,6 +337,37 @@
           .input-answer {
             padding: 0.8rem 1rem;
             height: auto;
+          }
+        }
+
+        .iconoEye {
+          width: 1.2rem;
+          height: 1.2rem;
+          margin-right: 0.5rem;
+        }
+
+        .contra {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          background: #ffffff 0% 0% no-repeat padding-box;
+          border-radius: 50rem;
+          font-size: 0.938rem;
+
+          .input-contra {
+            border-width: 0rem;
+            height: 3rem;
+            border-radius: 50rem;
+            width: 80%;
+            padding: 0rem 1rem;
+          }
+
+          .button-eye {
+            border-width: 0rem;
+            width: 20%;
+            border-radius: 0rem 50rem 50rem 0rem;
+            background: #2699fb 0% 0% no-repeat padding-box;
+            color: white;
           }
         }
       }

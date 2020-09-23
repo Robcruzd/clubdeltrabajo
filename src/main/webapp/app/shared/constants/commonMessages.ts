@@ -273,5 +273,214 @@ export const commonMessages = {
     { codigo: 16, nombre: 'Especialización Técnica' }
   ],
   PROFESION_LABEL: 'Profesión',
-  NUMERO_VECES_EXCEDIDO: 'Solamente es permitido 2 archivos por registro.'
+  NUMERO_VECES_EXCEDIDO: 'Solamente es permitido 2 archivos por registro.',
+  POLITICAS:
+    'En cumplimiento de la normativa vigente en materia de Protección de Datos (Ley 1581 de ' +
+    'Protección de Datos de carácter personal), Todo Usuario acepta, desde el mismo momento ' +
+    'en el que accede, el contenido de las presentes Condiciones Legales, la “Política de ' +
+    'Privacidad y Cookies”, así como, en su caso, las Condiciones Particulares que puedan ' +
+    'complementar, sustituir o modificar las referidas condiciones en relación con los servicios y ' +
+    'contenidos que nuestra página web tiene vínculos a formularios de inscripciones a: \n ' +
+    'Postulaciones a ofertas laborales, encuestas, promociones, y adquisición de servicios ' +
+    'pagos, la previa autorización nos otorga su consentimiento expreso para que CLUB DEL ' +
+    'TRABAJO con domicilio legal en la ciudad de Bogotá D.C. - Colombia, almacena sus datos ' +
+    'en servidores de previo acuerdo con nuestra empresa a terceros y sea de su ' +
+    'responsabilidad y trate sus datos personales con la finalidad de posibilitar la plena ' +
+    'prestación de los servicios objeto de la actividad de empleo a nivel nacional y gestionar las ' +
+    'solicitudes y/o aplicaciones. \n\n' +
+    'Para acceder a nuestro portal web, si el Usuario es menor de 18 años o menor a la mayoría ' +
+    'legal, su uso de nuestro Portal Web debe estar bajo la supervisión de sus padres o tutor u ' +
+    'otro adulto responsable. En caso de acceder al Portal Web o utilizarlo en calidad de ' +
+    'empleado o representante de un Usuario Profesional, se considera que éste declara y ' +
+    'garantiza que tienes la autoridad para vincular al Usuario Profesional a las presentes ' +
+    'Condiciones Legales. \n\n' +
+    'El CLUB DEL TRABAJO se reserva el derecho de denegar el acceso a este Sitio Web, en ' +
+    'cualquier momento y sin necesidad de previo aviso, a aquellos Usuarios que incumplan las ' +
+    'Condiciones Legales que les sean de aplicación. \n\n' +
+    '- Registro de su hoja de vida en nuestra plataforma y ser incluida en las bases de datos y ' +
+    'convertirse en un candidato para futuros procesos de selección. ' +
+    'Registrarse en las diferentes secciones pagas de la plataforma como: Atender su solicitud ' +
+    'de gestionarle un proceso de selección, Atender su solicitud de información ' +
+    '(PQR).Suscribirse a postulaciones de empleo que se ajusten a su perfil ' +
+    '- ' +
+    'Mensajes texto, mail, SMS, sobre noticia, servicios, ofertas laborales, descuentos entre ' +
+    'otras. ' +
+    'El registro en nuestra web supone que usted es el propio titular de la cuenta y no crea un ' +
+    'perfil de un tercero. Los datos introducidos han de ser reales y veraces. \n\n' +
+    'EL CLUB DEL TRABAJO puede revelar a terceras personas, sobre bases anónimas, cierta ' +
+    'información contenida en su solicitud de registro. EL CLUB DEL TRABAJO no revelará a ' +
+    'terceras personas su nombre, dirección, correo electrónico, número telefónico u otros datos ' +
+    'personales sin su consentimiento expresado a través de las diferentes herramientas o ' +
+    'sistemas previstos, salvo en la medida en que sea necesario o apropiado para cumplir con ' +
+    'las leyes aplicables o con Instructivo de registro para empresas: o procedimientos legales ' +
+    'en los que tal información sea pertinente. EL CLUB DEL TRABAJO se reserva el derecho ' +
+    'de ofrecer a usted servicios o productos a terceras personas. \n\n' +
+    'Mediante el registro como Usuario Particular del Portal Web, el Oferente de Trabajo autoriza ' +
+    'expresamente a el CLUB DEL TRABAJO a facilitar determinada información del mismo ' +
+    'para posibilitar el contacto con los Demandantes de Empleo, ya sea mediante el presente  ' +
+    'Portal Web o la herramienta de software de reclutamiento online ofrecidas por nuestra ' +
+    'empresa CLUB DEL TRABAJO S.A.S. \n' +
+    'Los servicios del CLUB DEL TRABAJO permiten la búsqueda de empleo y la inscripción en ' +
+    'ofertas de empleo por parte de los Candidatos son gratuitos. No obstante, el Portal Web ' +
+    'ofrece al Candidato el servicio de suscripción “CREDENCIAL PREFERENCIAL” a nuestro ' +
+    'club para mejorar la visibilidad de su hoja de vida. \n' +
+    'Usted es responsable por mantener la confidencialidad de su usuario o contraseña. Usted ' +
+    'será responsable por todos los usos de su registro, sean o no autorizados por usted. Usted ' +
+    'acuerda notificar inmediatamente a la Compañía cualquier uso no autorizado de su registro ' +
+    'y usuario o contraseña. \n\n' +
+    'Nuestro Club ha implementado las medidas de seguridad oportunas en el Portal Web y ' +
+    'trabaja constantemente en una protección adecuada del mismo. No obstante, la privacidad ' +
+    'y seguridad del CLUB DEL TRABAJO no garantiza que terceros, autorizados o no, puedan ' +
+    'tener conocimiento de la clase, condiciones, características y circunstancias del uso que ' +
+    'los Usuarios hacen de las funcionalidades, o que puedan acceder, interceptar, eliminar, ' +
+    'alterar, modificar o manipular los mensajes, comunicaciones y contenidos de cualquier ' +
+    'clase que los Usuarios difundan o pongan a disposición de terceros a través de dichas ' +
+    'funcionalidades ,suplantación de identidades o perfiles que tratan de atentar contra esta ' +
+    'Política de Privacidad, procederemos a tomar las medidas oportunas: comprobación de la ' +
+    'identidad del usuario, cancelación del perfil, bloqueo de la cuenta y/o comunicación a las ' +
+    'autoridades pertinentes., a aquellas empresas y/o Organizaciones que contraten nuestros ' +
+    'servicios de gestión de procesos de búsqueda de candidatos y hagan parte tiene la ' +
+    'precaución de enviar datos disociados a sus clientes en las primeras fases de los procesos ' +
+    'de selección, no incluyendo de esta forma datos personales que le pudieran identificar ' +
+    '(datos disociados), cada empresa tendrá un mando de fases donde podrá informarle a los ' +
+    'candidatos el estado de su postulación en diferentes pasos (Aplicada, Perfil visto, ' +
+    'Descartado y Contratado) cada actualización de estado enviara un correo notificando al ' +
+    'candidato. \n' +
+    'Al usted registrar sus datos nos autoriza a ceder sus datos personales a empresas ' +
+    'pertenecientes al Club del trabajo para que realice el tratamiento de sus datos personales ' +
+    'con las mismas finalidades descritas para el Club del Trabajo. \n' +
+    'El usuario registrado puede mantener en todo momento sus datos y currículo actualizado a ' +
+    'través de su perfil, así como solicitar la cancelación de su cuenta. ' +
+    'Puede ejercer sus derechos de acceso, rectificación, cancelación u oposición dirigiéndose ' +
+    'a <b>info@clubdetrabajo.com</b> Es posible que con motivo de acreditar la identidad del ' +
+    'solicitante, se requiera la aportación de un documento identificativo. \n\n' +
+    'Los textos, diseños, imágenes, bases de datos, logos, estructura, marcas y demás ' +
+    'elementos de este Portal Web están protegidos por los derechos de propiedad intelectual ' +
+    'e industrial del Club Del Trabajo S.A.S, Cualquier reproducción, transmisión, adaptación, ' +
+    'traducción, modificación, comunicación al público, o cualquier otra explotación de todo o ' +
+    'parte del contenido de este Sitio Web titularidad del CLUB DEL TRABAJO, efectuada de ' +
+    'cualquier forma o por cualquier medio, electrónico, mecánico u otro, están estrictamente ' +
+    'prohibidos salvo autorización previa por escrito de por el CLUB DEL TRABAJO o de ' +
+    'terceros legítimos titulares. Cualquier infracción de estos derechos puede dar lugar a ' +
+    'procedimientos judiciales civiles o penales que correspondan. \n\n' +
+    'El CLUB DEL TRABAJO implementa cookies en los Portales, así como las finalidades de  ' +
+    'las mismas: \n' +
+    '• Cookies de redes sociales: CLUB DEL TRABAJO utiliza cookies de Facebook, Twitter y ' +
+    'Google Plus para que el Usuario pueda compartir contenidos de los Portales en las citadas ' +
+    'redes sociales, o bien para facilitar el registro en los Portales, de forma que con los datos ' +
+    'de los Usuarios han facilitado las redes sociales puedan cumplimentar directamente los ' +
+    'campos del formulario de registro en los Portales. \n' +
+    '• Cookies para la medición del tráfico en los Portales: Para recopilar datos estadísticos de ' +
+    'la actividad de los Usuarios en los Portales y, de este modo, poder mejorar los servicios ' +
+    'prestados a los Usuarios. Estas cookies permiten analizar el tráfico de Usuarios generando ' +
+    'un ID de usuario anónimo que se utiliza para medir cuántas veces visita el Portal un Usuario. ' +
+    'Asimismo, registra cuándo fue la primera y última vez que visitó el Portal, cuándo se ha ' +
+    'terminado una sesión y el origen del Usuario. \n' +
+    'El CLUB DEL TRABAJO aplicaría cookies, financieras entre otras y a las que los Usuarios ' +
+    'acceden. Estas cookies permiten medir la efectividad de nuestras campañas online, ' +
+    'proporcionar información que pueda resultar de interés al Usuario y ofrecer contenidos ' +
+    'publicitarios de su preferencia.',
+
+  ARRAY_PROFESIONES: [
+    { codigo: 1, nombre: 'Administrador de empresas' },
+    { codigo: 2, nombre: 'Asistente administrativo' },
+    { codigo: 3, nombre: 'Asistente contable' },
+    { codigo: 4, nombre: 'Asistente de gerencia o de presidencia' },
+    { codigo: 5, nombre: 'Asistente de proyectos' },
+    { codigo: 6, nombre: 'Auxiliar contable' },
+    { codigo: 7, nombre: 'Auxiliar de archivo' },
+    { codigo: 8, nombre: 'Auxiliar de logística' },
+    { codigo: 9, nombre: 'Contador' },
+    { codigo: 10, nombre: 'Coordinador' },
+    { codigo: 11, nombre: 'Digitador' },
+    { codigo: 12, nombre: 'Gestor administrativo y financiero' },
+    { codigo: 13, nombre: 'Mensajero' },
+    { codigo: 14, nombre: 'Ingeniero administrativo' },
+    { codigo: 15, nombre: 'Ingeniero industrial' },
+    { codigo: 16, nombre: 'Líder documental' },
+    { codigo: 17, nombre: 'Recepcionista' },
+    { codigo: 18, nombre: 'Recursos humanos' },
+    { codigo: 19, nombre: 'Secretaria' },
+    { codigo: 20, nombre: 'Profesional en gestión documental' },
+    { codigo: 21, nombre: 'Técnico o tecnólogo en gestión documental' },
+    { codigo: 22, nombre: 'Analista programador de vuelos' },
+    { codigo: 23, nombre: 'Astronauta' },
+    { codigo: 24, nombre: 'Auxiliar equipo de tierra' },
+    { codigo: 25, nombre: 'Agente de servicio al cliente' },
+    { codigo: 26, nombre: 'Operador sistemas de aire acondicionado' },
+    { codigo: 27, nombre: 'Despachador de aeronaves' },
+    { codigo: 28, nombre: 'Tripulantes' },
+    { codigo: 29, nombre: 'Almacenistas' },
+    { codigo: 30, nombre: 'Técnico electricista' },
+    { codigo: 31, nombre: 'Técnico/Tecnólogo en mecánica industrial' },
+    { codigo: 32, nombre: 'Técnico de taller' },
+    { codigo: 33, nombre: 'Director Centro de entrenamiento aeronáutico' },
+    { codigo: 34, nombre: 'Jefe de aeropuerto' },
+    { codigo: 35, nombre: 'Administrador de empresas' },
+    { codigo: 36, nombre: 'Jefe de personal' },
+    { codigo: 37, nombre: 'Asesor Jurídico' },
+    { codigo: 38, nombre: 'Instructor de avión' },
+    { codigo: 39, nombre: 'Ingeniero aeronáutico' },
+    { codigo: 40, nombre: 'Ingeniero en telecomunicaciones' },
+    { codigo: 41, nombre: 'Piloto/copiloto' },
+    { codigo: 42, nombre: 'Agricultor' },
+    { codigo: 43, nombre: 'Auxiliares en producción' },
+    { codigo: 44, nombre: 'Técnico agrícola/agronomía' },
+    { codigo: 45, nombre: 'Tecnólogo agrícola/agronomía' },
+    { codigo: 46, nombre: 'Coordinadores de proyectos agrícolas' },
+    { codigo: 47, nombre: 'Maestro en ciencias agrarias' },
+    { codigo: 48, nombre: 'Ingeniero agrónomo' },
+    { codigo: 49, nombre: 'Ingeniero agrícola' },
+    { codigo: 50, nombre: 'Ingeniero agroindustrial' },
+    { codigo: 51, nombre: 'Ingeniero industrial' },
+    { codigo: 52, nombre: 'Biólogo/Microbiólogo/Bacteriólogo' },
+    { codigo: 53, nombre: 'Licenciatura en administración de empresas agropecuarias' },
+    { codigo: 54, nombre: 'Profesional en comercio exterior' },
+    { codigo: 55, nombre: 'Albañil' },
+    { codigo: 56, nombre: 'Almacenista' },
+    { codigo: 57, nombre: 'Arquitecto' },
+    { codigo: 58, nombre: 'Auxiliar de ingeniería' },
+    { codigo: 59, nombre: 'Auxiliar de mantenimiento' },
+    { codigo: 60, nombre: 'Director de obra' },
+    { codigo: 61, nombre: 'Diseñador' },
+    { codigo: 62, nombre: 'Electricista' },
+    { codigo: 63, nombre: 'Especialista en urbanismo' },
+    { codigo: 64, nombre: 'Gerente de proyectos' },
+    { codigo: 65, nombre: 'Ingeniero Civil' },
+    { codigo: 66, nombre: 'Ingeniero especialista en: geotecnia, hidráulica, pavimentos, tránsito y transporte, etc.' },
+    { codigo: 67, nombre: 'Laboratorista de materiales de construcción' },
+    { codigo: 68, nombre: 'Maestro de obra' },
+    { codigo: 69, nombre: 'Operario de maquinaria' },
+    { codigo: 70, nombre: 'Plomero' },
+    { codigo: 71, nombre: 'Residente de obra' },
+    { codigo: 72, nombre: 'Técnico o tecnólogo en obras civiles' },
+    { codigo: 73, nombre: 'Técnico en dibujo arquitectónico y decoración' },
+    { codigo: 74, nombre: 'Tecnólogo en construcciones arquitectónicas' },
+    { codigo: 75, nombre: 'Comunicadores sociales y periodistas' },
+    { codigo: 76, nombre: 'Diseñador de modas' },
+    { codigo: 77, nombre: 'Diseñador visual' },
+    { codigo: 78, nombre: 'Escultor' },
+    { codigo: 79, nombre: 'Estilista' },
+    { codigo: 80, nombre: 'Fotógrafo' },
+    { codigo: 81, nombre: 'Instructor de danzas y afines' },
+    { codigo: 82, nombre: '32' },
+    { codigo: 83, nombre: '33' },
+    { codigo: 84, nombre: '34' },
+    { codigo: 85, nombre: '35' },
+    { codigo: 86, nombre: '36' },
+    { codigo: 87, nombre: '37' },
+    { codigo: 88, nombre: '38' },
+    { codigo: 89, nombre: '39' },
+    { codigo: 90, nombre: '40' },
+    { codigo: 91, nombre: '41' },
+    { codigo: 92, nombre: '42' },
+    { codigo: 93, nombre: '43' },
+    { codigo: 94, nombre: '44' },
+    { codigo: 95, nombre: '45' },
+    { codigo: 96, nombre: '46' },
+    { codigo: 97, nombre: '47' },
+    { codigo: 98, nombre: '48' },
+    { codigo: 99, nombre: '49' },
+    { codigo: 100, nombre: '50' }
+  ]
 };

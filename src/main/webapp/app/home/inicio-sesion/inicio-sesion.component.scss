@@ -159,6 +159,24 @@
       background: initial;
       opacity: 1;
 
+      .icono {
+        width: 1.2rem;
+        height: 1.2rem;
+        margin-right: 0.5rem;
+      }
+
+      .row_documento {
+        font-size: 0.938rem;
+
+        .input-answer {
+          border-width: 0rem;
+          height: 3rem;
+          border-radius: 50rem;
+          width: 80%;
+          padding: 0rem 1.5rem;
+        }
+      }
+
       .titulo1 {
         color: white;
         font: Bold 20px Roboto;

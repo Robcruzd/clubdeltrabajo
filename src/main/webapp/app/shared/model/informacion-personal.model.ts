@@ -1,5 +1,6 @@
 import { Moment } from 'moment';
 import { IPersona } from 'app/shared/model/persona.model';
+import { IProfesion } from './profesion.model';
 
 export interface IInformacionPersonal {
   id?: number;
@@ -24,7 +25,7 @@ export interface IInformacionPersonal {
   paisPermisoTrabajo?: string;
   estadoCivil?: number;
   nivelEducativoProfesion?: number;
-  profesion?: string;
+  profesion?: IProfesion;
   activoNotificaciones?: boolean;
 }
 
@@ -48,6 +49,10 @@ export class InformacionPersonal implements IInformacionPersonal {
     public aspiracionSalarial?: number,
     public mudarme?: boolean,
     public viajar?: boolean,
-    public paisPermisoTrabajo?: string
+    public paisPermisoTrabajo?: string,
+    public estadoCivil?: number,
+    public nivelEducativoProfesion?: number,
+    public profesion?: IProfesion,
+    public activoNotificaciones?: boolean
   ) {}
 }
