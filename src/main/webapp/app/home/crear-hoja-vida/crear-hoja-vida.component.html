@@ -977,7 +977,7 @@
                     </div>
                     <div class="column">
                         <button type="submit" class="btn boton_siguiente text-white float-right"
-                            [disabled]="experienciaLaboral.invalid">
+                            [disabled]="experienciaLaboral.invalid || cargandoDeshabilitado">
                             <div *ngIf="cargando">{{labels.GUARDAR_LABEL}}</div>
                             <span *ngIf="!cargando" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>    
                         </button>      
