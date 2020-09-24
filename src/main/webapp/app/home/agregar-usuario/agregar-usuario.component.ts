@@ -71,6 +71,10 @@ export class AgregarUsuarioComponent implements OnInit {
     this.crearCaptcha();
   }
 
+  deleteSpace(variable: string): void {
+    this.persona[variable] = this.persona[variable].trim();
+  }
+
   onCrearUsuario(): void {
     const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const NOMBRE_REGEX = /^[a-zA-ZÑÁÉÍÓÚñáéíóú ]{1,}$/;

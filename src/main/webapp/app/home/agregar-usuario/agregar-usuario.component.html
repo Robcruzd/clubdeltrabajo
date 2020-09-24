@@ -15,21 +15,21 @@
         </div>
         <div class="inputs">
             <label style="color: white;">Nombres</label>
-            <input type="text" class="estilo_inputs" [(ngModel)]="persona.nombre"  (ngModelChange)="persona.nombre = $event.toUpperCase()">
+        <input type="text" class="estilo_inputs" [(ngModel)]="persona.nombre"  (ngModelChange)="persona.nombre = $event.toUpperCase()" (blur)="deleteSpace('nombre')">
             <small *ngIf="mensajeNombre" class="text-danger">
                 {{mensajeNombre}}
             </small>
         </div>
         <div class="inputs">
             <label style="color: white;">Apellidos</label>
-            <input type="text" class="estilo_inputs" [(ngModel)]="persona.apellido" (ngModelChange)="persona.apellido = $event.toUpperCase()">
+            <input type="text" class="estilo_inputs" [(ngModel)]="persona.apellido" (ngModelChange)="persona.apellido = $event.toUpperCase()" (blur)="deleteSpace('apellido')">
             <small *ngIf="mensajeApellido" class="text-danger">
                 {{mensajeApellido}}
             </small>
         </div>
         <div class="inputs">
             <label style="color: white;">Correo Electrónico</label>
-            <input type="text" class="estilo_inputs" [(ngModel)]="persona.email">
+            <input type="text" class="estilo_inputs" [(ngModel)]="persona.email" (blur)="deleteSpace('email')">
             <small *ngIf="mensajeEmail" class="text-danger">
                 {{mensajeEmail}}
             </small>
@@ -49,10 +49,10 @@
                     </option>
                 </select>
                 <div *ngIf="tipoDocumento.nombreTipo==='Pasaporte'" style="width: 100%;">
-                    <input type="text" class="input_documento" style="width: 100%;" [(ngModel)]="persona.numeroDocumento">
+                    <input type="text" class="input_documento" style="width: 100%;" [(ngModel)]="persona.numeroDocumento" (blur)="deleteSpace('numeroDocumento')">
                 </div>
                 <div *ngIf="tipoDocumento.nombreTipo!=='Pasaporte'" style="width: 100%;">
-                    <input type="number" class="input_documento" style="width: 100%;" [(ngModel)]="persona.numeroDocumento">
+                    <input type="number" class="input_documento" style="width: 100%;" [(ngModel)]="persona.numeroDocumento" (blur)="deleteSpace('numeroDocumento')">
                 </div>
             </div>
             <small *ngIf="mensajeNumDoc" class="text-danger">
