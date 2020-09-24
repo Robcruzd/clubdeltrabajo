@@ -90,6 +90,7 @@ export class CrearHojaVidaComponent implements OnInit {
   mensajeDocumento: any = '*El documento debe contener de 6 a 18 números';
   mensajeArchivoDoc: any = '';
   mensajeArchivoTitulo: any = '';
+  cargandoDeshabilitado: any = false;
 
   nivelCargo: IOpcionVo[] = commonMessages.ARRAY_NIVEL_CARGO;
   aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
@@ -533,6 +534,7 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.cargandoDeshabilitado = true;
     let flag = 0;
     this.archivos.forEach(archivo => {
       if (archivo.tipo === TipoArchivo.CERTIFICADO_LABORAL) {
