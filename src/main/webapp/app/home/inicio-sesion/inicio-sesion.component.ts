@@ -37,6 +37,10 @@ export class InicioSesionComponent implements OnInit {
     );
   }
 
+  deleteSpace(variable: string): void {
+    this.login[variable] = this.login[variable].trim();
+  }
+
   ventanaRegistrar(): void {
     this.router.navigate(['/agregar-usuario']);
   }

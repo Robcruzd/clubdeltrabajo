@@ -4,11 +4,13 @@ import { FormArray, FormBuilder, FormGroup, Validators, FormControlName } from '
 import { Router } from '@angular/router';
 import { Account } from 'app/core/user/account.model';
 import { ICargo } from 'app/shared/model/cargo.model';
+import { IProfesion } from 'app/shared/model/profesion.model';
 import { IInstitucion } from 'app/shared/model/institucion.model';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 import { AccountService } from '../../core/auth/account.service';
 import { CargoService } from '../../entities/cargo/cargo.service';
+import { ProfesionService } from '../../entities/profesion/profesion.service';
 import { IdiomaService } from '../../entities/idioma/idioma.service';
 import { InstitucionService } from '../../entities/institucion/institucion.service';
 import { TipoDocumentoService } from '../../entities/tipo-documento/tipo-documento.service';
@@ -30,6 +32,9 @@ import { HojaVidaVo } from '../../shared/vo/hoja-vida-vo';
 import { IOpcionVo, IOpcionVoDescripcion } from '../../shared/vo/opcion-vo';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
 import { ArchivoService } from '../../entities/archivo/archivo.service';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 declare let alertify: any;
 
@@ -75,6 +80,7 @@ export class CrearHojaVidaComponent implements OnInit {
   hojaVidaVo!: HojaVidaVo | null;
   instituciones: Array<IInstitucion> = [];
   cargos: Array<ICargo> = [];
+  profesiones: Array<IProfesion> = [];
   account!: Account | null;
   persona!: number;
   redesSociales: Array<IOpcionVo> = commonMessages.ARRAY_REDES_SOCIALES;
@@ -84,6 +90,7 @@ export class CrearHojaVidaComponent implements OnInit {
   mensajeDocumento: any = '*El documento debe contener de 6 a 18 números';
   mensajeArchivoDoc: any = '';
   mensajeArchivoTitulo: any = '';
+  cargandoDeshabilitado: any = false;
 
   nivelCargo: IOpcionVo[] = commonMessages.ARRAY_NIVEL_CARGO;
   aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
@@ -104,6 +111,12 @@ export class CrearHojaVidaComponent implements OnInit {
   archivosCargadosIAcademica: Array<number> = [];
   archivosCargadosILaboral: Array<number> = [];
 
+  //profesiones: string[] = ['Diseño grafico', 'Ingenieria de sistemas', 'Ingenieria electronica', 'Nutricion'];
+  myControlProfesiones = new FormControl();
+  filteredOptionsProfesiones = new Observable<IProfesion[]>();
+  lblSeleccioneProfesion = commonMessages.SELECCIONE_PROFESION_LABEL;
+  profesionState: Boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -112,6 +125,7 @@ export class CrearHojaVidaComponent implements OnInit {
     private service: HojaVidaService,
     private institucionService: InstitucionService,
     private cargoService: CargoService,
+    private profesionService: ProfesionService,
     private accountService: AccountService,
     private router: Router,
     private archivo: ArchivoService
@@ -134,9 +148,33 @@ export class CrearHojaVidaComponent implements OnInit {
     this.cargarIdiomas();
     this.cargarInstituciones();
     this.cargarCargos();
+    this.cargarProfesiones();
+    this.traerProfesiones();
     this.cargarAniosFin(0, 0);
     this.crearFormularioInformacionPersonal();
     this.crearFormularioPerfil();
+  }
+
+  private _filterProfesiones(value: string): IProfesion[] {
+    const filterValue = value.toLowerCase();
+    return this.profesiones.filter(option => option.profesion?.toLowerCase().includes(filterValue));
+  }
+
+  traerProfesiones(): void {
+    this.filteredOptionsProfesiones = this.myControlProfesiones.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterProfesiones(value))
+    );
+  }
+
+  onSelectionChanged(event: any) {
+    this.profesionState = false;
+    this.profesiones.map(option => {
+      if (option.profesion === event) {
+        this.profesionState = true;
+        this.formPersonal.get('profesion')?.setValue(option);
+      }
+    });
   }
 
   cargarCuentaUsuario(): void {
@@ -311,6 +349,7 @@ export class CrearHojaVidaComponent implements OnInit {
         profesion: hojaVida.informacionPersonal.profesion,
         activoNotificaciones: hojaVida.informacionPersonal.activoNotificaciones ? this.labels.SI_LABEL : this.labels.NO_LABEL
       });
+      this.myControlProfesiones.setValue(hojaVida.informacionPersonal.profesion?.profesion!);
 
       // cargar perfil profesional
       this.formPerfil.patchValue({
@@ -453,6 +492,9 @@ export class CrearHojaVidaComponent implements OnInit {
     let flag = 0;
     switch (this.step) {
       case 0:
+        if (!this.profesionState) {
+          break;
+        }
         this.archivos.forEach(archivo => {
           if (archivo.tipo === TipoArchivo.DOCUMENTO_IDENTIDAD) {
             flag++;
@@ -492,6 +534,7 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.cargandoDeshabilitado = true;
     let flag = 0;
     this.archivos.forEach(archivo => {
       if (archivo.tipo === TipoArchivo.CERTIFICADO_LABORAL) {
@@ -593,7 +636,7 @@ export class CrearHojaVidaComponent implements OnInit {
       usuario: new Persona(this.persona),
       estadoCivil: this.formPersonal.get('estadoCivil')!.value,
       nivelEducativoProfesion: this.formPersonal.get('nivelEducativoProfesion')!.value,
-      profesion: this.formPersonal.get('profesion')!.value,
+      profesion: this.formPersonal.get('profesion')!.value!,
       activoNotificaciones: this.formPersonal.get('activoNotificaciones')!.value === this.labels.SI_LABEL ? true : false
     };
   }
@@ -877,9 +920,18 @@ export class CrearHojaVidaComponent implements OnInit {
     this.cargoService
       .query({
         page: 0,
-        size: 200
+        size: 250
       })
       .subscribe((res: HttpResponse<ICargo[]>) => (this.cargos = res.body || []));
+  }
+
+  cargarProfesiones(): void {
+    this.profesionService
+      .query({
+        page: 0,
+        size: 550
+      })
+      .subscribe((res: HttpResponse<IProfesion[]>) => (this.profesiones = res.body || []));
   }
 
   cargarIdiomas(): void {

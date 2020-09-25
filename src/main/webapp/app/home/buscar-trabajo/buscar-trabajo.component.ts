@@ -56,6 +56,7 @@ export class BuscarTrabajoComponent implements OnInit {
       console.log('response: ', response);
       // eslint-disable-next-line @typescript-eslint/camelcase
       const bogota = {
+        // eslint-disable-next-line @typescript-eslint/camelcase
         c_digo_dane_del_departamento: '5',
         // eslint-disable-next-line @typescript-eslint/camelcase
         c_digo_dane_del_municipio: '5001',
@@ -85,6 +86,10 @@ export class BuscarTrabajoComponent implements OnInit {
   }
 
   registrarHojaVida(): void {
-    this.router.navigate(['/agregar-usuario']);
+    this.router.navigate(['/agregar-usuario', { userType: 'natural' }]);
+  }
+
+  registrarHojaVidaEmpresa(): void {
+    this.router.navigate(['/agregar-usuario', { userType: 'juridico' }]);
   }
 }

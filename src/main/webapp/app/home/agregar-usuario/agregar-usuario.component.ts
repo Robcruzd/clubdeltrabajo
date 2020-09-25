@@ -8,11 +8,12 @@ import { TipoUsuario } from '../../shared/model/tipo-usuario.model';
 import { TipoDocumento, ITipoDocumento } from '../../shared/model/tipo-documento.model';
 import { UsuarioVo } from '../../shared/vo/usuario-vo';
 import { PersonaService } from '../../entities/persona/persona.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TipoDocumentoService } from '../../entities/tipo-documento/tipo-documento.service';
 import { HttpResponse } from '@angular/common/http';
 import { UsuarioService } from '../../entities/usuario/usuario.service';
 import { DatosCaptcha } from '../../shared/vo/datos-captcha';
+import { Empresa } from 'app/shared/model/empresa.model';
 declare let alertify: any;
 
 @Component({
@@ -22,16 +23,22 @@ declare let alertify: any;
 })
 export class AgregarUsuarioComponent implements OnInit {
   persona = new Persona();
+  empresa = new Empresa();
   user = new User();
   tipoUsuario = new TipoUsuario();
+  natural: Boolean = true;
+  juridico: Boolean = false;
   tipoDocumento = new TipoDocumento();
   usuarioVo = new UsuarioVo();
   datosCaptcha = new DatosCaptcha();
   ConfirmarClave: String = '';
   mensajeNombre: any;
+  mensajeRSocial: any;
   mensajeApellido: any;
+  mensajeRComercial: any;
   mensajeEmail: any;
   mensajeNumDoc: any;
+  mensajeNIT: any;
   mensajeClave: any;
   mensajeConfClave: any;
   mensajeTipoPersona: any;
@@ -49,6 +56,7 @@ export class AgregarUsuarioComponent implements OnInit {
   captchaValidado = false;
   mensajeCaptcha: any;
   mensajeActivacionCuenta = commonMessages.ACTIVACION_CUENTA_LABEL;
+  Politicas = commonMessages.POLITICAS;
 
   eyePrimero = '../../../content/images/eye.svg';
   eyeSegundo = '../../../content/images/eye.svg';
@@ -61,13 +69,29 @@ export class AgregarUsuarioComponent implements OnInit {
     private languageService: JhiLanguageService,
     private router: Router,
     private tipoDocumentoService: TipoDocumentoService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    if (this.route.snapshot.paramMap.get('userType') === 'juridico') {
+      this.tipoUsuario.nombre = 'juridico';
+      this.natural = false;
+      this.juridico = true;
+    } else {
+      this.tipoUsuario.nombre = 'natural';
+      this.natural = true;
+      this.juridico = false;
+    }
+    // eslint-disable-next-line no-console
+    console.log(this.tipoUsuario.id);
     this.user.password = '';
     this.cargarTipoDocumento();
     this.crearCaptcha();
+  }
+
+  deleteSpace(variable: string): void {
+    this.persona[variable] = this.persona[variable].trim();
   }
 
   onCrearUsuario(): void {
@@ -75,7 +99,7 @@ export class AgregarUsuarioComponent implements OnInit {
     const NOMBRE_REGEX = /^[a-zA-ZÑÁÉÍÓÚñáéíóú ]{1,}$/;
     const CONTRASENA_REGEX = /.*(?=.{8,20})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*/;
     const PASAPORTE_REGEX = /^[0-9A-Za-z]{6,18}$/;
-    const CEDULA_REGEX = /^[0-9]{6,18}$/;
+    const CEDULA_REGEX = /^[0-9]{5,18}$/;
     this.validacionIncorrecta = false;
     this.mensajeNombre = '';
     this.mensajeApellido = '';
@@ -91,54 +115,86 @@ export class AgregarUsuarioComponent implements OnInit {
     //   this.mensajeTipoPersona = "*Seleccione tipo de persona";
     //   this.validacionIncorrecta = true;
     // }
-    if (!this.persona.nombre?.match(NOMBRE_REGEX)) {
-      this.mensajeNombre = 'El nombre contine carácteres no permitidos';
-      this.validacionIncorrecta = true;
+    if (this.natural) {
+      if (!this.persona.nombre?.match(NOMBRE_REGEX)) {
+        this.mensajeNombre = 'El nombre contiene carácteres no permitidos';
+        this.validacionIncorrecta = true;
+      }
+      if (!this.persona.nombre) {
+        this.mensajeNombre = commonMessages.CAMPO_REQUERIDO;
+        this.validacionIncorrecta = true;
+      }
+      if (!this.persona.apellido?.match(NOMBRE_REGEX)) {
+        this.mensajeApellido = 'El apellido contiene carácteres no permitidos';
+        this.validacionIncorrecta = true;
+      }
+      if (!this.persona.apellido) {
+        this.mensajeApellido = commonMessages.CAMPO_REQUERIDO;
+        this.validacionIncorrecta = true;
+      }
+      if (!this.persona.email?.match(EMAIL_REGEX)) {
+        this.mensajeEmail = commonMessages.FORMATO_EMAIL_INVALIDO;
+        this.validacionIncorrecta = true;
+      }
+      if (!this.persona.email) {
+        this.mensajeEmail = commonMessages.CAMPO_REQUERIDO;
+        this.validacionIncorrecta = true;
+      }
+      if (!this.persona.numeroDocumento) {
+        this.mensajeNumDoc = commonMessages.CAMPO_REQUERIDO;
+        this.validacionIncorrecta = true;
+      }
+      if (
+        this.tipoDocumento.nombreTipo === 'Pasaporte' &&
+        this.persona.numeroDocumento &&
+        !this.persona.numeroDocumento.toString()?.match(PASAPORTE_REGEX)
+      ) {
+        this.mensajeNumDoc = '*El documento solo puede tener de 6 a 18 carácteres entre minúsculas, mayúsculas y números';
+        this.validacionIncorrecta = true;
+      }
+      if (
+        this.tipoDocumento.nombreTipo !== 'Pasaporte' &&
+        this.persona.numeroDocumento &&
+        !this.persona.numeroDocumento.toString()?.match(CEDULA_REGEX)
+      ) {
+        this.mensajeNumDoc = '*El documento debe contener de 5 a 18 números';
+        this.validacionIncorrecta = true;
+      }
+      if (this.tipoDocumento.id === undefined) {
+        this.mensajeNumDoc = '*Seleccione un tipo de Documento';
+        this.validacionIncorrecta = true;
+      }
+    } else {
+      if (!this.empresa.razonSocial?.match(NOMBRE_REGEX)) {
+        this.mensajeNombre = 'La razón social contiene carácteres no permitidos';
+        this.validacionIncorrecta = true;
+      }
+      if (!this.empresa.razonSocial) {
+        this.mensajeNombre = commonMessages.CAMPO_REQUERIDO;
+        this.validacionIncorrecta = true;
+      }
+      if (!this.empresa.razonComercial?.match(NOMBRE_REGEX)) {
+        this.mensajeNombre = 'La razón comercial contiene carácteres no permitidos';
+        this.validacionIncorrecta = true;
+      }
+      if (!this.empresa.razonComercial) {
+        this.mensajeNombre = commonMessages.CAMPO_REQUERIDO;
+        this.validacionIncorrecta = true;
+      }
+      if (!this.empresa.email?.match(EMAIL_REGEX)) {
+        this.mensajeEmail = commonMessages.FORMATO_EMAIL_INVALIDO;
+        this.validacionIncorrecta = true;
+      }
+      if (!this.empresa.email) {
+        this.mensajeEmail = commonMessages.CAMPO_REQUERIDO;
+        this.validacionIncorrecta = true;
+      }
+      if (!this.empresa.numeroDocumento) {
+        this.mensajeNumDoc = commonMessages.CAMPO_REQUERIDO;
+        this.validacionIncorrecta = true;
+      }
     }
-    if (!this.persona.nombre) {
-      this.mensajeNombre = commonMessages.CAMPO_REQUERIDO;
-      this.validacionIncorrecta = true;
-    }
-    if (!this.persona.apellido?.match(NOMBRE_REGEX)) {
-      this.mensajeApellido = 'El apellido contiene carácteres no permitidos';
-      this.validacionIncorrecta = true;
-    }
-    if (!this.persona.apellido) {
-      this.mensajeApellido = commonMessages.CAMPO_REQUERIDO;
-      this.validacionIncorrecta = true;
-    }
-    if (!this.persona.email?.match(EMAIL_REGEX)) {
-      this.mensajeEmail = commonMessages.FORMATO_EMAIL_INVALIDO;
-      this.validacionIncorrecta = true;
-    }
-    if (!this.persona.email) {
-      this.mensajeEmail = commonMessages.CAMPO_REQUERIDO;
-      this.validacionIncorrecta = true;
-    }
-    if (!this.persona.numeroDocumento) {
-      this.mensajeNumDoc = commonMessages.CAMPO_REQUERIDO;
-      this.validacionIncorrecta = true;
-    }
-    if (
-      this.tipoDocumento.nombreTipo === 'Pasaporte' &&
-      this.persona.numeroDocumento &&
-      !this.persona.numeroDocumento.toString()?.match(PASAPORTE_REGEX)
-    ) {
-      this.mensajeNumDoc = '*El documento solo puede tener de 6 a 18 carácteres entre minúsculas, mayúsculas y números';
-      this.validacionIncorrecta = true;
-    }
-    if (
-      this.tipoDocumento.nombreTipo !== 'Pasaporte' &&
-      this.persona.numeroDocumento &&
-      !this.persona.numeroDocumento.toString()?.match(CEDULA_REGEX)
-    ) {
-      this.mensajeNumDoc = '*El documento debe contener de 6 a 18 números';
-      this.validacionIncorrecta = true;
-    }
-    if (this.tipoDocumento.id === undefined) {
-      this.mensajeNumDoc = '*Seleccione un tipo de Documento';
-      this.validacionIncorrecta = true;
-    }
+
     if (!this.user.password?.match(CONTRASENA_REGEX)) {
       this.mensajeClave = '*La contraseña debe contener de 8 a 20 carácteres entre letras mayúsculas, minúsculas y números';
       this.validacionIncorrecta = true;
@@ -168,17 +224,27 @@ export class AgregarUsuarioComponent implements OnInit {
     if (this.validacionIncorrecta === false) {
       // eliminar esta línea al activar tipo usuario jurídico
       // this.tipoUsuario.id = 1;
-      this.persona;
-      this.personaNatural;
-      this.user;
-      this.persona.tipoUsuario = this.tipoUsuario;
-      this.persona.tipoDocumento = this.tipoDocumento;
-      this.user.login = this.persona.email;
-      this.user.email = this.persona.email;
+      // this.persona;
+      // this.personaNatural;
+      // this.user;
+      if (this.tipoUsuario.id === 1) {
+        this.persona.tipoUsuario = this.tipoUsuario;
+        this.persona.tipoDocumento = this.tipoDocumento;
+        this.user.login = this.persona.email;
+        this.user.email = this.persona.email;
+        this.user.firstName = this.persona.nombre;
+        this.user.lastName = this.persona.apellido;
+      } else {
+        this.empresa.tipoUsuario = this.tipoUsuario;
+        this.empresa.tipoDocumento = this.tipoDocumento;
+        this.user.login = this.empresa.email;
+        this.user.email = this.empresa.email;
+        this.user.firstName = this.empresa.razonSocial;
+        this.user.lastName = this.empresa.razonComercial;
+      }
+
       this.user.activated = false;
       this.user.createdBy = 'admin';
-      this.user.firstName = this.persona.nombre;
-      this.user.lastName = this.persona.apellido;
       this.user.langKey = this.languageService.getCurrentLanguage();
       this.usuarioVo.persona = this.persona;
       this.usuarioVo.usuario = this.user;

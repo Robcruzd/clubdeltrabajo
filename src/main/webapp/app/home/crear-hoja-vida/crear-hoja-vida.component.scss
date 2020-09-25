@@ -462,9 +462,8 @@
           }
 
           .checkbox-estado {
-            border: 0rem;
-            width: 100%;
             height: 1vw;
+            width: 1vw;
           }
         }
 
@@ -732,6 +731,10 @@
                 height: 3rem;
                 padding-top: 0.75rem;
               }
+
+              .input_cargo {
+                height: 3rem;
+              }
             }
 
             .genero {
@@ -742,7 +745,8 @@
                 margin-right: 0.25rem;
 
                 .checkbox-estado {
-                  height: 0.969rem;
+                  height: 1rem;
+                  width: 1rem;
                 }
               }
 

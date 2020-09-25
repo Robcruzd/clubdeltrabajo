@@ -97,8 +97,13 @@ public class InformacionPersonal implements Serializable {
     @Column(name = "nivel_educativo_profesion")
     private Integer nivelEducativoProfesion;
     
-    @Column(name = "profesion")
-    private String profesion;
+    // @Column(name = "profesion")
+    // private String profesion;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("informacionPersonals")
+    private Profesion profesion;
     
     @Column(name = "activo_notificaciones")
     private Boolean activoNotificaciones;
@@ -325,13 +330,26 @@ public class InformacionPersonal implements Serializable {
         this.nivelEducativoProfesion = nivelEducativoProfesion;
     }
 
-    public String getProfesion() {
-		return profesion;
-	}
+    // public String getProfesion() {
+	// 	return profesion;
+	// }
 
-	public void setProfesion(String profesion) {
-		this.profesion = profesion;
-	}
+	// public void setProfesion(String profesion) {
+	// 	this.profesion = profesion;
+	// }
+
+    public Profesion getProfesion() {
+        return profesion;
+    }
+
+    public InformacionPersonal profesion(Profesion profesion) {
+        this.profesion = profesion;
+        return this;
+    }
+
+    public void setProfesion(Profesion profesion) {
+        this.profesion = profesion;
+    }
 
 	public Boolean getActivoNotificaciones() {
         return activoNotificaciones;
