@@ -91,7 +91,7 @@ export class AgregarUsuarioComponent implements OnInit {
   }
 
   deleteSpace(variable: string): void {
-    this.persona[variable] = this.persona[variable].trim();
+    this.persona[variable] = this.persona[variable]!.trim();
   }
 
   onCrearUsuario(): void {

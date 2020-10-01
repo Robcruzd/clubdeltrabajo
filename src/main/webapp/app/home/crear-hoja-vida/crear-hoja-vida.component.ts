@@ -500,12 +500,13 @@ export class CrearHojaVidaComponent implements OnInit {
             flag++;
           }
         });
-        if (flag === 0) {
-          alertify.set('notifier', 'position', 'top-right');
-          alertify.error('Debe adjuntar el documento de identidad');
-        } else {
-          this.step++;
-        }
+        this.step++;
+        // if (flag === 0) {
+        //   alertify.set('notifier', 'position', 'top-right');
+        //   alertify.error('Debe adjuntar el documento de identidad');
+        // } else {
+        //   this.step++;
+        // }
         break;
       case 1:
         this.informacionAcademica.length;
@@ -514,12 +515,13 @@ export class CrearHojaVidaComponent implements OnInit {
             flag++;
           }
         });
-        if (flag < this.informacionAcademica.length) {
-          alertify.set('notifier', 'position', 'top-right');
-          alertify.error('Debe adjuntar el título a cada estudio');
-        } else {
-          this.step++;
-        }
+        this.step++;
+        // if (flag < this.informacionAcademica.length) {
+        //   alertify.set('notifier', 'position', 'top-right');
+        //   alertify.error('Debe adjuntar el título a cada estudio');
+        // } else {
+        //   this.step++;
+        // }
         break;
       case 3:
         return;
@@ -541,7 +543,8 @@ export class CrearHojaVidaComponent implements OnInit {
         flag++;
       }
     });
-    if (flag < this.experienciaLaboral.length) {
+    // if (flag < this.experienciaLaboral.length) {
+    if (false) {
       alertify.set('notifier', 'position', 'top-right');
       alertify.error('Debe adjuntar el certificado de cada experiencia');
     } else {
