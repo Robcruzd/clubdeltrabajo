@@ -41,7 +41,9 @@ export class NavbarCtComponent implements OnInit {
     private accountService: AccountService,
     private archivoService: ArchivoService,
     private hojaVidaService: HojaVidaService
-  ) {}
+  ) {
+    this.subscribeToEvents();
+  }
 
   ngOnInit(): void {
     if (this.router.url === '/' || this.router.url === '/inicio-sesion' || this.router.url === '/agregar-usuario') {
@@ -49,20 +51,28 @@ export class NavbarCtComponent implements OnInit {
     } else {
       this.hideNavbar = false;
     }
+  }
+
+  subscribeToEvents(): void {
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
-        this.showNavbar = this.accountService.isAuthenticated() ? true : false;
-        this.showElement = this.accountService.isAuthenticated() ? true : false;
-        this.logged = this.accountService.isAuthenticated() ? true : false;
         this.accountService.getAuthenticationState().subscribe(account => {
+          this.account = account;
+          this.persona = account?.user || 0;
+          this.showNavbar = this.accountService.isAuthenticated() ? true : false;
+          this.showElement = this.accountService.isAuthenticated() ? true : false;
+          this.logged = this.accountService.isAuthenticated() ? true : false;
           if (this.router.url === '/' || this.router.url === '/inicio-sesion' || this.router.url === '/agregar-usuario') {
             this.hideNavbar = true;
+            if (this.logged) {
+              this.router.navigate(['/perfil']);
+            }
           } else {
             this.hideNavbar = false;
           }
-          this.account = account;
-          this.persona = account?.user || 0;
           this.hojaVidaService.find(this.persona).subscribe(response => {
+            // eslint-disable-next-line no-console
+            console.log('ngoninit navbar: ', this.accountService.isAuthenticated());
             this.hojaVidaVo = response.body;
             this.urlImageDefault =
               this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
