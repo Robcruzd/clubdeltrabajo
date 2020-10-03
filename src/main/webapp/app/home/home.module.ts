@@ -24,6 +24,7 @@ import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SolicitarRegistroComponent } from './solicitar-registro/solicitar-registro.component';
+import { PerfilEmpresaComponent } from './perfil-empresa/perfil-empresa.component';
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import { SolicitarRegistroComponent } from './solicitar-registro/solicitar-regis
     NuevoCorreoComponent,
     InformacionEmpresaComponent,
     VisualizarHojaVidaComponent,
-    SolicitarRegistroComponent
+    SolicitarRegistroComponent,
+    PerfilEmpresaComponent
   ]
 })
 export class CtProjectHomeModule {}

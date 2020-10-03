@@ -76,10 +76,12 @@ export class AgregarUsuarioComponent implements OnInit {
   ngOnInit(): void {
     if (this.route.snapshot.paramMap.get('userType') === 'juridico') {
       this.tipoUsuario.nombre = 'juridico';
+      this.tipoUsuario.id = 2;
       this.natural = false;
       this.juridico = true;
     } else {
       this.tipoUsuario.nombre = 'natural';
+      this.tipoUsuario.id = 1;
       this.natural = true;
       this.juridico = false;
     }
@@ -92,6 +94,24 @@ export class AgregarUsuarioComponent implements OnInit {
 
   deleteSpace(variable: string): void {
     this.persona[variable] = this.persona[variable]!.trim();
+  }
+
+  deleteSpace2(variable: string): void {
+    this.empresa[variable] = this.empresa[variable]!.trim();
+  }
+
+  changeTipoUsuario(tipo: string): void {
+    if (tipo === 'juridico') {
+      this.tipoUsuario.nombre = 'juridico';
+      this.tipoUsuario.id = 2;
+      this.natural = false;
+      this.juridico = true;
+    } else {
+      this.tipoUsuario.nombre = 'natural';
+      this.tipoUsuario.id = 1;
+      this.natural = true;
+      this.juridico = false;
+    }
   }
 
   onCrearUsuario(): void {

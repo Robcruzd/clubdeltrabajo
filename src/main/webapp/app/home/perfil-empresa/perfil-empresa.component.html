@@ -1,0 +1,35 @@
+<div class="contenedor">
+    <div class="estilo_body">
+        <div class="left">
+            <img class="foto-perfil rounded-circle" [src]="imagen?.archivo || ulrImgDefault">
+            <button (click)="crearOferta()" class="btn boton-base">
+                <fa-icon icon="suitcase" style="margin-right: 0.325vw;"></fa-icon>
+                
+            </button>
+            <button (click)="verOferta()" class="btn boton-base">
+                <fa-icon icon="eye" style="margin-right: 0.325vw;"></fa-icon>
+                
+            </button>
+            <button (click)="membresia()" class="btn boton-base">
+                <fa-icon icon="star" style="margin-right: 0.325vw;"></fa-icon>
+                
+            </button>
+            <button (click)="editarPerfil()" class="btn boton-base">
+                <fa-icon icon="ellipsis-h" style="margin-right: 0.325vw;"></fa-icon>
+                
+            </button>
+        </div>
+        <div class="right">
+            <p class="titulo">Nombre Empresa</p>
+            <p class="texto">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+        </div>
+    </div>
+    <div class="footer">
+        <a href="https://www.facebook.com/Club-del-Trabajo-100955765079986/" target="_blank" style="margin-right: 1.52vw;">
+            <img class="icono" src="../../../content/images/facebook.png"></a>
+        <a href="https://instagram.com/clubdeltrabajo?igshid=1m37k1eb9p16a" target="_blank" style="margin-right: 1.52vw;">
+            <img class="icono" path="fill: currentColor !important;" src="../../../content/images/instagram.png"></a>
+        <a href="https://twitter.com/ClubdelTrabajo" target="_blank" style="margin-right: 1.52vw;">
+            <img class="icono" src="../../../content/images/twitter.png"></a>
+    </div>
+</div>

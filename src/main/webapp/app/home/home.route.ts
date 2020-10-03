@@ -12,6 +12,7 @@ import { NuevoCorreoComponent } from './nuevo-correo/nuevo-correo.component';
 import { InformacionEmpresaComponent } from './informacion-empresa/informacion-empresa.component';
 import { VisualizarHojaVidaComponent } from './visualizar-hoja-vida/visualizar-hoja-vida.component';
 import { SolicitarRegistroComponent } from './solicitar-registro/solicitar-registro.component';
+import { PerfilEmpresaComponent } from './perfil-empresa/perfil-empresa.component';
 
 export const HOME_ROUTE: Routes = [
   {
@@ -102,6 +103,13 @@ export const HOME_ROUTE: Routes = [
   {
     path: 'solicitar-registro',
     component: SolicitarRegistroComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
+  },
+  {
+    path: 'perfil-empresa',
+    component: PerfilEmpresaComponent,
     data: {
       pageTitle: 'home.title'
     }

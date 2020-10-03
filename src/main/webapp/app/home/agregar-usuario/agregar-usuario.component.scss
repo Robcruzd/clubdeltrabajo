@@ -92,7 +92,7 @@
         .input-contra {
           border-width: 0rem;
           height: 3.121vw;
-          border-radius: 50rem;
+          border-radius: 50rem 0rem 0rem 50rem;
           width: 80%;
           padding: 0rem 1.04vw;
         }
@@ -357,7 +357,6 @@
           .input-contra {
             border-width: 0rem;
             height: 3rem;
-            border-radius: 50rem;
             width: 80%;
             padding: 0rem 1rem;
           }
