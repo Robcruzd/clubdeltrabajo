@@ -13,7 +13,9 @@ import { TipoDocumentoService } from '../../entities/tipo-documento/tipo-documen
 import { HttpResponse } from '@angular/common/http';
 import { UsuarioService } from '../../entities/usuario/usuario.service';
 import { DatosCaptcha } from '../../shared/vo/datos-captcha';
-import { Empresa } from 'app/shared/model/empresa.model';
+import { Empresa } from '../../shared/model/empresa.model';
+import { EmpresaVo } from '../../shared/vo/empresa-vo';
+import { EmpresaService } from '../../entities/empresa/empresa.service';
 declare let alertify: any;
 
 @Component({
@@ -30,6 +32,7 @@ export class AgregarUsuarioComponent implements OnInit {
   juridico: Boolean = false;
   tipoDocumento = new TipoDocumento();
   usuarioVo = new UsuarioVo();
+  empresaVo = new EmpresaVo();
   datosCaptcha = new DatosCaptcha();
   ConfirmarClave: String = '';
   mensajeNombre: any;
@@ -66,6 +69,7 @@ export class AgregarUsuarioComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private personaService: PersonaService,
+    private empresaService: EmpresaService,
     private languageService: JhiLanguageService,
     private router: Router,
     private tipoDocumentoService: TipoDocumentoService,
@@ -254,44 +258,76 @@ export class AgregarUsuarioComponent implements OnInit {
         this.user.email = this.persona.email;
         this.user.firstName = this.persona.nombre;
         this.user.lastName = this.persona.apellido;
+        this.user.activated = false;
+        this.user.createdBy = 'admin';
+        this.user.langKey = this.languageService.getCurrentLanguage();
+        this.usuarioVo.persona = this.persona;
+        this.usuarioVo.usuario = this.user;
+        if (this.persona.id !== undefined) {
+          this.personaService.create(this.persona).subscribe(
+            () => {
+              this.ventanaInicioSesion();
+            },
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            error => {
+              alertify.set('notifier', 'position', 'top-right'), alertify.error('Fallo registro de usuario!');
+            }
+          );
+        } else {
+          this.personaService.crearUsuario(this.usuarioVo).subscribe(
+            () => {
+              this.ventanaInicioSesion();
+            },
+            error => {
+              if (error.error?.errorKey === 'userexists') {
+                alertify.set('notifier', 'position', 'top-right'), alertify.error('Usuario ya registrado!');
+              } else {
+                alertify.set('notifier', 'position', 'top-right'), alertify.error('Fallo registro de usuario!');
+              }
+            }
+          );
+        }
       } else {
+        const tipodoc = {id:5,nombreTipo:'NIT'};
         this.empresa.tipoUsuario = this.tipoUsuario;
-        this.empresa.tipoDocumento = this.tipoDocumento;
+        this.empresa.tipoDocumento = tipodoc;
         this.user.login = this.empresa.email;
         this.user.email = this.empresa.email;
         this.user.firstName = this.empresa.razonSocial;
         this.user.lastName = this.empresa.razonComercial;
-      }
-
-      this.user.activated = false;
-      this.user.createdBy = 'admin';
-      this.user.langKey = this.languageService.getCurrentLanguage();
-      this.usuarioVo.persona = this.persona;
-      this.usuarioVo.usuario = this.user;
-      if (this.persona.id !== undefined) {
-        this.personaService.create(this.persona).subscribe(
-          () => {
-            this.ventanaInicioSesion();
-          },
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          error => {
-            alertify.set('notifier', 'position', 'top-right'), alertify.error('Fallo registro de usuario!');
-          }
-        );
-      } else {
-        this.personaService.crearUsuario(this.usuarioVo).subscribe(
-          () => {
-            this.ventanaInicioSesion();
-          },
-          error => {
-            if (error.error?.errorKey === 'userexists') {
-              alertify.set('notifier', 'position', 'top-right'), alertify.error('Usuario ya registrado!');
-            } else {
+        this.user.activated = false;
+        this.user.createdBy = 'admin';
+        this.user.langKey = this.languageService.getCurrentLanguage();
+        this.empresaVo.empresa = this.empresa;
+        this.empresaVo.usuario = this.user;
+        if (this.empresa.id !== undefined) {
+          this.empresaService.create(this.empresa).subscribe(
+            () => {
+              this.ventanaInicioSesion();
+            },
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            error => {
               alertify.set('notifier', 'position', 'top-right'), alertify.error('Fallo registro de usuario!');
             }
-          }
-        );
+          );
+        } else {
+          this.empresaService.crearUsuario(this.empresaVo).subscribe(
+            () => {
+              this.ventanaInicioSesion();
+            },
+            error => {
+              if (error.error?.errorKey === 'userexists') {
+                alertify.set('notifier', 'position', 'top-right'), alertify.error('Usuario ya registrado!');
+              } else {
+                alertify.set('notifier', 'position', 'top-right'), alertify.error('Fallo registro de usuario!');
+              }
+            }
+          );
+        }
       }
+
+      
+      
     }
   }
 

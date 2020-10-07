@@ -113,6 +113,7 @@ public class UserService {
         Set<Authority> authorities = new HashSet<>();
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
+        newUser.setUserEmpresa(userDTO.getUserEmpresa());
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;

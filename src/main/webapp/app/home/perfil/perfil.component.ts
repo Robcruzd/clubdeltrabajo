@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { commonMessages } from 'app/shared/constants/commonMessages';
+import { commonMessages } from '../../shared/constants/commonMessages';
 import { AccountService } from '../../core/auth/account.service';
 import { ArchivoService } from '../../entities/archivo/archivo.service';
 import { PersonaService } from '../../entities/persona/persona.service';
@@ -8,10 +8,10 @@ import { Archivo } from '../../shared/model/archivo.model';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
 import { HojaVidaVo } from './../../shared/vo/hoja-vida-vo';
 import { HojaVidaService } from './../../shared/services/hoja-vida.service';
-import { GeografiaVo } from 'app/shared/vo/geografia-vo';
-import { ApiService } from 'app/shared/services/api.service';
-import { IOpcionVo } from 'app/shared/vo/opcion-vo';
-import { Account } from 'app/core/user/account.model';
+import { GeografiaVo } from '../../shared/vo/geografia-vo';
+import { ApiService } from '../../shared/services/api.service';
+import { IOpcionVo } from '../../shared/vo/opcion-vo';
+import { Account } from '../../core/user/account.model';
 
 declare let alertify: any;
 

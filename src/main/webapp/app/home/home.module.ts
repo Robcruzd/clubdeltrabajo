@@ -25,6 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SolicitarRegistroComponent } from './solicitar-registro/solicitar-registro.component';
 import { PerfilEmpresaComponent } from './perfil-empresa/perfil-empresa.component';
+import { CrearOfertaComponent } from './crear-oferta/crear-oferta.component';
 
 @NgModule({
   imports: [
@@ -55,7 +56,8 @@ import { PerfilEmpresaComponent } from './perfil-empresa/perfil-empresa.componen
     InformacionEmpresaComponent,
     VisualizarHojaVidaComponent,
     SolicitarRegistroComponent,
-    PerfilEmpresaComponent
+    PerfilEmpresaComponent,
+    CrearOfertaComponent
   ]
 })
 export class CtProjectHomeModule {}

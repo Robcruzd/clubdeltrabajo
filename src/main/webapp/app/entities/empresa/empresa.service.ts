@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IEmpresa } from 'app/shared/model/empresa.model';
+import { EmpresaVo } from '../../shared/vo/empresa-vo';
 
 type EntityResponseType = HttpResponse<IEmpresa>;
 type EntityArrayResponseType = HttpResponse<IEmpresa[]>;
@@ -34,5 +35,9 @@ export class EmpresaService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  crearUsuario(empresa: EmpresaVo): Observable<any> {
+    return this.http.post<IEmpresa>(this.resourceUrl + '/user', empresa, { observe: 'response' });
   }
 }

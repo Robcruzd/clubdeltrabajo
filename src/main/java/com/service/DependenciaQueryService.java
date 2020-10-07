@@ -82,12 +82,12 @@ public class DependenciaQueryService extends QueryService<Dependencia> {
     protected Specification<Dependencia> createSpecification(DependenciaCriteria criteria) {
         Specification<Dependencia> specification = Specification.where(null);
         if (criteria != null) {
-            if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Dependencia_.id));
-            }
-            if (criteria.getDependencia() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDependencia(), Dependencia_.dependencia));
-            }
+//            if (criteria.getId() != null) {
+//                specification = specification.and(buildRangeSpecification(criteria.getId(), Dependencia_.id));
+//            }
+//            if (criteria.getDependencia() != null) {
+//                specification = specification.and(buildStringSpecification(criteria.getDependencia(), Dependencia_.dependencia));
+//            }
         }
         return specification;
     }

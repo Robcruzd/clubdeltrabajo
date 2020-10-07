@@ -1,0 +1,502 @@
+<div class="container estilo_body">
+    <form [formGroup]="formDatosBasicos" (ngSubmit)="onSubmit()">
+        <ng-container>
+            <div class="ngnum0">
+                <p class="estilo_titulo">{{labels.INGRESA_DATOS_BASICOS}}</p>
+                <div class="row">
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.NOMBRE_OFERTA}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <input type="text" class="estilo_inputs" >
+                            <small
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small 
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.EXPERIENCIA_MINIMA}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <input type="text" class="estilo_inputs" >
+                            <small 
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small 
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.AREA_TRABAJO}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <input type="text" class="estilo_inputs" >
+                            <small
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small 
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.RANGO_SALARIAL}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <input type="text" class="estilo_inputs" >
+                            <small 
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small 
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.REQUISITOS}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <input type="text" class="estilo_inputs" >
+                            <small
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small 
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.EXPERIENCIA_MINIMA}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <input type="text" class="estilo_inputs" >
+                            <small 
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small 
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.SECTOR_INDUSTRIA}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <input type="text" class="estilo_inputs" >
+                            <small
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small 
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.IDIOMA}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <input type="text" class="estilo_inputs" >
+                            <small 
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small 
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.NIVEL_LABORAL}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <input type="text" class="estilo_inputs" >
+                            <small
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small 
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.TIPO_CONTRATO}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <input type="text" class="estilo_inputs" >
+                            <small 
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small 
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.PROFESION}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <input type="text" class="estilo_inputs" >
+                            <small
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small 
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.MODALIDAD_LABORAL}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <input type="text" class="estilo_inputs" >
+                            <small 
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small 
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.NIVEL_ESTUDIOS}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <input type="text" class="estilo_inputs" >
+                            <small
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small 
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.PUBLICAR_OFERTA}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <input type="text" class="estilo_inputs" >
+                            <small 
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small 
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="row">
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.NUMERO_DOCUMENTO_LABEL}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <div class='input_group'>
+                                <select class='select_documento' formControlName="tipoDocumento" (change)="onChangeTipoDoc($event)">
+                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                    <option
+                                        [ngValue]="documento.id === formPersonal.get('tipoDocumento')!.value?.id ? formPersonal.get('tipoDocumento')!.value : documento"
+                                        *ngFor="let documento of documentos">
+                                        {{ documento.nombreTipo }}
+                                    </option>
+                                </select>
+                                <div *ngIf="formPersonal.get('tipoDocumento')!.value?.id===4" style="width: 50%;">
+                                    <input type="text" class="input_documento" style="width: 100%;" formControlName="numeroDocumento">
+                                </div>
+                                <div *ngIf="formPersonal.get('tipoDocumento')!.value?.id!==4" style="width: 50%;">
+                                    <input type="number" class="input_documento" style="width: 100%;" formControlName="numeroDocumento">
+                                </div>
+                                <div class="file_upload" >
+                                    <label class='label_file' for="file">
+                                        <fa-icon icon="images" class="float-right" (click)="tipodocumento.click()"></fa-icon>
+                                    </label>
+                                    <input type="file" #tipodocumento class='file' accept=".pdf"
+                                        (change)="addArchivo($event, tipoArchivo.DOCUMENTO_IDENTIDAD)" />
+                                    <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="this.cargadoDocumento" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
+                                </div>
+                            </div>
+                            <small *ngIf="formPersonal.get('tipoDocumento')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPersonal.get('numeroDocumento')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPersonal.get('numeroDocumento')?.errors?.pattern"
+                                class="form-text text-danger">{{mensajeDocumento}}</small>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.FECHA_NACIMENTO_LABEL}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <ng-container formGroupName="fechaNacimiento">
+                                <div class='input_group'>
+                                    <select class='dia' formControlName="dia">
+                                        <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_DIA}}</option>
+                                        <option *ngFor="let dia of dias" [ngValue]="dia">
+                                            {{ dia }}
+                                        </option>
+                                    </select>
+
+                                    <select class='mes' formControlName="mes">
+                                        <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_MES}}</option>
+                                        <option *ngFor="let mes of meses" [ngValue]="mes">
+                                            {{ mes }}
+                                        </option>
+                                    </select>
+
+                                    <select class='anio' formControlName="anio">
+                                        <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_ANIO}}</option>
+                                        <option *ngFor="let anio of anios" [ngValue]="anio">
+                                            {{ anio }}
+                                        </option>
+                                    </select>
+                            </div>
+                            </ng-container>
+                            <small *ngIf="formPersonal.get('fechaNacimiento')?.get('dia')?.errors?.required || formPersonal.get('fechaNacimiento')?.get('mes')?.errors?.required || formPersonal.get('fechaNacimiento')?.get('anio')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- <div class="row">
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.LUGAR_NACIMIENTO_LABEL}}</p>
+                            <input type="text" class="estilo_inputs" formControlName="lugarNacimiento">
+                            <small *ngIf="formPersonal.get('lugarNacimiento')?.errors?.pattern"
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.DIRECCION_RESIDENCIA_LABEL}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <input type="text" class="estilo_inputs" formControlName="direccionResidencia">
+                            <small *ngIf="formPersonal.get('direccionResidencia')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPersonal.get('direccionResidencia')?.errors?.pattern"
+                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- <div class="row">
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.DEPARTAMENTO_LABEL}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <select formControlName="departamento" class="estilo_inputs"
+                                (change)="cargarMunicipiosPersonal(formPersonal.value)">
+                                <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option
+                                    [ngValue]="departamento.codigo == formPersonal.get('departamento')!.value? formPersonal.get('departamento')!.value : departamento.codigo"
+                                    *ngFor="let departamento of departamentos">
+                                    {{ departamento.nombre }}
+                                </option>
+                            </select>
+                            <small *ngIf="formPersonal.get('departamento')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.CIUDAD_LABEL}} <span
+                                    class="estilo_campo_requerido">*</span>
+                            </p>
+                            <select formControlName="ciudad" class="estilo_inputs">
+                                <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option
+                                    [ngValue]="municipio.codigo == formPersonal.get('ciudad')!.value ? formPersonal.get('ciudad')!.value : municipio.codigo"
+                                    *ngFor="let municipio of municipiosPersonal">
+                                    {{ municipio.nombre }}
+                                </option>
+                            </select>
+                            <small *ngIf="formPersonal.get('ciudad')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- <div class="row">
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.CONTACTO_LABEL}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <input type="number" class="estilo_inputs" formControlName="telefono">
+                            <small *ngIf="formPersonal.get('telefono')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPersonal.get('telefono')?.errors?.pattern"
+                                class="form-text text-danger">*El teléfono solo puede contener de 7 a 10 números</small>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.CORREO_ELECTRONICO_LABEL}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                            <input type="text" class="estilo_inputs" formControlName="email">
+                            <small *ngIf="formPersonal.get('email')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formPersonal.get('email')?.errors?.email"
+                                class="form-text text-danger">*El correo es inválido.</small>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- <div class="row">
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.DISCAPACIDADES_LABEL}}</p>
+                            <select formControlName="discapacidad" class="estilo_inputs">
+                                <option *ngIf="!formPersonal.get('discapacidad')!.value" [ngValue]="null" selected>
+                                    {{labels.SELECCIONE_LABEL}}</option>
+                                <option
+                                    [ngValue]="discapacidad.codigo === formPersonal.get('discapacidad')!.value ? formPersonal.get('discapacidad')!.value: discapacidad.codigo"
+                                    *ngFor="let discapacidad of discapacidades">
+                                    {{ discapacidad.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.REDES_SOCIALES_LABEL}}</p>
+                            <div class='input_group'>
+                                <select formControlName="redesSociales" class="select_redSocial">
+                                    <option *ngIf="!formPersonal.get('redesSociales')!.value" [ngValue]="null" selected>
+                                        {{labels.SELECCIONE_LABEL}}</option>
+                                    <option
+                                        [ngValue]="red.codigo === formPersonal.get('redesSociales')!.value ? formPersonal.get('redesSociales')!.value: red.codigo"
+                                        *ngFor="let red of redesSociales">
+                                        {{ red.nombre }}
+                                    </option>
+                                </select>
+                                <input type="text" class="input_redSocial" (change)="setRedSocial($event)" [value]="redSocial">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.LICENCIA_CONDUCCION_LABEL}}</p>
+                            <div class="input_group">
+                                <div class="file_upload_licence">
+                                    <mat-form-field appearance="fill" class="multiSelect">
+                                        <mat-select formControlName="tipoLicenciaConduccion" multiple>
+                                            <mat-option *ngFor="let licencia of tipoLicenciaConduccion" [value]="licencia.codigo === formPersonal.get('tipoLicenciaConduccion')!.value ? formPersonal.get('tipoLicenciaConduccion')!.value : licencia.codigo">{{ licencia.codigo }}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <div class="file_upload" style="width: 16%;">                                  
+                                        <input type="file" #licencia class="file" accept=".pdf"
+                                            (change)="addArchivo($event, tipoArchivo.LICENCIA_CONDUCCION)" />
+                                        <label for="file" style="padding-left: 0.520vw;">
+                                            <fa-icon icon="images" (click)="licencia.click()" class="float-right"></fa-icon>
+                                        </label>
+                                        <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="this.cargadoLicencia" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.ESTADO_CIVIL_LABEL}}</p>
+                            <select formControlName="estadoCivil" class="estilo_inputs">
+                                <option *ngIf="!formPersonal.get('estadoCivil')!.value" [ngValue]="null" selected>
+                                    {{labels.SELECCIONE_LABEL}}</option>
+                                <option
+                                    [ngValue]="estadoCivil.codigo === formPersonal.get('estadoCivil')!.value ? formPersonal.get('estadoCivil')!.value: estadoCivil.codigo"
+                                    *ngFor="let estadoCivil of estadosCiviles">
+                                    {{ estadoCivil.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.NIVEL_EDUCATIVO_PROFESION_LABEL}}
+                                <span class="estilo_campo_requerido">*</span>
+                            </p>
+                            <select formControlName="nivelEducativoProfesion" class="estilo_inputs">
+                                <option *ngIf="!formPersonal.get('nivelEducativoProfesion')!.value" [ngValue]="null" selected>
+                                    {{labels.SELECCIONE_LABEL}}</option>
+                                <option
+                                    [ngValue]="nivelEducativoProfesion.codigo === formPersonal.get('nivelEducativoProfesion')!.value ? formPersonal.get('nivelEducativoProfesion')!.value: nivelEducativoProfesion.codigo"
+                                    *ngFor="let nivelEducativoProfesion of nivelEducativoProfesion">
+                                    {{ nivelEducativoProfesion.nombre }}
+                                </option>
+                            </select>
+                            <small *ngIf="formPersonal.get('nivelEducativoProfesion')?.errors?.required"
+                                    class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-group">
+                            <p class="estilo_label">{{labels.PROFESION_LABEL}} <span
+                                    class="estilo_campo_requerido">*</span></p>
+                                <input type="text" placeholder="{{lblSeleccioneProfesion}}" [formControl]="myControlProfesiones"
+                                    [matAutocomplete]="autoProfesiones" class="estilo_inputs" (ngModelChange)=onSelectionChanged($event)>
+                                <mat-autocomplete #autoProfesiones="matAutocomplete">
+                                    <mat-option *ngFor="let option of filteredOptionsProfesiones | async" [value]="option.profesion">
+                                        {{option.profesion}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            <small *ngIf="formPersonal.get('profesion')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="!profesionState"
+                                class="form-text text-danger">Debe seleccionar una profesión</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <div class="form-group">
+                            <div class="genero">
+                                <p>&nbsp;</p>
+                                <label class="radio-inline">{{labels.GENERO_LABEL}} <span
+                                        class="estilo_campo_requerido">*</span></label>
+                                <label class="radio-inline">
+                                    <div class="div_radiobutton">
+                                        <input class="radio-button" type="radio" [value]="labels.MASCULINO" formControlName="genero">
+                                    </div>
+                                    <span class="text-white">{{labels.MASCULINO}}</span>
+                                </label>
+                                <label class="radio-inline">
+                                    <div class="div_radiobutton">
+                                        <input class="radio-button" type="radio" [value]="labels.FEMENINO" formControlName="genero">
+                                    </div>
+                                    <span class="text-white">{{labels.FEMENINO}}</span>
+                                </label>
+                            </div>
+                            <small *ngIf="formPersonal.get('genero')?.errors?.required"
+                                    class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-group">
+                            <div class="notificaciones">
+                                <label class="radio-inline">{{labels.NOTIFICACIONES_LABEL}}</label>
+                                <label class="radio-inline">
+                                    <div class="div_radio-noti" >
+                                        <input class="radio-button" type="radio" checked="checked" [value]="labels.SI_LABEL" formControlName="activoNotificaciones">
+                                    </div>
+                                    <span class="text-white">{{labels.SI_LABEL}}</span>
+                                </label>
+                                <label class="radio-inline">
+                                    <div class="div_radio-noti" >
+                                        <input class="radio-button" type="radio" [value]="labels.NO_LABEL" formControlName="activoNotificaciones">
+                                    </div>
+                                    <span class="text-white">{{labels.NO_LABEL}}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">       
+                    </div>
+                    <div class="column">
+                        <p class="estilo_campo_requerido">{{labels.INFO_CAMPO_OBLIGATORIO_LABEL}}</p>
+                    </div>
+                </div> -->
+            </div>
+        </ng-container>
+    </form>
+</div>

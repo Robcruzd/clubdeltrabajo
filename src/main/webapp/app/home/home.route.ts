@@ -13,6 +13,7 @@ import { InformacionEmpresaComponent } from './informacion-empresa/informacion-e
 import { VisualizarHojaVidaComponent } from './visualizar-hoja-vida/visualizar-hoja-vida.component';
 import { SolicitarRegistroComponent } from './solicitar-registro/solicitar-registro.component';
 import { PerfilEmpresaComponent } from './perfil-empresa/perfil-empresa.component';
+import { CrearOfertaComponent } from './crear-oferta/crear-oferta.component';
 
 export const HOME_ROUTE: Routes = [
   {
@@ -110,6 +111,13 @@ export const HOME_ROUTE: Routes = [
   {
     path: 'perfil-empresa',
     component: PerfilEmpresaComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
+  },
+  {
+    path: 'crear-oferta',
+    component: CrearOfertaComponent,
     data: {
       pageTitle: 'home.title'
     }
