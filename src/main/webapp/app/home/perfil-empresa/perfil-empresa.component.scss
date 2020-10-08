@@ -18,8 +18,6 @@
       border-right-style: solid;
 
       .foto-perfil {
-        top: 8.648vw;
-        margin-left: 2.536vw;
         width: 10.923vw;
         height: 10.923vw;
         opacity: 1;
@@ -28,20 +26,60 @@
       }
 
       .boton-base {
-        top: 30.624vw;
-        left: 15.865vw;
-        width: 26.463vw;
-        height: 3.121vw;
+        width: 261px;
+        height: 41px;
         text-align: center;
         letter-spacing: 0px;
         color: #6d7184;
         font-size: 0.78vw;
         font-family: 'Arial';
-        font-weight: bold;
         background: #ffffff 0% 0% no-repeat padding-box;
         box-shadow: 0px 3px 6px #00000029;
         border-radius: 13px;
         opacity: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0rem 1rem;
+        margin-top: 5px;
+
+        .border-icon {
+          margin-right: 0.325vw;
+          width: 34px;
+          height: 34px;
+          opacity: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+        }
+
+        .div-info-boton {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          justify-content: center;
+
+          .titulo-boton {
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #6d7184;
+            letter-spacing: 0px;
+            opacity: 1;
+            margin: 0rem;
+            text-align: initial;
+          }
+
+          .texto-boton {
+            font-size: 7px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #6d7184;
+            letter-spacing: 0px;
+            opacity: 1;
+            margin: 0rem;
+            text-align: initial;
+          }
+        }
       }
     }
 
@@ -83,4 +121,9 @@
       height: 1.248vw;
     }
   }
+}
+
+::ng-deep svg:not(:root).svg-inline--fa {
+  width: 18px;
+  height: 17px;
 }

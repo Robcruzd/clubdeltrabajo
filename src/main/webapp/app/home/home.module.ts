@@ -25,6 +25,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SolicitarRegistroComponent } from './solicitar-registro/solicitar-registro.component';
 import { PerfilEmpresaComponent } from './perfil-empresa/perfil-empresa.component';
+import { PrimerOfertaComponent } from './primer-oferta/primer-oferta.component';
+import { CrearOfertaComponent } from './crear-oferta/crear-oferta.component';
+import { MembresiasComponent } from './membresias/membresias.component';
+import { OfertaPublicadaComponent } from './oferta-publicada/oferta-publicada.component';
+import { EditarEmpresaComponent } from './editar-empresa/editar-empresa.component';
 
 @NgModule({
   imports: [
@@ -55,7 +60,12 @@ import { PerfilEmpresaComponent } from './perfil-empresa/perfil-empresa.componen
     InformacionEmpresaComponent,
     VisualizarHojaVidaComponent,
     SolicitarRegistroComponent,
-    PerfilEmpresaComponent
+    PerfilEmpresaComponent,
+    PrimerOfertaComponent,
+    CrearOfertaComponent,
+    MembresiasComponent,
+    OfertaPublicadaComponent,
+    EditarEmpresaComponent
   ]
 })
 export class CtProjectHomeModule {}

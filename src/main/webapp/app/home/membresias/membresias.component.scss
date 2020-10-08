@@ -1,0 +1,334 @@
+.contenedor {
+  display: flex;
+  justify-content: center;
+
+  .div-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min-content;
+
+    .boton-base {
+      width: 261px;
+      height: 41px;
+      background: #ffffff 0% 0% no-repeat padding-box;
+      box-shadow: 0px 3px 6px #00000029;
+      border-radius: 13px;
+      opacity: 1;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 0rem 1rem;
+      margin-top: 5px;
+      align-self: flex-start;
+
+      .border-icon {
+        margin-right: 0.325vw;
+        width: 34px;
+        height: 34px;
+        opacity: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+      }
+
+      .div-info-boton {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+
+        .titulo-boton {
+          font-size: 14px;
+          font-family: Arial, Helvetica, sans-serif;
+          color: #6d7184;
+          letter-spacing: 0px;
+          opacity: 1;
+          margin: 0rem;
+          text-align: initial;
+        }
+      }
+    }
+
+    .ovalo-arriba {
+      width: 940px;
+      height: 155px;
+      background: #1fb9fd 0% 0% no-repeat padding-box;
+      box-shadow: 0px 3px 12px #00000014;
+      border-radius: 78px;
+      opacity: 1;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 4.5rem;
+      margin-bottom: 0.5rem;
+
+      .circulo-ovalo {
+        width: 143px;
+        height: 136px;
+        background: #f7f7f7 0% 0% no-repeat padding-box;
+        border-radius: 68px;
+        opacity: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .texto-circulo {
+          text-align: left;
+          font: normal normal normal 22px/32px Arial;
+          letter-spacing: 0px;
+          color: #001045;
+          opacity: 1;
+          margin: 0rem;
+        }
+
+        .texto-flexi {
+          text-align: center;
+          font: normal normal normal 11px/14px Arial;
+          letter-spacing: 0px;
+          color: #001045;
+          opacity: 1;
+          margin: 0rem;
+        }
+      }
+    }
+
+    .botones-comprar {
+      width: 940px;
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+
+      .boton-comprar {
+        width: 143px;
+        height: 29px;
+        background: #001045 0% 0% no-repeat padding-box;
+        box-shadow: 0px 3px 12px #00000014;
+        border-radius: 23px;
+        opacity: 1;
+        text-align: center;
+        font: normal normal normal 14px/30px Arial;
+        letter-spacing: 0px;
+        color: #ffffff;
+        opacity: 1;
+        padding: 0rem;
+
+        .texto-boton-comprar {
+          margin: 0rem;
+          height: inherit;
+        }
+      }
+    }
+
+    .div-infos {
+      display: flex;
+      width: 100%;
+      justify-content: space-around;
+
+      .div-bronce {
+        width: 229px;
+        height: 677px;
+        background: #f7f7f7 0% 0% no-repeat padding-box;
+        border-radius: 30px;
+        opacity: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 4.5rem;
+
+        .logo-bronce {
+          width: 77px;
+          height: 77px;
+          background: transparent
+            linear-gradient(
+              113deg,
+              #ffbe75 22%,
+              #eda35c 27%,
+              #d8833e 35%,
+              #c86c28 43%,
+              #bf5d1b 50%,
+              #bc5917 57%,
+              #d47d39 63%,
+              #eba059 71%,
+              #f9b66d 77%,
+              #ffbe75 81%,
+              #eda35c 84%,
+              #d8833e 88%,
+              #c86c28 93%,
+              #bf5d1b 97%,
+              #bc5917 100%
+            )
+            0% 0% no-repeat padding-box;
+          border-radius: 50%;
+          opacity: 1;
+        }
+
+        .logo-plata {
+          width: 77px;
+          height: 77px;
+          background: transparent
+            linear-gradient(
+              113deg,
+              #d8d8d8 0%,
+              #cdcdcd 2%,
+              #c3c3c3 5%,
+              #c0c0c0 8%,
+              #888888 22%,
+              #9f9f9f 27%,
+              #bfbfbf 35%,
+              #cccccc 39%,
+              #d2d2d2 44%,
+              #e6e6e6 52%,
+              #f2f2f2 56%,
+              #d8d8d8 65%,
+              #b8b8b8 75%,
+              #a2a2a2 78%,
+              #8e8e8e 81%,
+              #888888 84%,
+              #919191 92%,
+              #ababab 94%,
+              #cbcbcb 98%,
+              #d8d8d8 100%
+            )
+            0% 0% no-repeat padding-box;
+          border-radius: 50%;
+          opacity: 1;
+        }
+
+        .logo-oro {
+          width: 77px;
+          height: 77px;
+          background: transparent
+            linear-gradient(
+              113deg,
+              #ffd86e 0%,
+              #f6ca61 2%,
+              #efc058 5%,
+              #edbd55 8%,
+              #c67c23 22%,
+              #d99e42 28%,
+              #ebbe60 35%,
+              #f2cb6c 39%,
+              #f3d072 43%,
+              #f7dd86 48%,
+              #fef4a5 55%,
+              #fff8aa 56%,
+              #f7e490 62%,
+              #e4b552 75%,
+              #d39638 78%,
+              #c98228 81%,
+              #c67c23 84%,
+              #c18227 86%,
+              #ba8f30 92%,
+              #d4ab48 94%,
+              #f3cb63 98%,
+              #ffd86e 100%
+            )
+            0% 0% no-repeat padding-box;
+          border-radius: 50%;
+          opacity: 1;
+        }
+
+        .logo-diamante {
+          width: 77px;
+          height: 77px;
+          background: transparent
+            linear-gradient(
+              113deg,
+              #ffbe75 22%,
+              #eda35c 27%,
+              #d8833e 35%,
+              #c86c28 43%,
+              #bf5d1b 50%,
+              #bc5917 57%,
+              #d47d39 63%,
+              #eba059 71%,
+              #f9b66d 77%,
+              #ffbe75 81%,
+              #eda35c 84%,
+              #d8833e 88%,
+              #c86c28 93%,
+              #bf5d1b 97%,
+              #bc5917 100%
+            )
+            0% 0% no-repeat padding-box;
+          border-radius: 50%;
+          opacity: 1;
+        }
+
+        .titulo {
+          font: normal normal bold 37px/19px Arial;
+          letter-spacing: 0px;
+          color: #6d7184;
+          opacity: 1;
+          margin-top: 2rem;
+          margin-bottom: 2rem;
+        }
+
+        .info-border {
+          border-bottom-width: 1px;
+          border-bottom-color: #d2d4d6;
+          border-bottom-style: solid;
+        }
+
+        .info {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-around;
+          align-items: center;
+          padding-bottom: 1rem;
+          margin-top: 1rem;
+
+          .texto-info {
+            text-align: left;
+            font: normal normal normal 13px/14px Arial;
+            letter-spacing: 0px;
+            color: #a4a0aa;
+            opacity: 1;
+            margin-bottom: 0rem;
+            margin-right: 1rem;
+            width: 101px;
+          }
+
+          .icon {
+            color: #c6cad0;
+          }
+        }
+
+        .boton-ver-mas {
+          width: 151px;
+          height: 45px;
+          background: #1fb9fd 0% 0% no-repeat padding-box;
+          border-radius: 13px;
+          opacity: 1;
+        }
+      }
+    }
+
+    .boton-volver {
+      width: 98px;
+      height: 31px;
+      background: #e5e5e5 0% 0% no-repeat padding-box;
+      border-radius: 13px;
+      letter-spacing: 0px;
+      text-align: center;
+      font: normal normal normal 12px/14px Arial;
+      color: #2a1d72;
+      opacity: 1;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      align-self: flex-start;
+
+      .titulo-boton {
+        margin-bottom: 0rem;
+      }
+    }
+  }
+}

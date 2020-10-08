@@ -13,6 +13,11 @@ import { InformacionEmpresaComponent } from './informacion-empresa/informacion-e
 import { VisualizarHojaVidaComponent } from './visualizar-hoja-vida/visualizar-hoja-vida.component';
 import { SolicitarRegistroComponent } from './solicitar-registro/solicitar-registro.component';
 import { PerfilEmpresaComponent } from './perfil-empresa/perfil-empresa.component';
+import { CrearOfertaComponent } from './crear-oferta/crear-oferta.component';
+import { EditarEmpresaComponent } from './editar-empresa/editar-empresa.component';
+import { MembresiasComponent } from './membresias/membresias.component';
+import { OfertaPublicadaComponent } from './oferta-publicada/oferta-publicada.component';
+import { PrimerOfertaComponent } from './primer-oferta/primer-oferta.component';
 
 export const HOME_ROUTE: Routes = [
   {
@@ -110,6 +115,41 @@ export const HOME_ROUTE: Routes = [
   {
     path: 'perfil-empresa',
     component: PerfilEmpresaComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
+  },
+  {
+    path: 'crear-oferta',
+    component: CrearOfertaComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
+  },
+  {
+    path: 'editar-empresa',
+    component: EditarEmpresaComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
+  },
+  {
+    path: 'membresias',
+    component: MembresiasComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
+  },
+  {
+    path: 'oferta-publicada',
+    component: OfertaPublicadaComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
+  },
+  {
+    path: 'primer-oferta',
+    component: PrimerOfertaComponent,
     data: {
       pageTitle: 'home.title'
     }

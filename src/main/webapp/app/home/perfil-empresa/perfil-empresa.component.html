@@ -3,20 +3,35 @@
         <div class="left">
             <img class="foto-perfil rounded-circle" [src]="imagen?.archivo || ulrImgDefault">
             <button (click)="crearOferta()" class="btn boton-base">
-                <fa-icon icon="suitcase" style="margin-right: 0.325vw;"></fa-icon>
-                
+                <fa-icon icon="suitcase" class="border-icon" style="
+                background: #D0D4F0 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Crear Oferta</p>
+                    <p class="texto-boton">Ingresa detalles y requisitos para tu oferta.</p>
+                </div>
             </button>
             <button (click)="verOferta()" class="btn boton-base">
-                <fa-icon icon="eye" style="margin-right: 0.325vw;"></fa-icon>
-                
+                <fa-icon icon="eye" class="border-icon" style="
+                background: #BCFAF3 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Ver Ofertas</p>
+                    <p class="texto-boton">Controla todas tus ofertas</p>
+                </div>
             </button>
             <button (click)="membresia()" class="btn boton-base">
-                <fa-icon icon="star" style="margin-right: 0.325vw;"></fa-icon>
-                
+                <fa-icon [icon]="faStar" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Membresia Club del Trabajo</p>
+                    <p class="texto-boton">Activa tu membresía</p>
+                </div>
             </button>
             <button (click)="editarPerfil()" class="btn boton-base">
-                <fa-icon icon="ellipsis-h" style="margin-right: 0.325vw;"></fa-icon>
-                
+                <fa-icon [icon]="faEllipsisH" class="border-icon" style="
+                background: #D5D0E8 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Editar Perfil</p>
+                </div>
             </button>
         </div>
         <div class="right">

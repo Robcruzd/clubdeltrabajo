@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Archivo } from 'app/shared/model/archivo.model';
+import { Router } from '@angular/router';
+import { faStar, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'jhi-perfil-empresa',
@@ -9,16 +11,24 @@ import { Archivo } from 'app/shared/model/archivo.model';
 export class PerfilEmpresaComponent implements OnInit {
   imagen!: Archivo;
   ulrImgDefault = '../../../content/images/Image 28_M.png';
+  faStar = faStar;
+  faEllipsisH = faEllipsisH;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
-  crearOferta(): void {}
+  crearOferta(): void {
+    this.router.navigate(['primer-oferta']);
+  }
 
   verOferta(): void {}
 
-  membresia(): void {}
+  membresia(): void {
+    this.router.navigate(['membresias']);
+  }
 
-  editarPerfil(): void {}
+  editarPerfil(): void {
+    this.router.navigate(['editar-empresa']);
+  }
 }
