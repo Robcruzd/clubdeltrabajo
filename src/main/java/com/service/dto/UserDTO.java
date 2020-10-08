@@ -52,6 +52,8 @@ public class UserDTO {
     
     private Long user;
     
+    private Long userEmpresa;
+    
     private String password;
 
     public UserDTO() {
@@ -75,6 +77,7 @@ public class UserDTO {
             .map(Authority::getName)
             .collect(Collectors.toSet());
         this.user = user.getUser();
+        this.userEmpresa = user.getUserEmpresa();
     }
 
     public Long getId() {
@@ -193,6 +196,14 @@ public class UserDTO {
 		this.user = user;
 	}
 	
+	public Long getUserEmpresa() {
+		return userEmpresa;
+	}
+
+	public void setUserEmpresa(Long userEmpresa) {
+		this.userEmpresa = userEmpresa;
+	}
+
 	public String getPassword() {
 		return password;
 	}

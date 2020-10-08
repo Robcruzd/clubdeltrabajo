@@ -94,6 +94,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     
     @Column(name = "usuario_id")
     private Long user;
+    
+    @Column(name = "empresa_id")
+    private Long userEmpresa;
 
     public Long getId() {
         return id;
@@ -206,6 +209,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
 	public void setUser(Long user) {
 		this.user = user;
+	}
+
+	public Long getUserEmpresa() {
+		return userEmpresa;
+	}
+
+	public void setUserEmpresa(Long userEmpresa) {
+		this.userEmpresa = userEmpresa;
 	}
 
 	@Override

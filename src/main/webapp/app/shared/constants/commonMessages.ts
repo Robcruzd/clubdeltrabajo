@@ -379,5 +379,21 @@ export const commonMessages = {
     'El CLUB DEL TRABAJO aplicaría cookies, financieras entre otras y a las que los Usuarios ' +
     'acceden. Estas cookies permiten medir la efectividad de nuestras campañas online, ' +
     'proporcionar información que pueda resultar de interés al Usuario y ofrecer contenidos ' +
-    'publicitarios de su preferencia.'
+    'publicitarios de su preferencia.',
+
+  INGRESA_DATOS_BASICOS: 'Ingresa los datos básicos',
+  NOMBRE_OFERTA: 'Nombre de la oferta',
+  EXPERIENCIA_MINIMA: 'Experíencia mínima',
+  AREA_TRABAJO: 'Área de trabajo',
+  RANGO_SALARIAL: 'Rango salarial COP',
+  NO_PUBLICAR_SALARIO: 'No publicar salario',
+  REQUISITOS: 'Requisitos',
+  SECTOR_INDUSTRIA: 'Sector y/o Industria',
+  IDIOMA: 'idioma',
+  NIVEL_LABORAL: 'Nivel laboral',
+  TIPO_CONTRATO: 'Tipo de contrato',
+  PROFESION: 'Profesión',
+  MODALIDAD_LABORAL: 'Modalidad laboral',
+  NIVEL_ESTUDIOS: 'Nivel de estudios',
+  PUBLICAR_OFERTA: 'Publicar oferta'
 };

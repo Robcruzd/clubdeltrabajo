@@ -1,30 +1,40 @@
 package com.web.rest;
 
-import com.domain.Empresa;
-import com.service.EmpresaService;
-import com.web.rest.errors.BadRequestAlertException;
-import com.service.dto.EmpresaCriteria;
-import com.service.EmpresaQueryService;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
 
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
+import com.domain.Empresa;
+import com.domain.vo.EmpresaVo;
+import com.service.EmpresaQueryService;
+import com.service.EmpresaService;
+import com.service.UserService;
+import com.service.dto.EmpresaCriteria;
+import com.web.rest.errors.BadRequestAlertException;
+
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.PaginationUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link com.domain.Empresa}.
@@ -43,10 +53,13 @@ public class EmpresaResource {
     private final EmpresaService empresaService;
 
     private final EmpresaQueryService empresaQueryService;
+    
+    private final UserService userService;
 
-    public EmpresaResource(EmpresaService empresaService, EmpresaQueryService empresaQueryService) {
+    public EmpresaResource(EmpresaService empresaService, EmpresaQueryService empresaQueryService, UserService userService) {
         this.empresaService = empresaService;
         this.empresaQueryService = empresaQueryService;
+        this.userService = userService;
     }
 
     /**
@@ -140,5 +153,19 @@ public class EmpresaResource {
         log.debug("REST request to delete Empresa : {}", id);
         empresaService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+    
+    @PostMapping("/empresas/user")
+    public ResponseEntity<Empresa> crearUsuarioEmpresa(@Valid @RequestBody EmpresaVo empresaVo) throws URISyntaxException {
+        log.debug("REST request to save Persona : {}", empresaVo);
+        if (empresaVo.getEmpresa().getId() != null) {
+            throw new BadRequestAlertException("A new persona cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        Empresa result = empresaService.save(empresaVo.getEmpresa());
+        empresaVo.getUsuario().setUserEmpresa(result.getId());
+        userService.registerUser(empresaVo.getUsuario(), empresaVo.getUsuario().getPassword());
+        return ResponseEntity.created(new URI("/api/empresas/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 }

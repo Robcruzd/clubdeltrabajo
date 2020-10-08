@@ -1,0 +1,73 @@
+.estilo_body {
+  width: 61.378vw;
+  align-self: center;
+  justify-self: center;
+  background: transparent linear-gradient(181deg, #edeff2 0%, #edeff2 100%) 0% 0% no-repeat padding-box;
+  border-radius: 1.951vw 1.951vw 4.617vw 4.617vw;
+  opacity: 1;
+  margin-top: 3.121vw;
+  margin-bottom: 3.121vw;
+  padding: 0rem;
+  padding-top: 3.121vw;
+  max-width: none;
+
+  .estilo_titulo {
+    text-align: left;
+    font-size: 1.3vw;
+    font-family: 'Open Sans';
+    font-weight: bold;
+    letter-spacing: 0px;
+    color: #1b2455;
+    opacity: 1;
+  }
+
+  .estilo_label {
+    width: 100%;
+    text-align: left;
+    font-size: 0.91vw;
+    font-family: Arial;
+    letter-spacing: 0px;
+    color: #1b2455;
+    opacity: 1;
+    padding-left: 1.04vw;
+    margin-bottom: 0.52vw;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    margin: 0rem;
+
+    .column {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+
+        .estilo_inputs {
+          min-height: 3rem;
+          padding-right: 1rem;
+          padding-left: 1.5rem;
+          font-size: 0.875rem;
+        }
+      }
+    }
+
+    .estilo_campo_requerido {
+      text-align: left;
+      margin-bottom: 0.52vw;
+      font: 1.495vw Arial;
+      letter-spacing: 0px;
+      color: #fd2b4c;
+      opacity: 1;
+    }
+  }
+}

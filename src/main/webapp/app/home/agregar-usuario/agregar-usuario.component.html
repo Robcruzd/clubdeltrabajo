@@ -42,9 +42,16 @@
                 {{mensajeNombre}}
             </small>
         </div>
-        <div class="inputs">
-            <label [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'">Correo Electrónico</label>
+        <div class="inputs" *ngIf="tipoUsuario.id==1">
+            <label style="color:white;">Correo Electrónico</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="persona.email" (blur)="deleteSpace('email')">
+            <small *ngIf="mensajeEmail" class="text-danger">
+                {{mensajeEmail}}
+            </small>
+        </div>
+        <div class="inputs" *ngIf="tipoUsuario.id==2">
+            <label [style.color]="'#202A5D'">Correo Electrónico</label>
+            <input type="text" class="estilo_inputs" [(ngModel)]="empresa.email" (blur)="deleteSpace('email')">
             <small *ngIf="mensajeEmail" class="text-danger">
                 {{mensajeEmail}}
             </small>
