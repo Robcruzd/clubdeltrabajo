@@ -22,7 +22,9 @@ export class PerfilEmpresaComponent implements OnInit {
     this.router.navigate(['primer-oferta']);
   }
 
-  verOferta(): void {}
+  verOferta(): void {
+    this.router.navigate(['oferta-publicada']);
+  }
 
   membresia(): void {
     this.router.navigate(['membresias']);

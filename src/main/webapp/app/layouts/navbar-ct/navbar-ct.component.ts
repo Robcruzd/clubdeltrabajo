@@ -57,6 +57,8 @@ export class NavbarCtComponent implements OnInit {
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
         this.accountService.getAuthenticationState().subscribe(account => {
+          // eslint-disable-next-line no-console
+          console.log('account: ', account);
           this.account = account;
           this.persona = account?.user || 0;
           this.showNavbar = this.accountService.isAuthenticated() ? true : false;
@@ -65,20 +67,28 @@ export class NavbarCtComponent implements OnInit {
           if (this.router.url === '/' || this.router.url === '/inicio-sesion' || this.router.url === '/agregar-usuario') {
             this.hideNavbar = true;
             if (this.logged) {
-              this.router.navigate(['/perfil']);
+              if (this.account?.user) {
+                this.router.navigate(['/perfil']);
+              } else if (this.account?.userEmpresa) {
+                this.router.navigate(['/perfil-empresa']);
+              }
             }
           } else {
             this.hideNavbar = false;
           }
-          this.hojaVidaService.find(this.persona).subscribe(response => {
-            // eslint-disable-next-line no-console
-            console.log('ngoninit navbar: ', this.accountService.isAuthenticated());
-            this.hojaVidaVo = response.body;
-            this.urlImageDefault =
-              this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
-                ? '../../../content/images/Image 28_F.png'
-                : '../../../content/images/Image 28_M.png';
-          });
+          if (this.account?.user) {
+            this.hojaVidaService.find(this.persona).subscribe(response => {
+              // eslint-disable-next-line no-console
+              console.log('ngoninit navbar: ', this.accountService.isAuthenticated());
+              this.hojaVidaVo = response.body;
+              this.urlImageDefault =
+                this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
+                  ? '../../../content/images/Image 28_F.png'
+                  : '../../../content/images/Image 28_M.png';
+            });
+          } else if (this.account?.userEmpresa) {
+            this.urlImageDefault = '../../../content/images/Image 28_M.png';
+          }
           if (this.showNavbar) {
             this.consultarImagen();
           }

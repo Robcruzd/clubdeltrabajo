@@ -1,1 +1,114 @@
-<p>editar-empresa works!</p>
+<div class="contenedor">
+    <div class="div-center">
+        <button class="btn boton-base">
+            <fa-icon [icon]="faEllipsisH" class="border-icon" style="
+            background: #D5D0E8 0% 0% no-repeat padding-box;"></fa-icon>
+            <div class="div-info-boton">
+                <p class="titulo-boton">Editar Perfil</p>
+            </div>
+        </button>
+        <div class="div-infos">
+            <form [formGroup]="formEmpresa">
+            <p class="estilo_titulo">{{labels.INFORMACION_PERSONA_LABEL}}</p>
+            <div class="row">
+                <div class="column">
+                    <div class="form-group">
+                        <p class="estilo_label">Razón Social <span
+                                class="estilo_campo_requerido">*</span></p>
+                        <input type="text" class="estilo_inputs" formControlName="razonSocial" oninput="this.value = this.value.toUpperCase()">
+                        <small *ngIf="formEmpresa.get('razonSocial')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        <small *ngIf="formEmpresa.get('razonSocial')?.errors?.pattern"
+                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="form-group">
+                        <p class="estilo_label">Razón Comercial</p>
+                        <input type="text" class="estilo_inputs" formControlName="razonComercial" oninput="this.value = this.value.toUpperCase()">
+                        <small *ngIf="formEmpresa.get('razonComercial')?.errors?.pattern"
+                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div class="form-group">
+                        <p class="estilo_label">NIT <span
+                                class="estilo_campo_requerido">*</span></p>
+                        <input type="text" class="estilo_inputs" formControlName="numeroDocumento">
+                        <small *ngIf="formEmpresa.get('numeroDocumento')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="form-group">
+                        <p class="estilo_label">Dirección <span
+                                class="estilo_campo_requerido">*</span></p>
+                        <input type="text" class="estilo_inputs" formControlName="direccion">
+                        <small *ngIf="formEmpresa.get('direccion')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        <small *ngIf="formEmpresa.get('direccion')?.errors?.pattern"
+                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div class="form-group">
+                        <p class="estilo_label">Teléfono <span
+                                class="estilo_campo_requerido">*</span></p>
+                        <input type="text" class="estilo_inputs" formControlName="telefono">
+                        <small *ngIf="formEmpresa.get('telefono')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        <small *ngIf="formEmpresa.get('telefono')?.errors?.pattern"
+                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="form-group">
+                        <p class="estilo_label">Ciudad <span
+                                class="estilo_campo_requerido">*</span></p>
+                        <input type="text" class="estilo_inputs" formControlName="ciudad">
+                        <small *ngIf="formEmpresa.get('ciudad')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        <small *ngIf="formEmpresa.get('ciudad')?.errors?.pattern"
+                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div class="form-group">
+                        <p class="estilo_label">Email <span
+                                class="estilo_campo_requerido">*</span></p>
+                        <input type="text" class="estilo_inputs" formControlName="email">
+                        <small *ngIf="formEmpresa.get('email')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        <small *ngIf="formEmpresa.get('email')?.errors?.email"
+                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                    </div>
+                </div>
+                <div class="column">
+                    <button type="button" class="btn boton_siguiente text-white float-right"
+                        [disabled]="formEmpresa.invalid">
+                            {{labels.SIGUIENTE_LABEL}}
+                    </button>
+                </div>
+            </div>
+            </form>
+        </div>
+        <button class="btn boton-volver" (click)="backClicked()">
+            <fa-icon icon="chevron-left" class="border-icon" ></fa-icon>
+            <p class="titulo-boton">Volver</p>
+        </button>
+    </div>
+</div>
+<div class="footer">
+    <a href="https://instagram.com/clubdeltrabajo?igshid=1m37k1eb9p16a" target="_blank" style="margin-right: 1.52vw;">
+        <img class="icono" path="fill: currentColor !important;" src="../../../content/images/instagram.png"></a>
+    <a href="https://twitter.com/ClubdelTrabajo" target="_blank" style="margin-right: 1.52vw;">
+        <img class="icono" src="../../../content/images/twitter.png"></a>
+    <a href="https://www.facebook.com/Club-del-Trabajo-100955765079986/" target="_blank" style="margin-right: 1.52vw;">
+        <img class="icono" src="../../../content/images/facebook.png"></a>
+</div>

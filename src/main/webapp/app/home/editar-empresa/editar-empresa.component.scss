@@ -1,0 +1,188 @@
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .div-center {
+    display: flex;
+    width: 753px;
+    flex-direction: column;
+    align-items: center;
+    width: min-content;
+    align-self: center;
+
+    .boton-base {
+      width: 261px;
+      height: 41px;
+      background: #ffffff 0% 0% no-repeat padding-box;
+      box-shadow: 0px 3px 6px #00000029;
+      border-radius: 13px;
+      opacity: 1;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 0rem 1rem;
+      margin: 1rem 0rem 2rem 0rem;
+      align-self: flex-start;
+
+      .border-icon {
+        margin-right: 0.325vw;
+        width: 34px;
+        height: 34px;
+        opacity: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+      }
+
+      .div-info-boton {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+
+        .titulo-boton {
+          font-size: 14px;
+          font-family: Arial, Helvetica, sans-serif;
+          color: #6d7184;
+          letter-spacing: 0px;
+          opacity: 1;
+          margin: 0rem 1rem;
+          text-align: initial;
+        }
+      }
+    }
+
+    .div-infos {
+      width: 753px;
+      background: #edeff2 0% 0% no-repeat padding-box;
+      border-radius: 30px;
+      opacity: 1;
+
+      .estilo_titulo {
+        text-align: left;
+        font-size: 20px;
+        font-family: 'Open Sans';
+        font-weight: bold;
+        letter-spacing: 0px;
+        color: #1b2455;
+        opacity: 1;
+        padding: 3rem 0rem 1rem 2.5rem;
+      }
+
+      .row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+        margin: 0rem;
+
+        .column {
+          width: 50%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+
+            .estilo_label {
+              width: 100%;
+              text-align: left;
+              font-size: 14px;
+              font-family: Arial;
+              letter-spacing: 0px;
+              color: #1b2455;
+              opacity: 1;
+              padding-left: 4.04vw;
+              margin-bottom: 0.52vw;
+
+              .estilo_campo_requerido {
+                text-align: left;
+                margin-bottom: 0.52vw;
+                font: 1.1vw Arial;
+                letter-spacing: 0px;
+                color: #fd2b4c;
+                opacity: 1;
+              }
+            }
+
+            .estilo_inputs {
+              width: 292px;
+              min-height: 45px;
+              font-weight: bold;
+              background: #ffffff 0% 0% no-repeat padding-box;
+              border-radius: 50rem;
+              border-width: 0rem;
+              opacity: 1;
+              padding-right: 1.04vw;
+              padding-left: 1.56vw;
+              font-size: 0.91vw;
+            }
+
+            .estilo_inputs:focus {
+              outline: none;
+            }
+
+            .text-danger {
+              font-size: 10px;
+            }
+          }
+
+          .boton_siguiente {
+            width: 295px;
+            height: 48px;
+            background: #f54b1d 0% 0% no-repeat padding-box;
+            border-radius: 13px;
+            opacity: 1;
+            z-index: 5;
+            font-size: 16px;
+            margin-top: 1.5rem;
+          }
+        }
+      }
+    }
+
+    .boton-volver {
+      width: 98px;
+      height: 31px;
+      background: #e5e5e5 0% 0% no-repeat padding-box;
+      border-radius: 13px;
+      letter-spacing: 0px;
+      text-align: center;
+      font: normal normal normal 12px/14px Arial;
+      color: #2a1d72;
+      opacity: 1;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+      align-self: flex-start;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+
+      .titulo-boton {
+        margin-bottom: 0rem;
+      }
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #9ba0af;
+  height: 118px;
+  width: 100%;
+
+  .icono {
+    width: 1.248vw;
+    height: 1.248vw;
+  }
+}

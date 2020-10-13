@@ -57,8 +57,12 @@ export class InicioSesionComponent implements OnInit {
     if (!this.usernameInvalid && !this.passwordInvalid) {
       this.login.rememberMe = false;
       this.loginService.login(this.login).subscribe(
-        () => {
-          this.router.navigate(['/perfil']);
+        res => {
+          if (res?.user !== null) {
+            this.router.navigate(['/perfil']);
+          } else if (res?.userEmpresa !== null) {
+            this.router.navigate(['/perfil-empresa']);
+          }
         },
         error => this.validarError(error.error)
       );

@@ -104,6 +104,10 @@
       flex-direction: row;
       justify-content: space-around;
       align-items: center;
+
+      .titulo-boton {
+        margin-bottom: 0rem;
+      }
     }
   }
 }
