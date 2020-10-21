@@ -12,7 +12,7 @@ export interface IOferta {
   area?: number;
   fechaPublicacion?: Moment;
   estado?: string;
-  usuario?: IEmpresa;
+  usuario?: IEmpresa | null;
 }
 
 export class Oferta implements IOferta {
@@ -27,6 +27,6 @@ export class Oferta implements IOferta {
     public area?: number,
     public fechaPublicacion?: Moment,
     public estado?: string,
-    public usuario?: IEmpresa
+    public usuario?: IEmpresa | null
   ) {}
 }
