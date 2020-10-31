@@ -27,7 +27,7 @@
 
     .titulo1 {
       text-align: left;
-      font: normal normal bold 98px Roboto;
+      font: normal normal bold 6.372vw Roboto;
       letter-spacing: 0px;
       color: #1fb9fd;
       opacity: 1;
@@ -36,8 +36,8 @@
 
     .titulo2 {
       text-align: left;
-      font: normal normal normal 23px/30px Roboto;
-      letter-spacing: 0.46px;
+      font: normal normal normal 1.495vw Roboto;
+      letter-spacing: 0.03vw;
       color: #707070;
       z-index: 10;
       background: none;
@@ -53,30 +53,30 @@
       height: 4.681vw;
       text-align: left;
       font: 1.3vw Roboto;
-      letter-spacing: 0.4px;
+      letter-spacing: 0.026vw;
       color: #ffffff;
       opacity: 1;
     }
 
     .lista {
       text-align: left;
-      font: normal normal normal 20px/40px Roboto;
-      letter-spacing: 0.4px;
+      font: normal normal normal 1.3vw Roboto;
+      letter-spacing: 0.026vw;
       color: #707070;
       opacity: 1;
-      margin-top: 3rem;
-      margin-bottom: 3rem;
+      margin-top: 3.121vw;
+      margin-bottom: 3.121vw;
     }
 
     .boton-crear-oferta {
-      width: 161px;
-      height: 48px;
+      width: 10.468vw;
+      height: 3.121vw;
       background: #f54b1d 0% 0% no-repeat padding-box;
-      border-radius: 13px;
+      border-radius: 0.845vw;
       opacity: 1;
       margin-bottom: 1.04vw;
       text-align: center;
-      font: normal normal normal 16px/19px Arial;
+      font: normal normal normal 1.04vw Arial;
       letter-spacing: 0px;
       color: #ffffff;
       opacity: 1;
@@ -91,13 +91,13 @@
     }
 
     .boton-volver {
-      width: 98px;
-      height: 31px;
+      width: 6.372vw;
+      height: 2.016vw;
       background: #e5e5e5 0% 0% no-repeat padding-box;
-      border-radius: 13px;
+      border-radius: 0.845vw;
       letter-spacing: 0px;
       text-align: center;
-      font: normal normal normal 12px/14px Arial;
+      font: normal normal normal 0.78vw Arial;
       color: #2a1d72;
       opacity: 1;
       display: flex;
@@ -118,7 +118,7 @@
   justify-content: center;
   align-items: center;
   background-color: #9ba0af;
-  height: 118px;
+  height: 7.672vw;
   width: 100%;
 
   .icono {
@@ -130,15 +130,10 @@
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 900px) {
   .estilo_home {
-    display: flex;
     flex-direction: column-reverse;
     justify-content: space-between;
-    align-items: center;
-    width: 100%;
     min-width: 100vw;
     min-height: 100vh;
-    height: 100% !important;
-    background: transparent linear-gradient(0deg, #314681 0%, #1a2050 100%) 0% 0% no-repeat padding-box;
 
     .estilo_imagen {
       width: 80%;
@@ -148,7 +143,6 @@
       position: inherit;
       align-self: flex-end;
       background: transparent 0% 0% no-repeat padding-box;
-      mix-blend-mode: lighten;
     }
 
     .estilo_logo {
@@ -167,29 +161,33 @@
       background: none;
       z-index: 1;
 
+      .titulo1 {
+        font: normal normal bold 50px Roboto;
+      }
+
       .titulo2 {
-        width: auto;
-        height: auto;
-        text-align: left;
-        font: Bold 20px Roboto;
-        letter-spacing: 0px;
-        color: #ffffff;
-        z-index: 10;
-        background: none;
-        opacity: 1;
+        font: normal normal normal 23px/30px Roboto;
+        letter-spacing: 0.46px;
       }
 
       .texto3 {
         width: auto;
         height: auto;
         text-align: left;
-        font: 15px Roboto;
+        font: 20px Roboto;
         letter-spacing: 0.4px;
         color: #ffffff;
         opacity: 1;
       }
 
-      .boton-buscar-trabajo {
+      .lista {
+        font: normal normal normal 20px/40px Roboto;
+        letter-spacing: 0.4px;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+      }
+
+      .boton-crear-oferta {
         width: 100%;
         height: auto;
         padding: 0.8rem 0rem;
@@ -198,7 +196,7 @@
         opacity: 1;
         margin-bottom: 1rem;
         text-align: center;
-        font: Bold 16px/19px Arial;
+        font: normal 16px/19px Arial;
         letter-spacing: 0px;
         color: #ffffff;
         opacity: 1;
@@ -212,27 +210,25 @@
         opacity: 1;
       }
 
-      .boton-ofrecer-trabajo {
-        width: 295px;
-        height: 48px;
-        background: #fb8826 0% 0% no-repeat padding-box;
-        border-radius: 24px;
-        opacity: 1;
-        text-align: center;
-        font: Bold 16px/19px Arial;
-        letter-spacing: 0px;
-        color: #ffffff;
-        opacity: 1;
-      }
+      .boton-volver {
+        width: 98px;
+        height: 31px;
+        border-radius: 13px;
+        font: normal normal normal 12px/14px Arial;
 
-      .textoResp {
-        display: initial;
-        text-align: center;
+        .titulo-boton {
+          margin-bottom: 0rem;
+        }
       }
+    }
+  }
 
-      .boton-ingresar {
-        display: initial;
-      }
+  .footer {
+    height: 118px;
+
+    .icono {
+      width: 19px;
+      height: 19px;
     }
   }
 }
@@ -240,14 +236,6 @@
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 900px) {
   .estilo_logo {
-    display: none;
-  }
-
-  .textoResp {
-    display: none;
-  }
-
-  .boton-ingresar {
     display: none;
   }
 }
