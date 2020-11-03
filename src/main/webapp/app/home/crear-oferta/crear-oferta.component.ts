@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CargoService } from '../../entities/cargo/cargo.service';
 import { commonMessages } from '../../shared/constants/commonMessages';
 import { ICargo } from 'app/shared/model/cargo.model';
@@ -20,7 +20,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { User } from '../../core/user/user.model';
 import { ProfesionService } from '../../entities/profesion/profesion.service';
-
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-crear-oferta',
@@ -58,31 +58,52 @@ export class CrearOfertaComponent implements OnInit {
       private accountService: AccountService,
       private apiService: ApiService, 
       private profesionService: ProfesionService,
+      private fb: FormBuilder,
+      private router: Router,
       ) {}
     
     ngOnInit(): void {
-      this.formDatosBasicos = new FormGroup({
-        nombre: new FormControl(),
-        experiencia: new FormControl(),
-        areaTrabajo: new FormControl(),
-        rangoSalarial: new FormControl(),
-        idIdioma: new FormControl(),
-        tipoContrato: new FormControl(),
-        modalidadLAboral: new FormControl(),
-        nivelEstudios: new FormControl(),
-        requisitos: new FormControl(),
-        ciudad: new FormControl()
-      });
+      // this.formDatosBasicos = new FormGroup({
+      //   nombre: new FormControl(),
+      //   experiencia: new FormControl(),
+      //   areaTrabajo: new FormControl(),
+      //   rangoSalarial: new FormControl(),
+      //   idIdioma: new FormControl(),
+      //   tipoContrato: new FormControl(),
+      //   modalidadLaboral: new FormControl(),
+      //   nivelEstudios: new FormControl(),
+      //   requisitos: new FormControl(),
+      //   ciudad: new FormControl()
+      // });
+      this.crearFormularioOferta();
       this.cargarCargos();
       this.cargarIdiomas();
       this.consultarInformacionGeografica();
       this.cargarProfesiones();
       this.traerProfesiones();
       this.accountService.getAuthenticationState().subscribe(account => {     
-        
         this.usuario = account;
       });
         
+    }
+
+    crearFormularioOferta(): void {
+      this.formDatosBasicos = this.fb.group({
+        id: [''],
+        nombre: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
+        requisitos: ['',[Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
+        rangoSalarial: ['', [Validators.required]],
+        areaTrabajo: ['', [Validators.required]],
+        experiencia: ['', [Validators.required]],
+        ciudad: ['', [Validators.required]],
+        idIdioma: ['', [Validators.required]],
+        nivelLaboral: ['', [Validators.required]],
+        tipoContrato: ['', [Validators.required]],
+        modalidadLaboral: ['', [Validators.required]],
+        nivelEstudios: ['', [Validators.required]],
+        sector: ['', [Validators.required]],
+        profesion: [null, [Validators.required]]
+      });
     }
     
     onSubmit(): void {
@@ -96,6 +117,13 @@ export class CrearOfertaComponent implements OnInit {
       this.oferta.ciudad = this.formDatosBasicos.controls['ciudad'].value;
       this.oferta.area = this.formDatosBasicos.controls['areaTrabajo'].value;
       this.oferta.fechaPublicacion = moment(new Date(), "YYYY-MMM-DD"); 
+      this.oferta.sector= this.formDatosBasicos.controls['sector'].value;
+      this.oferta.idioma= this.formDatosBasicos.controls['idIdioma'].value;
+      this.oferta.nivelLaboral= this.formDatosBasicos.controls['nivelLaboral'].value;
+      this.oferta.tipoContrato= this.formDatosBasicos.controls['tipoContrato'].value;
+      this.oferta.profesion= this.formDatosBasicos.controls['profesion'].value.id;
+      this.oferta.modalidad= this.formDatosBasicos.controls['modalidadLaboral'].value;
+      this.oferta.nivelEstudios= this.formDatosBasicos.controls['nivelEstudios'].value;
 
       if(this.usuario?.userEmpresa){
         this.empresaService.find(this.usuario.userEmpresa).subscribe((response)=>{
@@ -173,6 +201,7 @@ export class CrearOfertaComponent implements OnInit {
       this.profesiones.map(option => {
         if (option.profesion === event) {
           this.profesionState = true;
+          this.formDatosBasicos.get('profesion')?.setValue(option);
         }
       });
     }
@@ -186,4 +215,7 @@ export class CrearOfertaComponent implements OnInit {
         .subscribe((res: HttpResponse<IProfesion[]>) => (this.profesiones = res.body || []));
     }
 
+    volverOferta(): void {
+      this.router.navigate(['primer-oferta']);
+    }
 }

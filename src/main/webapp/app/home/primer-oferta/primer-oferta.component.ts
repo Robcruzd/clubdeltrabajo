@@ -17,6 +17,7 @@ export class PrimerOfertaComponent implements OnInit {
   }
 
   backClicked(): void {
-    this._location.back();
+    // this._location.back();
+    this.router.navigate(['perfil-empresa']);
   }
 }

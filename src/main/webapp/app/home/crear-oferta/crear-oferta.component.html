@@ -9,10 +9,10 @@
                             <p class="estilo_label">{{labels.NOMBRE_OFERTA}} <span
                                     class="estilo_campo_requerido">*</span></p>
                             <input type="text" class="estilo_inputs" formControlName="nombre">
-                            <small
-                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                            <small 
-                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                            <small *ngIf="formDatosBasicos.get('nombre')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formDatosBasicos.get('nombre')?.errors?.pattern"
+                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
                         </div>
                     </div>
                     <div class="column">
@@ -26,6 +26,8 @@
                                     {{ experiencia.nombre }}
                                 </option>
                             </select>
+                            <small *ngIf="formDatosBasicos.get('experiencia')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
                     </div>
                 </div>
@@ -42,6 +44,8 @@
                                     {{ cargo.cargo }}
                                 </option>
                             </select>
+                            <small *ngIf="formDatosBasicos.get('areaTrabajo')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
                     </div>
                     <div class="column">
@@ -55,6 +59,8 @@
                                     {{ aspiracion.nombre }}
                                 </option>
                             </select>
+                            <small *ngIf="formDatosBasicos.get('rangoSalarial')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
                     </div>
                 </div>
@@ -65,10 +71,10 @@
                             <p class="estilo_label">{{labels.REQUISITOS}} <span
                                     class="estilo_campo_requerido">*</span></p>
                             <input formControlName="requisitos" type="text" class="estilo_inputs">
-                            <small
-                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                            <small 
-                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                            <small *ngIf="formDatosBasicos.get('requisitos')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            <small *ngIf="formDatosBasicos.get('requisitos')?.errors?.pattern"
+                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
                         </div>
                     </div>
                     <div class="column">
@@ -83,10 +89,8 @@
                                     {{ municipio.nombre }}
                                 </option>
                             </select>
-                            <small
-                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                            <small 
-                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                            <small *ngIf="formDatosBasicos.get('ciudad')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
                     </div>
                 </div>
@@ -96,16 +100,15 @@
                         <div class="form-group">
                             <p class="estilo_label">{{labels.SECTOR_INDUSTRIA}} <span
                                     class="estilo_campo_requerido">*</span></p>
-                            <input type="text" class="estilo_inputs">
-                            <small
-                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                            <small 
-                                class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                            <input type="number" formControlName="sector" class="estilo_inputs">
+                            <small *ngIf="formDatosBasicos.get('sector')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
                     </div>
                     <div class="column">
                         <div class="form-group">
-                            <p class="estilo_label">{{labels.IDIOMA}} </p>
+                            <p class="estilo_label">{{labels.IDIOMA}}<span
+                                class="estilo_campo_requerido">*</span> </p>
                             <select formControlName="idIdioma" class="estilo_inputs">
                                 <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
                                 <option
@@ -114,6 +117,8 @@
                                     {{ item.idioma }}
                                 </option>
                             </select>
+                            <small *ngIf="formDatosBasicos.get('idIdioma')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
                     </div>
                 </div>
@@ -130,6 +135,8 @@
                                     {{ nivel.nombre }}
                                 </option>
                             </select>
+                            <small *ngIf="formDatosBasicos.get('nivelLaboral')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
                     </div>
                     <div class="column">
@@ -143,6 +150,8 @@
                                     {{ tipo.nombre }}
                                 </option>
                             </select>
+                            <small *ngIf="formDatosBasicos.get('tipoContrato')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
                     </div>
                 </div>
@@ -159,19 +168,23 @@
                                     {{option.profesion}}
                                 </mat-option>
                             </mat-autocomplete>
+                            <small *ngIf="formDatosBasicos.get('profesion')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
                     </div>
                     <div class="column">
                         <div class="form-group">
                             <p class="estilo_label">{{labels.MODALIDAD_LABORAL}} <span
                                 class="estilo_campo_requerido">*</span></p>
-                            <select formControlName="modalidadLAboral" class="estilo_inputs">
+                            <select formControlName="modalidadLaboral" class="estilo_inputs">
                                 <option [ngValue]="null" disabled>Seleccione una opción</option>
                                 <option *ngFor="let modalidad of modalidadesLaborales" 
                                 [ngValue]="modalidad.codigo">
                                     {{ modalidad.nombre }}
                                 </option>
                             </select>
+                            <small *ngIf="formDatosBasicos.get('modalidadLaboral')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
                     </div>
                 </div>
@@ -190,10 +203,12 @@
                                     {{ nivel.nombre }}
                                 </option>
                             </select>
+                            <small *ngIf="formDatosBasicos.get('nivelEstudios')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         </div>
                     </div>
                     <div class="column">
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" class="btn btn-success" [disabled]="formDatosBasicos.invalid">
                             <div>{{labels.PUBLICAR_OFERTA}}</div>
                         </button>   
                     </div>
@@ -202,3 +217,7 @@
         </ng-container>
     </form>
 </div>
+<button class="btn boton-volver" (click)="volverOferta()">
+    <fa-icon icon="chevron-left" class="border-icon" ></fa-icon>
+    <p class="titulo-boton">Volver</p>
+</button>

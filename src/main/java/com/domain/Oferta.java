@@ -63,6 +63,27 @@ public class Oferta implements Serializable {
     @NotNull
     @JsonIgnoreProperties("ofertas")
     private Empresa usuario;
+    
+    @Column(name = "sector", nullable = true)
+    private Long sector;
+    
+    @Column(name = "idioma", nullable = true)
+    private Long idioma;
+    
+    @Column(name = "nivel_laboral", nullable = true)
+    private Long nivelLaboral;
+    
+    @Column(name = "tipo_contrato", nullable = true)
+    private Long tipoContrato;
+    
+    @Column(name = "profesion", nullable = true)
+    private Long profesion;
+    
+    @Column(name = "modalidad", nullable = true)
+    private Long modalidad;
+    
+    @Column(name = "nivel_estudios", nullable = false)
+    private Long nivelEstudios;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -202,9 +223,66 @@ public class Oferta implements Serializable {
     public void setUsuario(Empresa empresa) {
         this.usuario = empresa;
     }
+    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
+    public Long getSector() {
+		return sector;
+	}
+
+	public void setSector(Long sector) {
+		this.sector = sector;
+	}
+
+	public Long getIdioma() {
+		return idioma;
+	}
+
+	public void setIdioma(Long idioma) {
+		this.idioma = idioma;
+	}
+
+	public Long getNivelLaboral() {
+		return nivelLaboral;
+	}
+
+	public void setNivelLaboral(Long nivelLaboral) {
+		this.nivelLaboral = nivelLaboral;
+	}
+
+	public Long getTipoContrato() {
+		return tipoContrato;
+	}
+
+	public void setTipoContrato(Long tipoContrato) {
+		this.tipoContrato = tipoContrato;
+	}
+
+	public Long getProfesion() {
+		return profesion;
+	}
+
+	public void setProfesion(Long profesion) {
+		this.profesion = profesion;
+	}
+
+	public Long getModalidad() {
+		return modalidad;
+	}
+
+	public void setModalidad(Long modalidad) {
+		this.modalidad = modalidad;
+	}
+
+	public Long getNivelEstudios() {
+		return nivelEstudios;
+	}
+
+	public void setNivelEstudios(Long nivelEstudios) {
+		this.nivelEstudios = nivelEstudios;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

@@ -2,6 +2,8 @@ package com.service;
 
 import com.domain.Oferta;
 import com.repository.OfertaRepository;
+import com.service.dto.OfertaCriteria;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -70,5 +73,17 @@ public class OfertaService {
     public void delete(Long id) {
         log.debug("Request to delete Oferta : {}", id);
         ofertaRepository.deleteById(id);
+    }
+    
+    /**
+     * Get all the ofertas.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<Oferta> findOfertasFiltro(OfertaCriteria criteria) {
+        log.debug("Request to get all Ofertas");
+        return ofertaRepository.findByCiudadAndExperiencia(criteria.getCiudad(),criteria.getExperiencia());
     }
 }
