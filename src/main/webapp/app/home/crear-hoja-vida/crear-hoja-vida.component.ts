@@ -790,8 +790,6 @@ export class CrearHojaVidaComponent implements OnInit {
   consultarInformacionGeografica(): void {
     this.apiService.getInformacionGeografica().subscribe(geografia => {
       this.geografia = geografia;
-      const bogota = { codigoDpto: '100', nombreDpto: 'Bogotá D.C.', codigoMpio: '100000', nombreMpio: 'Bogotá D.C.' };
-      this.geografia.push(bogota);
       this.cargarDepartamentos();
       this.cargarMunicipios(0);
       this.cargarMunicipiosPersonal(0);
