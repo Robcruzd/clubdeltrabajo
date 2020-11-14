@@ -36,7 +36,7 @@ export class AgregarUsuarioComponent implements OnInit {
   mensajeConfClave: any;
   mensajeTipoPersona: any;
   mensajeTerminos: any;
-  validacionIncorrecta: any = false;
+  validacionIncorrecta: any = true;
   condiciones: any;
   personaNatural: any;
   document = new Document();
@@ -194,6 +194,7 @@ export class AgregarUsuarioComponent implements OnInit {
           },
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           error => {
+            this.validacionIncorrecta = true;
             alertify.set('notifier', 'position', 'top-right'), alertify.error('Fallo registro de usuario!');
           }
         );
@@ -204,8 +205,10 @@ export class AgregarUsuarioComponent implements OnInit {
           },
           error => {
             if (error.error?.errorKey === 'userexists') {
+              this.validacionIncorrecta = true;
               alertify.set('notifier', 'position', 'top-right'), alertify.error('Usuario ya registrado!');
             } else {
+              this.validacionIncorrecta = true;
               alertify.set('notifier', 'position', 'top-right'), alertify.error('Fallo registro de usuario!');
             }
           }
@@ -217,6 +220,7 @@ export class AgregarUsuarioComponent implements OnInit {
   ventanaInicioSesion(): void {
     alertify.set('notifier', 'position', 'top-right');
     alertify.success('Ingresado correctamente!');
+    this.validacionIncorrecta = true;
     alertify
       .alert()
       .setting({

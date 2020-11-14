@@ -106,7 +106,8 @@
                 {{mensajeCaptcha}}
             </small>
         </div>
-        <button class="btn boton_registrar shadow-none"  style="color:white; " (click)="onCrearUsuario()">Registrarme</button>
+        <button class="btn boton_registrar shadow-none"  style="color:white; " (click)="onCrearUsuario()"
+            [disabled]="!validacionIncorrecta">Registrarme</button>
         <div class="inputs" style="align-items: center;">
             <div class="terminos">
                 <input type="radio" value="terminos" name="terminos" [(ngModel)]="condiciones" class="radioB" ngChecked="true"/>
