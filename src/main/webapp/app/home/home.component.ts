@@ -3,7 +3,10 @@ import { Subscription } from 'rxjs';
 import { LoginModalService } from 'app/core/login/login-modal.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+
+declare let gtag: Function;
 
 @Component({
   selector: 'jhi-home',
@@ -14,7 +17,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   account: Account | null = null;
   authSubscription?: Subscription;
 
-  constructor(private accountService: AccountService, private loginModalService: LoginModalService, private router: Router) {}
+  constructor(private accountService: AccountService, private loginModalService: LoginModalService, private router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        gtag('config', 'UA-181764554-1', {
+          page_path: event.urlAfterRedirects
+        });
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
