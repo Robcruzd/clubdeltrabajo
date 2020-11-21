@@ -9,6 +9,9 @@ export interface IEmpresa {
   numeroDocumento?: string;
   tipoUsuario?: ITipoUsuario;
   tipoDocumento?: ITipoDocumento;
+  direccion?: string;
+  telefono?: number;
+  ciudad?: number;
 }
 
 export class Empresa implements IEmpresa {
@@ -19,6 +22,9 @@ export class Empresa implements IEmpresa {
     public email?: string,
     public numeroDocumento?: string,
     public tipoUsuario?: ITipoUsuario,
-    public tipoDocumento?: ITipoDocumento
+    public tipoDocumento?: ITipoDocumento,
+    public direccion?: string,
+    public telefono?: number,
+    public ciudad?: number
   ) {}
 }

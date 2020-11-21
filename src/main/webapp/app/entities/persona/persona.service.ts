@@ -40,4 +40,12 @@ export class PersonaService {
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
+
+  getPersonasTotal(): Observable<EntityResponseType> {
+    return this.http.get<IPersona>(`${this.resourceUrl}/${'contar'}`, { observe: 'response' });
+  }
+
+  getPersonas(): Observable<EntityResponseType> {
+    return this.http.get<IPersona>(`${this.resourceUrl}/${'getPersonas'}`, { observe: 'response' });
+  }
 }

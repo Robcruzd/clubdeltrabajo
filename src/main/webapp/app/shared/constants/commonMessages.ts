@@ -272,6 +272,42 @@ export const commonMessages = {
     { codigo: 15, nombre: 'Especialización Tecnológica' },
     { codigo: 16, nombre: 'Especialización Técnica' }
   ],
+
+  ARRAY_TIPO_CONTRATO: [
+    { codigo:1, nombre:"Indefinido"},
+    { codigo:2, nombre:"Definido"},
+    { codigo:3, nombre:"Prestación de Servicios"},
+    { codigo:4, nombre:"Contrato de aprendizaje"},
+    { codigo:5, nombre:"Por obra o labor"}
+  ],
+
+  ARRAY_MODALIDAD_LABORAL: [
+    { codigo:1, nombre:"Freelance"},
+    { codigo:2, nombre:"Mensual"},
+    { codigo:3, nombre:"Por Hora"},
+    { codigo:4, nombre:"Semanal"}
+  ],
+
+  ARRAY_NIVEL_LABORAL: [
+    { codigo:1, nombre:"Alta Gerencia"},
+    { codigo:2, nombre:"Gerencia Media"},
+    { codigo:3, nombre:"Profesional"},
+    { codigo:4, nombre:"Asistencial"}
+  ],
+
+  ARRAY_EXPERIENCIA_LABORAL: [
+    { codigo:"1", nombre:"Sin Experiencia"},
+    { codigo:"2", nombre:"Menos de un año"},
+    { codigo:"3", nombre:"Entre 1 y 2 años"},
+    { codigo:"4", nombre:"Entre 2 y 3 años"},
+    { codigo:"5", nombre:"Entre 3 y 4 años"},
+    { codigo:"6", nombre:"Entre 4 y 5 años"},
+    { codigo:"7", nombre:"Entre 5 y 7 años"},
+    { codigo:"8", nombre:"Entre 7 y 10 años"},
+    { codigo:"9", nombre:"Entre 10 y 15 años"},
+    { codigo:"10", nombre:"Más de 15 años"},
+  ],
+
   PROFESION_LABEL: 'Profesión',
   NUMERO_VECES_EXCEDIDO: 'Solamente es permitido 2 archivos por registro.',
   POLITICAS:
@@ -381,19 +417,19 @@ export const commonMessages = {
     'proporcionar información que pueda resultar de interés al Usuario y ofrecer contenidos ' +
     'publicitarios de su preferencia.',
 
-  INGRESA_DATOS_BASICOS: 'Ingresa los datos básicos',
-  NOMBRE_OFERTA: 'Nombre de la oferta',
-  EXPERIENCIA_MINIMA: 'Experíencia mínima',
-  AREA_TRABAJO: 'Área de trabajo',
-  RANGO_SALARIAL: 'Rango salarial COP',
-  NO_PUBLICAR_SALARIO: 'No publicar salario',
-  REQUISITOS: 'Requisitos',
-  SECTOR_INDUSTRIA: 'Sector y/o Industria',
-  IDIOMA: 'idioma',
-  NIVEL_LABORAL: 'Nivel laboral',
-  TIPO_CONTRATO: 'Tipo de contrato',
-  PROFESION: 'Profesión',
-  MODALIDAD_LABORAL: 'Modalidad laboral',
-  NIVEL_ESTUDIOS: 'Nivel de estudios',
-  PUBLICAR_OFERTA: 'Publicar oferta'
+    INGRESA_DATOS_BASICOS: "Ingresa los datos básicos",
+    NOMBRE_OFERTA: "Nombre de la oferta",
+    EXPERIENCIA_MINIMA: "Experíencia mínima",
+    AREA_TRABAJO: "Área de trabajo",
+    RANGO_SALARIAL: "Rango salarial COP",
+    NO_PUBLICAR_SALARIO: "No publicar salario",
+    REQUISITOS: "Requisitos",
+    SECTOR_INDUSTRIA: "Sector y/o Industria",
+    IDIOMA: "idioma",
+    NIVEL_LABORAL: "Nivel laboral",
+    TIPO_CONTRATO: "Tipo de contrato",
+    PROFESION: "Profesión",
+    MODALIDAD_LABORAL: "Modalidad laboral",
+    NIVEL_ESTUDIOS: "Nivel de estudios",
+    PUBLICAR_OFERTA: "Publicar oferta"
 };

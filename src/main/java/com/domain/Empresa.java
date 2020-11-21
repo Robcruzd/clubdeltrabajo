@@ -47,6 +47,15 @@ public class Empresa implements Serializable {
     @NotNull
     @JsonIgnoreProperties("empresas")
     private TipoDocumento tipoDocumento;
+    
+    @Column(name = "direccion", nullable = true)
+    private String direccion;
+    
+    @Column(name = "telefono", nullable = true)
+    private Long telefono;
+    
+    @Column(name = "ciudad", nullable = true)
+    private Long ciudad;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -134,9 +143,34 @@ public class Empresa implements Serializable {
     public void setTipoDocumento(TipoDocumento tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
+    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
+    public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public Long getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(Long telefono) {
+		this.telefono = telefono;
+	}
+
+	public Long getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(Long ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -70,5 +71,13 @@ public class PersonaService {
     public void delete(Long id) {
         log.debug("Request to delete Persona : {}", id);
         personaRepository.deleteById(id);
+    }
+    
+    public Long contarPersonas() {
+    	return personaRepository.count();
+    }
+    
+    public List<Persona> getPersonas() {
+    	return personaRepository.findAll();
     }
 }

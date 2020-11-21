@@ -46,6 +46,20 @@ public class OfertaCriteria implements Serializable, Criteria {
     private StringFilter estado;
 
     private LongFilter usuarioId;
+    
+    private LongFilter sector;
+    
+    private LongFilter idioma;
+    
+    private LongFilter nivelLaboral;
+    
+    private LongFilter tipoContrato;
+    
+    private LongFilter profesion;
+    
+    private LongFilter modalidad;
+    
+    private LongFilter nivelEstudios;
 
     public OfertaCriteria() {
     }
@@ -62,6 +76,13 @@ public class OfertaCriteria implements Serializable, Criteria {
         this.fechaPublicacion = other.fechaPublicacion == null ? null : other.fechaPublicacion.copy();
         this.estado = other.estado == null ? null : other.estado.copy();
         this.usuarioId = other.usuarioId == null ? null : other.usuarioId.copy();
+        this.sector = other.sector == null ? null : other.sector.copy();
+        this.idioma = other.idioma == null ? null : other.idioma.copy();
+        this.nivelLaboral = other.nivelLaboral == null ? null : other.nivelLaboral.copy();
+        this.tipoContrato = other.tipoContrato == null ? null : other.tipoContrato.copy();
+        this.profesion = other.profesion == null ? null : other.profesion.copy();
+        this.modalidad = other.modalidad == null ? null : other.modalidad.copy();
+        this.nivelEstudios = other.nivelEstudios == null ? null : other.nivelEstudios.copy();
     }
 
     @Override
@@ -157,8 +178,63 @@ public class OfertaCriteria implements Serializable, Criteria {
         this.usuarioId = usuarioId;
     }
 
+    public LongFilter getSector() {
+		return sector;
+	}
 
-    @Override
+	public void setSector(LongFilter sector) {
+		this.sector = sector;
+	}
+
+	public LongFilter getIdioma() {
+		return idioma;
+	}
+
+	public void setIdioma(LongFilter idioma) {
+		this.idioma = idioma;
+	}
+
+	public LongFilter getNivelLaboral() {
+		return nivelLaboral;
+	}
+
+	public void setNivelLaboral(LongFilter nivelLaboral) {
+		this.nivelLaboral = nivelLaboral;
+	}
+
+	public LongFilter getTipoContrato() {
+		return tipoContrato;
+	}
+
+	public void setTipoContrato(LongFilter tipoContrato) {
+		this.tipoContrato = tipoContrato;
+	}
+
+	public LongFilter getProfesion() {
+		return profesion;
+	}
+
+	public void setProfesion(LongFilter profesion) {
+		this.profesion = profesion;
+	}
+
+	public LongFilter getModalidad() {
+		return modalidad;
+	}
+
+	public void setModalidad(LongFilter modalidad) {
+		this.modalidad = modalidad;
+	}
+
+	public LongFilter getNivelEstudios() {
+		return nivelEstudios;
+	}
+
+	public void setNivelEstudios(LongFilter nivelEstudios) {
+		this.nivelEstudios = nivelEstudios;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

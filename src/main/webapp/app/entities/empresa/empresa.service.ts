@@ -20,7 +20,7 @@ export class EmpresaService {
     return this.http.post<IEmpresa>(this.resourceUrl, empresa, { observe: 'response' });
   }
 
-  update(empresa: IEmpresa): Observable<EntityResponseType> {
+  update(empresa: IEmpresa | null): Observable<EntityResponseType> {
     return this.http.put<IEmpresa>(this.resourceUrl, empresa, { observe: 'response' });
   }
 

@@ -8,7 +8,7 @@
             </div>
         </button>
         <div class="div-infos">
-            <form [formGroup]="formEmpresa">
+            <form [formGroup]="formEmpresa" (ngSubmit)="editarRegistro()">
             <p class="estilo_titulo">{{labels.INFORMACION_PERSONA_LABEL}}</p>
             <div class="row">
                 <div class="column">
@@ -69,7 +69,14 @@
                     <div class="form-group">
                         <p class="estilo_label">Ciudad <span
                                 class="estilo_campo_requerido">*</span></p>
-                        <input type="text" class="estilo_inputs" formControlName="ciudad">
+                        <select formControlName="ciudad" class="estilo_inputs" >
+                            <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                            <option
+                                [ngValue]="municipio.codigo == formEmpresa.get('ciudad')!.value ? formEmpresa.get('ciudad')!.value: municipio.codigo"
+                                *ngFor="let municipio of municipiosAcademica">
+                                {{ municipio.nombre }}
+                            </option>
+                        </select>
                         <small *ngIf="formEmpresa.get('ciudad')?.errors?.required"
                             class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         <small *ngIf="formEmpresa.get('ciudad')?.errors?.pattern"
@@ -90,8 +97,7 @@
                     </div>
                 </div>
                 <div class="column">
-                    <button type="button" class="btn boton_siguiente text-white float-right"
-                        [disabled]="formEmpresa.invalid">
+                    <button type="submit" class="btn boton_siguiente text-white float-right" [disabled]="formEmpresa.invalid">
                             {{labels.SIGUIENTE_LABEL}}
                     </button>
                 </div>

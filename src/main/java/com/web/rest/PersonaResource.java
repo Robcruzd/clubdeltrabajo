@@ -168,4 +168,16 @@ public class PersonaResource {
         personaService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+    
+    @GetMapping("/personas/contar")
+    public Long getPersonaTotales() {
+        return personaService.contarPersonas();
+    }
+    
+    @GetMapping("/personas/getPersonas")
+    public List<Persona> getPersonas() {
+        return personaService.getPersonas();
+    }
+    
+    
 }

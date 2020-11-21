@@ -3,6 +3,13 @@ import { Location } from '@angular/common';
 import { faStar, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { commonMessages } from '../../shared/constants/commonMessages';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AccountService } from '../../core/auth/account.service';
+import { User } from '../../core/user/user.model';
+import { EmpresaService } from '../../entities/empresa/empresa.service';
+import { Empresa } from '../../shared/model/empresa.model';
+import { IOpcionVo } from '../../shared/vo/opcion-vo';
+import { GeografiaVo } from '../../shared/vo/geografia-vo';
+import { ApiService } from '../../shared/services/api.service';
 
 @Component({
   selector: 'jhi-editar-empresa',
@@ -14,11 +21,23 @@ export class EditarEmpresaComponent implements OnInit {
   faStar = faStar;
   faEllipsisH = faEllipsisH;
   formEmpresa!: FormGroup;
+  usuario!: User | null;
+  datosEmpresa!: Empresa | null;
+  municipiosAcademica: Array<IOpcionVo> = [];
+  geografia: Array<GeografiaVo> = [];
+  empresa = new Empresa;
 
-  constructor(private _location: Location, private fb: FormBuilder) {}
+  constructor(private _location: Location, private fb: FormBuilder, 
+    private accountService: AccountService,private empresaService: EmpresaService,
+    private apiService: ApiService, ) {}
 
   ngOnInit(): void {
     this.crearFormularioEmpresa();
+    this.accountService.getAuthenticationState().subscribe(account => {     
+      this.usuario = account;
+      this.cargarFormularioEmpresa();
+    });
+    this.consultarInformacionGeografica();
   }
 
   crearFormularioEmpresa(): void {
@@ -34,7 +53,61 @@ export class EditarEmpresaComponent implements OnInit {
     });
   }
 
+  cargarFormularioEmpresa(): void {
+    if(this.usuario?.userEmpresa){
+      this.empresaService.find(this.usuario.userEmpresa).subscribe((response)=>{
+        this.datosEmpresa = response.body;
+        this.formEmpresa.patchValue({
+          razonSocial: this.datosEmpresa!.razonSocial,
+          razonComercial: this.datosEmpresa!.razonComercial,
+          numeroDocumento: this.datosEmpresa!.numeroDocumento,
+          direccion: this.datosEmpresa!.direccion,
+          telefono: this.datosEmpresa!.telefono,
+          ciudad: this.datosEmpresa!.ciudad,
+          email: this.datosEmpresa!.email
+        });
+      })
+    }  
+    
+  }
+
+  cargarMunicipiosAcademica(): void {
+    this.municipiosAcademica = [];
+    this.municipiosAcademica = this.geografia
+      .map(item => {
+        return {
+          codigo: item.codigoMpio,
+          nombre: item.nombreMpio
+        };
+      })
+      .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0));
+  }
+
+  consultarInformacionGeografica(): void {
+    this.apiService.getInformacionGeografica().subscribe(geografia => {
+      this.geografia = geografia;
+      const bogota = { codigoDpto: '100', nombreDpto: 'Bogotá D.C.', codigoMpio: '100000', nombreMpio: 'Bogotá D.C.' };
+      this.geografia.push(bogota);
+      this.cargarMunicipiosAcademica();
+    });
+  }
+
   backClicked(): void {
     this._location.back();
   }
+
+  editarRegistro(): void {
+    this.datosEmpresa!.razonSocial = this.formEmpresa.controls['razonSocial'].value;
+    this.datosEmpresa!.razonComercial = this.formEmpresa.controls['razonComercial'].value;
+    this.datosEmpresa!.numeroDocumento = this.formEmpresa.controls['numeroDocumento'].value;
+    this.datosEmpresa!.direccion = this.formEmpresa.controls['direccion'].value;
+    this.datosEmpresa!.telefono = this.formEmpresa.controls['telefono'].value;
+    this.datosEmpresa!.ciudad = this.formEmpresa.controls['ciudad'].value;
+    this.datosEmpresa!.email = this.formEmpresa.controls['email'].value;
+
+    this.empresaService.update(this.datosEmpresa).subscribe(() => {
+    });
+
+  }
+
 }

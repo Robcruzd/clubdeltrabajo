@@ -21,6 +21,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -140,5 +142,18 @@ public class OfertaResource {
         log.debug("REST request to delete Oferta : {}", id);
         ofertaService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+    
+    /**
+     * {@code GET  /ofertas} : get all the ofertas.
+     *
+     * @param pageable the pagination information.
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of ofertas in body.
+     */
+    @GetMapping("/ofertas/filtroOfertas")
+    public List<Oferta> getOfertasFiltro(@RequestParam OfertaCriteria criteria) throws IOException{
+        log.debug("REST request to get Ofertas by criteria: {}", criteria);
+        return ofertaService.findOfertasFiltro(criteria);
     }
 }
