@@ -22,12 +22,11 @@ export class ResultadosBusquedaComponent implements OnInit {
   ubicacion: any;
   ofertaFiltro!: Oferta;
 
-  constructor(private dataService: DataService, private formBuilder: FormBuilder,
-    private ofertaService: OfertaService) {}
+  constructor(private dataService: DataService, private formBuilder: FormBuilder, private ofertaService: OfertaService) {}
 
   ngOnInit(): void {
-    // this.profesion = this.dataService.data.profesion;
-    // this.ubicacion = this.dataService.data.ubicacion;
+    this.profesion = this.dataService.data.profesion;
+    this.ubicacion = this.dataService.data.ubicacion;
 
     this.getOfertas();
 
@@ -37,14 +36,14 @@ export class ResultadosBusquedaComponent implements OnInit {
     // this.formBusqueda.get('campoBusqueda')?.setValue(this.dataService.data.profesion);
   }
 
-  getOfertas(): void{
+  getOfertas(): void {
     this.ofertaFiltro = new Oferta();
     this.ofertaFiltro.ciudad = 520001;
-    this.ofertaFiltro.experiencia = "1";
+    this.ofertaFiltro.experiencia = '1';
     // this.ofertaService.getOfertasFiltro(this.ofertaFiltro).subscribe(response =>{
     //   console.log("response oferta");
     //   console.log(response);
-      
+
     // })
   }
 }

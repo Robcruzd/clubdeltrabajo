@@ -2,7 +2,9 @@
     <p class="titulo">Busca Trabajo</p>
     <div class="div_autocompletes">
         <div class="divInputComplete">
-            <fa-icon icon="user" style="color: #2699FB; margin-left: 20px; margin-right: 10px;"></fa-icon>
+            <div class="divIcon">
+                <fa-icon icon="user" style="color: #2699FB"></fa-icon>
+            </div>
             <input type="text" placeholder="{{lblSeleccioneProfesion}}" [formControl]="myControlProfesiones"
                 [matAutocomplete]="autoProfesiones" class="inputCiudades icon login">
             <mat-autocomplete #autoProfesiones="matAutocomplete">
@@ -12,7 +14,9 @@
             </mat-autocomplete>
         </div>
         <div class="divInputComplete">
-            <fa-icon icon="map-marker-alt" style="color: #2699FB; margin-left: 20px; margin-right: 10px;"></fa-icon>
+            <div class="divIcon">
+                <fa-icon icon="map-marker-alt" style="color: #2699FB"></fa-icon>
+            </div>
             <input type="text" placeholder="{{lblSeleccioneCiudad}}" [matAutocomplete]="autoCiudades"
                 [formControl]="myControlCiudades" class="inputCiudades">
             <mat-autocomplete #autoCiudades="matAutocomplete">

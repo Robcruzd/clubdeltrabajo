@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ApiService } from 'app/shared/services/api.service';
 import { Router } from '@angular/router';
+import { ProfesionService } from '../../entities/profesion/profesion.service';
+import { HttpResponse } from '@angular/common/http';
+import { IProfesion } from 'app/shared/model/profesion.model';
 
 @Component({
   selector: 'jhi-buscar-trabajo',
@@ -18,19 +21,27 @@ export class BuscarTrabajoComponent implements OnInit {
   myControlProfesiones = new FormControl();
   lblSeleccioneProfesion = commonMessages.SELECCIONE_PROFESION_LABEL;
   lblSeleccioneCiudad = commonMessages.SELECCIONE_CIUDAD_LABEL;
-  profesiones: string[] = ['Diseño grafico', 'Ingenieria de sistemas', 'Ingenieria electronica', 'Nutricion'];
+  profesiones2: string[] = ['Diseño grafico', 'Ingenieria de sistemas', 'Ingenieria electronica', 'Nutricion'];
   public keyword = 'municipio';
   data: any = [];
   ciudades: string[] = [];
+  dataProf: any = [];
+  profesiones: string[] = [];
 
   filteredOptionsCiudades = new Observable<string[]>();
   filteredOptionsProfesiones = new Observable<string[]>();
 
-  constructor(private ciudadServices: ApiService, private dataService: DataService, private router: Router) {}
+  constructor(
+    private ciudadServices: ApiService,
+    private dataService: DataService,
+    private router: Router,
+    private profesionService: ProfesionService
+  ) {}
 
   ngOnInit(): void {
     this.traerCiudad();
-    this.traerProfesiones();
+    // this.traerProfesiones();
+    this.cargarProfesiones();
   }
 
   private _filterCiudades(value: string): string[] {
@@ -39,33 +50,25 @@ export class BuscarTrabajoComponent implements OnInit {
     for (const valor of this.data) {
       this.ciudades.push(valor.municipio + ' (' + valor.departamento + ')');
     }
-    // eslint-disable-next-line no-console
-    console.log(this.ciudades);
     return this.ciudades.filter(option => option.toLowerCase().startsWith(filterValue)).sort();
   }
 
   private _filterProfesiones(value: string): string[] {
+    this.profesiones = [];
     const filterValue = value.toLowerCase();
-    return this.profesiones.filter(option => option.toLowerCase().includes(filterValue)).sort();
+    for (const valor of this.dataProf) {
+      this.profesiones.push(valor.profesion);
+    }
+    return this.profesiones.filter(option => option.toLowerCase().startsWith(filterValue)).sort();
   }
 
   traerCiudad(): void {
     this.ciudadServices.getCiudades().subscribe(response => {
       this.data = response;
-      // eslint-disable-next-line no-console
-      console.log('response: ', response);
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      const bogota = {
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        c_digo_dane_del_departamento: '5',
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        c_digo_dane_del_municipio: '5001',
-        departamento: 'Bogotá D.C.',
-        region: 'Región Centro Oriente',
-        municipio: 'Bogotá D.C.'
-      };
-      this.data.push(bogota);
-      this.filteredOptionsCiudades = this.myControlCiudades.valueChanges.pipe(map(value => this._filterCiudades(value)));
+      this.filteredOptionsCiudades = this.myControlCiudades.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filterCiudades(value))
+      );
     });
   }
 
@@ -74,6 +77,21 @@ export class BuscarTrabajoComponent implements OnInit {
       startWith(''),
       map(value => this._filterProfesiones(value))
     );
+  }
+
+  cargarProfesiones(): void {
+    this.profesionService
+      .query({
+        page: 0,
+        size: 550
+      })
+      .subscribe((res: HttpResponse<IProfesion[]>) => {
+        this.dataProf = res.body;
+        this.filteredOptionsProfesiones = this.myControlProfesiones.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filterProfesiones(value))
+        );
+      });
   }
 
   buscar(): void {
