@@ -154,4 +154,11 @@ export const HOME_ROUTE: Routes = [
       pageTitle: 'home.title'
     }
   }
+  // {
+  //   path: 'reportes',
+  //   component: ReportesComponent,
+  //   data: {
+  //     pageTitle: 'home.title'
+  //   }
+  // }
 ];

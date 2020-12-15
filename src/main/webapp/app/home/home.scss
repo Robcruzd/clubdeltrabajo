@@ -199,8 +199,9 @@
       }
 
       .boton-ofrecer-trabajo {
-        width: 295px;
-        height: 48px;
+        width: 100%;
+        height: auto;
+        padding: 0.8rem 0rem;
         background: #fb8826 0% 0% no-repeat padding-box;
         border-radius: 24px;
         opacity: 1;

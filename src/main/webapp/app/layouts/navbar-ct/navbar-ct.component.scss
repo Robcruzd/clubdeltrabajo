@@ -100,7 +100,7 @@
 
   .navbar-ct {
     display: flex;
-    width: 100%;
+    width: 100vw;
     height: auto;
     background: transparent linear-gradient(0deg, #314681 0%, #1a2050 0) 0% 0% no-repeat padding-box;
     opacity: 1;
@@ -203,6 +203,7 @@
 
       .dropdownBurger {
         display: auto;
+        align-self: center;
       }
     }
   }

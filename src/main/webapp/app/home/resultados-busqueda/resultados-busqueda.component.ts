@@ -39,7 +39,7 @@ export class ResultadosBusquedaComponent implements OnInit {
     // this.formBusqueda.get('campoBusqueda')?.setValue(this.dataService.data.profesion);
   }
 
-  getOfertas(): void{
+  getOfertas(): void {
     this.ofertaFiltro = new Oferta();
     this.ofertaFiltro.ciudad = 52001;
     this.ofertaFiltro.salario = 4;
@@ -59,6 +59,13 @@ export class ResultadosBusquedaComponent implements OnInit {
     //     this.banderaFiltroTabla = false;
     //   }
     // });
+    // this.ofertaFiltro.ciudad = 520001;
+    // this.ofertaFiltro.experiencia = '1';
+    // this.ofertaService.getOfertasFiltro(this.ofertaFiltro).subscribe(response =>{
+    //   console.log("response oferta");
+    //   console.log(response);
+
+    // })
   }
 
 }

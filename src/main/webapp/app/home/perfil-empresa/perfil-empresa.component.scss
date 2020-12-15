@@ -6,7 +6,7 @@
     display: flex;
     flex-direction: row;
     background-color: white;
-    padding: 5rem;
+    padding: 5.202vw;
 
     .left {
       display: flex;
@@ -18,35 +18,35 @@
       border-right-style: solid;
 
       .foto-perfil {
-        width: 10.923vw;
-        height: 10.923vw;
+        width: 11.964vw;
+        height: 11.964vw;
         opacity: 1;
         margin-bottom: 0.455vw;
-        box-shadow: 0px 3px 6px #00000029;
+        box-shadow: 0px 0.195vw 0.39vw #00000029;
       }
 
       .boton-base {
-        width: 261px;
-        height: 41px;
+        width: 16.97vw;
+        height: 2.666vw;
         text-align: center;
         letter-spacing: 0px;
         color: #6d7184;
         font-size: 0.78vw;
         font-family: 'Arial';
         background: #ffffff 0% 0% no-repeat padding-box;
-        box-shadow: 0px 3px 6px #00000029;
-        border-radius: 13px;
+        box-shadow: 0px 0.195vw 0.39vw #00000029;
+        border-radius: 0.845vw;
         opacity: 1;
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding: 0rem 1rem;
-        margin-top: 5px;
+        padding: 0rem 1.04vw;
+        margin-top: 0.325vw;
 
         .border-icon {
           margin-right: 0.325vw;
-          width: 34px;
-          height: 34px;
+          width: 2.211vw;
+          height: 2.211vw;
           opacity: 1;
           display: flex;
           align-items: center;
@@ -61,7 +61,7 @@
           justify-content: center;
 
           .titulo-boton {
-            font-size: 14px;
+            font-size: 0.91vw;
             font-family: Arial, Helvetica, sans-serif;
             color: #6d7184;
             letter-spacing: 0px;
@@ -71,7 +71,7 @@
           }
 
           .texto-boton {
-            font-size: 7px;
+            font-size: 0.455vw;
             font-family: Arial, Helvetica, sans-serif;
             color: #6d7184;
             letter-spacing: 0px;
@@ -91,7 +91,9 @@
 
       .titulo {
         text-align: left;
-        font: normal normal 600 28px/38px Open Sans;
+        font-size: 1.821vw;
+        font-weight: 600;
+        font-family: 'Open Sans';
         letter-spacing: 0px;
         color: #020d52;
         opacity: 1;
@@ -99,10 +101,12 @@
 
       .texto {
         text-align: left;
-        font: normal normal normal 14px/22px Roboto;
+        font-size: 0.91vw;
+        font-family: 'Roboto';
         letter-spacing: 0px;
         color: #645d5d;
         opacity: 1;
+        text-align: justify;
       }
     }
   }
@@ -113,7 +117,7 @@
     justify-content: center;
     align-items: center;
     background-color: #9ba0af;
-    height: 118px;
+    height: 7.672vw;
     width: 100%;
 
     .icono {
@@ -126,4 +130,71 @@
 ::ng-deep svg:not(:root).svg-inline--fa {
   width: 18px;
   height: 17px;
+}
+
+@media only screen and (max-width: 900px) {
+  .contenedor {
+    .estilo_body {
+      flex-direction: column;
+
+      .left {
+        border: none;
+
+        .foto-perfil {
+          width: 11.5rem;
+          height: 11.5rem;
+          margin-bottom: 0.438rem;
+          box-shadow: 0px 3px 6px #00000029;
+        }
+
+        .boton-base {
+          width: 261px;
+          height: 41px;
+          font-size: 12px;
+          box-shadow: 0px 3px 6px #00000029;
+          border-radius: 13px;
+          padding: 0rem 1rem;
+          margin-top: 5px;
+
+          .border-icon {
+            margin-right: 5px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+          }
+
+          .div-info-boton {
+            .titulo-boton {
+              font-size: 14px;
+            }
+
+            .texto-boton {
+              font-size: 7px;
+            }
+          }
+        }
+      }
+
+      .right {
+        padding: 4rem 0rem;
+
+        .titulo {
+          font-size: 28px;
+        }
+
+        .texto {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .footer {
+      height: 118px;
+
+      .icono {
+        width: 19px;
+        height: 19px;
+      }
+    }
+  }
 }
