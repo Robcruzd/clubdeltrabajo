@@ -11,6 +11,9 @@ import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { HojaVidaVo } from 'app/shared/vo/hoja-vida-vo';
 import { IOpcionVo } from 'app/shared/vo/opcion-vo';
 import { commonMessages } from 'app/shared/constants/commonMessages';
+import { RegionesService } from 'app/entities/regiones/regiones.service';
+import { HttpResponse } from '@angular/common/http';
+import { IRegiones } from 'app/shared/model/regiones.model';
 
 const { exportPDF } = pdf;
 
@@ -49,7 +52,8 @@ export class VisualizarHojaVidaComponent implements OnInit {
     private router: Router,
     private accountService: AccountService,
     private hojaVidaService: HojaVidaService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private regionService: RegionesService
   ) {}
 
   ngOnInit(): void {
@@ -131,11 +135,24 @@ export class VisualizarHojaVidaComponent implements OnInit {
   }
 
   consultarInformacionGeografica(): void {
-    this.apiService.getInformacionGeografica().subscribe(geografia => {
-      this.geografia = geografia;
-      this.cargarMunicipios();
-      this.cargarCuentaUsuario();
-    });
+    this.regionService
+      .query({
+        page: 0,
+        size: 1150
+      })
+      .subscribe((res: HttpResponse<IRegiones[]>) => {
+        this.geografia = res.body!.map(
+          item =>
+            new GeografiaVo(
+              item.codigoDaneDelDepartamento?.toString()!,
+              item.departamento!,
+              item.codigoDaneDelMunicipio?.toString()!,
+              item.municipio!
+            )
+        );
+        this.cargarMunicipios();
+        this.cargarCuentaUsuario();
+      });
   }
 
   private cargarMunicipios(): void {

@@ -12,6 +12,9 @@ import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { ApiService } from 'app/shared/services/api.service';
 import { IOpcionVo } from 'app/shared/vo/opcion-vo';
 import { Account } from 'app/core/user/account.model';
+import { RegionesService } from 'app/entities/regiones/regiones.service';
+import { HttpResponse } from '@angular/common/http';
+import { IRegiones } from 'app/shared/model/regiones.model';
 
 declare let alertify: any;
 
@@ -45,7 +48,8 @@ export class PerfilComponent implements OnInit {
     private service: HojaVidaService,
     private archivoService: ArchivoService,
     private apiService: ApiService,
-    private hojaVidaService: HojaVidaService
+    private hojaVidaService: HojaVidaService,
+    private regionService: RegionesService
   ) {}
 
   ngOnInit(): void {
@@ -204,10 +208,23 @@ export class PerfilComponent implements OnInit {
   }
 
   consultarInformacionGeografica(): void {
-    this.apiService.getInformacionGeografica().subscribe(geografia => {
-      this.geografia = geografia;
-      this.cargarMunicipios();
-    });
+    this.regionService
+      .query({
+        page: 0,
+        size: 1150
+      })
+      .subscribe((res: HttpResponse<IRegiones[]>) => {
+        this.geografia = res.body!.map(
+          item =>
+            new GeografiaVo(
+              item.codigoDaneDelDepartamento?.toString()!,
+              item.departamento!,
+              item.codigoDaneDelMunicipio?.toString()!,
+              item.municipio!
+            )
+        );
+        this.cargarMunicipios();
+      });
   }
 
   private cargarMunicipios(): void {
