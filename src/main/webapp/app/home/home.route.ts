@@ -18,7 +18,6 @@ import { EditarEmpresaComponent } from './editar-empresa/editar-empresa.componen
 import { MembresiasComponent } from './membresias/membresias.component';
 import { OfertaPublicadaComponent } from './oferta-publicada/oferta-publicada.component';
 import { PrimerOfertaComponent } from './primer-oferta/primer-oferta.component';
-import { ReportesComponent } from './reportes-admin/reportes.component';
 
 export const HOME_ROUTE: Routes = [
   {
@@ -151,13 +150,6 @@ export const HOME_ROUTE: Routes = [
   {
     path: 'primer-oferta',
     component: PrimerOfertaComponent,
-    data: {
-      pageTitle: 'home.title'
-    }
-  },
-  {
-    path: 'reportes',
-    component: ReportesComponent,
     data: {
       pageTitle: 'home.title'
     }

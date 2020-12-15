@@ -1,6 +1,7 @@
 package com.web.rest;
 
 import com.domain.Oferta;
+import com.domain.vo.OfertaFiltro;
 import com.service.OfertaService;
 import com.web.rest.errors.BadRequestAlertException;
 import com.service.dto.OfertaCriteria;
@@ -151,9 +152,23 @@ public class OfertaResource {
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of ofertas in body.
      */
-    @GetMapping("/ofertas/filtroOfertas")
-    public List<Oferta> getOfertasFiltro(@RequestParam OfertaCriteria criteria) throws IOException{
-        log.debug("REST request to get Ofertas by criteria: {}", criteria);
-        return ofertaService.findOfertasFiltro(criteria);
-    }
+//    @GetMapping("/ofertas/filtroOfertas")
+//    public ResponseEntity<List<Oferta>> getOfertasFiltro(@RequestBody Oferta oferta) throws IOException{
+//        log.debug("REST request to get Ofertas by criteria: {}", oferta);
+////        return ofertaService.findOfertasFiltro(criteria);
+//        return null;
+//    }
+    
+	
+//	@GetMapping("/ofertas/filtroOfertas/{salario}")
+//	public List<Oferta> getOfertasFiltro(
+//			@PathVariable("salario") Long salario) {
+//		return ofertaService.getOfertasFiltro(salario);
+//	}
+    
+	@GetMapping("/ofertas/filtroOfertas")
+	public List<Oferta> getOfertasFiltro(@RequestParam("salario") Long salario,
+			@RequestParam("ciudad") Long ciudad) {
+		return ofertaService.getOfertasFiltro(salario, ciudad);
+	}
 }

@@ -4,10 +4,10 @@
         <div class="divInputComplete">
             <fa-icon icon="user" style="color: #2699FB; margin-left: 20px; margin-right: 10px;"></fa-icon>
             <input type="text" placeholder="{{lblSeleccioneProfesion}}" [formControl]="myControlProfesiones"
-                [matAutocomplete]="autoProfesiones" class="inputCiudades icon login">
+                [matAutocomplete]="autoProfesiones" class="inputCiudades icon login" >
             <mat-autocomplete #autoProfesiones="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptionsProfesiones | async" [value]="option" style="font-weight: bold;">
-                    {{option}}
+                <mat-option *ngFor="let option of filteredOptionsProfesiones | async" [value]="option.profesion" style="font-weight: bold;">
+                    {{option.profesion}}
                 </mat-option>
             </mat-autocomplete>
         </div>

@@ -8,10 +8,29 @@ import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IOferta } from 'app/shared/model/oferta.model';
-// import { Oferta } from '../../shared/model/oferta.model';
+import { Oferta } from '../../shared/model/oferta.model';
 
 type EntityResponseType = HttpResponse<IOferta>;
 type EntityArrayResponseType = HttpResponse<IOferta[]>;
+
+export class PathUtil {
+  public static getPathParams(parameters: any): string {
+      const fields: string[] = Object.getOwnPropertyNames(parameters);
+      let path = "?";
+      fields.forEach(
+          (field: string, i: number) => {
+            const value: any = Object.values(parameters)[i];
+              if (i > 0 && path !== "?" && (value !== null && value.toString().trim()!=="")) {
+                  path += "&";
+              }
+              if (value !== null && value.toString().trim()!=="") {
+                  path += (field + "=" + value);
+              }
+          }
+      );
+      return (path!=="?"?path:"");
+  }
+}
 
 @Injectable({ providedIn: 'root' })
 export class OfertaService {
@@ -75,11 +94,10 @@ export class OfertaService {
     return res;
   }
 
-  // getOfertasFiltro(oferta: IOferta): Observable<EntityResponseType>{
-  //   const copy = this.convertDateFromClient(oferta);
-  //   return this.http
-  //     .get<IOferta>(this.resourceUrlFiltro, { params: copy,observe: 'response' })
-  //     .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
-  // }
+  public getOfertasFiltro(oferta: Oferta): Observable<any> {
+    const params = PathUtil.getPathParams({ciudad:oferta.ciudad,salario:oferta.salario})
+    const url = this.resourceUrlFiltro + params
+    return this.http.get<any>(url);
+  }
 
 }

@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ApiService } from 'app/shared/services/api.service';
 import { Router } from '@angular/router';
+import { IProfesion } from 'app/shared/model/profesion.model';
+import { ProfesionService } from 'app/entities/profesion/profesion.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'jhi-buscar-trabajo',
@@ -18,18 +21,21 @@ export class BuscarTrabajoComponent implements OnInit {
   myControlProfesiones = new FormControl();
   lblSeleccioneProfesion = commonMessages.SELECCIONE_PROFESION_LABEL;
   lblSeleccioneCiudad = commonMessages.SELECCIONE_CIUDAD_LABEL;
-  profesiones: string[] = ['Diseño grafico', 'Ingenieria de sistemas', 'Ingenieria electronica', 'Nutricion'];
+  // profesiones: string[] = ['Diseño grafico', 'Ingenieria de sistemas', 'Ingenieria electronica', 'Nutricion'];
   public keyword = 'municipio';
   data: any = [];
   ciudades: string[] = [];
+  profesiones: Array<IProfesion> = [];
 
   filteredOptionsCiudades = new Observable<string[]>();
-  filteredOptionsProfesiones = new Observable<string[]>();
+  filteredOptionsProfesiones = new Observable<IProfesion[]>();
 
-  constructor(private ciudadServices: ApiService, private dataService: DataService, private router: Router) {}
+  constructor(private ciudadServices: ApiService, private dataService: DataService, private router: Router,
+    private profesionService: ProfesionService) {}
 
   ngOnInit(): void {
     this.traerCiudad();
+    this.cargarProfesiones();
     this.traerProfesiones();
   }
 
@@ -44,9 +50,9 @@ export class BuscarTrabajoComponent implements OnInit {
     return this.ciudades.filter(option => option.toLowerCase().startsWith(filterValue)).sort();
   }
 
-  private _filterProfesiones(value: string): string[] {
+  private _filterProfesiones(value: string): IProfesion[] {
     const filterValue = value.toLowerCase();
-    return this.profesiones.filter(option => option.toLowerCase().includes(filterValue)).sort();
+    return this.profesiones.filter(option => option.profesion?.toLowerCase().includes(filterValue));
   }
 
   traerCiudad(): void {
@@ -74,6 +80,15 @@ export class BuscarTrabajoComponent implements OnInit {
       startWith(''),
       map(value => this._filterProfesiones(value))
     );
+  }
+
+  cargarProfesiones(): void {
+    this.profesionService
+      .query({
+        page: 0,
+        size: 550
+      })
+      .subscribe((res: HttpResponse<IProfesion[]>) => (this.profesiones = res.body || []));
   }
 
   buscar(): void {

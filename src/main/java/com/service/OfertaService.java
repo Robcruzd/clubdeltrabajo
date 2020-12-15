@@ -86,4 +86,8 @@ public class OfertaService {
         log.debug("Request to get all Ofertas");
         return ofertaRepository.findByCiudadAndExperiencia(criteria.getCiudad(),criteria.getExperiencia());
     }
+    
+    public List<Oferta> getOfertasFiltro( Long salario, Long ciudad) {
+    	return ofertaRepository.getOfertasFiltro(salario,ciudad);
+    }
 }

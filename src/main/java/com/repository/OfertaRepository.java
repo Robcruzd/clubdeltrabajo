@@ -9,6 +9,7 @@ import io.github.jhipster.service.filter.StringFilter;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -19,4 +20,9 @@ import org.springframework.stereotype.Repository;
 public interface OfertaRepository extends JpaRepository<Oferta, Long>, JpaSpecificationExecutor<Oferta> {
 	
 	List<Oferta> findByCiudadAndExperiencia(IntegerFilter ciudad, StringFilter experiencia);
+	
+	@Query(value = "SELECT * FROM public.ct_oferta_tb\r\n" + 
+			"where salario =  :salario or ciudad = :ciudad", 
+			nativeQuery = true)
+	List<Oferta> getOfertasFiltro(@Param("salario") Long salario, @Param("ciudad") Long ciudad);
 }
