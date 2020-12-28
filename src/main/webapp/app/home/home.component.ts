@@ -31,6 +31,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
+    const vid = document.getElementById('vid') as HTMLVideoElement;
+    vid.muted = true;
+    vid.loop = true;
+    vid?.play();
   }
 
   isAuthenticated(): boolean {

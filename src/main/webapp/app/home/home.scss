@@ -201,6 +201,206 @@ p {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 900px) {
+  .estilo_home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-width: 100vw;
+    min-height: 80vh;
+    height: 100% !important;
+    background: #fff;
+
+    .logo {
+      width: 62%;
+      margin-top: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    .titulo {
+      // font-size: 25px;
+      color: #151d5c;
+      font: normal normal 300 100% Roboto;
+    }
+
+    .video {
+      width: 65%;
+    }
+
+    .botones {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      width: 60%;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+
+      .registrar {
+        background: #2699fb 0% 0% no-repeat padding-box;
+        // width: 45%;
+        width: 45%;
+        // height: 136px;
+        border: none;
+        height: 2.5rem;
+      }
+
+      .ingresar {
+        background: #1a2050 0% 0% no-repeat padding-box;
+        // width: 45%;
+        width: 45%;
+        // height: 136px;
+        border: none;
+        height: 2.5rem;
+      }
+
+      .txt1 {
+        color: white;
+        margin: 0rem;
+        font: normal normal normal 50% Roboto;
+      }
+
+      .txt2 {
+        color: white;
+        margin: 0rem;
+        // font-size: 2rem;
+        font: italic normal 900 70% Roboto;
+        // font-weight: bold;
+      }
+    }
+
+    .titulo2 {
+      font: normal normal 300 130% Roboto;
+      letter-spacing: 0px;
+      color: #1a9fef;
+    }
+
+    .imagenes {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      width: 65%;
+
+      .img1 {
+        width: 35%;
+        height: auto;
+      }
+
+      .img2 {
+        width: 35%;
+        height: auto;
+      }
+
+      .img4 {
+        width: 35%;
+        height: auto;
+      }
+    }
+
+    .haz-clic {
+      background: #2699fb 0% 0% no-repeat padding-box;
+      width: 100%;
+      border: none;
+      color: white;
+      font-size: 100%;
+      font-family: 'Roboto';
+      font-style: italic;
+      height: 3rem;
+    }
+
+    .mensajes-diagonales {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      height: 2rem;
+      margin-top: 1rem;
+      width: 100%;
+      background: #1a2050 0% 0% no-repeat padding-box;
+
+      .diag1 {
+        width: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // background: #1a2050 0% 0% no-repeat padding-box;
+        // background: linear-gradient(-85deg, #1a2050 0%,#1a2050 50%, transparent 50%),
+        // background: linear-gradient(-85deg, black 0%, black 50%, transparent 50%),
+      }
+
+      .diag24 {
+        width: 25%;
+        background: #2699fb 0% 0% no-repeat padding-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 50%;
+        -webkit-transform: skew(-20deg);
+        -moz-transform: skew(-20deg);
+        -ms-transform: skew(-20deg);
+        -o-transform: skew(-20deg);
+        transform: skew(-20deg);
+        // background: linear-gradient(-85deg, #2699fb 0%,#2699fb 50%, transparent 50%),
+
+        .txtdiag {
+          -webkit-transform: skew(20deg);
+          -moz-transform: skew(20deg);
+          -ms-transform: skew(20deg);
+          -o-transform: skew(20deg);
+          transform: skew(20deg);
+        }
+      }
+
+      .diag3 {
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 50%;
+      }
+    }
+
+    .imagenes-final {
+      position: relative;
+      width: 100%;
+      display: inline-flex;
+      // height: 128px;
+
+      .imgfooter {
+        // height: 128px;
+        width: 100%;
+        // position: absolute;
+      }
+
+      .opacity {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        bottom: 0;
+        // height: 128px;
+        width: 100%;
+        background: #1a9fef 0% 0% no-repeat padding-box;
+        opacity: 0.84;
+        // font: normal normal medium 46px/49px Roboto;
+        font-size: 46px;
+        font-family: Roboto;
+        color: white;
+      }
+    }
+
+    .haz-clic2 {
+      background: #2699fb 0% 0% no-repeat padding-box;
+      width: 100%;
+      border: none;
+      // font-size: 3rem;
+      font: italic normal 900 60px/64px Roboto;
+      color: white;
+      // font-weight: bold;
+      height: 103px;
+    }
+  }
   // .estilo_home {
   //   display: flex;
   //   flex-direction: column-reverse;

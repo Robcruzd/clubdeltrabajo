@@ -1,10 +1,13 @@
+<!-- <script>
+    document.getElementById('vid').play();
+</script> -->
 <div>
     <router-outlet name="navbar-ct"></router-outlet>
 </div>
 <div class="estilo_home">
     <img class="logo" src="../../content/images/logoazaz.png">
     <p class="titulo">¡Haz parte del club!</p>
-    <video class="video" controls autoplay>
+    <video class="video" controls muted="true" id="vid">
         <source src="../../content/images/VID-20200907-WA0040.mp4" type='video/mp4'>
         Your browser does not support the video tag.
     </video>
