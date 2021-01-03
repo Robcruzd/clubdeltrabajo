@@ -15,14 +15,14 @@ p {
 
   .logo {
     width: 45%;
-    margin-top: 3rem;
-    margin-bottom: 2rem;
+    margin-top: 3.121vw;
+    margin-bottom: 2.081vw;
   }
 
   .titulo {
     // font-size: 25px;
     color: #151d5c;
-    font: normal normal 300 32px/43px Roboto;
+    font: normal normal 300 2.081vw Roboto;
   }
 
   .video {
@@ -34,42 +34,42 @@ p {
     flex-direction: row;
     justify-content: space-around;
     width: 60%;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 1.04vw;
+    margin-bottom: 1.04vw;
 
     .registrar {
       background: #2699fb 0% 0% no-repeat padding-box;
       // width: 45%;
-      width: 344px;
-      height: 136px;
+      width: 22.367vw;
+      height: 8.843vw;
       border: none;
     }
 
     .ingresar {
       background: #1a2050 0% 0% no-repeat padding-box;
       // width: 45%;
-      width: 344px;
-      height: 136px;
+      width: 22.367vw;
+      height: 8.843vw;
       border: none;
     }
 
     .txt1 {
       color: white;
       margin: 0rem;
-      font: normal normal normal 23px/30px Roboto;
+      font: normal normal normal 1.495vw Roboto;
     }
 
     .txt2 {
       color: white;
       margin: 0rem;
       // font-size: 2rem;
-      font: italic normal 900 31px/33px Roboto;
+      font: italic normal 900 2.016vw Roboto;
       // font-weight: bold;
     }
   }
 
   .titulo2 {
-    font: normal normal 300 53px/57px Roboto;
+    font: normal normal 300 3.446vw Roboto;
     letter-spacing: 0px;
     color: #1a9fef;
   }
@@ -81,15 +81,15 @@ p {
     width: 65%;
 
     .img1 {
-      height: 266px;
+      height: 17.295vw;
     }
 
     .img2 {
-      height: 288px;
+      height: 18.726vw;
     }
 
     .img4 {
-      height: 303px;
+      height: 19.701vw;
     }
   }
 
@@ -100,24 +100,24 @@ p {
     // font-size: 3rem;
     color: white;
     // font-weight: bold;
-    font: italic normal medium 70px/96px Roboto;
-    font-size: 70px;
+    font: italic normal medium 4.551vw Roboto;
+    font-size: 4.551vw;
     font-family: 'Roboto';
     font-style: italic;
-    height: 7rem;
+    height: 7.282vw;
   }
 
   .mensajes-diagonales {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    height: 64px;
-    margin-top: 1rem;
+    height: 4.161vw;
+    margin-top: 1.04vw;
     width: 100%;
     background: #1a2050 0% 0% no-repeat padding-box;
 
     .diag1 {
-      width: 274px;
+      width: 17.815vw;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -127,7 +127,7 @@ p {
     }
 
     .diag24 {
-      width: 274px;
+      width: 17.815vw;
       background: #2699fb 0% 0% no-repeat padding-box;
       display: flex;
       justify-content: center;
@@ -138,6 +138,7 @@ p {
       -ms-transform: skew(-20deg);
       -o-transform: skew(-20deg);
       transform: skew(-20deg);
+      font-size: 0.52vw;
       // background: linear-gradient(-85deg, #2699fb 0%,#2699fb 50%, transparent 50%),
 
       .txtdiag {
@@ -146,15 +147,17 @@ p {
         -ms-transform: skew(20deg);
         -o-transform: skew(20deg);
         transform: skew(20deg);
+        font-size: 1vw;
       }
     }
 
     .diag3 {
-      width: 380px;
+      width: 24.707vw;
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
+      font-size: 1vw;
     }
   }
 
@@ -176,12 +179,12 @@ p {
       justify-content: center;
       position: absolute;
       bottom: 0;
-      height: 128px;
+      height: 8.322vw;
       width: 100%;
       background: #1a9fef 0% 0% no-repeat padding-box;
       opacity: 0.84;
       // font: normal normal medium 46px/49px Roboto;
-      font-size: 46px;
+      font-size: 2.991vw;
       font-family: Roboto;
       color: white;
     }
@@ -192,10 +195,10 @@ p {
     width: 100%;
     border: none;
     // font-size: 3rem;
-    font: italic normal 900 60px/64px Roboto;
+    font: italic normal 900 3.901vw Roboto;
     color: white;
     // font-weight: bold;
-    height: 103px;
+    height: 6.697vw;
   }
 }
 
@@ -348,6 +351,7 @@ p {
           -ms-transform: skew(20deg);
           -o-transform: skew(20deg);
           transform: skew(20deg);
+          font-size: 100%;
         }
       }
 
