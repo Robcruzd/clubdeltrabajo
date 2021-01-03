@@ -136,7 +136,7 @@
             </small>
         </div>
         <button class="btn boton_registrar shadow-none"  [style.background-color]="tipoUsuario.id==1 ? '#00B9FF' : '#F54B1D'"
-            style="color:white;" (click)="onCrearUsuario()">Registrarme</button>
+            style="color:white;" (click)="onCrearUsuario()" [disabled]="!validacionIncorrecta">Registrarme</button>
         <div class="inputs" style="align-items: center;">
             <div class="terminos">
                 <input type="radio" value="terminos" name="terminos" [(ngModel)]="condiciones" class="radioB" ngChecked="true"/>

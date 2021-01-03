@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { IProfesion } from 'app/shared/model/profesion.model';
 import { ProfesionService } from '../../entities/profesion/profesion.service';
 import { HttpResponse } from '@angular/common/http';
+import { RegionesService } from 'app/entities/regiones/regiones.service';
+import { IRegiones } from 'app/shared/model/regiones.model';
 
 @Component({
   selector: 'jhi-buscar-trabajo',
@@ -32,10 +34,16 @@ export class BuscarTrabajoComponent implements OnInit {
 
   filteredOptionsCiudades = new Observable<string[]>();
   filteredOptionsProfesiones = new Observable<IProfesion[]>();
+  // IProfesion[]
 
-  constructor(private ciudadServices: ApiService, private dataService: DataService, private router: Router,
-    private profesionService: ProfesionService) {}
-    
+  constructor(
+    private ciudadServices: ApiService,
+    private dataService: DataService,
+    private router: Router,
+    private profesionService: ProfesionService,
+    private regionService: RegionesService
+  ) {}
+
   ngOnInit(): void {
     this.traerCiudad();
     this.cargarProfesiones();
@@ -64,13 +72,19 @@ export class BuscarTrabajoComponent implements OnInit {
   }
 
   traerCiudad(): void {
-    this.ciudadServices.getCiudades().subscribe(response => {
-      this.data = response;
-      this.filteredOptionsCiudades = this.myControlCiudades.valueChanges.pipe(
-        startWith(''),
-        map(value => this._filterCiudades(value))
-      );
-    });
+    this.regionService
+      .query({
+        page: 0,
+        size: 1150
+      })
+      .subscribe((res: HttpResponse<IRegiones[]>) => {
+        // this.region = res.body || [];
+        this.data = res.body;
+        this.filteredOptionsCiudades = this.myControlCiudades.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filterCiudades(value))
+        );
+      });
   }
 
   traerProfesiones(): void {
@@ -87,13 +101,13 @@ export class BuscarTrabajoComponent implements OnInit {
         size: 550
       })
       .subscribe((res: HttpResponse<IProfesion[]>) => (this.profesiones = res.body || []));
-      // .subscribe((res: HttpResponse<IProfesion[]>) => {
-      //   this.dataProf = res.body;
-      //   this.filteredOptionsProfesiones = this.myControlProfesiones.valueChanges.pipe(
-      //     startWith(''),
-      //     map(value => this._filterProfesiones(value))
-      //   );
-      // });
+    // .subscribe((res: HttpResponse<IProfesion[]>) => {
+    //   this.dataProf = res.body;
+    //   this.filteredOptionsProfesiones = this.myControlProfesiones.valueChanges.pipe(
+    //     startWith(''),
+    //     map(value => this._filterProfesiones(value))
+    //   );
+    // });
   }
 
   buscar(): void {

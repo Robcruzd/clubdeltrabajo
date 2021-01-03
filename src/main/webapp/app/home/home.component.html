@@ -1,9 +1,74 @@
+<!-- <script>
+    document.getElementById('vid').play();
+</script> -->
 <div>
     <router-outlet name="navbar-ct"></router-outlet>
 </div>
 <div class="estilo_home">
-    <img class="estilo_imagen" src="../../content/images/component.png">
-    <div class="div_centro">
+    <img class="logo" src="../../content/images/logoazaz.png">
+    <p class="titulo">¡Haz parte del club!</p>
+    <video class="video" controls muted="true" id="vid">
+        <source src="../../content/images/VID-20200907-WA0040.mp4" type='video/mp4'>
+        Your browser does not support the video tag.
+    </video>
+    <div class="botones">
+        <button class="registrar" (click)="abrirAgregarUsuario()">
+            <p class="txt1">Registrar ya tu hoja de vida</p>
+            <p class="txt2">¡Es gratis!</p>
+        </button>
+        <button class="ingresar" (click)="ventanaInicioSesion()">
+            <p class="txt1">Ya estás registrado</p>
+            <p class="txt2">¡Entra!</p>
+        </button>
+    </div>
+    <div class="ofertas-destacadas"></div>
+    <!-- <div class="buscar-ofertas">
+        <div class="texto">
+            <p>¡Explora cientos de ofertas de trabajo!</p>
+            <input>
+        </div>
+        <div class="imagen">
+            <img/>
+            <input>
+        </div>
+        <button></button>
+    </div> -->
+    <p class="titulo2">¡Registra tu hoja de vida!</p>
+    <div class="imagenes">
+        <img class="img1" src="../../content/images/img1.png"/>
+        <img class="img2" src="../../content/images/img2.png"/>
+        <img class="img4" src="../../content/images/img4.png"/>
+    </div>
+    <button class="haz-clic" (click)="abrirAgregarUsuario()">¡Haz clic acá!</button>
+    <!-- <div class="haz-clic">
+        
+    </div> -->
+    <div class="mensajes-diagonales">
+        <div class="diag24">
+            <p class="txtdiag">ES GRATIS</p>
+        </div>
+        <div class="diag3">
+            <p class="txtdiag3">NUEVAS OFERTAS DIARIAS</p>
+        </div>
+        <div class="diag24">
+            <p class="txtdiag">OFERTAS EN TU EMAIL</p></div>
+    </div>
+    <div style="display: none;">
+    <div style="width: 100%; margin-top: 2rem">
+    <div class="imagenes-final">
+        <img class="imgfooter" src="../../content/images/img6.png"/>
+        <div class="opacity"><p>Si eres EMPRESA y buscas candidatos</p></div>
+    </div></div>
+    <button class="haz-clic2">¡Haz clic acá!</button>
+    </div>
+    <!-- <div class="div_centro">
+        <video class="library" controls preload="auto" data-config="some-js-object-here">
+            <source src="../../content/images/VID-20200907-WA0040.mp4" type='video/mp4'>
+        </video>  
+        <video width="320" height="240" controls autoplay>
+            <source src="../../content/images/VID-20200907-WA0040.mp4" type='video/mp4'>
+            Your browser does not support the video tag.
+          </video>
         <p class="titulo2">Haz parte del Club en el que puedes buscar y ofrecer empleo.</p>
         <p class="texto3">Registra tu hoja de vida GRATIS y encuentra el trabajo que necesitas.</p>
         <button class="btn boton-buscar-trabajo shadow-none" value="Buscar trabajo" style="color:white;" (click)="abrirBuscarTrabajo()">Buscar trabajo</button>
@@ -11,6 +76,5 @@
         <p class="texto3 textoResp">Si ya estas registrado</p>
         <button class="btn boton-buscar-trabajo boton-ingresar shadow-none" value="Ingresar" style="color:white;" (click)="ventanaInicioSesion()">Ingresar</button>
     </div>
-    <img class="estilo_logo" src="../../content/images/logo_empresa.png">
+    <img class="estilo_logo" src="../../content/images/logo_empresa.png"> -->
 </div>
-<!-- https://xd.adobe.com/view/f05f8f91-10c9-4009-839b-609b3fc9f3f2-a50c/ -->

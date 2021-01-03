@@ -15,6 +15,9 @@ import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
 
 import * as JSZip from 'jszip';
 import { saveAs } from 'file-saver';
+import { HttpResponse } from '@angular/common/http';
+import { IRegiones } from 'app/shared/model/regiones.model';
+import { RegionesService } from 'app/entities/regiones/regiones.service';
 
 @Component({
   selector: 'jhi-ver-hoja-vida',
@@ -47,7 +50,8 @@ export class VerHojaVidaComponent implements OnInit {
     private router: Router,
     private accountService: AccountService,
     private hojaVidaService: HojaVidaService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private regionService: RegionesService
   ) {}
 
   ngOnInit(): void {
@@ -471,10 +475,23 @@ export class VerHojaVidaComponent implements OnInit {
   }
 
   consultarInformacionGeografica(): void {
-    this.apiService.getInformacionGeografica().subscribe(geografia => {
-      this.geografia = geografia;
-      this.cargarMunicipios();
-    });
+    this.regionService
+      .query({
+        page: 0,
+        size: 1150
+      })
+      .subscribe((res: HttpResponse<IRegiones[]>) => {
+        this.geografia = res.body!.map(
+          item =>
+            new GeografiaVo(
+              item.codigoDaneDelDepartamento?.toString()!,
+              item.departamento!,
+              item.codigoDaneDelMunicipio?.toString()!,
+              item.municipio!
+            )
+        );
+        this.cargarMunicipios();
+      });
   }
 
   private cargarMunicipios(): void {

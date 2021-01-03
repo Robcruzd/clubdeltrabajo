@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { URL_PAISES, URL_UBICACIONES } from '../constants/constantes.constants';
@@ -13,8 +14,9 @@ export class ApiService {
   private readonly pdfFonts: any;
   pdfMake: any;
   htmlToPdfmake: any;
+  region: any;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private regionService: RegionesService) {
     this.pdfMake = require('pdfmake/build/pdfmake.js');
     this.pdfFonts = require('pdfmake/build/vfs_fonts.js');
     this.pdfMake.vfs = this.pdfFonts.pdfMake.vfs;

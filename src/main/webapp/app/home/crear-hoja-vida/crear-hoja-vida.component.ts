@@ -35,6 +35,8 @@ import { ArchivoService } from '../../entities/archivo/archivo.service';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { IRegiones } from 'app/shared/model/regiones.model';
+import { RegionesService } from 'app/entities/regiones/regiones.service';
 
 declare let alertify: any;
 
@@ -56,7 +58,7 @@ export class CrearHojaVidaComponent implements OnInit {
   step!: number;
   geografia: Array<GeografiaVo> = [];
   paises: Array<IOpcionVo> = [];
-  departamentos: Array<IOpcionVo> = [];
+  departamentos: Array<IOpcionVo> | undefined = [];
   municipios: Array<IOpcionVo> = [];
   municipiosPersonal: Array<IOpcionVo> = [];
   municipiosAcademica: Array<IOpcionVo> = [];
@@ -128,7 +130,8 @@ export class CrearHojaVidaComponent implements OnInit {
     private profesionService: ProfesionService,
     private accountService: AccountService,
     private router: Router,
-    private archivo: ArchivoService
+    private archivo: ArchivoService,
+    private regionService: RegionesService
   ) {}
 
   ngOnInit(): void {
@@ -788,15 +791,44 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   consultarInformacionGeografica(): void {
-    this.apiService.getInformacionGeografica().subscribe(geografia => {
-      this.geografia = geografia;
-      const bogota = { codigoDpto: '100', nombreDpto: 'Bogotá D.C.', codigoMpio: '100000', nombreMpio: 'Bogotá D.C.' };
-      this.geografia.push(bogota);
-      this.cargarDepartamentos();
-      this.cargarMunicipios(0);
-      this.cargarMunicipiosPersonal(0);
-      this.cargarMunicipiosAcademica();
-    });
+    // this.http
+    //   .get<any[]>(URL_UBICACIONES)
+    //   .pipe(
+    //     map(element =>
+    //       element.map(
+    //         item => new GeografiaVo(item.c_digo_dane_del_departamento, item.departamento, item.c_digo_dane_del_municipio, item.municipio)
+    //       )
+    //     )
+    //   );
+    this.regionService
+      .query({
+        page: 0,
+        size: 1150
+      })
+      .subscribe((res: HttpResponse<IRegiones[]>) => {
+        // this.region = res.body || [];
+        this.geografia = res.body!.map(
+          item =>
+            new GeografiaVo(
+              item.codigoDaneDelDepartamento?.toString()!,
+              item.departamento!,
+              item.codigoDaneDelMunicipio?.toString()!,
+              item.municipio!
+            )
+        );
+
+        this.cargarDepartamentos();
+        this.cargarMunicipios(0);
+        this.cargarMunicipiosPersonal(0);
+        this.cargarMunicipiosAcademica();
+      });
+    // this.apiService.getInformacionGeografica().subscribe(geografia => {
+    //   this.geografia = geografia;
+    //   this.cargarDepartamentos();
+    //   this.cargarMunicipios(0);
+    //   this.cargarMunicipiosPersonal(0);
+    //   this.cargarMunicipiosAcademica();
+    // });
   }
 
   cargarDepartamentos(): void {

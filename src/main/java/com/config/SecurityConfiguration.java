@@ -63,11 +63,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(problemSupport)
         .and()
             .headers()
-            .contentSecurityPolicy("default-src 'self' https://www.datos.gov.co https://restcountries.eu;"+
+            .contentSecurityPolicy("default-src 'self' https://www.datos.gov.co https://restcountries.eu https://www.google-analytics.com;"+
                 "frame-src 'self' https: data:;"+
-                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com http://cdn.jsdelivr.net https://storage.googleapis.com;"+
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com http://cdn.jsdelivr.net https://storage.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com;"+
                 "style-src 'self' 'unsafe-inline' http://cdn.jsdelivr.net  https://fonts.googleapis.com;"+
-                "img-src 'self' data:;"+
+                "img-src 'self' https://www.google-analytics.com data:;"+
                 "font-src 'self' https://fonts.gstatic.com data:;")
         .and()
             .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN)
@@ -88,6 +88,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/account/reset-password/finish").permitAll()
             .antMatchers("/api/registrar").permitAll()
             .antMatchers("/api/tipo-documentos").permitAll()
+            .antMatchers("/api/regiones").permitAll()
             .antMatchers("/api/hoja-vida/0").permitAll()
             .antMatchers("/api/**").permitAll()
             .antMatchers("/management/health").permitAll()
