@@ -51,8 +51,8 @@
                 <input type="text" placeholder="{{lblSeleccioneProfesion}}" [formControl]="myControlProfesiones"
                     [matAutocomplete]="autoProfesiones" class="inputCiudades icon login" >
                 <mat-autocomplete #autoProfesiones="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredOptionsProfesiones | async" [value]="option.profesion" style="font-weight: bold;">
-                        {{option.profesion}}
+                    <mat-option *ngFor="let option of filteredOptionsProfesiones | async" [value]="option" style="font-weight: bold;">
+                        {{option}}
                     </mat-option>
                 </mat-autocomplete>
             </div>
@@ -66,7 +66,7 @@
                 </mat-autocomplete>
             </div>
         </div>
-        <button class="boton-buscar">Buscar</button>
+        <button class="boton-buscar" (click)="buscar()">Buscar</button>
     </div>
     <p class="titulo2">¡Registra tu hoja de vida!</p>
     <div class="imagenes">

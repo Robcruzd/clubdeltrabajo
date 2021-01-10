@@ -30,6 +30,7 @@ import { CrearOfertaComponent } from './crear-oferta/crear-oferta.component';
 import { MembresiasComponent } from './membresias/membresias.component';
 import { OfertaPublicadaComponent } from './oferta-publicada/oferta-publicada.component';
 import { EditarEmpresaComponent } from './editar-empresa/editar-empresa.component';
+import { PrevioRegistrarComponent } from './previo-registrar/previo-registrar.component';
 
 @NgModule({
   imports: [
@@ -65,7 +66,8 @@ import { EditarEmpresaComponent } from './editar-empresa/editar-empresa.componen
     CrearOfertaComponent,
     MembresiasComponent,
     OfertaPublicadaComponent,
-    EditarEmpresaComponent
+    EditarEmpresaComponent,
+    PrevioRegistrarComponent
   ]
 })
 export class CtProjectHomeModule {}

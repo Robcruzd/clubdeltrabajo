@@ -12,6 +12,7 @@ import { FormControl } from '@angular/forms';
 import { ProfesionService } from 'app/entities/profesion/profesion.service';
 import { map, startWith } from 'rxjs/operators';
 import { commonMessages } from 'app/shared/constants/commonMessages';
+import { DataService } from 'app/shared/services/data.service';
 
 declare let gtag: Function;
 
@@ -27,11 +28,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   ofertas = [];
   data: any = [];
   filteredOptionsCiudades = new Observable<string[]>();
-  filteredOptionsProfesiones = new Observable<IProfesion[]>();
+  filteredOptionsProfesiones = new Observable<string[]>();
   myControlCiudades = new FormControl();
   myControlProfesiones = new FormControl();
   ciudades: string[] = [];
-  profesiones: Array<IProfesion> = [];
+  profesiones: string[] = [];
+  dataProf: any = [];
   lblSeleccioneProfesion = commonMessages.SELECCIONE_PROFESION_LABEL;
   lblSeleccioneCiudad = commonMessages.SELECCIONE_CIUDAD_LABEL;
 
@@ -40,7 +42,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private loginModalService: LoginModalService,
     private router: Router,
     private profesionService: ProfesionService,
-    private regionService: RegionesService
+    private regionService: RegionesService,
+    private dataService: DataService
   ) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -83,17 +86,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     for (const valor of this.data) {
       this.ciudades.push(valor.municipio + ' (' + valor.departamento + ')');
     }
-    return this.ciudades.filter(option => option.toLowerCase().startsWith(filterValue)).sort();
+    return this.ciudades.filter(option => option.toLowerCase().includes(filterValue)).sort();
   }
 
-  private _filterProfesiones(value: string): IProfesion[] {
+  private _filterProfesiones(value: string): string[] {
     this.profesiones = [];
     const filterValue = value.toLowerCase();
-    return this.profesiones.filter(option => option.profesion?.toLowerCase().includes(filterValue));
-    // for (const valor of this.dataProf) {
-    //   this.profesiones.push(valor.profesion);
-    // }
-    // return this.profesiones.filter(option => option.toLowerCase().startsWith(filterValue)).sort();
+    // return this.profesiones.filter(option => option.profesion?.toLowerCase().includes(filterValue));
+    for (const valor of this.dataProf) {
+      this.profesiones.push(valor.profesion);
+    }
+    return this.profesiones.filter(option => option.toLowerCase().includes(filterValue)).sort();
   }
 
   traerCiudad(): void {
@@ -113,19 +116,32 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   traerProfesiones(): void {
-    this.filteredOptionsProfesiones = this.myControlProfesiones.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterProfesiones(value))
-    );
-  }
-
-  cargarProfesiones(): void {
     this.profesionService
       .query({
         page: 0,
         size: 550
       })
-      .subscribe((res: HttpResponse<IProfesion[]>) => (this.profesiones = res.body || []));
+      .subscribe((res: HttpResponse<IProfesion[]>) => {
+        // (this.profesiones = res.body || [])
+        this.dataProf = res.body;
+        this.filteredOptionsProfesiones = this.myControlProfesiones.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filterProfesiones(value))
+        );
+      });
+    // this.filteredOptionsProfesiones = this.myControlProfesiones.valueChanges.pipe(
+    //   startWith(''),
+    //   map(value => this._filterProfesiones(value))
+    // );
+  }
+
+  cargarProfesiones(): void {
+    // this.profesionService
+    //   .query({
+    //     page: 0,
+    //     size: 550
+    //   })
+    //   .subscribe((res: HttpResponse<IProfesion[]>) => (this.profesiones = res.body || []));
     // .subscribe((res: HttpResponse<IProfesion[]>) => {
     //   this.dataProf = res.body;
     //   this.filteredOptionsProfesiones = this.myControlProfesiones.valueChanges.pipe(
@@ -133,6 +149,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     //     map(value => this._filterProfesiones(value))
     //   );
     // });
+  }
+
+  buscar(): void {
+    const busqueda = {
+      profesion: this.myControlProfesiones.value,
+      ubicacion: this.myControlCiudades.value
+    };
+    this.dataService.data = busqueda;
+    this.router.navigate(['/resultados-busqueda']);
   }
 
   abrirAgregarUsuario(): void {
