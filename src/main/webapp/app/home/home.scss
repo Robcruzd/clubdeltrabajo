@@ -8,7 +8,7 @@ p {
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-width: 100vw;
+  min-width: 100%;
   min-height: 80vh;
   height: 100% !important;
   background: #fff;
@@ -68,10 +68,74 @@ p {
     }
   }
 
+  .ofertas-destacadas {
+    .titulo {
+    }
+
+    .ofertas {
+      .oferta {
+      }
+    }
+  }
+
+  .buscar-ofertas {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+
+    .texto-imagen {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+
+      .texto-explora {
+        width: 315px;
+        font-style: italic;
+        font-weight: 900;
+        font-size: 36px;
+        font-family: Roboto;
+        // font: italic normal 900 36px/43px Roboto;
+        letter-spacing: 0px;
+        color: #1a9fef;
+      }
+    }
+
+    .inputs {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+
+      .input {
+        width: 48%;
+
+        .inputCiudades {
+          background: #f5f5f5 0% 0% no-repeat padding-box;
+          border: none;
+          width: 100%;
+          height: 48px;
+          padding-left: 10px;
+        }
+      }
+    }
+
+    .boton-buscar {
+      width: 95px;
+      height: 24px;
+      background: #151d5c 0% 0% no-repeat padding-box;
+      color: white;
+      border: none;
+      font-family: Roboto;
+      font-size: 15px;
+    }
+  }
+
   .titulo2 {
     font: normal normal 300 3.446vw Roboto;
     letter-spacing: 0px;
     color: #1a9fef;
+    margin-top: 16px;
   }
 
   .imagenes {
@@ -210,7 +274,7 @@ p {
     justify-content: center;
     align-items: center;
     width: 100%;
-    min-width: 100vw;
+    min-width: 100%;
     min-height: 80vh;
     height: 100% !important;
     background: #fff;

@@ -21,18 +21,53 @@
             <p class="txt2">¡Entra!</p>
         </button>
     </div>
-    <div class="ofertas-destacadas"></div>
-    <!-- <div class="buscar-ofertas">
-        <div class="texto">
-            <p>¡Explora cientos de ofertas de trabajo!</p>
-            <input>
+    <div class="ofertas-destacadas">
+        <div class="titulo">
+
         </div>
-        <div class="imagen">
-            <img/>
-            <input>
+        <div *ngFor="let oferta of ofertas" class="ofertas">
+            <div class="oferta">
+                <div>
+                    <div>
+                        <p>Bavaria</p>
+                        <p>Portero</p>
+                        <p>De 1 a 3 millones</p>
+                    </div>
+                    <img class="logo-oferta" src="../../content/images/logoazaz.png">
+                </div>
+                <p>Bogotá</p>
+                <p>Publicado: Fecha...</p>
+                <button class="button-ver">Ver</button>
+            </div>
         </div>
-        <button></button>
-    </div> -->
+    </div>
+    <div class="buscar-ofertas">
+        <div class="texto-imagen">
+            <p class="texto-explora">¡Explora cientos de ofertas de trabajo!</p>
+            <img class="img" src="../../content/images/img3.png"/>
+        </div>
+        <div class="inputs">
+            <div class="input">
+                <input type="text" placeholder="{{lblSeleccioneProfesion}}" [formControl]="myControlProfesiones"
+                    [matAutocomplete]="autoProfesiones" class="inputCiudades icon login" >
+                <mat-autocomplete #autoProfesiones="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptionsProfesiones | async" [value]="option.profesion" style="font-weight: bold;">
+                        {{option.profesion}}
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+            <div class="input">
+                <input type="text" placeholder="{{lblSeleccioneCiudad}}" [matAutocomplete]="autoCiudades"
+                    [formControl]="myControlCiudades" class="inputCiudades">
+                <mat-autocomplete #autoCiudades="matAutocomplete">
+                    <mat-option *ngFor="let datos of filteredOptionsCiudades | async" [value]="datos" style="font-weight: bold;">
+                        {{datos}}
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+        </div>
+        <button class="boton-buscar">Buscar</button>
+    </div>
     <p class="titulo2">¡Registra tu hoja de vida!</p>
     <div class="imagenes">
         <img class="img1" src="../../content/images/img1.png"/>
@@ -53,13 +88,14 @@
         <div class="diag24">
             <p class="txtdiag">OFERTAS EN TU EMAIL</p></div>
     </div>
-    <div style="display: none;">
-    <div style="width: 100%; margin-top: 2rem">
-    <div class="imagenes-final">
-        <img class="imgfooter" src="../../content/images/img6.png"/>
-        <div class="opacity"><p>Si eres EMPRESA y buscas candidatos</p></div>
-    </div></div>
-    <button class="haz-clic2">¡Haz clic acá!</button>
+    <div>
+        <div style="width: 100%; margin-top: 2rem">
+            <div class="imagenes-final">
+                <img class="imgfooter" src="../../content/images/img6.png"/>
+                <div class="opacity"><p>Si eres EMPRESA y buscas candidatos</p></div>
+            </div>
+        </div>
+        <button class="haz-clic2" (click)="registrarHojaVidaEmpresa()">¡Haz clic acá!</button>
     </div>
     <!-- <div class="div_centro">
         <video class="library" controls preload="auto" data-config="some-js-object-here">
