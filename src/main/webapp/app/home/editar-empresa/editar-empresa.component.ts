@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { faStar, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { commonMessages } from '../../shared/constants/commonMessages';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AccountService } from '../../core/auth/account.service';
@@ -10,6 +9,8 @@ import { Empresa } from '../../shared/model/empresa.model';
 import { IOpcionVo } from '../../shared/vo/opcion-vo';
 import { GeografiaVo } from '../../shared/vo/geografia-vo';
 import { ApiService } from '../../shared/services/api.service';
+import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-editar-empresa',
@@ -19,21 +20,28 @@ import { ApiService } from '../../shared/services/api.service';
 export class EditarEmpresaComponent implements OnInit {
   labels = commonMessages;
   faStar = faStar;
+  faAddressCard = faAddressCard;
   faEllipsisH = faEllipsisH;
+  faCommentDots = faCommentDots;
   formEmpresa!: FormGroup;
   usuario!: User | null;
   datosEmpresa!: Empresa | null;
   municipiosAcademica: Array<IOpcionVo> = [];
   geografia: Array<GeografiaVo> = [];
-  empresa = new Empresa;
+  empresa = new Empresa();
 
-  constructor(private _location: Location, private fb: FormBuilder, 
-    private accountService: AccountService,private empresaService: EmpresaService,
-    private apiService: ApiService, ) {}
+  constructor(
+    private _location: Location,
+    private fb: FormBuilder,
+    private accountService: AccountService,
+    private empresaService: EmpresaService,
+    private apiService: ApiService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.crearFormularioEmpresa();
-    this.accountService.getAuthenticationState().subscribe(account => {     
+    this.accountService.getAuthenticationState().subscribe(account => {
       this.usuario = account;
       this.cargarFormularioEmpresa();
     });
@@ -54,8 +62,8 @@ export class EditarEmpresaComponent implements OnInit {
   }
 
   cargarFormularioEmpresa(): void {
-    if(this.usuario?.userEmpresa){
-      this.empresaService.find(this.usuario.userEmpresa).subscribe((response)=>{
+    if (this.usuario?.userEmpresa) {
+      this.empresaService.find(this.usuario.userEmpresa).subscribe(response => {
         this.datosEmpresa = response.body;
         this.formEmpresa.patchValue({
           razonSocial: this.datosEmpresa!.razonSocial,
@@ -66,9 +74,8 @@ export class EditarEmpresaComponent implements OnInit {
           ciudad: this.datosEmpresa!.ciudad,
           email: this.datosEmpresa!.email
         });
-      })
-    }  
-    
+      });
+    }
   }
 
   cargarMunicipiosAcademica(): void {
@@ -105,9 +112,26 @@ export class EditarEmpresaComponent implements OnInit {
     this.datosEmpresa!.ciudad = this.formEmpresa.controls['ciudad'].value;
     this.datosEmpresa!.email = this.formEmpresa.controls['email'].value;
 
-    this.empresaService.update(this.datosEmpresa).subscribe(() => {
-    });
-
+    this.empresaService.update(this.datosEmpresa).subscribe(() => {});
   }
 
+  crearOferta(): void {
+    this.router.navigate(['primer-oferta']);
+  }
+
+  verOferta(): void {
+    this.router.navigate(['oferta-publicada']);
+  }
+
+  membresia(): void {
+    this.router.navigate(['membresias']);
+  }
+
+  editarPerfil(): void {
+    this.router.navigate(['editar-empresa']);
+  }
+
+  clubEmpresas(): void {
+    this.router.navigate(['editar-empresa']);
+  }
 }

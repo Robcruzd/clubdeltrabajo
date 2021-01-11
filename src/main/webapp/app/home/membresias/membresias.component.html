@@ -1,12 +1,42 @@
 <div class="contenedor">
     <div class="div-center">
-        <button class="btn boton-base">
-            <fa-icon [icon]="faStar" class="border-icon" style="
-            background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
-            <div class="div-info-boton">
-                <p class="titulo-boton">Membresia Club del Trabajo</p>
-            </div>
-        </button>
+        <div class="botones-arriba">
+            <button class="btn boton-no-clicked" (click)="crearOferta()">
+                <fa-icon [icon]="faCommentDots" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Crear oferta</p>
+                </div>
+            </button>
+            <button class="btn boton-no-clicked" (click)="editarPerfil()">
+                <fa-icon [icon]="faEllipsisH" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Editar perfil</p>
+                </div>
+            </button>
+            <button class="btn boton-no-clicked" (click)="clubEmpresas()">
+                <fa-icon icon="suitcase" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Club de empresas</p>
+                </div>
+            </button>
+            <button class="btn boton-no-clicked" (click)="verOferta()">
+                <fa-icon icon="eye" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Controla tus ofertas</p>
+                </div>
+            </button>
+            <button class="btn boton-clicked" (click)="membresia()">
+                <fa-icon [icon]="faStar" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Membresía</p>
+                </div>
+            </button>
+        </div>
         <div class="ovalo-arriba">
             <div class="circulo-ovalo">
                 <p class="texto-circulo">1 oferta</p>

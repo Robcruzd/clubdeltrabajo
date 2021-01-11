@@ -1,6 +1,6 @@
 import { HojaVidaVo } from './../../shared/vo/hoja-vida-vo';
 import { HojaVidaService } from './../../shared/services/hoja-vida.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AccountService } from 'app/core/auth/account.service';
 import { commonMessages } from 'app/shared/constants/commonMessages';
@@ -9,6 +9,7 @@ import { Account } from '../../core/user/account.model';
 import { ArchivoService } from '../../entities/archivo/archivo.service';
 import { Archivo } from '../../shared/model/archivo.model';
 import { LoginService } from './../../core/login/login.service';
+import { NavbarService } from 'app/shared/services/navbar.service';
 
 @Component({
   selector: 'jhi-navbar-ct',
@@ -28,6 +29,7 @@ export class NavbarCtComponent implements OnInit {
   urlImageDefault = '';
   hojaVidaVo!: HojaVidaVo | null;
   hideNavbar = false;
+  public navbarState = true;
 
   lstOpcionesMenu: any = [
     { id: 1, etiqueta: 'Inicio', ruta: '/' },
@@ -40,8 +42,22 @@ export class NavbarCtComponent implements OnInit {
     private loginService: LoginService,
     private accountService: AccountService,
     private archivoService: ArchivoService,
-    private hojaVidaService: HojaVidaService
+    private hojaVidaService: HojaVidaService,
+    private navbarService: NavbarService,
+    private cd: ChangeDetectorRef
   ) {
+    this.navbarService.cast.subscribe(status => {
+      // eslint-disable-next-line no-console
+      console.log('sraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaatus: ', status, this.navbarService, this.account?.userEmpresa);
+      if (status !== null) {
+        // eslint-disable-next-line no-console
+        console.log('not nuuuuuuuuuuuuuuuuuuuuullll: ', status);
+        this.navbarState = status;
+        // eslint-disable-next-line no-console
+        console.log('teeeeeeeeeeest: ', this.navbarService, ' tessssssst: ', this.account?.userEmpresa);
+        this.cd.detectChanges();
+      }
+    });
     this.subscribeToEvents();
   }
 
@@ -51,6 +67,7 @@ export class NavbarCtComponent implements OnInit {
     } else {
       this.hideNavbar = false;
     }
+    // this.cd.detectChanges();
   }
 
   subscribeToEvents(): void {

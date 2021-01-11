@@ -27,9 +27,9 @@
 
     .titulo1 {
       text-align: left;
-      font: normal normal bold 6.372vw Roboto;
+      font: normal normal 300 6.372vw Roboto;
       letter-spacing: 0px;
-      color: #1fb9fd;
+      color: #2699fb;
       opacity: 1;
       margin: 0rem;
     }
@@ -38,7 +38,7 @@
       text-align: left;
       font: normal normal normal 1.495vw Roboto;
       letter-spacing: 0.03vw;
-      color: #707070;
+      color: #2699fb;
       z-index: 10;
       background: none;
       opacity: 1;
@@ -46,6 +46,15 @@
       .texto-azul {
         color: #1fb9fd;
       }
+    }
+
+    .texto {
+      width: 29.194vw;
+      font: normal normal normal 1.495vw Roboto;
+      letter-spacing: 0.03vw;
+      color: #707070;
+      margin-top: 2.081vw;
+      margin-bottom: 3.121vw;
     }
 
     .texto3 {
@@ -69,11 +78,14 @@
     }
 
     .boton-crear-oferta {
-      width: 10.468vw;
-      height: 3.121vw;
+      width: 15.345vw;
+      height: 2.471vw;
       background: #2699fb 0% 0% no-repeat padding-box;
+      border-radius: 1.56vw;
+      // width: 10.468vw;
+      // height: 3.121vw;
       // background: #f54b1d 0% 0% no-repeat padding-box;
-      border-radius: 0.845vw;
+      // border-radius: 0.845vw;
       opacity: 1;
       margin-bottom: 1.04vw;
       text-align: center;
@@ -113,21 +125,6 @@
   }
 }
 
-.footer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-color: #9ba0af;
-  height: 7.672vw;
-  width: 100%;
-
-  .icono {
-    width: 1.248vw;
-    height: 1.248vw;
-  }
-}
-
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 900px) {
   .estilo_home {
@@ -164,11 +161,21 @@
 
       .titulo1 {
         font: normal normal bold 50px Roboto;
+        margin-top: 2rem;
       }
 
       .titulo2 {
         font: normal normal normal 23px/30px Roboto;
         letter-spacing: 0.46px;
+      }
+
+      .texto {
+        font: normal normal normal 23px Roboto;
+        letter-spacing: 0.03vw;
+        color: #ffffff;
+        margin-top: 2.081vw;
+        margin-bottom: 3.121vw;
+        width: auto;
       }
 
       .texto3 {
@@ -210,26 +217,6 @@
         color: #ffffff;
         opacity: 1;
       }
-
-      .boton-volver {
-        width: 98px;
-        height: 31px;
-        border-radius: 13px;
-        font: normal normal normal 12px/14px Arial;
-
-        .titulo-boton {
-          margin-bottom: 0rem;
-        }
-      }
-    }
-  }
-
-  .footer {
-    height: 118px;
-
-    .icono {
-      width: 19px;
-      height: 19px;
     }
   }
 }

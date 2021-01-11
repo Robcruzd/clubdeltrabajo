@@ -1,0 +1,229 @@
+.estilo_home {
+  display: flex;
+  flex-direction: initial;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-width: 98vw;
+  min-height: 80vh;
+  height: 100% !important;
+  background: #2f447f 0% 0% no-repeat padding-box;
+
+  .estilo_imagen {
+    height: 85%;
+    position: absolute;
+    right: 5.202vw;
+    bottom: 0rem;
+    padding-left: 100%;
+    background: transparent 0% 0% no-repeat padding-box;
+  }
+
+  .div_centro {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 100%;
+    z-index: 1;
+
+    .titulo1 {
+      text-align: left;
+      font: normal normal 300 6.372vw Roboto;
+      letter-spacing: 0px;
+      color: #ffffff;
+      opacity: 1;
+      margin: 0rem;
+    }
+
+    .titulo2 {
+      text-align: left;
+      font: normal normal normal 1.495vw Roboto;
+      letter-spacing: 0.03vw;
+      color: #ffffff;
+      z-index: 10;
+      background: none;
+      opacity: 1;
+
+      .texto-azul {
+        color: #1fb9fd;
+      }
+    }
+
+    .texto {
+      width: 29.194vw;
+      font: normal normal normal 1.495vw Roboto;
+      letter-spacing: 0.03vw;
+      color: #ffffff;
+      margin-top: 2.081vw;
+      margin-bottom: 3.121vw;
+    }
+
+    .texto3 {
+      width: 17.75vw;
+      height: 4.681vw;
+      text-align: left;
+      font: 1.3vw Roboto;
+      letter-spacing: 0.026vw;
+      color: #ffffff;
+      opacity: 1;
+    }
+
+    .lista {
+      text-align: left;
+      font: normal normal normal 1.3vw Roboto;
+      letter-spacing: 0.026vw;
+      color: #707070;
+      opacity: 1;
+      margin-top: 3.121vw;
+      margin-bottom: 3.121vw;
+    }
+
+    .boton-crear-oferta {
+      width: 15.345vw;
+      height: 2.471vw;
+      background: #2699fb 0% 0% no-repeat padding-box;
+      border-radius: 1.56vw;
+      // width: 10.468vw;
+      // height: 3.121vw;
+      // background: #f54b1d 0% 0% no-repeat padding-box;
+      // border-radius: 0.845vw;
+      opacity: 1;
+      margin-bottom: 1.04vw;
+      text-align: center;
+      font: normal normal normal 1.04vw Arial;
+      letter-spacing: 0px;
+      color: #ffffff;
+      opacity: 1;
+    }
+
+    .texto-boton-1 {
+      text-align: center;
+      font: Bold 1.04vw Arial;
+      letter-spacing: 0px;
+      color: #ffffff;
+      opacity: 1;
+    }
+
+    .boton-volver {
+      width: 6.372vw;
+      height: 2.016vw;
+      background: #e5e5e5 0% 0% no-repeat padding-box;
+      border-radius: 0.845vw;
+      letter-spacing: 0px;
+      text-align: center;
+      font: normal normal normal 0.78vw Arial;
+      color: #2a1d72;
+      opacity: 1;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+
+      .titulo-boton {
+        margin-bottom: 0rem;
+      }
+    }
+  }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 900px) {
+  .estilo_home {
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    min-width: 100vw;
+    min-height: 100vh;
+
+    .estilo_imagen {
+      width: 80%;
+      right: auto;
+      bottom: auto;
+      padding: 0rem;
+      position: inherit;
+      align-self: flex-end;
+      background: transparent 0% 0% no-repeat padding-box;
+    }
+
+    .estilo_logo {
+      display: initial;
+      width: 100%;
+      padding: 2rem 0rem;
+    }
+
+    .div_centro {
+      display: flex;
+      flex-direction: column;
+      width: 70%;
+      height: 100%;
+      margin-left: 0rem;
+      padding: 0rem;
+      background: none;
+      z-index: 1;
+
+      .titulo1 {
+        font: normal normal bold 50px Roboto;
+        margin-top: 2rem;
+      }
+
+      .titulo2 {
+        font: normal normal normal 23px/30px Roboto;
+        letter-spacing: 0.46px;
+      }
+
+      .texto {
+        font: normal normal normal 23px Roboto;
+        letter-spacing: 0.03vw;
+        color: #ffffff;
+        margin-top: 2.081vw;
+        margin-bottom: 3.121vw;
+        width: auto;
+      }
+
+      .texto3 {
+        width: auto;
+        height: auto;
+        text-align: left;
+        font: 20px Roboto;
+        letter-spacing: 0.4px;
+        color: #ffffff;
+        opacity: 1;
+      }
+
+      .lista {
+        font: normal normal normal 20px/40px Roboto;
+        letter-spacing: 0.4px;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+      }
+
+      .boton-crear-oferta {
+        width: 100%;
+        height: auto;
+        padding: 0.8rem 0rem;
+        background: #2699fb 0% 0% no-repeat padding-box;
+        border-radius: 24px;
+        opacity: 1;
+        margin-bottom: 1rem;
+        text-align: center;
+        font: normal 16px/19px Arial;
+        letter-spacing: 0px;
+        color: #ffffff;
+        opacity: 1;
+      }
+
+      .texto-boton-1 {
+        text-align: center;
+        font: Bold 16px/19px Arial;
+        letter-spacing: 0px;
+        color: #ffffff;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 900px) {
+  .estilo_logo {
+    display: none;
+  }
+}

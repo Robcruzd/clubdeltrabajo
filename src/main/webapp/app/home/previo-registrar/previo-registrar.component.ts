@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-previo-registrar',
@@ -6,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./previo-registrar.component.scss']
 })
 export class PrevioRegistrarComponent implements OnInit {
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
+
+  crearOferta(): void {
+    this.router.navigate(['/agregar-usuario', { userType: 'natural' }]);
+  }
 }

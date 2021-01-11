@@ -3,7 +3,7 @@
         <div class="left">
             <img class="foto-perfil rounded-circle" [src]="imagen?.archivo || ulrImgDefault">
             <button (click)="crearOferta()" class="btn boton-base">
-                <fa-icon icon="suitcase" class="border-icon" style="
+                <fa-icon [icon]="faCommentDots" class="border-icon" style="
                 background: #D0D4F0 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
                     <p class="titulo-boton">Crear Oferta</p>
@@ -14,7 +14,7 @@
                 <fa-icon icon="eye" class="border-icon" style="
                 background: #BCFAF3 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Ver Ofertas</p>
+                    <p class="titulo-boton">Controla tus ofertas</p>
                     <p class="texto-boton">Controla todas tus ofertas</p>
                 </div>
             </button>
@@ -31,6 +31,13 @@
                 background: #D5D0E8 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
                     <p class="titulo-boton">Editar Perfil</p>
+                </div>
+            </button>
+            <button (click)="clubEmpresas()" class="btn boton-base">
+                <fa-icon icon="suitcase" class="border-icon" style="
+                background: #D5D0E8 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Club de empresas</p>
                 </div>
             </button>
         </div>

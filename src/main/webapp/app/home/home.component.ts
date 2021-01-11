@@ -161,11 +161,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   abrirAgregarUsuario(): void {
-    this.router.navigate(['/agregar-usuario', { userType: 'natural' }]);
+    this.router.navigate(['/previo-registrar']);
   }
 
   registrarHojaVidaEmpresa(): void {
-    this.router.navigate(['/agregar-usuario', { userType: 'juridico' }]);
+    this.router.navigate(['/previo-registrar-emp']);
   }
 
   ventanaInicioSesion(): void {

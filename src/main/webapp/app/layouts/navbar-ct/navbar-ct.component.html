@@ -1,6 +1,6 @@
-<div class="navbar-ct" [ngClass]="{ 'navbar-ct':hideNavbar!==true, 'navbar-ct2':hideNavbar }" [ngStyle]="{ 'background': account?.userEmpresa==null ? 'transparent linear-gradient(0deg, #304580 0%, #1a2050 100%) 0% 0% no-repeat padding-box' : '#FFFFFF 0% 0% no-repeat padding-box' }">
-    <img *ngIf="account?.userEmpresa==null" class="logo" src="../../../content/images/logo_empresa.png">
-    <img *ngIf="account?.userEmpresa!=null" class="logo" src="../../../content/images/logo_cdt.png">
+<div class="navbar-ct" [ngClass]="{ 'navbar-ct':hideNavbar!==true, 'navbar-ct2':hideNavbar }" [ngStyle]="{ 'background': account?.userEmpresa==null && navbarState==true ? 'transparent linear-gradient(0deg, #304580 0%, #1a2050 100%) 0% 0% no-repeat padding-box' : '#FFFFFF 0% 0% no-repeat padding-box' }">
+    <img *ngIf="navbarState==true && account?.userEmpresa==null" class="logo" src="../../../content/images/logo_empresa.png">
+    <img *ngIf="navbarState==false || account?.userEmpresa!=null" class="logo" src="../../../content/images/logo_cdt.png">
     <!-- <div class="opciones"> -->
         <nav class="nav-navbar">
             <!-- <div class="collapse navbar-collapse" id="navbarNavAltMarkup"> -->
@@ -11,7 +11,7 @@
                     </div>
                     <div ngbDropdown *ngIf="logged" class="dropdownBurger">
                         <fa-icon icon="bars" ngbDropdownToggle href="javascript:void(0);" 
-                            class="burger dropdown-toggle rounded-circle" [ngStyle]="{ 'color': account?.userEmpresa==null ? '#FFFFFF' : '#6d7184' }"></fa-icon>
+                            class="burger dropdown-toggle rounded-circle" [ngStyle]="{ 'color': account?.userEmpresa==null&&navbarState==true ? '#FFFFFF' : '#6d7184' }"></fa-icon>
                         <!-- <img class="burger dropdown-toggle rounded-circle" ngbDropdownToggle href="javascript:void(0);"
                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAAg0lEQVRoge3WMQoDMQxEUSnnWHKfzUFyce09JsWSYNQZgizMf53AxYyrMQMAYBeSXpJCfYWkc8zsqUCY2VH6a/PC3Z/fIxdQfZ557v7L/VgZ5B9ygWtJijkxHrnAOz9oJuzOCAAdiS1Ugi3UCluoGFsIQGdiC5VgC7XCFirGFgIA7OUDCr8ZYRVLYKMAAAAASUVORK5CYII="> -->
                         <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu aria-labelledby="account-menu">

@@ -19,6 +19,7 @@ import { MembresiasComponent } from './membresias/membresias.component';
 import { OfertaPublicadaComponent } from './oferta-publicada/oferta-publicada.component';
 import { PrimerOfertaComponent } from './primer-oferta/primer-oferta.component';
 import { PrevioRegistrarComponent } from './previo-registrar/previo-registrar.component';
+import { PrevioRegistrarEmpComponent } from './previo-registrar-emp/previo-registrar-emp.component';
 
 export const HOME_ROUTE: Routes = [
   {
@@ -158,6 +159,13 @@ export const HOME_ROUTE: Routes = [
   {
     path: 'previo-registrar',
     component: PrevioRegistrarComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
+  },
+  {
+    path: 'previo-registrar-emp',
+    component: PrevioRegistrarEmpComponent,
     data: {
       pageTitle: 'home.title'
     }
