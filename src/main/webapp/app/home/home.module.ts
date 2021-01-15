@@ -23,6 +23,7 @@ import { VisualizarHojaVidaComponent } from './visualizar-hoja-vida/visualizar-h
 import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PrevioRegistrarComponent } from './previo-registrar/previo-registrar.component';
 
 @NgModule({
   imports: [
@@ -51,7 +52,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RestaurarContrasenaComponent,
     NuevoCorreoComponent,
     InformacionEmpresaComponent,
-    VisualizarHojaVidaComponent
+    VisualizarHojaVidaComponent,
+    PrevioRegistrarComponent
   ]
 })
 export class CtProjectHomeModule {}

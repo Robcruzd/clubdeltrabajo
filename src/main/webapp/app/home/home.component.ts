@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   abrirAgregarUsuario(): void {
-    this.router.navigate(['/agregar-usuario']);
+    this.router.navigate(['/previo-registrar']);
   }
 
   ventanaInicioSesion(): void {
