@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ApiService } from 'app/shared/services/api.service';
 import { Router } from '@angular/router';
+import { RegionesService } from 'app/entities/regiones/regiones.service';
+import { HttpResponse } from '@angular/common/http';
+import { IRegiones } from 'app/shared/model/regiones.model';
 
 @Component({
   selector: 'jhi-buscar-trabajo',
@@ -26,7 +29,12 @@ export class BuscarTrabajoComponent implements OnInit {
   filteredOptionsCiudades = new Observable<string[]>();
   filteredOptionsProfesiones = new Observable<string[]>();
 
-  constructor(private ciudadServices: ApiService, private dataService: DataService, private router: Router) {}
+  constructor(
+    private ciudadServices: ApiService,
+    private dataService: DataService,
+    private router: Router,
+    private regionService: RegionesService
+  ) {}
 
   ngOnInit(): void {
     this.traerCiudad();
@@ -48,13 +56,19 @@ export class BuscarTrabajoComponent implements OnInit {
   }
 
   traerCiudad(): void {
-    this.ciudadServices.getCiudades().subscribe(response => {
-      this.data = response;
-      this.filteredOptionsCiudades = this.myControlCiudades.valueChanges.pipe(
-        startWith(''),
-        map(value => this._filterCiudades(value))
-      );
-    });
+    this.regionService
+      .query({
+        page: 0,
+        size: 1150
+      })
+      .subscribe((res: HttpResponse<IRegiones[]>) => {
+        // this.region = res.body || [];
+        this.data = res.body;
+        this.filteredOptionsCiudades = this.myControlCiudades.valueChanges.pipe(
+          startWith(''),
+          map(value => this._filterCiudades(value))
+        );
+      });
   }
 
   traerProfesiones(): void {

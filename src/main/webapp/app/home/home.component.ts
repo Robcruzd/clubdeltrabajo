@@ -3,8 +3,8 @@ import { Subscription } from 'rxjs';
 import { LoginModalService } from 'app/core/login/login-modal.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
-// import { Router } from '@angular/router';
 import { Router, NavigationEnd } from '@angular/router';
+import { IRegiones } from 'app/shared/model/regiones.model';
 
 declare let gtag: Function;
 
@@ -16,11 +16,13 @@ declare let gtag: Function;
 export class HomeComponent implements OnInit, OnDestroy {
   account: Account | null = null;
   authSubscription?: Subscription;
+  region: Array<IRegiones> = [];
 
   constructor(private accountService: AccountService, private loginModalService: LoginModalService, private router: Router) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         gtag('config', 'UA-181764554-1', {
+          // eslint-disable-next-line @typescript-eslint/camelcase
           page_path: event.urlAfterRedirects
         });
       }
@@ -29,6 +31,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
+    const vid = document.getElementById('vid') as HTMLVideoElement;
+    vid.muted = true;
+    vid.loop = true;
+    vid?.play();
   }
 
   isAuthenticated(): boolean {
@@ -45,8 +51,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  abrirBuscarTrabajo(): void {
-    this.router.navigate(['/agregar-usuario']);
+  abrirAgregarUsuario(): void {
+    this.router.navigate(['/previo-registrar']);
   }
 
   ventanaInicioSesion(): void {
