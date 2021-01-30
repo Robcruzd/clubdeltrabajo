@@ -308,6 +308,19 @@ export const commonMessages = {
     { codigo:"10", nombre:"Más de 15 años"},
   ],
 
+  ARRAY_NIVEL_IDIOMA_PORCENTAJE: [
+    { codigo:"1", nombre:"10%"},
+    { codigo:"2", nombre:"20%"},
+    { codigo:"3", nombre:"30%"},
+    { codigo:"4", nombre:"40%"},
+    { codigo:"5", nombre:"50%"},
+    { codigo:"6", nombre:"60%"},
+    { codigo:"7", nombre:"70%"},
+    { codigo:"8", nombre:"80%"},
+    { codigo:"9", nombre:"90%"},
+    { codigo:"10", nombre:"100%"},
+  ],
+
   PROFESION_LABEL: 'Profesión',
   NUMERO_VECES_EXCEDIDO: 'Solamente es permitido 2 archivos por registro.',
   POLITICAS:
@@ -427,9 +440,12 @@ export const commonMessages = {
     SECTOR_INDUSTRIA: "Sector y/o Industria",
     IDIOMA: "idioma",
     NIVEL_LABORAL: "Nivel laboral",
+    SUB_NIVEL_LABORAL: "Subnivel laboral",
     TIPO_CONTRATO: "Tipo de contrato",
     PROFESION: "Profesión",
     MODALIDAD_LABORAL: "Modalidad laboral",
     NIVEL_ESTUDIOS: "Nivel de estudios",
-    PUBLICAR_OFERTA: "Publicar oferta"
+    PUBLICAR_OFERTA: "Publicar oferta",
+    NIVEL_IDIOMA: "Nivel %",
+    GENERO_ESPECIFICO: "Género especifico" 
 };
