@@ -111,6 +111,89 @@
         width: 100%;
         margin: 0rem;
 
+        .row-2 {
+          width: 50%;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          padding-left: 2.5%;
+          padding-right: 2.5%;
+
+          .select-70 {
+            @extend .form-group2;
+            width: 67.5%;
+          }
+
+          .select-30 {
+            @extend .form-group2;
+            width: 27.5%;
+          }
+
+          .form-group2 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            // width: 90%;
+
+            .estilo_inputs {
+              min-height: 3rem;
+              padding-right: 1rem;
+              padding-left: 1.5rem;
+              font-size: 0.875rem;
+            }
+
+            .no-publicar {
+              display: flex;
+              flex-direction: row;
+              width: 90%;
+              margin-top: 1.04vw;
+
+              .radioB {
+                margin-top: 0.325vw;
+                margin-right: 0.325vw;
+              }
+
+              .label-terminos {
+                text-align: center;
+                margin-left: 0rem;
+              }
+            }
+
+            .genero {
+              display: flex;
+              flex-direction: row;
+              align-self: flex-start;
+              font-size: 0.91vw;
+
+              .radio-inline {
+                margin-left: 1.04vw;
+                display: flex;
+
+                .radio-button {
+                  border: 0rem;
+                  width: 100%;
+                  height: 0.832vw;
+                }
+              }
+
+              .div_checkbox {
+                width: 1vw;
+                margin-right: 0.26vw;
+              }
+
+              .div_radiobutton {
+                width: 0.832vw;
+                margin-right: 0.26vw;
+              }
+
+              .checkbox-estado {
+                height: 1vw;
+                width: 1vw;
+              }
+            }
+          }
+        }
+
         .column {
           width: 50%;
           display: flex;
@@ -129,6 +212,56 @@
               padding-left: 1.5rem;
               font-size: 0.875rem;
             }
+
+            .no-publicar {
+              display: flex;
+              flex-direction: row;
+              width: 90%;
+              margin-top: 1.04vw;
+
+              .radioB {
+                margin-top: 0.325vw;
+                margin-right: 0.325vw;
+              }
+
+              .label-terminos {
+                text-align: center;
+                margin-left: 0rem;
+              }
+            }
+
+            .genero {
+              display: flex;
+              flex-direction: row;
+              align-self: flex-start;
+              font-size: 0.91vw;
+
+              .radio-inline {
+                margin-left: 1.04vw;
+                display: flex;
+
+                .radio-button {
+                  border: 0rem;
+                  width: 100%;
+                  height: 0.832vw;
+                }
+              }
+
+              .div_checkbox {
+                width: 1vw;
+                margin-right: 0.26vw;
+              }
+
+              .div_radiobutton {
+                width: 0.832vw;
+                margin-right: 0.26vw;
+              }
+
+              .checkbox-estado {
+                height: 1vw;
+                width: 1vw;
+              }
+            }
           }
         }
 
@@ -136,7 +269,7 @@
           display: flex;
           flex-direction: column;
           align-items: center;
-          width: 90%;
+          width: 95%;
 
           .estilo_inputs {
             min-height: 3rem;
@@ -147,6 +280,14 @@
             border: none;
             border-radius: 23px;
           }
+        }
+
+        .form-group-descripcion {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 90%;
+          margin-bottom: 1.04vw;
         }
 
         .estilo_campo_requerido {

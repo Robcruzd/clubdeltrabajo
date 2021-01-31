@@ -53,6 +53,8 @@ export class CrearOfertaComponent implements OnInit {
   lblSeleccioneProfesion = commonMessages.SELECCIONE_PROFESION_LABEL;
   nivelesLaborales: IOpcionVo[] = commonMessages.ARRAY_NIVEL_LABORAL;
   experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
+  no_publicar: any;
+  genero: any;
 
   constructor(
     private cargoService: CargoService,
@@ -105,7 +107,8 @@ export class CrearOfertaComponent implements OnInit {
       modalidadLaboral: ['', [Validators.required]],
       nivelEstudios: ['', [Validators.required]],
       sector: ['', [Validators.required]],
-      profesion: [null, [Validators.required]]
+      profesion: [null, [Validators.required]],
+      genero: ['', [Validators.required]]
     });
   }
 
