@@ -274,38 +274,51 @@ export const commonMessages = {
   ],
 
   ARRAY_TIPO_CONTRATO: [
-    { codigo:1, nombre:"Indefinido"},
-    { codigo:2, nombre:"Definido"},
-    { codigo:3, nombre:"Prestación de Servicios"},
-    { codigo:4, nombre:"Contrato de aprendizaje"},
-    { codigo:5, nombre:"Por obra o labor"}
+    { codigo: 1, nombre: 'Indefinido' },
+    { codigo: 2, nombre: 'Definido' },
+    { codigo: 3, nombre: 'Prestación de Servicios' },
+    { codigo: 4, nombre: 'Contrato de aprendizaje' },
+    { codigo: 5, nombre: 'Por obra o labor' }
   ],
 
   ARRAY_MODALIDAD_LABORAL: [
-    { codigo:1, nombre:"Freelance"},
-    { codigo:2, nombre:"Mensual"},
-    { codigo:3, nombre:"Por Hora"},
-    { codigo:4, nombre:"Semanal"}
+    { codigo: 1, nombre: 'Freelance' },
+    { codigo: 2, nombre: 'Mensual' },
+    { codigo: 3, nombre: 'Por Hora' },
+    { codigo: 4, nombre: 'Semanal' }
   ],
 
   ARRAY_NIVEL_LABORAL: [
-    { codigo:1, nombre:"Alta Gerencia"},
-    { codigo:2, nombre:"Gerencia Media"},
-    { codigo:3, nombre:"Profesional"},
-    { codigo:4, nombre:"Asistencial"}
+    { codigo: 1, nombre: 'Alta Gerencia' },
+    { codigo: 2, nombre: 'Gerencia Media' },
+    { codigo: 3, nombre: 'Profesional' },
+    { codigo: 4, nombre: 'Asistencial' }
   ],
 
   ARRAY_EXPERIENCIA_LABORAL: [
-    { codigo:"1", nombre:"Sin Experiencia"},
-    { codigo:"2", nombre:"Menos de un año"},
-    { codigo:"3", nombre:"Entre 1 y 2 años"},
-    { codigo:"4", nombre:"Entre 2 y 3 años"},
-    { codigo:"5", nombre:"Entre 3 y 4 años"},
-    { codigo:"6", nombre:"Entre 4 y 5 años"},
-    { codigo:"7", nombre:"Entre 5 y 7 años"},
-    { codigo:"8", nombre:"Entre 7 y 10 años"},
-    { codigo:"9", nombre:"Entre 10 y 15 años"},
-    { codigo:"10", nombre:"Más de 15 años"},
+    { codigo: '1', nombre: 'Sin Experiencia' },
+    { codigo: '2', nombre: 'Menos de un año' },
+    { codigo: '3', nombre: 'Entre 1 y 2 años' },
+    { codigo: '4', nombre: 'Entre 2 y 3 años' },
+    { codigo: '5', nombre: 'Entre 3 y 4 años' },
+    { codigo: '6', nombre: 'Entre 4 y 5 años' },
+    { codigo: '7', nombre: 'Entre 5 y 7 años' },
+    { codigo: '8', nombre: 'Entre 7 y 10 años' },
+    { codigo: '9', nombre: 'Entre 10 y 15 años' },
+    { codigo: '10', nombre: 'Más de 15 años' }
+  ],
+
+  ARRAY_NIVEL_IDIOMA_PORCENTAJE: [
+    { codigo: '1', nombre: '10%' },
+    { codigo: '2', nombre: '20%' },
+    { codigo: '3', nombre: '30%' },
+    { codigo: '4', nombre: '40%' },
+    { codigo: '5', nombre: '50%' },
+    { codigo: '6', nombre: '60%' },
+    { codigo: '7', nombre: '70%' },
+    { codigo: '8', nombre: '80%' },
+    { codigo: '9', nombre: '90%' },
+    { codigo: '10', nombre: '100%' }
   ],
 
   PROFESION_LABEL: 'Profesión',
@@ -417,19 +430,22 @@ export const commonMessages = {
     'proporcionar información que pueda resultar de interés al Usuario y ofrecer contenidos ' +
     'publicitarios de su preferencia.',
 
-    INGRESA_DATOS_BASICOS: "Ingresa los datos básicos",
-    NOMBRE_OFERTA: "Nombre de la oferta",
-    EXPERIENCIA_MINIMA: "Experíencia mínima",
-    AREA_TRABAJO: "Área de trabajo",
-    RANGO_SALARIAL: "Rango salarial COP",
-    NO_PUBLICAR_SALARIO: "No publicar salario",
-    REQUISITOS: "Requisitos",
-    SECTOR_INDUSTRIA: "Sector y/o Industria",
-    IDIOMA: "idioma",
-    NIVEL_LABORAL: "Nivel laboral",
-    TIPO_CONTRATO: "Tipo de contrato",
-    PROFESION: "Profesión",
-    MODALIDAD_LABORAL: "Modalidad laboral",
-    NIVEL_ESTUDIOS: "Nivel de estudios",
-    PUBLICAR_OFERTA: "Publicar oferta"
+  INGRESA_DATOS_BASICOS: 'Ingresa los datos básicos',
+  NOMBRE_OFERTA: 'Nombre de la oferta',
+  EXPERIENCIA_MINIMA: 'Experíencia mínima',
+  AREA_TRABAJO: 'Área de trabajo',
+  RANGO_SALARIAL: 'Rango salarial COP',
+  NO_PUBLICAR_SALARIO: 'No publicar salario',
+  REQUISITOS: 'Requisitos',
+  SECTOR_INDUSTRIA: 'Sector y/o Industria',
+  IDIOMA: 'idioma',
+  NIVEL_LABORAL: 'Nivel laboral',
+  SUB_NIVEL_LABORAL: 'Subnivel laboral',
+  TIPO_CONTRATO: 'Tipo de contrato',
+  PROFESION: 'Profesión',
+  MODALIDAD_LABORAL: 'Modalidad laboral',
+  NIVEL_ESTUDIOS: 'Nivel de estudios',
+  PUBLICAR_OFERTA: 'Publicar oferta',
+  NIVEL_IDIOMA: 'Nivel %',
+  GENERO_ESPECIFICO: 'Género especifico'
 };

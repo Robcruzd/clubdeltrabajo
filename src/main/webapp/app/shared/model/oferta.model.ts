@@ -42,5 +42,8 @@ export class Oferta implements IOferta {
     public profesion?: number,
     public modalidad?: number,
     public nivelEstudios?: number,
+    public subNivelLaboral?: number,
+    public nivelIdioma?: number,
+    public genero?: number
   ) {}
 }

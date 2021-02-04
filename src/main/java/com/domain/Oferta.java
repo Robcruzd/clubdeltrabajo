@@ -84,6 +84,16 @@ public class Oferta implements Serializable {
     
     @Column(name = "nivel_estudios", nullable = false)
     private Long nivelEstudios;
+    
+    @Column(name = "subnivel_laboral", nullable = true)
+    private Long subNivelLaboral;
+    
+    @Column(name = "nivel_idioma", nullable = true)
+    private Long nivelIdioma;
+    
+    @Size(max = 1)
+    @Column(name = "genero", length = 1, nullable = false)
+    private Long genero;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -280,6 +290,30 @@ public class Oferta implements Serializable {
 
 	public void setNivelEstudios(Long nivelEstudios) {
 		this.nivelEstudios = nivelEstudios;
+	}
+
+	public Long getSubNivelLaboral() {
+		return subNivelLaboral;
+	}
+
+	public void setSubNivelLaboral(Long subNivelLaboral) {
+		this.subNivelLaboral = subNivelLaboral;
+	}
+
+	public Long getNivelIdioma() {
+		return nivelIdioma;
+	}
+
+	public void setNivelIdioma(Long nivelIdioma) {
+		this.nivelIdioma = nivelIdioma;
+	}
+
+	public Long getGenero() {
+		return genero;
+	}
+
+	public void setGenero(Long genero) {
+		this.genero = genero;
 	}
 
 	@Override
