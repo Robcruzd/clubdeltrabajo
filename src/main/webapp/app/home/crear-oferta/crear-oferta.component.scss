@@ -80,6 +80,7 @@
       margin-bottom: 3.121vw;
       padding: 0rem;
       padding-top: 3.121vw;
+      padding-bottom: 3.121vw;
       max-width: none;
 
       .estilo_titulo {
@@ -90,6 +91,7 @@
         letter-spacing: 0px;
         color: #1b2455;
         opacity: 1;
+        padding-left: 1.7rem;
       }
 
       .estilo_label {
@@ -111,6 +113,42 @@
         width: 100%;
         margin: 0rem;
 
+        .row-2 {
+          width: 50%;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          padding-left: 2.5%;
+          padding-right: 2.5%;
+
+          .select-70 {
+            @extend .form-group2;
+            width: 67.5%;
+          }
+
+          .select-30 {
+            @extend .form-group2;
+            width: 27.5%;
+          }
+
+          .form-group2 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            // width: 90%;
+
+            .estilo_inputs {
+              min-height: 3rem;
+              padding-right: 1rem;
+              padding-left: 1.5rem;
+              font-size: 0.875rem;
+              width: 100%;
+              border: none;
+              border-radius: 23px;
+            }
+          }
+        }
+
         .column {
           width: 50%;
           display: flex;
@@ -128,6 +166,56 @@
               padding-right: 1rem;
               padding-left: 1.5rem;
               font-size: 0.875rem;
+            }
+
+            .no-publicar {
+              display: flex;
+              flex-direction: row;
+              width: 90%;
+              margin-top: 1.04vw;
+
+              .radioB {
+                margin-top: 0.325vw;
+                margin-right: 0.325vw;
+              }
+
+              .label-terminos {
+                text-align: center;
+                margin-left: 0rem;
+              }
+            }
+
+            .genero {
+              display: flex;
+              flex-direction: row;
+              align-self: flex-start;
+              font-size: 0.91vw;
+
+              .radio-inline {
+                margin-left: 1.04vw;
+                display: flex;
+
+                .radio-button {
+                  border: 0rem;
+                  width: 100%;
+                  height: 0.832vw;
+                }
+              }
+
+              .div_checkbox {
+                width: 1vw;
+                margin-right: 0.26vw;
+              }
+
+              .div_radiobutton {
+                width: 0.832vw;
+                margin-right: 0.26vw;
+              }
+
+              .checkbox-estado {
+                height: 1vw;
+                width: 1vw;
+              }
             }
           }
 
@@ -150,15 +238,45 @@
             border: none;
             border-radius: 23px;
           }
+
+          .btn-success {
+            width: 132px;
+            height: 31px;
+            background: #2699fb 0% 0% no-repeat padding-box;
+            border-radius: 24px;
+            align-items: center;
+
+            .titulo-boton {
+              text-align: center;
+              font: normal normal normal 10px/12px Roboto;
+              letter-spacing: 0px;
+              color: #ffffff;
+              margin: 0rem;
+            }
+          }
+
+          .boton-volver {
+            width: 132px;
+            height: 31px;
+            background: #e5e5e5 0% 0% no-repeat padding-box;
+            border-radius: 24px;
+            align-items: center;
+
+            .titulo-boton {
+              text-align: center;
+              font: normal normal normal 10px/12px Roboto;
+              letter-spacing: 0px;
+              color: #1b2455;
+              margin: 0rem;
+            }
+          }
         }
 
         .form-group {
           display: flex;
           flex-direction: column;
           align-items: center;
-          width: 90%;
-
-          
+          width: 95%;
 
           .estilo_inputs {
             min-height: 3rem;
@@ -171,6 +289,14 @@
           }
         }
 
+        .form-group-descripcion {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 90%;
+          margin-bottom: 1.04vw;
+        }
+
         .estilo_campo_requerido {
           text-align: left;
           margin-bottom: 0.52vw;
@@ -181,8 +307,38 @@
         }
       }
     }
+  }
+}
 
-    
+.btn-success {
+  width: 132px;
+  height: 31px;
+  background: #2699fb 0% 0% no-repeat padding-box;
+  border-radius: 24px;
+  align-items: center;
+
+  .titulo-boton {
+    text-align: center;
+    font: normal normal normal 10px/12px Roboto;
+    letter-spacing: 0px;
+    color: #ffffff;
+    margin: 0rem;
+  }
+}
+
+.boton-volver {
+  width: 132px;
+  height: 31px;
+  background: #e5e5e5 0% 0% no-repeat padding-box;
+  border-radius: 24px;
+  align-items: center;
+
+  .titulo-boton {
+    text-align: center;
+    font: normal normal normal 10px/12px Roboto;
+    letter-spacing: 0px;
+    color: #1b2455;
+    margin: 0rem;
   }
 }
 
@@ -200,7 +356,7 @@
       width: 61.378vw;
       align-self: center;
       justify-self: center;
-      background: #F8F8F8 0% 0% no-repeat padding-box;
+      background: #f8f8f8 0% 0% no-repeat padding-box;
       // background: transparent linear-gradient(181deg, #F8F8F8 0%, #71829c 100%) 0% 0% no-repeat padding-box;
       // border-radius: 1.951vw 1.951vw 4.617vw 4.617vw;
       opacity: 1;
@@ -208,6 +364,7 @@
       margin-bottom: 3.121vw;
       padding: 0rem;
       padding-top: 3.121vw;
+      padding-bottom: 3.121vw;
       max-width: none;
 
       .titulo_oferta {
@@ -216,7 +373,7 @@
         font-family: 'Open Sans';
         font-weight: bold;
         letter-spacing: 0px;
-        color: #020D52;
+        color: #020d52;
         opacity: 1;
         margin-left: 1rem;
       }
@@ -227,7 +384,7 @@
         font-family: 'Open Sans';
         font-weight: bold;
         letter-spacing: 0px;
-        color: #645D5D;
+        color: #645d5d;
         opacity: 1;
         margin-left: 1rem;
       }
@@ -238,7 +395,7 @@
         font-family: 'Open Sans';
         font-weight: bold;
         letter-spacing: 0px;
-        color: #7E7474;
+        color: #7e7474;
         opacity: 1;
         margin-left: 1rem;
       }
@@ -249,7 +406,7 @@
         font-family: 'Open Sans';
         font-weight: bold;
         letter-spacing: 0px;
-        color: #1FB9FD;
+        color: #1fb9fd;
         opacity: 1;
         margin-left: 1rem;
       }
@@ -259,7 +416,7 @@
         margin-right: 10rem;
       }
     }
-    
+
     .estilo_titulo2 {
       text-align: left;
       font-size: 1.3vw;

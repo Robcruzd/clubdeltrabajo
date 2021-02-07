@@ -31,7 +31,7 @@ public class Empresa implements Serializable {
     private String razonComercial;
 
     @NotNull
-    @Column(name = "email", nullable = false)
+    @Column(name = "email_representante", nullable = false)
     private String email;
 
     @NotNull

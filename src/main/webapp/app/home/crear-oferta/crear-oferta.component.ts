@@ -57,6 +57,8 @@ export class CrearOfertaComponent implements OnInit {
   lblSeleccioneProfesion = commonMessages.SELECCIONE_PROFESION_LABEL;
   nivelesLaborales: IOpcionVo[] = commonMessages.ARRAY_NIVEL_LABORAL;
   experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
+  no_publicar: any;
+  genero: any;
   visualizarOferta = false;
   visualizarOfertasCreadas = false;
   descripcionOferta = "";
@@ -87,7 +89,9 @@ export class CrearOfertaComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private regionService: RegionesService
-  ) {   this.traerCiudad();}
+  ) {
+    this.traerCiudad();
+  }
 
   ngOnInit(): void {
     // this.formDatosBasicos = new FormGroup({
@@ -142,14 +146,14 @@ export class CrearOfertaComponent implements OnInit {
 
   cargarMunicipiosPersonal(): void {
     this.municipiosPersonal = [];
-      this.municipiosPersonal = this.geografia
-        .map(item => {
-          return {
-            codigo: item.codigoMpio,
-            nombre: item.nombreMpio
-          };
-        })
-        .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0));
+    this.municipiosPersonal = this.geografia
+      .map(item => {
+        return {
+          codigo: item.codigoMpio,
+          nombre: item.nombreMpio
+        };
+      })
+      .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0));
   }
 
   private _filterCiudades(value: string): string[] {
@@ -178,6 +182,7 @@ export class CrearOfertaComponent implements OnInit {
       profesion: [null, [Validators.required]],
       subNivelLaboral: [''],
       nivelIdioma: [''],
+      // sector: ['', [Validators.required]],
       genero: ['']
     });
   }
@@ -332,42 +337,41 @@ export class CrearOfertaComponent implements OnInit {
   }
 
   clubEmpresas(): void {
-    this.router.navigate(['editar-empresa']);
+    this.router.navigate(['club-empresas']);
   }
 
-  vistaPreliminarOferta(): void{
+  vistaPreliminarOferta(): void {
     this.visualizarOferta = true;
     this.descripcionOferta = this.formDatosBasicos.controls['requisitos'].value;
     this.profesionOferta = this.formDatosBasicos.controls['profesion'].value.profesion;
     this.tituloOferta = this.formDatosBasicos.controls['nombre'].value;
     this.tiposContrato.forEach(element => {
-      if(element.codigo === this.formDatosBasicos.controls['tipoContrato'].value){
-        this.contratoOferta = element.nombre; 
+      if (element.codigo === this.formDatosBasicos.controls['tipoContrato'].value) {
+        this.contratoOferta = element.nombre;
       }
-    });  
+    });
     this.experienciasLaborales.forEach(element => {
-      if(element.codigo ===  this.formDatosBasicos.controls['experiencia'].value){
+      if (element.codigo === this.formDatosBasicos.controls['experiencia'].value) {
         this.experienciaOferta = element.nombre;
       }
     });
     this.aspiracionesSalariales.forEach(element => {
-      if(element.codigo === this.formDatosBasicos.controls['rangoSalarial'].value){
+      if (element.codigo === this.formDatosBasicos.controls['rangoSalarial'].value) {
         this.salarioOferta = element.nombre;
       }
     });
 
     this.municipiosPersonal.forEach(element => {
-      if(element.codigo === this.formDatosBasicos.controls['ciudad'].value){
+      if (element.codigo === this.formDatosBasicos.controls['ciudad'].value) {
         this.ciudadOferta = element.nombre;
       }
     });
 
     const f = new Date();
-    this.publicadoOFerta = f.getDate() + "-"+ f.getMonth() + "-" +f.getFullYear();
+    this.publicadoOFerta = f.getDate() + '-' + f.getMonth() + '-' + f.getFullYear();
   }
 
-  volverCrearOferta(): void{
+  volverCrearOferta(): void {
     this.visualizarOferta = false;
   }
-
 }

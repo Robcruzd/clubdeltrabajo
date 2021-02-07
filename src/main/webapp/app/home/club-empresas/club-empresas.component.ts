@@ -2,21 +2,31 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { EmpresaService } from 'app/entities/empresa/empresa.service.ts';
+import { IEmpresa } from 'app/shared/model/empresa.model.ts';
 
 @Component({
-  selector: 'jhi-membresias',
-  templateUrl: './membresias.component.html',
-  styleUrls: ['./membresias.component.scss']
+  selector: 'jhi-club-empresas',
+  templateUrl: './club-empresas.component.html',
+  styleUrls: ['./club-empresas.component.scss']
 })
-export class MembresiasComponent implements OnInit {
+export class ClubEmpresasComponent implements OnInit {
+  public page = 1;
+
+  mostrar = false;
+
   faStar = faStar;
   faAddressCard = faAddressCard;
   faEllipsisH = faEllipsisH;
   faCommentDots = faCommentDots;
 
-  constructor(private _location: Location, private router: Router) {}
+  ListaEmpresas: Array<IEmpresa> | any = [];
 
-  ngOnInit(): void {}
+  constructor(private _location: Location, private router: Router, private empresaService: EmpresaService) {}
+
+  ngOnInit(): void {
+    this.getEmpresas();
+  }
 
   backClicked(): void {
     this._location.back();
@@ -40,5 +50,11 @@ export class MembresiasComponent implements OnInit {
 
   clubEmpresas(): void {
     this.router.navigate(['club-empresas']);
+  }
+
+  getEmpresas(): void {
+    this.empresaService.query().subscribe(listEmpresa => {
+      this.ListaEmpresas = listEmpresa.body;
+    });
   }
 }

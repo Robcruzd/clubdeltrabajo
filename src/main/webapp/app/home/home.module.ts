@@ -32,9 +32,12 @@ import { OfertaPublicadaComponent } from './oferta-publicada/oferta-publicada.co
 import { EditarEmpresaComponent } from './editar-empresa/editar-empresa.component';
 import { PrevioRegistrarComponent } from './previo-registrar/previo-registrar.component';
 import { PrevioRegistrarEmpComponent } from './previo-registrar-emp/previo-registrar-emp.component';
+import { ClubEmpresasComponent } from './club-empresas/club-empresas.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   imports: [
+    NgxPaginationModule,
     CtProjectSharedModule,
     RouterModule.forChild(HOME_ROUTE),
     MatAutocompleteModule,
@@ -69,7 +72,8 @@ import { PrevioRegistrarEmpComponent } from './previo-registrar-emp/previo-regis
     OfertaPublicadaComponent,
     EditarEmpresaComponent,
     PrevioRegistrarComponent,
-    PrevioRegistrarEmpComponent
+    PrevioRegistrarEmpComponent,
+    ClubEmpresasComponent
   ]
 })
 export class CtProjectHomeModule {}

@@ -49,6 +49,7 @@
     "ng2-pdf-viewer": "^6.3.0",
     "ngx-cookie": "4.0.2",
     "ngx-infinite-scroll": "8.0.1",
+    "ngx-pagination": "^5.0.0",
     "ngx-webstorage": "5.0.0",
     "node-uuid": "^1.4.8",
     "pdfmake": "^0.1.65",
