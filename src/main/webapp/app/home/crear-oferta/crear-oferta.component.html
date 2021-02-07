@@ -37,7 +37,7 @@
                 </div>
             </button>
         </div>
-        <form [formGroup]="formDatosBasicos" (ngSubmit)="onSubmit()">
+        <form [formGroup]="formDatosBasicos" *ngIf = "!visualizarOferta" (ngSubmit)="vistaPreliminarOferta()">
             <ng-container>
                 <div class="ngnum0">
                     <p class="estilo_titulo">Creando oferta</p>
@@ -71,21 +71,17 @@
                         </div>
                         <div class="column">
                             <div class="form-group">
-                                <p class="estilo_label">{{labels.EXPERIENCIA_MINIMA}} <span
-                                        class="estilo_campo_requerido">*</span></p>
-                                <select formControlName="experiencia" class="estilo_inputs">
+                                <p class="estilo_label">{{labels.SUB_NIVEL_LABORAL}} </p>
+                                <select formControlName="subNivelLaboral" class="estilo_inputs">
                                     <option [ngValue]="null" disabled>Seleccione una opción</option>
-                                    <option *ngFor="let experiencia of experienciasLaborales" 
-                                    [ngValue]="experiencia.codigo">
-                                        {{ experiencia.nombre }}
+                                    <option *ngFor="let nivel of nivelesLaborales" 
+                                    [ngValue]="nivel.codigo">
+                                        {{ nivel.nombre }}
                                     </option>
                                 </select>
-                                <small *ngIf="formDatosBasicos.get('experiencia')?.errors?.required"
-                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="column">
                             <div class="form-group">
@@ -103,110 +99,18 @@
                             </div>
                         </div>
                         <div class="column">
-                            <div class="form-group">
-                                <p class="estilo_label">{{labels.RANGO_SALARIAL}}  <span
-                                    class="estilo_campo_requerido">*</span></p>
-                                <select formControlName="rangoSalarial" class="estilo_inputs">
-                                    <option [ngValue]="null" disabled>Seleccione una opción</option>
-                                    <option *ngFor="let aspiracion of aspiracionesSalariales" 
-                                    [ngValue]="aspiracion.codigo">
-                                        {{ aspiracion.nombre }}
-                                    </option>
-                                </select>
-                                <small *ngIf="formDatosBasicos.get('rangoSalarial')?.errors?.required"
-                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                            </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="column">
-                            <div class="form-group">
-                                <p class="estilo_label">Descripción y requisitos <span
-                                        class="estilo_campo_requerido">*</span></p>
-                                <input formControlName="requisitos" type="text" class="estilo_inputs">
-                                <small *ngIf="formDatosBasicos.get('requisitos')?.errors?.required"
+                        <div class="form-group-descripcion">
+                            <p class="estilo_label">Descripción y requisitos <span class="estilo_campo_requerido">
+                                    *</span></p>
+                            <textarea formControlName="requisitos" class="form-control text-area" rows="5"></textarea>
+                            <small *ngIf="formDatosBasicos.get('requisitos')?.errors?.required"
                                 class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                                <small *ngIf="formDatosBasicos.get('requisitos')?.errors?.pattern"
+                            <small *ngIf="formDatosBasicos.get('requisitos')?.errors?.pattern"
                                 class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
-                            </div>
-                        </div>
-                        <div class="column">
-                            <div class="form-group">
-                                <p class="estilo_label">{{labels.CIUDAD_LABEL}} <span
-                                        class="estilo_campo_requerido">*</span></p>
-                                <select formControlName="ciudad" class="estilo_inputs" >
-                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
-                                    <option
-                                        [ngValue]="municipio.codigo"
-                                        *ngFor="let municipio of municipiosAcademica">
-                                        {{ municipio.nombre }}
-                                    </option>
-                                </select>
-                                <small *ngIf="formDatosBasicos.get('ciudad')?.errors?.required"
-                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="column">
-                            <div class="form-group">
-                                <p class="estilo_label">{{labels.SECTOR_INDUSTRIA}} <span
-                                        class="estilo_campo_requerido">*</span></p>
-                                <input type="number" formControlName="sector" class="estilo_inputs">
-                                <small *ngIf="formDatosBasicos.get('sector')?.errors?.required"
-                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                            </div>
-                        </div>
-                        <div class="column">
-                            <div class="form-group">
-                                <p class="estilo_label">{{labels.IDIOMA}}<span
-                                    class="estilo_campo_requerido">*</span> </p>
-                                <select formControlName="idIdioma" class="estilo_inputs">
-                                    <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
-                                    <option
-                                        [ngValue]="item.id "
-                                        *ngFor="let item of idiomas">
-                                        {{ item.idioma }}
-                                    </option>
-                                </select>
-                                <small *ngIf="formDatosBasicos.get('idIdioma')?.errors?.required"
-                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="column">
-                            <div class="form-group">
-                                <p class="estilo_label">{{labels.NIVEL_LABORAL}} <span
-                                        class="estilo_campo_requerido">*</span></p>
-                                <select formControlName="nivelLaboral" class="estilo_inputs">
-                                    <option [ngValue]="null" disabled>Seleccione una opción</option>
-                                    <option *ngFor="let nivel of nivelesLaborales" 
-                                    [ngValue]="nivel.codigo">
-                                        {{ nivel.nombre }}
-                                    </option>
-                                </select>
-                                <small *ngIf="formDatosBasicos.get('nivelLaboral')?.errors?.required"
-                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                            </div>
-                        </div>
-                        <div class="column">
-                            <div class="form-group">
-                                <p class="estilo_label">{{labels.TIPO_CONTRATO}}<span
-                                    class="estilo_campo_requerido">*</span></p>
-                                <select formControlName="tipoContrato" class="estilo_inputs">
-                                    <option [ngValue]="null" disabled>Seleccione una opción</option>
-                                    <option *ngFor="let tipo of tiposContrato" 
-                                    [ngValue]="tipo.codigo">
-                                        {{ tipo.nombre }}
-                                    </option>
-                                </select>
-                                <small *ngIf="formDatosBasicos.get('tipoContrato')?.errors?.required"
-                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                            </div>
                         </div>
                     </div>
 
@@ -224,6 +128,141 @@
                                 </mat-autocomplete>
                                 <small *ngIf="formDatosBasicos.get('profesion')?.errors?.required"
                                     class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="form-group">
+                                <p class="estilo_label">{{labels.NIVEL_ESTUDIOS}}
+                                    <span class="estilo_campo_requerido">*</span>
+                                </p>
+                                <select formControlName="nivelEstudios" class="estilo_inputs">
+                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                    <option
+                                        [ngValue]="nivel.codigo "
+                                        *ngFor="let nivel of nivelEducativoProfesion">
+                                        {{ nivel.nombre }}
+                                    </option>
+                                </select>
+                                <small *ngIf="formDatosBasicos.get('nivelEstudios')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="column">
+                            <div class="form-group">
+                                <p class="estilo_label">{{labels.RANGO_SALARIAL}}  <span
+                                    class="estilo_campo_requerido">*</span></p>
+                                <select formControlName="rangoSalarial" class="estilo_inputs">
+                                    <option [ngValue]="null" disabled>Seleccione una opción</option>
+                                    <option *ngFor="let aspiracion of aspiracionesSalariales" 
+                                    [ngValue]="aspiracion.codigo">
+                                        {{ aspiracion.nombre }}
+                                    </option>
+                                </select>
+                                <small *ngIf="formDatosBasicos.get('rangoSalarial')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                <div class="no-publicar">
+                                    <input type="checkbox" value="terminos" name="terminos" [(ngModel)]="no_publicar" class="radioB" ngChecked="true"/>
+                                    <label class="estilo_label" >No publicar salario
+                                        <!-- <a style="color: #03ECFF;" (click)="openScrollableContent(longContent)">Términos, Condiciones y Políticas de Privacidad.</a> -->
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="form-group">
+                                <p class="estilo_label">{{labels.EXPERIENCIA_MINIMA}} <span
+                                        class="estilo_campo_requerido">*</span></p>
+                                <select formControlName="experiencia" class="estilo_inputs">
+                                    <option [ngValue]="null" disabled>Seleccione una opción</option>
+                                    <option *ngFor="let experiencia of experienciasLaborales" 
+                                    [ngValue]="experiencia.codigo">
+                                        {{ experiencia.nombre }}
+                                    </option>
+                                </select>
+                                <small *ngIf="formDatosBasicos.get('experiencia')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="row-2">
+                            <div class="select-70">
+                                <p class="estilo_label">{{labels.IDIOMA}} </p>
+                                <select formControlName="idIdioma" class="estilo_inputs">
+                                    <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
+                                    <option
+                                        [ngValue]="item.id "
+                                        *ngFor="let item of idiomas">
+                                        {{ item.idioma }}
+                                    </option>
+                                </select>
+                                <!-- <small *ngIf="formDatosBasicos.get('idIdioma')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small> -->
+                            </div>
+                            <div class="select-30">
+                                <p class="estilo_label">{{labels.IDIOMA}} </p>
+                                <!-- <select formControlName="idIdioma" class="estilo_inputs">
+                                    <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
+                                    <option
+                                        [ngValue]="item.id "
+                                        *ngFor="let item of idiomas">
+                                        {{ item.idioma }}
+                                    </option>
+                                </select> -->
+                                <select formControlName="nivelIdioma" class="estilo_inputs">
+                                    <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
+                                    <option
+                                        [ngValue]="item.codigo"
+                                        *ngFor="let item of nivelIdioma">
+                                        {{ item.nombre }}
+                                    </option>
+                                </select>
+                                <!-- <small *ngIf="formDatosBasicos.get('nivelIdioma')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small> -->
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="form-group">
+                                <label class="radio-inline">{{labels.GENERO_LABEL}} <span
+                                    class="estilo_campo_requerido">*</span></label>
+                                <div class="genero">
+                                    <label class="radio-inline">
+                                        <div class="div_radiobutton">
+                                            <input class="radio-button" type="radio" [value]="labels.MASCULINO" formControlName="genero">
+                                        </div>
+                                        <span class="text">Masculino</span>
+                                    </label>
+                                    <label class="radio-inline">
+                                        <div class="div_radiobutton">
+                                            <input class="radio-button" type="radio" [value]="labels.FEMENINO" formControlName="genero">
+                                        </div>
+                                        <span class="text">Femenino</span>
+                                    </label>
+                                </div>
+                                <small *ngIf="formDatosBasicos.get('genero')?.errors?.required"
+                                        class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="column">
+                            <div class="form-group">
+                                <p class="estilo_label">{{labels.TIPO_CONTRATO}}<span
+                                    class="estilo_campo_requerido">*</span></p>
+                                <select formControlName="tipoContrato" class="estilo_inputs">
+                                    <option [ngValue]="null" disabled>Seleccione una opción</option>
+                                    <option *ngFor="let tipo of tiposContrato" 
+                                    [ngValue]="tipo.codigo">
+                                        {{ tipo.nombre }}
+                                    </option>
+                                </select>
+                                <small *ngIf="formDatosBasicos.get('tipoContrato')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             </div>
                         </div>
                         <div class="column">
@@ -246,6 +285,54 @@
                     <div class="row">
                         <div class="column">
                             <div class="form-group">
+                                <p class="estilo_label">{{labels.CIUDAD_LABEL}} <span
+                                        class="estilo_campo_requerido">*</span></p>
+                                <!-- <select formControlName="ciudad" class="estilo_inputs" >
+                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                    <option
+                                        [ngValue]="municipio.codigo"
+                                        *ngFor="let municipio of municipiosAcademica">
+                                        {{ municipio.nombre }}
+                                    </option>
+                                </select> -->
+                                <!-- <input type="text" class="estilo_inputs" placeholder="{{lblSeleccioneCiudad}}" [matAutocomplete]="autoCiudades"
+                                        [formControl]="myControlCiudades">
+                                <mat-autocomplete #autoCiudades="matAutocomplete">
+                                    <mat-option *ngFor="let datos of filteredOptionsCiudades | async" [value]="datos" style="font-weight: bold;">
+                                        {{datos}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <small *ngIf="formDatosBasicos.get('ciudad')?.errors?.required"
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small> -->
+                                <select formControlName="ciudad" class="estilo_inputs">
+                                <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option
+                                [ngValue]="municipio.codigo"
+                                    *ngFor="let municipio of municipiosPersonal">
+                                    {{ municipio.nombre }}
+                                </option>
+                                </select>
+                                <small *ngIf="formDatosBasicos.get('ciudad')?.errors?.required"
+                                    class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                                </div>
+                        </div>
+                        <div class="column">
+                            
+                        </div>
+                    </div>
+
+                    <!-- <div class="row">
+                    </div> -->
+
+                    <!-- <div class="row">
+                    </div> -->
+
+                    <!-- <div class="row">
+                    </div> -->
+
+                    <div class="row">
+                        <div class="column">
+                            <!-- <div class="form-group">
                                 <p class="estilo_label">{{labels.NIVEL_ESTUDIOS}}
                                     <span class="estilo_campo_requerido">*</span>
                                 </p>
@@ -259,11 +346,19 @@
                                 </select>
                                 <small *ngIf="formDatosBasicos.get('nivelEstudios')?.errors?.required"
                                 class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                            </div>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="column">
+                            <button class="btn boton-volver" (click)="volverOferta()">
+                                <p class="titulo-boton">Volver</p>
+                            </button>
                         </div>
                         <div class="column">
-                            <button type="submit" class="btn btn-success" [disabled]="formDatosBasicos.invalid">
-                                <div>{{labels.PUBLICAR_OFERTA}}</div>
+                            <button  class="btn btn-success" type="submit" [disabled]="formDatosBasicos.invalid">
+                                <p class="titulo-boton">Continuar</p>
                             </button>   
                         </div>
                     </div>
@@ -272,7 +367,54 @@
         </form>
     </div>
 </div>
-<button class="btn boton-volver" (click)="volverOferta()">
-    <fa-icon icon="chevron-left" class="border-icon" ></fa-icon>
-    <p class="titulo-boton">Volver</p>
-</button>
+
+<div class="contenedor2" *ngIf = "visualizarOferta">
+    <div class="div-center2">
+        <ng-container>
+        <br>
+        <br>
+            <p class="estilo_titulo2">Así quedará su oferta</p>
+            <div *ngIf = "visualizarOferta" class="ngnum1">
+                <ng-container>
+                    <p class="titulo_oferta">Oferta</p>
+                    <p class="profesion_oferta">{{profesionOferta}}</p>
+                    <p class="descripcion_profesion">{{descripcionOferta}}</p>
+                    <table class="tabla_oferta" style="width: 100%;">
+                        <tr>
+                          <th class="titulo_oferta_previsualizacion">Titulo:</th>
+                          <th class="titulo_oferta_previsualizacion">Tipo de contrato:</th>
+                          <th class="titulo_oferta_previsualizacion">Publicado:</th>
+                        </tr>
+                        <tr>
+                          <td style="width: 30%;">{{tituloOferta}}</td>
+                          <td style="width: 40%;">{{contratoOferta}}</td>
+                          <td style="width: 30%;">{{publicadoOFerta}}</td>
+                        </tr>
+                    </table>
+                    <table class="tabla_oferta" style="width: 100%;">
+                        <tr>
+                          <th class="titulo_oferta_previsualizacion">Experiencia:</th>
+                          <th class="titulo_oferta_previsualizacion">Ciudad:</th>
+                          <th class="titulo_oferta_previsualizacion">Salario:</th>
+                        </tr>
+                        <tr>
+                          <td style="width: 30%;">{{experienciaOferta}}</td>
+                          <td style="width: 40%;">{{ciudadOferta}}</td>
+                          <td style="width: 30%;">{{salarioOferta}}</td>
+                        </tr>
+                    </table>
+                </ng-container>
+            </div>
+            <div style="display: inline;">
+                <button class="btn boton-volver" (click)="volverCrearOferta()" *ngIf = "visualizarOferta">
+                    <fa-icon icon="chevron-left" class="border-icon" ></fa-icon>
+                    <p class="titulo-boton">Volver</p>
+                </button>
+                <button class="btn boton-success" (click)="onSubmit()" *ngIf = "visualizarOferta">
+                    <p class="titulo-boton">Publicar</p>
+                </button>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
