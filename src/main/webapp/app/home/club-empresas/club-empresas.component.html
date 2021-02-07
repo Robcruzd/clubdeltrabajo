@@ -1,0 +1,168 @@
+<div class="contenedor">
+    
+    <div class="div-center">
+        <div class="botones-arriba">
+            <button class="btn boton-no-clicked" (click)="crearOferta()">
+                <fa-icon [icon]="faCommentDots" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Crear oferta</p>
+                </div>
+            </button>
+            <button class="btn boton-no-clicked" (click)="editarPerfil()">
+                <fa-icon [icon]="faEllipsisH" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Editar perfil</p>
+                </div>
+            </button>
+            <button class="btn boton-clicked" (click)="clubEmpresas()">
+                <fa-icon icon="suitcase" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Club de empresas</p>
+                </div>
+            </button>
+            <button class="btn boton-no-clicked" (click)="verOferta()">
+                <fa-icon icon="eye" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Controla tus ofertas</p>
+                </div>
+            </button>
+            <button class="btn boton-no-clicked" (click)="membresia()">
+                <fa-icon [icon]="faStar" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Membresía</p>
+                </div>
+            </button>
+        </div>
+
+        <div *ngIf="!mostrar" class="club-empresa">
+            <div class="titulo-agrega">
+            <div>
+                <p class="titulo-club">
+                    Club de empresas
+                </p>
+            </div> 
+            <div>
+                <a class="agrega-empresa" (click)="mostrar=!mostrar">
+                   Agrega tu empresa 
+                   <fa-icon icon="plus" class="border-icon" style="
+                    background:#f1f1f1 0% 0% no-repeat padding-box;"></fa-icon>
+                </a>
+            </div>        
+            </div>
+            <div class="cuerpo">
+                <div class="buscador">
+                <div class="input-buscador">
+                    <input matInput placeholder="Busqueda" class="form-control">
+                </div>
+                <div class="empresas">
+                    <p class="titulo">Empresas</p>
+                    <p class="resultado">2000 resultados</p>
+                </div>
+                <div class="Sector">
+                    <p class="titulo">Sector</p>
+                    <!-- <p class="resultado">Seleccionar</p> -->
+                    <select class="resultado">
+                    <option>Seleccionar</option>
+                    </select>
+                </div>
+        
+                </div> 
+                <div class="perfil">
+                    <a class="perfiles" (click)="verOferta()" 
+                     *ngFor="let item of ListaEmpresas | paginate: { itemsPerPage: 6, currentPage: page }">
+                        <div class="mitad1">
+                             <div class="imagen">
+                                <!-- <img src="{{item.imagen}}"> -->
+                            </div>
+                            <div>
+                            <!-- <p class="nombre">Bavaria</p> -->
+                            <p class="nombre">{{item.razonSocial}}</p>
+                            </div>
+                        </div>
+                        <div class="mitad2">
+                            <div>
+                            <p class="separador"></p>
+                            </div>
+                             <div>
+                             <p class="resumen">{{item.descripcionEmpresa}}</p>
+                            </div>
+                            </div>
+                    </a>
+                    <pagination-controls (pageChange)="page = $event" class="controls" 
+                    previousLabel=""
+                    nextLabel=""
+                    autoHide="true"
+                    maxSize="6">
+                    </pagination-controls>
+                </div>
+                
+            </div>
+        </div>
+
+        <div *ngIf="mostrar" class="agrega-a-club">
+
+            <div class="titulo-agrega">
+                    <p class="titulo-club">
+                        Agrega tu empresa al directorio
+                    </p>
+            </div>
+            
+            <div class="cuerpo">
+                <div class="row">
+                    <div class="form-group">
+                        <p class="estilo_label">Nombre</p>
+                        <input type="text" class="estilo_inputs" formControlName="nombre">
+                        
+                    </div>
+                </div>
+                <div class="row-group">
+                    <div class="form-group">
+                        <p class="estilo_label">País</p>
+                        <input type="text" class="estilo_inputs" formControlName="nombre">
+                    </div>
+                    <div class="form-group">
+                        <p class="estilo_label">Ciudad</p>
+                        <input type="text" class="estilo_inputs" formControlName="nombre">
+                    </div>
+                </div>
+                <div class="row-group">
+                    <div class="form-group">
+                        <p class="estilo_label">Dirección</p>
+                        <input type="text" class="estilo_inputs" formControlName="nombre">
+                    </div>
+                    <div class="form-group">
+                        <p class="estilo_label">Código Postal</p>
+                        <input type="text" class="estilo_inputs" formControlName="nombre">
+                    </div>
+                </div>
+                <div class="row-group">
+                    <div class="form-group">
+                        <p class="estilo_label">Teléfono</p>
+                        <input type="text" class="estilo_inputs" formControlName="nombre">
+                    </div>
+                    <div class="form-group">
+                        <p class="estilo_label">Correo electrónico</p>
+                        <input type="text" class="estilo_inputs" formControlName="nombre">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <p class="estilo_label">Agrega productos</p>
+                        <p class="estilo_label">Escribe un sólo producto por línea (y solo el nombre del producto, máximo 500 productos)</p>
+                        <!--<textarea type="text" class="estilo_inputs"></textarea>-->
+                        <textarea name="" id="" cols="100" rows="10"></textarea>
+                    </div>
+                </div>
+                <div class="botones">
+                    <button (click)="mostrar=!mostrar" class="btn boton-volver"><p class="titulo-boton">Volver</p></button>
+                    <button (click)="mostrar=!mostrar" type="submit" class="btn boton-finalizar"><p class="titulo-boton">Finalizar</p></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -238,6 +238,6 @@ export class CrearOfertaComponent implements OnInit {
   }
 
   clubEmpresas(): void {
-    this.router.navigate(['editar-empresa']);
+    this.router.navigate(['club-empresas']);
   }
 }
