@@ -1,5 +1,6 @@
 package com.repository;
 
+import com.domain.Empresa;
 import com.domain.Oferta;
 import com.service.dto.OfertaCriteria;
 
@@ -25,4 +26,11 @@ public interface OfertaRepository extends JpaRepository<Oferta, Long>, JpaSpecif
 			"where salario =  :salario or ciudad = :ciudad", 
 			nativeQuery = true)
 	List<Oferta> getOfertasFiltro(@Param("salario") Long salario, @Param("ciudad") Long ciudad);
+	
+	@Query(value = "SELECT * FROM public.ct_oferta_tb\r\n" + 
+			"where usuario_id =  :usuario_id", 
+			nativeQuery = true)
+	List<Oferta> getOfertasEmpresa(@Param("usuario_id") Long usuario_id);
+	
+	List<Oferta> findByUsuario(Empresa usuario);
 }

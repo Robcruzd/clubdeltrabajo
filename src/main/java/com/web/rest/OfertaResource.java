@@ -1,5 +1,6 @@
 package com.web.rest;
 
+import com.domain.Empresa;
 import com.domain.Oferta;
 import com.domain.vo.OfertaFiltro;
 import com.service.OfertaService;
@@ -7,6 +8,7 @@ import com.web.rest.errors.BadRequestAlertException;
 import com.service.dto.OfertaCriteria;
 import com.service.OfertaQueryService;
 
+import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -170,5 +172,12 @@ public class OfertaResource {
 	public List<Oferta> getOfertasFiltro(@RequestParam("salario") Long salario,
 			@RequestParam("ciudad") Long ciudad) {
 		return ofertaService.getOfertasFiltro(salario, ciudad);
+	}
+	
+	@GetMapping("/ofertas/filtroOfertasEmpresa")
+	public List<Oferta> getOfertasEmpresa(@RequestParam("usuario") Long usuario) {
+		Empresa empresa = new Empresa();
+		empresa.setId(usuario);
+		return ofertaService.getOfertasEmpresa(empresa);
 	}
 }

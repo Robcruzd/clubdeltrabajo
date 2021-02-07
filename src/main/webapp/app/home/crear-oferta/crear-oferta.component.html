@@ -37,7 +37,7 @@
                 </div>
             </button>
         </div>
-        <form [formGroup]="formDatosBasicos" *ngIf = "!visualizarOferta" (ngSubmit)="vistaPreliminarOferta()">
+        <form [formGroup]="formDatosBasicos" *ngIf = "!visualizarOferta && !visualizarOfertasCreadas" (ngSubmit)="vistaPreliminarOferta()">
             <ng-container>
                 <div class="ngnum0">
                     <p class="estilo_titulo">Creando oferta</p>
@@ -204,9 +204,9 @@
                         <div class="column">
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.GENERO_ESPECIFICO}} </p>
-                                <input type="radio" value="1" name="masculino" />
+                                <input formControlName="genero" type="radio" value="M" name="masculino" />
                                 <label>Masculino </label>
-                                <input type="radio" value="2" name="femenino"/>
+                                <input formControlName="genero" type="radio" value="F" name="femenino"/>
                                 <label>Femenino </label>
                             </div>
                         </div>
@@ -347,4 +347,63 @@
         </ng-container>
     </div>
 </div>
+
+
+<div class="contenedor3" *ngIf = "visualizarOfertasCreadas">
+    <div class="div-center3">
+        <ng-container>
+        <br>
+            <p class="estilo_titulo3">Tus ofertas:</p>
+            <div class="ngnum3">
+                <ng-container *ngFor = "let oferta of listaOFertasCreadas">
+                    <div class="ofertaCreada" >
+                        <div class="div1Oferta">
+                            <p class="titulo_div1">Oferta</p>
+                        </div>
+                        <div class="div2Oferta">
+                            <p>{{oferta.profesion}}</p>
+                            <p>{{oferta.salario}}</p>
+                            <p>{{oferta.ciudad}}</p>
+                            <button class="btn boton-volver" (click)="volverCrearOferta()">
+                                <p class="titulo-boton">Editar</p>
+                            </button>
+                        </div>
+                        <div class="div3Oferta"> 
+                            <p class="titulo_div3">300 aspirantes</p>
+                            <p class="titulo_div3">10 seleccionados</p>
+                            <p class="titulo_div3">40 por ver</p>
+                        </div>
+                        <div class="div4Oferta"> 
+                            <p>Activar oferta</p>
+                            <label class="switch">
+                                <input type="checkbox" [checked]="oferta.activado">
+                                <span class="slider round"></span>
+                            </label>
+                            <button class="btn boton-entrar">
+                                <p class="titulo-boton-entrar">Entrar</p>
+                            </button>
+                        </div>
+                        <!-- <div class="div4Oferta" *ngIf="!oferta.activado"> 
+                            <p>Activar oferta</p>
+                            <label class="switch">
+                                <input type="checkbox" [checked]="false">
+                                <span class="slider round"></span>
+                            </label>
+                            <button class="btn boton-entrar">
+                                <p class="titulo-boton-entrar">Entrar</p>
+                            </button>
+                        </div> -->
+                    </div> 
+                </ng-container>
+            </div>
+            <div style="display: inline;">
+                <button class="btn boton-volver" (click)="volverCrearOferta()" *ngIf = "visualizarOferta">
+                    <fa-icon icon="chevron-left" class="border-icon" ></fa-icon>
+                    <p class="titulo-boton">Volver</p>
+                </button>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
 

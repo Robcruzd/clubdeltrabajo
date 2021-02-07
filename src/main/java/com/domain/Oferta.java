@@ -91,9 +91,11 @@ public class Oferta implements Serializable {
     @Column(name = "nivel_idioma", nullable = true)
     private Long nivelIdioma;
     
-    @Size(max = 1)
-    @Column(name = "genero", length = 1, nullable = false)
-    private Long genero;
+    @Column(name = "genero", nullable = true)
+    private String genero;
+    
+    @Column(name = "activado", nullable = true)
+    private Boolean activado;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -308,12 +310,20 @@ public class Oferta implements Serializable {
 		this.nivelIdioma = nivelIdioma;
 	}
 
-	public Long getGenero() {
+	public String getGenero() {
 		return genero;
 	}
 
-	public void setGenero(Long genero) {
+	public void setGenero(String genero) {
 		this.genero = genero;
+	}
+
+	public Boolean getActivado() {
+		return activado;
+	}
+
+	public void setActivado(Boolean activado) {
+		this.activado = activado;
 	}
 
 	@Override

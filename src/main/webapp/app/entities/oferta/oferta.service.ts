@@ -36,6 +36,7 @@ export class PathUtil {
 export class OfertaService {
   public resourceUrl = SERVER_API_URL + 'api/ofertas';
   public resourceUrlFiltro = SERVER_API_URL + 'api/ofertas/filtroOfertas';
+  public resourceUrlEmpresa = SERVER_API_URL + 'api/ofertas/filtroOfertasEmpresa';
 
   constructor(protected http: HttpClient) {}
 
@@ -97,6 +98,12 @@ export class OfertaService {
   public getOfertasFiltro(oferta: Oferta): Observable<any> {
     const params = PathUtil.getPathParams({ciudad:oferta.ciudad,salario:oferta.salario})
     const url = this.resourceUrlFiltro + params
+    return this.http.get<any>(url);
+  }
+
+  public getOfertasEmpresa(oferta: Oferta): Observable<any> {
+    const params = PathUtil.getPathParams({usuario:oferta.usuario?.id})
+    const url = this.resourceUrlEmpresa + params
     return this.http.get<any>(url);
   }
 

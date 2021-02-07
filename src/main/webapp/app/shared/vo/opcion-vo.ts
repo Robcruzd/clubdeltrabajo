@@ -12,3 +12,10 @@ export interface IOpcionVoMunicipio {
   codigo: string | number;
   municipio: string;
 }
+
+export interface IlistarOfertas {
+  profesion: string | undefined;
+  salario: string | undefined;
+  ciudad: string | undefined;
+  activado: boolean | undefined;
+}

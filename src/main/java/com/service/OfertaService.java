@@ -1,8 +1,11 @@
 package com.service;
 
+import com.domain.Empresa;
 import com.domain.Oferta;
 import com.repository.OfertaRepository;
 import com.service.dto.OfertaCriteria;
+
+import io.github.jhipster.service.filter.IntegerFilter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,5 +92,9 @@ public class OfertaService {
     
     public List<Oferta> getOfertasFiltro( Long salario, Long ciudad) {
     	return ofertaRepository.getOfertasFiltro(salario,ciudad);
+    }
+    
+    public List<Oferta> getOfertasEmpresa( Empresa usuario) {
+    	return ofertaRepository.findByUsuario(usuario);
     }
 }

@@ -23,7 +23,7 @@ export class ProfesionService {
     return this.http.put<IProfesion>(this.resourceUrl, profesion, { observe: 'response' });
   }
 
-  find(id: number): Observable<EntityResponseType> {
+  find(id?: number): Observable<EntityResponseType> {
     return this.http.get<IProfesion>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 

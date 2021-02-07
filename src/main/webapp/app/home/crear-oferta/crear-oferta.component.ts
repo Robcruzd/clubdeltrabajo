@@ -4,7 +4,7 @@ import { CargoService } from '../../entities/cargo/cargo.service';
 import { commonMessages } from '../../shared/constants/commonMessages';
 import { ICargo } from 'app/shared/model/cargo.model';
 import { HttpResponse } from '@angular/common/http';
-import { IOpcionVo } from '../../shared/vo/opcion-vo';
+import { IlistarOfertas, IOpcionVo } from '../../shared/vo/opcion-vo';
 import { IdiomaService } from '../../entities/idioma/idioma.service';
 import { IIdioma } from '../../shared/model/idioma.model';
 import { FormControl } from '@angular/forms';
@@ -58,6 +58,7 @@ export class CrearOfertaComponent implements OnInit {
   nivelesLaborales: IOpcionVo[] = commonMessages.ARRAY_NIVEL_LABORAL;
   experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
   visualizarOferta = false;
+  visualizarOfertasCreadas = false;
   descripcionOferta = "";
   profesionOferta : any;
   tituloOferta: any;
@@ -72,6 +73,8 @@ export class CrearOfertaComponent implements OnInit {
   lblSeleccioneCiudad = commonMessages.SELECCIONE_CIUDAD_LABEL;
   ciudadOferta: any;
   municipiosPersonal: Array<IOpcionVo> = [];
+  listaOfertas: Array<Oferta> = [];
+  listaOFertasCreadas: Array<IlistarOfertas> = [];
 
   constructor(
     private cargoService: CargoService,
@@ -199,14 +202,32 @@ export class CrearOfertaComponent implements OnInit {
     this.oferta.subNivelLaboral = this.formDatosBasicos.controls['subNivelLaboral'].value;
     this.oferta.nivelIdioma = this.formDatosBasicos.controls['nivelIdioma'].value;
     this.oferta.genero = this.formDatosBasicos.controls['genero'].value;
-
     
     if (this.usuario?.userEmpresa) {
-      this.empresaService.find(this.usuario.userEmpresa).subscribe(response => {
-        this.oferta.usuario = response.body;
-        this.ofertaService.create(this.oferta).subscribe(() => {});
+      this.empresaService.find(this.usuario.userEmpresa).subscribe(RESPONSE => {
+        this.oferta.usuario = RESPONSE.body;
+        // this.ofertaService.create(this.oferta).subscribe(() => {
+          this.ofertaService.getOfertasEmpresa(this.oferta).subscribe(OFERTAS =>{
+            this.listaOfertas = OFERTAS;
+            this.listaOfertas.forEach(element => {
+              const salarioBD = this.aspiracionesSalariales.find( salario => salario.codigo === element.salario );
+              const ciudadBD = this.municipiosPersonal.find( ciudad => ciudad.codigo === element.ciudad?.toString() );
+              this.profesionService.find(element.profesion).subscribe(PROFESIONES =>{
+                this.listaOFertasCreadas.push({
+                  profesion: PROFESIONES.body?.profesion,
+                  salario: salarioBD?.nombre,
+                  ciudad: ciudadBD?.nombre,
+                  activado: element?.activado
+                })
+              });
+            });
+          });
+        // });
       });
     }
+
+    this.visualizarOferta = false;
+    this.visualizarOfertasCreadas = true;
   }
 
   cargarCargos(): void {
