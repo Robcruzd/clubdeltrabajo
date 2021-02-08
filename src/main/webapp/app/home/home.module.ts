@@ -33,6 +33,7 @@ import { EditarEmpresaComponent } from './editar-empresa/editar-empresa.componen
 import { PrevioRegistrarComponent } from './previo-registrar/previo-registrar.component';
 import { PrevioRegistrarEmpComponent } from './previo-registrar-emp/previo-registrar-emp.component';
 import { ClubEmpresasComponent } from './club-empresas/club-empresas.component';
+import { HojaCandidatoComponent } from './hoja-candidato/hoja-candidato.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
@@ -73,7 +74,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     EditarEmpresaComponent,
     PrevioRegistrarComponent,
     PrevioRegistrarEmpComponent,
-    ClubEmpresasComponent
+    ClubEmpresasComponent,
+    HojaCandidatoComponent
   ]
 })
 export class CtProjectHomeModule {}

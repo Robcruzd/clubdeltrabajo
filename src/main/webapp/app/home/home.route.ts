@@ -21,6 +21,7 @@ import { PrimerOfertaComponent } from './primer-oferta/primer-oferta.component';
 import { PrevioRegistrarComponent } from './previo-registrar/previo-registrar.component';
 import { PrevioRegistrarEmpComponent } from './previo-registrar-emp/previo-registrar-emp.component';
 import { ClubEmpresasComponent } from './club-empresas/club-empresas.component';
+import { HojaCandidatoComponent } from './hoja-candidato/hoja-candidato.component';
 
 export const HOME_ROUTE: Routes = [
   {
@@ -174,6 +175,13 @@ export const HOME_ROUTE: Routes = [
   {
     path: 'club-empresas',
     component: ClubEmpresasComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
+  },
+  {
+    path: 'hoja-candidato',
+    component: HojaCandidatoComponent,
     data: {
       pageTitle: 'home.title'
     }
