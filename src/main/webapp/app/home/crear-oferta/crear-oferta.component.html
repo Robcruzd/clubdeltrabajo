@@ -106,7 +106,7 @@
                         <div class="form-group-descripcion">
                             <p class="estilo_label">Descripción y requisitos <span class="estilo_campo_requerido">
                                     *</span></p>
-                            <textarea formControlName="requisitos" class="form-control text-area" rows="5"></textarea>
+                            <textarea formControlName="requisitos" class="form-control text-area" rows="4"></textarea>
                             <small *ngIf="formDatosBasicos.get('requisitos')?.errors?.required"
                                 class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             <small *ngIf="formDatosBasicos.get('requisitos')?.errors?.pattern"
@@ -357,7 +357,9 @@
                             </button>
                         </div>
                         <div class="column">
-                            <button  class="btn btn-success" type="submit" [disabled]="formDatosBasicos.invalid">
+                            <button  class="btn btn-success" type="submit" 
+                            
+                            >
                                 <p class="titulo-boton">Continuar</p>
                             </button>   
                         </div>
@@ -367,6 +369,7 @@
         </form>
     </div>
 </div>
+<!-- [disabled]="formDatosBasicos.invalid" -->
 
 <div class="contenedor2" *ngIf = "visualizarOferta">
     <div class="div-center2">
@@ -425,10 +428,10 @@
         <br>
             <p class="estilo_titulo3">Tus ofertas:</p>
             <div class="ngnum3">
-                <ng-container *ngFor = "let oferta of listaOFertasCreadas">
+                <ng-container *ngFor = "let oferta of listaOFertasCreadas; index as inde">
                     <div class="ofertaCreada" >
                         <div class="div1Oferta">
-                            <p class="titulo_div1">Oferta</p>
+                            <p class="titulo_div1">Oferta {{inde}}</p>
                         </div>
                         <div class="div2Oferta">
                             <p>{{oferta.profesion}}</p>
@@ -444,7 +447,7 @@
                             <p class="titulo_div3">40 por ver</p>
                         </div>
                         <div class="div4Oferta"> 
-                            <p>Activar oferta</p>
+                            <p class="labelActivar">Activar oferta</p>
                             <label class="switch">
                                 <input type="checkbox" [checked]="oferta.activado">
                                 <span class="slider round"></span>

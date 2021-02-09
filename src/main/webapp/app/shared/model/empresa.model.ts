@@ -12,6 +12,14 @@ export interface IEmpresa {
   direccion?: string;
   telefono?: number;
   ciudad?: number;
+  sector?: number;
+  subsector?: number;
+  paginaWeb?: string;
+  cantidadEmpleados?: string;
+  descripcionEmpresa?: string;
+  nombreRepresentanteLegal?: string;
+  apellidosRepresentanteLegal?: string;
+  telefonoEmpresa?: number;
 }
 
 export class Empresa implements IEmpresa {
@@ -25,6 +33,14 @@ export class Empresa implements IEmpresa {
     public tipoDocumento?: ITipoDocumento,
     public direccion?: string,
     public telefono?: number,
-    public ciudad?: number
+    public ciudad?: number,
+    public sector?: number,
+    public subsector?: number,
+    public paginaWeb?: string,
+    public cantidadEmpleados?: string,
+    public descripcionEmpresa?: string,
+    public nombreRepresentanteLegal?: string,
+    public apellidosRepresentanteLegal?: string,
+    public telefonoEmpresa?: number
   ) {}
 }

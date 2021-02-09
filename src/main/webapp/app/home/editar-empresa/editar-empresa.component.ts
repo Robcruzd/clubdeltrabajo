@@ -11,6 +11,11 @@ import { GeografiaVo } from '../../shared/vo/geografia-vo';
 import { ApiService } from '../../shared/services/api.service';
 import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { Archivo } from 'app/shared/model/archivo.model';
+import { ArchivoService } from 'app/entities/archivo/archivo.service';
+import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
+
+declare let alertify: any;
 
 @Component({
   selector: 'jhi-editar-empresa',
@@ -29,6 +34,9 @@ export class EditarEmpresaComponent implements OnInit {
   municipiosAcademica: Array<IOpcionVo> = [];
   geografia: Array<GeografiaVo> = [];
   empresa = new Empresa();
+  imagen!: Archivo;
+  persona: any;
+  tipoArchivo = TipoArchivo;
 
   constructor(
     private _location: Location,
@@ -36,7 +44,8 @@ export class EditarEmpresaComponent implements OnInit {
     private accountService: AccountService,
     private empresaService: EmpresaService,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private archivoService: ArchivoService
   ) {}
 
   ngOnInit(): void {
@@ -57,7 +66,15 @@ export class EditarEmpresaComponent implements OnInit {
       direccion: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú#. -]{0,}$')]],
       telefono: ['', [Validators.required, Validators.pattern('^[0-9]{7,10}$')]],
       ciudad: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú ]{0,}$')]],
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
+      sector: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
+      subsector: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
+      webPage: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ.:/ ]{1,}$')]],
+      cantidadEmpleados: ['', [Validators.required, Validators.pattern('^[0-9]{0,}$')]],
+      descripcion: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.:\n ]{0,}$')]],
+      nombreRepresentante: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ.:/ ]{1,}$')]],
+      apellidosRepresentante: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ.:/ ]{1,}$')]],
+      telefonoRep: ['', [Validators.required, Validators.pattern('^[0-9]{7,10}$')]]
     });
   }
 
@@ -72,7 +89,15 @@ export class EditarEmpresaComponent implements OnInit {
           direccion: this.datosEmpresa!.direccion,
           telefono: this.datosEmpresa!.telefono,
           ciudad: this.datosEmpresa!.ciudad,
-          email: this.datosEmpresa!.email
+          email: this.datosEmpresa!.email,
+          sector: this.datosEmpresa!.sector,
+          subsector: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
+          webPage: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ.:/ ]{1,}$')]],
+          cantidadEmpleados: ['', [Validators.required, Validators.pattern('^[0-9]{0,}$')]],
+          descripcion: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.:\n ]{0,}$')]],
+          nombreRepresentante: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ.:/ ]{1,}$')]],
+          apellidosRepresentante: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ.:/ ]{1,}$')]],
+          telefonoRep: ['', [Validators.required, Validators.pattern('^[0-9]{7,10}$')]]
         });
       });
     }
@@ -133,5 +158,66 @@ export class EditarEmpresaComponent implements OnInit {
 
   clubEmpresas(): void {
     this.router.navigate(['club-empresas']);
+  }
+
+  addCiudad(): void {}
+
+  cargarImagen(event: any, tipoDocumento: number): void {
+    const file: File = event.target.files[0];
+    const extension = file.name.split('.').pop() || '';
+
+    if (file.size > commonMessages.TAMANO_MAXIMO_PERMITIDO) {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error(commonMessages.ERROR_TAMANO_EXCEDIDO);
+      return;
+    }
+    if (!commonMessages.IMAGENES_SOPORTADAS.includes(extension)) {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error(commonMessages.ERROR_IMAGEN_NO_SOPORTADA);
+      return;
+    }
+
+    this.imagen = this.imagen || new Archivo();
+    this.imagen.tipo = tipoDocumento;
+    this.imagen.nombre = file.name;
+    this.imagen.extension = extension;
+    this.imagen.usuario = this.persona;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.imagen.archivo = reader.result;
+      this.subirImagen();
+    };
+  }
+
+  subirImagen(): void {
+    if (this.imagen.id !== undefined) {
+      this.archivoService.update(this.imagen).subscribe(
+        response => {
+          if (response.body !== null) {
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+          }
+        },
+        () => {
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.error(commonMessages.HTTP_ERROR_LABEL);
+        }
+      );
+    } else {
+      this.archivoService.create(this.imagen).subscribe(
+        response => {
+          if (response.body !== null) {
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+          }
+        },
+        () => {
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.error(commonMessages.HTTP_ERROR_LABEL);
+        }
+      );
+    }
   }
 }

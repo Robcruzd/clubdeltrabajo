@@ -39,26 +39,51 @@
         </div>
         <div class="div-infos">
             <form [formGroup]="formEmpresa" (ngSubmit)="editarRegistro()">
-            <p class="estilo_titulo">{{labels.INFORMACION_PERSONA_LABEL}}</p>
-            <div class="row">
-                <div class="column">
-                    <div class="form-group">
-                        <p class="estilo_label">Razón Social <span
-                                class="estilo_campo_requerido">*</span></p>
-                        <input type="text" class="estilo_inputs" formControlName="razonSocial" oninput="this.value = this.value.toUpperCase()">
-                        <small *ngIf="formEmpresa.get('razonSocial')?.errors?.required"
-                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                        <small *ngIf="formEmpresa.get('razonSocial')?.errors?.pattern"
-                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+            <p class="estilo_titulo">Razón social: {{formEmpresa.get('razonSocial')?.value}}</p>
+            <div class="row" style="margin-bottom: 2rem">
+                <a class="image" (click)="subirdocu.click()">
+                    <div *ngIf="imagen?.archivo">
+                        <img class="foto-perfil rounded-circle" [src]="imagen?.archivo">
                     </div>
+                    <div *ngIf="!imagen?.archivo">
+                        <fa-icon icon="upload" class="border-icon"></fa-icon>
+                    </div>
+                </a>
+                <input id="file-upload" style="display: none;" #subirdocu type="file" accept=".png, .jpeg, .jpg"
+                                (change)="cargarImagen($event, tipoArchivo.IMAGEN_PERFIL)" />
+                <div class="info-arriba">
+                    <p class="data">123456789</p>
+                    <p class="label">ID</p>
+                    <p class="data">{{formEmpresa.get('numeroDocumento')?.value}}</p>
+                    <p class="label">NIT</p>
                 </div>
-                <div class="column">
-                    <div class="form-group">
-                        <p class="estilo_label">Razón Comercial</p>
-                        <input type="text" class="estilo_inputs" formControlName="razonComercial" oninput="this.value = this.value.toUpperCase()">
-                        <small *ngIf="formEmpresa.get('razonComercial')?.errors?.pattern"
-                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
-                    </div>
+                <div class="info-arriba">
+                    <p class="data">Logistica</p>
+                    <p class="label">Sector</p>
+                    <p class="data">Eventos</p>
+                    <p class="label">Subsector</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <p class="estilo_label">Nombre comercial de la empresa <span
+                            class="estilo_campo_requerido">*</span></p>
+                    <input type="text" class="estilo_inputs" formControlName="razonComercial" oninput="this.value = this.value.toUpperCase()">
+                    <small *ngIf="formEmpresa.get('razonComercial')?.errors?.required"
+                        class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                    <small *ngIf="formEmpresa.get('razonComercial')?.errors?.pattern"
+                        class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <p class="estilo_label">Razón Social <span
+                            class="estilo_campo_requerido">*</span></p>
+                    <input type="text" class="estilo_inputs" formControlName="razonSocial" oninput="this.value = this.value.toUpperCase()">
+                    <small *ngIf="formEmpresa.get('razonSocial')?.errors?.required"
+                        class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                    <small *ngIf="formEmpresa.get('razonSocial')?.errors?.pattern"
+                        class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
                 </div>
             </div>
             <div class="row">
@@ -73,19 +98,6 @@
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <p class="estilo_label">Dirección <span
-                                class="estilo_campo_requerido">*</span></p>
-                        <input type="text" class="estilo_inputs" formControlName="direccion">
-                        <small *ngIf="formEmpresa.get('direccion')?.errors?.required"
-                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                        <small *ngIf="formEmpresa.get('direccion')?.errors?.pattern"
-                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="column">
-                    <div class="form-group">
                         <p class="estilo_label">Teléfono <span
                                 class="estilo_campo_requerido">*</span></p>
                         <input type="text" class="estilo_inputs" formControlName="telefono">
@@ -95,10 +107,119 @@
                             class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="column">
                     <div class="form-group">
-                        <p class="estilo_label">Ciudad <span
+                        <p class="estilo_label">Sector empresa <span
                                 class="estilo_campo_requerido">*</span></p>
+                        <input type="text" class="estilo_inputs" formControlName="sector">
+                        <small *ngIf="formEmpresa.get('sector')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        <small *ngIf="formEmpresa.get('sector')?.errors?.pattern"
+                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="form-group">
+                        <p class="estilo_label">Subsector empresa <span
+                                class="estilo_campo_requerido">*</span></p>
+                        <input type="text" class="estilo_inputs" formControlName="sector">
+                        <small *ngIf="formEmpresa.get('subsector')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        <small *ngIf="formEmpresa.get('subsector')?.errors?.pattern"
+                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div class="form-group">
+                        <p class="estilo_label">Página web <span
+                                class="estilo_campo_requerido">*</span></p>
+                        <input type="text" class="estilo_inputs" formControlName="webPage">
+                        <small *ngIf="formEmpresa.get('webPage')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        <small *ngIf="formEmpresa.get('webPage')?.errors?.pattern"
+                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="form-group">
+                        <p class="estilo_label">Cantidad empleados <span
+                                class="estilo_campo_requerido">*</span></p>
+                        <input type="text" class="estilo_inputs" formControlName="cantidadEmpleados">
+                        <small *ngIf="formEmpresa.get('cantidadEmpleados')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        <small *ngIf="formEmpresa.get('cantidadEmpleados')?.errors?.pattern"
+                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group-descripcion">
+                    <p class="estilo_label">Descripción de la empresa <span class="estilo_campo_requerido">
+                            *</span></p>
+                    <textarea formControlName="descripcion" class="form-control text-area" rows="4"></textarea>
+                    <small *ngIf="formEmpresa.get('descripcion')?.errors?.required"
+                        class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                    <small *ngIf="formEmpresa.get('descripcion')?.errors?.pattern"
+                        class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div class="form-group">
+                        <p class="estilo_label">Nombre del representante laboral <span
+                                class="estilo_campo_requerido">*</span></p>
+                        <input type="text" class="estilo_inputs" formControlName="nombreRepresentante">
+                        <small *ngIf="formEmpresa.get('nombreRepresentante')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        <small *ngIf="formEmpresa.get('nombreRepresentante')?.errors?.pattern"
+                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="form-group">
+                        <p class="estilo_label">Apellidos del representante laboral <span
+                                class="estilo_campo_requerido">*</span></p>
+                        <input type="text" class="estilo_inputs" formControlName="apellidosRepresentante">
+                        <small *ngIf="formEmpresa.get('apellidosRepresentante')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        <small *ngIf="formEmpresa.get('apellidosRepresentante')?.errors?.pattern"
+                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div class="form-group">
+                        <p class="estilo_label">Correo electrónico <span
+                                class="estilo_campo_requerido">*</span></p>
+                        <input type="text" class="estilo_inputs" formControlName="email">
+                        <small *ngIf="formEmpresa.get('email')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        <small *ngIf="formEmpresa.get('email')?.errors?.email"
+                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="form-group">
+                        <p class="estilo_label">Teléfono representante<span
+                                class="estilo_campo_requerido">*</span></p>
+                        <input type="text" class="estilo_inputs" formControlName="telefonoRep">
+                        <small *ngIf="formEmpresa.get('telefonoRep')?.errors?.required"
+                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
+                        <small *ngIf="formEmpresa.get('telefonoRep')?.errors?.pattern"
+                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <p class="estilo_label">Ubicación y/o sucursales <span
+                        class="estilo_campo_requerido">*</span> <a (click)="addCiudad()"><fa-icon icon="upload" class="border-icon"></fa-icon></a></p>
+                    <div class="form-group" >
                         <select formControlName="ciudad" class="estilo_inputs" >
                             <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                             <option
@@ -113,24 +234,13 @@
                             class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
                     </div>
                 </div>
+                <div class="column">
+                </div>
             </div>
             <div class="row">
-                <div class="column">
-                    <div class="form-group">
-                        <p class="estilo_label">Email <span
-                                class="estilo_campo_requerido">*</span></p>
-                        <input type="text" class="estilo_inputs" formControlName="email">
-                        <small *ngIf="formEmpresa.get('email')?.errors?.required"
-                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                        <small *ngIf="formEmpresa.get('email')?.errors?.email"
-                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
-                    </div>
-                </div>
-                <div class="column">
-                    <button type="submit" class="btn boton_siguiente text-white float-right" [disabled]="formEmpresa.invalid">
-                            {{labels.SIGUIENTE_LABEL}}
-                    </button>
-                </div>
+                <button type="submit" class="btn boton_siguiente text-white float-right" [disabled]="formEmpresa.invalid">
+                        {{labels.SIGUIENTE_LABEL}}
+                </button>
             </div>
             </form>
         </div>
