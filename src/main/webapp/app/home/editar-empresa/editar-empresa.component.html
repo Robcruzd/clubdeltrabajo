@@ -217,7 +217,7 @@
             </div>
             <div class="row">
                 <div class="column">
-                    <p class="estilo_label">Ubicación y/o sucursales <span
+                    <!-- <p class="estilo_label">Ubicación y/o sucursales <span
                         class="estilo_campo_requerido">*</span> <a (click)="addCiudad()"><fa-icon icon="upload" class="border-icon"></fa-icon></a></p>
                     <div class="form-group" >
                         <select formControlName="ciudad" class="estilo_inputs" >
@@ -232,6 +232,27 @@
                             class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                         <small *ngIf="formEmpresa.get('ciudad')?.errors?.pattern"
                             class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+                    </div> -->
+                    <div class="form-group">
+                        <p class="estilo_label">Ubicación y/o sucursales</p>
+                        <div class="file_upload_licence">
+                            <mat-form-field appearance="fill" class="multiSelect">
+                                <mat-select formControlName="ciudad" multiple>
+                                    <mat-option *ngFor="let municipio of municipiosAcademica" 
+                                    [value]="municipio.codigo === formEmpresa.get('ciudad')!.value ? formEmpresa.get('ciudad')!.value : municipio.codigo">
+                                    {{ municipio.nombre }}
+                                </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <!-- <div class="file_upload" style="width: 16%;">                                  
+                                <input type="file" #licencia class="file" accept=".pdf"
+                                    (change)="addArchivo($event, tipoArchivo.LICENCIA_CONDUCCION)" />
+                                <label for="file" style="padding-left: 0.520vw;">
+                                    <fa-icon icon="images" (click)="licencia.click()" class="float-right"></fa-icon>
+                                </label>
+                                <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="this.cargadoLicencia" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
+                            </div> -->
+                        </div>
                     </div>
                 </div>
                 <div class="column">
