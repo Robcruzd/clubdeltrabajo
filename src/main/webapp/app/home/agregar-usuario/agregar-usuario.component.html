@@ -22,7 +22,7 @@
             </small>
         </div>
         <div class="inputs" *ngIf="tipoUsuario.id==2">
-            <label style="color:#202A5D;">Razón Social</label>
+            <label style="color:#202A5D;">Sector</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="empresa.razonSocial"  (ngModelChange)="empresa.razonSocial = $event.toUpperCase()" (blur)="deleteSpace('razonSocial')">
             <small *ngIf="mensajeNombre" class="text-danger">
                 {{mensajeNombre}}
@@ -40,20 +40,6 @@
             <input type="text" class="estilo_inputs" [(ngModel)]="empresa.razonComercial"  (ngModelChange)="empresa.razonComercial = $event.toUpperCase()" (blur)="deleteSpace2('razonComercial')">
             <small *ngIf="mensajeNombre" class="text-danger">
                 {{mensajeNombre}}
-            </small>
-        </div>
-        <div class="inputs" *ngIf="tipoUsuario.id==1">
-            <label style="color:white;">Correo Electrónico</label>
-            <input type="text" class="estilo_inputs" [(ngModel)]="persona.email" (blur)="deleteSpace('email')">
-            <small *ngIf="mensajeEmail" class="text-danger">
-                {{mensajeEmail}}
-            </small>
-        </div>
-        <div class="inputs" *ngIf="tipoUsuario.id==2">
-            <label [style.color]="'#202A5D'">Correo Electrónico</label>
-            <input type="text" class="estilo_inputs" [(ngModel)]="empresa.email" (blur)="deleteSpace('email')">
-            <small *ngIf="mensajeEmail" class="text-danger">
-                {{mensajeEmail}}
             </small>
         </div>
         <div class="inputs" *ngIf="tipoUsuario.id==1">
@@ -86,6 +72,20 @@
             <input type="text" class="estilo_inputs" [(ngModel)]="empresa.numeroDocumento"  (ngModelChange)="empresa.numeroDocumento = $event.toUpperCase()">
             <small *ngIf="mensajeNombre" class="text-danger">
                 {{mensajeNombre}}
+            </small>
+        </div>
+        <div class="inputs" *ngIf="tipoUsuario.id==1">
+            <label style="color:white;">Correo Electrónico</label>
+            <input type="text" class="estilo_inputs" [(ngModel)]="persona.email" (blur)="deleteSpace('email')">
+            <small *ngIf="mensajeEmail" class="text-danger">
+                {{mensajeEmail}}
+            </small>
+        </div>
+        <div class="inputs" *ngIf="tipoUsuario.id==2">
+            <label [style.color]="'#202A5D'">Correo Electrónico</label>
+            <input type="text" class="estilo_inputs" [(ngModel)]="empresa.email" (blur)="deleteSpace('email')">
+            <small *ngIf="mensajeEmail" class="text-danger">
+                {{mensajeEmail}}
             </small>
         </div>
         <div class="inputs">
@@ -135,7 +135,7 @@
                 {{mensajeCaptcha}}
             </small>
         </div>
-        <button class="btn boton_registrar shadow-none"  [style.background-color]="tipoUsuario.id==1 ? '#00B9FF' : '#F54B1D'"
+        <button class="btn boton_registrar shadow-none" 
             style="color:white;" (click)="onCrearUsuario()" [disabled]="!validacionIncorrecta">Registrarme</button>
         <div class="inputs" style="align-items: center;">
             <div class="terminos">

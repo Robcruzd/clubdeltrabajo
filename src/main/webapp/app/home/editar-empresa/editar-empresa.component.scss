@@ -30,8 +30,6 @@
       .boton-base {
         width: 261px;
         height: 41px;
-        // background: #ffffff 0% 0% no-repeat padding-box;
-        // box-shadow: 0px 3px 6px #00000029;
         border-radius: 13px;
         opacity: 1;
         display: flex;
@@ -95,6 +93,30 @@
         width: 100%;
         margin: 0rem;
 
+        .info-arriba {
+          width: 30%;
+          padding-left: 2rem;
+
+          .data {
+            margin: 0;
+            font: normal normal normal 14px/16px Arial;
+          }
+
+          .label {
+            font: normal normal bold 14px/16px Arial;
+          }
+        }
+
+        .image {
+          width: 23%;
+          margin-left: 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px dashed #707070;
+          background-color: white;
+        }
+
         .column {
           width: 50%;
           display: flex;
@@ -110,12 +132,12 @@
             .estilo_label {
               width: 100%;
               text-align: left;
-              font-size: 14px;
+              font-size: 0.91vw;
               font-family: Arial;
               letter-spacing: 0px;
               color: #1b2455;
               opacity: 1;
-              padding-left: 4.04vw;
+              padding-left: 1.04vw;
               margin-bottom: 0.52vw;
 
               .estilo_campo_requerido {
@@ -129,7 +151,7 @@
             }
 
             .estilo_inputs {
-              width: 292px;
+              width: 100%;
               min-height: 45px;
               font-weight: bold;
               background: #ffffff 0% 0% no-repeat padding-box;
@@ -148,6 +170,33 @@
             .text-danger {
               font-size: 10px;
             }
+
+            .file_upload_licence {
+              width: 100%;
+              min-height: 3.121vw;
+              // background: linear-gradient(to right, rgba(255, 255, 255, 1) 85%, rgba(0, 0, 0, 1) 20%);
+              border-radius: 50rem;
+              border-width: 0rem;
+              opacity: 1;
+              display: flex;
+              align-items: center;
+              flex-direction: row;
+              justify-content: space-between;
+              // padding-left: 1.56vw;
+              font-weight: bold;
+
+              .checkbox {
+                margin-left: 1.04vw;
+              }
+
+              .multiSelect {
+                width: 100%;
+                height: 3.121vw;
+                border-width: 0rem 1px 0rem 0rem;
+                border-color: lightgray;
+                border-radius: 50rem;
+              }
+            }
           }
 
           .boton_siguiente {
@@ -159,6 +208,55 @@
             z-index: 5;
             font-size: 16px;
             margin-top: 1.5rem;
+          }
+        }
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 95%;
+
+          .estilo_label {
+            width: 100%;
+            text-align: left;
+            font-size: 0.91vw;
+            font-family: Arial;
+            letter-spacing: 0px;
+            color: #1b2455;
+            opacity: 1;
+            padding-left: 1.04vw;
+            margin-bottom: 0.52vw;
+          }
+
+          .estilo_inputs {
+            min-height: 3rem;
+            padding-right: 1rem;
+            padding-left: 1.5rem;
+            font-size: 0.875rem;
+            width: 100%;
+            border: none;
+            border-radius: 23px;
+          }
+        }
+
+        .form-group-descripcion {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 90%;
+          margin-bottom: 1.04vw;
+
+          .estilo_label {
+            width: 100%;
+            text-align: left;
+            font-size: 0.91vw;
+            font-family: Arial;
+            letter-spacing: 0px;
+            color: #1b2455;
+            opacity: 1;
+            padding-left: 1.04vw;
+            margin-bottom: 0.52vw;
           }
         }
       }
@@ -202,4 +300,23 @@
     width: 1.248vw;
     height: 1.248vw;
   }
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-wrapper {
+  padding-bottom: 0rem;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: white !important;
+  height: 3.121vw;
+  padding: 0 0.75em 0 0.75em !important;
+  border-radius: 50rem !important;
+}
+
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-select-arrow-wrapper {
+  transform: translateY(0%) !important;
 }
