@@ -11,9 +11,10 @@ export class HojaCandidatoComponent implements OnInit {
   myValue1= false;
   persona: any;
 
+  model = "Ninguno";
+
   constructor( private personaService: PersonaService ) { }
 
-  
 
   ngOnInit(): void {
    
