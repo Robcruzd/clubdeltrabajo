@@ -38,6 +38,28 @@ public class EmpresaCriteria implements Serializable, Criteria {
 
     private LongFilter tipoDocumentoId;
 
+    private StringFilter direccion;
+
+    private LongFilter telefonoEmpresa;
+
+    private StringFilter ciudad;
+
+    private LongFilter sector;
+
+    private LongFilter subsector;
+
+    private StringFilter paginaWeb;
+
+    private StringFilter cantidadEmpleados;
+
+    private StringFilter descripcionEmpresa;
+
+    private StringFilter nombreRepresentanteLegal;
+
+    private StringFilter apellidosRepresentanteLegal;
+
+    private LongFilter telefono;
+
     public EmpresaCriteria() {
     }
 
@@ -49,6 +71,17 @@ public class EmpresaCriteria implements Serializable, Criteria {
         this.numeroDocumento = other.numeroDocumento == null ? null : other.numeroDocumento.copy();
         this.tipoUsuarioId = other.tipoUsuarioId == null ? null : other.tipoUsuarioId.copy();
         this.tipoDocumentoId = other.tipoDocumentoId == null ? null : other.tipoDocumentoId.copy();
+        this.direccion = other.direccion == null ? null : other.direccion.copy();
+        this.telefonoEmpresa = other.telefonoEmpresa == null ? null : other.telefonoEmpresa.copy();
+        this.ciudad = other.ciudad == null ? null : other.ciudad.copy();
+        this.sector = other.sector == null ? null : other.sector.copy();
+        this.subsector = other.subsector == null ? null : other.subsector.copy();
+        this.paginaWeb = other.paginaWeb == null ? null : other.paginaWeb.copy();
+        this.cantidadEmpleados = other.cantidadEmpleados == null ? null : other.cantidadEmpleados.copy();
+        this.descripcionEmpresa = other.descripcionEmpresa == null ? null : other.descripcionEmpresa.copy();
+        this.nombreRepresentanteLegal = other.nombreRepresentanteLegal == null ? null : other.nombreRepresentanteLegal.copy();
+        this.apellidosRepresentanteLegal = other.apellidosRepresentanteLegal == null ? null : other.apellidosRepresentanteLegal.copy();
+        this.telefono = other.telefono == null ? null : other.telefono.copy();
     }
 
     @Override
@@ -110,6 +143,94 @@ public class EmpresaCriteria implements Serializable, Criteria {
 
     public void setTipoDocumentoId(LongFilter tipoDocumentoId) {
         this.tipoDocumentoId = tipoDocumentoId;
+    }
+
+    public StringFilter getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(StringFilter direccion) {
+        this.direccion = direccion;
+    }
+
+    public LongFilter getTelefonoEmpresa() {
+        return telefonoEmpresa;
+    }
+
+    public void setTelefonoEmpresa(LongFilter telefonoEmpresa) {
+        this.telefonoEmpresa = telefonoEmpresa;
+    }
+
+    public StringFilter getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(StringFilter ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public LongFilter getSector() {
+        return sector;
+    }
+
+    public void setSector(LongFilter sector) {
+        this.sector = sector;
+    }
+
+    public LongFilter getSubsector() {
+        return subsector;
+    }
+
+    public void setSubsector(LongFilter subsector) {
+        this.subsector = subsector;
+    }
+
+    public StringFilter getPaginaWeb() {
+        return paginaWeb;
+    }
+
+    public void setPaginaWeb(StringFilter paginaWeb) {
+        this.paginaWeb = paginaWeb;
+    }
+
+    public StringFilter cantidadEmpleados() {
+        return cantidadEmpleados;
+    }
+
+    public void setCantidadEmpleados(StringFilter cantidadEmpleados) {
+        this.cantidadEmpleados = cantidadEmpleados;
+    }
+
+    public StringFilter getDescripcionEmpresa() {
+        return descripcionEmpresa;
+    }
+
+    public void setDescripcionEmpresa(StringFilter descripcionEmpresa) {
+        this.descripcionEmpresa = descripcionEmpresa;
+    }
+
+    public StringFilter getNombreRepresentanteLegal() {
+        return nombreRepresentanteLegal;
+    }
+
+    public void setNombreRepresentanteLegal(StringFilter nombreRepresentanteLegal) {
+        this.nombreRepresentanteLegal = nombreRepresentanteLegal;
+    }
+
+    public StringFilter getApellidosRepresentanteLegal() {
+        return apellidosRepresentanteLegal;
+    }
+
+    public void setApellidosRepresentanteLegal(StringFilter apellidosRepresentanteLegal) {
+        this.apellidosRepresentanteLegal = apellidosRepresentanteLegal;
+    }
+
+    public LongFilter getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(LongFilter telefono) {
+        this.telefono = telefono;
     }
 
 

@@ -6,7 +6,7 @@ import { AccountService } from '../../core/auth/account.service';
 import { User } from '../../core/user/user.model';
 import { EmpresaService } from '../../entities/empresa/empresa.service';
 import { Empresa } from '../../shared/model/empresa.model';
-import { IOpcionVo } from '../../shared/vo/opcion-vo';
+import { IOpcionVo, IOpcionVoMunicipio } from '../../shared/vo/opcion-vo';
 import { GeografiaVo } from '../../shared/vo/geografia-vo';
 import { ApiService } from '../../shared/services/api.service';
 import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
@@ -37,6 +37,7 @@ export class EditarEmpresaComponent implements OnInit {
   imagen!: Archivo;
   persona: any;
   tipoArchivo = TipoArchivo;
+  ciudad: Array<IOpcionVoMunicipio> = [];
 
   constructor(
     private _location: Location,
@@ -67,7 +68,7 @@ export class EditarEmpresaComponent implements OnInit {
       numeroDocumento: ['', [Validators.required]],
       direccion: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú#. -]{0,}$')]],
       telefono: ['', [Validators.required, Validators.pattern('^[0-9]{7,10}$')]],
-      ciudad: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú ]{0,}$')]],
+      ciudad: [null],
       email: ['', [Validators.required, Validators.email]],
       sector: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
       subsector: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
@@ -89,17 +90,17 @@ export class EditarEmpresaComponent implements OnInit {
           razonComercial: this.datosEmpresa!.razonComercial,
           numeroDocumento: this.datosEmpresa!.numeroDocumento,
           direccion: this.datosEmpresa!.direccion,
-          telefono: this.datosEmpresa!.telefono,
-          ciudad: this.datosEmpresa!.ciudad,
+          telefono: this.datosEmpresa!.telefonoEmpresa,
+          ciudad: JSON.parse(this.datosEmpresa!.ciudad!),
           email: this.datosEmpresa!.email,
           sector: this.datosEmpresa!.sector,
-          subsector: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
-          webPage: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ.:/ ]{1,}$')]],
-          cantidadEmpleados: ['', [Validators.required, Validators.pattern('^[0-9]{0,}$')]],
-          descripcion: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.:\n ]{0,}$')]],
-          nombreRepresentante: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ.:/ ]{1,}$')]],
-          apellidosRepresentante: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ.:/ ]{1,}$')]],
-          telefonoRep: ['', [Validators.required, Validators.pattern('^[0-9]{7,10}$')]]
+          subsector: this.datosEmpresa!.subsector,
+          webPage: this.datosEmpresa!.paginaWeb,
+          cantidadEmpleados: this.datosEmpresa!.cantidadEmpleados,
+          descripcion: this.datosEmpresa!.descripcionEmpresa,
+          nombreRepresentante: this.datosEmpresa!.nombreRepresentanteLegal,
+          apellidosRepresentante: this.datosEmpresa!.apellidosRepresentanteLegal,
+          telefonoRep: this.datosEmpresa!.telefono
         });
       });
     }
@@ -135,9 +136,17 @@ export class EditarEmpresaComponent implements OnInit {
     this.datosEmpresa!.razonComercial = this.formEmpresa.controls['razonComercial'].value;
     this.datosEmpresa!.numeroDocumento = this.formEmpresa.controls['numeroDocumento'].value;
     this.datosEmpresa!.direccion = this.formEmpresa.controls['direccion'].value;
-    this.datosEmpresa!.telefono = this.formEmpresa.controls['telefono'].value;
-    this.datosEmpresa!.ciudad = this.formEmpresa.controls['ciudad'].value;
+    this.datosEmpresa!.telefonoEmpresa = this.formEmpresa.controls['telefono'].value;
+    this.datosEmpresa!.ciudad = JSON.stringify(this.formEmpresa.controls['ciudad'].value);
     this.datosEmpresa!.email = this.formEmpresa.controls['email'].value;
+    this.datosEmpresa!.sector = this.formEmpresa.controls['sector'].value;
+    this.datosEmpresa!.subsector = this.formEmpresa.controls['subsector'].value;
+    this.datosEmpresa!.paginaWeb = this.formEmpresa.controls['webPage'].value;
+    this.datosEmpresa!.cantidadEmpleados = this.formEmpresa.controls['cantidadEmpleados'].value;
+    this.datosEmpresa!.descripcionEmpresa = this.formEmpresa.controls['descripcion'].value;
+    this.datosEmpresa!.nombreRepresentanteLegal = this.formEmpresa.controls['nombreRepresentante'].value;
+    this.datosEmpresa!.apellidosRepresentanteLegal = this.formEmpresa.controls['apellidosRepresentante'].value;
+    this.datosEmpresa!.telefono = this.formEmpresa.controls['telefonoRep'].value;
 
     this.empresaService.update(this.datosEmpresa).subscribe(() => {});
   }
