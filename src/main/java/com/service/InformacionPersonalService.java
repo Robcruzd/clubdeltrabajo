@@ -1,16 +1,16 @@
 package com.service;
 
-import com.domain.InformacionPersonal;
-import com.repository.InformacionPersonalRepository;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import com.domain.InformacionPersonal;
+import com.repository.InformacionPersonalRepository;
 
 /**
  * Service Implementation for managing {@link InformacionPersonal}.
@@ -18,6 +18,7 @@ import java.util.Optional;
 @Service
 @Transactional
 public class InformacionPersonalService {
+
 
     private final Logger log = LoggerFactory.getLogger(InformacionPersonalService.class);
 
@@ -71,4 +72,5 @@ public class InformacionPersonalService {
         log.debug("Request to delete InformacionPersonal : {}", id);
         informacionPersonalRepository.deleteById(id);
     }
+    
 }

@@ -12,6 +12,27 @@ import { IInformacionPersonal } from 'app/shared/model/informacion-personal.mode
 type EntityResponseType = HttpResponse<IInformacionPersonal>;
 type EntityArrayResponseType = HttpResponse<IInformacionPersonal[]>;
 
+export class PathUtil2 {
+  public static getPathParams(parameters: any): string {
+      const fields: string[] = Object.getOwnPropertyNames(parameters);
+      let path = "?";
+      fields.forEach(
+          (field: string, i: number) => {
+            const value: any = Object.values(parameters)[i];
+            if(value !== undefined && value !== null){
+              if (i > 0 && path !== "?" && (value !== null)) {
+                path += "&";
+              }
+              if (value !== null) {
+                  path += (field + ".equals=" + value);
+              }
+            }
+          }
+      );
+      return (path!=="?"?path:"");
+  }
+}
+
 @Injectable({ providedIn: 'root' })
 export class InformacionPersonalService {
   public resourceUrl = SERVER_API_URL + 'api/informacion-personals';
@@ -73,5 +94,15 @@ export class InformacionPersonalService {
       });
     }
     return res;
+  }
+
+  public listar(parameters: any): Observable<any>{
+    const path:string = PathUtil2.getPathParams(parameters);
+    const url = this.resourceUrl + "/informacionPersona"+path;
+    return this.get(url)
+  }
+
+  public get(url: string, headers?:any):Observable<any>{
+    return this.http.get<any>(url,headers);
   }
 }

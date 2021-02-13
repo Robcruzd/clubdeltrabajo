@@ -82,20 +82,20 @@ public class PersonaIdiomaQueryService extends QueryService<PersonaIdioma> {
     protected Specification<PersonaIdioma> createSpecification(PersonaIdiomaCriteria criteria) {
         Specification<PersonaIdioma> specification = Specification.where(null);
         if (criteria != null) {
-            if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), PersonaIdioma_.id));
-            }
-            if (criteria.getNivel() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getNivel(), PersonaIdioma_.nivel));
-            }
-            if (criteria.getIdPersonaId() != null) {
-                specification = specification.and(buildSpecification(criteria.getIdPersonaId(),
-                    root -> root.join(PersonaIdioma_.idPersona, JoinType.LEFT).get(Persona_.id)));
-            }
-            if (criteria.getIdIdiomaId() != null) {
-                specification = specification.and(buildSpecification(criteria.getIdIdiomaId(),
-                    root -> root.join(PersonaIdioma_.idIdioma, JoinType.LEFT).get(Idioma_.id)));
-            }
+//            if (criteria.getId() != null) {
+//                specification = specification.and(buildRangeSpecification(criteria.getId(), PersonaIdioma_.id));
+//            }
+//            if (criteria.getNivel() != null) {
+//                specification = specification.and(buildStringSpecification(criteria.getNivel(), PersonaIdioma_.nivel));
+//            }
+//            if (criteria.getIdPersonaId() != null) {
+//                specification = specification.and(buildSpecification(criteria.getIdPersonaId(),
+//                    root -> root.join(PersonaIdioma_.idPersona, JoinType.LEFT).get(Persona_.id)));
+//            }
+//            if (criteria.getIdIdiomaId() != null) {
+//                specification = specification.and(buildSpecification(criteria.getIdIdiomaId(),
+//                    root -> root.join(PersonaIdioma_.idIdioma, JoinType.LEFT).get(Idioma_.id)));
+//            }
         }
         return specification;
     }

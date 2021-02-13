@@ -97,24 +97,24 @@ public class InformacionLaboralQueryService extends QueryService<InformacionLabo
             if (criteria.getDireccion() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDireccion(), InformacionLaboral_.direccion));
             }
-            if (criteria.getCiudad() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getCiudad(), InformacionLaboral_.ciudad));
-            }
+//            if (criteria.getCiudad() != null) {
+//                specification = specification.and(buildRangeSpecification(criteria.getCiudad(), InformacionLaboral_.ciudad));
+//            }
             if (criteria.getDepartamento() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getDepartamento(), InformacionLaboral_.departamento));
             }
-            if (criteria.getPais() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getPais(), InformacionLaboral_.pais));
-            }
+//            if (criteria.getPais() != null) {
+//                specification = specification.and(buildStringSpecification(criteria.getPais(), InformacionLaboral_.pais));
+//            }
             if (criteria.getTelefonoEmpresa() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getTelefonoEmpresa(), InformacionLaboral_.telefonoEmpresa));
             }
-            if (criteria.getDependencia() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDependencia(), InformacionLaboral_.dependencia));
-            }
-            if (criteria.getCiudadExtranjera() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getCiudadExtranjera(), InformacionLaboral_.ciudadExtranjera));
-            }
+//            if (criteria.getDependencia() != null) {
+//                specification = specification.and(buildStringSpecification(criteria.getDependencia(), InformacionLaboral_.dependencia));
+//            }
+//            if (criteria.getCiudadExtranjera() != null) {
+//                specification = specification.and(buildStringSpecification(criteria.getCiudadExtranjera(), InformacionLaboral_.ciudadExtranjera));
+//            }
             if (criteria.getUsuarioId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUsuarioId(),
                     root -> root.join(InformacionLaboral_.usuario, JoinType.LEFT).get(Persona_.id)));

@@ -82,24 +82,24 @@ public class RegionesQueryService extends QueryService<Regiones> {
     protected Specification<Regiones> createSpecification(RegionesCriteria criteria) {
         Specification<Regiones> specification = Specification.where(null);
         if (criteria != null) {
-            if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Regiones_.id));
-            }
-            if (criteria.getRegion() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getRegion(), Regiones_.region));
-            }
-            if (criteria.getCodigoDaneDelDepartamento() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getCodigoDaneDelDepartamento(), Regiones_.codigoDaneDelDepartamento));
-            }
-            if (criteria.getDepartamento() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDepartamento(), Regiones_.departamento));
-            }
-            if (criteria.getCodigoDaneDelMunicipio() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getCodigoDaneDelMunicipio(), Regiones_.codigoDaneDelMunicipio));
-            }
-            if (criteria.getMunicipio() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getMunicipio(), Regiones_.municipio));
-            }
+//            if (criteria.getId() != null) {
+//                specification = specification.and(buildRangeSpecification(criteria.getId(), Regiones_.id));
+//            }
+//            if (criteria.getRegion() != null) {
+//                specification = specification.and(buildStringSpecification(criteria.getRegion(), Regiones_.region));
+//            }
+//            if (criteria.getCodigoDaneDelDepartamento() != null) {
+//                specification = specification.and(buildRangeSpecification(criteria.getCodigoDaneDelDepartamento(), Regiones_.codigoDaneDelDepartamento));
+//            }
+//            if (criteria.getDepartamento() != null) {
+//                specification = specification.and(buildStringSpecification(criteria.getDepartamento(), Regiones_.departamento));
+//            }
+//            if (criteria.getCodigoDaneDelMunicipio() != null) {
+//                specification = specification.and(buildRangeSpecification(criteria.getCodigoDaneDelMunicipio(), Regiones_.codigoDaneDelMunicipio));
+//            }
+//            if (criteria.getMunicipio() != null) {
+//                specification = specification.and(buildStringSpecification(criteria.getMunicipio(), Regiones_.municipio));
+//            }
         }
         return specification;
     }

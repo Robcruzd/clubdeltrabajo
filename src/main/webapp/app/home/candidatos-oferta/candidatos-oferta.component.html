@@ -1,0 +1,97 @@
+<div class="contenedor">
+    <div class="div-center">
+        <div class="botones-arriba">
+            <button class="btn boton-clicked" (click)="crearOferta()">
+                <fa-icon [icon]="faCommentDots" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Crear oferta</p>
+                </div>
+            </button>
+            <button class="btn boton-no-clicked" (click)="editarPerfil()">
+                <fa-icon [icon]="faEllipsisH" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Editar perfil</p>
+                </div>
+            </button>
+            <button class="btn boton-no-clicked" (click)="clubEmpresas()">
+                <fa-icon icon="suitcase" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Club de empresas</p>
+                </div>
+            </button>
+            <button class="btn boton-no-clicked" (click)="verOferta()">
+                <fa-icon icon="eye" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Controla tus ofertas</p>
+                </div>
+            </button>
+            <button class="btn boton-no-clicked" (click)="membresia()">
+                <fa-icon [icon]="faStar" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Membresía</p>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+<br>
+    <br>
+    <div class="contenedor2">
+        <div class="div-center2">
+            <ng-container>
+            <br>
+            <br>
+                <p class="estilo_titulo2">Así quedará su oferta</p>
+                <div class="ngnum1">
+                    <ng-container>
+                        <p class="titulo_oferta">Oferta</p>
+                        <p class="profesion_oferta">profesionOferta</p>
+                        <p class="descripcion_profesion">descripcionOferta</p>
+                        <table class="tabla_oferta" style="width: 100%;">
+                            <tr>
+                              <th class="titulo_oferta_previsualizacion">Titulo:</th>
+                              <th class="titulo_oferta_previsualizacion">Tipo de contrato:</th>
+                              <th class="titulo_oferta_previsualizacion">Publicado:</th>
+                            </tr>
+                            <tr>
+                              <td style="width: 30%;">tituloOferta</td>
+                              <td style="width: 40%;">contratoOferta</td>
+                              <td style="width: 30%;">publicadoOFerta</td>
+                            </tr>
+                        </table>
+                        <table class="tabla_oferta" style="width: 100%;">
+                            <tr>
+                              <th class="titulo_oferta_previsualizacion">Experiencia:</th>
+                              <th class="titulo_oferta_previsualizacion">Ciudad:</th>
+                              <th class="titulo_oferta_previsualizacion">Salario:</th>
+                            </tr>
+                            <tr>
+                              <td style="width: 30%;">experienciaOferta</td>
+                              <td style="width: 40%;">ciudadOferta</td>
+                              <td style="width: 30%;">salarioOferta</td>
+                            </tr>
+                        </table>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="contenedor3">
+        <div class="div-center3">
+            <ng-container>
+                <div class="ngnum2">
+                </div>
+                <div class="ngnum3">
+                    <img class="foto-perfil rounded-circle" [src]="imagen?.archivo || ulrImgDefault">
+                </div>
+            </ng-container>
+        </div>
+        <div>
+            <button (click)="getCandidatosOferta()">agregar oferta</button>
+        </div>
+    </div>    

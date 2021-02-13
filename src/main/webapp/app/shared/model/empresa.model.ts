@@ -12,6 +12,7 @@ export interface IEmpresa {
   direccion?: string;
   telefono?: number;
   ciudad?: number;
+  descripcionEmpresa?: string;
 }
 
 export class Empresa implements IEmpresa {
@@ -25,6 +26,7 @@ export class Empresa implements IEmpresa {
     public tipoDocumento?: ITipoDocumento,
     public direccion?: string,
     public telefono?: number,
-    public ciudad?: number
+    public ciudad?: number,
+    public descripcionEmpresa?: string
   ) {}
 }

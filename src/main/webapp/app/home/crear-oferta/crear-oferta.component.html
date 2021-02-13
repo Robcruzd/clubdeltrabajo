@@ -444,7 +444,8 @@
                             <p class="titulo_div3">40 por ver</p>
                         </div>
                         <div class="div4Oferta"> 
-                            <p>Activar oferta</p>
+                            <p *ngIf="!oferta.activado">Activar oferta</p>
+                            <p *ngIf="oferta.activado">Detener oferta</p>
                             <label class="switch">
                                 <input type="checkbox" [checked]="oferta.activado">
                                 <span class="slider round"></span>

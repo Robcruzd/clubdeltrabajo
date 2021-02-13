@@ -82,12 +82,12 @@ public class ProfesionQueryService extends QueryService<Profesion> {
     protected Specification<Profesion> createSpecification(ProfesionCriteria criteria) {
         Specification<Profesion> specification = Specification.where(null);
         if (criteria != null) {
-            if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Profesion_.id));
-            }
-            if (criteria.getProfesion() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getProfesion(), Profesion_.profesion));
-            }
+//            if (criteria.getId() != null) {
+//                specification = specification.and(buildRangeSpecification(criteria.getId(), Profesion_.id));
+//            }
+//            if (criteria.getProfesion() != null) {
+//                specification = specification.and(buildStringSpecification(criteria.getProfesion(), Profesion_.profesion));
+//            }
         }
         return specification;
     }

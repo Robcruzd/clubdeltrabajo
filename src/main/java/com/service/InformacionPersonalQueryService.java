@@ -106,19 +106,19 @@ public class InformacionPersonalQueryService extends QueryService<InformacionPer
             if (criteria.getDiscapacidad() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getDiscapacidad(), InformacionPersonal_.discapacidad));
             }
-            if (criteria.getRedesSociales() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getRedesSociales(), InformacionPersonal_.redesSociales));
-            }
-            if (criteria.getPerfilProfesional() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getPerfilProfesional(), InformacionPersonal_.perfilProfesional));
-            }
+//            if (criteria.getRedesSociales() != null) {
+//                specification = specification.and(buildStringSpecification(criteria.getRedesSociales(), InformacionPersonal_.redesSociales));
+//            }
+//            if (criteria.getPerfilProfesional() != null) {
+//                specification = specification.and(buildStringSpecification(criteria.getPerfilProfesional(), InformacionPersonal_.perfilProfesional));
+//            }
             if (criteria.getUsuarioId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUsuarioId(),
                     root -> root.join(InformacionPersonal_.usuario, JoinType.LEFT).get(Persona_.id)));
             }
-            if (criteria.getTipoLicenciaConduccion() != null) {
-                specification = specification.and(buildSpecification(criteria.getTipoLicenciaConduccion(), InformacionPersonal_.tipoLicenciaConduccion));
-            }
+//            if (criteria.getTipoLicenciaConduccion() != null) {
+//                specification = specification.and(buildSpecification(criteria.getTipoLicenciaConduccion(), InformacionPersonal_.tipoLicenciaConduccion));
+//            }
         }
         return specification;
     }

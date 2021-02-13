@@ -94,9 +94,9 @@ public class PersonaQueryService extends QueryService<Persona> {
             if (criteria.getEmail() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getEmail(), Persona_.email));
             }
-            if (criteria.getNumeroDocumento() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getNumeroDocumento(), Persona_.numeroDocumento));
-            }
+//            if (criteria.getNumeroDocumento() != null) {
+//                specification = specification.and(buildStringSpecification(criteria.getNumeroDocumento(), Persona_.numeroDocumento));
+//            }
             if (criteria.getTipoUsuarioId() != null) {
                 specification = specification.and(buildSpecification(criteria.getTipoUsuarioId(),
                     root -> root.join(Persona_.tipoUsuario, JoinType.LEFT).get(TipoUsuario_.id)));

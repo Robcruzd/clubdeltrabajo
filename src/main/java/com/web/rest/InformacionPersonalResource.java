@@ -9,9 +9,12 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -47,9 +50,10 @@ public class InformacionPersonalResource {
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
-
+    
+    @Autowired
     private final InformacionPersonalService informacionPersonalService;
-
+    
     private final InformacionPersonalQueryService informacionPersonalQueryService;
 
     public InformacionPersonalResource(InformacionPersonalService informacionPersonalService, InformacionPersonalQueryService informacionPersonalQueryService) {
@@ -149,4 +153,20 @@ public class InformacionPersonalResource {
         informacionPersonalService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+    
+    @GetMapping("/informacion-personals/informacionPersona")
+	public Page<InformacionPersonal> listar(InformacionPersonalCriteria informacionPersonalBuilder) {
+    	Pageable paging = PageRequest.of(0, 9999, Sort.by("id"));
+    	return informacionPersonalQueryService.findByCriteria(informacionPersonalBuilder, paging);
+		//return informacionPersonalVOService.listar(new CommonSpecifications<InformacionPersonalVO>(informacionPersonalBuilder));
+	}
+    
+//    @GetMapping("/titulos")
+//    public ResponseEntity<List<Titulo>> getAll(TituloCriteria criteria, Pageable pageable,
+//                                               @RequestParam MultiValueMap<String, String> queryParams,
+//                                               UriComponentsBuilder uriBuilder) {
+//        Page<Titulo> page = 
+//        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
+//        return ResponseEntity.ok().headers(headers).body(page.getContent());
+//    }
 }

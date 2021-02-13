@@ -88,9 +88,9 @@ public class OfertaQueryService extends QueryService<Oferta> {
             if (criteria.getDescripcion() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescripcion(), Oferta_.descripcion));
             }
-            if (criteria.getTitulo() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getTitulo(), Oferta_.titulo));
-            }
+//            if (criteria.getTitulo() != null) {
+//                specification = specification.and(buildStringSpecification(criteria.getTitulo(), Oferta_.titulo));
+//            }
             if (criteria.getSalario() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getSalario(), Oferta_.salario));
             }
