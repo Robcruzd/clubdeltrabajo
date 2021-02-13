@@ -6,11 +6,16 @@ import { AccountService } from '../../core/auth/account.service';
 import { User } from '../../core/user/user.model';
 import { EmpresaService } from '../../entities/empresa/empresa.service';
 import { Empresa } from '../../shared/model/empresa.model';
-import { IOpcionVo } from '../../shared/vo/opcion-vo';
+import { IOpcionVo, IOpcionVoMunicipio } from '../../shared/vo/opcion-vo';
 import { GeografiaVo } from '../../shared/vo/geografia-vo';
 import { ApiService } from '../../shared/services/api.service';
 import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { Archivo } from 'app/shared/model/archivo.model';
+import { ArchivoService } from 'app/entities/archivo/archivo.service';
+import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
+
+declare let alertify: any;
 
 @Component({
   selector: 'jhi-editar-empresa',
@@ -29,6 +34,10 @@ export class EditarEmpresaComponent implements OnInit {
   municipiosAcademica: Array<IOpcionVo> = [];
   geografia: Array<GeografiaVo> = [];
   empresa = new Empresa();
+  imagen!: Archivo;
+  persona: any;
+  tipoArchivo = TipoArchivo;
+  ciudad: Array<IOpcionVoMunicipio> = [];
 
   constructor(
     private _location: Location,
@@ -36,7 +45,8 @@ export class EditarEmpresaComponent implements OnInit {
     private accountService: AccountService,
     private empresaService: EmpresaService,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private archivoService: ArchivoService
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +56,8 @@ export class EditarEmpresaComponent implements OnInit {
       this.cargarFormularioEmpresa();
     });
     this.consultarInformacionGeografica();
+    // eslint-disable-next-line no-console
+    console.log(this.municipiosAcademica);
   }
 
   crearFormularioEmpresa(): void {
@@ -56,8 +68,16 @@ export class EditarEmpresaComponent implements OnInit {
       numeroDocumento: ['', [Validators.required]],
       direccion: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú#. -]{0,}$')]],
       telefono: ['', [Validators.required, Validators.pattern('^[0-9]{7,10}$')]],
-      ciudad: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú ]{0,}$')]],
-      email: ['', [Validators.required, Validators.email]]
+      ciudad: [null],
+      email: ['', [Validators.required, Validators.email]],
+      sector: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
+      subsector: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
+      webPage: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ.:/ ]{1,}$')]],
+      cantidadEmpleados: ['', [Validators.required, Validators.pattern('^[0-9]{0,}$')]],
+      descripcion: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.:\n ]{0,}$')]],
+      nombreRepresentante: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ.:/ ]{1,}$')]],
+      apellidosRepresentante: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ.:/ ]{1,}$')]],
+      telefonoRep: ['', [Validators.required, Validators.pattern('^[0-9]{7,10}$')]]
     });
   }
 
@@ -70,9 +90,17 @@ export class EditarEmpresaComponent implements OnInit {
           razonComercial: this.datosEmpresa!.razonComercial,
           numeroDocumento: this.datosEmpresa!.numeroDocumento,
           direccion: this.datosEmpresa!.direccion,
-          telefono: this.datosEmpresa!.telefono,
-          ciudad: this.datosEmpresa!.ciudad,
-          email: this.datosEmpresa!.email
+          telefono: this.datosEmpresa!.telefonoEmpresa,
+          ciudad: JSON.parse(this.datosEmpresa!.ciudad!),
+          email: this.datosEmpresa!.email,
+          sector: this.datosEmpresa!.sector,
+          subsector: this.datosEmpresa!.subsector,
+          webPage: this.datosEmpresa!.paginaWeb,
+          cantidadEmpleados: this.datosEmpresa!.cantidadEmpleados,
+          descripcion: this.datosEmpresa!.descripcionEmpresa,
+          nombreRepresentante: this.datosEmpresa!.nombreRepresentanteLegal,
+          apellidosRepresentante: this.datosEmpresa!.apellidosRepresentanteLegal,
+          telefonoRep: this.datosEmpresa!.telefono
         });
       });
     }
@@ -93,8 +121,8 @@ export class EditarEmpresaComponent implements OnInit {
   consultarInformacionGeografica(): void {
     this.apiService.getInformacionGeografica().subscribe(geografia => {
       this.geografia = geografia;
-      const bogota = { codigoDpto: '100', nombreDpto: 'Bogotá D.C.', codigoMpio: '100000', nombreMpio: 'Bogotá D.C.' };
-      this.geografia.push(bogota);
+      // const bogota = { codigoDpto: '100', nombreDpto: 'Bogotá D.C.', codigoMpio: '100000', nombreMpio: 'Bogotá D.C.' };
+      // this.geografia.push(bogota);
       this.cargarMunicipiosAcademica();
     });
   }
@@ -108,9 +136,17 @@ export class EditarEmpresaComponent implements OnInit {
     this.datosEmpresa!.razonComercial = this.formEmpresa.controls['razonComercial'].value;
     this.datosEmpresa!.numeroDocumento = this.formEmpresa.controls['numeroDocumento'].value;
     this.datosEmpresa!.direccion = this.formEmpresa.controls['direccion'].value;
-    this.datosEmpresa!.telefono = this.formEmpresa.controls['telefono'].value;
-    this.datosEmpresa!.ciudad = this.formEmpresa.controls['ciudad'].value;
+    this.datosEmpresa!.telefonoEmpresa = this.formEmpresa.controls['telefono'].value;
+    this.datosEmpresa!.ciudad = JSON.stringify(this.formEmpresa.controls['ciudad'].value);
     this.datosEmpresa!.email = this.formEmpresa.controls['email'].value;
+    this.datosEmpresa!.sector = this.formEmpresa.controls['sector'].value;
+    this.datosEmpresa!.subsector = this.formEmpresa.controls['subsector'].value;
+    this.datosEmpresa!.paginaWeb = this.formEmpresa.controls['webPage'].value;
+    this.datosEmpresa!.cantidadEmpleados = this.formEmpresa.controls['cantidadEmpleados'].value;
+    this.datosEmpresa!.descripcionEmpresa = this.formEmpresa.controls['descripcion'].value;
+    this.datosEmpresa!.nombreRepresentanteLegal = this.formEmpresa.controls['nombreRepresentante'].value;
+    this.datosEmpresa!.apellidosRepresentanteLegal = this.formEmpresa.controls['apellidosRepresentante'].value;
+    this.datosEmpresa!.telefono = this.formEmpresa.controls['telefonoRep'].value;
 
     this.empresaService.update(this.datosEmpresa).subscribe(() => {});
   }
@@ -133,5 +169,66 @@ export class EditarEmpresaComponent implements OnInit {
 
   clubEmpresas(): void {
     this.router.navigate(['club-empresas']);
+  }
+
+  addCiudad(): void {}
+
+  cargarImagen(event: any, tipoDocumento: number): void {
+    const file: File = event.target.files[0];
+    const extension = file.name.split('.').pop() || '';
+
+    if (file.size > commonMessages.TAMANO_MAXIMO_PERMITIDO) {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error(commonMessages.ERROR_TAMANO_EXCEDIDO);
+      return;
+    }
+    if (!commonMessages.IMAGENES_SOPORTADAS.includes(extension)) {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error(commonMessages.ERROR_IMAGEN_NO_SOPORTADA);
+      return;
+    }
+
+    this.imagen = this.imagen || new Archivo();
+    this.imagen.tipo = tipoDocumento;
+    this.imagen.nombre = file.name;
+    this.imagen.extension = extension;
+    this.imagen.usuario = this.persona;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.imagen.archivo = reader.result;
+      this.subirImagen();
+    };
+  }
+
+  subirImagen(): void {
+    if (this.imagen.id !== undefined) {
+      this.archivoService.update(this.imagen).subscribe(
+        response => {
+          if (response.body !== null) {
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+          }
+        },
+        () => {
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.error(commonMessages.HTTP_ERROR_LABEL);
+        }
+      );
+    } else {
+      this.archivoService.create(this.imagen).subscribe(
+        response => {
+          if (response.body !== null) {
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+          }
+        },
+        () => {
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.error(commonMessages.HTTP_ERROR_LABEL);
+        }
+      );
+    }
   }
 }

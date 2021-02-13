@@ -1,12 +1,18 @@
 package com.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import java.io.Serializable;
-import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A Empresa.
@@ -51,14 +57,35 @@ public class Empresa implements Serializable {
     @Column(name = "direccion", nullable = true)
     private String direccion;
     
-    @Column(name = "telefono", nullable = true)
-    private Long telefono;
+    @Column(name = "telefono_empresa", nullable = true)
+    private Long telefonoEmpresa;
     
     @Column(name = "ciudad", nullable = true)
-    private Long ciudad;
+    private String ciudad;
     
+    @Column(name = "sector", nullable = true)
+    private Long sector;
+
+    @Column(name = "subsector", nullable = true)
+    private Long subsector;
+
+    @Column(name = "pagina_web", nullable = true)
+    private String paginaWeb;
+    
+    @Column(name = "cantidad_empleados", nullable = true)
+    private String cantidadEmpleados;
+
     @Column(name = "descripcion_empresa", nullable = true)
     private String descripcionEmpresa;
+
+    @Column(name = "nombre_representante_legal", nullable = true)
+    private String nombreRepresentanteLegal;
+
+    @Column(name = "apellidos_representante_legal", nullable = true)
+    private String apellidosRepresentanteLegal;
+
+    @Column(name = "telefono", nullable = true)
+    private Long telefono;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -157,28 +184,84 @@ public class Empresa implements Serializable {
 		this.direccion = direccion;
 	}
 
-	public Long getTelefono() {
-		return telefono;
+	public Long getTelefonoEmpresa() {
+		return telefonoEmpresa;
 	}
 
-	public void setTelefono(Long telefono) {
-		this.telefono = telefono;
+	public void setTelefonoEmpresa(Long telefonoEmpresa) {
+		this.telefonoEmpresa = telefonoEmpresa;
 	}
 
-	public Long getCiudad() {
+	public String getCiudad() {
 		return ciudad;
 	}
 
-	public void setCiudad(Long ciudad) {
+	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
 	}
 
-	public String getDescripcionEmpresa() {
+    public Long getSector() {
+		return sector;
+	}
+
+	public void setSector(Long sector) {
+		this.sector = sector;
+	}
+
+    public Long getSubsector() {
+		return subsector;
+	}
+
+	public void setSubsector(Long subsector) {
+		this.subsector = subsector;
+	}
+
+    public String getPaginaWeb() {
+		return paginaWeb;
+	}
+
+	public void setPaginaWeb(String paginaWeb) {
+		this.paginaWeb = paginaWeb;
+	}
+
+    public String getCantidadEmpleados() {
+		return cantidadEmpleados;
+	}
+
+	public void setCantidadEmpleados(String cantidadEmpleados) {
+		this.cantidadEmpleados = cantidadEmpleados;
+	}
+
+    public String getDescripcionEmpresa() {
 		return descripcionEmpresa;
 	}
 
 	public void setDescripcionEmpresa(String descripcionEmpresa) {
 		this.descripcionEmpresa = descripcionEmpresa;
+	}
+
+    public String getNombreRepresentanteLegal() {
+		return nombreRepresentanteLegal;
+	}
+
+	public void setNombreRepresentanteLegal(String nombreRepresentanteLegal) {
+		this.nombreRepresentanteLegal = nombreRepresentanteLegal;
+	}
+
+    public String getApellidosRepresentanteLegal() {
+		return apellidosRepresentanteLegal;
+	}
+
+	public void setApellidosRepresentanteLegal(String apellidosRepresentanteLegal) {
+		this.apellidosRepresentanteLegal = apellidosRepresentanteLegal;
+	}
+
+    public Long getTelefono() {
+		return telefono;
+	}
+
+    public void setTelefono(Long telefono) {
+		this.telefono = telefono;
 	}
 
 	@Override
