@@ -17,7 +17,7 @@ export class HojaCandidatoComponent implements OnInit {
 
 
   ngOnInit(): void {
-   
+    
   }
 
 }
