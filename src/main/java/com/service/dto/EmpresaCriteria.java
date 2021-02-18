@@ -44,9 +44,9 @@ public class EmpresaCriteria implements Serializable, Criteria {
 
     private StringFilter ciudad;
 
-    private LongFilter sector;
+    private StringFilter sector;
 
-    private LongFilter subsector;
+    private StringFilter subsector;
 
     private StringFilter paginaWeb;
 
@@ -169,19 +169,19 @@ public class EmpresaCriteria implements Serializable, Criteria {
         this.ciudad = ciudad;
     }
 
-    public LongFilter getSector() {
+    public StringFilter getSector() {
         return sector;
     }
 
-    public void setSector(LongFilter sector) {
+    public void setSector(StringFilter sector) {
         this.sector = sector;
     }
 
-    public LongFilter getSubsector() {
+    public StringFilter getSubsector() {
         return subsector;
     }
 
-    public void setSubsector(LongFilter subsector) {
+    public void setSubsector(StringFilter subsector) {
         this.subsector = subsector;
     }
 

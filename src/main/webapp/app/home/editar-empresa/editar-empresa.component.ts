@@ -66,7 +66,7 @@ export class EditarEmpresaComponent implements OnInit {
       razonSocial: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
       razonComercial: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
       numeroDocumento: ['', [Validators.required]],
-      direccion: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú#. -]{0,}$')]],
+      // direccion: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú#. -]{0,}$')]],
       telefono: ['', [Validators.required, Validators.pattern('^[0-9]{7,10}$')]],
       ciudad: [null],
       email: ['', [Validators.required, Validators.email]],
@@ -89,7 +89,7 @@ export class EditarEmpresaComponent implements OnInit {
           razonSocial: this.datosEmpresa!.razonSocial,
           razonComercial: this.datosEmpresa!.razonComercial,
           numeroDocumento: this.datosEmpresa!.numeroDocumento,
-          direccion: this.datosEmpresa!.direccion,
+          // direccion: this.datosEmpresa!.direccion,
           telefono: this.datosEmpresa!.telefonoEmpresa,
           ciudad: JSON.parse(this.datosEmpresa!.ciudad!),
           email: this.datosEmpresa!.email,
@@ -131,11 +131,11 @@ export class EditarEmpresaComponent implements OnInit {
     this._location.back();
   }
 
-  editarRegistro(): void {
+  onSubmit(): void {
     this.datosEmpresa!.razonSocial = this.formEmpresa.controls['razonSocial'].value;
     this.datosEmpresa!.razonComercial = this.formEmpresa.controls['razonComercial'].value;
     this.datosEmpresa!.numeroDocumento = this.formEmpresa.controls['numeroDocumento'].value;
-    this.datosEmpresa!.direccion = this.formEmpresa.controls['direccion'].value;
+    // this.datosEmpresa!.direccion = this.formEmpresa.controls['direccion'].value;
     this.datosEmpresa!.telefonoEmpresa = this.formEmpresa.controls['telefono'].value;
     this.datosEmpresa!.ciudad = JSON.stringify(this.formEmpresa.controls['ciudad'].value);
     this.datosEmpresa!.email = this.formEmpresa.controls['email'].value;
@@ -147,8 +147,29 @@ export class EditarEmpresaComponent implements OnInit {
     this.datosEmpresa!.nombreRepresentanteLegal = this.formEmpresa.controls['nombreRepresentante'].value;
     this.datosEmpresa!.apellidosRepresentanteLegal = this.formEmpresa.controls['apellidosRepresentante'].value;
     this.datosEmpresa!.telefono = this.formEmpresa.controls['telefonoRep'].value;
-
-    this.empresaService.update(this.datosEmpresa).subscribe(() => {});
+    // eslint-disable-next-line no-console
+    console.log('probando');
+    this.empresaService.update(this.datosEmpresa).subscribe(
+      response => {
+        // eslint-disable-next-line no-console
+        console.log(response);
+        if (response.body !== null) {
+          // this.archivosaws.forEach((element: { file: File; name: string }) => {
+          //   const formData = new FormData();
+          //   formData.append('file', element.file, element.name);
+          //   this.archivo.uploadS3(formData).subscribe((res: any) => {});
+          // });
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+          // this.hojaVidaVo = response.body;
+          this.router.navigate(['/perfil-empresa']);
+        }
+      },
+      () => {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error(commonMessages.HTTP_ERROR_LABEL);
+      }
+    );
   }
 
   crearOferta(): void {
