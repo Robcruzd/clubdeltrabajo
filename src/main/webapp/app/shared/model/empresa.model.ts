@@ -1,5 +1,6 @@
 import { ITipoUsuario } from 'app/shared/model/tipo-usuario.model';
 import { ITipoDocumento } from 'app/shared/model/tipo-documento.model';
+import { String } from 'aws-sdk/clients/acm';
 
 export interface IEmpresa {
   id?: number;

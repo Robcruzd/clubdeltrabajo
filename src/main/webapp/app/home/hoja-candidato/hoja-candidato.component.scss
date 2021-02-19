@@ -188,8 +188,34 @@
                         letter-spacing: 0px;        
                         margin-bottom: 0px;   
                     }
+                    .btn-group{
+                        width: 58px;
+                        height: 22px;
+                        .btn-primary1{
+                            background: #CCCCCC;
+                        }
+                        label.active.btn.btn-primary1 {
+                            box-shadow: 0 0 0 0.2rem #cccccc;
+                        }
+                        
+                        .btn-primary2{
+                            background: #00FFA7;
+                        }
+
+                        label.active.btn.btn-primary2 {
+                            box-shadow: 0 0 0 0.2rem #00FFA7;
+                        }
+                        .btn-primary3{
+                            background: #FF0000;
+                        }
+
+                        label.active.btn.btn-primary3 {
+                            box-shadow: 0 0 0 0.2rem #FF0000;
+                        }
+                    }
                     .estado{
                         color: #707070;
+                        margin-top: 2%;
                         font-size: 8px;
                         font-family: Arial, Helvetica, sans-serif;
                         letter-spacing: 0px;

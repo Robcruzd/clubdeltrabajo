@@ -24,6 +24,10 @@ export class ResultadosBusquedaComponent implements OnInit {
 
   resultadoBusqueda!: any;
 
+  public page = 1;
+
+  selec = ["1","2","3","4","5"]
+
   constructor(private dataService: DataService, private formBuilder: FormBuilder,
     private ofertaService: OfertaService) {}
 

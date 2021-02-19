@@ -37,25 +37,18 @@
             </div>
             <div class="btn-estado">
                 <p class="t_estado">Estado</p>
-                <!-- <label class="switch">
-                    <input type="checkbox" [checked]=myValue1 value=!myValue1>
-                    <span class="slider round"></span>
-                </label> -->
-                <form (change)="guardarCambios()">
-                <div>
-                    <input type="radio" id="ninguno" name="estado" value="ninguno">
-                    <label for="ninguno" class="estado">Ninguno</label>
-                </div>
-                <div>
-                    <input type="radio" id="descartado" name="estado" value="descartado">
-                    <label for="descartado" class="estado">Descartado</label>
-                </div>
-                <div>
-                    <input type="radio" id="seleccionado" name="estado" value="seleccionado">
-                    <label for="seleccionado" class="estado">Seleccionado</label>
-                </div>
-                </form>
-                <!-- <p class="estado">{{myValue1}}</p> -->
+                <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="model">
+                    <label ngbButtonLabel class="btn-primary1">
+                      <input ngbButton type="radio" value="Ninguno">
+                    </label>
+                    <label ngbButtonLabel class="btn-primary2">
+                      <input ngbButton type="radio" value="Seleccionado">
+                    </label>
+                    <label ngbButtonLabel class="btn-primary3">
+                      <input ngbButton type="radio" value="Descartado">
+                    </label>
+                  </div>
+                  <p class="estado">{{model}}</p>
             </div>
         </div>
         

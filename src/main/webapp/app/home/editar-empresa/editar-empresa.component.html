@@ -38,7 +38,7 @@
             </button>
         </div>
         <div class="div-infos">
-            <form [formGroup]="formEmpresa" (ngSubmit)="editarRegistro()">
+            <form [formGroup]="formEmpresa" (ngSubmit)="onSubmit()">
             <p class="estilo_titulo">Razón social: {{formEmpresa.get('razonSocial')?.value}}</p>
             <div class="row" style="margin-bottom: 2rem">
                 <a class="image" (click)="subirdocu.click()">
@@ -251,7 +251,7 @@
                 </div>
             </div>
             <div class="row">
-                <button type="submit" class="btn boton_siguiente text-white float-right" [disabled]="formEmpresa.invalid">
+                <button (click)="onSubmit()" class="btn boton_siguiente" [disabled]="formEmpresa.invalid">
                         {{labels.SIGUIENTE_LABEL}}
                 </button>
             </div>

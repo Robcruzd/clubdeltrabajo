@@ -64,10 +64,10 @@ public class Empresa implements Serializable {
     private String ciudad;
     
     @Column(name = "sector", nullable = true)
-    private Long sector;
+    private String sector;
 
     @Column(name = "subsector", nullable = true)
-    private Long subsector;
+    private String subsector;
 
     @Column(name = "pagina_web", nullable = true)
     private String paginaWeb;
@@ -200,19 +200,19 @@ public class Empresa implements Serializable {
 		this.ciudad = ciudad;
 	}
 
-    public Long getSector() {
+    public String getSector() {
 		return sector;
 	}
 
-	public void setSector(Long sector) {
+	public void setSector(String sector) {
 		this.sector = sector;
 	}
 
-    public Long getSubsector() {
+    public String getSubsector() {
 		return subsector;
 	}
 
-	public void setSubsector(Long subsector) {
+	public void setSubsector(String subsector) {
 		this.subsector = subsector;
 	}
 
