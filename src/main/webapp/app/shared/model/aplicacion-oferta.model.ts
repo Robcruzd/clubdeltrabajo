@@ -5,8 +5,9 @@ export interface IAplicacionOferta {
   id?: number;
   usuario?: IPersona;
   oferta?: IOferta;
+  estado?: string;
 }
 
 export class AplicacionOferta implements IAplicacionOferta {
-  constructor(public id?: number, public usuario?: IPersona, public oferta?: IOferta) {}
+  constructor(public id?: number, public usuario?: IPersona, public oferta?: IOferta, public estado?:string) {}
 }
