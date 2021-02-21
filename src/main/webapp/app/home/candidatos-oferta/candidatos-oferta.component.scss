@@ -321,29 +321,27 @@
     width: min-content;
 
     .ngnum1 {
-      width: 61.378vw;
-      align-self: center;
-      justify-self: center;
+      width: 767px;
+      //align-self: center;
+      //justify-self: center;
       background: #f8f8f8 0% 0% no-repeat padding-box;
-      // background: transparent linear-gradient(181deg, #F8F8F8 0%, #71829c 100%) 0% 0% no-repeat padding-box;
-      // border-radius: 1.951vw 1.951vw 4.617vw 4.617vw;
       opacity: 1;
-      margin-top: 3.121vw;
-      margin-bottom: 3.121vw;
-      padding: 0rem;
-      padding-top: 3.121vw;
-      padding-bottom: 3.121vw;
+      margin-top: 25px;
+      margin-bottom: 28px;
+      //padding: 0rem;
+      padding-top: 24px;
+      padding-bottom: 28px;
+      padding-left: 23px;
       max-width: none;
 
       .titulo_oferta {
         text-align: left;
-        font-size: 1.3vw;
-        font-family: 'Open Sans';
+        font-size: 12px;
+        font-family: 'Roboto';
         font-weight: bold;
         letter-spacing: 0px;
-        color: #020d52;
+        color:#645D5D;
         opacity: 1;
-        margin-left: 1rem;
       }
 
       .profesion_oferta {
@@ -359,18 +357,19 @@
 
       .descripcion_profesion {
         text-align: left;
-        font-size: 1.3vw;
-        font-family: 'Open Sans';
+        font-size: 11px;
+        font-family: 'Roboto';
         font-weight: bold;
         letter-spacing: 0px;
-        color: #7e7474;
+        color: #7E7474;
         opacity: 1;
-        margin-left: 1rem;
+        line-height: 17px;
+        //margin-left: 1rem;
       }
 
       .titulo_oferta_previsualizacion {
         text-align: left;
-        font-size: 1.3vw;
+        font-size: 12px;
         font-family: 'Open Sans';
         font-weight: bold;
         letter-spacing: 0px;
@@ -380,16 +379,24 @@
       }
 
       .tabla_oferta {
-        margin-left: 10rem;
-        margin-right: 10rem;
+        margin-left: 8%;
+        //margin-right: 10rem;
+        .des_titulo{
+          font-family: 'Roboto';
+          font-size: 12px;
+          font-weight: normal;
+          color: #7E7474;
+          letter-spacing: 0px;
+        }
       }
     }
 
     .estilo_titulo2 {
-      text-align: left;
-      font-size: 1.3vw;
-      font-family: 'Open Sans';
-      font-weight: bold;
+      margin-top: 6%;
+      margin-right: 83%;
+      font-size: 20px;
+      font-family: 'Roboto';
+      font-weight: 500;
       letter-spacing: 0px;
       color: #1b2455;
       opacity: 1;
@@ -407,23 +414,181 @@
       align-items: center;
       width: min-content;
   
-      .ngnum2 {
-        width: 14vw;
-        align-self: center;
-        justify-self: center;
-        background: #EFEFEF 0% 0% no-repeat padding-box;
-        // background: transparent linear-gradient(181deg, #F8F8F8 0%, #71829c 100%) 0% 0% no-repeat padding-box;
-        // border-radius: 1.951vw 1.951vw 4.617vw 4.617vw;
-        opacity: 1;
-        margin-top: 3.121vw;
-        margin-bottom: 3.121vw;
-        padding: 0rem;
-        padding-top: 3.121vw;
-        padding-bottom: 3.121vw;
-        max-width: none;
+      .titulo_aspirantes {
+        font-family: 'Roboto';
+        color: #1B2455;
+        font-size: 20px;
+        margin-bottom: 25px;
+        font-weight: bolder;
+        margin-right: 52%;
       }
+      .cuerpo {
+        width: 1071px;
+        display: flex;
 
+        .buscador {
+          display: flex;
+          flex-flow: column;
+          background: #f5f5f5 0% 0% no-repeat padding-box;
+          height: 640px;
+          width: 126px;
+          //margin-bottom: 145px;
+          //margin-left: 178;
+          //margin-right: 24px; //1062
+          .input-buscador {
+            display: flex;
+            margin-top: 23px;
+            margin-left: 15px;
+            margin-right: 15px;
+            background: #ffffff 0% 0% no-repeat padding-box;
+            opacity: 1;
+            width: 93px;
+            height: 15px;
+            .form-control {
+              width: 93px;
+              height: 15px;
+              font-size: 9px;
+            }
+          }
+          .empresas {
+            margin-top: 19px;
+            .titulo {
+              display: flex;
+              font-family: 'Roboto';
+              color: #020d52;
+              text-align: left;
+              margin-left: 23px;
+              margin-bottom: 0px;
+              font-size: 9px;
+              font-weight: normal;
+              opacity: 1;
+            }
+            .resultado {
+              display: flex;
+              font-family: 'Roboto';
+              font-size: 10px;
+              color: #5b5c62;
+              opacity: 1;
+              margin-top: 4px;
+              font-weight: normal;
+              text-align: left;
+              margin-left: 23px;
+            }
+          }
+          .Sector {
+            height: 61px;
+            margin-top: 0px;
+            .titulo {
+              display: flex;
+              font-family: 'Roboto';
+              color: #020d52;
+              text-align: left;
+              margin-left: 23px;
+              margin-top: 2px;
+              font-size: 9px;
+              font-weight: normal;
+              opacity: 1;
+              margin-bottom: 4px;
+            }
+            .resultado {
+              display: flex;
+              font-family: 'Roboto';
+              font-size: 10px;
+              color: #5b5c62;
+              opacity: 1;
+              margin-top: 4px;
+              font-weight: normal;
+              text-align: left;
+              margin-left: 18px;
+              border: none;
+              background: none;
+            }
+          }
+        }
+        .perfiles {
+          display: flex;
+          background: #f8f8f8;
+          width: 767px;
+          height: 85px;
+          margin-left: 24px;
+          //margin-right: 3px;
+          margin-bottom: 26px;
+          .mitad1 {
+            width: 272px;
+            height: 85px;
+            display: flex;
+            .imagen {
+              display: flex;
+              width: 56px;
+              height: 56px;
+              //background-color: black;
+              border-radius: 130px;
+              border: none;
+              margin-top: 14px;
+              margin-left: 43px;
+              margin-right: 24px;
+              margin-bottom: 15px;
+            }
+            p.nombre {
+              font-size: 15px;
+              font-family: 'Roboto';
+              font-weight: bold;
+              position: relative;
+              top: 23%;
+              margin-bottom: 20px;
+              width: 150px;
+              height: min-content;
+              color: #020D52;
+              line-height: 15px;
+            }
+            p.carrera{
+              font-size: 13px;
+              font-family: 'Roboto';
+              color: #7E7474;
+              opacity: 1;
+              font-weight: bold;
+              //margin-top: 3px;
+            }
+          }
+          .mitad2 {
+            //width: 170px;
+            max-width: max-content;
+            height: 85px;
+            display: flex;
+            
+            p.resumen {
+              font-size: 11px;
+              font-family: 'Roboto';
+              font-weight: normal;
+              text-align: left;
+              //margin-left:27px;
+              margin-right: 54px;
+              //margin-top: 19px;
+              margin-bottom: 0px;
+            }
+          }
+          .parte3{
+            width: 111px;
+            height: 31px;
+            background: #1A9FEF;
+          }
+          .parte4{
+            width: 83px;
+            height: 85px;
+            background: #1A9FEF;
+          }
+        }
+        .controls {
+          display: flex;
+          font-size: 15px;
+          font-family: 'Roboto';
 
+          height: 20px;
+          margin-left: 40%;
+          margin-bottom: 40px;
+          //padding: 5%;
+        }
+      }
       .ngnum3 {
         width: 61.378vw;
         align-self: center;
@@ -450,4 +615,39 @@
           }
       }
     }
+}
+
+.contenedor4{
+  display: -ms-inline-grid;
+  justify-content: center;
+  padding-left: 380px;
+  padding-bottom: 119px;
+  .titulo5{
+    color: #1B2455;
+    font-size: 20px;
+    opacity: 1;
+    font-family: 'Roboto';
+    font-weight: bolder;
+  }
+  .buscar2{
+    background: #F5F5F5 0% 0% no-repeat padding-box;
+    width: 355px;
+    height: 48px;
+    opacity: 1;
+    border: none;
+    //color: #BABABA;
+    margin-right: 23px;
+    padding-left: 1%;
+    font-family: 'Roboto';
+  }
+  .btn-buscar{
+    background: #151D5C;
+    width: 95px;
+    height: 27px;
+    color: #FFFFFF;
+    font-family: 'Roboto';
+    font-size: 15px;
+    letter-spacing: 0px;
+    opacity: 1;
+  }
 }

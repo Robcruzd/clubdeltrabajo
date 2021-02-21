@@ -17,7 +17,17 @@ export class HojaCandidatoComponent implements OnInit {
 
 
   ngOnInit(): void {
-   
+    
+  }
+
+  guardarCambios(): void{
+    for (let x = 0; x < document.forms[0].estado.length; x++)
+    if (document.forms[0].estado[x].checked)
+    {
+        alert("Tipo " + document.forms[0].estado[x].value + " seleccionado.");
+        
+    }
+    
   }
 
 }

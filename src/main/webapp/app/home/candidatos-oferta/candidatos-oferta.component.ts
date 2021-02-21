@@ -11,6 +11,7 @@ import { InformacionPersonal } from 'app/shared/model/informacion-personal.model
   styleUrls: ['./candidatos-oferta.component.scss']
 })
 export class CandidatosOfertaComponent implements OnInit {
+    public page=1;
     faStar = faStar;
     faAddressCard = faAddressCard;
     faEllipsisH = faEllipsisH;

@@ -1,5 +1,6 @@
 import { ITipoUsuario } from 'app/shared/model/tipo-usuario.model';
 import { ITipoDocumento } from 'app/shared/model/tipo-documento.model';
+import { String } from 'aws-sdk/clients/acm';
 
 export interface IEmpresa {
   id?: number;
@@ -12,8 +13,8 @@ export interface IEmpresa {
   direccion?: string;
   telefono?: number;
   ciudad?: string;
-  sector?: string;
-  subsector?: string;
+  sector?: number;
+  subsector?: number;
   paginaWeb?: string;
   cantidadEmpleados?: string;
   descripcionEmpresa?: string;
@@ -34,8 +35,8 @@ export class Empresa implements IEmpresa {
     public direccion?: string,
     public telefono?: number,
     public ciudad?: string,
-    public sector?: string,
-    public subsector?: string,
+    public sector?: number,
+    public subsector?: number,
     public paginaWeb?: string,
     public cantidadEmpleados?: string,
     public descripcionEmpresa?: string,

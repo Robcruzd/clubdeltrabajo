@@ -35,14 +35,20 @@
                 <img src="../../../content/images/logoazaz.png" alt="Club del Trabajo" class="img2">
                 <p class="web">www.clubdeltrabajo.com</p>
             </div>
-            
             <div class="btn-estado">
                 <p class="t_estado">Estado</p>
-                <label class="switch">
-                    <input type="checkbox" [checked]=myValue1 value=!myValue1>
-                    <span class="slider round"></span>
-                </label>
-                <p class="estado">{{myValue1}}</p>
+                <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="model">
+                    <label ngbButtonLabel class="btn-primary1">
+                      <input ngbButton type="radio" value="Ninguno">
+                    </label>
+                    <label ngbButtonLabel class="btn-primary2">
+                      <input ngbButton type="radio" value="Seleccionado">
+                    </label>
+                    <label ngbButtonLabel class="btn-primary3">
+                      <input ngbButton type="radio" value="Descartado">
+                    </label>
+                  </div>
+                  <p class="estado">{{model}}</p>
             </div>
         </div>
         

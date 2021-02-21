@@ -1,118 +1,54 @@
 <div class="container">
-    <div class="row">
+    <div style="display: flex; align-items: center; justify-content: center; margin-top: 2%; margin-bottom: 75px;">
+    <p class="text-top">¡Explora cientos de ofertas de trabajo!</p>
+    <img src="../../../content/images/img3.png" class="imgTop" style="margin-left: 2%;">
+    </div>
+    <div class="row" style="display: flex;">
         <div class="col-md-8">
-            <div class="etiqueta-resultado">{{ lblResultados }}</div>
-            <div class="cuadro-busqueda form-check-inline">
-                <input type="text" class="input-busqueda" [(ngModel)]="profesion" />
-                <button type="button" class="btn btn-info bg-transparent shadow-none boton-busqueda">
-                    <fa-icon icon="search"></fa-icon>
-                </button>
+            <div class="cuerpo">
+                <div class="buscador">
+                <div class="input-buscador">
+                    <input matInput placeholder="Busqueda" class="form-control">
+                </div>
+                <div class="empresas">
+                    <p class="titulo">Empresas</p>
+                    <p class="resultado">2000 resultados</p>
+                </div>
+                <div class="Sector">
+                    <p class="titulo">Sector</p>
+                    <select class="resultado">
+                        <option *ngFor='let element of selec'>Value 1</option>
+                    </select>
+                </div>      
+                <div class="Sector">
+                    <p class="titulo">Fecha</p>
+                    <select class="resultado">
+                        <option *ngFor='let element of selec'>Value 1</option>
+                    </select>
+                </div> 
+                <div class="Sector">
+                    <p class="titulo">Salario</p>
+                    <select class="resultado">
+                        <option *ngFor='let element of selec'>Value 1</option>
+                    </select>
+                </div>       
             </div>
             <div class="container-fluid resultados-busqueda">
-                <div class="row" style="margin-left: 0 !important; width: 700px;">
-                    <div class="elemento-busqueda" *ngFor="let number of [0,1,2,3,4,5,6,7,8,9,10]">
-                        <img class="logo-empresa">
+                <div class="row" style="margin-left: 0 !important; width: 800px;">
+                    <div class="elemento-busqueda" *ngFor="let number of [0,1,2,3,4,5,6,7,8,9,10] | paginate: { itemsPerPage: 6, currentPage: page }">
+                        <img src="../../../content/images/Image 35.png" class="logo-empresa">
                         <p class="titulo-resultado">Colombina busca Diseñador Gráfico</p>
                         <p class="subtitulo-resultado">De $1 a
                             $3 millones<br>Bogotá<br>Publicado: 24 - 05 - 2020</p>
                         <button class="btn shadow-none boton-ver">VER</button>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-4" style="margin-top: 40px;">
-            <div class="container filtro">
-                <label class="label-salario">{{ lblSalario }}</label>
-                <fa-icon icon="exclamation-circle" style="color: #2699FB;"></fa-icon>
-                <div class="rangos bg-white">
-                    <div class="form-check form-check-inline" style="width: 90%;">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <p class="label-rangos">Menos de $1</p>
-                        <span class="badge badge-pill badge-info float-right">23</span>
-                    </div>
-                    <div class="form-check form-check-inline" style="width: 90%;">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <p class="label-rangos">$1 a $1,5</p>
-                        <span class="badge badge-pill badge-info float-right">5</span>
-                    </div>
-                    <div class="form-check form-check-inline" style="width: 90%;">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <p class="label-rangos">$2 a $2,5</p>
-                        <span class="badge badge-pill badge-info float-right">9</span>
-                    </div>
-                    <div class="form-check form-check-inline" style="width: 90%;">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <p class="label-rangos">$2,5 a $3</p>
-                        <span class="badge badge-pill badge-info float-right">7</span>
-                    </div>
-                    <div class="form-check form-check-inline" style="width: 90%;">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <p class="label-rangos">A convenir</p>
-                        <span class="badge badge-pill badge-info float-right">11</span>
-                    </div>
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <label class="label-salario">{{ lblCiudad }}</label>
-                    <input type="text" class="form-control" [(ngModel)]="ubicacion">
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <label class="label-salario">{{ lblFechaPublicacion }}</label>
-                    <div class="fecha-publicacion bg-white">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                                value="option1" checked>
-                            <label class="form-check-label" for="exampleRadios1">
-                                Hoy y ayer
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                                value="option1" checked>
-                            <label class="form-check-label" for="exampleRadios1">
-                                Hace 1 semana
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                                value="option1" checked>
-                            <label class="form-check-label" for="exampleRadios1">
-                                Hace 2 semanas
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                                value="option1" checked>
-                            <label class="form-check-label" for="exampleRadios1">
-                                Hace 1 mes
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                                value="option1" checked>
-                            <label class="form-check-label" for="exampleRadios1">
-                                Hace más de 1 mes
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <label class="label-salario">{{ lblAreaTrabajo }}</label>
-                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                        <option selected>Todas las áreas</option>
-                        <option value="1">Área 1</option>
-                        <option value="2">Área 2</option>
-                        <option value="3">Área 3</option>
-                    </select>
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <label class="label-salario">{{ lblEmpresas }}</label>
-                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                        <option selected>Todas las empresas</option>
-                        <option value="1">Empresa 1</option>
-                        <option value="2">Empresa 2</option>
-                        <option value="3">Empresa 3</option>
-                    </select>
-                </div>
+                <pagination-controls (pageChange)="page = $event" class="controls" 
+                    previousLabel=""
+                    nextLabel=""
+                    autoHide="true"
+                    maxSize="6">
+            </pagination-controls>
             </div>
         </div>
     </div>

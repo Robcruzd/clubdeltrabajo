@@ -211,7 +211,7 @@ export class CrearOfertaComponent implements OnInit {
     if (this.usuario?.userEmpresa) {
       this.empresaService.find(this.usuario.userEmpresa).subscribe(RESPONSE => {
         this.oferta.usuario = RESPONSE.body;
-        // this.ofertaService.create(this.oferta).subscribe(() => {
+         this.ofertaService.create(this.oferta).subscribe(() => {
           this.ofertaService.getOfertasEmpresa(this.oferta).subscribe(OFERTAS =>{
             this.listaOfertas = OFERTAS;
             this.listaOfertas.forEach(element => {
@@ -227,7 +227,7 @@ export class CrearOfertaComponent implements OnInit {
               });
             });
           });
-        // });
+         });
       });
     }
 
