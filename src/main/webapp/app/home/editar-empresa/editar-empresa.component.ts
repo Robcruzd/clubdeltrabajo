@@ -33,7 +33,7 @@ export class EditarEmpresaComponent implements OnInit {
   datosEmpresa!: Empresa | null;
   municipiosAcademica: Array<IOpcionVo> = [];
   geografia: Array<GeografiaVo> = [];
-  empresa = new Empresa();
+  empresa: any;
   imagen!: Archivo;
   persona: any;
   tipoArchivo = TipoArchivo;
@@ -50,6 +50,7 @@ export class EditarEmpresaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.cargarInformacionCuenta();
     this.crearFormularioEmpresa();
     this.accountService.getAuthenticationState().subscribe(account => {
       this.usuario = account;
@@ -58,6 +59,43 @@ export class EditarEmpresaComponent implements OnInit {
     this.consultarInformacionGeografica();
     // eslint-disable-next-line no-console
     console.log(this.municipiosAcademica);
+  }
+
+  obtenerIdUsuario(): Promise<any> {
+    return new Promise(resolve => {
+      this.accountService.getAuthenticationState().subscribe(
+        response => {
+          resolve(response);
+        },
+        () => (alertify.set('notifier', 'position', 'top-right'), alertify.error('Ingresado correctamente'))
+      );
+    });
+  }
+
+  async cargarInformacionCuenta(): Promise<any> {
+    const cuenta = await this.obtenerIdUsuario();
+    const idEmpresa = cuenta.userEmpresa;
+    this.empresaService.find(idEmpresa).subscribe(
+      response => {
+        // eslint-disable-next-line no-console
+        console.log('cccccccccccccc:     ', response);
+        this.empresa = response.body;
+        this.consultarImagen();
+      },
+      () => (alertify.set('notifier', 'position', 'top-right'), alertify.error(commonMessages.HTTP_ERROR_LABEL))
+    );
+  }
+
+  consultarImagen(): void {
+    // eslint-disable-next-line no-console
+    console.log('consultar imagennnnnnn ', this.empresa);
+    this.archivoService.getEmp(this.empresa.id, TipoArchivo.IMAGEN_PERFIL).subscribe(response => {
+      // eslint-disable-next-line no-console
+      console.log('response:     ', response);
+      if (response.body !== null) {
+        this.imagen = response.body;
+      }
+    });
   }
 
   crearFormularioEmpresa(): void {
@@ -213,7 +251,7 @@ export class EditarEmpresaComponent implements OnInit {
     this.imagen.tipo = tipoDocumento;
     this.imagen.nombre = file.name;
     this.imagen.extension = extension;
-    this.imagen.usuario = this.persona;
+    this.imagen.empresa = this.empresa;
 
     const reader = new FileReader();
     reader.readAsDataURL(file);

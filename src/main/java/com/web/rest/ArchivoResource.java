@@ -181,6 +181,14 @@ public class ArchivoResource {
         return ResponseUtil.wrapOrNotFound(archivo);
     }
 
+   
+    @GetMapping("/archivos/empPerfil/{empresaid}/tipo/{tipo}")
+    public ResponseEntity<Archivo> getEmp(@PathVariable Long empresaid, @PathVariable Integer tipo) {
+        log.debug("REST request to get Archivo : {}", empresaid);
+        Optional<Archivo> archivo = archivoService.getEmp(empresaid, tipo);
+        return ResponseUtil.wrapOrNotFound(archivo);
+    }
+
     @PostMapping("/uploadFileS3")
     public String createFile(@RequestParam MultipartFile file) throws IOException {
         return archivoService.uploadFile(file);

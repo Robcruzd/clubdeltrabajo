@@ -1,6 +1,7 @@
 import { IInformacionLaboral } from './informacion-laboral.model';
 import { IInformacionAcademica } from './informacion-academica.model';
 import { IPersona } from 'app/shared/model/persona.model';
+import { IEmpresa } from './empresa.model';
 
 export interface IArchivo {
   id?: number;
@@ -11,6 +12,7 @@ export interface IArchivo {
   usuario?: IPersona;
   informacionAcademica?: IInformacionAcademica;
   informacionLaboral?: IInformacionLaboral;
+  empresa?: IEmpresa;
 }
 
 export class Archivo implements IArchivo {
@@ -22,6 +24,7 @@ export class Archivo implements IArchivo {
     public extension?: string,
     public usuario?: IPersona,
     public informacionAcademica?: IInformacionAcademica,
-    public informacionLaboral?: IInformacionLaboral
+    public informacionLaboral?: IInformacionLaboral,
+    public empresa?: IEmpresa
   ) {}
 }
