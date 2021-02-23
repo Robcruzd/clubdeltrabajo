@@ -103,7 +103,7 @@ public class ArchivoQueryService extends QueryService<Archivo> {
             }
             if (criteria.getEmpresaId() != null) {
                 specification = specification.and(buildSpecification(criteria.getEmpresaId(),
-                    root -> root.join(Archivo_.empresa, JoinType.LEFT).get(Empresa_.id)));
+                    root -> root.join(ArchivoFiltro.empresa, JoinType.LEFT).get(EmpresaFiltro.id)));
             }
         }
         return specification;
