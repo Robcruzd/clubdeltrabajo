@@ -39,7 +39,6 @@ public class Archivo implements Serializable {
     private String extension;
 
     @ManyToOne(optional = false)
-    @NotNull
     @JsonIgnoreProperties("archivos")
     private Persona usuario;
     
@@ -50,6 +49,10 @@ public class Archivo implements Serializable {
     @ManyToOne(optional = false)
     @JsonIgnoreProperties("informacionLaboral")
     private InformacionLaboral informacionLaboral;
+
+    @ManyToOne(optional = false)
+    @JsonIgnoreProperties("archivos")
+    private Empresa empresa;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -123,6 +126,19 @@ public class Archivo implements Serializable {
 
     public void setUsuario(Persona persona) {
         this.usuario = persona;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public Archivo empresa(Empresa empresa) {
+        this.empresa = empresa;
+        return this;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
     
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove

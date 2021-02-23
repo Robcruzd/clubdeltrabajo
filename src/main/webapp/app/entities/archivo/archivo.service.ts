@@ -38,7 +38,15 @@ export class ArchivoService {
   }
 
   get(usuarioid: number, tipo: number): Observable<EntityResponseType> {
+    // eslint-disable-next-line no-console
+    console.log('prooooooooooobando ');
     return this.http.get<IArchivo>(`${this.resourceUrl}/perfil/${usuarioid}/tipo/${tipo}`, { observe: 'response' });
+  }
+
+  getEmp(empresaid: number, tipo: number): Observable<EntityResponseType> {
+    // eslint-disable-next-line no-console
+    console.log('consultar:     ', empresaid);
+    return this.http.get<IArchivo>(`${this.resourceUrl}/empPerfil/${empresaid}/tipo/${tipo}`, { observe: 'response' });
   }
 
   uploadS3(file: FormData): any {

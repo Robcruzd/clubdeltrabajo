@@ -49,7 +49,7 @@
             <div class="container-fluid resultados-busqueda">
                 <div class="row" style="margin-left: 0 !important; width: 800px;">
                     <div class="elemento-busqueda" *ngFor="let oferta of listaResultadoBusquedaOfertas | paginate: { itemsPerPage: 6, currentPage: page }">
-                        <img class="logo-empresa">
+                        <img src="../../../content/images/Image 35.png" class="logo-empresa">
                         <p class="titulo-resultado">{{oferta.empresa}} busca {{oferta.profesion}}</p>
                         <p class="subtitulo-resultado">{{oferta.salario}}<br>{{oferta.ciudad}}<br>Publicado: {{oferta.fechaPublicacion}}</p>
                         <button class="btn shadow-none boton-ver">VER</button>

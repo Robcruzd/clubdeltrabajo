@@ -36,6 +36,8 @@ public class ArchivoCriteria implements Serializable, Criteria {
 
     private LongFilter usuarioId;
 
+    private LongFilter empresaId;
+
     public ArchivoCriteria() {
     }
 
@@ -46,6 +48,7 @@ public class ArchivoCriteria implements Serializable, Criteria {
         this.nombre = other.nombre == null ? null : other.nombre.copy();
         this.extension = other.extension == null ? null : other.extension.copy();
         this.usuarioId = other.usuarioId == null ? null : other.usuarioId.copy();
+        this.empresaId = other.empresaId == null ? null : other.empresaId.copy();
     }
 
     @Override
@@ -101,6 +104,14 @@ public class ArchivoCriteria implements Serializable, Criteria {
         this.usuarioId = usuarioId;
     }
 
+    public LongFilter getEmpresaId() {
+        return empresaId;
+    }
+
+    public void setEmpresaId(LongFilter empresaId) {
+        this.empresaId = empresaId;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -117,7 +128,8 @@ public class ArchivoCriteria implements Serializable, Criteria {
             Objects.equals(archivo, that.archivo) &&
             Objects.equals(nombre, that.nombre) &&
             Objects.equals(extension, that.extension) &&
-            Objects.equals(usuarioId, that.usuarioId);
+            Objects.equals(usuarioId, that.usuarioId) &&
+            Objects.equals(empresaId, that.empresaId);
     }
 
     @Override

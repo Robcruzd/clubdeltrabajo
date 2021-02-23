@@ -2,6 +2,7 @@ package com.service;
 
 import com.domain.Archivo;
 import com.domain.Persona;
+import com.domain.Empresa;
 import com.repository.ArchivoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -160,6 +161,22 @@ public class ArchivoService {
         Persona usuario = new Persona();
         usuario.setId(usuarioId);
         Optional<Archivo> opt = Optional.ofNullable(archivoRepository.findFirstByUsuarioAndTipoOrderByIdDesc(usuario, tipo));
+		return opt;
+    }
+
+    /**
+     * Get one archivo by empresa and tipo.
+     *
+     * @param empresa the empresa.
+     * @param tipo the tipo of archivo.
+     * @return the entity.
+     */
+    @Transactional(readOnly = true)
+    public Optional<Archivo> getEmp(Long empresaId, Integer tipo) {
+        log.debug("Request to get Archivo : {}", empresaId);
+        Empresa empresa = new Empresa();
+        empresa.setId(empresaId);
+        Optional<Archivo> opt = Optional.ofNullable(archivoRepository.findFirstByEmpresaAndTipoOrderByIdDesc(empresa, tipo));
 		return opt;
     }
 
