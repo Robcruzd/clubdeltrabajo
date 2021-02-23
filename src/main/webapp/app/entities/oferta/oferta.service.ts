@@ -9,47 +9,44 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IOferta } from 'app/shared/model/oferta.model';
 import { Oferta } from '../../shared/model/oferta.model';
+import { AnyARecord } from 'dns';
 
 type EntityResponseType = HttpResponse<IOferta>;
 type EntityArrayResponseType = HttpResponse<IOferta[]>;
 
 export class PathUtil {
   public static getPathParams(parameters: any): string {
-      const fields: string[] = Object.getOwnPropertyNames(parameters);
-      let path = "?";
-      fields.forEach(
-          (field: string, i: number) => {
-            const value: any = Object.values(parameters)[i];
-              if (i > 0 && path !== "?" && (value !== null && value.toString().trim()!=="")) {
-                  path += "&";
-              }
-              if (value !== null && value.toString().trim()!=="") {
-                  path += (field + "=" + value);
-              }
-          }
-      );
-      return (path!=="?"?path:"");
+    const fields: string[] = Object.getOwnPropertyNames(parameters);
+    let path = '?';
+    fields.forEach((field: string, i: number) => {
+      const value: any = Object.values(parameters)[i];
+      if (i > 0 && path !== '?' && value !== null && value.toString().trim() !== '') {
+        path += '&';
+      }
+      if (value !== null && value.toString().trim() !== '') {
+        path += field + '=' + value;
+      }
+    });
+    return path !== '?' ? path : '';
   }
 }
 
 export class PathUtil2 {
   public static getPathParams(parameters: any): string {
-      const fields: string[] = Object.getOwnPropertyNames(parameters);
-      let path = "?";
-      fields.forEach(
-          (field: string, i: number) => {
-            const value: any = Object.values(parameters)[i];
-            if(value !== undefined && value !== null){
-              if (i > 0 && path !== "?" && (value !== null)) {
-                path += "&";
-              }
-              if (value !== null) {
-                  path += (field + ".equals=" + value);
-              }
-            }
-          }
-      );
-      return (path!=="?"?path:"");
+    const fields: string[] = Object.getOwnPropertyNames(parameters);
+    let path = '?';
+    fields.forEach((field: string, i: number) => {
+      const value: any = Object.values(parameters)[i];
+      if (value !== undefined && value !== null) {
+        if (i > 0 && path !== '?' && value !== null) {
+          path += '&';
+        }
+        if (value !== null) {
+          path += field + '.equals=' + value;
+        }
+      }
+    });
+    return path !== '?' ? path : '';
   }
 }
 
@@ -57,7 +54,7 @@ export class PathUtil2 {
 export class OfertaService {
   public resourceUrl = SERVER_API_URL + 'api/ofertas';
   public resourceUrlFiltro = SERVER_API_URL + 'api/ofertas/filtroOfertas';
-  public resourceUrlEmpresa = SERVER_API_URL + 'api/ofertas/filtroOfertasEmpresa';
+  public resourceUrlEmpresa = SERVER_API_URL + 'api/ofertas/filtroOfertasEmpresa?usuario=';
 
   constructor(protected http: HttpClient) {}
 
@@ -117,25 +114,24 @@ export class OfertaService {
   }
 
   public getOfertasFiltro(oferta: Oferta): Observable<any> {
-    const params = PathUtil.getPathParams({ciudad:oferta.ciudad,salario:oferta.salario,fecha:oferta.fecha})
-    const url = this.resourceUrlFiltro + params
+    const params = PathUtil.getPathParams({ ciudad: oferta.ciudad, salario: oferta.salario, fecha: oferta.fecha });
+    const url = this.resourceUrlFiltro + params;
     return this.http.get<any>(url);
   }
 
-  public getOfertasEmpresa(oferta: Oferta): Observable<any> {
-    const params = PathUtil.getPathParams({usuario:oferta.usuario?.id})
-    const url = this.resourceUrlEmpresa + params
+  public getOfertasEmpresa(oferta: any): Observable<any> {
+    // const params = PathUtil.getPathParams({usuario:oferta.usuario?.id})
+    const url = this.resourceUrlEmpresa + oferta;
     return this.http.get<any>(url);
   }
 
-  public listar(parameters: any): Observable<any>{
-    const path:string = PathUtil2.getPathParams(parameters);
-    const url = this.resourceUrl + "/obtenerOfertas"+path;
-    return this.get(url)
+  public listar(parameters: any): Observable<any> {
+    const path: string = PathUtil2.getPathParams(parameters);
+    const url = this.resourceUrl + '/obtenerOfertas' + path;
+    return this.get(url);
   }
 
-  public get(url: string, headers?:any):Observable<any>{
-    return this.http.get<any>(url,headers);
+  public get(url: string, headers?: any): Observable<any> {
+    return this.http.get<any>(url, headers);
   }
-
 }

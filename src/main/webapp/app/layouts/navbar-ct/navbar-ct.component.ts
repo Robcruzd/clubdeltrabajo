@@ -30,6 +30,7 @@ export class NavbarCtComponent implements OnInit {
   hojaVidaVo!: HojaVidaVo | null;
   hideNavbar = false;
   public navbarState = true;
+  perfil = '/perfil';
 
   lstOpcionesMenu: any = [
     { id: 1, etiqueta: 'Inicio', ruta: '/' },
@@ -47,14 +48,8 @@ export class NavbarCtComponent implements OnInit {
     private cd: ChangeDetectorRef
   ) {
     this.navbarService.cast.subscribe(status => {
-      // eslint-disable-next-line no-console
-      console.log('sraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaatus: ', status, this.navbarService, this.account?.userEmpresa);
       if (status !== null) {
-        // eslint-disable-next-line no-console
-        console.log('not nuuuuuuuuuuuuuuuuuuuuullll: ', status);
         this.navbarState = status;
-        // eslint-disable-next-line no-console
-        console.log('teeeeeeeeeeest: ', this.navbarService, ' tessssssst: ', this.account?.userEmpresa);
         this.cd.detectChanges();
       }
     });
@@ -74,8 +69,6 @@ export class NavbarCtComponent implements OnInit {
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
         this.accountService.getAuthenticationState().subscribe(account => {
-          // eslint-disable-next-line no-console
-          console.log('account: ', account);
           this.account = account;
           this.persona = account?.user || 0;
           this.showNavbar = this.accountService.isAuthenticated() ? true : false;
@@ -95,8 +88,6 @@ export class NavbarCtComponent implements OnInit {
           }
           if (this.account?.user) {
             this.hojaVidaService.find(this.persona).subscribe(response => {
-              // eslint-disable-next-line no-console
-              console.log('ngoninit navbar: ', this.accountService.isAuthenticated());
               this.hojaVidaVo = response.body;
               this.urlImageDefault =
                 this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
@@ -104,6 +95,7 @@ export class NavbarCtComponent implements OnInit {
                   : '../../../content/images/Image 28_M.png';
             });
           } else if (this.account?.userEmpresa) {
+            this.perfil = '/perfil-empresa';
             this.urlImageDefault = '../../../content/images/Image 28_M.png';
           }
           if (this.showNavbar) {
@@ -134,7 +126,7 @@ export class NavbarCtComponent implements OnInit {
   }
 
   verPerfil(): void {
-    this.router.navigate(['/perfil']);
+    this.router.navigate([this.perfil]);
   }
 
   consultarImagen(): void {
