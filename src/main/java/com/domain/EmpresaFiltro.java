@@ -6,7 +6,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(Empresa.class)
-public abstract class Empresa_ {
+public abstract class EmpresaFiltro {
 
 	public static volatile SingularAttribute<Empresa, TipoDocumento> tipoDocumento;
 	public static volatile SingularAttribute<Empresa, String> razonSocial;

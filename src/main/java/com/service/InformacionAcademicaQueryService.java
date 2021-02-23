@@ -83,26 +83,26 @@ public class InformacionAcademicaQueryService extends QueryService<InformacionAc
         Specification<InformacionAcademica> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), InformacionAcademica_.id));
+                specification = specification.and(buildRangeSpecification(criteria.getId(), InformacionAcademicaFiltro.id));
             }
             if (criteria.getNivelEstudio() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getNivelEstudio(), InformacionAcademica_.nivelEstudio));
+                specification = specification.and(buildRangeSpecification(criteria.getNivelEstudio(), InformacionAcademicaFiltro.nivelEstudio));
             }
             if (criteria.getEstado() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getEstado(), InformacionAcademica_.estado));
+                specification = specification.and(buildRangeSpecification(criteria.getEstado(), InformacionAcademicaFiltro.estado));
             }
             // if (criteria.getFechaInicio() != null) {
             //     specification = specification.and(buildRangeSpecification(criteria.getFechaInicio(), InformacionAcademica_.fechaInicio));
             // }
             if (criteria.getFechaFin() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getFechaFin(), InformacionAcademica_.fechaFin));
+                specification = specification.and(buildRangeSpecification(criteria.getFechaFin(), InformacionAcademicaFiltro.fechaFin));
             }
             if (criteria.getTituloOtorgado() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getTituloOtorgado(), InformacionAcademica_.tituloOtorgado));
+                specification = specification.and(buildStringSpecification(criteria.getTituloOtorgado(), InformacionAcademicaFiltro.tituloOtorgado));
             }
             if (criteria.getUsuarioId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUsuarioId(),
-                    root -> root.join(InformacionAcademica_.usuario, JoinType.LEFT).get(Persona_.id)));
+                    root -> root.join(InformacionAcademicaFiltro.usuario, JoinType.LEFT).get(PersonaFiltro.id)));
             }
             // if (criteria.getInstitucionId() != null) {
             //     specification = specification.and(buildSpecification(criteria.getInstitucionId(),

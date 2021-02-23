@@ -83,13 +83,13 @@ public class ArchivoQueryService extends QueryService<Archivo> {
         Specification<Archivo> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Archivo_.id));
+                specification = specification.and(buildRangeSpecification(criteria.getId(), ArchivoFiltro.id));
             }
             if (criteria.getTipo() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getTipo(), Archivo_.tipo));
+                specification = specification.and(buildRangeSpecification(criteria.getTipo(), ArchivoFiltro.tipo));
             }
             if (criteria.getArchivo() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getArchivo(), Archivo_.archivo));
+                specification = specification.and(buildStringSpecification(criteria.getArchivo(), ArchivoFiltro.archivo));
             }
 //            if (criteria.getNombre() != null) {
 //                specification = specification.and(buildStringSpecification(criteria.getNombre(), Archivo_.nombre));
@@ -99,7 +99,7 @@ public class ArchivoQueryService extends QueryService<Archivo> {
 //            }
             if (criteria.getUsuarioId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUsuarioId(),
-                    root -> root.join(Archivo_.usuario, JoinType.LEFT).get(Persona_.id)));
+                    root -> root.join(ArchivoFiltro.usuario, JoinType.LEFT).get(PersonaFiltro.id)));
             }
         }
         return specification;

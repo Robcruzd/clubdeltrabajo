@@ -57,9 +57,9 @@ export class CandidatosOfertaComponent implements OnInit {
       // params.size = 5;
       // params.page = 0;
       params.ciudad=100;
-      params.telefono = '123458';
-      this.informacionPersonalService.listar(params).subscribe(response=>{
+      // params.telefono = '123458';
+      // this.informacionPersonalService.listar(params).subscribe(response=>{
         
-      })
+      // })
     }
 }

@@ -5,14 +5,14 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
-@StaticMetamodel(Dependencia.class)
-public abstract class Dependencia_ {
+@StaticMetamodel(Institucion.class)
+public abstract class InstitucionFiltro {
 
-	public static volatile SingularAttribute<Dependencia, Long> id;
-	public static volatile SingularAttribute<Dependencia, String> dependencia;
+	public static volatile SingularAttribute<Institucion, String> institucion;
+	public static volatile SingularAttribute<Institucion, Long> id;
 
+	public static final String INSTITUCION = "institucion";
 	public static final String ID = "id";
-	public static final String DEPENDENCIA = "dependencia";
 
 }
 

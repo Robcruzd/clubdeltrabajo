@@ -83,10 +83,10 @@ public class TipoDocumentoQueryService extends QueryService<TipoDocumento> {
         Specification<TipoDocumento> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), TipoDocumento_.id));
+                specification = specification.and(buildRangeSpecification(criteria.getId(), TipoDocumentoFiltro.id));
             }
             if (criteria.getNombreTipo() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getNombreTipo(), TipoDocumento_.nombreTipo));
+                specification = specification.and(buildStringSpecification(criteria.getNombreTipo(), TipoDocumentoFiltro.nombreTipo));
             }
         }
         return specification;

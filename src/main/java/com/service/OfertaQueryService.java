@@ -83,38 +83,38 @@ public class OfertaQueryService extends QueryService<Oferta> {
         Specification<Oferta> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Oferta_.id));
+                specification = specification.and(buildRangeSpecification(criteria.getId(), OfertaFiltro.id));
             }
             if (criteria.getDescripcion() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDescripcion(), Oferta_.descripcion));
+                specification = specification.and(buildStringSpecification(criteria.getDescripcion(), OfertaFiltro.descripcion));
             }
 //            if (criteria.getTitulo() != null) {
 //                specification = specification.and(buildStringSpecification(criteria.getTitulo(), Oferta_.titulo));
 //            }
             if (criteria.getSalario() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getSalario(), Oferta_.salario));
+                specification = specification.and(buildRangeSpecification(criteria.getSalario(), OfertaFiltro.salario));
             }
             if (criteria.getCargo() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getCargo(), Oferta_.cargo));
+                specification = specification.and(buildRangeSpecification(criteria.getCargo(), OfertaFiltro.cargo));
             }
             if (criteria.getExperiencia() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getExperiencia(), Oferta_.experiencia));
+                specification = specification.and(buildStringSpecification(criteria.getExperiencia(), OfertaFiltro.experiencia));
             }
             if (criteria.getCiudad() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getCiudad(), Oferta_.ciudad));
+                specification = specification.and(buildRangeSpecification(criteria.getCiudad(), OfertaFiltro.ciudad));
             }
             if (criteria.getArea() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getArea(), Oferta_.area));
+                specification = specification.and(buildRangeSpecification(criteria.getArea(), OfertaFiltro.area));
             }
             if (criteria.getFechaPublicacion() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getFechaPublicacion(), Oferta_.fechaPublicacion));
+                specification = specification.and(buildRangeSpecification(criteria.getFechaPublicacion(), OfertaFiltro.fechaPublicacion));
             }
             if (criteria.getEstado() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getEstado(), Oferta_.estado));
+                specification = specification.and(buildStringSpecification(criteria.getEstado(), OfertaFiltro.estado));
             }
             if (criteria.getUsuarioId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUsuarioId(),
-                    root -> root.join(Oferta_.usuario, JoinType.LEFT).get(Empresa_.id)));
+                    root -> root.join(OfertaFiltro.usuario, JoinType.LEFT).get(EmpresaFiltro.id)));
             }
         }
         return specification;

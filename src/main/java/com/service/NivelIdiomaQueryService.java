@@ -83,10 +83,10 @@ public class NivelIdiomaQueryService extends QueryService<NivelIdioma> {
         Specification<NivelIdioma> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), NivelIdioma_.id));
+                specification = specification.and(buildRangeSpecification(criteria.getId(), NivelIdiomaFiltro.id));
             }
             if (criteria.getNivel() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getNivel(), NivelIdioma_.nivel));
+                specification = specification.and(buildStringSpecification(criteria.getNivel(), NivelIdiomaFiltro.nivel));
             }
         }
         return specification;

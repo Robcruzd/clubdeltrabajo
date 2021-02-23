@@ -19,3 +19,13 @@ export interface IlistarOfertas {
   ciudad: string | undefined;
   activado: boolean | undefined;
 }
+
+export interface IResultadoBusquedaOfertas {
+  empresa: string | undefined;
+  profesion: string | undefined;
+  salario: string | undefined;
+  ciudad: string | undefined;
+  fechaPublicacion: string | undefined;
+  idEmpresa?: number | undefined;
+  idOferta?: number | undefined;
+}

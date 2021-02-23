@@ -321,6 +321,13 @@ export const commonMessages = {
     { codigo: '10', nombre: '100%' }
   ],
 
+  ARRAY_FECHA_FILTRO: [
+    { codigo: 1, nombre: 'ultimo día' },
+    { codigo: 2, nombre: 'ultima semana' },
+    { codigo: 3, nombre: 'ultimo mes' },
+    { codigo: 4, nombre: 'ultimo año' }
+  ],
+
   PROFESION_LABEL: 'Profesión',
   NUMERO_VECES_EXCEDIDO: 'Solamente es permitido 2 archivos por registro.',
   POLITICAS:

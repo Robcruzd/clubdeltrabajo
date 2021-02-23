@@ -8,7 +8,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(User.class)
-public abstract class User_ extends com.domain.AbstractAuditingEntity_ {
+public abstract class UserFiltro extends com.domain.AbstractAuditingEntityFiltro {
 
 	public static volatile SingularAttribute<User, String> lastName;
 	public static volatile SingularAttribute<User, Instant> resetDate;

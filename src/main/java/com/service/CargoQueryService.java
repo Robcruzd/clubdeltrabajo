@@ -83,10 +83,10 @@ public class CargoQueryService extends QueryService<Cargo> {
         Specification<Cargo> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Cargo_.id));
+                specification = specification.and(buildRangeSpecification(criteria.getId(), CargoFiltro.id));
             }
             if (criteria.getCargo() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getCargo(), Cargo_.cargo));
+                specification = specification.and(buildStringSpecification(criteria.getCargo(), CargoFiltro.cargo));
             }
         }
         return specification;

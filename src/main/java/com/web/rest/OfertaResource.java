@@ -1,35 +1,42 @@
 package com.web.rest;
 
-import com.domain.Empresa;
-import com.domain.Oferta;
-import com.domain.vo.OfertaFiltro;
-import com.service.OfertaService;
-import com.web.rest.errors.BadRequestAlertException;
-import com.service.dto.OfertaCriteria;
-import com.service.OfertaQueryService;
-
-import io.github.jhipster.service.filter.IntegerFilter;
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.domain.Empresa;
+import com.domain.Oferta;
+import com.service.OfertaQueryService;
+import com.service.OfertaService;
+import com.service.dto.OfertaCriteria;
+import com.web.rest.errors.BadRequestAlertException;
+
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.PaginationUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link com.domain.Oferta}.
@@ -170,8 +177,19 @@ public class OfertaResource {
     
 	@GetMapping("/ofertas/filtroOfertas")
 	public List<Oferta> getOfertasFiltro(@RequestParam("salario") Long salario,
-			@RequestParam("ciudad") Long ciudad) {
-		return ofertaService.getOfertasFiltro(salario, ciudad);
+			@RequestParam("ciudad") Long ciudad, @RequestParam("fecha") Long fecha) {
+		if(salario != 0 && ciudad != 0 && fecha != 0) {
+			return ofertaService.getOfertasFiltroAll(salario, ciudad, fecha);
+		}
+		else if(salario != 0 && ciudad == 0 && fecha != 0) {
+			return ofertaService.getOfertasFiltroFechaSalario(salario, fecha);		
+		}
+		else if(salario == 0 && ciudad != 0 && fecha != 0) {
+			return ofertaService.getOfertasFiltroFechaCiudad(ciudad, fecha);
+		}else {
+			return ofertaService.getOfertasFiltroFecha(fecha);
+		}
+		
 	}
 	
 	@GetMapping("/ofertas/filtroOfertasEmpresa")
@@ -179,5 +197,11 @@ public class OfertaResource {
 		Empresa empresa = new Empresa();
 		empresa.setId(usuario);
 		return ofertaService.getOfertasEmpresa(empresa);
+	}
+	
+	 @GetMapping("/ofertas/obtenerOfertas")
+	public Page<Oferta> listar(OfertaCriteria ofertaBuilder) {
+    	Pageable paging = PageRequest.of(0, 9999, Sort.by("id"));
+    	return ofertaQueryService.findByCriteria(ofertaBuilder, paging);
 	}
 }

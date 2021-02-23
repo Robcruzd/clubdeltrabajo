@@ -83,27 +83,27 @@ public class EmpresaQueryService extends QueryService<Empresa> {
         Specification<Empresa> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Empresa_.id));
+                specification = specification.and(buildRangeSpecification(criteria.getId(), EmpresaFiltro.id));
             }
             if (criteria.getRazonSocial() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getRazonSocial(), Empresa_.razonSocial));
+                specification = specification.and(buildStringSpecification(criteria.getRazonSocial(), EmpresaFiltro.razonSocial));
             }
             if (criteria.getRazonComercial() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getRazonComercial(), Empresa_.razonComercial));
+                specification = specification.and(buildStringSpecification(criteria.getRazonComercial(), EmpresaFiltro.razonComercial));
             }
             if (criteria.getEmail() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getEmail(), Empresa_.email));
+                specification = specification.and(buildStringSpecification(criteria.getEmail(), EmpresaFiltro.email));
             }
 //            if (criteria.getNumeroDocumento() != null) {
 //                specification = specification.and(buildStringSpecification(criteria.getNumeroDocumento(), Empresa_.numeroDocumento));
 //            }
             if (criteria.getTipoUsuarioId() != null) {
                 specification = specification.and(buildSpecification(criteria.getTipoUsuarioId(),
-                    root -> root.join(Empresa_.tipoUsuario, JoinType.LEFT).get(TipoUsuario_.id)));
+                    root -> root.join(EmpresaFiltro.tipoUsuario, JoinType.LEFT).get(TipoUsuarioFiltro.id)));
             }
             if (criteria.getTipoDocumentoId() != null) {
                 specification = specification.and(buildSpecification(criteria.getTipoDocumentoId(),
-                    root -> root.join(Empresa_.tipoDocumento, JoinType.LEFT).get(TipoDocumento_.id)));
+                    root -> root.join(EmpresaFiltro.tipoDocumento, JoinType.LEFT).get(TipoDocumentoFiltro.id)));
             }
         }
         return specification;

@@ -32,6 +32,27 @@ export class PathUtil {
   }
 }
 
+export class PathUtil2 {
+  public static getPathParams(parameters: any): string {
+      const fields: string[] = Object.getOwnPropertyNames(parameters);
+      let path = "?";
+      fields.forEach(
+          (field: string, i: number) => {
+            const value: any = Object.values(parameters)[i];
+            if(value !== undefined && value !== null){
+              if (i > 0 && path !== "?" && (value !== null)) {
+                path += "&";
+              }
+              if (value !== null) {
+                  path += (field + ".equals=" + value);
+              }
+            }
+          }
+      );
+      return (path!=="?"?path:"");
+  }
+}
+
 @Injectable({ providedIn: 'root' })
 export class OfertaService {
   public resourceUrl = SERVER_API_URL + 'api/ofertas';
@@ -96,7 +117,7 @@ export class OfertaService {
   }
 
   public getOfertasFiltro(oferta: Oferta): Observable<any> {
-    const params = PathUtil.getPathParams({ciudad:oferta.ciudad,salario:oferta.salario})
+    const params = PathUtil.getPathParams({ciudad:oferta.ciudad,salario:oferta.salario,fecha:oferta.fecha})
     const url = this.resourceUrlFiltro + params
     return this.http.get<any>(url);
   }
@@ -105,6 +126,16 @@ export class OfertaService {
     const params = PathUtil.getPathParams({usuario:oferta.usuario?.id})
     const url = this.resourceUrlEmpresa + params
     return this.http.get<any>(url);
+  }
+
+  public listar(parameters: any): Observable<any>{
+    const path:string = PathUtil2.getPathParams(parameters);
+    const url = this.resourceUrl + "/obtenerOfertas"+path;
+    return this.get(url)
+  }
+
+  public get(url: string, headers?:any):Observable<any>{
+    return this.http.get<any>(url,headers);
   }
 
 }

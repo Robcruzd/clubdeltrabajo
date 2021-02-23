@@ -83,10 +83,10 @@ public class IdiomaQueryService extends QueryService<Idioma> {
         Specification<Idioma> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Idioma_.id));
+                specification = specification.and(buildRangeSpecification(criteria.getId(), IdiomaFiltro.id));
             }
             if (criteria.getIdioma() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getIdioma(), Idioma_.idioma));
+                specification = specification.and(buildStringSpecification(criteria.getIdioma(), IdiomaFiltro.idioma));
             }
         }
         return specification;

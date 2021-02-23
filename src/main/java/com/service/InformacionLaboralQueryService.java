@@ -83,31 +83,31 @@ public class InformacionLaboralQueryService extends QueryService<InformacionLabo
         Specification<InformacionLaboral> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), InformacionLaboral_.id));
+                specification = specification.and(buildRangeSpecification(criteria.getId(), InformacionLaboralFiltro.id));
             }
             if (criteria.getNombreEmpresa() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getNombreEmpresa(), InformacionLaboral_.nombreEmpresa));
+                specification = specification.and(buildStringSpecification(criteria.getNombreEmpresa(), InformacionLaboralFiltro.nombreEmpresa));
             }
             if (criteria.getFechaInicio() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getFechaInicio(), InformacionLaboral_.fechaInicio));
+                specification = specification.and(buildRangeSpecification(criteria.getFechaInicio(), InformacionLaboralFiltro.fechaInicio));
             }
             if (criteria.getFechaFin() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getFechaFin(), InformacionLaboral_.fechaFin));
+                specification = specification.and(buildRangeSpecification(criteria.getFechaFin(), InformacionLaboralFiltro.fechaFin));
             }
             if (criteria.getDireccion() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDireccion(), InformacionLaboral_.direccion));
+                specification = specification.and(buildStringSpecification(criteria.getDireccion(), InformacionLaboralFiltro.direccion));
             }
 //            if (criteria.getCiudad() != null) {
 //                specification = specification.and(buildRangeSpecification(criteria.getCiudad(), InformacionLaboral_.ciudad));
 //            }
             if (criteria.getDepartamento() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getDepartamento(), InformacionLaboral_.departamento));
+                specification = specification.and(buildRangeSpecification(criteria.getDepartamento(), InformacionLaboralFiltro.departamento));
             }
 //            if (criteria.getPais() != null) {
 //                specification = specification.and(buildStringSpecification(criteria.getPais(), InformacionLaboral_.pais));
 //            }
             if (criteria.getTelefonoEmpresa() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getTelefonoEmpresa(), InformacionLaboral_.telefonoEmpresa));
+                specification = specification.and(buildStringSpecification(criteria.getTelefonoEmpresa(), InformacionLaboralFiltro.telefonoEmpresa));
             }
 //            if (criteria.getDependencia() != null) {
 //                specification = specification.and(buildStringSpecification(criteria.getDependencia(), InformacionLaboral_.dependencia));
@@ -117,11 +117,11 @@ public class InformacionLaboralQueryService extends QueryService<InformacionLabo
 //            }
             if (criteria.getUsuarioId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUsuarioId(),
-                    root -> root.join(InformacionLaboral_.usuario, JoinType.LEFT).get(Persona_.id)));
+                    root -> root.join(InformacionLaboralFiltro.usuario, JoinType.LEFT).get(PersonaFiltro.id)));
             }
             if (criteria.getCargoId() != null) {
                 specification = specification.and(buildSpecification(criteria.getCargoId(),
-                    root -> root.join(InformacionLaboral_.cargo, JoinType.LEFT).get(Cargo_.id)));
+                    root -> root.join(InformacionLaboralFiltro.cargo, JoinType.LEFT).get(CargoFiltro.id)));
             }
         }
         return specification;

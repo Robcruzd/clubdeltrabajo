@@ -83,10 +83,10 @@ public class InstitucionQueryService extends QueryService<Institucion> {
         Specification<Institucion> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), Institucion_.id));
+                specification = specification.and(buildRangeSpecification(criteria.getId(), InstitucionFiltro.id));
             }
             if (criteria.getInstitucion() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getInstitucion(), Institucion_.institucion));
+                specification = specification.and(buildStringSpecification(criteria.getInstitucion(), InstitucionFiltro.institucion));
             }
         }
         return specification;

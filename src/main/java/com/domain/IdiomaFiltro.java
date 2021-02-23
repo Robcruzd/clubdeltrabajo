@@ -6,7 +6,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(Idioma.class)
-public abstract class Idioma_ {
+public abstract class IdiomaFiltro {
 
 	public static volatile SingularAttribute<Idioma, String> idioma;
 	public static volatile SingularAttribute<Idioma, Long> id;

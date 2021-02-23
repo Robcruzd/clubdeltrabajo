@@ -83,28 +83,28 @@ public class InformacionPersonalQueryService extends QueryService<InformacionPer
         Specification<InformacionPersonal> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), InformacionPersonal_.id));
+                specification = specification.and(buildRangeSpecification(criteria.getId(), InformacionPersonalFiltro.id));
             }
             if (criteria.getFechaNacimiento() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getFechaNacimiento(), InformacionPersonal_.fechaNacimiento));
+                specification = specification.and(buildRangeSpecification(criteria.getFechaNacimiento(), InformacionPersonalFiltro.fechaNacimiento));
             }
             if (criteria.getLugarNacimiento() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getLugarNacimiento(), InformacionPersonal_.lugarNacimiento));
+                specification = specification.and(buildStringSpecification(criteria.getLugarNacimiento(), InformacionPersonalFiltro.lugarNacimiento));
             }
             if (criteria.getDireccionResidencia() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDireccionResidencia(), InformacionPersonal_.direccionResidencia));
+                specification = specification.and(buildStringSpecification(criteria.getDireccionResidencia(), InformacionPersonalFiltro.direccionResidencia));
             }
             if (criteria.getGenero() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getGenero(), InformacionPersonal_.genero));
+                specification = specification.and(buildStringSpecification(criteria.getGenero(), InformacionPersonalFiltro.genero));
             }
             if (criteria.getCiudad() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getCiudad(), InformacionPersonal_.ciudad));
+                specification = specification.and(buildRangeSpecification(criteria.getCiudad(), InformacionPersonalFiltro.ciudad));
             }
             if (criteria.getTelefono() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getTelefono(), InformacionPersonal_.telefono));
+                specification = specification.and(buildStringSpecification(criteria.getTelefono(), InformacionPersonalFiltro.telefono));
             }
             if (criteria.getDiscapacidad() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getDiscapacidad(), InformacionPersonal_.discapacidad));
+                specification = specification.and(buildRangeSpecification(criteria.getDiscapacidad(), InformacionPersonalFiltro.discapacidad));
             }
 //            if (criteria.getRedesSociales() != null) {
 //                specification = specification.and(buildStringSpecification(criteria.getRedesSociales(), InformacionPersonal_.redesSociales));
@@ -114,7 +114,7 @@ public class InformacionPersonalQueryService extends QueryService<InformacionPer
 //            }
             if (criteria.getUsuarioId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUsuarioId(),
-                    root -> root.join(InformacionPersonal_.usuario, JoinType.LEFT).get(Persona_.id)));
+                    root -> root.join(InformacionPersonalFiltro.usuario, JoinType.LEFT).get(PersonaFiltro.id)));
             }
 //            if (criteria.getTipoLicenciaConduccion() != null) {
 //                specification = specification.and(buildSpecification(criteria.getTipoLicenciaConduccion(), InformacionPersonal_.tipoLicenciaConduccion));

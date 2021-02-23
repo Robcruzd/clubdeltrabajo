@@ -20,6 +20,7 @@ export interface IOferta {
   profesion?: number;
   modalidad?: number;
   nivelEstudios?: number;
+  fecha?: number;
 }
 
 export class Oferta implements IOferta {
@@ -45,6 +46,7 @@ export class Oferta implements IOferta {
     public subNivelLaboral?: number,
     public nivelIdioma?: number,
     public genero?: string,
-    public activado?: boolean
+    public activado?: boolean,
+    public fecha?: number
   ) {}
 }

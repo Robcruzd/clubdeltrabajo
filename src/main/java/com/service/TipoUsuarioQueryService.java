@@ -83,10 +83,10 @@ public class TipoUsuarioQueryService extends QueryService<TipoUsuario> {
         Specification<TipoUsuario> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), TipoUsuario_.id));
+                specification = specification.and(buildRangeSpecification(criteria.getId(), TipoUsuarioFiltro.id));
             }
             if (criteria.getNombre() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getNombre(), TipoUsuario_.nombre));
+                specification = specification.and(buildStringSpecification(criteria.getNombre(), TipoUsuarioFiltro.nombre));
             }
         }
         return specification;
