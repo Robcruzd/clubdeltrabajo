@@ -511,8 +511,9 @@
           width: 767px;
           height: 85px;
           margin-left: 24px;
-          //margin-right: 3px;
+          align-items: center;
           margin-bottom: 26px;
+          justify-content: space-between;
           .mitad1 {
             width: 272px;
             height: 85px;
@@ -570,12 +571,35 @@
           .parte3{
             width: 111px;
             height: 31px;
-            background: #1A9FEF;
+            .textp3{
+              //font-family: 'Roboto';
+              font-size: 11px;
+              line-height: 16px;
+              color: #7E7474;
+              font-weight: bold;
+              margin-bottom: 0px;
+            }
+            .textp4{
+              font-size: 11px;
+              line-height: 16px;
+              font-weight: normal;
+              color: #7E7474;
+            }
           }
           .parte4{
             width: 83px;
             height: 85px;
             background: #1A9FEF;
+            text-align: center;
+            padding-top: 20px;
+            .verhv{
+              font-family: 'Roboto';
+              font-size: 12px;
+              color: #FFFFFF;
+              line-height: 24px;
+              opacity: 1;
+
+            }
           }
         }
         .controls {
@@ -620,7 +644,7 @@
 .contenedor4{
   display: -ms-inline-grid;
   justify-content: center;
-  padding-left: 380px;
+  padding-left: 150px;
   padding-bottom: 119px;
   .titulo5{
     color: #1B2455;

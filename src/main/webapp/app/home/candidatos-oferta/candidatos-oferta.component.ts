@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faAddressCard, faEllipsisH, faCommentDots, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { InformacionPersonalService } from 'app/entities/informacion-personal/informacion-personal.service';
 import { Archivo } from 'app/shared/model/archivo.model';
 import { InformacionPersonal } from 'app/shared/model/informacion-personal.model';
@@ -18,6 +18,7 @@ export class CandidatosOfertaComponent implements OnInit {
     faCommentDots = faCommentDots;
     imagen!: Archivo;
     ulrImgDefault = '';
+    faUserCircle = faUserCircle;
 
     constructor(
         private router: Router,
