@@ -37,6 +37,7 @@ import { HojaCandidatoComponent } from './hoja-candidato/hoja-candidato.componen
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CandidatosOfertaComponent } from './candidatos-oferta/candidatos-oferta.component';
 import { OfertaPublicaComponent } from './oferta-publica/oferta-publica.component';
+import { CandidatosSeleccionadosComponent } from './candidatos-seleccionados/candidatos-seleccionados.component';
 
 @NgModule({
   imports: [
@@ -79,7 +80,8 @@ import { OfertaPublicaComponent } from './oferta-publica/oferta-publica.componen
     ClubEmpresasComponent,
     CandidatosOfertaComponent,
     HojaCandidatoComponent,
-    OfertaPublicaComponent
+    OfertaPublicaComponent,
+    CandidatosSeleccionadosComponent
   ]
 })
 export class CtProjectHomeModule {}
