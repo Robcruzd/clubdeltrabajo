@@ -24,6 +24,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { IRegiones } from 'app/shared/model/regiones.model';
+import { Location } from '@angular/common';
 
 declare let alertify: any;
 
@@ -93,14 +94,19 @@ export class CrearOfertaComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private regionService: RegionesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {
     this.traerCiudad();
   }
 
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get('oferta')!;
-    this.idOferta = parseInt(param, 10);
+    // eslint-disable-next-line no-console
+    console.log('paaaaaaaaram: ', param);
+    if (param !== null) {
+      this.idOferta = parseInt(param, 10);
+    }
     this.crearFormularioOferta();
     this.cargarCargos();
     this.cargarIdiomas();
@@ -160,7 +166,7 @@ export class CrearOfertaComponent implements OnInit {
     this.formDatosBasicos = this.fb.group({
       id: [''],
       nombre: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
-      requisitos: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
+      requisitos: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.:\n ]{0,}$')]],
       rangoSalarial: ['', [Validators.required]],
       areaTrabajo: ['', [Validators.required]],
       experiencia: ['', [Validators.required]],
@@ -188,7 +194,7 @@ export class CrearOfertaComponent implements OnInit {
         rangoSalarial: this.datosOferta!.salario,
         areaTrabajo: this.datosOferta!.cargo,
         experiencia: this.datosOferta!.experiencia,
-        ciudad: this.datosOferta!.ciudad,
+        ciudad: this.datosOferta!.ciudad?.toString(),
         idIdioma: this.datosOferta!.idioma,
         nivelLaboral: this.datosOferta!.nivelLaboral,
         tipoContrato: this.datosOferta!.tipoContrato,
@@ -196,11 +202,14 @@ export class CrearOfertaComponent implements OnInit {
         nivelEstudios: this.datosOferta!.nivelEstudios,
         profesion: this.datosOferta!.profesion,
         subNivelLaboral: this.datosOferta!.subNivelLaboral,
-        nivelIdioma: this.datosOferta!.nivelIdioma,
+        nivelIdioma: this.datosOferta!.nivelIdioma?.toString(),
         // sector: ['', [Validators.required]],
         genero: this.datosOferta!.genero
       });
-      // this.myControlProfesiones.setValue(this.datosOferta!.profesion?.profesion);
+      const ciudadBD = this.profesiones.find(profesion => profesion.id === this.datosOferta!.profesion);
+      this.myControlProfesiones.setValue(ciudadBD?.profesion);
+      // eslint-disable-next-line no-console
+      console.log(this.formDatosBasicos);
     });
   }
 
@@ -231,8 +240,6 @@ export class CrearOfertaComponent implements OnInit {
         if (this.idOferta === 0) {
           this.ofertaService.create(this.oferta).subscribe(
             response => {
-              // eslint-disable-next-line no-console
-              console.log(response);
               if (response.body !== null) {
                 alertify.set('notifier', 'position', 'top-right');
                 alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
@@ -245,10 +252,9 @@ export class CrearOfertaComponent implements OnInit {
             }
           );
         } else {
+          this.oferta.id = this.idOferta;
           this.ofertaService.update(this.oferta).subscribe(
             response => {
-              // eslint-disable-next-line no-console
-              console.log(response);
               if (response.body !== null) {
                 alertify.set('notifier', 'position', 'top-right');
                 alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
@@ -312,8 +318,6 @@ export class CrearOfertaComponent implements OnInit {
   consultarInformacionGeografica(): void {
     this.apiService.getInformacionGeografica().subscribe(geografia => {
       this.geografia = geografia;
-      const bogota = { codigoDpto: '100', nombreDpto: 'Bogotá D.C.', codigoMpio: '100000', nombreMpio: 'Bogotá D.C.' };
-      this.geografia.push(bogota);
       this.cargarMunicipiosAcademica();
     });
   }
@@ -350,7 +354,8 @@ export class CrearOfertaComponent implements OnInit {
   }
 
   volverOferta(): void {
-    this.router.navigate(['primer-oferta']);
+    this.location.back();
+    // this.router.navigate(['..']);
   }
 
   crearOferta(): void {

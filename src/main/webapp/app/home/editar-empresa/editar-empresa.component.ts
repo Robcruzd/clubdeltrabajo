@@ -85,7 +85,7 @@ export class EditarEmpresaComponent implements OnInit {
   consultarImagen(): void {
     // eslint-disable-next-line no-console
     console.log('consultar imagennnnnnn ', this.empresa);
-    this.archivoService.getEmp(this.empresa.id, TipoArchivo.IMAGEN_PERFIL).subscribe(response => {
+    this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, this.empresa.id).subscribe(response => {
       // eslint-disable-next-line no-console
       console.log('response:     ', response);
       if (response.body !== null) {

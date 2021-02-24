@@ -22,21 +22,21 @@
         </button>
     </div>
     <div class="ofertas-destacadas">
-        <div class="titulo">
-
+        <div class="div-titulo">
+            <p class="titulo">Ofertas destacadas</p>
         </div>
-        <div *ngFor="let oferta of ofertas" class="ofertas">
-            <div class="oferta">
-                <div>
-                    <div>
-                        <p>Bavaria</p>
-                        <p>Portero</p>
-                        <p>De 1 a 3 millones</p>
+        <div class="ofertas">
+            <div *ngFor="let oferta of listaOfertas" class="oferta">
+                <div class="oferta-arriba">
+                    <div class="info">
+                        <p class="negrita">{{oferta.empresa}}</p>
+                        <p class="negrita">{{oferta.profesion}}</p>
+                        <p class="sin-negrita">{{oferta.salario}}</p>
                     </div>
-                    <img class="logo-oferta" src="../../content/images/logoazaz.png">
+                    <img class="logo-oferta rounded-circle" [src]="oferta.imagen || ulrImgDefault">
                 </div>
-                <p>Bogotá</p>
-                <p>Publicado: Fecha...</p>
+                <p class="sin-negrita">{{oferta.ciudad}}</p>
+                <p class="sin-negrita">Publicado: Fecha {{oferta.fecha}}</p>
                 <button class="button-ver">Ver</button>
             </div>
         </div>
