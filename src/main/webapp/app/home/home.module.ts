@@ -36,6 +36,7 @@ import { ClubEmpresasComponent } from './club-empresas/club-empresas.component';
 import { HojaCandidatoComponent } from './hoja-candidato/hoja-candidato.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CandidatosOfertaComponent } from './candidatos-oferta/candidatos-oferta.component';
+import { ControlarOfertasComponent } from './controlar-ofertas/controlar-ofertas.component';
 import { OfertaPublicaComponent } from './oferta-publica/oferta-publica.component';
 import { CandidatosSeleccionadosComponent } from './candidatos-seleccionados/candidatos-seleccionados.component';
 
@@ -81,7 +82,9 @@ import { CandidatosSeleccionadosComponent } from './candidatos-seleccionados/can
     CandidatosOfertaComponent,
     HojaCandidatoComponent,
     OfertaPublicaComponent,
-    CandidatosSeleccionadosComponent
+    CandidatosSeleccionadosComponent,
+    ControlarOfertasComponent,
+    OfertaPublicaComponent
   ]
 })
 export class CtProjectHomeModule {}

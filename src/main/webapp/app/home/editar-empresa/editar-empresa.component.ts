@@ -57,8 +57,6 @@ export class EditarEmpresaComponent implements OnInit {
       this.cargarFormularioEmpresa();
     });
     this.consultarInformacionGeografica();
-    // eslint-disable-next-line no-console
-    console.log(this.municipiosAcademica);
   }
 
   obtenerIdUsuario(): Promise<any> {
@@ -77,8 +75,6 @@ export class EditarEmpresaComponent implements OnInit {
     const idEmpresa = cuenta.userEmpresa;
     this.empresaService.find(idEmpresa).subscribe(
       response => {
-        // eslint-disable-next-line no-console
-        console.log('cccccccccccccc:     ', response);
         this.empresa = response.body;
         this.consultarImagen();
       },
@@ -192,14 +188,8 @@ export class EditarEmpresaComponent implements OnInit {
         // eslint-disable-next-line no-console
         console.log(response);
         if (response.body !== null) {
-          // this.archivosaws.forEach((element: { file: File; name: string }) => {
-          //   const formData = new FormData();
-          //   formData.append('file', element.file, element.name);
-          //   this.archivo.uploadS3(formData).subscribe((res: any) => {});
-          // });
           alertify.set('notifier', 'position', 'top-right');
           alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
-          // this.hojaVidaVo = response.body;
           this.router.navigate(['/perfil-empresa']);
         }
       },
@@ -215,7 +205,7 @@ export class EditarEmpresaComponent implements OnInit {
   }
 
   verOferta(): void {
-    this.router.navigate(['oferta-publicada']);
+    this.router.navigate(['controlar-ofertas']);
   }
 
   membresia(): void {

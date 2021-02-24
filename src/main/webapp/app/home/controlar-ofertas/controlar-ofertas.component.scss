@@ -1,0 +1,322 @@
+.contenedor {
+  display: flex;
+  justify-content: center;
+
+  .div-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min-content;
+
+    .botones-arriba {
+      display: flex;
+      flex-direction: row;
+      width: 783px;
+      flex-wrap: wrap;
+
+      .boton-clicked {
+        @extend .boton-base;
+        // background-color: yellow;
+        background: #bcfaf3 0% 0% no-repeat padding-box;
+      }
+
+      .boton-no-clicked {
+        @extend .boton-base;
+        background: #f7f7f7 0% 0% no-repeat padding-box;
+      }
+
+      .boton-base {
+        width: 261px;
+        height: 41px;
+        // background: #ffffff 0% 0% no-repeat padding-box;
+        // box-shadow: 0px 3px 6px #00000029;
+        border-radius: 13px;
+        opacity: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0rem 1rem;
+        margin-top: 5px;
+        align-self: flex-start;
+
+        .border-icon {
+          margin-right: 0.325vw;
+          width: 34px;
+          height: 34px;
+          opacity: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+        }
+
+        .div-info-boton {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          justify-content: center;
+
+          .titulo-boton {
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #6d7184;
+            letter-spacing: 0px;
+            opacity: 1;
+            margin: 0rem;
+            text-align: initial;
+          }
+        }
+      }
+    }
+
+    .contenedor3 {
+      display: flex;
+      justify-content: center;
+
+      p {
+        margin: 0;
+      }
+
+      .div-center3 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: min-content;
+
+        .ngnum3 {
+          width: 61.378vw;
+          align-self: center;
+          justify-self: center;
+          background: #ffffff 0% 0% no-repeat padding-box;
+          opacity: 1;
+          padding: 0rem;
+          max-width: none;
+          display: flex;
+          flex-wrap: wrap;
+
+          .ofertaCreada {
+            width: 14vw;
+            align-self: center;
+            justify-self: center;
+            background: #ffffff 0% 0% no-repeat padding-box;
+            opacity: 1;
+            margin-right: 1rem;
+            // margin-top: 3.121vw;
+            // margin-bottom: 3.121vw;
+            padding: 0rem;
+            padding-top: 3.121vw;
+            max-width: none;
+
+            .div1Oferta {
+              width: 14vw;
+              height: 2vw;
+              // align-self: center;
+              // justify-self: center;
+              background: #2699fb 0% 0% no-repeat padding-box;
+              opacity: 1;
+              padding-left: 1rem;
+              max-width: none;
+              display: flex;
+              align-items: center;
+
+              .titulo_div1 {
+                text-align: left;
+                font-size: 1vw;
+                font-family: 'Open Sans';
+                font-weight: bold;
+                letter-spacing: 0px;
+                color: #ffffff;
+                opacity: 1;
+              }
+            }
+            .div2Oferta {
+              width: 14vw;
+              min-height: 8vw;
+              align-self: center;
+              justify-self: center;
+              background: #f8f8f8 0% 0% no-repeat padding-box;
+              opacity: 1;
+              padding: 1rem 0rem 0rem 1rem;
+              max-width: none;
+              display: flex;
+              flex-direction: column;
+
+              .text1 {
+                text-align: left;
+                font: normal normal bold 12px/10px Roboto;
+                letter-spacing: 0px;
+                color: #645d5d;
+              }
+
+              .text2 {
+                text-align: left;
+                font: normal normal normal 10px/17px Roboto;
+                letter-spacing: 0px;
+                color: #645d5d;
+              }
+
+              .boton-editar {
+                align-self: flex-end;
+                width: 39px;
+                height: 21px;
+                background: #cccccc 0% 0% no-repeat padding-box;
+                padding: 0;
+
+                .titulo-boton {
+                  text-align: center;
+                  font: normal normal normal 8px/7px Roboto;
+                  letter-spacing: 0px;
+                  color: #001045;
+                }
+              }
+            }
+            .div3Oferta {
+              width: 14vw;
+              height: 7vw;
+              align-self: center;
+              justify-self: center;
+              background: #001045 0% 0% no-repeat padding-box;
+              opacity: 1;
+              max-width: none;
+              padding: 1rem 0rem 0rem 1rem;
+
+              .titulo_div3 {
+                text-align: left;
+                font-size: 1vw;
+                font-family: 'Open Sans';
+                font-weight: bold;
+                letter-spacing: 0px;
+                color: #ffffff;
+                opacity: 1;
+              }
+            }
+
+            .div4Oferta {
+              width: 14vw;
+              align-self: center;
+              justify-self: center;
+              background: #ffffff 0% 0% no-repeat padding-box;
+              opacity: 1;
+              padding: 0rem;
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              padding-left: 1rem;
+              align-items: center;
+
+              .div-switch {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                .labelActivar {
+                  text-align: center;
+                  font: normal normal normal 8px/15px Arial;
+                  letter-spacing: 0px;
+                  color: #000000;
+                }
+              }
+
+              .boton-entrar {
+                width: 40px;
+                height: 22px;
+                background: #2699fb 0% 0% no-repeat padding-box;
+                border-radius: 5px;
+                padding: 0;
+
+                .titulo-boton-entrar {
+                  text-align: center;
+                  font: normal normal normal 8px/7px Roboto;
+                  letter-spacing: 0px;
+                  color: #ffffff;
+                }
+              }
+
+              .switch {
+                position: relative;
+                display: inline-block;
+                margin: 0;
+              }
+
+              .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+              }
+
+              .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                -webkit-transition: 0.4s;
+                transition: 0.4s;
+              }
+
+              .slider:before {
+                position: absolute;
+                content: '';
+                height: 26px;
+                width: 26px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: 0.4s;
+                transition: 0.4s;
+                width: 16px;
+                height: 16px;
+              }
+
+              input:checked + .slider {
+                background-color: #1df5b3;
+              }
+
+              input:focus + .slider {
+                box-shadow: 0 0 1px #1df5b3;
+              }
+
+              input:checked + .slider:before {
+                -webkit-transform: translateX(26px);
+                -ms-transform: translateX(26px);
+                transform: translateX(26px);
+              }
+
+              /* Rounded sliders */
+              .slider.round {
+                border-radius: 34px;
+                width: 50px;
+                height: 22px;
+              }
+
+              .slider.round:before {
+                border-radius: 50%;
+              }
+            }
+          }
+        }
+
+        .estilo_titulo3 {
+          text-align: left;
+          font-size: 1.3vw;
+          font-family: 'Open Sans';
+          font-weight: bold;
+          letter-spacing: 0px;
+          color: #1b2455;
+          opacity: 1;
+        }
+
+        .boton-volver {
+          display: flex;
+          width: 132px;
+          height: 31px;
+          background: #e5e5e5 0% 0% no-repeat padding-box;
+          border-radius: 24px;
+          align-items: center;
+        }
+      }
+    }
+  }
+}

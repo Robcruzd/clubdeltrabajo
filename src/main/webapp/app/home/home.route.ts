@@ -23,6 +23,7 @@ import { PrevioRegistrarEmpComponent } from './previo-registrar-emp/previo-regis
 import { ClubEmpresasComponent } from './club-empresas/club-empresas.component';
 import { CandidatosOfertaComponent } from './candidatos-oferta/candidatos-oferta.component';
 import { HojaCandidatoComponent } from './hoja-candidato/hoja-candidato.component';
+import { ControlarOfertasComponent } from './controlar-ofertas/controlar-ofertas.component';
 import { OfertaPublicaComponent } from './oferta-publica/oferta-publica.component';
 import { CandidatosSeleccionadosComponent } from './candidatos-seleccionados/candidatos-seleccionados.component';
 
@@ -209,7 +210,15 @@ export const HOME_ROUTE: Routes = [
     data: {
       pageTitle: 'home.title'
     }
+  },
+  {
+    path: 'controlar-ofertas',
+    component: ControlarOfertasComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
   }
+
   // {
   //   path: 'reportes',
   //   component: ReportesComponent,

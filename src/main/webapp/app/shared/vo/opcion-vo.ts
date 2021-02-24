@@ -14,6 +14,7 @@ export interface IOpcionVoMunicipio {
 }
 
 export interface IlistarOfertas {
+  id: string | undefined;
   profesion: string | undefined;
   salario: string | undefined;
   ciudad: string | undefined;
