@@ -17,11 +17,10 @@ export class PerfilEmpresaComponent implements OnInit {
   faStar = faStar;
   faEllipsisH = faEllipsisH;
   faCommentDots = faCommentDots;
-  empresaEnSesion! : IEmpresa | any;
+  empresaEnSesion!: IEmpresa | any;
   account!: Account | any;
 
-  constructor(private router: Router, private empresaService: EmpresaService,
-    private accountService: AccountService) {}
+  constructor(private router: Router, private empresaService: EmpresaService, private accountService: AccountService) {}
 
   ngOnInit(): void {
     this.cargarCuentaUsuario();
@@ -30,9 +29,9 @@ export class PerfilEmpresaComponent implements OnInit {
   cargarCuentaUsuario(): void {
     this.accountService.getAuthenticationState().subscribe(account => {
       this.account = account;
-      this.empresaService.find(this.account.userEmpresa).subscribe(response=>{
+      this.empresaService.find(this.account.userEmpresa).subscribe(response => {
         this.empresaEnSesion = response.body;
-      })
+      });
     });
   }
 
@@ -41,7 +40,7 @@ export class PerfilEmpresaComponent implements OnInit {
   }
 
   verOferta(): void {
-    this.router.navigate(['oferta-publicada']);
+    this.router.navigate(['controlar-ofertas']);
   }
 
   membresia(): void {
@@ -55,5 +54,4 @@ export class PerfilEmpresaComponent implements OnInit {
   clubEmpresas(): void {
     this.router.navigate(['editar-empresa']);
   }
-
 }

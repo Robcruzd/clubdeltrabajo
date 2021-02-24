@@ -1,0 +1,103 @@
+<div class="contenedor">
+    <div class="div-center">
+        <div class="botones-arriba">
+            <button class="btn boton-no-clicked" (click)="crearOferta()">
+                <fa-icon [icon]="faCommentDots" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Crear oferta</p>
+                </div>
+            </button>
+            <button class="btn boton-no-clicked" (click)="editarPerfil()">
+                <fa-icon [icon]="faEllipsisH" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Editar perfil</p>
+                </div>
+            </button>
+            <button class="btn boton-no-clicked" (click)="clubEmpresas()">
+                <fa-icon icon="suitcase" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Club de empresas</p>
+                </div>
+            </button>
+            <button class="btn boton-clicked" (click)="verOferta()">
+                <fa-icon icon="eye" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Controla tus ofertas</p>
+                </div>
+            </button>
+            <button class="btn boton-no-clicked" (click)="membresia()">
+                <fa-icon [icon]="faStar" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Membresía</p>
+                </div>
+            </button>
+        </div>
+        <div class="contenedor3">
+            <div class="div-center3">
+                <ng-container>
+                <br>
+                    <p class="estilo_titulo3">Tus ofertas:</p>
+                    <div class="ngnum3">
+                        <ng-container *ngFor = "let oferta of listaOFertasCreadas; index as inde">
+                            <div class="ofertaCreada" >
+                                <div class="div1Oferta">
+                                    <p class="titulo_div1">Oferta {{inde+1}}</p>
+                                </div>
+                                <div class="div2Oferta">
+                                    <p class="text1">{{oferta.profesion}}</p>
+                                    <p class="text2">{{oferta.salario}}</p>
+                                    <p class="text2">{{oferta.ciudad}}</p>
+                                    <button class="btn boton-editar" (click)="editarOferta(oferta.id)">
+                                        <p class="titulo-boton">Editar</p>
+                                    </button>
+                                </div>
+                                <div class="div3Oferta"> 
+                                    <p class="titulo_div3">300 aspirantes</p>
+                                    <p class="titulo_div3">10 seleccionados</p>
+                                    <p class="titulo_div3">40 por ver</p>
+                                </div>
+                                <div class="div4Oferta"> 
+                                    <div class="div-switch">
+                                        <p class="labelActivar" *ngIf="!oferta.activado">Activar oferta</p>
+                                        <p class="labelActivar" *ngIf="oferta.activado">Detener oferta</p>
+                                        <label class="switch">
+                                            <input type="checkbox" [checked]="oferta.activado">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <button class="btn boton-entrar">
+                                        <p class="titulo-boton-entrar">Entrar</p>
+                                    </button>
+                                </div>
+                                <!-- <div class="div4Oferta" *ngIf="!oferta.activado"> 
+                                    <p>Activar oferta</p>
+                                    <label class="switch">
+                                        <input type="checkbox" [checked]="false">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <button class="btn boton-entrar">
+                                        <p class="titulo-boton-entrar">Entrar</p>
+                                    </button>
+                                </div> -->
+                            </div> 
+                        </ng-container>
+                    </div>
+                    <div style="margin-top: 2rem;">
+                        <button class="btn boton-volver" (click)="volverCrearOferta()">
+                            <fa-icon icon="chevron-left" class="border-icon" ></fa-icon>
+                            <p class="titulo-boton">Volver a perfil</p>
+                        </button>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -48,33 +48,15 @@ export class CandidatosOfertaComponent implements OnInit {
         this.traerCiudad();
       }
 
-    ngOnInit(): void {
+  ngOnInit(): void {}
 
-    }
+  volverOferta(): void {
+    this.router.navigate(['primer-oferta']);
+  }
 
-    volverOferta(): void {
-        this.router.navigate(['primer-oferta']);
-    }
-  
-    crearOferta(): void {
-      this.router.navigate(['primer-oferta']);
-    }
-  
-    verOferta(): void {
-      this.router.navigate(['oferta-publicada']);
-    }
-  
-    membresia(): void {
-      this.router.navigate(['membresias']);
-    }
-  
-    editarPerfil(): void {
-      this.router.navigate(['editar-empresa']);
-    }
-  
-    clubEmpresas(): void {
-      this.router.navigate(['club-empresas']);
-    }
+  crearOferta(): void {
+    this.router.navigate(['primer-oferta']);
+  }
 
     getCandidatosOferta(): void{
       const params = new InformacionPersonal();
@@ -300,4 +282,21 @@ export class CandidatosOfertaComponent implements OnInit {
         })
         .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0)); 
     }
+
+  verOferta(): void {
+    this.router.navigate(['oferta-publicada']);
+  }
+
+  membresia(): void {
+    this.router.navigate(['membresias']);
+  }
+
+  editarPerfil(): void {
+    this.router.navigate(['editar-empresa']);
+  }
+
+  clubEmpresas(): void {
+    this.router.navigate(['club-empresas']);
+  }
+
 }

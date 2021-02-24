@@ -20,10 +20,12 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { User } from '../../core/user/user.model';
 import { ProfesionService } from '../../entities/profesion/profesion.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { IRegiones } from 'app/shared/model/regiones.model';
+
+declare let alertify: any;
 
 @Component({
   selector: 'jhi-crear-oferta',
@@ -61,8 +63,8 @@ export class CrearOfertaComponent implements OnInit {
   genero: any;
   visualizarOferta = false;
   visualizarOfertasCreadas = false;
-  descripcionOferta = "";
-  profesionOferta : any;
+  descripcionOferta = '';
+  profesionOferta: any;
   tituloOferta: any;
   contratoOferta: any;
   publicadoOFerta: any;
@@ -77,6 +79,8 @@ export class CrearOfertaComponent implements OnInit {
   municipiosPersonal: Array<IOpcionVo> = [];
   listaOfertas: Array<Oferta> = [];
   listaOFertasCreadas: Array<IlistarOfertas> = [];
+  datosOferta!: Oferta | null;
+  idOferta = 0;
 
   constructor(
     private cargoService: CargoService,
@@ -88,30 +92,24 @@ export class CrearOfertaComponent implements OnInit {
     private profesionService: ProfesionService,
     private fb: FormBuilder,
     private router: Router,
-    private regionService: RegionesService
+    private regionService: RegionesService,
+    private route: ActivatedRoute
   ) {
     this.traerCiudad();
   }
 
   ngOnInit(): void {
-    // this.formDatosBasicos = new FormGroup({
-    //   nombre: new FormControl(),
-    //   experiencia: new FormControl(),
-    //   areaTrabajo: new FormControl(),
-    //   rangoSalarial: new FormControl(),
-    //   idIdioma: new FormControl(),
-    //   tipoContrato: new FormControl(),
-    //   modalidadLaboral: new FormControl(),
-    //   nivelEstudios: new FormControl(),
-    //   requisitos: new FormControl(),
-    //   ciudad: new FormControl()
-    // });
+    const param = this.route.snapshot.paramMap.get('oferta')!;
+    this.idOferta = parseInt(param, 10);
     this.crearFormularioOferta();
     this.cargarCargos();
     this.cargarIdiomas();
     this.consultarInformacionGeografica();
     this.cargarProfesiones();
     this.traerProfesiones();
+    if (this.idOferta !== 0) {
+      this.cargarFormularioOferta();
+    }
     this.accountService.getAuthenticationState().subscribe(account => {
       this.usuario = account;
     });
@@ -124,13 +122,6 @@ export class CrearOfertaComponent implements OnInit {
         size: 1150
       })
       .subscribe((res: HttpResponse<IRegiones[]>) => {
-        // this.region = res.body || [];
-        // this.data = res.body;
-        // this.dataCiudades = this.data;
-        // this.filteredOptionsCiudades = this.myControlCiudades.valueChanges.pipe(
-        //   startWith(''),
-        //   map(value => this._filterCiudades(value))
-        // );
         this.geografia = res.body!.map(
           item =>
             new GeografiaVo(
@@ -187,6 +178,32 @@ export class CrearOfertaComponent implements OnInit {
     });
   }
 
+  cargarFormularioOferta(): void {
+    this.ofertaService.find(this.idOferta).subscribe(response => {
+      this.datosOferta = response.body;
+      this.formDatosBasicos.patchValue({
+        id: this.datosOferta!.id,
+        nombre: this.datosOferta!.titulo,
+        requisitos: this.datosOferta!.descripcion,
+        rangoSalarial: this.datosOferta!.salario,
+        areaTrabajo: this.datosOferta!.cargo,
+        experiencia: this.datosOferta!.experiencia,
+        ciudad: this.datosOferta!.ciudad,
+        idIdioma: this.datosOferta!.idioma,
+        nivelLaboral: this.datosOferta!.nivelLaboral,
+        tipoContrato: this.datosOferta!.tipoContrato,
+        modalidadLaboral: this.datosOferta!.modalidad,
+        nivelEstudios: this.datosOferta!.nivelEstudios,
+        profesion: this.datosOferta!.profesion,
+        subNivelLaboral: this.datosOferta!.subNivelLaboral,
+        nivelIdioma: this.datosOferta!.nivelIdioma,
+        // sector: ['', [Validators.required]],
+        genero: this.datosOferta!.genero
+      });
+      // this.myControlProfesiones.setValue(this.datosOferta!.profesion?.profesion);
+    });
+  }
+
   onSubmit(): void {
     this.oferta = new Oferta();
     this.oferta.estado = 'A';
@@ -207,27 +224,43 @@ export class CrearOfertaComponent implements OnInit {
     this.oferta.subNivelLaboral = this.formDatosBasicos.controls['subNivelLaboral'].value;
     this.oferta.nivelIdioma = this.formDatosBasicos.controls['nivelIdioma'].value;
     this.oferta.genero = this.formDatosBasicos.controls['genero'].value;
-    
+
     if (this.usuario?.userEmpresa) {
       this.empresaService.find(this.usuario.userEmpresa).subscribe(RESPONSE => {
         this.oferta.usuario = RESPONSE.body;
-         this.ofertaService.create(this.oferta).subscribe(() => {
-          this.ofertaService.getOfertasEmpresa(this.oferta).subscribe(OFERTAS =>{
-            this.listaOfertas = OFERTAS;
-            this.listaOfertas.forEach(element => {
-              const salarioBD = this.aspiracionesSalariales.find( salario => salario.codigo === element.salario );
-              const ciudadBD = this.municipiosPersonal.find( ciudad => ciudad.codigo === element.ciudad?.toString() );
-              this.profesionService.find(element.profesion).subscribe(PROFESIONES =>{
-                this.listaOFertasCreadas.push({
-                  profesion: PROFESIONES.body?.profesion,
-                  salario: salarioBD?.nombre,
-                  ciudad: ciudadBD?.nombre,
-                  activado: element?.activado
-                })
-              });
-            });
-          });
-         });
+        if (this.idOferta === 0) {
+          this.ofertaService.create(this.oferta).subscribe(
+            response => {
+              // eslint-disable-next-line no-console
+              console.log(response);
+              if (response.body !== null) {
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                this.router.navigate(['/controlar-ofertas']);
+              }
+            },
+            () => {
+              alertify.set('notifier', 'position', 'top-right');
+              alertify.error(commonMessages.HTTP_ERROR_LABEL);
+            }
+          );
+        } else {
+          this.ofertaService.update(this.oferta).subscribe(
+            response => {
+              // eslint-disable-next-line no-console
+              console.log(response);
+              if (response.body !== null) {
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                this.router.navigate(['/controlar-ofertas']);
+              }
+            },
+            () => {
+              alertify.set('notifier', 'position', 'top-right');
+              alertify.error(commonMessages.HTTP_ERROR_LABEL);
+            }
+          );
+        }
       });
     }
 
@@ -325,7 +358,7 @@ export class CrearOfertaComponent implements OnInit {
   }
 
   verOferta(): void {
-    this.router.navigate(['oferta-publicada']);
+    this.router.navigate(['controlar-ofertas']);
   }
 
   membresia(): void {

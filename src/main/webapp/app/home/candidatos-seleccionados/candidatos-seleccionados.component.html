@@ -1,0 +1,186 @@
+<div class="contenedor">
+    <div class="div-center">
+        <div class="botones-arriba">
+            <button class="btn boton-clicked" (click)="crearOferta()">
+                <fa-icon [icon]="faCommentDots" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Crear oferta</p>
+                </div>
+            </button>
+            <button class="btn boton-no-clicked" (click)="editarPerfil()">
+                <fa-icon [icon]="faEllipsisH" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Editar perfil</p>
+                </div>
+            </button>
+            <button class="btn boton-no-clicked" (click)="clubEmpresas()">
+                <fa-icon icon="suitcase" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Club de empresas</p>
+                </div>
+            </button>
+            <button class="btn boton-no-clicked" (click)="verOferta()">
+                <fa-icon icon="eye" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Controla tus ofertas</p>
+                </div>
+            </button>
+            <button class="btn boton-no-clicked" (click)="membresia()">
+                <fa-icon [icon]="faStar" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Membresía</p>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+    <div class="contenedor2">
+        <div class="div-center2">
+            <ng-container>
+                <p class="estilo_titulo2">Oferta 1</p>
+                <div class="ngnum1">
+                    <ng-container>
+                        <p class="titulo_oferta">Oferta</p>
+                        <!--<p class="profesion_oferta">profesionOferta</p>-->
+                        <p class="descripcion_profesion">Buscamos Profesional en diseño gráfico, publicidad y/o licenciatura en artes gráficas ESPECIALISTA en diseño; experiencia de 4 años en diseño y realización de banners, splashscreens, newsletters, landingpages y usando HTML, CSS y JavaScript. Conocimientos en maquetación de HTML5, y CSS3 para proyectos web y móvil (web responsiva y aplicaciones hibridas)</p>
+                        <table class="tabla_oferta" style="width: 90%;">
+                            <tr>
+                              <th class="titulo_oferta_previsualizacion">Titulo:</th>
+                              <th class="titulo_oferta_previsualizacion">Tipo de contrato:</th>
+                              <th class="titulo_oferta_previsualizacion">Publicado:</th>
+                            </tr>
+                            <tr>
+                              <td class="des_titulo" style="width: 30%;">tituloOferta</td>
+                              <td class="des_titulo" style="width: 40%;">contratoOferta</td>
+                              <td class="des_titulo" style="width: 30%;">publicadoOFerta</td>
+                            </tr>
+                        </table>
+                        <table class="tabla_oferta" style="width: 90%;">
+                            <tr>
+                              <th class="titulo_oferta_previsualizacion">Experiencia:</th>
+                              <th class="titulo_oferta_previsualizacion">Ciudad:</th>
+                              <th class="titulo_oferta_previsualizacion">Salario:</th>
+                            </tr>
+                            <tr>
+                              <td class="des_titulo" style="width: 30%;">experienciaOferta</td>
+                              <td class="des_titulo" style="width: 40%;">ciudadOferta</td>
+                              <td class="des_titulo" style="width: 30%;">salarioOferta</td>
+                            </tr>
+                        </table>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="contenedor3">
+        <div class="div-center3">
+            <p class="titulo_aspirantes">Perfiles aspirantes</p>
+            <div class="cuerpo">
+                <div class="buscador">
+                <div class="input-buscador">
+                    <input matInput placeholder="Busqueda" class="form-control">
+                </div>
+                <div class="empresas">
+                    <p class="titulo">Perfiles</p>
+                    <p class="resultado">300 resultados</p>
+                </div>
+                <div class="Sector">
+                    <p class="titulo">Ordenar perfiles</p>
+                    <select class="resultado">
+                    <option>Seleccionar</option>
+                    </select>
+                </div>
+                <div class="Sector">
+                    <p class="titulo">Edad</p>
+                    <select class="resultado">
+                    <option>Seleccionar rango</option>
+                    </select>
+                </div>
+                <div class="Sector">
+                    <p class="titulo">Cargo</p>
+                    <select class="resultado">
+                    <option>Seleccionar</option>
+                    </select>
+                </div>
+                <div class="Sector">
+                    <p class="titulo">Ciudad</p>
+                    <select class="resultado">
+                    <option>Seleccionar</option>
+                    </select>
+                </div>
+                <div class="Sector">
+                    <p class="titulo">Género</p>
+                    <select class="resultado">
+                    <option>Seleccionar</option>
+                    </select>
+                </div>
+                <div class="Sector">
+                    <p class="titulo">Experiencia</p>
+                    <select class="resultado">
+                    <option>Seleccionar rango</option>
+                    </select>
+                </div>
+                <div class="Sector">
+                    <p class="titulo">Salario</p>
+                    <select class="resultado">
+                    <option>Seleccionar rango</option>
+                    </select>
+                </div>
+                        
+                </div> 
+                <div class="perfil">
+                    <div style="height: 640px; margin-bottom: 20px;">
+                    <a class="perfiles" (click)="verOferta()" 
+                     *ngFor="let item of [1,2,3,4,5,6,7,8,9] | paginate: { itemsPerPage: 6, currentPage: page }">
+                        <div class="mitad1">
+                            <div class="imagen">
+                                 <img src="../../../content/images/Image 282.png" alt="">
+                            </div>
+                            <div>
+                            <!-- <p class="nombre">Bavaria</p> -->
+                            <p class="nombre">Jhon Alexis</p>
+                            <p class="carrera">Diseñador gráfico</p>
+                            </div>
+                        </div>
+                        <div class="mitad2" style="padding-top: 10px;">
+                            <div>
+                             <p class="resumen">Edad: 15</p>
+                             <p class="resumen">Ciudad: 15</p>
+                             <p class="resumen">Experiencia: 15</p>
+                             <p class="resumen">Titulo: 15</p>
+                            </div>
+                        </div>
+                        <div class="parte3">
+                            <p class="textp3">Fecha de postulación</p>
+                            <p class="textp4">23-02-2020</p>
+                        </div>
+                        <div class="parte4" style="justify-content: center;">
+                            <fa-icon [icon]="faUserCircle" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon>
+                            <p class="verhv">Ver H.V.</p>
+                        </div>
+                    </a>
+                    </div>
+                    <pagination-controls (pageChange)="page = $event" class="controls" 
+                    previousLabel=""
+                    nextLabel=""
+                    autoHide="true"
+                    maxSize="6">
+                    </pagination-controls>
+                </div>
+                
+            </div>
+        </div>
+    </div>    
+    <div class="contenedor4">
+        <p class="titulo5">Buscar más perfiles</p>
+        <div style="display: flex;">
+        <input type="text" placeholder="Escribe un cargo" class="buscar2">
+        <input type="text" placeholder="Escribe una ciudad" class="buscar2">
+        </div>
+        <button class="btn-buscar">Buscar</button>
+    </div>
