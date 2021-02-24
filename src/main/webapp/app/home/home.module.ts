@@ -39,6 +39,7 @@ import { CandidatosOfertaComponent } from './candidatos-oferta/candidatos-oferta
 import { ControlarOfertasComponent } from './controlar-ofertas/controlar-ofertas.component';
 import { OfertaPublicaComponent } from './oferta-publica/oferta-publica.component';
 import { CandidatosSeleccionadosComponent } from './candidatos-seleccionados/candidatos-seleccionados.component';
+import { BusquedaCandidatosComponent } from './busqueda-candidatos/busqueda-candidatos.component';
 
 @NgModule({
   imports: [
@@ -84,7 +85,8 @@ import { CandidatosSeleccionadosComponent } from './candidatos-seleccionados/can
     OfertaPublicaComponent,
     CandidatosSeleccionadosComponent,
     ControlarOfertasComponent,
-    OfertaPublicaComponent
+    OfertaPublicaComponent,
+    BusquedaCandidatosComponent
   ]
 })
 export class CtProjectHomeModule {}
