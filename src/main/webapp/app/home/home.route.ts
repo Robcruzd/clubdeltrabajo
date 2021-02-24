@@ -24,6 +24,7 @@ import { ClubEmpresasComponent } from './club-empresas/club-empresas.component';
 import { CandidatosOfertaComponent } from './candidatos-oferta/candidatos-oferta.component';
 import { HojaCandidatoComponent } from './hoja-candidato/hoja-candidato.component';
 import { ControlarOfertasComponent } from './controlar-ofertas/controlar-ofertas.component';
+import { OfertaPublicaComponent } from './oferta-publica/oferta-publica.component';
 
 export const HOME_ROUTE: Routes = [
   {
@@ -196,12 +197,20 @@ export const HOME_ROUTE: Routes = [
     }
   },
   {
+    path: 'oferta-publica',
+    component: OfertaPublicaComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
+  },
+  {
     path: 'controlar-ofertas',
     component: ControlarOfertasComponent,
     data: {
       pageTitle: 'home.title'
     }
   }
+
   // {
   //   path: 'reportes',
   //   component: ReportesComponent,
