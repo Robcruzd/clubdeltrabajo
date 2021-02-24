@@ -430,7 +430,7 @@
           display: flex;
           flex-flow: column;
           background: #f5f5f5 0% 0% no-repeat padding-box;
-          height: 640px;
+          height: 695px;
           width: 126px;
           //margin-bottom: 145px;
           //margin-left: 178;
@@ -507,12 +507,12 @@
         }
         .perfiles {
           display: flex;
-          background: #f8f8f8 //#BAFFE3 //#FFC1C1;
+          background: #f8f8f8; //#BAFFE3 #FFC1C1;
           width: 767px;
           height: 85px;
           margin-left: 24px;
           align-items: center;
-          margin-bottom: 26px;
+          //margin-bottom: 26px;
           justify-content: space-between;
           .mitad1 {
             width: 272px;
@@ -602,6 +602,29 @@
             }
           }
         }
+        .btn-seleccionado{
+          padding-left: 70%;
+          .btn1{
+            height: 24px;
+            width: 116px;
+            background: #020D52;
+            color: #FBFBFB;
+            font-family: 'Arial';
+            font-size: 12px;
+            text-align: center;
+            border: none;
+          }
+          .btn2{
+            height: 24px;
+            width: 116px;
+            background: #1A9FEF;
+            color: #FBFBFB;
+            font-family: 'Arial';
+            font-size: 12px;
+            text-align: center;
+            border: none;
+          }
+        }
         .controls {
           display: flex;
           font-size: 15px;
@@ -644,7 +667,7 @@
 .contenedor4{
   display: -ms-inline-grid;
   justify-content: center;
-  padding-left: 150px;
+  padding-left: 25%;
   padding-bottom: 119px;
   .titulo5{
     color: #1B2455;

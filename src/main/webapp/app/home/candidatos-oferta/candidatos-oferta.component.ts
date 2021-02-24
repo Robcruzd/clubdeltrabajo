@@ -19,6 +19,7 @@ export class CandidatosOfertaComponent implements OnInit {
   imagen!: Archivo;
   ulrImgDefault = '';
   faUserCircle = faUserCircle;
+  mostrar=true;
 
   constructor(private router: Router, private informacionPersonalService: InformacionPersonalService) {}
 

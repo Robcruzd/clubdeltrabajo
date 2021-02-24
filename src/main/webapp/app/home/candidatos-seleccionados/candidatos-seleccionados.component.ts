@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faStar, faAddressCard, faEllipsisH, faCommentDots, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faAddressCard, faEllipsisH, faCommentDots, faUserCircle, faCheck, faTimes, faPaperPlane, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { InformacionPersonalService } from 'app/entities/informacion-personal/informacion-personal.service';
 import { Archivo } from 'app/shared/model/archivo.model';
 import { InformacionPersonal } from 'app/shared/model/informacion-personal.model';
@@ -17,16 +17,28 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   faAddressCard = faAddressCard;
   faEllipsisH = faEllipsisH;
   faCommentDots = faCommentDots;
+  faCheck = faCheck;
+  faTimes = faTimes;
+  faPaperPlane = faPaperPlane;
+  faArrowDown = faArrowDown;
   imagen!: Archivo;
   ulrImgDefault = '';
   faUserCircle = faUserCircle;
-  backgroundMetod={}
+  
+  estado = "Seleccionado";
+  
+  backcolor = "";
+  btnestado = true;
+  verh = false;
+  verche = false;
+  verno = false;
+
 
   constructor(private router: Router,
     private informacionPersonalService: InformacionPersonalService) { }
 
   ngOnInit(): void {
-
+    this.backColor();
   }
 
   volverOferta(): void {
@@ -62,5 +74,22 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     // this.informacionPersonalService.listar(params).subscribe(response=>{
       
     // })
+  }
+  backColor(): void{
+    if (this.estado === "Descartado") {
+      this.backcolor = "#FFC1C1"
+      this.btnestado = false
+      this.verno = true
+    };
+    if (this.estado === "Seleccionado") {
+      this.backcolor = "#BAFFE3"
+      this.btnestado = true
+      this.verche = true
+    };
+    if (this.estado === "Ninguno") {
+      this.backcolor = "#EFEFEF"
+      this.btnestado = false
+      this.verh = true
+    };
   }
 }
