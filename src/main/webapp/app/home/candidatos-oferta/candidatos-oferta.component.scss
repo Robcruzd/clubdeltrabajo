@@ -327,7 +327,7 @@
       background: #f8f8f8 0% 0% no-repeat padding-box;
       opacity: 1;
       margin-top: 25px;
-      margin-bottom: 28px;
+      //margin-bottom: 28px;
       //padding: 0rem;
       padding-top: 24px;
       padding-bottom: 28px;
@@ -421,6 +421,7 @@
       margin-bottom: 25px;
       font-weight: bolder;
       margin-right: 52%;
+      margin-top: 25px;
     }
     .cuerpo {
       width: 1071px;
@@ -643,7 +644,7 @@
 .contenedor4 {
   display: -ms-inline-grid;
   justify-content: center;
-  padding-left: 150px;
+  padding-left: 25%;
   padding-bottom: 119px;
   .titulo5 {
     color: #1b2455;

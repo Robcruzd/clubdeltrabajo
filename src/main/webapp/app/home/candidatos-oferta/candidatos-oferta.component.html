@@ -1,7 +1,7 @@
 <div class="contenedor">
     <div class="div-center">
         <div class="botones-arriba">
-            <button class="btn boton-clicked" (click)="crearOferta()">
+            <button class="btn boton-no-clicked" (click)="crearOferta()">
                 <fa-icon [icon]="faCommentDots" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
@@ -39,7 +39,7 @@
         </div>
     </div>
 </div>
-    <div class="contenedor2">
+    <div class="contenedor2" *ngIf="mostrar">
         <div class="div-center2">
             <ng-container>
                 <p class="estilo_titulo2">Oferta 1</p>
@@ -79,11 +79,12 @@
     </div>
     <div class="contenedor3">
         <div class="div-center3">
-            <p class="titulo_aspirantes">Perfiles aspirantes</p>
+            <p class="titulo_aspirantes" *ngIf="mostrar">Perfiles aspirantes</p>
+            <p class="titulo_aspirantes" *ngIf="!mostrar">Resultados para ******</p>
             <div class="cuerpo">
                 <div class="buscador">
                 <div class="input-buscador">
-                    <input matInput placeholder="Busqueda" class="form-control">
+                    <input matInput placeholder="Busqueda" class="form-control" value="">
                 </div>
                 <div class="empresas">
                     <p class="titulo">Perfiles</p>

@@ -182,8 +182,8 @@ public class ArchivoResource {
     }
 
    
-    @GetMapping("/archivos/empPerfil/{empresaid}/tipo/{tipo}")
-    public ResponseEntity<Archivo> getEmp(@PathVariable Long empresaid, @PathVariable Integer tipo) {
+    @GetMapping("/archivos/tipo/{tipo}/empPerfil/{empresaid}")
+    public ResponseEntity<Archivo> getEmp(@PathVariable Integer tipo, @PathVariable Long empresaid) {
         log.debug("REST request to get Archivo : {}", empresaid);
         Optional<Archivo> archivo = archivoService.getEmp(empresaid, tipo);
         return ResponseUtil.wrapOrNotFound(archivo);

@@ -45,6 +45,7 @@ export class CandidatosOfertaComponent implements OnInit {
     totalAspirantes = 0;
     idOferta = 0;
     oferta!:IOferta | null;
+    mostrar = true;
 
     constructor(
         private router: Router,
