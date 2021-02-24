@@ -43,3 +43,15 @@ export interface IResultadoBusquedaAspirantes {
   idPersona?: number | undefined;
   idOferta?: number | undefined;
 }
+
+export interface IResultadoOfertas {
+  titulo: string | undefined;
+  descripcion: string | undefined;
+  tipoContrato: string | undefined;
+  publicado: string | undefined;
+  experiencia: string | undefined;
+  ciudad: string | undefined;
+  salario: string | undefined;
+  // idEmpresa?: number | undefined;
+  // idOferta?: number | undefined;
+}

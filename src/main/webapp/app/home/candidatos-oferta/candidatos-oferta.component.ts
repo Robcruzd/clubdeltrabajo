@@ -1,15 +1,17 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faStar, faAddressCard, faEllipsisH, faCommentDots, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { InformacionPersonalService } from 'app/entities/informacion-personal/informacion-personal.service';
+import { OfertaService } from 'app/entities/oferta/oferta.service';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { commonMessages } from 'app/shared/constants/commonMessages';
 import { Archivo } from 'app/shared/model/archivo.model';
 import { IInformacionPersonal, InformacionPersonal } from 'app/shared/model/informacion-personal.model';
+import { IOferta } from 'app/shared/model/oferta.model';
 import { IRegiones } from 'app/shared/model/regiones.model';
 import { GeografiaVo } from 'app/shared/vo/geografia-vo';
-import { IOpcionVo, IResultadoBusquedaAspirantes } from 'app/shared/vo/opcion-vo';
+import { IOpcionVo, IResultadoBusquedaAspirantes, IResultadoOfertas } from 'app/shared/vo/opcion-vo';
 
 @Component({
   selector: 'jhi-candidatos-oferta',
@@ -32,23 +34,53 @@ export class CandidatosOfertaComponent implements OnInit {
     edadValue:any = null;
     labels = commonMessages;
     listaResultadoBusquedaAspirantes: Array<IResultadoBusquedaAspirantes> = [];
+    listaResultadoOfertas: Array<IResultadoOfertas> = [];
     aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
     experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
+    tiposContrato: IOpcionVo[] = commonMessages.ARRAY_TIPO_CONTRATO;
     edades: IOpcionVo[] = commonMessages.ARRAY_EDAD;
     municipiosPersonal: Array<IOpcionVo> = [];
     geografia: Array<GeografiaVo> = [];
     resultadoBusqueda: Array<IInformacionPersonal> | null = [];
     totalAspirantes = 0;
+    idOferta = 0;
+    oferta!:IOferta | null;
 
     constructor(
         private router: Router,
         private informacionPersonalService: InformacionPersonalService,
-        private regionService: RegionesService
+        private regionService: RegionesService,
+        private route: ActivatedRoute,
+        private ofertaService: OfertaService
       ) {
         this.traerCiudad();
       }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const param = this.route.snapshot.paramMap.get('oferta')!;
+    this.idOferta = parseInt(param, 10);
+    this.getOFerta(this.idOferta);
+  }
+
+  getOFerta(id:number):void{
+    this.listaResultadoOfertas = [];
+    this.ofertaService.find(id).subscribe(response =>{
+      this.oferta = response.body;
+      const tipoContratoDB = this.tiposContrato.find( tipo => tipo.codigo === this.oferta?.tipoContrato );
+      const experienciaDB = this.experienciasLaborales.find( item => item.codigo === this.oferta?.experiencia?.toString() );
+      const ciudadDB = this.municipiosPersonal.find( ciudad => ciudad.codigo === this.oferta?.ciudad?.toString() );
+      const aspiracionDB = this.aspiracionesSalariales.find( item => item.codigo === this.oferta?.salario );
+      this.listaResultadoOfertas.push({
+        titulo: this.oferta?.titulo,
+        descripcion: this.oferta?.descripcion,
+        tipoContrato: tipoContratoDB?.nombre,
+        publicado: this.oferta?.fechaPublicacion?.format("YYYY-MM-DD"),
+        experiencia: experienciaDB?.nombre,
+        ciudad: ciudadDB?.nombre,
+        salario: aspiracionDB?.nombre
+      })
+    });
+  }
 
   volverOferta(): void {
     this.router.navigate(['primer-oferta']);
@@ -94,7 +126,7 @@ export class CandidatosOfertaComponent implements OnInit {
                 experiencia:experienciaBD,
                 titulo:element.profesion?.profesion,
                 fechaPostulacion:"g",
-                idPersona:0,
+                idPersona:element.usuario?.id,
                 idOferta:1
               });
               this.totalAspirantes = this.listaResultadoBusquedaAspirantes.length;
@@ -283,8 +315,12 @@ export class CandidatosOfertaComponent implements OnInit {
         .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0)); 
     }
 
-  verOferta(): void {
-    this.router.navigate(['oferta-publicada']);
+  verAspirante(item:any): void {
+    this.router.navigate(['hoja-candidato', { usuario: item.idPersona }]);
+  }
+
+  controlaOferta(): void {
+    this.router.navigate(['controlar-ofertas']);
   }
 
   membresia(): void {

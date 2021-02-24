@@ -22,7 +22,7 @@
                     <p class="titulo-boton">Club de empresas</p>
                 </div>
             </button>
-            <button class="btn boton-no-clicked" (click)="verOferta()">
+            <button class="btn boton-no-clicked" (click)="controlaOferta()">
                 <fa-icon icon="eye" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
@@ -45,9 +45,9 @@
                 <p class="estilo_titulo2">Oferta 1</p>
                 <div class="ngnum1">
                     <ng-container>
-                        <p class="titulo_oferta">Oferta</p>
+                        <p class="titulo_oferta">{{listaResultadoOfertas[0].titulo}}</p>
                         <!--<p class="profesion_oferta">profesionOferta</p>-->
-                        <p class="descripcion_profesion">Buscamos Profesional en diseño gráfico, publicidad y/o licenciatura en artes gráficas ESPECIALISTA en diseño; experiencia de 4 años en diseño y realización de banners, splashscreens, newsletters, landingpages y usando HTML, CSS y JavaScript. Conocimientos en maquetación de HTML5, y CSS3 para proyectos web y móvil (web responsiva y aplicaciones hibridas)</p>
+                        <p class="descripcion_profesion">{{listaResultadoOfertas[0].descripcion}}</p>
                         <table class="tabla_oferta" style="width: 90%;">
                             <tr>
                               <th class="titulo_oferta_previsualizacion">Titulo:</th>
@@ -55,9 +55,9 @@
                               <th class="titulo_oferta_previsualizacion">Publicado:</th>
                             </tr>
                             <tr>
-                              <td class="des_titulo" style="width: 30%;">tituloOferta</td>
-                              <td class="des_titulo" style="width: 40%;">contratoOferta</td>
-                              <td class="des_titulo" style="width: 30%;">publicadoOFerta</td>
+                              <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].titulo}}</td>
+                              <td class="des_titulo" style="width: 40%;">{{listaResultadoOfertas[0].tipoContrato}}</td>
+                              <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].publicado}}</td>
                             </tr>
                         </table>
                         <table class="tabla_oferta" style="width: 90%;">
@@ -67,9 +67,9 @@
                               <th class="titulo_oferta_previsualizacion">Salario:</th>
                             </tr>
                             <tr>
-                              <td class="des_titulo" style="width: 30%;">experienciaOferta</td>
-                              <td class="des_titulo" style="width: 40%;">ciudadOferta</td>
-                              <td class="des_titulo" style="width: 30%;">salarioOferta</td>
+                              <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].experiencia}}</td>
+                              <td class="des_titulo" style="width: 40%;">{{listaResultadoOfertas[0].ciudad}}</td>
+                              <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].salario}}</td>
                             </tr>
                         </table>
                     </ng-container>
@@ -154,7 +154,7 @@
                 </div> 
                 <div class="perfil">
                     <div style="height: 640px; margin-bottom: 20px;">
-                    <a class="perfiles" (click)="verOferta()" 
+                    <a class="perfiles" (click)="verAspirante(item)" 
                      *ngFor="let item of listaResultadoBusquedaAspirantes | paginate: { itemsPerPage: 6, currentPage: page }">
                         <div class="mitad1">
                             <div class="imagen">
