@@ -29,3 +29,16 @@ export interface IResultadoBusquedaOfertas {
   idEmpresa?: number | undefined;
   idOferta?: number | undefined;
 }
+
+export interface IResultadoBusquedaAspirantes {
+  nombre: string | undefined;
+  apellido: string | undefined;
+  profesion: string | undefined;
+  edad: number | undefined;
+  ciudad: string | undefined;
+  experiencia: string | undefined;
+  titulo: string | undefined;
+  fechaPostulacion: string | undefined;
+  idPersona?: number | undefined;
+  idOferta?: number | undefined;
+}

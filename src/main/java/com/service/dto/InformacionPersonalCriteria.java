@@ -46,6 +46,8 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
     private LongFilter usuarioId;
     
     private StringFilter tipoLicenciaConduccion;
+    
+    private IntegerFilter aspiracionSalarial;
 
     public InformacionPersonalCriteria() {
     }
@@ -63,6 +65,7 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
         this.perfilProfesional = other.perfilProfesional == null ? null : other.perfilProfesional.copy();
         this.usuarioId = other.usuarioId == null ? null : other.usuarioId.copy();
         this.tipoLicenciaConduccion = other.tipoLicenciaConduccion == null ? null : other.tipoLicenciaConduccion.copy();
+        this.aspiracionSalarial = other.aspiracionSalarial == null ? null : other.aspiracionSalarial.copy();
     }
 
     @Override
@@ -166,6 +169,14 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
 		this.tipoLicenciaConduccion = tipoLicenciaConduccion;
 	}
 
+	public IntegerFilter getAspiracionSalarial() {
+		return aspiracionSalarial;
+	}
+
+	public void setAspiracionSalarial(IntegerFilter aspiracionSalarial) {
+		this.aspiracionSalarial = aspiracionSalarial;
+	}
+
 	@Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -187,7 +198,8 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
             Objects.equals(redesSociales, that.redesSociales) &&
             Objects.equals(perfilProfesional, that.perfilProfesional) &&
             Objects.equals(usuarioId, that.usuarioId) &&
-        	Objects.equals(tipoLicenciaConduccion, that.tipoLicenciaConduccion);
+        	Objects.equals(tipoLicenciaConduccion, that.tipoLicenciaConduccion) &&
+        	Objects.equals(aspiracionSalarial, that.aspiracionSalarial);
     }
 
     @Override
@@ -204,7 +216,8 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
         redesSociales,
         perfilProfesional,
         usuarioId,
-        tipoLicenciaConduccion
+        tipoLicenciaConduccion,
+        aspiracionSalarial
         );
     }
 
@@ -222,6 +235,7 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
                 (redesSociales != null ? "redesSociales=" + redesSociales + ", " : "") +
                 (perfilProfesional != null ? "perfilProfesional=" + perfilProfesional + ", " : "") +
                 (usuarioId != null ? "usuarioId=" + usuarioId + ", " : "") +
+                (aspiracionSalarial != null ? "aspiracionSalarial=" + aspiracionSalarial + ", " : "") +
             "}";
     }
 

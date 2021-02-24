@@ -91,7 +91,7 @@ public class AplicacionOfertaQueryService extends QueryService<AplicacionOferta>
             }
             if (criteria.getOfertaId() != null) {
                 specification = specification.and(buildSpecification(criteria.getOfertaId(),
-                    root -> root.join(AplicacionOfertaFiltro.oferta, JoinType.LEFT).get(OfertaFiltro.id)));
+                    root -> root.join(AplicacionOfertaFiltro.oferta, JoinType.LEFT).get(Oferta_.id)));
             }
         }
         return specification;

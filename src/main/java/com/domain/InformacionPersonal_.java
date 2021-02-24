@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(InformacionPersonal.class)
-public abstract class InformacionPersonalFiltro {
+public abstract class InformacionPersonal_ {
 
 	public static volatile SingularAttribute<InformacionPersonal, LocalDate> fechaNacimiento;
 	public static volatile SingularAttribute<InformacionPersonal, Integer> ciudad;
@@ -20,6 +20,7 @@ public abstract class InformacionPersonalFiltro {
 	public static volatile SingularAttribute<InformacionPersonal, Integer> redesSociales;
 	public static volatile SingularAttribute<InformacionPersonal, String> lugarNacimiento;
 	public static volatile SingularAttribute<InformacionPersonal, Boolean> licencenciaConduccion;
+	public static volatile SingularAttribute<InformacionPersonal, Integer> aspiracionSalarial;
 
 	public static final String FECHA_NACIMIENTO = "fechaNacimiento";
 	public static final String CIUDAD = "ciudad";
@@ -32,6 +33,6 @@ public abstract class InformacionPersonalFiltro {
 	public static final String REDES_SOCIALES = "redesSociales";
 	public static final String LUGAR_NACIMIENTO = "lugarNacimiento";
 	public static final String LICENCENCIA_CONDUCCION = "licencenciaConduccion";
-
+	public static final String ASPIRACION_SALARIAL = "aspiracionSalarial";
 }
 
