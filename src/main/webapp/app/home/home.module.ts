@@ -39,7 +39,7 @@ import { CandidatosOfertaComponent } from './candidatos-oferta/candidatos-oferta
 import { ControlarOfertasComponent } from './controlar-ofertas/controlar-ofertas.component';
 import { OfertaPublicaComponent } from './oferta-publica/oferta-publica.component';
 import { CandidatosSeleccionadosComponent } from './candidatos-seleccionados/candidatos-seleccionados.component';
-import { BusquedaCandidatosComponent } from './busqueda-candidatos/busqueda-candidatos.component';
+// import { BusquedaCandidatosComponent } from './busqueda-candidatos/busqueda-candidatos.component';
 
 @NgModule({
   imports: [
@@ -86,7 +86,7 @@ import { BusquedaCandidatosComponent } from './busqueda-candidatos/busqueda-cand
     CandidatosSeleccionadosComponent,
     ControlarOfertasComponent,
     OfertaPublicaComponent,
-    BusquedaCandidatosComponent
+    // BusquedaCandidatosComponent
   ]
 })
 export class CtProjectHomeModule {}

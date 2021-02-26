@@ -55,3 +55,11 @@ export interface IResultadoOfertas {
   // idEmpresa?: number | undefined;
   // idOferta?: number | undefined;
 }
+
+export interface IResultadoHojaCandidato {
+  nombre: string | undefined;
+  profesion: string | undefined;
+  descripcion: string | undefined;
+  // idEmpresa?: number | undefined;
+  // idOferta?: number | undefined;
+}

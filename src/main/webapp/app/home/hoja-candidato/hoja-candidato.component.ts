@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { InformacionPersonalService } from 'app/entities/informacion-personal/informacion-personal.service';
 import { InformacionPersonal } from 'app/shared/model/informacion-personal.model';
-import { IPersona, Persona } from 'app/shared/model/persona.model';
+import { IPersona } from 'app/shared/model/persona.model';
+import { IResultadoHojaCandidato } from 'app/shared/vo/opcion-vo';
 import { PersonaService } from '../../entities/persona/persona.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class HojaCandidatoComponent implements OnInit {
   idUsuario = 0;
   informacionPersonal = new InformacionPersonal();
   personaInfo! : IPersona | null;
+  listaResultadoHojaCandidato: Array<IResultadoHojaCandidato> = [];
 
   constructor( private personaService: PersonaService,private route: ActivatedRoute,
     private informacionPersonalService: InformacionPersonalService ) { }
@@ -27,15 +29,24 @@ export class HojaCandidatoComponent implements OnInit {
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get('usuario')!;
     this.idUsuario = parseInt(param, 10);
-    this.getPersona(this.idUsuario);
+    this.getPersona();
   }
 
-  getPersona(id:any): void{
+  getPersona(): void{
+    this.listaResultadoHojaCandidato = [];
     this.personaService.find(this.idUsuario).subscribe(persona =>{
       this.personaInfo = persona.body;
       if(this.personaInfo){
         this.informacionPersonal.usuario = this.personaInfo;
         this.informacionPersonalService.listar(this.informacionPersonal).subscribe(info =>{
+          console.log("infooo");
+          console.log(info);
+          this.listaResultadoHojaCandidato.push({
+            nombre: this.personaInfo?.nombre,
+            profesion: info.content[0].profesion.profesion,
+            descripcion: "perfil profesional"
+          })
+          
         })
       }
     })
