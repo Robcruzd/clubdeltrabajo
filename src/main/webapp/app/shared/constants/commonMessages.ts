@@ -334,7 +334,7 @@ export const commonMessages = {
     { codigo: 3, nombre: 'Entre 26 y 30 años' },
     { codigo: 4, nombre: 'Entre 31 y 40 años' },
     { codigo: 5, nombre: 'Entre 41 y 60 años' },
-    { codigo: 6, nombre: 'Mas de 60 años' },
+    { codigo: 6, nombre: 'Mas de 60 años' }
   ],
 
   PROFESION_LABEL: 'Profesión',

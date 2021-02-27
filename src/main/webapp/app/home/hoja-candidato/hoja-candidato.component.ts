@@ -14,11 +14,10 @@ import { PersonaService } from '../../entities/persona/persona.service';
   styleUrls: ['./hoja-candidato.component.scss']
 })
 export class HojaCandidatoComponent implements OnInit {
-
-  myValue1= false;
+  myValue1 = false;
   persona: any;
 
-  model = "Ninguno";
+  model = 'Ninguno';
   idUsuario = 0;
   informacionPersonal = new InformacionPersonal();
   informacionAcademica = new InformacionAcademica();
@@ -36,18 +35,18 @@ export class HojaCandidatoComponent implements OnInit {
     this.getPersona();
   }
 
-  getPersona(): void{
+  getPersona(): void {
     this.listaResultadoHojaCandidato = [];
-    this.personaService.find(this.idUsuario).subscribe(persona =>{
+    this.personaService.find(this.idUsuario).subscribe(persona => {
       this.personaInfo = persona.body;
-      if(this.personaInfo){
+      if (this.personaInfo) {
         this.informacionPersonal.usuario = this.personaInfo;
         this.informacionAcademica.usuario = this.personaInfo;
         this.informacionPersonalService.listar(this.informacionPersonal).subscribe(info =>{
           this.informacionAcademicaService.listar(this.informacionAcademica).subscribe(academica=>{
-            academica.content.forEach(element => {
-              element
-            });
+            // academica.content.forEach(element => {
+            //   element
+            // });
             this.listaResultadoHojaCandidato.push({
               nombre: this.personaInfo?.nombre,
               profesion: info.content[0].profesion.profesion,
@@ -56,16 +55,14 @@ export class HojaCandidatoComponent implements OnInit {
           })
         })
       }
-    })
+    });
   }
 
-  guardarCambios(): void{
+  guardarCambios(): void {
     // for (let x = 0; x < document.forms[0].estado.length; x++)
     // if (document.forms[0].estado[x].checked)
     // {
     //     alert("Tipo " + document.forms[0].estado[x].value + " seleccionado.");
-        
     // }
   }
-
 }

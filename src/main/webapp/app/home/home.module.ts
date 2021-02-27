@@ -85,7 +85,7 @@ import { CandidatosSeleccionadosComponent } from './candidatos-seleccionados/can
     OfertaPublicaComponent,
     CandidatosSeleccionadosComponent,
     ControlarOfertasComponent,
-    OfertaPublicaComponent,
+    OfertaPublicaComponent
     // BusquedaCandidatosComponent
   ]
 })
