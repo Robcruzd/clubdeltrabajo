@@ -17,7 +17,7 @@
                         <div class="titulo_div">
                             <h2 class="titulo" *ngIf="true">{{persona?.nombre}} {{persona?.apellido}}</h2>
                             <label class="label_card" *ngIf="hojaVidaVo?.informacionPersonal?.profesion">Profesión</label>
-                            <label class="label_card2" *ngIf="hojaVidaVo?.informacionPersonal?.profesion">{{hojaVidaVo?.informacionPersonal?.profesion}}</label>
+                            <label class="label_card2" *ngIf="hojaVidaVo?.informacionPersonal?.profesion">{{hojaVidaVo?.informacionPersonal?.profesion?.profesion}}</label>
                             <br>
                             <label class="label_card">CC</label>
                             <label class='label_card2'> {{persona?.numeroDocumento}}</label>

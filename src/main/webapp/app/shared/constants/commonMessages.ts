@@ -243,7 +243,7 @@ export const commonMessages = {
     { codigo: 12, nombre: '12' }
   ],
   ESTADO_CIVIL_LABEL: 'Estado civil',
-  NOTIFICACIONES_LABEL: 'Desea recibir notificaciones, alertas y mensajes de Club del Trabajo en su correo electrónico?',
+  NOTIFICACIONES_LABEL: 'Desea recibir notificaciones, alertas y mensajes de Club del Trabajo vía mensaje de texto?',
   ARRAY_ESTADOS_CIVILES: [
     { codigo: 1, nombre: 'Soltero' },
     { codigo: 2, nombre: 'Unión Libre' },

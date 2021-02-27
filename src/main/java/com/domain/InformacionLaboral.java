@@ -29,18 +29,15 @@ public class InformacionLaboral implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotNull
     @Column(name = "nombre_empresa", nullable = false)
     private String nombreEmpresa;
 
-    @NotNull
     @Column(name = "fecha_inicio", nullable = false)
     private LocalDate fechaInicio;
 
     @Column(name = "fecha_fin", nullable = true)
     private LocalDate fechaFin;
 
-    @NotNull
     @Column(name = "direccion", nullable = false)
     private String direccion;
 
@@ -50,15 +47,12 @@ public class InformacionLaboral implements Serializable {
     @Column(name = "departamento")
     private Integer departamento;
 
-    @NotNull
     @Column(name = "pais", nullable = false)
     private String pais;
 
-    @NotNull
     @Column(name = "telefono_empresa", nullable = false)
     private String telefonoEmpresa;
 
-    @NotNull
     @Column(name = "dependencia", nullable = false)
     private String dependencia;
 
@@ -66,12 +60,10 @@ public class InformacionLaboral implements Serializable {
     private String ciudadExtranjera;
 
     @ManyToOne(optional = false)
-    @NotNull
     @JsonIgnoreProperties("informacionLaborals")
     private Persona usuario;
 
     @ManyToOne(optional = false)
-    @NotNull
     @JsonIgnoreProperties("informacionLaborals")
     private Cargo cargo;
     

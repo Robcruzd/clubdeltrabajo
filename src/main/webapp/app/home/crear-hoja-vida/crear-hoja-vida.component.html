@@ -976,8 +976,7 @@
                         </button>
                     </div>
                     <div class="column">
-                        <button type="submit" class="btn boton_siguiente text-white float-right"
-                            [disabled]="experienciaLaboral.invalid || cargandoDeshabilitado">
+                        <button type="submit" class="btn boton_siguiente text-white float-right">
                             <div *ngIf="cargando">{{labels.GUARDAR_LABEL}}</div>
                             <span *ngIf="!cargando" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>    
                         </button>      
@@ -987,3 +986,5 @@
         </ng-container>
     </form>
 </div>
+
+<!-- [disabled]="experienciaLaboral.invalid || cargandoDeshabilitado" -->

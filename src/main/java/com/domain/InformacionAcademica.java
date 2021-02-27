@@ -32,7 +32,6 @@ public class InformacionAcademica implements Serializable {
     @Column(name = "nivel_estudio")
     private Integer nivelEstudio;
 
-    @NotNull
     @Column(name = "estado", nullable = false)
     private Integer estado;
 
@@ -43,15 +42,12 @@ public class InformacionAcademica implements Serializable {
     private String tituloOtorgado;
 
     @ManyToOne(optional = false)
-    @NotNull
     @JsonIgnoreProperties("informacionAcademicas")
     private Persona usuario;
     
-    @NotNull
     @Column(name = "institucion", nullable = false)
     private String institucion;
     
-    @NotNull
     @Column(name = "ciudad_academica", nullable = false)
     private Integer ciudadAcademica;
 

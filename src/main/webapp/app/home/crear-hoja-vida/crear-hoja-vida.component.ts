@@ -197,9 +197,9 @@ export class CrearHojaVidaComponent implements OnInit {
 
   crearFormularioGeneral(): FormGroup {
     return this.fb.group({
-      informacionAcademica: this.fb.array([this.crearItemInformacionAcademica()]),
+      informacionAcademica: this.fb.array([this.crearItemInformacionAcademica(0)]),
       idioma: this.fb.array([this.crearItemIdioma()]),
-      experienciaLaboral: this.fb.array([this.crearItemExperienciaLaboral()])
+      experienciaLaboral: this.fb.array([this.crearItemExperienciaLaboral(0)])
     });
   }
 
@@ -233,9 +233,9 @@ export class CrearHojaVidaComponent implements OnInit {
     });
   }
 
-  crearItemInformacionAcademica(): FormGroup {
+  crearItemInformacionAcademica(index: number | undefined): FormGroup {
     return this.fb.group({
-      id: [''],
+      id: index,
       nivelEstudio: [null, [Validators.required]],
       estado: [null, [Validators.required]],
       ciudadAcademica: [null, [Validators.required]],
@@ -251,7 +251,7 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   addItemInformacionAcademica(): void {
-    this.informacionAcademica.push(this.crearItemInformacionAcademica());
+    this.informacionAcademica.push(this.crearItemInformacionAcademica(this.informacionAcademica.length));
   }
 
   crearItemIdioma(): FormGroup {
@@ -267,9 +267,9 @@ export class CrearHojaVidaComponent implements OnInit {
     this.idioma.push(this.crearItemIdioma());
   }
 
-  crearItemExperienciaLaboral(): FormGroup {
+  crearItemExperienciaLaboral(index: number | undefined): FormGroup {
     return this.fb.group({
-      id: [''],
+      id: index,
       nombreEmpresa: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú ]{0,}$')]],
       fechaInicio: this.fb.group({
         dia: [null, [Validators.required]],
@@ -297,7 +297,7 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   addItemExperienciaLaboral(): void {
-    this.experienciaLaboral.push(this.crearItemExperienciaLaboral());
+    this.experienciaLaboral.push(this.crearItemExperienciaLaboral(this.experienciaLaboral.length));
   }
 
   crearFormularioPerfil(): void {
@@ -353,6 +353,7 @@ export class CrearHojaVidaComponent implements OnInit {
         activoNotificaciones: hojaVida.informacionPersonal.activoNotificaciones ? this.labels.SI_LABEL : this.labels.NO_LABEL
       });
       this.myControlProfesiones.setValue(hojaVida.informacionPersonal.profesion?.profesion!);
+      this.profesionState = true;
 
       // cargar perfil profesional
       this.formPerfil.patchValue({
@@ -504,6 +505,7 @@ export class CrearHojaVidaComponent implements OnInit {
           }
         });
         this.step++;
+        this.onSubmit1();
         // if (flag === 0) {
         //   alertify.set('notifier', 'position', 'top-right');
         //   alertify.error('Debe adjuntar el documento de identidad');
@@ -519,6 +521,7 @@ export class CrearHojaVidaComponent implements OnInit {
           }
         });
         this.step++;
+        this.onSubmit2();
         // if (flag < this.informacionAcademica.length) {
         //   alertify.set('notifier', 'position', 'top-right');
         //   alertify.error('Debe adjuntar el título a cada estudio');
@@ -538,6 +541,62 @@ export class CrearHojaVidaComponent implements OnInit {
     this.step--;
   }
 
+  onSubmit1(): void {
+    this.cargando = false;
+    this.hojaVidaVo = new HojaVidaVo();
+
+    // cargar informacion personal
+    this.hojaVidaVo.informacionPersonal = this.procesarInformacionPersonal();
+    this.hojaVidaVo.persona = this.procesarPersona();
+  }
+
+  onSubmit2(): void {
+    this.hojaVidaVo = new HojaVidaVo();
+    const academica: IInformacionAcademica[] = [];
+    for (let index = 0; index < this.informacionAcademica.length; index++) {
+      academica.push(this.procesarInformacionAcademica(this.informacionAcademica.at(index).value, index));
+    }
+    this.hojaVidaVo.informacionAcademica = academica;
+
+    // cargar idiomas
+    const idioma: IPersona[] = [];
+    for (let index = 0; index < this.idioma.length; index++) {
+      idioma.push(this.procesarIdiomas(this.idioma.at(index).value));
+    }
+    this.hojaVidaVo.idiomas = idioma;
+
+    this.cargarArchivos(this.hojaVidaVo);
+  }
+
+  cargarArchivos(hojavo: HojaVidaVo): void {
+    this.hojaVidaVo = hojavo;
+    if (this.archivos.length !== 0) {
+      this.hojaVidaVo.archivos = this.archivos;
+    }
+
+    this.service.create(this.hojaVidaVo).subscribe(
+      response => {
+        if (response.body !== null) {
+          this.archivosaws.forEach((element: { file: File; name: string }) => {
+            const formData = new FormData();
+            formData.append('file', element.file, element.name);
+            this.archivo.uploadS3(formData).subscribe((res: any) => {});
+          });
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+          this.hojaVidaVo = response.body;
+          if (this.step !== 1 && this.step !== 2) {
+            this.router.navigate(['/perfil']);
+          }
+        }
+      },
+      () => {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error(commonMessages.HTTP_ERROR_LABEL);
+      }
+    );
+  }
+
   onSubmit(): void {
     this.cargandoDeshabilitado = true;
     let flag = 0;
@@ -554,28 +613,10 @@ export class CrearHojaVidaComponent implements OnInit {
       this.cargando = false;
       this.hojaVidaVo = new HojaVidaVo();
 
-      // cargar informacion personal
-      this.hojaVidaVo.informacionPersonal = this.procesarInformacionPersonal();
-      this.hojaVidaVo.persona = this.procesarPersona();
-
-      // cargar informacion academica
-      const academica: IInformacionAcademica[] = [];
-      for (let index = 0; index < this.informacionAcademica.length; index++) {
-        academica.push(this.procesarInformacionAcademica(this.informacionAcademica.at(index).value));
-      }
-      this.hojaVidaVo.informacionAcademica = academica;
-
-      // cargar idiomas
-      const idioma: IPersona[] = [];
-      for (let index = 0; index < this.idioma.length; index++) {
-        idioma.push(this.procesarIdiomas(this.idioma.at(index).value));
-      }
-      this.hojaVidaVo.idiomas = idioma;
-
       // cargar informacion laboral
       const laboral: IInformacionLaboral[] = [];
       for (let index = 0; index < this.experienciaLaboral.length; index++) {
-        laboral.push(this.procesarExperienciaLaboral(this.experienciaLaboral.at(index).value));
+        laboral.push(this.procesarExperienciaLaboral(this.experienciaLaboral.at(index).value, index));
       }
       this.hojaVidaVo.experienciaLaboral = laboral;
       // Cargar archivos
@@ -647,7 +688,7 @@ export class CrearHojaVidaComponent implements OnInit {
     };
   }
 
-  procesarInformacionAcademica(academica: Object): IInformacionAcademica {
+  procesarInformacionAcademica(academica: Object, index: number): IInformacionAcademica {
     return {
       ...new InformacionAcademica(),
       id: academica['id'],
@@ -661,7 +702,7 @@ export class CrearHojaVidaComponent implements OnInit {
     };
   }
 
-  procesarExperienciaLaboral(experiencia: Object): IInformacionLaboral {
+  procesarExperienciaLaboral(experiencia: Object, index: number): IInformacionLaboral {
     return {
       ...new InformacionLaboral(),
       id: experiencia['id'],
