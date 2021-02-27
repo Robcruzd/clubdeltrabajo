@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { InformacionAcademicaService } from 'app/entities/informacion-academica/informacion-academica.service';
 import { InformacionPersonalService } from 'app/entities/informacion-personal/informacion-personal.service';
+import { InformacionAcademica } from 'app/shared/model/informacion-academica.model';
 import { InformacionPersonal } from 'app/shared/model/informacion-personal.model';
 import { IPersona } from 'app/shared/model/persona.model';
 import { IResultadoHojaCandidato } from 'app/shared/vo/opcion-vo';
@@ -19,11 +21,13 @@ export class HojaCandidatoComponent implements OnInit {
   model = "Ninguno";
   idUsuario = 0;
   informacionPersonal = new InformacionPersonal();
+  informacionAcademica = new InformacionAcademica();
   personaInfo! : IPersona | null;
   listaResultadoHojaCandidato: Array<IResultadoHojaCandidato> = [];
 
   constructor( private personaService: PersonaService,private route: ActivatedRoute,
-    private informacionPersonalService: InformacionPersonalService ) { }
+    private informacionPersonalService: InformacionPersonalService,
+    private informacionAcademicaService: InformacionAcademicaService ) { }
 
 
   ngOnInit(): void {
@@ -38,15 +42,18 @@ export class HojaCandidatoComponent implements OnInit {
       this.personaInfo = persona.body;
       if(this.personaInfo){
         this.informacionPersonal.usuario = this.personaInfo;
+        this.informacionAcademica.usuario = this.personaInfo;
         this.informacionPersonalService.listar(this.informacionPersonal).subscribe(info =>{
-          console.log("infooo");
-          console.log(info);
-          this.listaResultadoHojaCandidato.push({
-            nombre: this.personaInfo?.nombre,
-            profesion: info.content[0].profesion.profesion,
-            descripcion: "perfil profesional"
+          this.informacionAcademicaService.listar(this.informacionAcademica).subscribe(academica=>{
+            academica.content.forEach(element => {
+              element
+            });
+            this.listaResultadoHojaCandidato.push({
+              nombre: this.personaInfo?.nombre,
+              profesion: info.content[0].profesion.profesion,
+              descripcion: info.content[0].perfilProfesional
+            })
           })
-          
         })
       }
     })

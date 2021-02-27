@@ -1,9 +1,11 @@
 package com.web.rest;
 
 import com.domain.InformacionAcademica;
+import com.domain.InformacionPersonal;
 import com.service.InformacionAcademicaService;
 import com.web.rest.errors.BadRequestAlertException;
 import com.service.dto.InformacionAcademicaCriteria;
+import com.service.dto.InformacionPersonalCriteria;
 import com.service.InformacionAcademicaQueryService;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -13,7 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -141,4 +145,11 @@ public class InformacionAcademicaResource {
         informacionAcademicaService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+    
+    @GetMapping("/informacion-academicas/informacionAcademica")
+	public Page<InformacionAcademica> listar(InformacionAcademicaCriteria informacionAcademicaBuilder) {
+    	Pageable paging = PageRequest.of(0, 9999, Sort.by("id"));
+    	return informacionAcademicaQueryService.findByCriteria(informacionAcademicaBuilder, paging);
+		//return informacionPersonalVOService.listar(new CommonSpecifications<InformacionPersonalVO>(informacionPersonalBuilder));
+	}
 }

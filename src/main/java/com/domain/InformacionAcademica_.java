@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(InformacionAcademica.class)
-public abstract class InformacionAcademicaFiltro {
+public abstract class InformacionAcademica_ {
 
 	public static volatile SingularAttribute<InformacionAcademica, Integer> estado;
 	public static volatile SingularAttribute<InformacionAcademica, LocalDate> fechaInicio;
