@@ -183,7 +183,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           const profBD = this.dataProf.find(profesion => profesion.id === element.profesion);
           this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(response => {
             // eslint-disable-next-line no-console
-            console.log('response:     ', response);
+            console.log('response:     ', element);
             if (response.body !== null) {
               this.imagen = response.body;
             }
@@ -195,12 +195,7 @@ export class HomeComponent implements OnInit, OnDestroy {
               ciudad: ciudadBD?.nombre,
               activado: element?.activado,
               empresa: element?.usuario?.razonSocial,
-              fecha:
-                element.fechaPublicacion?.daysInMonth()! +
-                '/' +
-                element.fechaPublicacion?.month()! +
-                '/' +
-                element.fechaPublicacion?.year()!,
+              fecha: element.fechaPublicacion?.format('DD/MM/YYYY'),
               imagen: response.body?.archivo
             });
           });
