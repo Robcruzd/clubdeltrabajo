@@ -30,3 +30,36 @@ export interface IResultadoBusquedaOfertas {
   idEmpresa?: number | undefined;
   idOferta?: number | undefined;
 }
+
+export interface IResultadoBusquedaAspirantes {
+  nombre: string | undefined;
+  apellido: string | undefined;
+  profesion: string | undefined;
+  edad: number | undefined;
+  ciudad: string | undefined;
+  experiencia: string | undefined;
+  titulo: string | undefined;
+  fechaPostulacion: string | undefined;
+  idPersona?: number | undefined;
+  idOferta?: number | undefined;
+}
+
+export interface IResultadoOfertas {
+  titulo: string | undefined;
+  descripcion: string | undefined;
+  tipoContrato: string | undefined;
+  publicado: string | undefined;
+  experiencia: string | undefined;
+  ciudad: string | undefined;
+  salario: string | undefined;
+  // idEmpresa?: number | undefined;
+  // idOferta?: number | undefined;
+}
+
+export interface IResultadoHojaCandidato {
+  nombre: string | undefined;
+  profesion: string | undefined;
+  descripcion: string | undefined;
+  // idEmpresa?: number | undefined;
+  // idOferta?: number | undefined;
+}

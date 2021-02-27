@@ -102,7 +102,7 @@ public class InformacionAcademicaQueryService extends QueryService<InformacionAc
             }
             if (criteria.getUsuarioId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUsuarioId(),
-                    root -> root.join(InformacionAcademicaFiltro.usuario, JoinType.LEFT).get(PersonaFiltro.id)));
+                    root -> root.join(InformacionAcademicaFiltro.usuario, JoinType.LEFT).get(Persona_.id)));
             }
             // if (criteria.getInstitucionId() != null) {
             //     specification = specification.and(buildSpecification(criteria.getInstitucionId(),

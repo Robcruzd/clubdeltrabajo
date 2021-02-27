@@ -117,7 +117,7 @@ public class InformacionLaboralQueryService extends QueryService<InformacionLabo
 //            }
             if (criteria.getUsuarioId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUsuarioId(),
-                    root -> root.join(InformacionLaboralFiltro.usuario, JoinType.LEFT).get(PersonaFiltro.id)));
+                    root -> root.join(InformacionLaboralFiltro.usuario, JoinType.LEFT).get(Persona_.id)));
             }
             if (criteria.getCargoId() != null) {
                 specification = specification.and(buildSpecification(criteria.getCargoId(),

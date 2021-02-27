@@ -328,6 +328,15 @@ export const commonMessages = {
     { codigo: 4, nombre: 'ultimo año' }
   ],
 
+  ARRAY_EDAD: [
+    { codigo: 1, nombre: 'Entre 14 y 18 años' },
+    { codigo: 2, nombre: 'Entre 19 y 25 años' },
+    { codigo: 3, nombre: 'Entre 26 y 30 años' },
+    { codigo: 4, nombre: 'Entre 31 y 40 años' },
+    { codigo: 5, nombre: 'Entre 41 y 60 años' },
+    { codigo: 6, nombre: 'Mas de 60 años' }
+  ],
+
   PROFESION_LABEL: 'Profesión',
   NUMERO_VECES_EXCEDIDO: 'Solamente es permitido 2 archivos por registro.',
   POLITICAS:

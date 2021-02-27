@@ -9,7 +9,6 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IOferta } from 'app/shared/model/oferta.model';
 import { Oferta } from '../../shared/model/oferta.model';
-import { AnyARecord } from 'dns';
 
 type EntityResponseType = HttpResponse<IOferta>;
 type EntityArrayResponseType = HttpResponse<IOferta[]>;

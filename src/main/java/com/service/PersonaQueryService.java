@@ -83,27 +83,27 @@ public class PersonaQueryService extends QueryService<Persona> {
         Specification<Persona> specification = Specification.where(null);
         if (criteria != null) {
             if (criteria.getId() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getId(), PersonaFiltro.id));
+                specification = specification.and(buildRangeSpecification(criteria.getId(), Persona_.id));
             }
             if (criteria.getNombre() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getNombre(), PersonaFiltro.nombre));
+                specification = specification.and(buildStringSpecification(criteria.getNombre(), Persona_.nombre));
             }
             if (criteria.getApellido() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getApellido(), PersonaFiltro.apellido));
+                specification = specification.and(buildStringSpecification(criteria.getApellido(), Persona_.apellido));
             }
             if (criteria.getEmail() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getEmail(), PersonaFiltro.email));
+                specification = specification.and(buildStringSpecification(criteria.getEmail(), Persona_.email));
             }
 //            if (criteria.getNumeroDocumento() != null) {
 //                specification = specification.and(buildStringSpecification(criteria.getNumeroDocumento(), Persona_.numeroDocumento));
 //            }
             if (criteria.getTipoUsuarioId() != null) {
                 specification = specification.and(buildSpecification(criteria.getTipoUsuarioId(),
-                    root -> root.join(PersonaFiltro.tipoUsuario, JoinType.LEFT).get(TipoUsuarioFiltro.id)));
+                    root -> root.join(Persona_.tipoUsuario, JoinType.LEFT).get(TipoUsuarioFiltro.id)));
             }
             if (criteria.getTipoDocumentoId() != null) {
                 specification = specification.and(buildSpecification(criteria.getTipoDocumentoId(),
-                    root -> root.join(PersonaFiltro.tipoDocumento, JoinType.LEFT).get(TipoDocumentoFiltro.id)));
+                    root -> root.join(Persona_.tipoDocumento, JoinType.LEFT).get(TipoDocumentoFiltro.id)));
             }
         }
         return specification;
