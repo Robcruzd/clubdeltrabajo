@@ -8,13 +8,32 @@ import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IInformacionLaboral } from 'app/shared/model/informacion-laboral.model';
+import { Persona } from 'app/shared/model/persona.model';
 
 type EntityResponseType = HttpResponse<IInformacionLaboral>;
 type EntityArrayResponseType = HttpResponse<IInformacionLaboral[]>;
 
+export class PathUtil {
+  public static getPathParams(parameters: any): string {
+    const fields: string[] = Object.getOwnPropertyNames(parameters);
+    let path = '?';
+    fields.forEach((field: string, i: number) => {
+      const value: any = Object.values(parameters)[i];
+      if (i > 0 && path !== '?' && value !== null && value.toString().trim() !== '') {
+        path += '&';
+      }
+      if (value !== null && value.toString().trim() !== '') {
+        path += field + '=' + value;
+      }
+    });
+    return path !== '?' ? path : '';
+  }
+}
+
 @Injectable({ providedIn: 'root' })
 export class InformacionLaboralService {
   public resourceUrl = SERVER_API_URL + 'api/informacion-laborals';
+  public resourceUrlFiltroByPersona = SERVER_API_URL + 'api/informacion-laborals/filtroByPersona';
 
   constructor(protected http: HttpClient) {}
 
@@ -77,5 +96,11 @@ export class InformacionLaboralService {
       });
     }
     return res;
+  }
+
+  public getPersonaFiltro(persona?: Persona): Observable<any> {
+    const params = PathUtil.getPathParams({ persona: persona?.id });
+    const url = this.resourceUrlFiltroByPersona + params;
+    return this.http.get<any>(url);
   }
 }

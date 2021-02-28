@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { InformacionAcademicaService } from 'app/entities/informacion-academica/informacion-academica.service';
+import { InformacionLaboralService } from 'app/entities/informacion-laboral/informacion-laboral.service';
 import { InformacionPersonalService } from 'app/entities/informacion-personal/informacion-personal.service';
-import { InformacionAcademica } from 'app/shared/model/informacion-academica.model';
+import { PersonaIdiomaService } from 'app/entities/persona-idioma/persona-idioma.service';
+import { IInformacionAcademica, InformacionAcademica } from 'app/shared/model/informacion-academica.model';
 import { InformacionPersonal } from 'app/shared/model/informacion-personal.model';
 import { IPersona } from 'app/shared/model/persona.model';
 import { IResultadoHojaCandidato } from 'app/shared/vo/opcion-vo';
@@ -23,10 +25,16 @@ export class HojaCandidatoComponent implements OnInit {
   informacionAcademica = new InformacionAcademica();
   personaInfo! : IPersona | null;
   listaResultadoHojaCandidato: Array<IResultadoHojaCandidato> = [];
+  listaEstudios: Array<any> = [];
+  listaInformacionAcademica: Array<IInformacionAcademica> =[];
+  listaIdiomas: Array<any> = [];
+  listaExperiencias: Array<any> = [];
 
   constructor( private personaService: PersonaService,private route: ActivatedRoute,
     private informacionPersonalService: InformacionPersonalService,
-    private informacionAcademicaService: InformacionAcademicaService ) { }
+    private informacionAcademicaService: InformacionAcademicaService,
+    private personaIdiomaService: PersonaIdiomaService,
+    private informacionLaboralService: InformacionLaboralService ) { }
 
 
   ngOnInit(): void {
@@ -44,9 +52,16 @@ export class HojaCandidatoComponent implements OnInit {
         this.informacionAcademica.usuario = this.personaInfo;
         this.informacionPersonalService.listar(this.informacionPersonal).subscribe(info =>{
           this.informacionAcademicaService.listar(this.informacionAcademica).subscribe(academica=>{
-            // academica.content.forEach(element => {
-            //   element
-            // });
+            this.personaIdiomaService.getPersonaFiltro(this.informacionPersonal.usuario).subscribe(personaFiltro =>{
+              this.listaIdiomas = personaFiltro;
+            })
+            this.informacionLaboralService.getPersonaFiltro(this.informacionPersonal.usuario).subscribe(personaLab =>{
+              this.listaExperiencias = personaLab;
+            })
+            this.listaInformacionAcademica = academica.content;
+            this.listaInformacionAcademica.forEach(item => {
+              this.listaEstudios.push(item.tituloOtorgado);
+            });
             this.listaResultadoHojaCandidato.push({
               nombre: this.personaInfo?.nombre,
               profesion: info.content[0].profesion.profesion,
