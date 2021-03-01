@@ -895,8 +895,7 @@
                     <div class="row">
                         <div class="column">
                             <div class="form-group">
-                                <p class="estilo_label">{{labels.ADJUNTE_CERTIFICADO_LABORAL_LABEL}} <span
-                                        class="estilo_campo_requerido">*</span></p>
+                                <p class="estilo_label">{{labels.ADJUNTE_CERTIFICADO_LABORAL_LABEL}}</p>
                                 <div class="input_group">                                    
                                     <div class="file_upload_licence">
                                         <!-- <input type="checkbox" class="checkbox" formControlName="licencenciaConduccion"> -->
@@ -976,7 +975,8 @@
                         </button>
                     </div>
                     <div class="column">
-                        <button type="submit" class="btn boton_siguiente text-white float-right">
+                        <button type="submit" class="btn boton_siguiente text-white float-right"
+                        [disabled]="experienciaLaboral.invalid || cargandoDeshabilitado">
                             <div *ngIf="cargando">{{labels.GUARDAR_LABEL}}</div>
                             <span *ngIf="!cargando" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>    
                         </button>      
@@ -987,4 +987,4 @@
     </form>
 </div>
 
-<!-- [disabled]="experienciaLaboral.invalid || cargandoDeshabilitado" -->
+<!--  -->

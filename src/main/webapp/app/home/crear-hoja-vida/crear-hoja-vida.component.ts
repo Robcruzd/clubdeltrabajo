@@ -542,12 +542,13 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   onSubmit1(): void {
-    this.cargando = false;
+    // this.cargando = false;
     this.hojaVidaVo = new HojaVidaVo();
 
     // cargar informacion personal
     this.hojaVidaVo.informacionPersonal = this.procesarInformacionPersonal();
     this.hojaVidaVo.persona = this.procesarPersona();
+    this.cargarArchivos(this.hojaVidaVo);
   }
 
   onSubmit2(): void {
@@ -585,9 +586,6 @@ export class CrearHojaVidaComponent implements OnInit {
           alertify.set('notifier', 'position', 'top-right');
           alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
           this.hojaVidaVo = response.body;
-          if (this.step !== 1 && this.step !== 2) {
-            this.router.navigate(['/perfil']);
-          }
         }
       },
       () => {
@@ -612,6 +610,9 @@ export class CrearHojaVidaComponent implements OnInit {
     } else {
       this.cargando = false;
       this.hojaVidaVo = new HojaVidaVo();
+
+      // cargar informacion personal
+      this.hojaVidaVo.informacionPersonal = this.procesarInformacionPersonal();
 
       // cargar informacion laboral
       const laboral: IInformacionLaboral[] = [];
