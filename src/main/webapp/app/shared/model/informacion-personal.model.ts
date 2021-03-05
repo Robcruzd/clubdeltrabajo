@@ -27,6 +27,7 @@ export interface IInformacionPersonal {
   nivelEducativoProfesion?: number;
   profesion?: IProfesion;
   activoNotificaciones?: boolean;
+  usuarioId?: number;
 }
 
 export class InformacionPersonal implements IInformacionPersonal {
@@ -53,6 +54,7 @@ export class InformacionPersonal implements IInformacionPersonal {
     public estadoCivil?: number,
     public nivelEducativoProfesion?: number,
     public profesion?: IProfesion,
-    public activoNotificaciones?: boolean
+    public activoNotificaciones?: boolean,
+    public usuarioId?: number
   ) {}
 }

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IPersonaIdioma } from 'app/shared/model/persona-idioma.model';
-import { IPersona, Persona } from 'app/shared/model/persona.model';
+import { Persona } from 'app/shared/model/persona.model';
 
 type EntityResponseType = HttpResponse<IPersonaIdioma>;
 type EntityArrayResponseType = HttpResponse<IPersonaIdioma[]>;

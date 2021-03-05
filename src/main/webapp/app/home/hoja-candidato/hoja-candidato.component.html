@@ -19,8 +19,8 @@
 
             <div class="estudios">
                 <p class="titulo_estudios">Estudios</p>
-                <p class="p_estudios" *ngFor="let estudio of listaEstudios">
-                    {{estudio}}
+                <p class="p_estudios" *ngFor="let estudio of listaInformacionAcademica">
+                    {{estudio.tituloOtorgado}}
                 </p>
             </div>
             <div class="idiomas">
@@ -61,7 +61,7 @@
         </div>
     </div>
     <div class = "botones_abajo">
-        <button class="volver">Volver</button>
+        <button class="volver" (click)="volver()">Volver</button>
         <button class="finalizar" (click)="guardarCambios()">Finalizar</button>
     </div>
 </div>

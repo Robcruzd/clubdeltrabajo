@@ -1,12 +1,20 @@
 package com.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import java.io.Serializable;
-import java.util.Objects;
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A AplicacionOferta.
@@ -31,6 +39,14 @@ public class AplicacionOferta implements Serializable {
     @NotNull
     @JsonIgnoreProperties("aplicacionOfertas")
     private Oferta oferta;
+    
+    @NotNull
+    @Column(name = "estado", nullable = false)
+    private String estado;
+    
+    @NotNull
+    @Column(name = "fecha_postulacion", nullable = false)
+    private LocalDate fechaPostulacion;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -67,7 +83,22 @@ public class AplicacionOferta implements Serializable {
         this.oferta = oferta;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+    public String getEstado() {
+		return estado;
+	}
 
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public LocalDate getFechaPostulacion() {
+		return fechaPostulacion;
+	}
+
+	public void setFechaPostulacion(LocalDate fechaPostulacion) {
+		this.fechaPostulacion = fechaPostulacion;
+	}
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -79,7 +110,7 @@ public class AplicacionOferta implements Serializable {
         return id != null && id.equals(((AplicacionOferta) o).id);
     }
 
-    @Override
+	@Override
     public int hashCode() {
         return 31;
     }

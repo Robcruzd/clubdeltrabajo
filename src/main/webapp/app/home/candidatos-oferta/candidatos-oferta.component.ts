@@ -301,7 +301,7 @@ export class CandidatosOfertaComponent implements OnInit {
   }
 
   verAspirante(item: any): void {
-    this.router.navigate(['hoja-candidato', { usuario: item.idPersona }]);
+    this.router.navigate(['hoja-candidato', { usuario: item.idPersona , oferta: this.idOferta } ]);
   }
 
   controlaOferta(): void {
