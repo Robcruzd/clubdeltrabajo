@@ -19,4 +19,6 @@ public interface PersonaIdiomaRepository
 
 	List<PersonaIdioma> findByIdPersona(Persona idPersona);
 
+	void deleteByIdPersona(Persona idPersona);
+
 }

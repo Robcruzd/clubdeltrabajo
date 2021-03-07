@@ -107,18 +107,24 @@ public class HojaVidaService {
 	 * @return the persisted entity.
 	 */
 	public HojaVidaVo save(HojaVidaVo hojaVida) {
-//		log.debug("Request to save Hoja de vida : {}", hojaVida);
+		// log.debug("Request to save Hoja de vida : {}", hojaVida);
+		// System.out.println("------------------------probandote--------------------------");
 		if (hojaVida.getPersona() != null) this.personaRepository.save(hojaVida.getPersona());
 		if (hojaVida.getInformacionPersonal() != null) this.personalRepository.save(hojaVida.getInformacionPersonal());
-		if (hojaVida.getIdiomas() != null && !hojaVida.getIdiomas().isEmpty()) this.idiomaRepository.saveAll(hojaVida.getIdiomas());
+		if (hojaVida.getIdiomas() != null && !hojaVida.getIdiomas().isEmpty()) {
+			this.idiomaRepository.deleteByIdPersona(hojaVida.getIdiomas().get(0).getIdPersona());
+			this.idiomaRepository.saveAll(hojaVida.getIdiomas());}
 		guardarInformacionArchivos(hojaVida);
 		return hojaVida;
 	}
 	
 	public void guardarInformacionArchivos(HojaVidaVo hojaVida) {
+		// System.out.println("-----------------------probandito---------------------");
 		if (hojaVida.getInformacionAcademica() != null && !hojaVida.getInformacionAcademica().isEmpty()) {
 			for (InformacionAcademica infAca: hojaVida.getInformacionAcademica()) {
+				// System.out.println("---probandito---------------------"+infAca);
 				Optional<InformacionAcademica> informacionAcademicaBusqueda = this.academicaRepository.findById(infAca.getId());
+				System.out.println("---probandito---------------------"+informacionAcademicaBusqueda);
 				if (informacionAcademicaBusqueda.isPresent()) {
 					this.academicaRepository.save(infAca);
 					if (hojaVida.getArchivos() != null && !hojaVida.getArchivos().isEmpty()) {
@@ -138,8 +144,10 @@ public class HojaVidaService {
 					}
 				} else {
 					Long index = infAca.getId();
-					infAca.setId(null);
+					// infAca.setId(null);
+					// System.out.println("------------------------------Request to save Hoja de vida : {}"+ infAca);
 					InformacionAcademica informacionAcademicaGuardado = this.academicaRepository.save(infAca);
+					// System.out.println("------------------------------Response to save Hoja de vida : {}"+ informacionAcademicaGuardado);
 					if (hojaVida.getArchivos() != null && !hojaVida.getArchivos().isEmpty()) {
 						List<Archivo> archivosInformacionAcademica = new ArrayList<Archivo>();
 						for(Archivo dato :  hojaVida.getArchivos()) {
@@ -181,7 +189,7 @@ public class HojaVidaService {
 					}
 				} else {
 					Long index = infLab.getId();
-					infLab.setId(null);
+					// infLab.setId(null);
 					InformacionLaboral informacionLaboralGuardado = this.experienciaRepository.save(infLab);
 					if (hojaVida.getArchivos() != null && !hojaVida.getArchivos().isEmpty()) {
 						List<Archivo> archivosInformacionLaboral = new ArrayList<Archivo>();
