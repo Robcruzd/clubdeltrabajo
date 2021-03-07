@@ -59,14 +59,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     private ofertaService: OfertaService,
     private archivoService: ArchivoService
   ) {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        gtag('config', 'UA-181764554-1', {
-          // eslint-disable-next-line @typescript-eslint/camelcase
-          page_path: event.urlAfterRedirects
-        });
-      }
-    });
+    // this.router.events.subscribe(event => {
+    //   if (event instanceof NavigationEnd) {
+    //     gtag('config', 'UA-181764554-1', {
+    //       // eslint-disable-next-line @typescript-eslint/camelcase
+    //       page_path: event.urlAfterRedirects
+    //     });
+    //   }
+    // });
   }
 
   ngOnInit(): void {
