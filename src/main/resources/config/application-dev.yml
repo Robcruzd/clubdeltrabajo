@@ -45,7 +45,7 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/ctprojectCloud
+    url: jdbc:postgresql://localhost:5432/ctproject
     username: postgres
     password: Maldit4se4R
     hikari:

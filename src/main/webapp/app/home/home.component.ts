@@ -171,7 +171,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.ofertaService
       .query({
         page: 0,
-        size: 5
+        size: 5,
+        sort: ['fechaPublicacion,desc']
       })
       .subscribe((res: HttpResponse<IOferta[]>) => {
         this.ofertas = res.body!;

@@ -164,7 +164,7 @@
                                 <small *ngIf="formDatosBasicos.get('rangoSalarial')?.errors?.required"
                                 class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                                 <div class="no-publicar">
-                                    <input type="checkbox" value="terminos" name="terminos" [(ngModel)]="no_publicar" class="radioB" ngChecked="true"/>
+                                    <input type="checkbox" value="terminos" name="terminos" formControlName="mostrarSalario" class="radioB" ngChecked="true"/>
                                     <label class="estilo_label" >No publicar salario
                                         <!-- <a style="color: #03ECFF;" (click)="openScrollableContent(longContent)">Términos, Condiciones y Políticas de Privacidad.</a> -->
                                     </label>
@@ -193,7 +193,7 @@
                             <div class="select-70">
                                 <p class="estilo_label">{{labels.IDIOMA}} </p>
                                 <select formControlName="idIdioma" class="estilo_inputs">
-                                    <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
+                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                                     <option
                                         [ngValue]="item.id "
                                         *ngFor="let item of idiomas">
@@ -206,15 +206,13 @@
                             <div class="select-30">
                                 <p class="estilo_label">Nivel Idioma </p>
                                 <select formControlName="nivelIdioma" class="estilo_inputs">
-                                    <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
+                                    <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                                     <option
                                         [ngValue]="item.codigo"
                                         *ngFor="let item of nivelIdioma">
                                         {{ item.nombre }}
                                     </option>
                                 </select>
-                                <!-- <small *ngIf="formDatosBasicos.get('nivelIdioma')?.errors?.required"
-                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small> -->
                             </div>
                         </div>
                         <div class="column">
@@ -310,7 +308,7 @@
                         </div>
                         <div class="column">
                             <button  class="btn btn-success" type="submit" 
-                            
+                            [disabled]="formDatosBasicos.invalid"
                             >
                                 <p class="titulo-boton">Continuar</p>
                             </button>   
@@ -334,38 +332,33 @@
                     <p class="titulo_oferta">Oferta</p>
                     <p class="profesion_oferta">{{profesionOferta}}</p>
                     <p class="descripcion_profesion">{{descripcionOferta}}</p>
-                    <table class="tabla_oferta" style="width: 100%;">
-                        <tr>
-                          <th class="titulo_oferta_previsualizacion">Titulo:</th>
-                          <th class="titulo_oferta_previsualizacion">Tipo de contrato:</th>
-                          <th class="titulo_oferta_previsualizacion">Publicado:</th>
-                        </tr>
-                        <tr>
-                          <td style="width: 30%;">{{tituloOferta}}</td>
-                          <td style="width: 40%;">{{contratoOferta}}</td>
-                          <td style="width: 30%;">{{publicadoOFerta}}</td>
-                        </tr>
-                    </table>
-                    <table class="tabla_oferta" style="width: 100%;">
-                        <tr>
-                          <th class="titulo_oferta_previsualizacion">Experiencia:</th>
-                          <th class="titulo_oferta_previsualizacion">Ciudad:</th>
-                          <th class="titulo_oferta_previsualizacion">Salario:</th>
-                        </tr>
-                        <tr>
-                          <td style="width: 30%;">{{experienciaOferta}}</td>
-                          <td style="width: 40%;">{{ciudadOferta}}</td>
-                          <td style="width: 30%;">{{salarioOferta}}</td>
-                        </tr>
-                    </table>
+                    <div class="tabla-hor">
+                        <div class="data-ver">
+                            <p class="titulo">Título:</p>
+                            <p class="info">{{tituloOferta}}</p>
+                            <p class="titulo">Experiencia:</p>
+                            <p class="info">{{experienciaOferta}}</p>
+                        </div>
+                        <div class="data-ver">
+                            <p class="titulo">Tipo de Contrato:</p>
+                            <p class="info">{{contratoOferta}}</p>
+                            <p class="titulo">Ciudad:</p>
+                            <p class="info">{{ciudadOferta}}</p>
+                        </div>
+                        <div class="data-ver">
+                            <p class="titulo">Publicado:</p>
+                            <p class="info">{{publicadoOFerta}}</p>
+                            <p class="titulo">Salario:</p>
+                            <p class="info">{{salarioOferta}}</p>
+                        </div>
+                    </div>
                 </ng-container>
             </div>
-            <div style="display: inline;">
+            <div class="botones">
                 <button class="btn boton-volver" (click)="volverCrearOferta()" *ngIf = "visualizarOferta">
-                    <fa-icon icon="chevron-left" class="border-icon" ></fa-icon>
                     <p class="titulo-boton">Volver</p>
                 </button>
-                <button class="btn boton-success" (click)="onSubmit()" *ngIf = "visualizarOferta">
+                <button class="btn btn-success" (click)="onSubmit()" *ngIf = "visualizarOferta">
                     <p class="titulo-boton">Publicar</p>
                 </button>
             </div>
@@ -373,63 +366,5 @@
     </div>
 </div>
 
-
-<div class="contenedor3" *ngIf = "visualizarOfertasCreadas">
-    <div class="div-center3">
-        <ng-container>
-        <br>
-            <p class="estilo_titulo3">Tus ofertas:</p>
-            <div class="ngnum3">
-                <ng-container *ngFor = "let oferta of listaOFertasCreadas; index as inde">
-                    <div class="ofertaCreada" >
-                        <div class="div1Oferta">
-                            <p class="titulo_div1">Oferta {{inde}}</p>
-                        </div>
-                        <div class="div2Oferta">
-                            <p>{{oferta.profesion}}</p>
-                            <p>{{oferta.salario}}</p>
-                            <p>{{oferta.ciudad}}</p>
-                            <button class="btn boton-volver" (click)="volverCrearOferta()">
-                                <p class="titulo-boton">Editar</p>
-                            </button>
-                        </div>
-                        <div class="div3Oferta"> 
-                            <p class="titulo_div3">300 aspirantes</p>
-                            <p class="titulo_div3">10 seleccionados</p>
-                            <p class="titulo_div3">40 por ver</p>
-                        </div>
-                        <div class="div4Oferta"> 
-                            <p *ngIf="!oferta.activado">Activar oferta</p>
-                            <p *ngIf="oferta.activado">Detener oferta</p>
-                            <label class="switch">
-                                <input type="checkbox" [checked]="oferta.activado">
-                                <span class="slider round"></span>
-                            </label>
-                            <button class="btn boton-entrar">
-                                <p class="titulo-boton-entrar">Entrar</p>
-                            </button>
-                        </div>
-                        <!-- <div class="div4Oferta" *ngIf="!oferta.activado"> 
-                            <p>Activar oferta</p>
-                            <label class="switch">
-                                <input type="checkbox" [checked]="false">
-                                <span class="slider round"></span>
-                            </label>
-                            <button class="btn boton-entrar">
-                                <p class="titulo-boton-entrar">Entrar</p>
-                            </button>
-                        </div> -->
-                    </div> 
-                </ng-container>
-            </div>
-            <div style="display: inline;">
-                <button class="btn boton-volver" (click)="volverCrearOferta()" *ngIf = "visualizarOferta">
-                    <fa-icon icon="chevron-left" class="border-icon" ></fa-icon>
-                    <p class="titulo-boton">Volver</p>
-                </button>
-            </div>
-        </ng-container>
-    </div>
-</div>
 
 
