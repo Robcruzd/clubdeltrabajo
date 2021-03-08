@@ -8,7 +8,7 @@ import { PersonaIdiomaService } from 'app/entities/persona-idioma/persona-idioma
 import { AplicacionOferta } from 'app/shared/model/aplicacion-oferta.model';
 import { IInformacionAcademica, InformacionAcademica } from 'app/shared/model/informacion-academica.model';
 import { InformacionPersonal } from 'app/shared/model/informacion-personal.model';
-import { IPersona } from 'app/shared/model/persona.model';
+import { IPersona, Persona } from 'app/shared/model/persona.model';
 import { IResultadoHojaCandidato } from 'app/shared/vo/opcion-vo';
 import { PersonaService } from '../../entities/persona/persona.service';
 
@@ -22,6 +22,7 @@ export class HojaCandidatoComponent implements OnInit {
   persona: any;
 
   model = 'Ninguno';
+  modelBandera = "";
   idUsuario = 0;
   idOFerta = 0;
   informacionPersonal = new InformacionPersonal();
@@ -36,6 +37,7 @@ export class HojaCandidatoComponent implements OnInit {
   idOfertaAplicacionOferta: any;
   aplicacionOFertaActualizar = new AplicacionOferta();
   fechaPostulacionAplicacionOferta: any;
+  aspiranteSeleccionado = new Persona();
 
   constructor( private personaService: PersonaService,private route: ActivatedRoute,
     private informacionPersonalService: InformacionPersonalService,
@@ -73,6 +75,7 @@ export class HojaCandidatoComponent implements OnInit {
             this.aplicacionOfertaService.getPersonaFiltro(this.informacionPersonal.usuario).subscribe(aplicacionOferta =>{
               this.idAplicacionOferta = aplicacionOferta[0].id;
               this.model = aplicacionOferta[0].estado;
+              this.modelBandera = aplicacionOferta[0].estado;
               this.idUsuarioAplicacionOferta = aplicacionOferta[0].usuario;
               this.idOfertaAplicacionOferta = aplicacionOferta[0].oferta;
               this.fechaPostulacionAplicacionOferta = aplicacionOferta[0].fechaPostulacion;
@@ -95,6 +98,12 @@ export class HojaCandidatoComponent implements OnInit {
     this.aplicacionOFertaActualizar.oferta = this.idOfertaAplicacionOferta;
     this.aplicacionOFertaActualizar.fechaPostulacion = this.fechaPostulacionAplicacionOferta;
     this.aplicacionOfertaService.update(this.aplicacionOFertaActualizar).subscribe(() =>{});
+    if(this.modelBandera !== this.model){
+      if(this.model === "Seleccionado"){
+        this.aspiranteSeleccionado.id = this.idUsuarioAplicacionOferta.id;
+        this.personaService.seleccionadoAspirante(this.aspiranteSeleccionado).subscribe(()=>{});
+      }
+    }
     this.router.navigate(['candidatos-seleccionados', { oferta: this.idOFerta }]);
   }
 

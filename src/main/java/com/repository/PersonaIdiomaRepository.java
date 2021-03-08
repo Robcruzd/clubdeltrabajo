@@ -25,4 +25,7 @@ public interface PersonaIdiomaRepository
 			nativeQuery = true)
 	List<PersonaIdioma> getByPersonaIdioma(@Param("persona") Long persona);
 	
+
+	void deleteByIdPersona(Persona idPersona);
+
 }

@@ -16,12 +16,14 @@ import { Group, pdf } from '@progress/kendo-drawing';
 import { AplicacionOfertaService } from 'app/entities/aplicacion-oferta/aplicacion-oferta.service';
 import { InformacionPersonalService } from 'app/entities/informacion-personal/informacion-personal.service';
 import { OfertaService } from 'app/entities/oferta/oferta.service';
+import { PersonaService } from 'app/entities/persona/persona.service';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { commonMessages } from 'app/shared/constants/commonMessages';
 import { IAplicacionOferta } from 'app/shared/model/aplicacion-oferta.model';
 import { Archivo } from 'app/shared/model/archivo.model';
 import { IInformacionPersonal, InformacionPersonal } from 'app/shared/model/informacion-personal.model';
 import { IOferta } from 'app/shared/model/oferta.model';
+import { Persona } from 'app/shared/model/persona.model';
 import { IRegiones } from 'app/shared/model/regiones.model';
 import { HojaVidaService } from 'app/shared/services/hoja-vida.service';
 import { GeografiaVo } from 'app/shared/vo/geografia-vo';
@@ -89,6 +91,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   nivelIdioma: Array<IOpcionVo> = commonMessages.ARRAY_NIVEL_IDIOMA;
   estadoNivelEstudio: IOpcionVo[] = commonMessages.ARRAY_ESTADO_NIVEL_ESTUDIO;
   listaAplicacionOferta: Array<IAplicacionOferta> | null = [];
+  aspiranteSeleccionado = new Persona();
 
   constructor(
     private router: Router,
@@ -97,7 +100,8 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     private route: ActivatedRoute,
     private ofertaService: OfertaService,
     private aplicacionOfertaService : AplicacionOfertaService,
-    private hojaVidaService : HojaVidaService
+    private hojaVidaService : HojaVidaService,
+    private personaService : PersonaService
   ) {
     this.traerCiudad();
   }
@@ -176,13 +180,14 @@ export class CandidatosSeleccionadosComponent implements OnInit {
           if (this.resultadoBusqueda) {
             this.resultadoBusqueda.forEach(element => {
               let postulacionBD = "";
+              let colorApirante = "";
               const edadBD = this.obtenerEdad(element);
               const experienciaBD = this.obtenerExperiencia(element);
               const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
               const edadEncontrada = this.validarEdadSeleccionada(edadBD);
               const experienciaEncontrada = this.validarExperienciaSeleccionada(experienciaBD);
               this.aplicacionOfertaService.getPersonaFiltro(element.usuario).subscribe(aplicacionOferta =>{
-                this.backColor(aplicacionOferta[0].estado);
+                colorApirante = this.backColor(aplicacionOferta[0].estado);
                 postulacionBD = aplicacionOferta[0].fechaPostulacion;
               });
               if (edadEncontrada && experienciaEncontrada) {
@@ -197,10 +202,15 @@ export class CandidatosSeleccionadosComponent implements OnInit {
                     titulo: element.profesion?.profesion,
                     fechaPostulacion: postulacionBD,
                     idPersona: element.usuario?.id,
-                    idOferta: 1
+                    idOferta: 1,
+                    color: colorApirante,
+                    verche: this.verche,
+                    verh: this.verh,
+                    verno: this.verno,
+                    btnestado: this.btnestado
                   });
                   this.totalAspirantes = this.listaResultadoBusquedaAspirantes.length;
-                }, 500); 
+                }, 200); 
               }
             });
           }
@@ -239,8 +249,9 @@ export class CandidatosSeleccionadosComponent implements OnInit {
         if (this.resultadoBusqueda) {
           this.resultadoBusqueda.forEach(element => {
             let postulacionBD = "";
+            let colorApirante = "";
             this.aplicacionOfertaService.getPersonaFiltro(element.usuario).subscribe(aplicacionOferta =>{
-              this.backColor(aplicacionOferta[0].estado);
+              colorApirante = this.backColor(aplicacionOferta[0].estado);
               postulacionBD = aplicacionOferta[0].fechaPostulacion;
             });  
             const edadBD = this.obtenerEdad(element);
@@ -257,11 +268,16 @@ export class CandidatosSeleccionadosComponent implements OnInit {
                 titulo: element.profesion?.profesion,
                 fechaPostulacion: postulacionBD,
                 idPersona: element.usuario?.id,
-                idOferta: 1
+                idOferta: 1,
+                color: colorApirante,
+                verche: this.verche,
+                verh: this.verh,
+                verno: this.verno,
+                btnestado: this.btnestado
               });
               this.totalAspirantes = this.listaResultadoBusquedaAspirantes.length;
               resolve(true);
-             }, 1000);        
+             }, 200);        
           });
         }
       });
@@ -431,7 +447,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     this.router.navigate(['hoja-candidato', { usuario: item.idPersona , oferta: this.idOferta } ]);
   }
 
-  backColor(estado?:any): void {
+  backColor(estado?:any): string {
     // if (this.estado === 'Descartado') {
     //   this.backcolor = '#FFC1C1';
     //   this.btnestado = false;
@@ -451,17 +467,24 @@ export class CandidatosSeleccionadosComponent implements OnInit {
       this.backcolor = '#FFC1C1';
       this.btnestado = false;
       this.verno = true;
+      this.verche = false;
+      this.verh = false;
     }
     if (estado === 'Seleccionado') {
       this.backcolor = '#BAFFE3';
       this.btnestado = true;
       this.verche = true;
+      this.verno = false;
+      this.verh = false;
     }
     if (estado === 'Ninguno') {
       this.backcolor = '#EFEFEF';
       this.btnestado = false;
       this.verh = true;
+      this.verche = false;
+      this.verno = false;
     }
+    return this.backcolor;
   }
 
   descargarPDF(): void {
@@ -485,14 +508,6 @@ export class CandidatosSeleccionadosComponent implements OnInit {
 
   generarPdf(): Promise<any> {
     return new Promise(resolve => {
-      // this.pdfExport
-      //   .export()
-      //   .then((group: Group) => exportPDF(group))
-      //   .then((dataUri: any) => {
-      //     const base64 = dataUri.replace('data:application/pdf;base64,', '');
-      //     this.pdfHojaVida64 = base64;
-      //     resolve(this.pdfHojaVida64);
-      //   });
       this.pdfExport.export().then((group: Group) => exportPDF(group))
       .then((dataUri: any) => {
         const base64 = dataUri.replace('data:application/pdf;base64,', '');
@@ -511,11 +526,15 @@ export class CandidatosSeleccionadosComponent implements OnInit {
         this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
           ? '../../../content/images/Image 28_F.png'
           : '../../../content/images/Image 28_M.png';
-      // this.qrCard = 'Perfil de presentación ' + this.account?.firstName + ' ' + this.account?.lastName;
       this.archivos = this.hojaVidaVo?.archivos;
       this.imagen = this.archivos?.find(item => item.tipo === TipoArchivo.IMAGEN_PERFIL) || new Archivo();
       this.visualizarArchivoPDF();
     });
+  }
+
+  enviarEmail(persona:any):void{
+    this.aspiranteSeleccionado.id = persona.id;
+    this.personaService.seleccionadoAspirante(this.aspiranteSeleccionado).subscribe(()=>{});
   }
 
   public getIdioma(codigo: string): string {

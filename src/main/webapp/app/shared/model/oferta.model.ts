@@ -15,12 +15,15 @@ export interface IOferta {
   usuario?: IEmpresa | null;
   sector?: number;
   idioma?: number;
+  nivelIdioma?: string;
   nivelLaboral?: number;
   tipoContrato?: number;
   profesion?: number;
   modalidad?: number;
   nivelEstudios?: number;
+  activado?: boolean;
   fecha?: number;
+  mostrarSalario?: boolean;
 }
 
 export class Oferta implements IOferta {
@@ -44,9 +47,10 @@ export class Oferta implements IOferta {
     public modalidad?: number,
     public nivelEstudios?: number,
     public subNivelLaboral?: number,
-    public nivelIdioma?: number,
+    public nivelIdioma?: string,
     public genero?: string,
     public activado?: boolean,
-    public fecha?: number
+    public fecha?: number,
+    public mostrarSalario?: boolean
   ) {}
 }

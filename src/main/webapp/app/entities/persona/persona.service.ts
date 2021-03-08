@@ -10,6 +10,27 @@ import { UsuarioVo } from '../../shared/vo/usuario-vo';
 type EntityResponseType = HttpResponse<IPersona>;
 type EntityArrayResponseType = HttpResponse<IPersona[]>;
 
+export class PathUtil2 {
+  public static getPathParams(parameters: any): string {
+      const fields: string[] = Object.getOwnPropertyNames(parameters);
+      let path = "?";
+      fields.forEach(
+          (field: string, i: number) => {
+            const value: any = Object.values(parameters)[i];
+            if(value !== undefined && value !== null){
+              if (i > 0 && path !== "?" && (value !== null)) {
+                path += "&";
+              }
+              if (value !== null) {
+                  path += (field + ".equals=" + value);
+              }
+            }
+          }
+      );
+      return (path!=="?"?path:"");
+  }
+}
+
 @Injectable({ providedIn: 'root' })
 export class PersonaService {
   public resourceUrl = SERVER_API_URL + 'api/personas';
@@ -47,5 +68,15 @@ export class PersonaService {
 
   getPersonas(): Observable<EntityResponseType> {
     return this.http.get<IPersona>(`${this.resourceUrl}/${'getPersonas'}`, { observe: 'response' });
+  }
+
+  public seleccionadoAspirante(parameters: any): Observable<any>{
+    const path:string = PathUtil2.getPathParams(parameters);
+    const url = this.resourceUrl + "/seleccionadoAspirante"+path;
+    return this.get(url)
+  }
+
+  public get(url: string, headers?:any):Observable<any>{
+    return this.http.get<any>(url,headers);
   }
 }
