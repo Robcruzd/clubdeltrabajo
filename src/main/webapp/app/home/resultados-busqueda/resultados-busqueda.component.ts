@@ -45,8 +45,7 @@ export class ResultadosBusquedaComponent implements OnInit {
   public page = 1;
   constructor(private dataService: DataService, private formBuilder: FormBuilder,
     private ofertaService: OfertaService,private regionService: RegionesService,
-    private router: Router,
-    private profesionService: ProfesionService) {
+    private profesionService: ProfesionService, private router: Router) {
       this.traerCiudad();
       this.cargarProfesiones();
     }
@@ -202,7 +201,9 @@ export class ResultadosBusquedaComponent implements OnInit {
       })
     }
   }
-  verOferta(): void {
-    this.router.navigate(['oferta-publica', {}]);
+
+  verOferta(oferta: any):void{
+    this.router.navigate(['/oferta-publica', { oferta: oferta.idOferta }]);
   }
+
 }

@@ -11,7 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -159,5 +161,17 @@ public class AplicacionOfertaResource {
     @GetMapping("/aplicacion-ofertas/filtroByOferta")
    	public List<AplicacionOferta> getByOferta(@RequestParam("oferta") String oferta) {
    		return aplicacionOfertaService.getByOferta(Long.parseLong(oferta));
+   	}
+    
+    @GetMapping("/aplicacion-ofertas/aplicacionOferta")
+	public Page<AplicacionOferta> listar(AplicacionOfertaCriteria aplicacionOfertaBuilder) {
+    	Pageable paging = PageRequest.of(0, 9999, Sort.by("id"));
+    	return aplicacionOfertaQueryService.findByCriteria(aplicacionOfertaBuilder, paging);
+		//return informacionPersonalVOService.listar(new CommonSpecifications<InformacionPersonalVO>(informacionPersonalBuilder));
+	}
+    
+    @GetMapping("/aplicacion-ofertas/filtroByOfertaAndPersona")
+   	public List<AplicacionOferta> getByOfertaAndPersona(@RequestParam("oferta") String oferta, @RequestParam("persona") String persona) {
+   		return aplicacionOfertaService.getByOfertaAndPersona(Long.parseLong(oferta), Long.parseLong(persona));
    	}
 }

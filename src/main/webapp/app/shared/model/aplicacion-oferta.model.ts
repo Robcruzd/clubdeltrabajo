@@ -8,14 +8,11 @@ export interface IAplicacionOferta {
   oferta?: IOferta;
   estado?: string;
   fechaPostulacion?: Moment;
+  usuarioId?: number;
+  ofertaId?: number;
 }
 
 export class AplicacionOferta implements IAplicacionOferta {
-  constructor(
-    public id?: number,
-    public usuario?: IPersona,
-    public oferta?: IOferta,
-    public estado?: string,
-    public fechaPostulacion?: Moment
-  ) {}
+  constructor(public id?: number, public usuario?: IPersona, public oferta?: IOferta, public estado?:string,
+    public fechaPostulacion?: Moment, public usuarioId?: number, public ofertaId?:number) {}
 }

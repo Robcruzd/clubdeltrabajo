@@ -123,7 +123,7 @@ export class ControlarOfertasComponent implements OnInit {
   }
 
   entrarOferta(id: any): void {
-    this.router.navigate(['/candidatos-oferta', { oferta: id }]);
+    this.router.navigate(['/candidatos-seleccionados', { oferta: id }]);
   }
 
   eliminarOfertaid(id: any): void{

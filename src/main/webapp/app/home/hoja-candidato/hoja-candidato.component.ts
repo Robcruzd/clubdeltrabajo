@@ -109,7 +109,7 @@ export class HojaCandidatoComponent implements OnInit {
     this.router.navigate(['candidatos-seleccionados', { oferta: this.idOFerta }]);
   }
 
-  volver(): void {
-    this.router.navigate(['candidatos-oferta', { oferta: this.idOFerta }]);
+  volver(): void{
+    this.router.navigate(['candidatos-seleccionados', { oferta: this.idOFerta }]);
   }
 }

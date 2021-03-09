@@ -70,7 +70,7 @@
                         <p style="margin-bottom: 0;">{{oferta.ciudad}}</p>
                         <p style="margin-bottom: 0;">Publicado: {{oferta.fechaPublicacion}}</p>
                         </div>
-                        <button class="btn shadow-none boton-ver" (click)="verOferta()">VER</button>
+                        <button class="btn shadow-none boton-ver" (click)="verOferta(oferta)">VER</button>
                     </div>
                 </div>
                 <pagination-controls (pageChange)="page = $event" class="controls" 
