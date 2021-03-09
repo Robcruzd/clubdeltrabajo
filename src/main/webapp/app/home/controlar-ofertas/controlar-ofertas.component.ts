@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'app/core/auth/account.service';
 import { OfertaService } from 'app/entities/oferta/oferta.service';
 import { IlistarOfertas, IOpcionVo } from 'app/shared/vo/opcion-vo';
-import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faAddressCard, faEllipsisH, faCommentDots, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { commonMessages } from 'app/shared/constants/commonMessages';
 import { GeografiaVo } from 'app/shared/vo/geografia-vo';
@@ -23,6 +23,7 @@ export class ControlarOfertasComponent implements OnInit {
   faAddressCard = faAddressCard;
   faEllipsisH = faEllipsisH;
   faCommentDots = faCommentDots;
+  faTimes = faTimes;
   aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
   municipiosPersonal: Array<IOpcionVo> = [];
   geografia: Array<GeografiaVo> = [];

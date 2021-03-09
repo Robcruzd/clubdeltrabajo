@@ -22,14 +22,14 @@ export class HojaCandidatoComponent implements OnInit {
   persona: any;
 
   model = 'Ninguno';
-  modelBandera = "";
+  modelBandera = '';
   idUsuario = 0;
   idOFerta = 0;
   informacionPersonal = new InformacionPersonal();
   informacionAcademica = new InformacionAcademica();
-  personaInfo! : IPersona | null;
+  personaInfo!: IPersona | null;
   listaResultadoHojaCandidato: Array<IResultadoHojaCandidato> = [];
-  listaInformacionAcademica: Array<IInformacionAcademica> =[];
+  listaInformacionAcademica: Array<IInformacionAcademica> = [];
   listaIdiomas: Array<any> = [];
   listaExperiencias: Array<any> = [];
   idAplicacionOferta: any;
@@ -39,14 +39,16 @@ export class HojaCandidatoComponent implements OnInit {
   fechaPostulacionAplicacionOferta: any;
   aspiranteSeleccionado = new Persona();
 
-  constructor( private personaService: PersonaService,private route: ActivatedRoute,
+  constructor(
+    private personaService: PersonaService,
+    private route: ActivatedRoute,
     private informacionPersonalService: InformacionPersonalService,
     private informacionAcademicaService: InformacionAcademicaService,
     private personaIdiomaService: PersonaIdiomaService,
     private informacionLaboralService: InformacionLaboralService,
     private aplicacionOfertaService: AplicacionOfertaService,
-    private router: Router ) { }
-
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get('usuario')!;
@@ -63,16 +65,16 @@ export class HojaCandidatoComponent implements OnInit {
       if (this.personaInfo) {
         this.informacionPersonal.usuario = this.personaInfo;
         this.informacionAcademica.usuario = this.personaInfo;
-        this.informacionPersonalService.listar(this.informacionPersonal).subscribe(info =>{
-          this.informacionAcademicaService.listar(this.informacionAcademica).subscribe(academica=>{
+        this.informacionPersonalService.listar(this.informacionPersonal).subscribe(info => {
+          this.informacionAcademicaService.listar(this.informacionAcademica).subscribe(academica => {
             this.listaInformacionAcademica = academica.content;
-            this.personaIdiomaService.getPersonaFiltro(this.informacionPersonal.usuario).subscribe(personaFiltro =>{
+            this.personaIdiomaService.getPersonaFiltro(this.informacionPersonal.usuario).subscribe(personaFiltro => {
               this.listaIdiomas = personaFiltro;
             });
-            this.informacionLaboralService.getPersonaFiltro(this.informacionPersonal.usuario).subscribe(personaLab =>{
+            this.informacionLaboralService.getPersonaFiltro(this.informacionPersonal.usuario).subscribe(personaLab => {
               this.listaExperiencias = personaLab;
             });
-            this.aplicacionOfertaService.getPersonaFiltro(this.informacionPersonal.usuario).subscribe(aplicacionOferta =>{
+            this.aplicacionOfertaService.getPersonaFiltro(this.informacionPersonal.usuario).subscribe(aplicacionOferta => {
               this.idAplicacionOferta = aplicacionOferta[0].id;
               this.model = aplicacionOferta[0].estado;
               this.modelBandera = aplicacionOferta[0].estado;
@@ -85,8 +87,8 @@ export class HojaCandidatoComponent implements OnInit {
               profesion: info.content[0].profesion.profesion,
               descripcion: info.content[0].perfilProfesional
             });
-          })
-        })
+          });
+        });
       }
     });
   }
@@ -97,11 +99,11 @@ export class HojaCandidatoComponent implements OnInit {
     this.aplicacionOFertaActualizar.usuario = this.idUsuarioAplicacionOferta;
     this.aplicacionOFertaActualizar.oferta = this.idOfertaAplicacionOferta;
     this.aplicacionOFertaActualizar.fechaPostulacion = this.fechaPostulacionAplicacionOferta;
-    this.aplicacionOfertaService.update(this.aplicacionOFertaActualizar).subscribe(() =>{});
-    if(this.modelBandera !== this.model){
-      if(this.model === "Seleccionado"){
+    this.aplicacionOfertaService.update(this.aplicacionOFertaActualizar).subscribe(() => {});
+    if (this.modelBandera !== this.model) {
+      if (this.model === 'Seleccionado') {
         this.aspiranteSeleccionado.id = this.idUsuarioAplicacionOferta.id;
-        this.personaService.seleccionadoAspirante(this.aspiranteSeleccionado).subscribe(()=>{});
+        this.personaService.seleccionadoAspirante(this.aspiranteSeleccionado).subscribe(() => {});
       }
     }
     this.router.navigate(['candidatos-seleccionados', { oferta: this.idOFerta }]);

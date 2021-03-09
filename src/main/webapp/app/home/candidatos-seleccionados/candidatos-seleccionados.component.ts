@@ -99,9 +99,9 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     private regionService: RegionesService,
     private route: ActivatedRoute,
     private ofertaService: OfertaService,
-    private aplicacionOfertaService : AplicacionOfertaService,
-    private hojaVidaService : HojaVidaService,
-    private personaService : PersonaService
+    private aplicacionOfertaService: AplicacionOfertaService,
+    private hojaVidaService: HojaVidaService,
+    private personaService: PersonaService
   ) {
     this.traerCiudad();
   }
@@ -167,7 +167,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   }
 
   cargarAspirantes(): void {
-    if(this.listaAplicacionOferta){
+    if (this.listaAplicacionOferta) {
       this.listaAplicacionOferta.forEach(elementApli => {
         this.listaResultadoBusquedaAspirantes = [];
         const params = new InformacionPersonal();
@@ -179,14 +179,14 @@ export class CandidatosSeleccionadosComponent implements OnInit {
           this.resultadoBusqueda = response.content;
           if (this.resultadoBusqueda) {
             this.resultadoBusqueda.forEach(element => {
-              let postulacionBD = "";
-              let colorApirante = "";
+              let postulacionBD = '';
+              let colorApirante = '';
               const edadBD = this.obtenerEdad(element);
               const experienciaBD = this.obtenerExperiencia(element);
               const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
               const edadEncontrada = this.validarEdadSeleccionada(edadBD);
               const experienciaEncontrada = this.validarExperienciaSeleccionada(experienciaBD);
-              this.aplicacionOfertaService.getPersonaFiltro(element.usuario).subscribe(aplicacionOferta =>{
+              this.aplicacionOfertaService.getPersonaFiltro(element.usuario).subscribe(aplicacionOferta => {
                 colorApirante = this.backColor(aplicacionOferta[0].estado);
                 postulacionBD = aplicacionOferta[0].fechaPostulacion;
               });
@@ -210,50 +210,49 @@ export class CandidatosSeleccionadosComponent implements OnInit {
                     btnestado: this.btnestado
                   });
                   this.totalAspirantes = this.listaResultadoBusquedaAspirantes.length;
-                }, 200); 
+                }, 200);
               }
             });
           }
         });
-      }); 
+      });
     }
   }
 
   async cargarAspirantesInit(): Promise<any> {
     this.listaResultadoBusquedaAspirantes = [];
     await this.ofertaFiltro();
-    if(this.listaAplicacionOferta){
-      for(let i=0; i < this.listaAplicacionOferta?.length; i++){
+    if (this.listaAplicacionOferta) {
+      for (let i = 0; i < this.listaAplicacionOferta?.length; i++) {
         const params = new InformacionPersonal();
         params.usuarioId = this.listaAplicacionOferta[i].usuario?.id;
         await this.obtenerPersonaInfo(params);
+      }
     }
-    }
-      
   }
 
-  ofertaFiltro():Promise<any>{
+  ofertaFiltro(): Promise<any> {
     return new Promise(resolve => {
-      this.aplicacionOfertaService.getOfertaFiltro(this.oferta).subscribe(listaOfeApli =>{
+      this.aplicacionOfertaService.getOfertaFiltro(this.oferta).subscribe(listaOfeApli => {
         this.listaAplicacionOferta = listaOfeApli;
         resolve(listaOfeApli);
-      })
+      });
     });
   }
 
-  obtenerPersonaInfo(params:any): Promise<any>{
+  obtenerPersonaInfo(params: any): Promise<any> {
     this.resultadoBusqueda = null;
     return new Promise(resolve => {
       this.informacionPersonalService.listar(params).subscribe(response => {
         this.resultadoBusqueda = response.content;
         if (this.resultadoBusqueda) {
           this.resultadoBusqueda.forEach(element => {
-            let postulacionBD = "";
-            let colorApirante = "";
-            this.aplicacionOfertaService.getPersonaFiltro(element.usuario).subscribe(aplicacionOferta =>{
+            let postulacionBD = '';
+            let colorApirante = '';
+            this.aplicacionOfertaService.getPersonaFiltro(element.usuario).subscribe(aplicacionOferta => {
               colorApirante = this.backColor(aplicacionOferta[0].estado);
               postulacionBD = aplicacionOferta[0].fechaPostulacion;
-            });  
+            });
             const edadBD = this.obtenerEdad(element);
             const experienciaBD = this.obtenerExperiencia(element);
             const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
@@ -277,7 +276,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
               });
               this.totalAspirantes = this.listaResultadoBusquedaAspirantes.length;
               resolve(true);
-             }, 200);        
+            }, 200);
           });
         }
       });
@@ -444,10 +443,10 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   }
 
   verAspirante(item: any): void {
-    this.router.navigate(['hoja-candidato', { usuario: item.idPersona , oferta: this.idOferta } ]);
+    this.router.navigate(['hoja-candidato', { usuario: item.idPersona, oferta: this.idOferta }]);
   }
 
-  backColor(estado?:any): string {
+  backColor(estado?: any): string {
     // if (this.estado === 'Descartado') {
     //   this.backcolor = '#FFC1C1';
     //   this.btnestado = false;
@@ -508,17 +507,18 @@ export class CandidatosSeleccionadosComponent implements OnInit {
 
   generarPdf(): Promise<any> {
     return new Promise(resolve => {
-      this.pdfExport.export().then((group: Group) => exportPDF(group))
-      .then((dataUri: any) => {
-        const base64 = dataUri.replace('data:application/pdf;base64,', '');
-        this.pdfHojaVida64 = base64;
-        resolve(this.pdfHojaVida64);
-      });
-
+      this.pdfExport
+        .export()
+        .then((group: Group) => exportPDF(group))
+        .then((dataUri: any) => {
+          const base64 = dataUri.replace('data:application/pdf;base64,', '');
+          this.pdfHojaVida64 = base64;
+          resolve(this.pdfHojaVida64);
+        });
     });
   }
 
-  getHojaVida(persona:any): void {
+  getHojaVida(persona: any): void {
     this.showElement = true;
     this.hojaVidaService.find(persona.idPersona).subscribe(response => {
       this.hojaVidaVo = response.body;
@@ -532,9 +532,9 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     });
   }
 
-  enviarEmail(persona:any):void{
+  enviarEmail(persona: any): void {
     this.aspiranteSeleccionado.id = persona.id;
-    this.personaService.seleccionadoAspirante(this.aspiranteSeleccionado).subscribe(()=>{});
+    this.personaService.seleccionadoAspirante(this.aspiranteSeleccionado).subscribe(() => {});
   }
 
   public getIdioma(codigo: string): string {
@@ -554,4 +554,3 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     return ciudad?.nombre || '';
   }
 }
-

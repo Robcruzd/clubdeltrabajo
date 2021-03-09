@@ -79,13 +79,13 @@ export class AplicacionOfertaService {
   }
 
   public getPersonaFiltro(persona?: Persona): Observable<any> {
-    const params = PathUtil.getPathParams({ persona: persona?.id});
+    const params = PathUtil.getPathParams({ persona: persona?.id });
     const url = this.resourceUrlFiltroByPersona + params;
     return this.http.get<any>(url);
   }
 
   public getOfertaFiltro(oferta?: any): Observable<any> {
-    const params = PathUtil.getPathParams({ oferta: oferta?.id});
+    const params = PathUtil.getPathParams({ oferta: oferta?.id });
     const url = this.resourceUrlFiltroByOferta + params;
     return this.http.get<any>(url);
   }
@@ -96,11 +96,11 @@ export class AplicacionOfertaService {
     return this.http.get<any>(url);
   }
 
-  // public listar(parameters: any): Observable<any>{
-  //   const path:string = PathUtil2.getPathParams(parameters);
-  //   const url = this.resourceUrl + "/aplicacionOferta"+path;
-  //   return this.get(url);
-  // }
+  public listar(parameters: any): Observable<any>{
+    const path:string = PathUtil2.getPathParams(parameters);
+    const url = this.resourceUrl + "/aplicacionOferta"+path;
+    return this.get(url);
+  }
 
   public get(url: string, headers?:any):Observable<any>{
     return this.http.get<any>(url,headers);

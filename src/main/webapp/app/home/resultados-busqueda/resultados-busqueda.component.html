@@ -15,6 +15,26 @@
                     <p class="resultado">{{totalEmpresas}} resultados</p>
                 </div>
                 <div class="Sector">
+                    <p class="titulo">Profesión</p>
+                    <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarOfertar()">
+                        <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                        <option *ngFor="let aspiracion of aspiracionesSalariales" 
+                        [ngValue]="aspiracion.codigo" >
+                            {{ aspiracion.nombre }}
+                        </option>
+                    </select>
+                </div>
+                <div class="Sector">
+                    <p class="titulo">Salario</p>
+                    <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarOfertar()">
+                        <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                        <option *ngFor="let aspiracion of aspiracionesSalariales" 
+                        [ngValue]="aspiracion.codigo" >
+                            {{ aspiracion.nombre }}
+                        </option>
+                    </select>
+                </div>
+                <div class="Sector">
                     <p class="titulo">Sector</p>
                     <select class="resultado" [(ngModel)]="municipioValue" (change)="cargarOfertar()">
                         <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
@@ -34,24 +54,22 @@
                             {{ item.nombre }}
                         </option>
                     </select>
-                </div> 
-                <div class="Sector">
-                    <p class="titulo">Salario</p>
-                    <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarOfertar()">
-                        <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                        <option *ngFor="let aspiracion of aspiracionesSalariales" 
-                        [ngValue]="aspiracion.codigo" >
-                            {{ aspiracion.nombre }}
-                        </option>
-                    </select>
-                </div>       
+                </div>        
             </div>
             <div class="container-fluid resultados-busqueda">
                 <div class="row" style="margin-left: 0 !important; width: 800px;">
-                    <div class="elemento-busqueda" *ngFor="let oferta of listaResultadoBusquedaOfertas | paginate: { itemsPerPage: 6, currentPage: page }">
+                    <div class="elemento-busqueda" *ngFor="let oferta of listaResultadoBusquedaOfertas | paginate: { itemsPerPage: 20, currentPage: page }">
+                        
                         <img src="../../../content/images/Image 35.png" class="logo-empresa">
-                        <p class="titulo-resultado">{{oferta.empresa}} busca {{oferta.profesion}}</p>
-                        <p class="subtitulo-resultado">{{oferta.salario}}<br>{{oferta.ciudad}}<br>Publicado: {{oferta.fechaPublicacion}}</p>
+                        <div style="height: 40px;">
+                        <p class="titulo-resultado" style="margin-bottom: 5px;">{{oferta.empresa}}</p>  
+                        <p class="titulo-resultado" style="margin-top: 0%;">{{oferta.profesion}}</p>
+                        </div>
+                        <div class="subtitulo-resultado">
+                        <p style="margin-bottom: 0;">{{oferta.salario}}</p>
+                        <p style="margin-bottom: 0;">{{oferta.ciudad}}</p>
+                        <p style="margin-bottom: 0;">Publicado: {{oferta.fechaPublicacion}}</p>
+                        </div>
                         <button class="btn shadow-none boton-ver" (click)="verOferta(oferta)">VER</button>
                     </div>
                 </div>
@@ -60,7 +78,7 @@
                     nextLabel=""
                     autoHide="true"
                     maxSize="6">
-            </pagination-controls>
+                </pagination-controls>
             </div>
         </div>
     </div>
