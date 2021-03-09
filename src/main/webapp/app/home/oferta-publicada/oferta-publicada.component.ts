@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Archivo } from 'app/shared/model/archivo.model';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'jhi-oferta-publicada',
   templateUrl: './oferta-publicada.component.html',
@@ -10,7 +10,12 @@ export class OfertaPublicadaComponent implements OnInit {
   imagen!: Archivo;
   ulrImgDefault = '../../../content/images/Image 28_M.png';
 
-  constructor() {}
+  constructor(
+    private router: Router) {}
 
   ngOnInit(): void {}
+  
+  verOfertas(): void {
+    this.router.navigate(['/controlar-ofertas']);
+  }
 }

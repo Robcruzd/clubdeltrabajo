@@ -40,32 +40,41 @@
         <div class="contenedor3">
             <div class="div-center3">
                 <ng-container>
-                <br>
+                    <div style="padding-top: 40px;">
                     <p class="estilo_titulo3">Tus ofertas:</p>
+                    </div>
                     <div class="ngnum3">
                         <ng-container *ngFor = "let oferta of listaOFertasCreadas; index as inde">
                             <div class="ofertaCreada" >
                                 <div class="div1Oferta">
                                     <p class="titulo_div1">Oferta {{inde+1}}</p>
+                                    <fa-icon icon="eye" class="border-icon" style="
+                                    background: transparent;" *ngIf="oferta.activado"></fa-icon>
+                                    <button class="boton-eliminar">
+                                        <fa-icon [icon]="faTimes" class="border-icon2" style="
+                                        background: transparent 0% 0% no-repeat padding-box;"></fa-icon>
+                                    </button>
                                 </div>
                                 <div class="div2Oferta">
                                     <p class="text1">{{oferta.profesion}}</p>
                                     <p class="text2">{{oferta.salario}}</p>
                                     <p class="text2">{{oferta.ciudad}}</p>
+                                    <div style="display: flex; justify-content: flex-end;">
                                     <button class="btn boton-editar" (click)="editarOferta(oferta.id)">
                                         <p class="titulo-boton">Editar</p>
                                     </button>
+                                    </div>
                                 </div>
                                 <div class="div3Oferta"> 
-                                    <p class="titulo_div3">300 aspirantes</p>
-                                    <p class="titulo_div3">10 seleccionados</p>
-                                    <p class="titulo_div3">40 por ver</p>
+                                    <p class="titulo_div3">0 aspirantes</p>
+                                    <p class="titulo_div3">0 seleccionados</p>
+                                    <p class="titulo_div3">0 por ver</p>
                                 </div>
                                 <div class="div4Oferta"> 
                                     <div class="div-switch">
                                         <p class="labelActivar" *ngIf="!oferta.activado">Activar oferta</p>
                                         <p class="labelActivar" *ngIf="oferta.activado">Detener oferta</p>
-                                        <label class="switch">
+                                        <label class="switch" style="margin-left: 15px;">
                                             <input type="checkbox" [checked]="oferta.activado">
                                             <span class="slider round"></span>
                                         </label>
@@ -87,9 +96,9 @@
                             </div> 
                         </ng-container>
                     </div>
-                    <div style="margin-top: 2rem;">
+                    <div style="margin-top: 2rem; align-items: center;">
                         <button class="btn boton-volver" (click)="volverCrearOferta()">
-                            <fa-icon icon="chevron-left" class="border-icon" ></fa-icon>
+                            <!-- <fa-icon icon="chevron-left" class="border-icon" ></fa-icon> -->
                             <p class="titulo-boton">Volver a perfil</p>
                         </button>
                     </div>
