@@ -29,27 +29,21 @@ public class InformacionPersonal implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotNull
     @Column(name = "fecha_nacimiento", nullable = false)
     private LocalDate fechaNacimiento;
 
-    @NotNull
     @Column(name = "lugar_nacimiento", nullable = false)
     private String lugarNacimiento;
 
-    @NotNull
     @Column(name = "direccion_residencia", nullable = false)
     private String direccionResidencia;
 
-    @NotNull
     @Column(name = "genero", nullable = false)
     private String genero;
 
-    @NotNull
     @Column(name = "ciudad", nullable = false)
     private Integer ciudad;
 
-    @NotNull
     @Column(name = "telefono", nullable = false)
     private String telefono;
 
@@ -63,7 +57,6 @@ public class InformacionPersonal implements Serializable {
     private String perfilProfesional;
 
     @ManyToOne(optional = false)
-    @NotNull
     @JsonIgnoreProperties("informacionPersonals")
     private Persona usuario;
     
@@ -101,7 +94,6 @@ public class InformacionPersonal implements Serializable {
     // private String profesion;
 
     @ManyToOne(optional = false)
-    @NotNull
     @JsonIgnoreProperties("informacionPersonals")
     private Profesion profesion;
     

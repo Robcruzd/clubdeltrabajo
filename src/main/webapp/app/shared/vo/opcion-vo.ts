@@ -42,6 +42,11 @@ export interface IResultadoBusquedaAspirantes {
   fechaPostulacion: string | undefined;
   idPersona?: number | undefined;
   idOferta?: number | undefined;
+  color?: string | undefined;
+  verh?: boolean | undefined;
+  verche?: boolean | undefined;
+  verno?: boolean | undefined;
+  btnestado?: boolean | undefined;
 }
 
 export interface IResultadoOfertas {

@@ -33,7 +33,7 @@ public interface OfertaRepository extends JpaRepository<Oferta, Long>, JpaSpecif
 			nativeQuery = true)
 	List<Oferta> getOfertasEmpresa(@Param("usuario_id") Long usuario_id);
 	
-	List<Oferta> findByUsuario(Empresa usuario);
+	List<Oferta> findByUsuarioOrderByFechaPublicacionDesc(Empresa usuario);
 	
 	@Query(value = "select\r\n" + 
 			"* from ct_oferta_tb \r\n" + 

@@ -44,7 +44,7 @@ export class CrearOfertaComponent implements OnInit {
   cargos: Array<ICargo> = [];
   aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
   idiomas: Array<IIdioma> = [];
-  nivelIdioma: IOpcionVo[] = commonMessages.ARRAY_NIVEL_IDIOMA_PORCENTAJE;
+  nivelIdioma: IOpcionVo[] = commonMessages.ARRAY_NIVEL_IDIOMA;
   tiposContrato: IOpcionVo[] = commonMessages.ARRAY_TIPO_CONTRATO;
   modalidadesLaborales: IOpcionVo[] = commonMessages.ARRAY_MODALIDAD_LABORAL;
   nivelEducativoProfesion: IOpcionVo[] = commonMessages.ARRAY_NIVEL_EDUCATIVO_PROFESION;
@@ -153,19 +153,19 @@ export class CrearOfertaComponent implements OnInit {
       .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0));
   }
 
-  private _filterCiudades(value: string): string[] {
-    this.ciudades = [];
-    const filterValue = value.toLowerCase();
-    for (const valor of this.data) {
-      this.ciudades.push(valor.municipio + ' (' + valor.departamento + ')');
-    }
-    return this.ciudades.filter(option => option.toLowerCase().startsWith(filterValue)).sort();
-  }
+  // private _filterCiudades(value: string): string[] {
+  //   this.ciudades = [];
+  //   const filterValue = value.toLowerCase();
+  //   for (const valor of this.data) {
+  //     this.ciudades.push(valor.municipio + ' (' + valor.departamento + ')');
+  //   }
+  //   return this.ciudades.filter(option => option.toLowerCase().startsWith(filterValue)).sort();
+  // }
 
   crearFormularioOferta(): void {
     this.formDatosBasicos = this.fb.group({
       id: [''],
-      nombre: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
+      nombre: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú ]{1,}$')]],
       requisitos: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.:\n ]{0,}$')]],
       rangoSalarial: ['', [Validators.required]],
       areaTrabajo: ['', [Validators.required]],
@@ -180,7 +180,8 @@ export class CrearOfertaComponent implements OnInit {
       subNivelLaboral: [''],
       nivelIdioma: [''],
       // sector: ['', [Validators.required]],
-      genero: ['']
+      genero: [''],
+      mostrarSalario: ['']
     });
   }
 
@@ -202,9 +203,10 @@ export class CrearOfertaComponent implements OnInit {
         nivelEstudios: this.datosOferta!.nivelEstudios,
         profesion: this.datosOferta!.profesion,
         subNivelLaboral: this.datosOferta!.subNivelLaboral,
-        nivelIdioma: this.datosOferta!.nivelIdioma?.toString(),
+        nivelIdioma: this.datosOferta!.nivelIdioma,
         // sector: ['', [Validators.required]],
-        genero: this.datosOferta!.genero
+        genero: this.datosOferta!.genero,
+        mostrarSalario: this.datosOferta!.mostrarSalario
       });
       const ciudadBD = this.profesiones.find(profesion => profesion.id === this.datosOferta!.profesion);
       this.myControlProfesiones.setValue(ciudadBD?.profesion);
@@ -233,6 +235,7 @@ export class CrearOfertaComponent implements OnInit {
     this.oferta.subNivelLaboral = this.formDatosBasicos.controls['subNivelLaboral'].value;
     this.oferta.nivelIdioma = this.formDatosBasicos.controls['nivelIdioma'].value;
     this.oferta.genero = this.formDatosBasicos.controls['genero'].value;
+    this.oferta.mostrarSalario = this.formDatosBasicos.controls['mostrarSalario'].value;
 
     if (this.usuario?.userEmpresa) {
       this.empresaService.find(this.usuario.userEmpresa).subscribe(RESPONSE => {
@@ -249,6 +252,7 @@ export class CrearOfertaComponent implements OnInit {
             () => {
               alertify.set('notifier', 'position', 'top-right');
               alertify.error(commonMessages.HTTP_ERROR_LABEL);
+              // this.router.navigate(['/controlar-ofertas']);
             }
           );
         } else {
@@ -264,6 +268,7 @@ export class CrearOfertaComponent implements OnInit {
             () => {
               alertify.set('notifier', 'position', 'top-right');
               alertify.error(commonMessages.HTTP_ERROR_LABEL);
+              // this.router.navigate(['/controlar-ofertas']);
             }
           );
         }
@@ -330,7 +335,7 @@ export class CrearOfertaComponent implements OnInit {
   }
 
   private _filterProfesiones(value: string): IProfesion[] {
-    const filterValue = value.toLowerCase();
+    const filterValue = value?.toLowerCase();
     return this.profesiones.filter(option => option.profesion?.toLowerCase().includes(filterValue));
   }
 
@@ -379,6 +384,8 @@ export class CrearOfertaComponent implements OnInit {
   }
 
   vistaPreliminarOferta(): void {
+    // eslint-disable-next-line no-console
+    console.log(this.formDatosBasicos);
     this.visualizarOferta = true;
     this.descripcionOferta = this.formDatosBasicos.controls['requisitos'].value;
     this.profesionOferta = this.formDatosBasicos.controls['profesion'].value.profesion;

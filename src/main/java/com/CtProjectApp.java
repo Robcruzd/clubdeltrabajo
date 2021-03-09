@@ -19,7 +19,9 @@ import javax.annotation.PostConstruct;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Timer;
 
 @SpringBootApplication
 @EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
@@ -64,6 +66,11 @@ public class CtProjectApp {
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
         logApplicationStartup(env);
+        TareaEnviarCorreo tarea = new TareaEnviarCorreo();
+        Timer temporizador = new Timer();
+        Integer hora = 48;
+        temporizador.scheduleAtFixedRate(tarea, 0, 3600000*hora);
+
     }
 
     private static void logApplicationStartup(Environment env) {

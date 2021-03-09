@@ -94,7 +94,7 @@ public class OfertaService {
     }
     
     public List<Oferta> getOfertasEmpresa( Empresa usuario) {
-    	return ofertaRepository.findByUsuario(usuario);
+    	return ofertaRepository.findByUsuarioOrderByFechaPublicacionDesc(usuario);
     }
     
     public List<Oferta> getOfertasFiltroAll( Long salario, Long ciudad, Long fecha) {

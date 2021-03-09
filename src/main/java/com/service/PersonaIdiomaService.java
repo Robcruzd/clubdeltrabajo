@@ -1,16 +1,19 @@
 package com.service;
 
-import com.domain.PersonaIdioma;
-import com.repository.PersonaIdiomaRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import com.domain.Oferta;
+import com.domain.Persona;
+import com.domain.PersonaIdioma;
+import com.repository.PersonaIdiomaRepository;
 
 /**
  * Service Implementation for managing {@link PersonaIdioma}.
@@ -70,5 +73,9 @@ public class PersonaIdiomaService {
     public void delete(Long id) {
         log.debug("Request to delete PersonaIdioma : {}", id);
         personaIdiomaRepository.deleteById(id);
+    }
+    
+    public List<PersonaIdioma> getByPersonaIdioma( Long persona) {
+    	return personaIdiomaRepository.getByPersonaIdioma(persona);
     }
 }

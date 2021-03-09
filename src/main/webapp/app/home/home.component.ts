@@ -7,7 +7,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { IRegiones } from 'app/shared/model/regiones.model';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { HttpResponse } from '@angular/common/http';
-import { IProfesion, Profesion } from 'app/shared/model/profesion.model';
+import { IProfesion } from 'app/shared/model/profesion.model';
 import { FormControl } from '@angular/forms';
 import { ProfesionService } from 'app/entities/profesion/profesion.service';
 import { map, startWith } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { commonMessages } from 'app/shared/constants/commonMessages';
 import { DataService } from 'app/shared/services/data.service';
 import { OfertaService } from 'app/entities/oferta/oferta.service';
 import { IOferta, Oferta } from 'app/shared/model/oferta.model';
-import { IlistarOfertas, IOpcionVo } from 'app/shared/vo/opcion-vo';
+import { IOpcionVo } from 'app/shared/vo/opcion-vo';
 import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
@@ -171,7 +171,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.ofertaService
       .query({
         page: 0,
-        size: 5
+        size: 5,
+        sort: ['fechaPublicacion,desc']
       })
       .subscribe((res: HttpResponse<IOferta[]>) => {
         this.ofertas = res.body!;

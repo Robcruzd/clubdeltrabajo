@@ -58,10 +58,23 @@ public class HojaVidaResource {
 //		log.debug("REST request to save hoja vida : {}", hojaVida);
 
 		HojaVidaVo result = service.save(hojaVida);
-		return ResponseEntity.created(new URI("/api/hoja-vida/" + result.getInformacionPersonal().getUsuario().getId()))
+		if (hojaVida.getInformacionPersonal() != null) return ResponseEntity.created(new URI("/api/hoja-vida/" + result.getInformacionPersonal().getUsuario().getId()))
 				.headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME,
 						result.getInformacionPersonal().getUsuario().getId().toString()))
 				.body(result);
+		else if(hojaVida.getInformacionAcademica() != null) return ResponseEntity.created(new URI("/api/hoja-vida/" + result.getInformacionAcademica().get(0).getUsuario().getId()))
+				.headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME,
+						result.getInformacionAcademica().get(0).getUsuario().getId().toString()))
+				.body(result);
+		else if(hojaVida.getExperienciaLaboral() != null) return ResponseEntity.created(new URI("/api/hoja-vida/" + result.getExperienciaLaboral().get(0).getUsuario().getId()))
+				.headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME,
+						result.getExperienciaLaboral().get(0).getUsuario().getId().toString()))
+				.body(result);	
+		else return null;
+		// return ResponseEntity.created(new URI("/api/hoja-vida/" + result.getInformacionPersonal().getUsuario().getId()))
+		// 		.headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME,
+		// 				result.getInformacionPersonal().getUsuario().getId().toString()))
+		// 		.body(result);
 	}
 	
 	@PostMapping("/hoja-vida/archivo")

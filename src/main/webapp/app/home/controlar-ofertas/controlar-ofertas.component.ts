@@ -64,6 +64,8 @@ export class ControlarOfertasComponent implements OnInit {
   async cargarInformacionCuenta(): Promise<any> {
     const cuenta = await this.obtenerIdUsuario();
     this.ofertaService.getOfertasEmpresa(cuenta.userEmpresa).subscribe(response => {
+      // eslint-disable-next-line no-console
+      console.log(response);
       this.listaOfertas = response;
       this.listaOfertas.forEach(element => {
         const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);

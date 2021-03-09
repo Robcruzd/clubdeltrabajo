@@ -11,7 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,11 +26,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.domain.InformacionPersonal;
 import com.domain.Persona;
 import com.domain.vo.UsuarioVo;
 import com.service.PersonaQueryService;
 import com.service.PersonaService;
 import com.service.UserService;
+import com.service.dto.InformacionPersonalCriteria;
 import com.service.dto.PersonaCriteria;
 import com.web.rest.errors.BadRequestAlertException;
 
@@ -178,6 +182,14 @@ public class PersonaResource {
     public List<Persona> getPersonas() {
         return personaService.getPersonas();
     }
+    
+    @GetMapping("/personas/seleccionadoAspirante")
+   	public Page<Persona> seleccionadoAspirante(PersonaCriteria personaBuilder) {
+       	Pageable paging = PageRequest.of(0, 9999, Sort.by("id"));
+       	Page<Persona> informacionAspirante = personaQueryService.findByCriteria(personaBuilder, paging);
+       	personaService.seleccionadoAspirante(informacionAspirante.getContent().get(0).getEmail());
+       	return null;
+   	}
     
     
 }

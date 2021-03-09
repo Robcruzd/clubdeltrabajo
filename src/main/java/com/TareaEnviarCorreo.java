@@ -1,18 +1,12 @@
-package com.service;
+package com;
 
-import com.domain.Persona;
-import com.repository.PersonaRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
+import java.util.TimerTask;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -29,76 +23,52 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-/**
- * Service Implementation for managing {@link Persona}.
- */
-@Service
-@Transactional
-public class PersonaService {
+public class TareaEnviarCorreo extends TimerTask {
+	
+       
+    public TareaEnviarCorreo() {
 
-    private final Logger log = LoggerFactory.getLogger(PersonaService.class);
-
-    private final PersonaRepository personaRepository;
-
-    public PersonaService(PersonaRepository personaRepository) {
-        this.personaRepository = personaRepository;
     }
 
-    /**
-     * Save a persona.
-     *
-     * @param persona the entity to save.
-     * @return the persisted entity.
-     */
-    public Persona save(Persona persona) {
-        log.debug("Request to save Persona : {}", persona);
-        return personaRepository.save(persona);
+    @Override
+    public void run() {
+        Connection connection ;
+        try {	            
+        	String url = "jdbc:postgresql://localhost:5432/clubTrabajoDB";	            
+        	String user = "postgres";	            
+        	String pass = "1234";	            
+        	connection = DriverManager.getConnection(url ,user, pass);	            
+        	Statement stmt = connection.createStatement();	            
+        	ResultSet result = stmt.executeQuery("select\r\n" + 
+        			"case \r\n" + 
+        			"when (CURRENT_DATE between jhi.created_date and jhi.created_date + '24 hr'::INTERVAL) then jhi.email\r\n" + 
+        			"when (CURRENT_DATE between jhi.created_date + '72 hr' and jhi.created_date + '96 hr'::INTERVAL) then jhi.email\r\n" + 
+        			"when (CURRENT_DATE between jhi.created_date + '336 hr' and jhi.created_date + '360 hr'::INTERVAL) then jhi.email\r\n" + 
+        			"end as email\r\n" + 
+        			"from ct_persona_tb per\r\n" + 
+        			"left join ct_informacion_academica_tb inf on inf.usuario_id = per.id\r\n" + 
+        			"inner join jhi_user jhi on per.id = jhi.usuario_id\r\n" + 
+        			"where inf.id is null\r\n" + 
+        			"group by 1");	            
+        	while (result.next()) {	 
+        		if(result.getString("email") != null) {
+        			enviarConGMail(result.getString("email"));
+            		result.getStatement();
+        		}
+        	}	            
+        	result.close();	            
+        	connection.close();	        
+        }catch ( SQLException ex ) {	            
+        	connection = null ;	            
+        	ex.printStackTrace () ;	            
+        	System.out.println(" SQLException : " + ex.getMessage() );	            
+        	System.out.println(" SQLState : " + ex.getSQLState () ) ;	            
+        	System.out.println(" VendorError : " + ex.getErrorCode () );	        
+        }
     }
-
-    /**
-     * Get all the personas.
-     *
-     * @param pageable the pagination information.
-     * @return the list of entities.
-     */
-    @Transactional(readOnly = true)
-    public Page<Persona> findAll(Pageable pageable) {
-        log.debug("Request to get all Personas");
-        return personaRepository.findAll(pageable);
-    }
-
-    /**
-     * Get one persona by id.
-     *
-     * @param id the id of the entity.
-     * @return the entity.
-     */
-    @Transactional(readOnly = true)
-    public Optional<Persona> findOne(Long id) {
-        log.debug("Request to get Persona : {}", id);
-        return personaRepository.findById(id);
-    }
-
-    /**
-     * Delete the persona by id.
-     *
-     * @param id the id of the entity.
-     */
-    public void delete(Long id) {
-        log.debug("Request to delete Persona : {}", id);
-        personaRepository.deleteById(id);
-    }
-    
-    public Long contarPersonas() {
-    	return personaRepository.count();
-    }
-    
-    public List<Persona> getPersonas() {
-    	return personaRepository.findAll();
-    }
-    
-    public void seleccionadoAspirante(String email) {
-    	String to = email;
+        
+    public void enviarConGMail(String destinatario) {
+    	String to = destinatario;
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -129,13 +99,13 @@ public class PersonaService {
             multipart.addBodyPart(textPart);
             BodyPart imagePart = new MimeBodyPart();
 	        DataSource fds = new FileDataSource
-	          ("src/main/resources/image/Bienvenido.jpg");
+	          ("src/main/resources/image/recordatorioEmail.jpg");
             imagePart.setDataHandler(new DataHandler(fds));
             imagePart.setHeader("Content-ID","<image>");
             imagePart.setDisposition(MimeBodyPart.INLINE);
             multipart.addBodyPart(imagePart);
             message.setContent(multipart);
-            message.setSubject("Hoja de vida Seleccionada para revisión");
+            message.setSubject("Recordatorio Club del Trabajo");
             message.setRecipients(Message.RecipientType.TO,
                      InternetAddress.parse(to));
             Transport.send(message);
@@ -146,7 +116,7 @@ public class PersonaService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
+    	
     }
-    
+
 }
