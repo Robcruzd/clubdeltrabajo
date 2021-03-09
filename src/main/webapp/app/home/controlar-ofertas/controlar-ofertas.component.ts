@@ -125,4 +125,8 @@ export class ControlarOfertasComponent implements OnInit {
   entrarOferta(id: any): void {
     this.router.navigate(['/candidatos-oferta', { oferta: id }]);
   }
+
+  eliminarOfertaid(id: any): void{
+    this.ofertaService.delete(id).subscribe(()=>{ });
+  }
 }
