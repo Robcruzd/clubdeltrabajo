@@ -241,4 +241,8 @@ export class PerfilComponent implements OnInit {
 
     return ciudad?.nombre || '';
   }
+
+  verOfertas(): void {
+    this.router.navigate(['resultados-busqueda']);
+  }
 }

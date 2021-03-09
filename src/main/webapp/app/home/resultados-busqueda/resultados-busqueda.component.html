@@ -52,7 +52,7 @@
                         <img src="../../../content/images/Image 35.png" class="logo-empresa">
                         <p class="titulo-resultado">{{oferta.empresa}} busca {{oferta.profesion}}</p>
                         <p class="subtitulo-resultado">{{oferta.salario}}<br>{{oferta.ciudad}}<br>Publicado: {{oferta.fechaPublicacion}}</p>
-                        <button class="btn shadow-none boton-ver">VER</button>
+                        <button class="btn shadow-none boton-ver" (click)="verOferta(oferta)">VER</button>
                     </div>
                 </div>
                 <pagination-controls (pageChange)="page = $event" class="controls" 

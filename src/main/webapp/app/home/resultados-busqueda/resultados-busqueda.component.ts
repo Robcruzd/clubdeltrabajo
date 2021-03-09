@@ -11,6 +11,7 @@ import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { IOpcionVo, IResultadoBusquedaOfertas } from 'app/shared/vo/opcion-vo';
 import { IProfesion } from 'app/shared/model/profesion.model';
 import { ProfesionService } from 'app/entities/profesion/profesion.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-resultados-busqueda',
@@ -44,7 +45,7 @@ export class ResultadosBusquedaComponent implements OnInit {
   public page = 1;
   constructor(private dataService: DataService, private formBuilder: FormBuilder,
     private ofertaService: OfertaService,private regionService: RegionesService,
-    private profesionService: ProfesionService) {
+    private profesionService: ProfesionService, private router: Router) {
       this.traerCiudad();
       this.cargarProfesiones();
     }
@@ -199,6 +200,10 @@ export class ResultadosBusquedaComponent implements OnInit {
         }
       })
     }
+  }
+
+  verOferta(oferta: any):void{
+    this.router.navigate(['/oferta-publica', { oferta: oferta.idOferta }]);
   }
 
 }

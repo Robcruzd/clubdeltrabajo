@@ -80,4 +80,8 @@ public class AplicacionOfertaService {
     public List<AplicacionOferta> getByOferta(Long oferta) {
     	return aplicacionOfertaRepository.getByOferta(oferta);
     }
+    
+    public List<AplicacionOferta> getByOfertaAndPersona(Long oferta, Long persona) {
+    	return aplicacionOfertaRepository.getByOfertaAndPersona(oferta, persona);
+    }
 }
