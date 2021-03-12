@@ -10,6 +10,7 @@ import { IInformacionAcademica, InformacionAcademica } from 'app/shared/model/in
 import { InformacionPersonal } from 'app/shared/model/informacion-personal.model';
 import { IPersona, Persona } from 'app/shared/model/persona.model';
 import { IResultadoHojaCandidato } from 'app/shared/vo/opcion-vo';
+import * as moment from 'moment';
 import { PersonaService } from '../../entities/persona/persona.service';
 
 @Component({
@@ -38,6 +39,8 @@ export class HojaCandidatoComponent implements OnInit {
   aplicacionOFertaActualizar = new AplicacionOferta();
   fechaPostulacionAplicacionOferta: any;
   aspiranteSeleccionado = new Persona();
+  apliOferResponseFiltro: any;
+  aplicacionOferta = new AplicacionOferta();
 
   constructor(
     private personaService: PersonaService,
@@ -102,8 +105,17 @@ export class HojaCandidatoComponent implements OnInit {
     this.aplicacionOfertaService.update(this.aplicacionOFertaActualizar).subscribe(() => {});
     if (this.modelBandera !== this.model) {
       if (this.model === 'Seleccionado') {
-        this.aspiranteSeleccionado.id = this.idUsuarioAplicacionOferta.id;
-        this.personaService.seleccionadoAspirante(this.aspiranteSeleccionado).subscribe(() => {});
+        this.aplicacionOfertaService.getByOfertaAndPersonaFiltro(this.idOfertaAplicacionOferta,this.idUsuarioAplicacionOferta).subscribe(apliOferResponse =>{
+          this.apliOferResponseFiltro = apliOferResponse;
+          if(this.apliOferResponseFiltro.length === 0){
+            this.aplicacionOferta.estado = this.model;
+            this.aplicacionOferta.fechaPostulacion = moment(new Date(), 'YYYY-MMM-DD');
+            this.aplicacionOferta.oferta = this.idOfertaAplicacionOferta;
+            this.aplicacionOferta.usuario = this.idUsuarioAplicacionOferta;
+          }
+          this.aspiranteSeleccionado.id = this.idUsuarioAplicacionOferta.id;
+          this.personaService.seleccionadoAspirante(this.aspiranteSeleccionado).subscribe(() => {});
+        });
       }
     }
     this.router.navigate(['candidatos-seleccionados', { oferta: this.idOFerta }]);

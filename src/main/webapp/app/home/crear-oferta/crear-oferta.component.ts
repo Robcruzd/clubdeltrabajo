@@ -95,7 +95,7 @@ export class CrearOfertaComponent implements OnInit {
     private router: Router,
     private regionService: RegionesService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
   ) {
     this.traerCiudad();
   }
@@ -238,39 +238,47 @@ export class CrearOfertaComponent implements OnInit {
     this.oferta.mostrarSalario = this.formDatosBasicos.controls['mostrarSalario'].value;
 
     if (this.usuario?.userEmpresa) {
-      this.empresaService.find(this.usuario.userEmpresa).subscribe(RESPONSE => {
-        this.oferta.usuario = RESPONSE.body;
-        if (this.idOferta === 0) {
-          this.ofertaService.create(this.oferta).subscribe(
-            response => {
-              if (response.body !== null) {
-                alertify.set('notifier', 'position', 'top-right');
-                alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
-                this.router.navigate(['/controlar-ofertas']);
-              }
-            },
-            () => {
-              alertify.set('notifier', 'position', 'top-right');
-              alertify.error(commonMessages.HTTP_ERROR_LABEL);
-              // this.router.navigate(['/controlar-ofertas']);
+      this.ofertaService.getOfertasEmpresa(this.usuario.userEmpresa).subscribe(ofertaResponse => {
+        if(ofertaResponse.length <= 1 && this.usuario?.userEmpresa){
+          this.empresaService.find(this.usuario.userEmpresa).subscribe(RESPONSE => {
+            this.oferta.usuario = RESPONSE.body;
+            if (this.idOferta === 0) {
+              this.ofertaService.create(this.oferta).subscribe(
+                response => {
+                  if (response.body !== null) {
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                    this.router.navigate(['/controlar-ofertas']);
+                  }
+                },
+                () => {
+                  alertify.set('notifier', 'position', 'top-right');
+                  alertify.error(commonMessages.HTTP_ERROR_LABEL);
+                  // this.router.navigate(['/controlar-ofertas']);
+                }
+              );
+            } else {
+              this.oferta.id = this.idOferta;
+              this.ofertaService.update(this.oferta).subscribe(
+                response => {
+                  if (response.body !== null) {
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                    this.router.navigate(['/controlar-ofertas']);
+                  }
+                },
+                () => {
+                  alertify.set('notifier', 'position', 'top-right');
+                  alertify.error(commonMessages.HTTP_ERROR_LABEL);
+                  // this.router.navigate(['/controlar-ofertas']);
+                }
+              );
             }
-          );
-        } else {
-          this.oferta.id = this.idOferta;
-          this.ofertaService.update(this.oferta).subscribe(
-            response => {
-              if (response.body !== null) {
-                alertify.set('notifier', 'position', 'top-right');
-                alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
-                this.router.navigate(['/controlar-ofertas']);
-              }
-            },
-            () => {
-              alertify.set('notifier', 'position', 'top-right');
-              alertify.error(commonMessages.HTTP_ERROR_LABEL);
-              // this.router.navigate(['/controlar-ofertas']);
-            }
-          );
+          });
+        }else{
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.error("No es posible publicar más de una oferta debe adquirir un plan!");
+          this.router.navigate(['/controlar-ofertas']);
         }
       });
     }

@@ -74,6 +74,7 @@ public class AplicacionOfertaResource {
             throw new BadRequestAlertException("A new aplicacionOferta cannot already have an ID", ENTITY_NAME, "idexists");
         }
         AplicacionOferta result = aplicacionOfertaService.save(aplicacionOferta);
+        aplicacionOfertaService.enviarEmailEmpresa(result.getOferta().getUsuario().getEmail());
         return ResponseEntity.created(new URI("/api/aplicacion-ofertas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);

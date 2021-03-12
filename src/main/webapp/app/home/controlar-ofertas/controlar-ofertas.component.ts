@@ -127,6 +127,9 @@ export class ControlarOfertasComponent implements OnInit {
   }
 
   eliminarOfertaid(id: any): void{
-    this.ofertaService.delete(id).subscribe(()=>{ });
+    this.ofertaService.delete(id).subscribe(()=>{
+      this.listaOFertasCreadas = [];
+      this.ngOnInit();
+    });
   }
 }

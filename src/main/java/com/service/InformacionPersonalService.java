@@ -1,5 +1,6 @@
 package com.service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.domain.InformacionPersonal;
+import com.domain.Profesion;
 import com.repository.InformacionPersonalRepository;
 
 /**
@@ -87,6 +89,10 @@ public class InformacionPersonalService {
     public void delete(Long id) {
         log.debug("Request to delete InformacionPersonal : {}", id);
         informacionPersonalRepository.deleteById(id);
+    }
+    
+    public List<InformacionPersonal> findByProfesion(Profesion profesion) {
+        return informacionPersonalRepository.findByProfesion(profesion);
     }
     
 }

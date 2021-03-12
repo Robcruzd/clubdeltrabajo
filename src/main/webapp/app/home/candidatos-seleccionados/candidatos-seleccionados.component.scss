@@ -426,6 +426,18 @@
       width: 1071px;
       display: flex;
 
+      .btnBuscar {
+        height: 15px;
+        width: 50px;
+        background: #020d52;
+        color: #fbfbfb;
+        font-family: 'Arial';
+        font-size: 12px;
+        text-align: center;
+        border: none;
+        margin-left: 5px;
+      }
+
       .buscador {
         display: flex;
         flex-flow: column;

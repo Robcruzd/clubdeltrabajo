@@ -2,6 +2,7 @@ package com.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,10 +29,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.domain.Empresa;
+import com.domain.InformacionPersonal;
 import com.domain.Oferta;
+import com.domain.Persona;
+import com.domain.Profesion;
+import com.service.InformacionPersonalService;
 import com.service.OfertaQueryService;
 import com.service.OfertaService;
+import com.service.ProfesionService;
 import com.service.dto.OfertaCriteria;
+import com.service.dto.PersonaCriteria;
 import com.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -55,10 +62,16 @@ public class OfertaResource {
     private final OfertaService ofertaService;
 
     private final OfertaQueryService ofertaQueryService;
+    
+    private final InformacionPersonalService informacionPersonaService;
+    
+    private final ProfesionService profesionService;
 
-    public OfertaResource(OfertaService ofertaService, OfertaQueryService ofertaQueryService) {
+    public OfertaResource(OfertaService ofertaService, OfertaQueryService ofertaQueryService, InformacionPersonalService informacionPersonaService, ProfesionService profesionService) {
         this.ofertaService = ofertaService;
         this.ofertaQueryService = ofertaQueryService;
+        this.informacionPersonaService = informacionPersonaService;
+        this.profesionService = profesionService;
     }
 
     /**
@@ -75,6 +88,12 @@ public class OfertaResource {
             throw new BadRequestAlertException("A new oferta cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Oferta result = ofertaService.save(oferta);
+        List<InformacionPersonal> listaInfo = new ArrayList<InformacionPersonal>();
+	    Profesion profesion = profesionService.getById(result.getProfesion());
+		listaInfo = informacionPersonaService.findByProfesion(profesion);
+		for(int i=0; i<listaInfo.size() ; i++) {
+			ofertaService.enviarEmailPersonas(listaInfo.get(i).getUsuario().getEmail());
+		}  
         return ResponseEntity.created(new URI("/api/ofertas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -204,4 +223,5 @@ public class OfertaResource {
     	Pageable paging = PageRequest.of(0, 9999, Sort.by("id"));
     	return ofertaQueryService.findByCriteria(ofertaBuilder, paging);
 	}
+	 
 }
