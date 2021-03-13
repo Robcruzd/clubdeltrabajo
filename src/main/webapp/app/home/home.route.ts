@@ -26,6 +26,7 @@ import { HojaCandidatoComponent } from './hoja-candidato/hoja-candidato.componen
 import { ControlarOfertasComponent } from './controlar-ofertas/controlar-ofertas.component';
 import { OfertaPublicaComponent } from './oferta-publica/oferta-publica.component';
 import { CandidatosSeleccionadosComponent } from './candidatos-seleccionados/candidatos-seleccionados.component';
+import { NosotrosComponent } from './nosotros/nosotros.component';
 
 export const HOME_ROUTE: Routes = [
   {
@@ -214,6 +215,13 @@ export const HOME_ROUTE: Routes = [
   {
     path: 'controlar-ofertas',
     component: ControlarOfertasComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
+  },
+  {
+    path: 'nosotros',
+    component: NosotrosComponent,
     data: {
       pageTitle: 'home.title'
     }

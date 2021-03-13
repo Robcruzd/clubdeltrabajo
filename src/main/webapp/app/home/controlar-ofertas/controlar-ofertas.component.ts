@@ -78,7 +78,8 @@ export class ControlarOfertasComponent implements OnInit {
   async cargarInformacionCuenta(): Promise<any> {
     const cuenta = await this.obtenerIdUsuario();
     this.listaOfertas = await this.obtenerOfertasEmpresa(cuenta.userEmpresa);
-    for (let i = 0; i < this.listaOfertas.length; i++) {     
+    for (let i = 0; i < this.listaOfertas.length; i++) {    
+       
       await this.getAspirantes(this.listaOfertas[i]);
         const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === this.listaOfertas[i].salario);
         const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === this.listaOfertas[i].ciudad?.toString());
