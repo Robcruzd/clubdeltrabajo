@@ -97,11 +97,19 @@ export class AgregarUsuarioComponent implements OnInit {
   }
 
   deleteSpace(variable: string): void {
-    this.persona[variable] = this.persona[variable]!.trim();
+    // eslint-disable-next-line no-console
+    console.log(this.persona[variable]);
+    if (this.persona[variable] !== undefined) {
+      this.persona[variable] = this.persona[variable]!.trim();
+    }
   }
 
   deleteSpace2(variable: string): void {
-    this.empresa[variable] = this.empresa[variable]!.trim();
+    // eslint-disable-next-line no-console
+    console.log(this.empresa[variable]);
+    if (this.persona[variable] !== undefined) {
+      this.empresa[variable] = this.empresa[variable]!.trim();
+    }
   }
 
   changeTipoUsuario(tipo: string): void {

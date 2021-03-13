@@ -42,7 +42,7 @@ public class EmpresaCriteria implements Serializable, Criteria {
 
     private LongFilter telefonoEmpresa;
 
-    private StringFilter ciudad;
+    private LongFilter ciudad;
 
     private StringFilter sector;
 
@@ -161,11 +161,11 @@ public class EmpresaCriteria implements Serializable, Criteria {
         this.telefonoEmpresa = telefonoEmpresa;
     }
 
-    public StringFilter getCiudad() {
+    public LongFilter getCiudad() {
         return ciudad;
     }
 
-    public void setCiudad(StringFilter ciudad) {
+    public void setCiudad(LongFilter ciudad) {
         this.ciudad = ciudad;
     }
 

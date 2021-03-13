@@ -61,7 +61,7 @@ public class Empresa implements Serializable {
     private Long telefonoEmpresa;
     
     @Column(name = "ciudad", nullable = true)
-    private String ciudad;
+    private Long ciudad;
     
     @Column(name = "sector", nullable = true)
     private String sector;
@@ -192,11 +192,11 @@ public class Empresa implements Serializable {
 		this.telefonoEmpresa = telefonoEmpresa;
 	}
 
-	public String getCiudad() {
+	public Long getCiudad() {
 		return ciudad;
 	}
 
-	public void setCiudad(String ciudad) {
+	public void setCiudad(Long ciudad) {
 		this.ciudad = ciudad;
 	}
 
