@@ -4,7 +4,7 @@ import { CargoService } from '../../entities/cargo/cargo.service';
 import { commonMessages } from '../../shared/constants/commonMessages';
 import { ICargo } from 'app/shared/model/cargo.model';
 import { HttpResponse } from '@angular/common/http';
-import { IlistarOfertas, IOpcionVo } from '../../shared/vo/opcion-vo';
+import { IlistarOfertas, IOpcionVo, ISubnivelVo } from '../../shared/vo/opcion-vo';
 import { IdiomaService } from '../../entities/idioma/idioma.service';
 import { IIdioma } from '../../shared/model/idioma.model';
 import { FormControl } from '@angular/forms';
@@ -58,7 +58,7 @@ export class CrearOfertaComponent implements OnInit {
   profesionState: Boolean = false;
   usuario!: User | null;
   lblSeleccioneProfesion = commonMessages.SELECCIONE_PROFESION_LABEL;
-  nivelesLaborales: IOpcionVo[] = commonMessages.ARRAY_NIVEL_LABORAL;
+  nivelesLaborales: ISubnivelVo[] = commonMessages.ARRAY_NIVEL_LABORAL;
   experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
   no_publicar: any;
   genero: any;
@@ -82,6 +82,7 @@ export class CrearOfertaComponent implements OnInit {
   listaOFertasCreadas: Array<IlistarOfertas> = [];
   datosOferta!: Oferta | null;
   idOferta = 0;
+  subnivelesLaborales: IOpcionVo[] = commonMessages.ARRAY_NIVEL_LABORAL[0].subniveles;
 
   constructor(
     private cargoService: CargoService,
@@ -95,7 +96,7 @@ export class CrearOfertaComponent implements OnInit {
     private router: Router,
     private regionService: RegionesService,
     private route: ActivatedRoute,
-    private location: Location,
+    private location: Location
   ) {
     this.traerCiudad();
   }
@@ -162,6 +163,32 @@ export class CrearOfertaComponent implements OnInit {
   //   return this.ciudades.filter(option => option.toLowerCase().startsWith(filterValue)).sort();
   // }
 
+  cargarSubnivel(value: Object): void {
+    this.subnivelesLaborales = [];
+    if (value === 0) {
+      this.subnivelesLaborales = this.nivelesLaborales;
+    } else {
+      // eslint-disable-next-line no-console
+      console.log('vaaaalue: ', value);
+      if (value && Object.entries(value).length > 0) {
+        // eslint-disable-next-line no-console
+        console.log('vaaaalue2: ', value['nivelLaboral']);
+        const subniveles = this.nivelesLaborales
+          .filter(item => item.codigo === value['nivelLaboral'])
+          .map(item => {
+            return {
+              codigo: item.codigo,
+              nombre: item.nombre,
+              subniveles: item.subniveles
+            };
+          });
+        this.subnivelesLaborales = subniveles[0].subniveles;
+        // eslint-disable-next-line no-console
+        console.log(this.subnivelesLaborales);
+      }
+    }
+  }
+
   crearFormularioOferta(): void {
     this.formDatosBasicos = this.fb.group({
       id: [''],
@@ -210,8 +237,7 @@ export class CrearOfertaComponent implements OnInit {
       });
       const ciudadBD = this.profesiones.find(profesion => profesion.id === this.datosOferta!.profesion);
       this.myControlProfesiones.setValue(ciudadBD?.profesion);
-      // eslint-disable-next-line no-console
-      console.log(this.formDatosBasicos);
+      this.cargarSubnivel(this.formDatosBasicos.value);
     });
   }
 
@@ -239,7 +265,7 @@ export class CrearOfertaComponent implements OnInit {
 
     if (this.usuario?.userEmpresa) {
       this.ofertaService.getOfertasEmpresa(this.usuario.userEmpresa).subscribe(ofertaResponse => {
-        if(ofertaResponse.length <= 1 && this.usuario?.userEmpresa){
+        if (ofertaResponse.length <= 1 && this.usuario?.userEmpresa) {
           this.empresaService.find(this.usuario.userEmpresa).subscribe(RESPONSE => {
             this.oferta.usuario = RESPONSE.body;
             if (this.idOferta === 0) {
@@ -275,9 +301,9 @@ export class CrearOfertaComponent implements OnInit {
               );
             }
           });
-        }else{
+        } else {
           alertify.set('notifier', 'position', 'top-right');
-          alertify.error("No es posible publicar más de una oferta debe adquirir un plan!");
+          alertify.error('No es posible publicar más de una oferta debe adquirir un plan!');
           this.router.navigate(['/controlar-ofertas']);
         }
       });

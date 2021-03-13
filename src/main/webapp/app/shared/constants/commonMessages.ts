@@ -289,10 +289,39 @@ export const commonMessages = {
   ],
 
   ARRAY_NIVEL_LABORAL: [
-    { codigo: 1, nombre: 'Alta Gerencia' },
-    { codigo: 2, nombre: 'Gerencia Media' },
-    { codigo: 3, nombre: 'Profesional' },
-    { codigo: 4, nombre: 'Asistencial' }
+    {
+      codigo: 1,
+      nombre: 'Alta Gerencia',
+      subniveles: [
+        { codigo: 1, nombre: 'Presidente' },
+        { codigo: 1, nombre: 'Vicepresidente' },
+        { codigo: 1, nombre: 'Gerente Junior' }
+      ]
+    },
+    {
+      codigo: 2,
+      nombre: 'Gerencia Media',
+      subniveles: [
+        { codigo: 1, nombre: 'Gerente' },
+        { codigo: 1, nombre: 'Coordinador Supervisor o Especialista' }
+      ]
+    },
+    {
+      codigo: 3,
+      nombre: 'Profesional',
+      subniveles: [
+        { codigo: 1, nombre: 'Profesional Junior' },
+        { codigo: 1, nombre: 'Profesional' }
+      ]
+    },
+    {
+      codigo: 4,
+      nombre: 'Asistencial',
+      subniveles: [
+        { codigo: 1, nombre: 'Profesional Junior' },
+        { codigo: 1, nombre: 'Auxiliar, Asistencial y Otros' }
+      ]
+    }
   ],
 
   ARRAY_EXPERIENCIA_LABORAL: [
