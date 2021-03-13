@@ -19,6 +19,9 @@ export interface IlistarOfertas {
   salario: string | undefined;
   ciudad: string | undefined;
   activado: boolean | undefined;
+  totalSeleccionado?: number | undefined;
+  totalTodo?: number | undefined;
+  totalNinguno?:number | undefined;
 }
 
 export interface IResultadoBusquedaOfertas {
