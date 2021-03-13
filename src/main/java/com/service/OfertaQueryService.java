@@ -116,6 +116,9 @@ public class OfertaQueryService extends QueryService<Oferta> {
                 specification = specification.and(buildSpecification(criteria.getUsuarioId(),
                     root -> root.join(Oferta_.usuario, JoinType.LEFT).get(EmpresaFiltro.id)));
             }
+            if (criteria.getProfesion() != null) {
+            	specification = specification.and(buildRangeSpecification(criteria.getProfesion(), Oferta_.profesion));
+            }
         }
         return specification;
     }

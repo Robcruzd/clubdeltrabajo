@@ -217,6 +217,23 @@ public class OfertaResource {
 		
 	}
 	
+	@GetMapping("/ofertas/filtroOfertasProfesion")
+	public List<Oferta> getOfertasFiltroProfesion(@RequestParam("salario") Long salario,
+			@RequestParam("ciudad") Long ciudad, @RequestParam("fecha") Long fecha, @RequestParam("profesion") Long profesion) {
+		if(salario != 0 && ciudad != 0 && fecha != 0) {
+			return ofertaService.getOfertasFiltroAllProfesion(salario, ciudad, fecha,profesion);
+		}
+		else if(salario != 0 && ciudad == 0 && fecha != 0) {
+			return ofertaService.getOfertasFiltroFechaSalarioProfesion(salario, fecha, profesion);		
+		}
+		else if(salario == 0 && ciudad != 0 && fecha != 0) {
+			return ofertaService.getOfertasFiltroFechaCiudadProfesion(ciudad, fecha, profesion);
+		}else {
+			return ofertaService.getOfertasFiltroFechaProfesion(fecha, profesion);
+		}
+		
+	}
+	
 	@GetMapping("/ofertas/filtroOfertasEmpresa")
 	public List<Oferta> getOfertasEmpresa(@RequestParam("usuario") Long usuario) {
 		Empresa empresa = new Empresa();

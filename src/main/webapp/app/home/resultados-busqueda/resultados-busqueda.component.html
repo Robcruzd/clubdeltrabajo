@@ -9,13 +9,18 @@
                 <div *ngIf = "general === 'true'">
                     <div class="buscador">
                         <div class="input-buscador">
-                            <input matInput placeholder="Busqueda" class="form-control">
+                            <button class="btnBuscar" (click)="cargarOfertar()">
+                                <fa-icon [icon]="faSearch" class="border-icon2" style="
+                                background: transparent; color: #0a0a0a;">
+                                </fa-icon>
+                            </button>
+                            <input matInput placeholder="Busqueda" class="form-control" [(ngModel)]="valorBusqueda">
                         </div>
                         <div class="empresas">
                             <p class="titulo">Empresas</p>
                             <p class="resultado">{{totalEmpresas}} resultados</p>
                         </div>
-                        <div class="Sector">
+                        <!-- <div class="Sector">
                             <p class="titulo">Profesión</p>
                             <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarOfertar()">
                                 <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
@@ -24,7 +29,7 @@
                                     {{ aspiracion.nombre }}
                                 </option>
                             </select>
-                        </div>
+                        </div> -->
                         <div class="Sector">
                             <p class="titulo">Salario</p>
                             <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarOfertar()">
@@ -36,7 +41,7 @@
                             </select>
                         </div>
                         <div class="Sector">
-                            <p class="titulo">Sector</p>
+                            <p class="titulo">Ciudad</p>
                             <select class="resultado" [(ngModel)]="municipioValue" (change)="cargarOfertar()">
                                 <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
                                 <option
