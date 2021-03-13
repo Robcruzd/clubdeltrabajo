@@ -1,0 +1,40 @@
+.container{
+    width: 60%;
+    display: flex;
+    padding-top: 2rem;
+}
+.text{
+    display:grid;
+
+    .nosotros{
+        font-family: "Roboto";
+        font-size: 72px;
+        color: #2699FB;
+        font-weight: 400;
+        letter-spacing: 0px;
+        opacity: 1;
+    }
+
+    .parrafo_1{
+        color: #707070;
+        font-family: 'Roboto';
+        font-weight: normal;
+        margin-top: 2rem;
+        margin-bottom: 3rem;
+        font-size: 16px;
+        line-height: 30px;
+    }
+
+    .parrafo_2{
+        color: #707070;
+        font-family: 'Roboto';
+        font-weight: normal;
+        margin-bottom: 2rem;
+        font-size: 16px;
+        line-height: 30px;
+    }
+}
+.img{
+    height: 425px;
+    width: 400px;
+}

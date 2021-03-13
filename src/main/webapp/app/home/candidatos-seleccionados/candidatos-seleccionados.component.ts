@@ -10,7 +10,8 @@ import {
   faCheck,
   faTimes,
   faPaperPlane,
-  faArrowDown
+  faArrowDown,
+  faSearch
 } from '@fortawesome/free-solid-svg-icons';
 import { Group, pdf } from '@progress/kendo-drawing';
 import { AplicacionOfertaService } from 'app/entities/aplicacion-oferta/aplicacion-oferta.service';
@@ -52,6 +53,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   faTimes = faTimes;
   faPaperPlane = faPaperPlane;
   faArrowDown = faArrowDown;
+  faSearch = faSearch;
   imagen!: Archivo;
   ulrImgDefault = '';
   faUserCircle = faUserCircle;

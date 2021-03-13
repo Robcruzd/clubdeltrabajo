@@ -83,9 +83,13 @@
             <div class="cuerpo">
                 <div class="buscador">
                 <div class="input-buscador">
-                    <input matInput placeholder="Busqueda" class="form-control" [(ngModel)]="valorBusqueda">
+                    <button class="btnBuscar" (click)="cargarAspirantes()">
+                        <fa-icon [icon]="faSearch" class="border-icon2" style="
+                        background: transparent; color: #0a0a0a;">
+                        </fa-icon>
+                    </button>
+                    <input matInput class="form-control" [(ngModel)]="valorBusqueda">
                 </div>
-                <button class="btnBuscar" (click)="cargarAspirantes()">buscar</button>
                 <div class="empresas">
                     <p class="titulo">Perfiles</p>
                     <p class="resultado">{{totalAspirantes}} resultados</p>

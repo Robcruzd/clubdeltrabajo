@@ -93,9 +93,7 @@ export class ControlarOfertasComponent implements OnInit {
               totalNinguno: this.totalNinguno,
               totalSeleccionado: this.totalSeleccionado,
               totalTodo: this.totalTodo,
-        });
-        console.log('listaOfertas');
-        console.log(this.listaOFertasCreadas);              
+        });           
       });
     }    
   }
