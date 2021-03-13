@@ -66,16 +66,16 @@
                                     </div>
                                 </div>
                                 <div class="div3Oferta"> 
-                                    <p class="titulo_div3">0 aspirantes</p>
-                                    <p class="titulo_div3">0 seleccionados</p>
-                                    <p class="titulo_div3">0 por ver</p>
+                                    <p class="titulo_div3">{{oferta.totalTodo}} aspirantes</p>
+                                    <p class="titulo_div3">{{oferta.totalSeleccionado}} seleccionados</p>
+                                    <p class="titulo_div3">{{oferta.totalNinguno}} por ver</p>
                                 </div>
                                 <div class="div4Oferta"> 
                                     <div class="div-switch">
                                         <p class="labelActivar" *ngIf="!oferta.activado">Activar oferta</p>
                                         <p class="labelActivar" *ngIf="oferta.activado">Detener oferta</p>
                                         <label class="switch" style="margin-left: 15px;">
-                                            <input type="checkbox" [checked]="oferta.activado">
+                                            <input type="checkbox" [checked]= oferta.activado [(ngModel)]="oferta.activado" (change)="cambiarEstado($event, oferta)">
                                             <span class="slider round"></span>
                                         </label>
                                     </div>

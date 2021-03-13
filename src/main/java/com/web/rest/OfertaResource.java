@@ -27,8 +27,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.domain.AplicacionOferta;
 import com.domain.Empresa;
 import com.domain.Oferta;
+import com.service.AplicacionOfertaService;
 import com.service.OfertaQueryService;
 import com.service.OfertaService;
 import com.service.dto.OfertaCriteria;
@@ -55,11 +57,15 @@ public class OfertaResource {
     private final OfertaService ofertaService;
 
     private final OfertaQueryService ofertaQueryService;
+    
+    private final AplicacionOfertaService aplicacionOfertaservice;
 
-    public OfertaResource(OfertaService ofertaService, OfertaQueryService ofertaQueryService) {
+    public OfertaResource(OfertaService ofertaService, OfertaQueryService ofertaQueryService, AplicacionOfertaService aplicacionOfertaservice) {
         this.ofertaService = ofertaService;
         this.ofertaQueryService = ofertaQueryService;
+        this.aplicacionOfertaservice = aplicacionOfertaservice;
     }
+    		
 
     /**
      * {@code POST  /ofertas} : Create a new oferta.
@@ -203,5 +209,19 @@ public class OfertaResource {
 	public Page<Oferta> listar(OfertaCriteria ofertaBuilder) {
     	Pageable paging = PageRequest.of(0, 9999, Sort.by("id"));
     	return ofertaQueryService.findByCriteria(ofertaBuilder, paging);
+	}
+	 
+	@GetMapping("/ofertas/eliminarOFertas")
+	public void eliminarOferta(@RequestParam("oferta") Long oferta) {
+		List<AplicacionOferta> listaAplicacionOferta = aplicacionOfertaservice.getByOferta(oferta);
+		  if(listaAplicacionOferta.size() == 0) {
+			 ofertaService.delete(oferta);
+		  }
+		  else {
+			  for (int i = 0; i < listaAplicacionOferta.size(); i++) {
+				  aplicacionOfertaservice.delete(listaAplicacionOferta.get(i).getId());
+			  }
+			  ofertaService.delete(oferta);
+		  }
 	}
 }
