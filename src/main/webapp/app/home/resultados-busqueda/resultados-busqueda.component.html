@@ -1,62 +1,68 @@
 <div class="container">
-    <div style="display: flex; align-items: center; justify-content: center; margin-top: 2%; margin-bottom: 75px;">
+    <div *ngIf="general === 'true'" style="display: flex; align-items: center; justify-content: center; margin-top: 2%; margin-bottom: 75px;">
     <p class="text-top">¡Explora cientos de ofertas de trabajo!</p>
     <img src="../../../content/images/img3.png" class="imgTop" style="margin-left: 2%;">
     </div>
     <div class="row" style="display: flex;">
         <div class="col-md-8">
             <div class="cuerpo">
-                <div class="buscador">
-                <div class="input-buscador">
-                    <input matInput placeholder="Busqueda" class="form-control">
+                <div *ngIf = "general === 'true'">
+                    <div class="buscador">
+                        <div class="input-buscador">
+                            <input matInput placeholder="Busqueda" class="form-control">
+                        </div>
+                        <div class="empresas">
+                            <p class="titulo">Empresas</p>
+                            <p class="resultado">{{totalEmpresas}} resultados</p>
+                        </div>
+                        <div class="Sector">
+                            <p class="titulo">Profesión</p>
+                            <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarOfertar()">
+                                <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option *ngFor="let aspiracion of aspiracionesSalariales" 
+                                [ngValue]="aspiracion.codigo" >
+                                    {{ aspiracion.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="Sector">
+                            <p class="titulo">Salario</p>
+                            <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarOfertar()">
+                                <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option *ngFor="let aspiracion of aspiracionesSalariales" 
+                                [ngValue]="aspiracion.codigo" >
+                                    {{ aspiracion.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="Sector">
+                            <p class="titulo">Sector</p>
+                            <select class="resultado" [(ngModel)]="municipioValue" (change)="cargarOfertar()">
+                                <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option
+                                [ngValue]="municipio.codigo"
+                                    *ngFor="let municipio of municipiosPersonal">
+                                    {{ municipio.nombre }}
+                                </option>
+                            </select>
+                        </div>      
+                        <div class="Sector">
+                            <p class="titulo">Fecha</p>
+                            <select class="resultado" [(ngModel)]="fechaValue" (change)="cargarOfertar()">
+                                <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option *ngFor="let item of fechaFiltro" 
+                                [ngValue]="item.codigo" >
+                                    {{ item.nombre }}
+                                </option>
+                            </select>
+                        </div>        
                 </div>
-                <div class="empresas">
-                    <p class="titulo">Empresas</p>
-                    <p class="resultado">{{totalEmpresas}} resultados</p>
-                </div>
-                <div class="Sector">
-                    <p class="titulo">Profesión</p>
-                    <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarOfertar()">
-                        <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                        <option *ngFor="let aspiracion of aspiracionesSalariales" 
-                        [ngValue]="aspiracion.codigo" >
-                            {{ aspiracion.nombre }}
-                        </option>
-                    </select>
-                </div>
-                <div class="Sector">
-                    <p class="titulo">Salario</p>
-                    <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarOfertar()">
-                        <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                        <option *ngFor="let aspiracion of aspiracionesSalariales" 
-                        [ngValue]="aspiracion.codigo" >
-                            {{ aspiracion.nombre }}
-                        </option>
-                    </select>
-                </div>
-                <div class="Sector">
-                    <p class="titulo">Sector</p>
-                    <select class="resultado" [(ngModel)]="municipioValue" (change)="cargarOfertar()">
-                        <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                        <option
-                        [ngValue]="municipio.codigo"
-                            *ngFor="let municipio of municipiosPersonal">
-                            {{ municipio.nombre }}
-                        </option>
-                    </select>
-                </div>      
-                <div class="Sector">
-                    <p class="titulo">Fecha</p>
-                    <select class="resultado" [(ngModel)]="fechaValue" (change)="cargarOfertar()">
-                        <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                        <option *ngFor="let item of fechaFiltro" 
-                        [ngValue]="item.codigo" >
-                            {{ item.nombre }}
-                        </option>
-                    </select>
-                </div>        
             </div>
             <div class="container-fluid resultados-busqueda">
+                <div *ngIf = "general === 'false'">
+                    <br>
+                    <br>
+                </div>
                 <div class="row" style="margin-left: 0 !important; width: 800px;">
                     <div class="elemento-busqueda" *ngFor="let oferta of listaResultadoBusquedaOfertas | paginate: { itemsPerPage: 20, currentPage: page }">
                         

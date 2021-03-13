@@ -39,6 +39,7 @@ export class OfertaPublicaComponent implements OnInit {
   personaInicial!: number;
   personaAplicar!:IPersona | null;
   aplicacionOfertaFiltro : Array<IAplicacionOferta> = [];
+  general = "";
   
   constructor(private router: Router,private route: ActivatedRoute, private accountService:AccountService,
     private ofertaService: OfertaService, private regionService: RegionesService,
@@ -47,6 +48,7 @@ export class OfertaPublicaComponent implements OnInit {
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get('oferta')!;
     this.idOferta = parseInt(param, 10);
+    this.general = this.route.snapshot.paramMap.get('general')!;
     this.cargarCuentaUsuario();
   }
 
@@ -140,6 +142,6 @@ export class OfertaPublicaComponent implements OnInit {
   }
 
   volver(): void {
-    this.router.navigate(['resultados-busqueda']);
+    this.router.navigate(['resultados-busqueda', { general: this.general}]);
   }
 }

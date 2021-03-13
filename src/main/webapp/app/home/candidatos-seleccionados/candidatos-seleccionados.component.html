@@ -42,7 +42,7 @@
     <div class="contenedor2">
         <div class="div-center2">
             <ng-container>
-                <p class="estilo_titulo2">Oferta 1</p>
+                <p class="estilo_titulo2">Oferta</p>
                 <div class="ngnum1">
                     <ng-container>
                         <p class="titulo_oferta">{{listaResultadoOfertas[0].titulo}}</p>
@@ -83,8 +83,9 @@
             <div class="cuerpo">
                 <div class="buscador">
                 <div class="input-buscador">
-                    <input matInput placeholder="Busqueda" class="form-control">
+                    <input matInput placeholder="Busqueda" class="form-control" [(ngModel)]="valorBusqueda">
                 </div>
+                <button class="btnBuscar" (click)="cargarAspirantes()">buscar</button>
                 <div class="empresas">
                     <p class="titulo">Perfiles</p>
                     <p class="resultado">{{totalAspirantes}} resultados</p>
@@ -97,12 +98,6 @@
                         [ngValue]="edad.codigo" >
                             {{ edad.nombre }}
                         </option>
-                    </select>
-                </div>
-                <div class="Sector">
-                    <p class="titulo">Cargo</p>
-                    <select class="resultado">
-                    <option>Seleccionar</option>
                     </select>
                 </div>
                 <div class="Sector">
@@ -202,14 +197,14 @@
             </div>
         </div>
     </div>    
-    <div class="contenedor4">
+    <!-- <div class="contenedor4">
         <p class="titulo5">Buscar más perfiles</p>
         <div style="display: flex;">
         <input type="text" placeholder="Escribe un cargo" class="buscar2">
         <input type="text" placeholder="Escribe una ciudad" class="buscar2">
         </div>
         <button class="btn-buscar">Buscar</button>
-    </div>
+    </div> -->
 
     <kendo-pdf-export *ngIf="showElement" #pdf>
         <div class="container-pdf">

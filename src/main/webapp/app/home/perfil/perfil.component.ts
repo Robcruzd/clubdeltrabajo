@@ -238,11 +238,14 @@ export class PerfilComponent implements OnInit {
 
   getCiudad(codigo: string): string {
     const ciudad = this.municipios.find(item => item.codigo === codigo);
-
     return ciudad?.nombre || '';
   }
 
   verOfertas(): void {
-    this.router.navigate(['resultados-busqueda']);
+    this.router.navigate(['resultados-busqueda', { general: false}]);
+  }
+
+  buscaEmpleo(): void {
+    this.router.navigate(['resultados-busqueda', { general: true}]);
   }
 }

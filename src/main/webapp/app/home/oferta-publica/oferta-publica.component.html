@@ -38,8 +38,11 @@
             </table>
         </div>
     </div>
-    <button class="aplicar" (click)="aplicarOferta()">
+    <button class="aplicar" (click)="aplicarOferta()" *ngIf="general === 'true'">
         Aplicar
+    </button>
+    <button class="aplicada" *ngIf="general === 'false'" disabled>
+        Aplicada
     </button>
     <div style="text-align: -webkit-center; margin-bottom: 99px; margin-top: 42px;">
     <button class="volver" (click)="volver()">Volver</button>
