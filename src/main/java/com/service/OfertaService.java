@@ -129,6 +129,22 @@ public class OfertaService {
     	return ofertaRepository.getOfertasFiltroFecha(getFechaHora(fecha));
     }
     
+    public List<Oferta> getOfertasFiltroAllProfesion( Long salario, Long ciudad, Long fecha, Long profesion) {
+    	return ofertaRepository.getOfertasFiltroAllProfesion(salario,ciudad,getFechaHora(fecha),profesion);
+    }
+    
+    public List<Oferta> getOfertasFiltroFechaSalarioProfesion( Long salario, Long fecha, Long profesion) {
+    	return ofertaRepository.getOfertasFiltroFechaSalarioProfesion(salario,getFechaHora(fecha),profesion);
+    }
+    
+    public List<Oferta> getOfertasFiltroFechaCiudadProfesion( Long ciudad, Long fecha, Long profesion) {
+    	return ofertaRepository.getOfertasFiltroFechaCiudadProfesion(ciudad,getFechaHora(fecha),profesion);
+    }
+    
+    public List<Oferta> getOfertasFiltroFechaProfesion( Long fecha, Long profesion) {
+    	return ofertaRepository.getOfertasFiltroFechaProfesion(getFechaHora(fecha),profesion);
+    }
+    
     public Date getFechaHora(Long fecha) {
     	Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());

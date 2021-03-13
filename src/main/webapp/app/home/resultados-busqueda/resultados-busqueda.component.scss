@@ -46,6 +46,30 @@
   display: flex;
   width: 1071px;
   margin-left: 80px;
+  
+  .btnBuscar {
+    height: 15px;
+    width: 15px;
+    display: contents;
+    //background: #020d52;
+    //color: #fbfbfb;
+    font-family: 'Arial';
+    font-size: 12px;
+    text-align: center;
+    border: none;
+    //margin-left: 5px;
+
+    .border-icon2 {
+      //margin-right: 0.325vw;
+      width: 13px;
+      height: 13px;
+      opacity: 1;
+      //display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+  }
 }
 .controls{
   margin-bottom: 40px;

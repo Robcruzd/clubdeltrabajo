@@ -58,4 +58,28 @@ public interface OfertaRepository extends JpaRepository<Oferta, Long>, JpaSpecif
 			"where fecha_publicacion BETWEEN :fecha and CURRENT_DATE order by id desc\r\n", 
 			nativeQuery = true)
 	List<Oferta> getOfertasFiltroFecha(@Param("fecha") Date fecha);
+	
+	@Query(value = "select\r\n" + 
+			"* from ct_oferta_tb \r\n" + 
+			"where salario = :salario and ciudad = :ciudad and profesion = :profesion and fecha_publicacion BETWEEN :fecha and CURRENT_DATE order by id desc\r\n",
+			nativeQuery = true)
+	List<Oferta> getOfertasFiltroAllProfesion(@Param("salario") Long salario, @Param("ciudad") Long ciudad,@Param("fecha") Date fecha,@Param("profesion") Long profesion );
+	
+	@Query(value = "select\r\n" + 
+			"* from ct_oferta_tb \r\n" + 
+			"where salario = :salario and profesion = :profesion and fecha_publicacion BETWEEN :fecha and CURRENT_DATE order by id desc\r\n", 
+			nativeQuery = true)
+	List<Oferta> getOfertasFiltroFechaSalarioProfesion(@Param("salario") Long salario,@Param("fecha") Date fecha,@Param("profesion") Long profesion);
+	
+	@Query(value = "select\r\n" + 
+			"* from ct_oferta_tb \r\n" + 
+			"where ciudad = :ciudad and profesion = :profesion and fecha_publicacion BETWEEN :fecha and CURRENT_DATE order by id desc\r\n",
+			nativeQuery = true)
+	List<Oferta> getOfertasFiltroFechaCiudadProfesion(@Param("ciudad") Long ciudad,@Param("fecha") Date fecha,@Param("profesion") Long profesion);
+	
+	@Query(value = "select\r\n" + 
+			"* from ct_oferta_tb \r\n" + 
+			"where profesion = :profesion and fecha_publicacion BETWEEN :fecha and CURRENT_DATE order by id desc\r\n", 
+			nativeQuery = true)
+	List<Oferta> getOfertasFiltroFechaProfesion(@Param("fecha") Date fecha,@Param("profesion") Long profesion);
 }
