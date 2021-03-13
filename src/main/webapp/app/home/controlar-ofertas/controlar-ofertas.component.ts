@@ -79,8 +79,7 @@ export class ControlarOfertasComponent implements OnInit {
     const cuenta = await this.obtenerIdUsuario();
     this.listaOfertas = await this.obtenerOfertasEmpresa(cuenta.userEmpresa);
     for (let i = 0; i < this.listaOfertas.length; i++) {     
-      
-      await this.getAspirantes(this.listaOfertas[i]);        
+      await this.getAspirantes(this.listaOfertas[i]);
         const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === this.listaOfertas[i].salario);
         const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === this.listaOfertas[i].ciudad?.toString());
         this.profesionService.find(this.listaOfertas[i].profesion).subscribe(PROFESIONES => {
@@ -94,8 +93,9 @@ export class ControlarOfertasComponent implements OnInit {
               totalSeleccionado: this.totalSeleccionado,
               totalTodo: this.totalTodo,
         });
-        console.log('listaOfertas');
-        console.log(this.listaOFertasCreadas);              
+        this.totalSeleccionado = 0;
+        this.totalNinguno = 0;
+        this.totalTodo = 0;             
       });
     }    
   }
@@ -181,7 +181,7 @@ export class ControlarOfertasComponent implements OnInit {
   getAspirantes(oferta : any): Promise<any> {
     return new Promise(resolve => {
       this.aplicacionOfertaService.getOfertaFiltro(oferta).subscribe(response => {
-        this.listaAspirantes = response.content;
+        this.listaAspirantes = response;
         if (this.listaAspirantes){
           this.listaAspirantes.forEach(element => {
             if (element.estado === 'Seleccionado'){
@@ -191,9 +191,9 @@ export class ControlarOfertasComponent implements OnInit {
               this.totalNinguno ++;
             }
           });
-          this.totalTodo = this.listaAspirantes.length;
-          resolve(response);
+          this.totalTodo = this.listaAspirantes.length; 
         }
+        resolve(response);
       })
     });
   }
