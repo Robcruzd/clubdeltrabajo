@@ -54,6 +54,7 @@ export class OfertaService {
   public resourceUrl = SERVER_API_URL + 'api/ofertas';
   public resourceUrlFiltro = SERVER_API_URL + 'api/ofertas/filtroOfertas';
   public resourceUrlEmpresa = SERVER_API_URL + 'api/ofertas/filtroOfertasEmpresa?usuario=';
+  public resourceUrlEliminarOferta = SERVER_API_URL + 'api/ofertas/eliminarOFertas';
 
   constructor(protected http: HttpClient) {}
 
@@ -132,5 +133,11 @@ export class OfertaService {
 
   public get(url: string, headers?: any): Observable<any> {
     return this.http.get<any>(url, headers);
+  }
+
+  public eliminarOferta(id: any): Observable<any> {
+    const params = PathUtil.getPathParams({ oferta: id });
+    const url = this.resourceUrlEliminarOferta + params;
+    return this.http.get<any>(url);
   }
 }

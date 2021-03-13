@@ -48,6 +48,8 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
     private StringFilter tipoLicenciaConduccion;
     
     private IntegerFilter aspiracionSalarial;
+    
+    private LongFilter profesionId;
 
     public InformacionPersonalCriteria() {
     }
@@ -66,6 +68,7 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
         this.usuarioId = other.usuarioId == null ? null : other.usuarioId.copy();
         this.tipoLicenciaConduccion = other.tipoLicenciaConduccion == null ? null : other.tipoLicenciaConduccion.copy();
         this.aspiracionSalarial = other.aspiracionSalarial == null ? null : other.aspiracionSalarial.copy();
+        this.profesionId = other.profesionId == null ? null : other.profesionId.copy();
     }
 
     @Override
@@ -177,6 +180,14 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
 		this.aspiracionSalarial = aspiracionSalarial;
 	}
 
+	public LongFilter getProfesionId() {
+		return profesionId;
+	}
+
+	public void setProfesionId(LongFilter profesionId) {
+		this.profesionId = profesionId;
+	}
+
 	@Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -199,7 +210,8 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
             Objects.equals(perfilProfesional, that.perfilProfesional) &&
             Objects.equals(usuarioId, that.usuarioId) &&
         	Objects.equals(tipoLicenciaConduccion, that.tipoLicenciaConduccion) &&
-        	Objects.equals(aspiracionSalarial, that.aspiracionSalarial);
+        	Objects.equals(aspiracionSalarial, that.aspiracionSalarial) &&
+        	Objects.equals(profesionId, that.profesionId);
     }
 
     @Override
@@ -217,7 +229,8 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
         perfilProfesional,
         usuarioId,
         tipoLicenciaConduccion,
-        aspiracionSalarial
+        aspiracionSalarial,
+        profesionId
         );
     }
 
@@ -236,6 +249,7 @@ public class InformacionPersonalCriteria implements Serializable, Criteria {
                 (perfilProfesional != null ? "perfilProfesional=" + perfilProfesional + ", " : "") +
                 (usuarioId != null ? "usuarioId=" + usuarioId + ", " : "") +
                 (aspiracionSalarial != null ? "aspiracionSalarial=" + aspiracionSalarial + ", " : "") +
+                (profesionId != null ? "profesionId=" + profesionId + ", " : "") +
             "}";
     }
 

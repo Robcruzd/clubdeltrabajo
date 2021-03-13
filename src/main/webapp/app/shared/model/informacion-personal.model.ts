@@ -55,6 +55,7 @@ export class InformacionPersonal implements IInformacionPersonal {
     public nivelEducativoProfesion?: number,
     public profesion?: IProfesion,
     public activoNotificaciones?: boolean,
-    public usuarioId?: number
+    public usuarioId?: number,
+    public profesionId?: number
   ) {}
 }

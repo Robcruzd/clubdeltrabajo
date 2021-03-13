@@ -11,7 +11,11 @@ import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { IOpcionVo, IResultadoBusquedaOfertas } from 'app/shared/vo/opcion-vo';
 import { IProfesion } from 'app/shared/model/profesion.model';
 import { ProfesionService } from 'app/entities/profesion/profesion.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AccountService } from 'app/core/auth/account.service';
+import { PersonaService } from 'app/entities/persona/persona.service';
+import { AplicacionOfertaService } from 'app/entities/aplicacion-oferta/aplicacion-oferta.service';
+import { IAplicacionOferta } from 'app/shared/model/aplicacion-oferta.model';
 
 @Component({
   selector: 'jhi-resultados-busqueda',
@@ -41,19 +45,34 @@ export class ResultadosBusquedaComponent implements OnInit {
   fechaFiltro: IOpcionVo[] = commonMessages.ARRAY_FECHA_FILTRO;
   resultadoBusqueda: Array<IOferta> | null = [];
   totalEmpresas = 0;
+  general = "";
+  account!: Account | any;
+  personaInicial!: number;
+  personaFiltro!:any;
+  ListaAplicacionOferta: Array<IAplicacionOferta> = [];
 
   public page = 1;
   constructor(private dataService: DataService, private formBuilder: FormBuilder,
     private ofertaService: OfertaService,private regionService: RegionesService,
-    private router: Router,
-    private profesionService: ProfesionService) {
+    private profesionService: ProfesionService, private router: Router,
+    private accountService:AccountService,private personaService: PersonaService,
+    private route: ActivatedRoute,private aplicacionOfertaService: AplicacionOfertaService) {
       this.traerCiudad();
       this.cargarProfesiones();
     }
 
   ngOnInit(): void {
+    this.general = this.route.snapshot.paramMap.get('general')!;
     this.profesion = this.dataService.data.profesion;
     this.ubicacion = this.dataService.data.ubicacion;
+  }
+
+  cargarCuentaUsuario(): void {
+    this.accountService.getAuthenticationState().subscribe(account => {
+      this.account = account;
+      this.personaInicial = this.account?.user || 0;
+      this.getOfertas();
+    });
   }
 
   cargarProfesiones(): void {
@@ -96,33 +115,59 @@ export class ResultadosBusquedaComponent implements OnInit {
       })
       .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0)); 
     setTimeout(() => {
-      this.getOfertas()
+      this.cargarCuentaUsuario();
      }, 500);
   }
 
   getOfertas(): void {
-    this.ofertaService.query().subscribe(response =>{
-      this.resultadoBusqueda = response.body;
-      if(this.resultadoBusqueda){
-        this.resultadoBusqueda.forEach(element => {
-          const salarioBD = this.aspiracionesSalariales.find( salario => salario.codigo === element.salario );
-          const ciudadBD = this.municipiosPersonal.find( ciudad => ciudad.codigo === element.ciudad?.toString() );
-          const profesionBD = this.profesiones.find( profesion => profesion.id === element.profesion );
-          // this.empresaService.find(element.usuario).subscribe(empresa =>{
-            this.listaResultadoBusquedaOfertas.push({
-              profesion: profesionBD?.profesion,
-              salario: salarioBD?.nombre,
-              ciudad: ciudadBD?.nombre,
-              fechaPublicacion: element.fechaPublicacion?.format("YYYY-MM-DD"),
-              empresa:element.usuario?.razonSocial,
-              idEmpresa:element.usuario?.id,
-              idOferta:element.id
+    if(this.general === "true"){
+      this.ofertaService.query().subscribe(response =>{
+        this.resultadoBusqueda = response.body;
+        if(this.resultadoBusqueda){
+          this.resultadoBusqueda.forEach(element => {
+            const salarioBD = this.aspiracionesSalariales.find( salario => salario.codigo === element.salario );
+            const ciudadBD = this.municipiosPersonal.find( ciudad => ciudad.codigo === element.ciudad?.toString() );
+            const profesionBD = this.profesiones.find( profesion => profesion.id === element.profesion );
+              this.listaResultadoBusquedaOfertas.push({
+                profesion: profesionBD?.profesion,
+                salario: salarioBD?.nombre,
+                ciudad: ciudadBD?.nombre,
+                fechaPublicacion: element.fechaPublicacion?.format("YYYY-MM-DD"),
+                empresa:element.usuario?.razonSocial,
+                idEmpresa:element.usuario?.id,
+                idOferta:element.id
+              });
+              this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+          });
+        }
+      })
+    }else{
+      this.personaService.find(this.personaInicial).subscribe(personaResponse => {
+        this.personaFiltro = personaResponse.body;
+        this.aplicacionOfertaService.getPersonaFiltro(this.personaFiltro).subscribe(ApliOfeResponse=>{
+          this.ListaAplicacionOferta = ApliOfeResponse;
+          if(this.ListaAplicacionOferta){
+            this.ListaAplicacionOferta.forEach(element => {
+              const salarioBD = this.aspiracionesSalariales.find( salario => salario.codigo === element?.oferta?.salario );
+              const ciudadBD = this.municipiosPersonal.find( ciudad => ciudad.codigo === element?.oferta?.ciudad?.toString() );
+              const profesionBD = this.profesiones.find( profesion => profesion.id === element?.oferta?.profesion );
+                this.listaResultadoBusquedaOfertas.push({
+                  profesion: profesionBD?.profesion,
+                  salario: salarioBD?.nombre,
+                  ciudad: ciudadBD?.nombre,
+                  fechaPublicacion: element?.oferta?.fechaPublicacion?.toString(),
+                  empresa:element?.oferta?.usuario?.razonSocial,
+                  idEmpresa:element?.oferta?.usuario?.id,
+                  idOferta:element?.oferta?.id
+                });
+                this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
             });
-            this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
-          // });
+          }
+          
         });
-      }
-    })
+      });
+    }
+    
     // let params = {
     //   nombre: null,
     //   idUsuarioCreador : this.token.getUser().id
@@ -132,9 +177,6 @@ export class ResultadosBusquedaComponent implements OnInit {
   cargarOfertar(): void{
     this.listaResultadoBusquedaOfertas = [];
     const params = new Oferta();
-    // if(this.municipioValue == null && this.salarioValue == null && this.fechaValue == null){
-    //   this.getOfertas();
-    // }
     if(this.fechaValue == null){
       if(this.municipioValue != null){
         params.ciudad = this.municipioValue;
@@ -149,7 +191,6 @@ export class ResultadosBusquedaComponent implements OnInit {
             const salarioBD = this.aspiracionesSalariales.find( salario => salario.codigo === element.salario );
             const ciudadBD = this.municipiosPersonal.find( ciudad => ciudad.codigo === element.ciudad?.toString() );
             const profesionBD = this.profesiones.find( profesion => profesion.id === element.profesion );
-            // this.empresaService.find(element.usuario).subscribe(empresa =>{
               this.listaResultadoBusquedaOfertas.push({
                 profesion: profesionBD?.profesion,
                 salario: salarioBD?.nombre,
@@ -160,7 +201,6 @@ export class ResultadosBusquedaComponent implements OnInit {
                 idOferta:element.id
               });
               this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
-            // });
           });
         }
         
@@ -185,7 +225,6 @@ export class ResultadosBusquedaComponent implements OnInit {
             const salarioBD = this.aspiracionesSalariales.find( salario => salario.codigo === element.salario );
             const ciudadBD = this.municipiosPersonal.find( ciudad => ciudad.codigo === element.ciudad?.toString() );
             const profesionBD = this.profesiones.find( profesion => profesion.id === element.profesion );
-            // this.empresaService.find(element.usuario).subscribe(empresa =>{
               this.listaResultadoBusquedaOfertas.push({
                 profesion: profesionBD?.profesion,
                 salario: salarioBD?.nombre,
@@ -196,13 +235,14 @@ export class ResultadosBusquedaComponent implements OnInit {
                 idOferta:element.id
               });
               this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
-            // });
           });
         }
       })
     }
   }
-  verOferta(): void {
-    this.router.navigate(['oferta-publica', {}]);
+
+  verOferta(oferta: any):void{
+    this.router.navigate(['/oferta-publica', { oferta: oferta.idOferta, general: this.general }]);
   }
+
 }

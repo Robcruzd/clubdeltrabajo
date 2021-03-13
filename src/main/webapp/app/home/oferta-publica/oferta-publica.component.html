@@ -5,11 +5,11 @@
                 <img src="../../../content/images/Image 282.png" class="img2">
             </div>
             <div>
-            <p class="titulo">Bavaria Sa.</p>
+            <p class="titulo">{{listaResultadoOfertas[0].titulo}}</p>
             </div>
         </div>
         <div class="oferta">
-            <p>Buscamos Profesional en diseño gráfico, publicidad y/o licenciatura en artes gráficas ESPECIALISTA en diseño; experiencia de 4 años en diseño y realización de banners, splashscreens, newsletters, landingpages y usando HTML, CSS y JavaScript. Conocimientos en maquetación de HTML5, y CSS3 para proyectos web y móvil (web responsiva y aplicaciones hibridas) Salario: $ 3.428.800</p>
+            <p>{{listaResultadoOfertas[0].descripcion}}</p>
         </div>
         <div class="caracte">
             <table class="tabla_oferta" style="width: 90%;">
@@ -19,9 +19,9 @@
                   <th class="titulo_oferta_previsualizacion">Publicado:</th>
                 </tr>
                 <tr>
-                  <td class="des_titulo" style="width: 30%;">Diseñador gráfico</td>
-                  <td class="des_titulo" style="width: 40%;">Prestación de servicios</td>
-                  <td class="des_titulo" style="width: 30%;">24-05-2020</td>
+                  <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].titulo}}</td>
+                  <td class="des_titulo" style="width: 40%;">{{listaResultadoOfertas[0].tipoContrato}}</td>
+                  <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].publicado}}</td>
                 </tr>
             </table>
             <table class="tabla_oferta" style="width: 90%; margin-top: 15px;">
@@ -31,17 +31,20 @@
                   <th class="titulo_oferta_previsualizacion">Área:</th>
                 </tr>
                 <tr>
-                  <td class="des_titulo" style="width: 30%;">3 Años</td>
-                  <td class="des_titulo" style="width: 40%;">Bogotá</td>
-                  <td class="des_titulo" style="width: 30%;">Mercadeo y publicidad</td>
+                  <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].experiencia}}</td>
+                  <td class="des_titulo" style="width: 40%;">{{listaResultadoOfertas[0].ciudad}}</td>
+                  <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].salario}}</td>
                 </tr>
             </table>
         </div>
     </div>
-    <button class="aplicar">
+    <button class="aplicar" (click)="aplicarOferta()" *ngIf="general === 'true'">
         Aplicar
     </button>
+    <button class="aplicada" *ngIf="general === 'false'" disabled>
+        Aplicada
+    </button>
     <div style="text-align: -webkit-center; margin-bottom: 99px; margin-top: 42px;">
-    <button class="volver">Volver</button>
+    <button class="volver" (click)="volver()">Volver</button>
     </div>
 </div>

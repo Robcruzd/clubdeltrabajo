@@ -164,21 +164,25 @@
             }
             .div2Oferta {
               width: 14vw;
-              min-height: 5.5vw;
+              min-height: 7.0vw;
               align-self: center;
               justify-self: center;
               background: #f8f8f8 0% 0% no-repeat padding-box;
               opacity: 1;
-              padding: 1rem 0.3rem 0rem 1rem;
+              padding: 1rem 0.3rem 1rem 1rem;
               max-width: none;
               display: flex;
               flex-direction: column;
+              p{
+                padding-right: 0.7rem;
+              }
 
               .text1 {
                 text-align: left;
                 font: normal normal bold 12px/10px Roboto;
                 letter-spacing: 0px;
                 color: #645d5d;
+                height: 20px;
               }
 
               .text2 {
@@ -194,6 +198,11 @@
                 height: 21px;
                 background: #cccccc 0% 0% no-repeat padding-box;
                 padding: 0;
+                top: 10px;
+                position: relative;
+                p{
+                  padding-right: 0;
+                }
 
                 .titulo-boton {
                   text-align: center;
@@ -356,6 +365,7 @@
           font-family: 'Roboto';
           font-size: 10px;
           font-weight: bold;
+          margin-bottom: 50px;
         }
       }
     }

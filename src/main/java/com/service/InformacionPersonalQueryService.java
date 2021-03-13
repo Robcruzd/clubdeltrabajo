@@ -122,6 +122,10 @@ public class InformacionPersonalQueryService extends QueryService<InformacionPer
             if (criteria.getAspiracionSalarial() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getAspiracionSalarial(), InformacionPersonal_.aspiracionSalarial));
             }
+            if (criteria.getProfesionId() != null) {
+                specification = specification.and(buildSpecification(criteria.getProfesionId(),
+                    root -> root.join(InformacionPersonal_.profesion, JoinType.LEFT).get(Profesion_.id)));
+            }
         }
         return specification;
     }

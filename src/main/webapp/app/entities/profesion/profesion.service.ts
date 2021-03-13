@@ -9,9 +9,27 @@ import { IProfesion } from 'app/shared/model/profesion.model';
 type EntityResponseType = HttpResponse<IProfesion>;
 type EntityArrayResponseType = HttpResponse<IProfesion[]>;
 
+export class PathUtil {
+  public static getPathParams(parameters: any): string {
+    const fields: string[] = Object.getOwnPropertyNames(parameters);
+    let path = '?';
+    fields.forEach((field: string, i: number) => {
+      const value: any = Object.values(parameters)[i];
+      if (i > 0 && path !== '?' && value !== null && value.toString().trim() !== '') {
+        path += '&';
+      }
+      if (value !== null && value.toString().trim() !== '') {
+        path += field + '=' + value;
+      }
+    });
+    return path !== '?' ? path : '';
+  }
+}
+
 @Injectable({ providedIn: 'root' })
 export class ProfesionService {
   public resourceUrl = SERVER_API_URL + 'api/profesions';
+  public resourceUrlByProfesion = SERVER_API_URL + 'api/profesions/getByProfesion';
 
   constructor(protected http: HttpClient) {}
 
@@ -34,5 +52,11 @@ export class ProfesionService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  public getByProfesion(valor: string): Observable<any> {
+    const params = PathUtil.getPathParams({ profesion: valor });
+    const url = this.resourceUrlByProfesion + params;
+    return this.http.get<any>(url);
   }
 }

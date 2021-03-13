@@ -39,10 +39,13 @@ import { CandidatosOfertaComponent } from './candidatos-oferta/candidatos-oferta
 import { ControlarOfertasComponent } from './controlar-ofertas/controlar-ofertas.component';
 import { OfertaPublicaComponent } from './oferta-publica/oferta-publica.component';
 import { CandidatosSeleccionadosComponent } from './candidatos-seleccionados/candidatos-seleccionados.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
 // import { BusquedaCandidatosComponent } from './busqueda-candidatos/busqueda-candidatos.component';
 
 @NgModule({
   imports: [
+    SweetAlert2Module,
     NgxPaginationModule,
     CtProjectSharedModule,
     RouterModule.forChild(HOME_ROUTE),

@@ -1,16 +1,17 @@
 package com.service;
 
-import com.domain.Profesion;
-import com.repository.ProfesionRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import com.domain.Profesion;
+import com.repository.ProfesionRepository;
 
 /**
  * Service Implementation for managing {@link Profesion}.
@@ -70,5 +71,13 @@ public class ProfesionService {
     public void delete(Long id) {
         log.debug("Request to delete Profesion : {}", id);
         profesionRepository.deleteById(id);
+    }
+    
+    public List<Profesion> getByProfesionFiltro(String profesion) {
+    	return profesionRepository.findByProfesionContainingIgnoreCase(profesion);
+    }
+    
+    public Profesion getById(Long profesion) {
+    	return profesionRepository.findByIdQuery(profesion);
     }
 }
