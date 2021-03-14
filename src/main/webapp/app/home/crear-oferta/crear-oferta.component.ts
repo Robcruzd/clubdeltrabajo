@@ -262,7 +262,6 @@ export class CrearOfertaComponent implements OnInit {
     this.oferta.nivelIdioma = this.formDatosBasicos.controls['nivelIdioma'].value;
     this.oferta.genero = this.formDatosBasicos.controls['genero'].value;
     this.oferta.mostrarSalario = this.formDatosBasicos.controls['mostrarSalario'].value;
-
     if (this.usuario?.userEmpresa) {
       this.ofertaService.getOfertasEmpresa(this.usuario.userEmpresa).subscribe(ofertaResponse => {
         if (this.usuario?.userEmpresa) {
@@ -270,6 +269,7 @@ export class CrearOfertaComponent implements OnInit {
             this.oferta.usuario = RESPONSE.body;
             if (this.idOferta === 0) {
               if(ofertaResponse.length < 1){
+                this.oferta.activado = true;
                 this.ofertaService.create(this.oferta).subscribe(
                   response => {
                     if (response.body !== null) {
