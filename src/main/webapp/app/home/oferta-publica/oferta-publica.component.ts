@@ -113,32 +113,37 @@ export class OfertaPublicaComponent implements OnInit {
   }
 
   aplicarOferta(): void{
-    this.ofertaService.find(this.idOferta).subscribe(ofertaResponse => {
-      this.ofertaAplicar = ofertaResponse.body;
-      if(this.ofertaAplicar){
-        this.aplicacionOferta.oferta = this.ofertaAplicar;
-      }
-      this.personaService.find(this.personaInicial).subscribe(personaResponse => {
-        this.personaAplicar = personaResponse.body;
-        this.aplicacionOferta.estado = "Ninguno";
-        this.aplicacionOferta.fechaPostulacion = moment(new Date(), 'YYYY-MMM-DD');
-        if(this.personaAplicar){
-          this.aplicacionOferta.usuario = this.personaAplicar;
-          this.aplicacionOfertaService.getByOfertaAndPersonaFiltro(this.ofertaAplicar, this.personaAplicar).subscribe(ofertaFiltro =>{
-            this.aplicacionOfertaFiltro = ofertaFiltro;
-            if(this.aplicacionOfertaFiltro.length === 0){
-              this.aplicacionOfertaService.create(this.aplicacionOferta).subscribe(()=>{
-                this.router.navigate(['resultados-busqueda']);
-              });
-            }else{
-              alertify.set('notifier', 'position', 'top-right');
-              alertify.error("Usted ya aplico a esta oferta!");
-            }
-          })
-          
+    if(this.personaInicial !== 0){
+      this.ofertaService.find(this.idOferta).subscribe(ofertaResponse => {
+        this.ofertaAplicar = ofertaResponse.body;
+        if(this.ofertaAplicar){
+          this.aplicacionOferta.oferta = this.ofertaAplicar;
         }
+        this.personaService.find(this.personaInicial).subscribe(personaResponse => {
+          this.personaAplicar = personaResponse.body;
+          this.aplicacionOferta.estado = "Ninguno";
+          this.aplicacionOferta.fechaPostulacion = moment(new Date(), 'YYYY-MMM-DD');
+          if(this.personaAplicar){
+            this.aplicacionOferta.usuario = this.personaAplicar;
+            this.aplicacionOfertaService.getByOfertaAndPersonaFiltro(this.ofertaAplicar, this.personaAplicar).subscribe(ofertaFiltro =>{
+              this.aplicacionOfertaFiltro = ofertaFiltro;
+              if(this.aplicacionOfertaFiltro.length === 0){
+                this.aplicacionOfertaService.create(this.aplicacionOferta).subscribe(()=>{
+                  this.router.navigate(['resultados-busqueda']);
+                });
+              }else{
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.error("Usted ya aplico a esta oferta!");
+              }
+            })
+            
+          }
+        });
       });
-    });
+    }else{
+      this.router.navigate(['inicio-sesion']);
+    }
+    
   }
 
   volver(): void {

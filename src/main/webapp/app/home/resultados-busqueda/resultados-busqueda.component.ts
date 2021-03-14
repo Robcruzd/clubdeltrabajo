@@ -82,7 +82,17 @@ export class ResultadosBusquedaComponent implements OnInit {
     this.accountService.getAuthenticationState().subscribe(account => {
       this.account = account;
       this.personaInicial = this.account?.user || 0;
-      this.getOfertas();
+      if(this.profesion || this.ubicacion){  
+        if(this.ubicacion){
+          const ubicacionDB= this.municipiosPersonal.find( ciudad => ciudad.nombre === this.ubicacion.toString() );
+          this.municipioValue = ubicacionDB?.codigo;
+        }if(this.profesion){
+          this.valorBusqueda = this.profesion;
+        }
+        this.cargarOfertar();
+      }else{
+        this.getOfertas();
+      }
     });
   }
 

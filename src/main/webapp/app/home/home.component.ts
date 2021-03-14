@@ -98,7 +98,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.ciudades = [];
     const filterValue = value.toLowerCase();
     for (const valor of this.data) {
-      this.ciudades.push(valor.municipio + ' (' + valor.departamento + ')');
+      this.ciudades.push(valor.municipio);
     }
     return this.ciudades.filter(option => option.toLowerCase().includes(filterValue)).sort();
   }
@@ -224,7 +224,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       ubicacion: this.myControlCiudades.value
     };
     this.dataService.data = busqueda;
-    this.router.navigate(['/resultados-busqueda']);
+    this.router.navigate(['/resultados-busqueda', {general:true}]);
   }
 
   abrirAgregarUsuario(): void {

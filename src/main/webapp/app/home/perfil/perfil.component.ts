@@ -9,7 +9,6 @@ import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
 import { HojaVidaVo } from './../../shared/vo/hoja-vida-vo';
 import { HojaVidaService } from './../../shared/services/hoja-vida.service';
 import { GeografiaVo } from 'app/shared/vo/geografia-vo';
-import { ApiService } from 'app/shared/services/api.service';
 import { IOpcionVo } from 'app/shared/vo/opcion-vo';
 import { Account } from 'app/core/user/account.model';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
