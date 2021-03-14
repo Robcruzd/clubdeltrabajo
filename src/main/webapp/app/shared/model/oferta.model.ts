@@ -24,6 +24,7 @@ export interface IOferta {
   activado?: boolean;
   fecha?: number;
   mostrarSalario?: boolean;
+  genero?: string;
 }
 
 export class Oferta implements IOferta {

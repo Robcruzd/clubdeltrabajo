@@ -23,10 +23,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.domain.Empresa;
 import com.domain.InformacionPersonal;
+import com.domain.Oferta;
 import com.domain.Persona;
 import com.domain.vo.UsuarioVo;
 import com.service.PersonaQueryService;
@@ -190,6 +193,12 @@ public class PersonaResource {
        	personaService.seleccionadoAspirante(informacionAspirante.getContent().get(0).getEmail());
        	return null;
    	}
+    
+    @GetMapping("/personas/enviarEmailAspirante")
+	public void enviarEmailAspirante(@RequestParam("persona") Long persona, @RequestParam("mensaje") String mensaje) {
+    	Optional<Persona> personaDatos = personaService.findOne(persona);
+    	personaService.enviarEmailAspirante(personaDatos.get().getEmail(), mensaje);
+	}
     
     
 }

@@ -629,7 +629,11 @@
         }
       }
       .btn-seleccionado {
-        padding-left: 70%;
+        padding-left: 44%;
+        .mensajeEmail {
+          height: 24px;
+          width: 201px;
+        }
         .btn1 {
           height: 24px;
           width: 116px;

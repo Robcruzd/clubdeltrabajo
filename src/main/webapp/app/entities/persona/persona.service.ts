@@ -29,9 +29,27 @@ export class PathUtil2 {
   }
 }
 
+export class PathUtil {
+  public static getPathParams(parameters: any): string {
+    const fields: string[] = Object.getOwnPropertyNames(parameters);
+    let path = '?';
+    fields.forEach((field: string, i: number) => {
+      const value: any = Object.values(parameters)[i];
+      if (i > 0 && path !== '?' && value !== null) {
+        path += '&';
+      }
+      if (value !== null) {
+        path += field + '=' + value;
+      }
+    });
+    return path !== '?' ? path : '';
+  }
+}
+
 @Injectable({ providedIn: 'root' })
 export class PersonaService {
   public resourceUrl = SERVER_API_URL + 'api/personas';
+  public resourceUrlEnviarEmailAspirante = SERVER_API_URL + 'api/personas/enviarEmailAspirante';
 
   constructor(protected http: HttpClient) {}
 
@@ -76,5 +94,11 @@ export class PersonaService {
 
   public get(url: string, headers?: any): Observable<any> {
     return this.http.get<any>(url, headers);
+  }
+
+  public enviarEmailAspirante(id: number, mensajeEmail: any): Observable<any> {
+    const params = PathUtil.getPathParams({ persona: id, mensaje: mensajeEmail });
+    const url = this.resourceUrlEnviarEmailAspirante + params;
+    return this.http.get<any>(url);
   }
 }

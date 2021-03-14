@@ -35,6 +35,7 @@ import { IOpcionVo, IResultadoBusquedaAspirantes, IResultadoOfertas } from 'app/
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 
 const { exportPDF } = pdf;
+declare let alertify: any;
 
 @Component({
   selector: 'jhi-candidatos-seleccionados',
@@ -80,7 +81,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   edades: IOpcionVo[] = commonMessages.ARRAY_EDAD;
   municipiosPersonal: Array<IOpcionVo> = [];
   geografia: Array<GeografiaVo> = [];
-  resultadoBusqueda: Array<IInformacionPersonal> | null = [];
+  resultadoBusqueda: Array<IInformacionPersonal> = [];
   totalAspirantes = 0;
   idOferta = 0;
   oferta!: IOferta | null;
@@ -98,6 +99,9 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   aspiranteSeleccionado = new Persona();
   valorBusqueda = '';
   profesionesFiltro: Array<IProfesion> | null = [];
+  mensajeEmail = '';
+  aplicacionOferta: any;
+  cargando = true;
 
   constructor(
     private router: Router,
@@ -173,114 +177,128 @@ export class CandidatosSeleccionadosComponent implements OnInit {
       .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0));
   }
 
-  cargarAspirantes(): void {
+  async cargarAspirantes(): Promise<any> {
+    this.listaResultadoBusquedaAspirantes = [];
     if (this.valorBusqueda === '') {
       if (this.listaAplicacionOferta) {
-        this.listaAplicacionOferta.forEach(elementApli => {
-          this.listaResultadoBusquedaAspirantes = [];
+        for (let i = 0; i < this.listaAplicacionOferta.length; i++) {
           const params = new InformacionPersonal();
-          params.usuarioId = elementApli.usuario?.id;
+          params.usuarioId = this.listaAplicacionOferta[i].usuario?.id;
           params.genero = this.generoValue;
           params.aspiracionSalarial = this.salarioValue;
           params.ciudad = this.municipioValue;
-          this.informacionPersonalService.listar(params).subscribe(response => {
-            this.resultadoBusqueda = response.content;
-            if (this.resultadoBusqueda) {
-              this.resultadoBusqueda.forEach(element => {
-                let postulacionBD = '';
-                let colorApirante = '';
-                const edadBD = this.obtenerEdad(element);
-                const experienciaBD = this.obtenerExperiencia(element);
-                const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
-                const edadEncontrada = this.validarEdadSeleccionada(edadBD);
-                const experienciaEncontrada = this.validarExperienciaSeleccionada(experienciaBD);
-                this.aplicacionOfertaService.getPersonaFiltro(element.usuario).subscribe(aplicacionOferta => {
-                  colorApirante = this.backColor(aplicacionOferta[0].estado);
-                  postulacionBD = aplicacionOferta[0].fechaPostulacion;
-                });
-                if (edadEncontrada && experienciaEncontrada) {
-                  setTimeout(() => {
-                    this.listaResultadoBusquedaAspirantes.push({
-                      nombre: element.usuario?.nombre,
-                      apellido: element.usuario?.apellido,
-                      profesion: element.profesion?.profesion,
-                      edad: edadBD,
-                      ciudad: ciudadBD?.nombre,
-                      experiencia: experienciaBD,
-                      titulo: element.profesion?.profesion,
-                      fechaPostulacion: postulacionBD,
-                      idPersona: element.usuario?.id,
-                      idOferta: 1,
-                      color: colorApirante,
-                      verche: this.verche,
-                      verh: this.verh,
-                      verno: this.verno,
-                      btnestado: this.btnestado
-                    });
-                    this.totalAspirantes = this.listaResultadoBusquedaAspirantes.length;
-                  }, 200);
-                }
+          this.resultadoBusqueda = await this.obtenerInformacionPersonal(params);
+          if (this.resultadoBusqueda) {
+            this.resultadoBusqueda.forEach(element => {
+              let postulacionBD = '';
+              let colorApirante = '';
+              const edadBD = this.obtenerEdad(element);
+              const experienciaBD = this.obtenerExperiencia(element);
+              const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
+              const edadEncontrada = this.validarEdadSeleccionada(edadBD);
+              const experienciaEncontrada = this.validarExperienciaSeleccionada(experienciaBD);
+              this.aplicacionOfertaService.getPersonaFiltro(element.usuario).subscribe(aplicacionOferta => {
+                colorApirante = this.backColor(aplicacionOferta[0].estado);
+                postulacionBD = aplicacionOferta[0].fechaPostulacion;
               });
-            }
-          });
-        });
+              if (edadEncontrada && experienciaEncontrada) {
+                setTimeout(() => {
+                  this.listaResultadoBusquedaAspirantes.push({
+                    nombre: element.usuario?.nombre,
+                    apellido: element.usuario?.apellido,
+                    profesion: element.profesion?.profesion,
+                    edad: edadBD,
+                    ciudad: ciudadBD?.nombre,
+                    experiencia: experienciaBD,
+                    titulo: element.profesion?.profesion,
+                    fechaPostulacion: postulacionBD,
+                    idPersona: element.usuario?.id,
+                    idOferta: 1,
+                    color: colorApirante,
+                    verche: this.verche,
+                    verh: this.verh,
+                    verno: this.verno,
+                    btnestado: this.btnestado
+                  });
+                  this.totalAspirantes = this.listaResultadoBusquedaAspirantes.length;
+                }, 200);
+              }
+            });
+          }
+        }
       }
     } else {
       this.listaResultadoBusquedaAspirantes = [];
-      this.profesionService.getByProfesion(this.valorBusqueda).subscribe(profesionResponse => {
-        this.profesionesFiltro = profesionResponse;
-        if (this.profesionesFiltro) {
-          this.profesionesFiltro.forEach(profesionValue => {
-            this.listaResultadoBusquedaAspirantes = [];
-            const params = new InformacionPersonal();
-            params.genero = this.generoValue;
-            params.aspiracionSalarial = this.salarioValue;
-            params.ciudad = this.municipioValue;
-            params.profesionId = profesionValue.id;
-            this.informacionPersonalService.listar(params).subscribe(response => {
-              this.resultadoBusqueda = response.content;
-              if (this.resultadoBusqueda) {
-                this.resultadoBusqueda.forEach(element => {
-                  let postulacionBD = '';
-                  let colorApirante = '';
-                  const edadBD = this.obtenerEdad(element);
-                  const experienciaBD = this.obtenerExperiencia(element);
-                  const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
-                  const edadEncontrada = this.validarEdadSeleccionada(edadBD);
-                  const experienciaEncontrada = this.validarExperienciaSeleccionada(experienciaBD);
-                  this.aplicacionOfertaService.getPersonaFiltro(element.usuario).subscribe(aplicacionOferta => {
-                    colorApirante = this.backColor(aplicacionOferta[0].estado);
-                    postulacionBD = aplicacionOferta[0].fechaPostulacion;
-                  });
-                  if (edadEncontrada && experienciaEncontrada) {
-                    setTimeout(() => {
-                      this.listaResultadoBusquedaAspirantes.push({
-                        nombre: element.usuario?.nombre,
-                        apellido: element.usuario?.apellido,
-                        profesion: element.profesion?.profesion,
-                        edad: edadBD,
-                        ciudad: ciudadBD?.nombre,
-                        experiencia: experienciaBD,
-                        titulo: element.profesion?.profesion,
-                        fechaPostulacion: postulacionBD,
-                        idPersona: element.usuario?.id,
-                        idOferta: 1,
-                        color: colorApirante,
-                        verche: this.verche,
-                        verh: this.verh,
-                        verno: this.verno,
-                        btnestado: this.btnestado
-                      });
-                      this.totalAspirantes = this.listaResultadoBusquedaAspirantes.length;
-                    }, 200);
-                  }
+      this.profesionesFiltro = await this.obtenerProfesiones(this.valorBusqueda);
+      if (this.profesionesFiltro) {
+        for (let i = 0; i < this.profesionesFiltro.length; i++) {
+          const params = new InformacionPersonal();
+          params.genero = this.generoValue;
+          params.aspiracionSalarial = this.salarioValue;
+          params.ciudad = this.municipioValue;
+          params.profesionId = this.profesionesFiltro[i].id;
+          this.resultadoBusqueda = await this.obtenerInformacionPersonal(params);
+          if (this.resultadoBusqueda) {
+            for (let j = 0; j < this.resultadoBusqueda.length; j++) {
+              let postulacionBD = '';
+              let colorApirante = '';
+              const edadBD = this.obtenerEdad(this.resultadoBusqueda[j]);
+              const experienciaBD = this.obtenerExperiencia(this.resultadoBusqueda[j]);
+              const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === this.resultadoBusqueda[j].ciudad?.toString());
+              const edadEncontrada = this.validarEdadSeleccionada(edadBD);
+              const experienciaEncontrada = this.validarExperienciaSeleccionada(experienciaBD);
+              this.aplicacionOferta = await this.obetenerPersonaFiltro(this.resultadoBusqueda[j].usuario);
+              colorApirante = this.backColor(this.aplicacionOferta[0].estado);
+              postulacionBD = this.aplicacionOferta[0].fechaPostulacion;
+              if (edadEncontrada && experienciaEncontrada) {
+                this.listaResultadoBusquedaAspirantes.push({
+                  nombre: this.resultadoBusqueda[j].usuario?.nombre,
+                  apellido: this.resultadoBusqueda[j].usuario?.apellido,
+                  profesion: this.resultadoBusqueda[j].profesion?.profesion,
+                  edad: edadBD,
+                  ciudad: ciudadBD?.nombre,
+                  experiencia: experienciaBD,
+                  titulo: this.resultadoBusqueda[j].profesion?.profesion,
+                  fechaPostulacion: postulacionBD,
+                  idPersona: this.resultadoBusqueda[j].usuario?.id,
+                  idOferta: 1,
+                  color: colorApirante,
+                  verche: this.verche,
+                  verh: this.verh,
+                  verno: this.verno,
+                  btnestado: this.btnestado
                 });
+                this.totalAspirantes = this.listaResultadoBusquedaAspirantes.length;
               }
-            });
-          });
+            }
+          }
         }
-      });
+      }
     }
+  }
+
+  obetenerPersonaFiltro(valor: any): Promise<any> {
+    return new Promise(resolve => {
+      this.aplicacionOfertaService.getPersonaFiltro(valor).subscribe(aplicacionOferta => {
+        resolve(aplicacionOferta);
+      });
+    });
+  }
+
+  obtenerProfesiones(valor: any): Promise<any> {
+    return new Promise(resolve => {
+      this.profesionService.getByProfesion(valor).subscribe(profesionResponse => {
+        resolve(profesionResponse);
+      });
+    });
+  }
+
+  obtenerInformacionPersonal(params: any): Promise<any> {
+    return new Promise(resolve => {
+      this.informacionPersonalService.listar(params).subscribe(response => {
+        resolve(response.content);
+      });
+    });
   }
 
   async cargarAspirantesInit(): Promise<any> {
@@ -305,12 +323,11 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   }
 
   obtenerPersonaInfo(params: any, ofer: any): Promise<any> {
-    this.resultadoBusqueda = null;
+    this.resultadoBusqueda = [];
     return new Promise(resolve => {
       this.informacionPersonalService.listar(params).subscribe(response => {
         this.resultadoBusqueda = response.content;
         if (this.resultadoBusqueda) {
-          //   this.resultadoBusqueda.forEach(element => {
           let postulacionBD = '';
           let colorApirante = '';
           this.aplicacionOfertaService.getByOfertaAndPersonaFiltro(ofer, this.resultadoBusqueda[0].usuario).subscribe(aplicacionOferta => {
@@ -341,7 +358,6 @@ export class CandidatosSeleccionadosComponent implements OnInit {
             this.totalAspirantes = this.listaResultadoBusquedaAspirantes.length;
             resolve(true);
           }, 200);
-          //   });
         }
       });
     });
@@ -582,19 +598,22 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   }
 
   enviarEmail(persona: any): void {
-    this.aspiranteSeleccionado.id = persona.id;
-    this.personaService.seleccionadoAspirante(this.aspiranteSeleccionado).subscribe(() => {});
+    this.cargando = false;
+    this.personaService.enviarEmailAspirante(persona.idPersona, this.mensajeEmail).subscribe(() => {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.success('Email enviado correctamente!');
+      this.mensajeEmail = '';
+      this.cargando = true;
+    });
   }
 
   public getIdioma(codigo: string): string {
     const nivelIdioma = this.nivelIdioma.find(item => item.codigo === codigo);
-
     return nivelIdioma?.nombre || '';
   }
 
   public getEstado(codigo: number): string {
     const estado = this.estadoNivelEstudio.find(item => item.codigo === codigo);
-
     return estado?.nombre || '';
   }
 

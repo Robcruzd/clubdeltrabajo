@@ -58,6 +58,11 @@ export class ResultadosBusquedaComponent implements OnInit {
   profesionesFiltro: Array<IProfesion> | null = [];
   urlImgDefault = '../../../content/images/Image 28.png';
   imagen: any;
+  edades: IOpcionVo[] = commonMessages.ARRAY_EDAD;
+  edadValue: any = null;
+  generoValue: any = null;
+  experienciaValue: any = null;
+  experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
 
   public page = 1;
   constructor(
