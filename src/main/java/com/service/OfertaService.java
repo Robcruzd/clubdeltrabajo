@@ -166,54 +166,65 @@ public class OfertaService {
     }
     
     public void enviarEmailPersonas(String email) {
-    	String to = email;
+    	// Recipient's email ID needs to be mentioned.
+        String to = email;
+
+        // Sender's email ID needs to be mentioned
+        String from = "info@clubdeltrabajo.com";
+        final String username = "info@clubdeltrabajo.com";//change accordingly
+        final String password = "Temporal22";//change accordingly
+
+        // Assuming you are sending email through relay.jangosmtp.net
+        String host = "smtpout.secureserver.net";
+
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtpout.secureserver.net");
+        props.put("mail.smtp.host", host);
         props.put("mail.smtp.port", "587");
-    	String correoEnvia = "info@clubdeltrabajo.com";
-    	String contrasena = "Temporal22";
+
+        // Get the Session object.
         Session session = Session.getInstance(props,
            new javax.mail.Authenticator() {
               protected PasswordAuthentication getPasswordAuthentication() {
-                 return new PasswordAuthentication(correoEnvia, contrasena);
-         }
-           });
-    	
-    	try {
-    		MimeMessage message = new MimeMessage(session);
-            message.setSubject("HTML  mail with images");
-            message.setFrom(new InternetAddress(correoEnvia));
-            message.addRecipient(Message.RecipientType.TO,
-                 new InternetAddress(to));
+                 return new PasswordAuthentication(username, password);
+              }
+  	});
 
-            // Mail Body
-            MimeMultipart multipart = new MimeMultipart("related");
-            BodyPart textPart = new MimeBodyPart();
-            String htmlText ="<img src=\"cid:image\"> ";
-            textPart.setContent(htmlText, "text/html");
+        try {
+              // Create a default MimeMessage object.
+              Message message = new MimeMessage(session);
 
-            multipart.addBodyPart(textPart);
-            BodyPart imagePart = new MimeBodyPart();
-	        DataSource fds = new FileDataSource
-	          ("src/main/resources/image/Bienvenido.jpg");
-            imagePart.setDataHandler(new DataHandler(fds));
-            imagePart.setHeader("Content-ID","<image>");
-            imagePart.setDisposition(MimeBodyPart.INLINE);
-            multipart.addBodyPart(imagePart);
-            message.setContent(multipart);
-            message.setSubject("Hoja de vida Seleccionada para revisión");
-            message.setRecipients(Message.RecipientType.TO,
-                     InternetAddress.parse(to));
-            Transport.send(message);
-    	} catch (AddressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+     	   // Set From: header field of the header.
+  	   message.setFrom(new InternetAddress(from));
+
+  	   // Set To: header field of the header.
+  	   message.setRecipients(Message.RecipientType.TO,
+                InternetAddress.parse(to));
+
+  	   // Set Subject: header field
+  	   message.setSubject("Nueva oferta de trabajo para usted en el club del trabajo");
+
+  	   // Send the actual HTML message, as big as you like
+  	   message.setContent(
+                "<p>&nbsp;</p>\r\n" + 
+                "                <h3 style=\"text-align: center; color:#3f7320;\">Nueva oferta de trabajo</h3> \r\n" + 
+                "                <p><strong>revisa nuestra pagina para que apliques a la oferta publicada </strong></p>\r\n" + 
+                "                <p><a href=\"https://www.clubdeltrabajo.com\" target=\"_blank\" rel=\"noopener\"><button>Ingrese ya</button></a></p>\r\n" + 
+                "<p>\r\n" + 
+                "  Att: equipo del Club del Trabajo\r\n" + 
+                "</p>",
+               "text/html");
+
+  	   // Send message
+  	   Transport.send(message);
+
+  	   System.out.println("Sent message successfully....");
+
+        } catch (MessagingException e) {
+  	   e.printStackTrace();
+  	   throw new RuntimeException(e);
+        }
     }
     
 }

@@ -1,5 +1,5 @@
 export interface IOpcionVo {
-  codigo: string | number;
+  codigo: string | number | undefined;
   nombre: string;
 }
 
@@ -35,21 +35,21 @@ export interface IResultadoBusquedaOfertas {
 }
 
 export interface IResultadoBusquedaAspirantes {
-  nombre: string | undefined;
-  apellido: string | undefined;
-  profesion: string | undefined;
-  edad: number | undefined;
-  ciudad: string | undefined;
-  experiencia: string | undefined;
-  titulo: string | undefined;
-  fechaPostulacion: string | undefined;
-  idPersona?: number | undefined;
-  idOferta?: number | undefined;
-  color?: string | undefined;
-  verh?: boolean | undefined;
-  verche?: boolean | undefined;
-  verno?: boolean | undefined;
-  btnestado?: boolean | undefined;
+  nombre: string | undefined | null;
+  apellido: string | undefined | null;
+  profesion: string | undefined | null;
+  edad: number | undefined | null;
+  ciudad: string | undefined | null;
+  experiencia: string | undefined | null;
+  titulo: string | undefined | null;
+  fechaPostulacion: string | undefined | null;
+  idPersona?: number | undefined | null;
+  idOferta?: number | undefined | null;
+  color?: string | undefined | null;
+  verh?: boolean | undefined | null;
+  verche?: boolean | undefined | null;
+  verno?: boolean | undefined | null;
+  btnestado?: boolean | undefined | null;
 }
 
 export interface IResultadoOfertas {

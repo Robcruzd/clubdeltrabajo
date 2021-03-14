@@ -58,6 +58,8 @@ public class OfertaCriteria implements Serializable, Criteria {
     private LongFilter modalidad;
     
     private LongFilter nivelEstudios;
+    
+    private StringFilter genero;
 
     public OfertaCriteria() {
     }
@@ -81,6 +83,7 @@ public class OfertaCriteria implements Serializable, Criteria {
         this.profesion = other.profesion == null ? null : other.profesion.copy();
         this.modalidad = other.modalidad == null ? null : other.modalidad.copy();
         this.nivelEstudios = other.nivelEstudios == null ? null : other.nivelEstudios.copy();
+        this.genero = other.genero == null ? null : other.genero.copy();
     }
 
     @Override
@@ -232,6 +235,14 @@ public class OfertaCriteria implements Serializable, Criteria {
 		this.nivelEstudios = nivelEstudios;
 	}
 
+	public StringFilter getGenero() {
+		return genero;
+	}
+
+	public void setGenero(StringFilter genero) {
+		this.genero = genero;
+	}
+
 	@Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -252,7 +263,8 @@ public class OfertaCriteria implements Serializable, Criteria {
             Objects.equals(area, that.area) &&
             Objects.equals(fechaPublicacion, that.fechaPublicacion) &&
             Objects.equals(estado, that.estado) &&
-            Objects.equals(usuarioId, that.usuarioId);
+            Objects.equals(usuarioId, that.usuarioId) &&
+            Objects.equals(genero, that.genero);
     }
 
     @Override
@@ -268,7 +280,8 @@ public class OfertaCriteria implements Serializable, Criteria {
         area,
         fechaPublicacion,
         estado,
-        usuarioId
+        usuarioId,
+        genero
         );
     }
 
@@ -286,6 +299,7 @@ public class OfertaCriteria implements Serializable, Criteria {
                 (fechaPublicacion != null ? "fechaPublicacion=" + fechaPublicacion + ", " : "") +
                 (estado != null ? "estado=" + estado + ", " : "") +
                 (usuarioId != null ? "usuarioId=" + usuarioId + ", " : "") +
+                (genero != null ? "genero=" + genero + ", " : "") +
             "}";
     }
 

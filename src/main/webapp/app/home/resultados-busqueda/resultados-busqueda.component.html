@@ -30,16 +30,16 @@
                                 </option>
                             </select>
                         </div> -->
-                        <div class="Sector">
-                            <p class="titulo">Salario</p>
-                            <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarOfertar()">
+                        <!-- <div class="Sector">
+                            <p class="titulo">Edad</p>
+                            <select class="resultado" [(ngModel)]="edadValue" (change)="cargarOfertar()">
                                 <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                                <option *ngFor="let aspiracion of aspiracionesSalariales" 
-                                [ngValue]="aspiracion.codigo" >
-                                    {{ aspiracion.nombre }}
+                                <option *ngFor="let edad of edades" 
+                                [ngValue]="edad.codigo" >
+                                    {{ edad.nombre }}
                                 </option>
                             </select>
-                        </div>
+                        </div> -->
                         <div class="Sector">
                             <p class="titulo">Ciudad</p>
                             <select class="resultado" [(ngModel)]="municipioValue" (change)="cargarOfertar()">
@@ -50,8 +50,37 @@
                                     {{ municipio.nombre }}
                                 </option>
                             </select>
-                        </div>      
+                        </div>  
                         <div class="Sector">
+                            <p class="titulo">Género</p>
+                            <select class="resultado" [(ngModel)]="generoValue" (change)="cargarOfertar()">
+                                <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option value="M" >Masculino</option>
+                                <option value="F" >Femenino</option>
+                            </select>
+                        </div>
+                        <div class="Sector">
+                            <p class="titulo">Experiencia</p>
+                            <select class="resultado" [(ngModel)]="experienciaValue" (change)="cargarOfertar()">
+                                <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option *ngFor="let experiencia of experienciasLaborales" 
+                                [ngValue]="experiencia.codigo" >
+                                    {{ experiencia.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="Sector">
+                            <p class="titulo">Salario</p>
+                            <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarOfertar()">
+                                <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option *ngFor="let aspiracion of aspiracionesSalariales" 
+                                [ngValue]="aspiracion.codigo" >
+                                    {{ aspiracion.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                            
+                        <!-- <div class="Sector">
                             <p class="titulo">Fecha</p>
                             <select class="resultado" [(ngModel)]="fechaValue" (change)="cargarOfertar()">
                                 <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
@@ -60,7 +89,7 @@
                                     {{ item.nombre }}
                                 </option>
                             </select>
-                        </div>        
+                        </div>         -->
                 </div>
             </div>
             <div class="container-fluid resultados-busqueda">

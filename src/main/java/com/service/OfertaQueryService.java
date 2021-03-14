@@ -119,6 +119,12 @@ public class OfertaQueryService extends QueryService<Oferta> {
             if (criteria.getProfesion() != null) {
             	specification = specification.and(buildRangeSpecification(criteria.getProfesion(), Oferta_.profesion));
             }
+            if (criteria.getGenero() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getGenero(), Oferta_.genero));
+            }
+            if (criteria.getExperiencia() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getExperiencia(), Oferta_.experiencia));
+            }
         }
         return specification;
     }

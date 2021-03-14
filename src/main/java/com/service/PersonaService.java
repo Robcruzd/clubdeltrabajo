@@ -149,4 +149,39 @@ public class PersonaService {
         
     }
     
+    public void enviarEmailAspirante(String email, String mensaje) {    	
+    	// Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el remitente también.
+        String remitente = "info@clubdeltrabajo.com";  //Para la dirección nomcuenta@gmail.com
+        String destinatario =  email;
+        Properties props = System.getProperties();
+        props.put("mail.smtp.host", "smtpout.secureserver.net");  //El servidor SMTP de Google
+        props.put("mail.smtp.user", remitente);
+        props.put("mail.smtp.clave", "Temporal22");    //La clave de la cuenta
+        props.put("mail.smtp.auth", "true");    //Usar autenticación mediante usuario y clave
+        props.put("mail.smtp.starttls.enable", "true"); //Para conectar de manera segura al servidor SMTP
+        props.put("mail.smtp.port", "587"); //El puerto SMTP seguro de Google
+
+        Session session = Session.getDefaultInstance(props);
+        MimeMessage message = new MimeMessage(session);
+
+        try {
+            message.setFrom(new InternetAddress(remitente));
+            message.addRecipients(Message.RecipientType.TO, destinatario);   //Se podrían añadir varios de la misma manera
+            message.setSubject("Una empresa esta interesada en contratarte");
+            if(mensaje.equals("")) {
+            	message.setText("Hola buen dia, nuestra empresa esta interesada en contratar sus servicios");
+            }else {
+            	message.setText(mensaje);
+            }
+            Transport transport = session.getTransport("smtp");
+            transport.connect("smtpout.secureserver.net", remitente, "Temporal22");
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+        }
+        catch (MessagingException me) {
+            me.printStackTrace();   //Si se produce un error
+        }
+        
+    }
+    
 }

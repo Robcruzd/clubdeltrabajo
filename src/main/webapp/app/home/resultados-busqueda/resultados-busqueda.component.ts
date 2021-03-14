@@ -56,6 +56,11 @@ export class ResultadosBusquedaComponent implements OnInit {
   faSearch = faSearch;
   valorBusqueda = "";
   profesionesFiltro: Array<IProfesion> | null = [];
+  edades: IOpcionVo[] = commonMessages.ARRAY_EDAD;
+  edadValue: any = null;
+  generoValue: any = null;
+  experienciaValue: any = null;
+  experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
 
   public page = 1;
   constructor(private dataService: DataService, private formBuilder: FormBuilder,
@@ -190,7 +195,13 @@ export class ResultadosBusquedaComponent implements OnInit {
         }
         if(this.salarioValue != null){
           params.salario = this.salarioValue;
-        } 
+        }
+        if(this.generoValue != null){
+          params.genero = this.generoValue;
+        }
+        if(this.experienciaValue != null){
+          params.experiencia = this.experienciaValue;
+        }    
         this.ofertaService.listar(params).subscribe(response=>{
           this.resultadoBusqueda = response.content;
           if(this.resultadoBusqueda){
@@ -251,7 +262,6 @@ export class ResultadosBusquedaComponent implements OnInit {
         this.profesionesFiltro = await this.listarProfesion(this.valorBusqueda);
         if (this.profesionesFiltro) {
           for(let i=0; i< this.profesionesFiltro.length; i++){
-            this.listaResultadoBusquedaOfertas = [];
             const params = new Oferta();
             if(this.fechaValue == null){
               if(this.municipioValue != null){
@@ -259,9 +269,15 @@ export class ResultadosBusquedaComponent implements OnInit {
               }
               if(this.salarioValue != null){
                 params.salario = this.salarioValue;
+              }
+              if(this.generoValue != null){
+                params.genero = this.generoValue;
+              }  
+              if(this.experienciaValue != null){
+                params.experiencia = this.experienciaValue;
               } 
               params.profesion = this.profesionesFiltro[i].id;   
-              this.resultadoBusqueda = await this.listarOfertas(params);          
+              this.resultadoBusqueda = await this.listarOfertas(params);    
                 if(this.resultadoBusqueda){
                   this.resultadoBusqueda.forEach(element => {
                     const salarioBD = this.aspiracionesSalariales.find( salario => salario.codigo === element.salario );
