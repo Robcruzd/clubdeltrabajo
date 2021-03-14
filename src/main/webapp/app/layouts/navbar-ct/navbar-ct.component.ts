@@ -35,8 +35,11 @@ export class NavbarCtComponent implements OnInit {
 
   lstOpcionesMenu: any = [
     { id: 1, etiqueta: 'Inicio', ruta: '/' },
-    { id: 3, etiqueta: 'Contáctenos', ruta: '/informacion-empresa' }
-    // { id: 5, etiqueta: 'Registro', ruta: '/agregar-usuario' }
+    { id: 2, etiqueta: 'Personas', ruta: '/inicio-sesion' },
+    { id: 3, etiqueta: 'Empresas', ruta: '/inicio-sesion' },
+    { id: 4, etiqueta: 'Publicaciones', ruta: '/resultados-busqueda' },
+    { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
+    { id: 6, etiqueta: 'Contacto', ruta: '/informacion-empresa' }
   ];
 
   constructor(
@@ -121,6 +124,10 @@ export class NavbarCtComponent implements OnInit {
 
   contactenos(): void {
     this.router.navigate(['/informacion-empresa']);
+  }
+
+  nosotros(): void {
+    this.router.navigate(['/nosotros']);
   }
 
   cerrarSesion(): void {

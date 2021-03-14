@@ -25,10 +25,6 @@ export class InformacionEmpresaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (!this.accountService.isAuthenticated()) {
-      this.router.navigate(['/']);
-      return;
-    }
     this.crearFormulario();
   }
 

@@ -33,11 +33,11 @@
                         <p class="negrita">{{oferta.profesion}}</p>
                         <p class="sin-negrita">{{oferta.salario}}</p>
                     </div>
-                    <img class="logo-oferta rounded-circle" [src]="oferta.imagen || ulrImgDefault">
+                    <img class="logo-oferta rounded-circle" [src]="oferta.imagen || urlImgDefault">
                 </div>
                 <p class="sin-negrita">{{oferta.ciudad}}</p>
-                <p class="sin-negrita">Publicado: Fecha {{oferta.fecha}}</p>
-                <button class="button-ver">Ver</button>
+                <p class="sin-negrita">Publicado: {{oferta.fecha}}</p>
+                <button class="button-ver" (click)="verOferta(oferta)">Ver</button>
             </div>
         </div>
     </div>

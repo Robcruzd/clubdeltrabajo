@@ -33,7 +33,7 @@ export class PerfilComponent implements OnInit {
   persona: any;
   tipoArchivo = TipoArchivo;
   imagen!: Archivo;
-  ulrImgDefault = '';
+  urlImgDefault = '';
   hojaVidaVo!: HojaVidaVo | null;
   geografia: Array<GeografiaVo> = [];
   municipios: Array<IOpcionVo> = [];
@@ -69,7 +69,7 @@ export class PerfilComponent implements OnInit {
   getHojaVida(): void {
     this.hojaVidaService.find(this.personaInicial).subscribe(response => {
       this.hojaVidaVo = response.body;
-      this.ulrImgDefault =
+      this.urlImgDefault =
         this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
           ? '../../../content/images/Image 28_F.png'
           : '../../../content/images/Image 28_M.png';
@@ -243,10 +243,10 @@ export class PerfilComponent implements OnInit {
   }
 
   verOfertas(): void {
-    this.router.navigate(['resultados-busqueda', { general: false}]);
+    this.router.navigate(['resultados-busqueda', { general: false }]);
   }
 
   buscaEmpleo(): void {
-    this.router.navigate(['resultados-busqueda', { general: true}]);
+    this.router.navigate(['resultados-busqueda', { general: true }]);
   }
 }

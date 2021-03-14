@@ -24,7 +24,6 @@ declare let alertify: any;
   styleUrls: ['./oferta-publica.component.scss']
 })
 export class OfertaPublicaComponent implements OnInit {
-
   idOferta = 0;
   listaResultadoOfertas: Array<IResultadoOfertas> = [];
   oferta!: IOferta | null;
@@ -34,16 +33,24 @@ export class OfertaPublicaComponent implements OnInit {
   municipiosPersonal: Array<IOpcionVo> = [];
   geografia: Array<GeografiaVo> = [];
   aplicacionOferta = new AplicacionOferta();
-  ofertaAplicar!:IOferta | null;
+  ofertaAplicar!: IOferta | null;
   account!: Account | null;
   personaInicial!: number;
-  personaAplicar!:IPersona | null;
-  aplicacionOfertaFiltro : Array<IAplicacionOferta> = [];
-  general = "";
-  
-  constructor(private router: Router,private route: ActivatedRoute, private accountService:AccountService,
-    private ofertaService: OfertaService, private regionService: RegionesService,
-    private personaService: PersonaService, private aplicacionOfertaService : AplicacionOfertaService) {this.traerCiudad();}
+  personaAplicar!: IPersona | null;
+  aplicacionOfertaFiltro: Array<IAplicacionOferta> = [];
+  general = '';
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private accountService: AccountService,
+    private ofertaService: OfertaService,
+    private regionService: RegionesService,
+    private personaService: PersonaService,
+    private aplicacionOfertaService: AplicacionOfertaService
+  ) {
+    this.traerCiudad();
+  }
 
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get('oferta')!;
@@ -112,36 +119,35 @@ export class OfertaPublicaComponent implements OnInit {
     this.getOFerta(this.idOferta);
   }
 
-  aplicarOferta(): void{
+  aplicarOferta(): void {
     this.ofertaService.find(this.idOferta).subscribe(ofertaResponse => {
       this.ofertaAplicar = ofertaResponse.body;
-      if(this.ofertaAplicar){
+      if (this.ofertaAplicar) {
         this.aplicacionOferta.oferta = this.ofertaAplicar;
       }
       this.personaService.find(this.personaInicial).subscribe(personaResponse => {
         this.personaAplicar = personaResponse.body;
-        this.aplicacionOferta.estado = "Ninguno";
+        this.aplicacionOferta.estado = 'Ninguno';
         this.aplicacionOferta.fechaPostulacion = moment(new Date(), 'YYYY-MMM-DD');
-        if(this.personaAplicar){
+        if (this.personaAplicar) {
           this.aplicacionOferta.usuario = this.personaAplicar;
-          this.aplicacionOfertaService.getByOfertaAndPersonaFiltro(this.ofertaAplicar, this.personaAplicar).subscribe(ofertaFiltro =>{
+          this.aplicacionOfertaService.getByOfertaAndPersonaFiltro(this.ofertaAplicar, this.personaAplicar).subscribe(ofertaFiltro => {
             this.aplicacionOfertaFiltro = ofertaFiltro;
-            if(this.aplicacionOfertaFiltro.length === 0){
-              this.aplicacionOfertaService.create(this.aplicacionOferta).subscribe(()=>{
-                this.router.navigate(['resultados-busqueda']);
+            if (this.aplicacionOfertaFiltro.length === 0) {
+              this.aplicacionOfertaService.create(this.aplicacionOferta).subscribe(() => {
+                this.router.navigate(['resultados-busqueda', { general: this.general }]);
               });
-            }else{
+            } else {
               alertify.set('notifier', 'position', 'top-right');
-              alertify.error("Usted ya aplico a esta oferta!");
+              alertify.error('Usted ya aplico a esta oferta!');
             }
-          })
-          
+          });
         }
       });
     });
   }
 
   volver(): void {
-    this.router.navigate(['resultados-busqueda', { general: this.general}]);
+    this.router.navigate(['resultados-busqueda', { general: this.general }]);
   }
 }

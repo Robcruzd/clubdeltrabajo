@@ -15,7 +15,7 @@ import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 })
 export class PerfilEmpresaComponent implements OnInit {
   imagen!: Archivo;
-  ulrImgDefault = '../../../content/images/Image 28_M.png';
+  urlImgDefault = '../../../content/images/Image 28_M.png';
   faStar = faStar;
   faEllipsisH = faEllipsisH;
   faCommentDots = faCommentDots;

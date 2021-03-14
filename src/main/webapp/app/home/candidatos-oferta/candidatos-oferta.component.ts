@@ -25,7 +25,7 @@ export class CandidatosOfertaComponent implements OnInit {
   faEllipsisH = faEllipsisH;
   faCommentDots = faCommentDots;
   imagen!: Archivo;
-  ulrImgDefault = '';
+  urlImgDefault = '';
   faUserCircle = faUserCircle;
   generoValue: any = null;
   salarioValue: any = null;

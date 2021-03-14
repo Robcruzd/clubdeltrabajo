@@ -265,7 +265,7 @@ export class CrearOfertaComponent implements OnInit {
 
     if (this.usuario?.userEmpresa) {
       this.ofertaService.getOfertasEmpresa(this.usuario.userEmpresa).subscribe(ofertaResponse => {
-        if (ofertaResponse.length <= 1 && this.usuario?.userEmpresa) {
+        if (ofertaResponse.length < 1 && this.usuario?.userEmpresa) {
           this.empresaService.find(this.usuario.userEmpresa).subscribe(RESPONSE => {
             this.oferta.usuario = RESPONSE.body;
             if (this.idOferta === 0) {
