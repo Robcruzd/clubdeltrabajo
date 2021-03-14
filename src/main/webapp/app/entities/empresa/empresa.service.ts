@@ -16,6 +16,10 @@ export class EmpresaService {
 
   constructor(protected http: HttpClient) {}
 
+  crearUsuario(empresa: EmpresaVo): Observable<any> {
+    return this.http.post<IEmpresa>(this.resourceUrl + '/user', empresa, { observe: 'response' });
+  }
+
   create(empresa: IEmpresa): Observable<EntityResponseType> {
     return this.http.post<IEmpresa>(this.resourceUrl, empresa, { observe: 'response' });
   }
@@ -35,9 +39,5 @@ export class EmpresaService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
-  }
-
-  crearUsuario(empresa: EmpresaVo): Observable<any> {
-    return this.http.post<IEmpresa>(this.resourceUrl + '/user', empresa, { observe: 'response' });
   }
 }

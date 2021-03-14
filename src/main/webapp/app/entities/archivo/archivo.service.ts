@@ -38,14 +38,10 @@ export class ArchivoService {
   }
 
   get(usuarioid: number, tipo: number): Observable<EntityResponseType> {
-    // eslint-disable-next-line no-console
-    console.log('prooooooooooobando ');
     return this.http.get<IArchivo>(`${this.resourceUrl}/perfil/${usuarioid}/tipo/${tipo}`, { observe: 'response' });
   }
 
   getEmp(tipo: number, empresaid: number): Observable<EntityResponseType> {
-    // eslint-disable-next-line no-console
-    console.log('consultar:     ', empresaid);
     return this.http.get<IArchivo>(`${this.resourceUrl}/tipo/${tipo}/empPerfil/${empresaid}`, { observe: 'response' });
   }
 

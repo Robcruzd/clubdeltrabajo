@@ -25,12 +25,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.domain.Empresa;
+import com.domain.User;
 import com.domain.vo.EmpresaVo;
 import com.service.EmpresaQueryService;
 import com.service.EmpresaService;
 import com.service.UserService;
 import com.service.dto.EmpresaCriteria;
 import com.web.rest.errors.BadRequestAlertException;
+import com.service.MailService;
+import com.domain.vo.UsuarioVo;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -56,10 +59,13 @@ public class EmpresaResource {
     
     private final UserService userService;
 
-    public EmpresaResource(EmpresaService empresaService, EmpresaQueryService empresaQueryService, UserService userService) {
+    private final MailService mailService;
+
+    public EmpresaResource(EmpresaService empresaService, EmpresaQueryService empresaQueryService, UserService userService, MailService mailService) {
         this.empresaService = empresaService;
         this.empresaQueryService = empresaQueryService;
         this.userService = userService;
+        this.mailService = mailService;
     }
 
     /**
@@ -163,7 +169,10 @@ public class EmpresaResource {
         }
         Empresa result = empresaService.save(empresaVo.getEmpresa());
         empresaVo.getUsuario().setUserEmpresa(result.getId());
-        userService.registerUser(empresaVo.getUsuario(), empresaVo.getUsuario().getPassword());
+        User user = userService.registerUser(empresaVo.getUsuario(), empresaVo.getUsuario().getPassword());
+        User userEmail = user;
+        userEmail.setPassword(empresaVo.getUsuario().getPassword());
+        mailService.sendActivationEmail(userEmail);
         return ResponseEntity.created(new URI("/api/empresas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
