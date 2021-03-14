@@ -8,13 +8,12 @@ import { Router } from '@angular/router';
 })
 export class OfertaPublicadaComponent implements OnInit {
   imagen!: Archivo;
-  ulrImgDefault = '../../../content/images/Image 28_M.png';
+  urlImgDefault = '../../../content/images/Image 28_M.png';
 
-  constructor(
-    private router: Router) {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
-  
+
   verOfertas(): void {
     this.router.navigate(['/controlar-ofertas']);
   }

@@ -9,12 +9,13 @@
                 <div *ngIf = "general === 'true'">
                     <div class="buscador">
                         <div class="input-buscador">
+                            <input matInput placeholder="Busqueda" class="form-control"
+                            (keyup.enter)="cargarOfertar()" [(ngModel)]="valorBusqueda">
                             <button class="btnBuscar" (click)="cargarOfertar()">
                                 <fa-icon [icon]="faSearch" class="border-icon2" style="
                                 background: transparent; color: #0a0a0a;">
                                 </fa-icon>
                             </button>
-                            <input matInput placeholder="Busqueda" class="form-control" [(ngModel)]="valorBusqueda">
                         </div>
                         <div class="empresas">
                             <p class="titulo">Empresas</p>
@@ -97,20 +98,20 @@
                     <br>
                     <br>
                 </div>
-                <div class="row" style="margin-left: 0 !important; width: 800px;">
-                    <div class="elemento-busqueda" *ngFor="let oferta of listaResultadoBusquedaOfertas | paginate: { itemsPerPage: 20, currentPage: page }">
-                        
-                        <img src="../../../content/images/Image 35.png" class="logo-empresa">
-                        <div style="height: 40px;">
-                        <p class="titulo-resultado" style="margin-bottom: 5px;">{{oferta.empresa}}</p>  
-                        <p class="titulo-resultado" style="margin-top: 0%;">{{oferta.profesion}}</p>
+                <div class="ofertas" style="margin-left: 0 !important;">
+                    <div class="oferta" *ngFor="let oferta of listaResultadoBusquedaOfertas | paginate: { itemsPerPage: 20, currentPage: page }">
+                        <div class="oferta-arriba">
+                            <div class="info">
+                                <p class="negrita">{{oferta.empresa}}</p>
+                                <p class="negrita">{{oferta.profesion}}</p>
+                                <p class="sin-negrita">{{oferta.salario}}</p>
+                            </div>
+                            <img class="logo-oferta rounded-circle" [src]="oferta.imagen || urlImgDefault">
                         </div>
-                        <div class="subtitulo-resultado">
-                        <p style="margin-bottom: 0;">{{oferta.salario}}</p>
-                        <p style="margin-bottom: 0;">{{oferta.ciudad}}</p>
-                        <p style="margin-bottom: 0;">Publicado: {{oferta.fechaPublicacion}}</p>
-                        </div>
-                        <button class="btn shadow-none boton-ver" (click)="verOferta(oferta)">VER</button>
+                        <p class="sin-negrita">{{oferta.ciudad}}</p>
+                        <p class="sin-negrita">Publicado: {{oferta.fecha}}</p>
+                        <!-- </div> -->
+                        <button class="btn shadow-none button-ver" (click)="verOferta(oferta)">VER</button>
                     </div>
                 </div>
                 <pagination-controls (pageChange)="page = $event" class="controls" 

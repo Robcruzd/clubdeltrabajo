@@ -90,7 +90,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/usuarios/validar-captcha").permitAll()
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/account/reset-password/init").permitAll()
-            .antMatchers("/api/account/reset-password/finish").permitAll()
+            .antMatchers("/api/account/").permitAll()
             .antMatchers("/api/registrar").permitAll()
             .antMatchers("/api/empresas/user").permitAll()
             .antMatchers("/api/tipo-documentos").permitAll()

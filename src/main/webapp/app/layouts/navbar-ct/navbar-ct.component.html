@@ -5,8 +5,8 @@
         <nav class="nav-navbar">
             <!-- <div class="collapse navbar-collapse" id="navbarNavAltMarkup"> -->
                 <!-- <div class="navbar-nav"> -->
-                    <div class="opciones" [ngStyle]="{'visibility' : showElement ? 'visible' : 'hidden'}">
-                        <a *ngFor="let item of lstOpcionesMenu" class="nav-item nav-link item"
+                    <div class="opciones" >
+                        <a *ngFor="let item of lstOpcionesMenu" class="nav-item item" [ngStyle]="{ 'color': account?.userEmpresa==null && navbarState==true ? '#FFFFFF 0% 0% no-repeat padding-box' : '#797979' }"
                             [routerLink]="[item.ruta]">{{item.etiqueta}}</a>
                     </div>
                     <div ngbDropdown *ngIf="logged" class="dropdownBurger">

@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   municipiosPersonal: Array<IOpcionVo> = [];
   listaOfertas: any = [];
   imagen: any;
-  ulrImgDefault = '../../../content/images/Image 28.png';
+  urlImgDefault = '../../../content/images/Image 28.png';
 
   constructor(
     private accountService: AccountService,
@@ -237,5 +237,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ventanaInicioSesion(): void {
     this.router.navigate(['/inicio-sesion']);
+  }
+
+  verOferta(oferta: any): void {
+    this.router.navigate(['/oferta-publica', { oferta: oferta.idOferta, general: 'true' }]);
   }
 }

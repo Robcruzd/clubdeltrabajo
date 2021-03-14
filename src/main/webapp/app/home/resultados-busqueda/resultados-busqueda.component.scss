@@ -12,9 +12,9 @@
   color: #020d52;
   opacity: 1;
 }
-.text-top{
-  color: #1A9FEF;
-  font-family: "Roboto";
+.text-top {
+  color: #1a9fef;
+  font-family: 'Roboto';
   font-style: italic;
   font-size: 49px;
   text-align: right;
@@ -28,25 +28,25 @@
   margin-left: 3px;
   padding-left: 0px !important;
   //.controls{
-   // margin-bottom: 40px;
-   // margin-left: 40%;
-    .controls {
-      display: flex;
-      font-size: 15px;
-      font-family: 'Roboto';
-      margin-top: 20px;
-      height: 28px;
-      margin-left: 29%;
-      margin-bottom: 40px;
-      //padding: 5%;
-    }
+  // margin-bottom: 40px;
+  // margin-left: 40%;
+  .controls {
+    display: flex;
+    font-size: 15px;
+    font-family: 'Roboto';
+    margin-top: 20px;
+    height: 28px;
+    margin-left: 29%;
+    margin-bottom: 40px;
+    //padding: 5%;
+  }
   //}
 }
-.cuerpo{
+.cuerpo {
   display: flex;
   width: 1071px;
   margin-left: 80px;
-  
+
   .btnBuscar {
     height: 15px;
     width: 15px;
@@ -71,7 +71,7 @@
     }
   }
 }
-.controls{
+.controls {
   margin-bottom: 40px;
 }
 .buscador {
@@ -150,6 +150,72 @@
       border: none;
       background: none;
       width: 95px;
+    }
+  }
+}
+
+.ofertas {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  flex-wrap: wrap;
+
+  p {
+    margin: 0;
+  }
+
+  .oferta {
+    width: 184px;
+    min-height: 153px;
+    background: #f8f8f8 0% 0% no-repeat padding-box;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+
+    .oferta-arriba {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .info {
+        display: flex;
+        flex-direction: column;
+
+        .negrita {
+          text-align: left;
+          font: normal normal bold 12px/17px Roboto;
+          letter-spacing: 0px;
+          color: #645d5d;
+        }
+      }
+
+      .logo-oferta {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    .sin-negrita {
+      text-align: left;
+      font: normal normal normal 12px/17px Roboto;
+      letter-spacing: 0px;
+      color: #645d5d;
+    }
+
+    .button-ver {
+      width: 64px;
+      height: 23px;
+      background: #2699fb 0% 0% no-repeat padding-box;
+      text-align: center;
+      font: normal normal normal 11px/12px Roboto;
+      letter-spacing: 0px;
+      color: #ffffff;
+      border: none;
+      align-self: flex-end;
+      margin-top: 1rem;
     }
   }
 }

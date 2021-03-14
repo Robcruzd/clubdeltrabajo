@@ -24,7 +24,6 @@ declare let alertify: any;
   styleUrls: ['./oferta-publica.component.scss']
 })
 export class OfertaPublicaComponent implements OnInit {
-
   idOferta = 0;
   listaResultadoOfertas: Array<IResultadoOfertas> = [];
   oferta!: IOferta | null;
@@ -34,16 +33,24 @@ export class OfertaPublicaComponent implements OnInit {
   municipiosPersonal: Array<IOpcionVo> = [];
   geografia: Array<GeografiaVo> = [];
   aplicacionOferta = new AplicacionOferta();
-  ofertaAplicar!:IOferta | null;
+  ofertaAplicar!: IOferta | null;
   account!: Account | null;
   personaInicial!: number;
-  personaAplicar!:IPersona | null;
-  aplicacionOfertaFiltro : Array<IAplicacionOferta> = [];
-  general = "";
-  
-  constructor(private router: Router,private route: ActivatedRoute, private accountService:AccountService,
-    private ofertaService: OfertaService, private regionService: RegionesService,
-    private personaService: PersonaService, private aplicacionOfertaService : AplicacionOfertaService) {this.traerCiudad();}
+  personaAplicar!: IPersona | null;
+  aplicacionOfertaFiltro: Array<IAplicacionOferta> = [];
+  general = '';
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private accountService: AccountService,
+    private ofertaService: OfertaService,
+    private regionService: RegionesService,
+    private personaService: PersonaService,
+    private aplicacionOfertaService: AplicacionOfertaService
+  ) {
+    this.traerCiudad();
+  }
 
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get('oferta')!;
@@ -129,7 +136,7 @@ export class OfertaPublicaComponent implements OnInit {
               this.aplicacionOfertaFiltro = ofertaFiltro;
               if(this.aplicacionOfertaFiltro.length === 0){
                 this.aplicacionOfertaService.create(this.aplicacionOferta).subscribe(()=>{
-                  this.router.navigate(['resultados-busqueda']);
+                  this.router.navigate(['resultados-busqueda',{general:this.general}]);
                 });
               }else{
                 alertify.set('notifier', 'position', 'top-right');
@@ -147,6 +154,6 @@ export class OfertaPublicaComponent implements OnInit {
   }
 
   volver(): void {
-    this.router.navigate(['resultados-busqueda', { general: this.general}]);
+    this.router.navigate(['resultados-busqueda', { general: this.general }]);
   }
 }

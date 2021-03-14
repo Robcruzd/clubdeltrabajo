@@ -38,7 +38,7 @@ export class PathUtil {
       if (i > 0 && path !== '?' && value !== null) {
         path += '&';
       }
-      if (value !== null ) {
+      if (value !== null) {
         path += field + '=' + value;
       }
     });
@@ -96,8 +96,8 @@ export class PersonaService {
     return this.http.get<any>(url, headers);
   }
 
-  public enviarEmailAspirante(id:number, mensajeEmail:any): Observable<any> {
-    const params = PathUtil.getPathParams({ persona:id , mensaje:mensajeEmail});
+  public enviarEmailAspirante(id: number, mensajeEmail: any): Observable<any> {
+    const params = PathUtil.getPathParams({ persona: id, mensaje: mensajeEmail });
     const url = this.resourceUrlEnviarEmailAspirante + params;
     return this.http.get<any>(url);
   }

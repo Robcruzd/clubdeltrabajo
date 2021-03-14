@@ -33,7 +33,7 @@ export class ControlarOfertasComponent implements OnInit {
   geografia: Array<GeografiaVo> = [];
   listaOfertas: Array<Oferta> = [];
   cambiarEstadoO = new Oferta();
-  cambiarEstado1= true;
+  cambiarEstado1 = true;
   listaAspirantes: Array<IAplicacionOferta> = [];
   listaAspirantes1: Array<IAplicacionOferta> = [];
   listaAspirantes2: Array<IAplicacionOferta> = [];
@@ -78,27 +78,26 @@ export class ControlarOfertasComponent implements OnInit {
   async cargarInformacionCuenta(): Promise<any> {
     const cuenta = await this.obtenerIdUsuario();
     this.listaOfertas = await this.obtenerOfertasEmpresa(cuenta.userEmpresa);
-    for (let i = 0; i < this.listaOfertas.length; i++) {    
-       
+    for (let i = 0; i < this.listaOfertas.length; i++) {
       await this.getAspirantes(this.listaOfertas[i]);
-        const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === this.listaOfertas[i].salario);
-        const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === this.listaOfertas[i].ciudad?.toString());
-        this.profesionService.find(this.listaOfertas[i].profesion).subscribe(PROFESIONES => {
-              this.listaOFertasCreadas.push({
-              id: this.listaOfertas[i].id?.toString(),
-              profesion: PROFESIONES.body?.profesion,
-              salario: salarioBD?.nombre,
-              ciudad: ciudadBD?.nombre,
-              activado: this.listaOfertas[i]?.activado,
-              totalNinguno: this.totalNinguno,
-              totalSeleccionado: this.totalSeleccionado,
-              totalTodo: this.totalTodo,
+      const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === this.listaOfertas[i].salario);
+      const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === this.listaOfertas[i].ciudad?.toString());
+      this.profesionService.find(this.listaOfertas[i].profesion).subscribe(PROFESIONES => {
+        this.listaOFertasCreadas.push({
+          id: this.listaOfertas[i].id?.toString(),
+          profesion: PROFESIONES.body?.profesion,
+          salario: salarioBD?.nombre,
+          ciudad: ciudadBD?.nombre,
+          activado: this.listaOfertas[i]?.activado,
+          totalNinguno: this.totalNinguno,
+          totalSeleccionado: this.totalSeleccionado,
+          totalTodo: this.totalTodo
         });
         this.totalSeleccionado = 0;
         this.totalNinguno = 0;
-        this.totalTodo = 0;             
+        this.totalTodo = 0;
       });
-    }    
+    }
   }
 
   obtenerIdUsuario(): Promise<any> {
@@ -144,7 +143,7 @@ export class ControlarOfertasComponent implements OnInit {
     this.router.navigate(['/candidatos-seleccionados', { oferta: id }]);
   }
 
-  eliminarOfertaid(id: any): void{    
+  eliminarOfertaid(id: any): void {
     Swal.fire({
       title: '¿Está seguro de que desea eliminar la oferta?',
       icon: 'warning',
@@ -152,16 +151,21 @@ export class ControlarOfertasComponent implements OnInit {
       showCloseButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#2699FB',
-      confirmButtonText:'Aceptar',
+      confirmButtonText: 'Aceptar',
       cancelButtonText: 'Cancelar'
-
-    }).then(result => { if (result.value){
-      this.ofertaService.eliminarOferta(id).subscribe(()=>{}),
-      Swal.fire('¡Listo!', 'Tu oferta fue eliminada')
-    }});
+    }).then(result => {
+      if (result.value) {
+        this.ofertaService.eliminarOferta(id).subscribe(() => {});
+        Swal.fire('¡Listo!', 'Tu oferta fue eliminada').then(result2 => {
+          if (result2.value) {
+            window.location.reload();
+          }
+        });
+      }
+    });
   }
 
-  cambiarEstado(evt : any, oferta: any): void {
+  cambiarEstado(evt: any, oferta: any): void {
     this.cambiarEstadoO = new Oferta();
     this.cambiarEstado1 = evt.target.checked;
     this.ofertaService.find(oferta.id).subscribe(response => {
@@ -169,37 +173,35 @@ export class ControlarOfertasComponent implements OnInit {
         this.cambiarEstadoO = response.body;
         this.cambiarEstadoO.activado = this.cambiarEstado1;
         if (this.cambiarEstado1) {
-          this.cambiarEstadoO.estado = "A";
+          this.cambiarEstadoO.estado = 'A';
+        } else {
+          this.cambiarEstadoO.estado = 'D';
         }
-        else {
-          this.cambiarEstadoO.estado = "D";
-        }
-        this.ofertaService.update(this.cambiarEstadoO).subscribe( () => { });
+        this.ofertaService.update(this.cambiarEstadoO).subscribe(() => {});
       }
-    });
-  };
-  
-  getAspirantes(oferta : any): Promise<any> {
-    return new Promise(resolve => {
-      this.aplicacionOfertaService.getOfertaFiltro(oferta).subscribe(response => {
-        this.listaAspirantes = response;
-        if (this.listaAspirantes){
-          this.listaAspirantes.forEach(element => {
-            if (element.estado === 'Seleccionado'){
-              this.totalSeleccionado ++;
-            }
-            else if (element.estado === 'Ninguno'){
-              this.totalNinguno ++;
-            }
-          });
-          this.totalTodo = this.listaAspirantes.length; 
-        }
-        resolve(response);
-      })
     });
   }
 
-  obtenerOfertasEmpresa(cuenta : any): Promise<any> {
+  getAspirantes(oferta: any): Promise<any> {
+    return new Promise(resolve => {
+      this.aplicacionOfertaService.getOfertaFiltro(oferta).subscribe(response => {
+        this.listaAspirantes = response;
+        if (this.listaAspirantes) {
+          this.listaAspirantes.forEach(element => {
+            if (element.estado === 'Seleccionado') {
+              this.totalSeleccionado++;
+            } else if (element.estado === 'Ninguno') {
+              this.totalNinguno++;
+            }
+          });
+          this.totalTodo = this.listaAspirantes.length;
+        }
+        resolve(response);
+      });
+    });
+  }
+
+  obtenerOfertasEmpresa(cuenta: any): Promise<any> {
     return new Promise(resolve => {
       this.ofertaService.getOfertasEmpresa(cuenta).subscribe(
         response => {

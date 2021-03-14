@@ -111,6 +111,7 @@ p {
         .oferta-arriba {
           display: flex;
           flex-direction: row;
+          justify-content: space-between;
 
           .info {
             display: flex;
