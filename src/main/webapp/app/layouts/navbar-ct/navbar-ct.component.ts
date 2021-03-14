@@ -26,11 +26,12 @@ export class NavbarCtComponent implements OnInit {
   account!: Account | null;
   imagen!: Archivo;
   persona!: number;
-  urlImageDefault = '';
+  urlImageDefault = '../../../content/images/Image 28_M.png';
   hojaVidaVo!: HojaVidaVo | null;
   hideNavbar = false;
   public navbarState = true;
   perfil = '/perfil';
+  tipoArchivo = TipoArchivo;
 
   lstOpcionesMenu: any = [
     { id: 1, etiqueta: 'Inicio', ruta: '/' },
@@ -99,7 +100,11 @@ export class NavbarCtComponent implements OnInit {
             this.urlImageDefault = '../../../content/images/Image 28_M.png';
           }
           if (this.showNavbar) {
-            this.consultarImagen();
+            if (this.account?.user) {
+              this.consultarImagen();
+            } else if (this.account?.userEmpresa) {
+              this.consultarImagenEmp();
+            }
           }
         });
       }
@@ -131,6 +136,14 @@ export class NavbarCtComponent implements OnInit {
 
   consultarImagen(): void {
     this.archivoService.get(this.persona, TipoArchivo.IMAGEN_PERFIL).subscribe(response => {
+      if (response.body !== null) {
+        this.imagen = response.body;
+      }
+    });
+  }
+
+  consultarImagenEmp(): void {
+    this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, this.account?.userEmpresa!).subscribe(response => {
       if (response.body !== null) {
         this.imagen = response.body;
       }

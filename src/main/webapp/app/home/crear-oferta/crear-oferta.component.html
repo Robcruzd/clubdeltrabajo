@@ -58,7 +58,8 @@
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.NIVEL_LABORAL}} <span
                                         class="estilo_campo_requerido">*</span></p>
-                                <select formControlName="nivelLaboral" class="estilo_inputs">
+                                <select formControlName="nivelLaboral" class="estilo_inputs"
+                                    (change)="cargarSubnivel(formDatosBasicos.value)">
                                     <option [ngValue]="null" disabled>Seleccione una opción</option>
                                     <option *ngFor="let nivel of nivelesLaborales" 
                                     [ngValue]="nivel.codigo">
@@ -74,7 +75,7 @@
                                 <p class="estilo_label">{{labels.SUB_NIVEL_LABORAL}} </p>
                                 <select formControlName="subNivelLaboral" class="estilo_inputs">
                                     <option [ngValue]="null" disabled>Seleccione una opción</option>
-                                    <option *ngFor="let nivel of nivelesLaborales" 
+                                    <option *ngFor="let nivel of subnivelesLaborales" 
                                     [ngValue]="nivel.codigo">
                                         {{ nivel.nombre }}
                                     </option>
@@ -287,7 +288,7 @@
                                 <small *ngIf="formDatosBasicos.get('ciudad')?.errors?.required"
                                     class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                                 </div>
-                        </div>
+                            </div>
                         <div class="column">
                             
                         </div>

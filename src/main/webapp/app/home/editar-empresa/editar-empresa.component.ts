@@ -6,7 +6,7 @@ import { AccountService } from '../../core/auth/account.service';
 import { User } from '../../core/user/user.model';
 import { EmpresaService } from '../../entities/empresa/empresa.service';
 import { Empresa } from '../../shared/model/empresa.model';
-import { IOpcionVo, IOpcionVoMunicipio } from '../../shared/vo/opcion-vo';
+import { IOpcionVo } from '../../shared/vo/opcion-vo';
 import { GeografiaVo } from '../../shared/vo/geografia-vo';
 import { ApiService } from '../../shared/services/api.service';
 import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
@@ -37,7 +37,7 @@ export class EditarEmpresaComponent implements OnInit {
   imagen!: Archivo;
   persona: any;
   tipoArchivo = TipoArchivo;
-  ciudad: Array<IOpcionVoMunicipio> = [];
+  // ciudad: Array<IOpcionVoMunicipio> = [];
 
   constructor(
     private _location: Location,
@@ -100,9 +100,9 @@ export class EditarEmpresaComponent implements OnInit {
       razonSocial: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
       razonComercial: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
       numeroDocumento: ['', [Validators.required]],
-      // direccion: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú#. -]{0,}$')]],
+      direccion: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú#. -]{0,}$')]],
       telefono: ['', [Validators.required, Validators.pattern('^[0-9]{7,10}$')]],
-      ciudad: [null],
+      ciudad: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       sector: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
       subsector: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
@@ -123,9 +123,9 @@ export class EditarEmpresaComponent implements OnInit {
           razonSocial: this.datosEmpresa!.razonSocial,
           razonComercial: this.datosEmpresa!.razonComercial,
           numeroDocumento: this.datosEmpresa!.numeroDocumento,
-          // direccion: this.datosEmpresa!.direccion,
+          direccion: this.datosEmpresa!.direccion,
           telefono: this.datosEmpresa!.telefonoEmpresa,
-          ciudad: JSON.parse(this.datosEmpresa!.ciudad!),
+          ciudad: this.datosEmpresa!.ciudad?.toString(),
           email: this.datosEmpresa!.email,
           sector: this.datosEmpresa!.sector,
           subsector: this.datosEmpresa!.subsector,
@@ -169,9 +169,9 @@ export class EditarEmpresaComponent implements OnInit {
     this.datosEmpresa!.razonSocial = this.formEmpresa.controls['razonSocial'].value;
     this.datosEmpresa!.razonComercial = this.formEmpresa.controls['razonComercial'].value;
     this.datosEmpresa!.numeroDocumento = this.formEmpresa.controls['numeroDocumento'].value;
-    // this.datosEmpresa!.direccion = this.formEmpresa.controls['direccion'].value;
+    this.datosEmpresa!.direccion = this.formEmpresa.controls['direccion'].value;
     this.datosEmpresa!.telefonoEmpresa = this.formEmpresa.controls['telefono'].value;
-    this.datosEmpresa!.ciudad = JSON.stringify(this.formEmpresa.controls['ciudad'].value);
+    this.datosEmpresa!.ciudad = parseInt(this.formEmpresa.controls['ciudad'].value, 10);
     this.datosEmpresa!.email = this.formEmpresa.controls['email'].value;
     this.datosEmpresa!.sector = this.formEmpresa.controls['sector'].value;
     this.datosEmpresa!.subsector = this.formEmpresa.controls['subsector'].value;
@@ -182,7 +182,7 @@ export class EditarEmpresaComponent implements OnInit {
     this.datosEmpresa!.apellidosRepresentanteLegal = this.formEmpresa.controls['apellidosRepresentante'].value;
     this.datosEmpresa!.telefono = this.formEmpresa.controls['telefonoRep'].value;
     // eslint-disable-next-line no-console
-    console.log('probando');
+    console.log('probandoooooo', this.datosEmpresa);
     this.empresaService.update(this.datosEmpresa).subscribe(
       response => {
         // eslint-disable-next-line no-console

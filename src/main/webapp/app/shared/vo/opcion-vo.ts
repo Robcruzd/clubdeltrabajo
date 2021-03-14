@@ -13,6 +13,12 @@ export interface IOpcionVoMunicipio {
   municipio: string;
 }
 
+export interface ISubnivelVo {
+  codigo: string | number;
+  nombre: string;
+  subniveles: Array<IOpcionVo>;
+}
+
 export interface IlistarOfertas {
   id: string | undefined;
   profesion: string | undefined;
@@ -21,7 +27,7 @@ export interface IlistarOfertas {
   activado: boolean | undefined;
   totalSeleccionado?: number | undefined;
   totalTodo?: number | undefined;
-  totalNinguno?:number | undefined;
+  totalNinguno?: number | undefined;
 }
 
 export interface IResultadoBusquedaOfertas {

@@ -5,6 +5,8 @@ import { faStar, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-
 import { EmpresaService } from 'app/entities/empresa/empresa.service';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { AccountService } from 'app/core/auth/account.service';
+import { ArchivoService } from 'app/entities/archivo/archivo.service';
+import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 
 @Component({
   selector: 'jhi-perfil-empresa',
@@ -19,8 +21,14 @@ export class PerfilEmpresaComponent implements OnInit {
   faCommentDots = faCommentDots;
   empresaEnSesion!: IEmpresa | any;
   account!: Account | any;
+  tipoArchivo = TipoArchivo;
 
-  constructor(private router: Router, private empresaService: EmpresaService, private accountService: AccountService) {}
+  constructor(
+    private router: Router,
+    private empresaService: EmpresaService,
+    private accountService: AccountService,
+    private archivoService: ArchivoService
+  ) {}
 
   ngOnInit(): void {
     this.cargarCuentaUsuario();
@@ -31,7 +39,16 @@ export class PerfilEmpresaComponent implements OnInit {
       this.account = account;
       this.empresaService.find(this.account.userEmpresa).subscribe(response => {
         this.empresaEnSesion = response.body;
+        this.consultarImagen();
       });
+    });
+  }
+
+  consultarImagen(): void {
+    this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, this.empresaEnSesion.id).subscribe(response => {
+      if (response.body !== null) {
+        this.imagen = response.body;
+      }
     });
   }
 

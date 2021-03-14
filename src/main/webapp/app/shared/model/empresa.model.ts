@@ -11,7 +11,7 @@ export interface IEmpresa {
   tipoDocumento?: ITipoDocumento;
   direccion?: string;
   telefono?: number;
-  ciudad?: string;
+  ciudad?: number;
   sector?: number;
   subsector?: number;
   paginaWeb?: string;
@@ -33,7 +33,7 @@ export class Empresa implements IEmpresa {
     public tipoDocumento?: ITipoDocumento,
     public direccion?: string,
     public telefono?: number,
-    public ciudad?: string,
+    public ciudad?: number,
     public sector?: number,
     public subsector?: number,
     public paginaWeb?: string,
