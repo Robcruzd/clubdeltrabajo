@@ -79,6 +79,8 @@ export class VisualizarHojaVidaComponent implements OnInit {
   getHojaVida(): void {
     this.hojaVidaService.find(this.persona).subscribe(response => {
       this.hojaVidaVo = response.body;
+      // // eslint-disable-next-line no-console
+      // console.log('profesion: ', this.hojaVidaVo?.informacionPersonal.profesion);
       this.urlImageDefault =
         this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
           ? '../../../content/images/Image 28_F.png'
