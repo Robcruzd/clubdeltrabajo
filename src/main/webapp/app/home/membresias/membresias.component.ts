@@ -41,4 +41,8 @@ export class MembresiasComponent implements OnInit {
   clubEmpresas(): void {
     this.router.navigate(['club-empresas']);
   }
+
+  controlaOferta(): void {
+    this.router.navigate(['controlar-ofertas']);
+  }
 }
