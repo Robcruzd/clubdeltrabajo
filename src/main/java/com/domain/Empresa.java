@@ -32,7 +32,6 @@ public class Empresa implements Serializable {
     @Column(name = "razon_social", nullable = false)
     private String razonSocial;
 
-    @NotNull
     @Column(name = "razon_comercial", nullable = false)
     private String razonComercial;
 

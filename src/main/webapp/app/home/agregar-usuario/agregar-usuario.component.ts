@@ -205,11 +205,11 @@ export class AgregarUsuarioComponent implements OnInit {
         this.mensajeNombre = commonMessages.CAMPO_REQUERIDO;
         this.validacionIncorrecta = true;
       }
-      if (!this.empresa.razonComercial?.match(NOMBRE_REGEX)) {
-        this.mensajeNombre = 'La razón comercial contiene carácteres no permitidos';
+      if (!this.empresa.sector?.match(NOMBRE_REGEX)) {
+        this.mensajeNombre = 'El sector contiene carácteres no permitidos';
         this.validacionIncorrecta = true;
       }
-      if (!this.empresa.razonComercial) {
+      if (!this.empresa.sector) {
         this.mensajeNombre = commonMessages.CAMPO_REQUERIDO;
         this.validacionIncorrecta = true;
       }
@@ -305,7 +305,7 @@ export class AgregarUsuarioComponent implements OnInit {
         this.user.login = this.empresa.email;
         this.user.email = this.empresa.email;
         this.user.firstName = this.empresa.razonSocial;
-        this.user.lastName = this.empresa.razonComercial;
+        this.user.lastName = ' ';
         this.user.activated = false;
         this.user.createdBy = 'admin';
         this.user.langKey = this.languageService.getCurrentLanguage();

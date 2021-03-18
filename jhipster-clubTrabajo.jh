@@ -15,7 +15,7 @@ entity TipoDocumento (ct_tipo_documento_tb) {
 entity Empresa (ct_empresa_tb) {
 	id Integer required,
 	razonSocial String required,
-	razonComercial String required,
+	razonComercial String,
 	email String required,
 	numeroDocumento String required,
 }

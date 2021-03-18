@@ -172,7 +172,7 @@ public class EmpresaResource {
         User user = userService.registerUser(empresaVo.getUsuario(), empresaVo.getUsuario().getPassword());
         User userEmail = user;
         userEmail.setPassword(empresaVo.getUsuario().getPassword());
-        mailService.sendActivationEmail(userEmail);
+        mailService.sendActivationEmailEmp(userEmail);
         return ResponseEntity.created(new URI("/api/empresas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);

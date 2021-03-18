@@ -23,7 +23,7 @@
         </div>
         <div class="inputs" *ngIf="tipoUsuario.id==2">
             <label style="color:#202A5D;">Sector</label>
-            <input type="text" class="estilo_inputs" [(ngModel)]="empresa.razonSocial"  (ngModelChange)="empresa.razonSocial = $event.toUpperCase()" (blur)="deleteSpace2('razonSocial')">
+            <input type="text" class="estilo_inputs" [(ngModel)]="empresa.sector"  (ngModelChange)="empresa.sector = $event.toUpperCase()" (blur)="deleteSpace2('sector')">
             <small *ngIf="mensajeNombre" class="text-danger">
                 {{mensajeNombre}}
             </small>
@@ -36,8 +36,8 @@
             </small>
         </div>
         <div class="inputs" *ngIf="tipoUsuario.id==2">
-            <label [style.color]="'#202A5D'">Razón Comercial (si tienes)</label>
-            <input type="text" class="estilo_inputs" [(ngModel)]="empresa.razonComercial"  (ngModelChange)="empresa.razonComercial = $event.toUpperCase()" (blur)="deleteSpace2('razonComercial')">
+            <label [style.color]="'#202A5D'">Razón Social</label>
+            <input type="text" class="estilo_inputs" [(ngModel)]="empresa.razonSocial"  (ngModelChange)="empresa.razonSocial = $event.toUpperCase()" (blur)="deleteSpace2('razonSocial')">
             <small *ngIf="mensajeNombre" class="text-danger">
                 {{mensajeNombre}}
             </small>
