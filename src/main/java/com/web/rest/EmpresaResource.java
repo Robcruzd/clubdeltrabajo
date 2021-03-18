@@ -165,7 +165,7 @@ public class EmpresaResource {
     public ResponseEntity<Empresa> crearUsuarioEmpresa(@Valid @RequestBody EmpresaVo empresaVo) throws URISyntaxException {
         log.debug("REST request to save Persona : {}", empresaVo);
         if (empresaVo.getEmpresa().getId() != null) {
-            throw new BadRequestAlertException("A new persona cannot already have an ID", ENTITY_NAME, "idexists");
+            throw new BadRequestAlertException("A new empresa cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Empresa result = empresaService.save(empresaVo.getEmpresa());
         empresaVo.getUsuario().setUserEmpresa(result.getId());

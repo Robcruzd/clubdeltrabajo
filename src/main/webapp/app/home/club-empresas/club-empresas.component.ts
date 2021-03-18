@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
-import { EmpresaService } from 'app/entities/empresa/empresa.service.ts';
-import { IEmpresa } from 'app/shared/model/empresa.model.ts';
+import { IEmpresa } from 'app/shared/model/empresa.model';
+import { EmpresaService } from 'app/entities/empresa/empresa.service';
 
 @Component({
   selector: 'jhi-club-empresas',
@@ -50,6 +50,10 @@ export class ClubEmpresasComponent implements OnInit {
 
   clubEmpresas(): void {
     this.router.navigate(['club-empresas']);
+  }
+
+  controlaOferta(): void {
+    this.router.navigate(['controlar-ofertas']);
   }
 
   getEmpresas(): void {

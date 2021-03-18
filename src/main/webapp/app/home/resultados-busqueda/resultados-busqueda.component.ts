@@ -8,7 +8,7 @@ import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { HttpResponse } from '@angular/common/http';
 import { IRegiones } from 'app/shared/model/regiones.model';
 import { GeografiaVo } from 'app/shared/vo/geografia-vo';
-import { IOpcionVo, IResultadoBusquedaOfertas } from 'app/shared/vo/opcion-vo';
+import { IOpcionVo } from 'app/shared/vo/opcion-vo';
 import { IProfesion } from 'app/shared/model/profesion.model';
 import { ProfesionService } from 'app/entities/profesion/profesion.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -63,6 +63,7 @@ export class ResultadosBusquedaComponent implements OnInit {
   generoValue: any = null;
   experienciaValue: any = null;
   experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
+  archivoEmpresa: any;
 
   public page = 1;
   constructor(
@@ -157,7 +158,7 @@ export class ResultadosBusquedaComponent implements OnInit {
     }, 500);
   }
 
-  getOfertas(): void {
+  async getOfertas(): Promise<any> {
     if (this.general === 'true') {
       this.ofertaService.query().subscribe(response => {
         this.resultadoBusqueda = response.body;
@@ -205,58 +206,81 @@ export class ResultadosBusquedaComponent implements OnInit {
         }
       });
     } else {
-      this.personaService.find(this.personaInicial).subscribe(personaResponse => {
-        this.personaFiltro = personaResponse.body;
-        this.aplicacionOfertaService.getPersonaFiltro(this.personaFiltro).subscribe(ApliOfeResponse => {
-          this.ListaAplicacionOferta = ApliOfeResponse;
-          if (this.ListaAplicacionOferta) {
-            this.ListaAplicacionOferta.forEach(element => {
-              const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element?.oferta?.salario);
-              const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element?.oferta?.ciudad?.toString());
-              const profesionBD = this.profesiones.find(profesion => profesion.id === element?.oferta?.profesion);
-              this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
-                archivos => {
-                  if (archivos.body !== null) {
-                    this.imagen = archivos.body;
-                  }
-                  this.listaResultadoBusquedaOfertas.push({
-                    profesion: profesionBD?.profesion,
-                    salario: salarioBD?.nombre,
-                    ciudad: ciudadBD?.nombre,
-                    fechaPublicacion: element?.oferta?.fechaPublicacion?.toString(),
-                    empresa: element?.oferta?.usuario?.razonSocial,
-                    idEmpresa: element?.oferta?.usuario?.id,
-                    idOferta: element?.oferta?.id,
-                    imagen: archivos.body?.archivo
-                  });
-                  this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
-                },
-                error => {
-                  // eslint-disable-next-line no-console
-                  console.log('eeeeeeeeeeeeeeeee', error);
-                  this.listaResultadoBusquedaOfertas.push({
-                    profesion: profesionBD?.profesion,
-                    salario: salarioBD?.nombre,
-                    ciudad: ciudadBD?.nombre,
-                    fechaPublicacion: element?.oferta?.fechaPublicacion?.toString(),
-                    empresa: element?.oferta?.usuario?.razonSocial,
-                    idEmpresa: element?.oferta?.usuario?.id,
-                    idOferta: element?.oferta?.id,
-                    imagen: this.urlImgDefault
-                  });
-                  this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
-                }
-              );
-            });
-          }
-        });
-      });
+      this.personaFiltro = await this.getPersonaInicial();
+      this.ListaAplicacionOferta = await this.getPersonaFiltro(this.personaFiltro);
+      if (this.ListaAplicacionOferta) {
+        for (let i = 0; i < this.ListaAplicacionOferta.length; i++) {
+          const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === this.ListaAplicacionOferta[i].oferta?.salario);
+          const ciudadBD = this.municipiosPersonal.find(
+            ciudad => ciudad.codigo === this.ListaAplicacionOferta[i].oferta?.ciudad?.toString()
+          );
+          const profesionBD = this.profesiones.find(profesion => profesion.id === this.ListaAplicacionOferta[i].oferta?.profesion);
+          // this.archivoEmpresa = await this.getArchivoImagenEmpresa(this.ListaAplicacionOferta[i].usuario?.id!);
+          this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, this.ListaAplicacionOferta[i].usuario?.id!).subscribe(
+            archivos => {
+              if (archivos.body !== null) {
+                this.imagen = archivos.body;
+              }
+              this.listaResultadoBusquedaOfertas.push({
+                profesion: profesionBD?.profesion,
+                salario: salarioBD?.nombre,
+                ciudad: ciudadBD?.nombre,
+                fechaPublicacion: this.ListaAplicacionOferta[i].oferta?.fechaPublicacion?.toString(),
+                empresa: this.ListaAplicacionOferta[i]?.oferta?.usuario?.razonSocial,
+                idEmpresa: this.ListaAplicacionOferta[i]?.oferta?.usuario?.id,
+                idOferta: this.ListaAplicacionOferta[i]?.oferta?.id,
+                imagen: archivos.body?.archivo
+              });
+              this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+            },
+            error => {
+              // eslint-disable-next-line no-console
+              console.log('eeeeeeeeeeeeeeeee', error);
+              this.listaResultadoBusquedaOfertas.push({
+                profesion: profesionBD?.profesion,
+                salario: salarioBD?.nombre,
+                ciudad: ciudadBD?.nombre,
+                fechaPublicacion: this.ListaAplicacionOferta[i]?.oferta?.fechaPublicacion?.toString(),
+                empresa: this.ListaAplicacionOferta[i]?.oferta?.usuario?.razonSocial,
+                idEmpresa: this.ListaAplicacionOferta[i]?.oferta?.usuario?.id,
+                idOferta: this.ListaAplicacionOferta[i]?.oferta?.id,
+                imagen: this.urlImgDefault
+              });
+              this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+            }
+          );
+        }
+      }
     }
 
     // let params = {
     //   nombre: null,
     //   idUsuarioCreador : this.token.getUser().id
     // }
+  }
+
+  getPersonaInicial(): Promise<any> {
+    return new Promise(resolve => {
+      this.personaService.find(this.personaInicial).subscribe(personaResponse => {
+        resolve(personaResponse.body);
+      });
+    });
+  }
+
+  getPersonaFiltro(personaFiltro: any): Promise<any> {
+    return new Promise(resolve => {
+      this.aplicacionOfertaService.getPersonaFiltro(personaFiltro).subscribe(ApliOfeResponse => {
+        resolve(ApliOfeResponse);
+      });
+    });
+  }
+
+  getArchivoImagenEmpresa(idUsuario: any): Promise<any> {
+    return new Promise(resolve => {
+      this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, idUsuario).subscribe(archivos => {
+        resolve(archivos);
+      });
+    });
   }
 
   async cargarOfertar(): Promise<any> {
