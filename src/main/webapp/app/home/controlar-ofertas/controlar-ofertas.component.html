@@ -58,8 +58,8 @@
                                 <div class="div2Oferta">
                                     <p class="text1">{{oferta.profesion}}</p>
                                     <p class="text2">{{oferta.salario}}</p>
-                                    <p class="text2">{{oferta.ciudad}}</p>
-                                    <div style="display: flex; justify-content: flex-end;">
+                                    <p class="text3">{{oferta.ciudad}}</p>
+                                    <div class="btnEditar">
                                     <button class="btn boton-editar" (click)="editarOferta(oferta.id)">
                                         <p class="titulo-boton">Editar</p>
                                     </button>
@@ -74,7 +74,7 @@
                                     <div class="div-switch">
                                         <p class="labelActivar" *ngIf="!oferta.activado">Activar oferta</p>
                                         <p class="labelActivar" *ngIf="oferta.activado">Detener oferta</p>
-                                        <label class="switch" style="margin-left: 15px;">
+                                        <label class="switch">
                                             <input type="checkbox" [checked]= oferta.activado [(ngModel)]="oferta.activado" (change)="cambiarEstado($event, oferta)">
                                             <span class="slider round"></span>
                                         </label>
@@ -96,7 +96,7 @@
                             </div> 
                         </ng-container>
                     </div>
-                    <div style="margin-top: 2rem; align-items: center;">
+                    <div class="btnVolver">
                         <button class="btn boton-volver" (click)="volverCrearOferta()">
                             <!-- <fa-icon icon="chevron-left" class="border-icon" ></fa-icon> -->
                             <p class="titulo-boton">Volver a perfil</p>

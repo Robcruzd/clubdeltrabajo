@@ -134,9 +134,11 @@
     flex-direction: column-reverse;
     justify-content: space-between;
     min-width: 100vw;
-    min-height: 100vh;
+    //min-height: 100vh;
+    background: transparent linear-gradient(0deg, #eff0f1 0%, #ffffff 100%) 0% 0% no-repeat padding-box;
 
     .estilo_imagen {
+      display: none;
       width: 80%;
       right: auto;
       bottom: auto;
@@ -169,6 +171,7 @@
       .titulo2 {
         font: normal normal normal 23px/30px Roboto;
         letter-spacing: 0.46px;
+        
       }
 
       .texto3 {
@@ -182,10 +185,11 @@
       }
 
       .lista {
-        font: normal normal normal 20px/40px Roboto;
+        font: normal normal normal 20px/30px Roboto;
         letter-spacing: 0.4px;
         margin-top: 3rem;
         margin-bottom: 3rem;
+        
       }
 
       .boton-crear-oferta {
@@ -215,6 +219,7 @@
         width: 98px;
         height: 31px;
         border-radius: 13px;
+        margin-bottom: 3%;
         font: normal normal normal 12px/14px Arial;
 
         .titulo-boton {

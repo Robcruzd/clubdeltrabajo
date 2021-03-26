@@ -129,6 +129,7 @@ export class AgregarUsuarioComponent implements OnInit {
   onCrearUsuario(): void {
     const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const NOMBRE_REGEX = /^[a-zA-ZÑÁÉÍÓÚñáéíóú ]{1,}$/;
+    const NOMBRE2_REGEX = /^[a-zA-ZÑÁÉÍÓÚñáéíóú0-9 ]{1,}$/;
     const CONTRASENA_REGEX = /.*(?=.{8,20})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*/;
     const PASAPORTE_REGEX = /^[0-9A-Za-z]{6,18}$/;
     const CEDULA_REGEX = /^[0-9]{5,18}$/;
@@ -197,7 +198,7 @@ export class AgregarUsuarioComponent implements OnInit {
         this.validacionIncorrecta = true;
       }
     } else {
-      if (!this.empresa.razonSocial?.match(NOMBRE_REGEX)) {
+      if (!this.empresa.razonSocial?.match(NOMBRE2_REGEX)) {
         this.mensajeNombre = 'La razón social contiene carácteres no permitidos';
         this.validacionIncorrecta = true;
       }
@@ -205,7 +206,7 @@ export class AgregarUsuarioComponent implements OnInit {
         this.mensajeNombre = commonMessages.CAMPO_REQUERIDO;
         this.validacionIncorrecta = true;
       }
-      if (!this.empresa.razonComercial?.match(NOMBRE_REGEX)) {
+      if (!this.empresa.razonComercial?.match(NOMBRE2_REGEX)) {
         this.mensajeNombre = 'La razón comercial contiene carácteres no permitidos';
         this.validacionIncorrecta = true;
       }

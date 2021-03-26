@@ -3,8 +3,8 @@
     <p class="text-top">¡Explora cientos de ofertas de trabajo!</p>
     <img src="../../../content/images/img3.png" class="imgTop" style="margin-left: 2%;">
     </div>
-    <div class="row" style="display: flex;">
-        <div class="col-md-8">
+    <div class="row">
+        <!--<div class="col-md-8">-->
             <div class="cuerpo">
                 <div *ngIf = "general === 'true'">
                     <div class="buscador">
@@ -99,7 +99,7 @@
                     <br>
                 </div>
                 <div class="ofertas" style="margin-left: 0 !important;">
-                    <div class="oferta" *ngFor="let oferta of listaResultadoBusquedaOfertas | paginate: { itemsPerPage: 20, currentPage: page }">
+                    <div class="oferta" *ngFor="let oferta of listaResultadoBusquedaOfertas | paginate: { itemsPerPage: 6, currentPage: page }">
                         <div class="oferta-arriba">
                             <div class="info">
                                 <p class="negrita">{{oferta.empresa}}</p>
@@ -121,6 +121,6 @@
                     maxSize="6">
                 </pagination-controls>
             </div>
-        </div>
+        <!--</div>-->
     </div>
 </div>

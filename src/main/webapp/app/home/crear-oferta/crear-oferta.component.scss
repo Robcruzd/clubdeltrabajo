@@ -9,7 +9,7 @@
     width: min-content;
 
     .botones-arriba {
-      display: flex;
+      
       flex-direction: row;
       width: 783px;
       flex-wrap: wrap;
@@ -70,7 +70,7 @@
     }
 
     .ngnum0 {
-      width: 61.378vw;
+      //width: 61.378vw;
       align-self: center;
       justify-self: center;
       background: transparent linear-gradient(181deg, #edeff2 0%, #edeff2 100%) 0% 0% no-repeat padding-box;
@@ -85,24 +85,24 @@
 
       .estilo_titulo {
         text-align: left;
-        font-size: 1.3vw;
+        //font-size: 1.3vw;
         font-family: 'Open Sans';
         font-weight: bold;
         letter-spacing: 0px;
         color: #1b2455;
         opacity: 1;
-        padding-left: 1.7rem;
+        //padding-left: 1.7rem;
       }
 
       .estilo_label {
         width: 100%;
         text-align: left;
-        font-size: 0.91vw;
+        //font-size: 0.91vw;
         font-family: Arial;
         letter-spacing: 0px;
         color: #1b2455;
         opacity: 1;
-        padding-left: 1.04vw;
+        //padding-left: 1.04vw;
         margin-bottom: 0.52vw;
       }
 
@@ -123,12 +123,12 @@
 
           .select-70 {
             @extend .form-group2;
-            width: 67.5%;
+            width: 45%;
           }
 
           .select-30 {
             @extend .form-group2;
-            width: 27.5%;
+            width: 45%;
           }
 
           .form-group2 {
@@ -142,7 +142,7 @@
               padding-right: 1rem;
               padding-left: 1.5rem;
               font-size: 0.875rem;
-              width: 100%;
+              //width: 100%;
               border: none;
               border-radius: 23px;
             }
@@ -268,7 +268,7 @@
         .estilo_campo_requerido {
           text-align: left;
           margin-bottom: 0.52vw;
-          font: 1.495vw Arial;
+          //font: 1.495vw Arial;
           letter-spacing: 0px;
           color: #fd2b4c;
           opacity: 1;
@@ -392,6 +392,7 @@
         color: #7e7474;
         opacity: 1;
         margin-left: 1rem;
+        margin-right: 1rem;
       }
 
       .titulo_oferta_previsualizacion {
@@ -549,4 +550,66 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+@media screen and (min-width: 900px) {
+  .botones-arriba{
+    display: flex;
+  }
+  .ngnum0{
+    width: 61.378vw;
+    .estilo_titulo {
+      font-size: 1.3vw;
+      padding-left: 1.7rem;
+    }
+    .estilo_label {
+      font-size: 0.91vw;
+      padding-left: 1.04vw;
+    }
+    .estilo_campo_requerido {
+
+      font: 1.495vw Arial;
+
+    }
+    .row {
+      .row-2{
+        width: 50%;
+      }
+      .form-group2 {
+        //display: flex;
+        //flex-direction: column;
+        align-items: center;
+        // width: 90%;
+  }
+    }
+  }
+  
+}
+
+@media screen and (max-width: 900px) {
+  .botones-arriba{
+    display: none;
+  }
+  .ngnum0{
+    width: 90vw;
+    .estilo_titulo {
+      font-size: 14px;
+      padding-left: 1rem;
+    }
+    .estilo_label {
+      font-size: 9px;
+      padding-left: 1rem;
+    }
+
+    .estilo_campo_requerido {
+      font: 9px Arial;
+    }
+
+    .row{
+      .row-2{
+        width: 100%;
+      }
+
+    }
+  }
 }

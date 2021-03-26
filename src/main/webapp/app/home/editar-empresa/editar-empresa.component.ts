@@ -97,8 +97,8 @@ export class EditarEmpresaComponent implements OnInit {
   crearFormularioEmpresa(): void {
     this.formEmpresa = this.fb.group({
       id: [''],
-      razonSocial: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
-      razonComercial: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
+      razonSocial: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ0-9 ]{1,}$')]],
+      razonComercial: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ0-9 ]{1,}$')]],
       numeroDocumento: ['', [Validators.required]],
       direccion: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú#. -]{0,}$')]],
       telefono: ['', [Validators.required, Validators.pattern('^[0-9]{7,10}$')]],
