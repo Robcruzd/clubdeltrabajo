@@ -47,7 +47,7 @@
         <div class="box-right">
             <h1><span style="color: grey;">{{hojaVidaVo?.informacionPersonal?.usuario?.nombre}}</span> {{hojaVidaVo?.informacionPersonal?.usuario?.apellido}}</h1>
             <div style="padding-left: 3.121vw;" *ngFor="let item of hojaVidaVo?.experienciaLaboral">
-                <h3>{{hojaVidaVo?.informacionPersonal?.profesion}}</h3>
+                <h3>{{hojaVidaVo?.informacionPersonal?.profesion?.profesion}}</h3>
                 <!-- <div *ngIf="item.trabajoActual==true">
                     <div *ngIf="item.cargo?.cargo!=='Otro'">
                         

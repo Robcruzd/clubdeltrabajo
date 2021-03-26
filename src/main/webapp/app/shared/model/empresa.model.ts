@@ -12,8 +12,8 @@ export interface IEmpresa {
   direccion?: string;
   telefono?: number;
   ciudad?: number;
-  sector?: number;
-  subsector?: number;
+  sector?: string;
+  subsector?: string;
   paginaWeb?: string;
   cantidadEmpleados?: string;
   descripcionEmpresa?: string;
@@ -34,8 +34,8 @@ export class Empresa implements IEmpresa {
     public direccion?: string,
     public telefono?: number,
     public ciudad?: number,
-    public sector?: number,
-    public subsector?: number,
+    public sector?: string,
+    public subsector?: string,
     public paginaWeb?: string,
     public cantidadEmpleados?: string,
     public descripcionEmpresa?: string,

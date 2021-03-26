@@ -11,9 +11,7 @@
         {
             "fieldName": "razonComercial",
             "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldValidateRules": []
         },
         {
             "fieldName": "email",

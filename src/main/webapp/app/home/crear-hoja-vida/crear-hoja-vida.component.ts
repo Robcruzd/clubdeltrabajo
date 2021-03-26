@@ -542,6 +542,8 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   onSubmit1(): void {
+    // eslint-disable-next-line no-console
+    console.log('submit1');
     // this.cargando = false;
     this.hojaVidaVo = new HojaVidaVo();
 
@@ -571,12 +573,21 @@ export class CrearHojaVidaComponent implements OnInit {
 
   cargarArchivos(hojavo: HojaVidaVo): void {
     this.hojaVidaVo = hojavo;
-    if (this.archivos.length !== 0) {
+    // eslint-disable-next-line no-console
+    console.log('archivos: ', this.archivos);
+    if (this.archivos.length > 0) {
       this.hojaVidaVo.archivos = this.archivos;
     }
-
+    // eslint-disable-next-line no-console
+    console.log('gfgfgfgfgfgfgfgf');
     this.service.create(this.hojaVidaVo).subscribe(
       response => {
+        // eslint-disable-next-line no-console
+        console.log('response save: ', response);
+        // eslint-disable-next-line no-console
+        console.log('archivos aws: ', this.archivosaws);
+        // eslint-disable-next-line no-console
+        console.log('archivos: ', this.archivos);
         if (response.body !== null) {
           this.archivosaws.forEach((element: { file: File; name: string }) => {
             const formData = new FormData();
@@ -627,6 +638,12 @@ export class CrearHojaVidaComponent implements OnInit {
 
       this.service.create(this.hojaVidaVo).subscribe(
         response => {
+          // eslint-disable-next-line no-console
+          console.log('response save: ', response);
+          // eslint-disable-next-line no-console
+          console.log('archivos aws: ', this.archivosaws);
+          // eslint-disable-next-line no-console
+          console.log('archivos: ', this.archivos);
           if (response.body !== null) {
             this.archivosaws.forEach((element: { file: File; name: string }) => {
               const formData = new FormData();
