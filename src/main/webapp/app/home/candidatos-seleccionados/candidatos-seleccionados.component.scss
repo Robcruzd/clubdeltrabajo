@@ -317,22 +317,19 @@
   .div-center2 {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: min-content;
 
     .ngnum1 {
-      width: 767px;
+      //width: 767px;
       //align-self: center;
       //justify-self: center;
       background: #f8f8f8 0% 0% no-repeat padding-box;
       opacity: 1;
-      margin-top: 25px;
       margin-bottom: 28px;
       //padding: 0rem;
       padding-top: 24px;
       padding-bottom: 28px;
       padding-left: 23px;
-      max-width: none;
+      //max-width: 600px;
 
       .titulo_oferta {
         text-align: left;
@@ -342,6 +339,7 @@
         letter-spacing: 0px;
         color: #645d5d;
         opacity: 1;
+        margin-right: 5%;
       }
 
       .profesion_oferta {
@@ -364,6 +362,7 @@
         color: #7e7474;
         opacity: 1;
         line-height: 17px;
+        margin-right: 5%;
         //margin-left: 1rem;
       }
 
@@ -379,8 +378,7 @@
       }
 
       .tabla_oferta {
-        margin-left: 8%;
-        //margin-right: 10rem;
+        width: 100%;
         .des_titulo {
           font-family: 'Roboto';
           font-size: 12px;
@@ -412,7 +410,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: min-content;
+    //width: min-content;
 
     .titulo_aspirantes {
       font-family: 'Roboto';
@@ -423,7 +421,7 @@
       margin-right: 52%;
     }
     .cuerpo {
-      width: 1071px;
+      //width: 1071px;
       display: flex;
 
       .btnBuscar {
@@ -451,27 +449,24 @@
       }
 
       .buscador {
-        display: flex;
-        flex-flow: column;
+        //display: flex;
+        //flex-flow: column;
         background: #f5f5f5 0% 0% no-repeat padding-box;
-        height: 695px;
-        width: 126px;
-        //margin-bottom: 145px;
-        //margin-left: 178;
-        //margin-right: 24px; //1062
+        //height: 695px;
+        //width: 126px;
         .input-buscador {
           display: flex;
-          margin-top: 23px;
+          //margin-top: 23px;
           margin-left: 15px;
           margin-right: 15px;
           background: #ffffff 0% 0% no-repeat padding-box;
           opacity: 1;
-          width: 75px;
+          //width: 75px;
           height: 15px;
           margin-left: 10px;
           .form-control {
-            width: 85px;
-            height: 15px;
+            //width: 85px;
+            //height: 15px;
             font-size: 9px;
             margin-left: 6px;
           }
@@ -533,38 +528,20 @@
         }
       }
       .perfiles {
-        display: flex;
-        background: #f8f8f8; //#BAFFE3 #FFC1C1;
-        width: 767px;
-        height: 85px;
-        margin-left: 24px;
-        align-items: center;
-        //margin-bottom: 26px;
-        justify-content: space-between;
         .mitad1 {
-          width: 272px;
-          height: 85px;
           display: flex;
           .imagen {
             display: flex;
             width: 56px;
             height: 56px;
-            //background-color: black;
             border-radius: 130px;
             border: none;
-            margin-top: 14px;
-            margin-left: 43px;
-            margin-right: 24px;
-            margin-bottom: 15px;
           }
           p.nombre {
             font-size: 15px;
             font-family: 'Roboto';
             font-weight: bold;
             position: relative;
-            top: 23%;
-            margin-bottom: 20px;
-            width: 150px;
             height: min-content;
             color: #020d52;
             line-height: 15px;
@@ -575,29 +552,21 @@
             color: #7e7474;
             opacity: 1;
             font-weight: bold;
-            //margin-top: 3px;
+            //margin-top: 3px; modificar en menor a 900 px
           }
         }
         .mitad2 {
-          //width: 170px;
-          max-width: max-content;
-          height: 85px;
-          display: flex;
+          //width: 170px; cambiar en menor a 900px
 
           p.resumen {
             font-size: 11px;
             font-family: 'Roboto';
             font-weight: normal;
             text-align: left;
-            //margin-left:27px;
-            margin-right: 54px;
-            //margin-top: 19px;
             margin-bottom: 0px;
           }
         }
         .parte3 {
-          width: 111px;
-          height: 31px;
           .textp3 {
             //font-family: 'Roboto';
             font-size: 11px;
@@ -611,14 +580,15 @@
             line-height: 16px;
             font-weight: normal;
             color: #7e7474;
+            //
+            margin-bottom: 0;
           }
         }
         .parte4 {
-          width: 83px;
-          height: 85px;
+         
           background: #1a9fef;
           text-align: center;
-          padding-top: 20px;
+          
           .verhv {
             font-family: 'Roboto';
             font-size: 12px;
@@ -629,28 +599,17 @@
         }
       }
       .btn-seleccionado {
-        padding-left: 44%;
-        .mensajeEmail {
-          height: 24px;
-          width: 201px;
-        }
         .btn1 {
-          height: 24px;
-          width: 116px;
           background: #020d52;
           color: #fbfbfb;
           font-family: 'Arial';
-          font-size: 12px;
           text-align: center;
           border: none;
         }
         .btn2 {
-          height: 24px;
-          width: 116px;
           background: #1a9fef;
           color: #fbfbfb;
           font-family: 'Arial';
-          font-size: 12px;
           text-align: center;
           border: none;
         }
@@ -970,4 +929,234 @@ kendo-pdf-export {
       }
     }
   }
+  .estilo_titulo2{
+    padding-left: 10%;
+  }
+  .ngnum1{
+    width: 100%;
+    max-width: 600px;
+  }
+  .buscador{
+    display: flex;
+    flex-flow: wrap;
+    min-height: 55px;
+    margin-bottom: 2%;
+    justify-content: center;
+    width: 100%;
+    .input-buscador {
+      background: #f8f8f8 0% 0% no-repeat padding-box;
+      margin-top: 3%;
+      width: 100%;
+      .form-control {
+        width: 100%;
+        height: 15px;
+      }
+    }
+    .filtros{
+      display: flex;
+      flex-flow: wrap;
+      justify-content: center;
+      width: 100%;
+    }
+  }
+  .div-center3{
+    width: 90%;
+    .cuerpo{
+      width: 100%;
+      display: flex;
+      flex-flow: wrap;
+    }
+
+  }
+  
+  .perfil{
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap;
+    width: 100%;
+    .contngfor{
+      width: 48%;
+      margin: 1%;
+      max-width: 200px;
+      min-width: 150px;
+      .perfiles{
+      display:inline-table;
+      justify-content: space-between;
+      padding: 2%;
+      margin-bottom: 2%;
+      margin-right: 1%;
+      width: 100%;
+      .mitad1{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        .contenedornc{
+          display: flex;
+          align-content: center;
+          flex-flow: wrap;
+          p.nombre{
+            margin-bottom: 0;
+          }
+          p.carrera{
+            line-height: 13px;
+            margin-bottom: 0;
+          }
+        }
+      }
+      .mitad2{
+        padding: 1% 0% 1% 0%;
+        height: max-content;
+        min-height: 70px;
+        display: flex;
+      }
+      .parte4{
+        width: 100%;
+        height: min-content;
+        text-align: center;
+        .verhv{
+          margin-bottom: 0;
+        }
+      }
+      }
+      .btn-seleccionado {
+        .mensajeEmail {
+          height: 20px;
+          width: 100%;
+        }
+        .btn1 {
+          height: 20px;
+          width: 49%;
+          font-size: 10px;
+        }
+        .btn2 {
+          height: 20px;
+          width: 49%;
+          font-size: 8px;
+        }
+      }
+    }
+  }
+  .btnVerOcultar{
+    width: 100%;
+    display: grid;
+    .button-filtros{
+      color: #f5f5f5;
+      background:#020d52;
+      font-size: 9px;
+      font-family: 'Roboto';
+    }
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .estilo_titulo2{
+    padding-left: 10%;
+  }
+  .ngnum1{
+    width: 767px;
+    margin-top: 25px;
+  }
+  .div-center2{
+    align-items: center;
+    width: min-content;
+  }
+  .buscador{
+    display: flex;
+    flex-flow: column;
+    height: 695px;
+    width: 126px;
+    margin-bottom: 2%;
+    .input-buscador {
+      margin-top: 23px;
+      width: 75px;
+      .form-control {
+        width: 85px;
+        height: 15px;
+      }
+    }
+  }
+  .div-center3{
+    width: min-content;
+    .cuerpo{
+      width: 1071px;
+      display: flex;
+    }
+  }
+  .perfil{
+    height: 710px;
+    margin-bottom: 20px;
+    .contngfor{
+      height: 122px;
+    }
+    .perfiles{
+      display:flex;
+      background: #f8f8f8;
+      width: 767px;
+      height: 85px;
+      margin-left: 24px;
+      align-items: center;
+      justify-content: space-between;
+      .mitad1{
+        width: 272px;
+        height: 85px;
+        display: flex;
+        .imagen {
+          margin-top: 14px;
+          margin-left: 43px;
+          margin-right: 24px;
+          margin-bottom: 15px;
+        }
+        p.nombre{
+          top:23%;
+          margin-bottom: 20px;
+          width: 150px;
+        }
+      }
+      .mitad2{
+        max-width: max-content;
+        height: 85px;
+        display: flex;
+        p.resumen{
+          margin-right: 54px;
+        }
+      }
+      .parte3{
+        width: 111px;
+        height: 31px;
+      }
+      .parte4{
+        width: 83px;
+        height: 85px;
+        padding-top: 20px;
+      }
+    }
+    .btn-seleccionado {
+      padding-left: 44%;
+      .mensajeEmail {
+        height: 24px;
+        width: 201px;
+      }
+      .btn1 {
+        height: 24px;
+        width: 116px;
+        background: #020d52;
+        color: #fbfbfb;
+        font-family: 'Arial';
+        font-size: 12px;
+        text-align: center;
+        border: none;
+      }
+      .btn2 {
+        height: 24px;
+        width: 116px;
+        background: #1a9fef;
+        color: #fbfbfb;
+        font-family: 'Arial';
+        font-size: 12px;
+        text-align: center;
+        border: none;
+      }
+    }
+  }
+
 }

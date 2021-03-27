@@ -64,6 +64,8 @@ export class ResultadosBusquedaComponent implements OnInit {
   experienciaValue: any = null;
   experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
   archivoEmpresa: any;
+  filtrosOn = false;
+  showBtn = false;
 
   public page = 1;
   constructor(
@@ -93,6 +95,14 @@ export class ResultadosBusquedaComponent implements OnInit {
     }
     this.profesion = this.dataService.data?.profesion;
     this.ubicacion = this.dataService.data?.ubicacion;
+
+    if (window.screen.width <= 900) {
+      this.showBtn = true;
+    }
+    
+    if (window.screen.width >= 900) {
+      this.filtrosOn = true;
+    }
   }
 
   cargarCuentaUsuario(): void {

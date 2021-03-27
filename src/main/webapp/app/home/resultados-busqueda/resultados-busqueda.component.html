@@ -1,5 +1,5 @@
 <div class="container">
-    <div *ngIf="general === 'true'" style="display: flex; align-items: center; justify-content: center; margin-top: 2%; margin-bottom: 75px;">
+    <div *ngIf="general === 'true'" style="display: flex; align-items: center; justify-content: center; margin-top: 2%;" class="presentacion">
     <p class="text-top">¡Explora cientos de ofertas de trabajo!</p>
     <img src="../../../content/images/img3.png" class="imgTop" style="margin-left: 2%;">
     </div>
@@ -17,10 +17,12 @@
                                 </fa-icon>
                             </button>
                         </div>
-                        <div class="empresas">
+                        <div class="empresas" >
                             <p class="titulo">Empresas</p>
                             <p class="resultado">{{totalEmpresas}} resultados</p>
                         </div>
+                       <div class="filtros" *ngIf = "filtrosOn">
+                        
                         <!-- <div class="Sector">
                             <p class="titulo">Profesión</p>
                             <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarOfertar()">
@@ -80,7 +82,11 @@
                                 </option>
                             </select>
                         </div>
-                            
+                       </div>
+                       <div *ngIf= "showBtn" class="btnVerOcultar">
+                        <button *ngIf= "!filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ver Filtros</button>
+                        <button *ngIf= "filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ocultar Filtros</button>
+                       </div>
                         <!-- <div class="Sector">
                             <p class="titulo">Fecha</p>
                             <select class="resultado" [(ngModel)]="fechaValue" (change)="cargarOfertar()">
@@ -99,7 +105,7 @@
                     <br>
                 </div>
                 <div class="ofertas" style="margin-left: 0 !important;">
-                    <div class="oferta" *ngFor="let oferta of listaResultadoBusquedaOfertas | paginate: { itemsPerPage: 6, currentPage: page }">
+                    <div class="oferta" *ngFor="let oferta of listaResultadoBusquedaOfertas | paginate: { itemsPerPage: 20, currentPage: page }">
                         <div class="oferta-arriba">
                             <div class="info">
                                 <p class="negrita">{{oferta.empresa}}</p>

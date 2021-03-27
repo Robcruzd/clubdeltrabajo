@@ -279,7 +279,7 @@
 }
 
 .btn-success {
-  width: 132px;
+  //width: 132px;
   height: 31px;
   background: #2699fb 0% 0% no-repeat padding-box;
   border-radius: 24px;
@@ -295,7 +295,7 @@
 }
 
 .boton-volver {
-  width: 132px;
+  //width: 132px;
   height: 31px;
   background: #e5e5e5 0% 0% no-repeat padding-box;
   border-radius: 24px;
@@ -318,10 +318,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: min-content;
+    //width: min-content;
 
     .ngnum1 {
-      width: 61.378vw;
+      //width: 61.378vw;
       align-self: center;
       justify-self: center;
       background: #f8f8f8 0% 0% no-repeat padding-box;
@@ -363,7 +363,7 @@
 
       .titulo_oferta {
         text-align: left;
-        font-size: 1.3vw;
+        //font-size: 1.3vw;
         font-family: 'Open Sans';
         font-weight: bold;
         letter-spacing: 0px;
@@ -374,7 +374,7 @@
 
       .profesion_oferta {
         text-align: left;
-        font-size: 1.3vw;
+        //font-size: 1.3vw;
         font-family: 'Open Sans';
         font-weight: bold;
         letter-spacing: 0px;
@@ -385,7 +385,7 @@
 
       .descripcion_profesion {
         text-align: left;
-        font-size: 1.3vw;
+        //font-size: 1.3vw;
         font-family: 'Open Sans';
         font-weight: bold;
         letter-spacing: 0px;
@@ -414,7 +414,7 @@
 
     .estilo_titulo2 {
       text-align: left;
-      font-size: 1.3vw;
+      //font-size: 1.3vw;
       font-family: 'Open Sans';
       font-weight: bold;
       letter-spacing: 0px;
@@ -426,7 +426,7 @@
       display: flex;
       flex-direction: row;
       justify-content: space-evenly;
-      width: 100%;
+      //width: 100%;
       margin-bottom: 2rem;
     }
   }
@@ -583,6 +583,34 @@ input:checked + .slider:before {
   }
     }
   }
+  .div-center2{
+    width: 900px;
+    .estilo_titulo2{
+      font-size: 1.3vw;
+    }
+    .ngnum1{
+      width: 61.378vw;
+      .titulo_oferta{
+        font-size: 1.3vw;
+      }
+      .profesion_oferta{
+        font-size: 1.3vw;
+      }
+      .descripcion_profesion{
+        font-size: 1.3vw;
+      }
+    }
+    .botones{
+      .boton-volver{
+        width: 132px;
+      }
+      .btn-success{
+        width: 132px;
+      }
+    }
+
+  }
+  
   
 }
 
@@ -611,5 +639,34 @@ input:checked + .slider:before {
       }
 
     }
+  }
+
+  .div-center2{
+    width: 100%;
+    max-width: 450px;
+    .estilo_titulo2{
+      font-size: 14px;
+    }
+    .ngnum1{
+      width: 100%;
+      .titulo_oferta{
+        font-size: 16px;
+      }
+      .profesion_oferta{
+        font-size: 14px;
+      }
+      .descripcion_profesion{
+        font-size: 9px;
+      }
+    }
+    .botones{
+      .boton-volver{
+        width: 50%;
+      }
+      .btn-success{
+        width: 50%;
+      }
+    }
+
   }
 }
