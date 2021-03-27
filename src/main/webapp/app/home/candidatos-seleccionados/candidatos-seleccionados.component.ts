@@ -102,6 +102,8 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   mensajeEmail = '';
   aplicacionOferta: any;
   cargando = true;
+  filtrosOn = false;
+  showBtnArriba = true;
 
   constructor(
     private router: Router,
@@ -122,6 +124,14 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     const param = this.route.snapshot.paramMap.get('oferta')!;
     this.idOferta = parseInt(param, 10);
     this.getOFerta(this.idOferta);
+
+    if (window.screen.width <= 900) {
+      this.showBtnArriba = false;
+    }
+
+    if (window.screen.width >= 900) {
+      this.showBtnArriba = true;
+    }
   }
 
   getOFerta(id: number): void {

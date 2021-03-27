@@ -43,7 +43,6 @@
   //}
 }
 .cuerpo {
-
   .btnBuscar {
     height: 15px;
     width: 15px;
@@ -146,7 +145,7 @@
 .ofertas {
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  //justify-content: start;
   flex-wrap: wrap;
 
   p {
@@ -154,7 +153,7 @@
   }
 
   .oferta {
-    width: 184px;
+    //width: 184px;
     min-height: 153px;
     background: #f8f8f8 0% 0% no-repeat padding-box;
     display: flex;
@@ -286,21 +285,29 @@
   //line-height: 3px;
 }
 
-
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media screen and (min-width: 900px) {
+  .presentacion {
+    margin-bottom: 75px;
+  }
   .text-top {
     font-size: 49px;
     width: 434px;
     height: 123px;
     line-height: 59px;
   }
-  .cuerpo{
+  .cuerpo {
     display: flex;
     width: 1071px;
     margin-left: 80px;
   }
-  .buscador{
+  .ofertas {
+    justify-content: start;
+    .oferta {
+      width: 184px;
+    }
+  }
+  .buscador {
     display: flex;
     flex-flow: column;
     height: 640px;
@@ -323,20 +330,49 @@
     width: 50%;
     max-width: 434px;
   }
+  .cuerpo {
+    width: 100%;
+  }
   .imgTop {
     width: 50%;
   }
-  .buscador{
+  .ofertas {
+    justify-content: center;
+    .oferta {
+      max-width: 184px;
+      width: 45%;
+    }
+  }
+  .buscador {
     display: flex;
     flex-flow: wrap;
+    min-height: 55px;
     margin-bottom: 2%;
+    justify-content: center;
     .input-buscador {
+      background: #f8f8f8 0% 0% no-repeat padding-box;
       margin-top: 3%;
       width: 100%;
       .form-control {
         width: 100%;
         height: 15px;
       }
+    }
+  }
+  .filtros {
+    flex-flow: wrap;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+  .btnVerOcultar {
+    width: 100%;
+    display: grid;
+    .button-filtros {
+      color: #f5f5f5;
+      background: #020d52;
+      font-size: 9px;
+      font-family: 'Roboto';
     }
   }
 }
