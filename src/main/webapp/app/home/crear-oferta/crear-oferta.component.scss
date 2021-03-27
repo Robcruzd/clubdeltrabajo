@@ -9,7 +9,6 @@
     width: min-content;
 
     .botones-arriba {
-      
       flex-direction: row;
       width: 783px;
       flex-wrap: wrap;
@@ -120,6 +119,7 @@
           justify-content: space-between;
           padding-left: 2.5%;
           padding-right: 2.5%;
+          margin-bottom: 1rem;
 
           .select-70 {
             @extend .form-group2;
@@ -553,10 +553,10 @@ input:checked + .slider:before {
 }
 
 @media screen and (min-width: 900px) {
-  .botones-arriba{
+  .botones-arriba {
     display: flex;
   }
-  .ngnum0{
+  .ngnum0 {
     width: 61.378vw;
     .estilo_titulo {
       font-size: 1.3vw;
@@ -567,12 +567,10 @@ input:checked + .slider:before {
       padding-left: 1.04vw;
     }
     .estilo_campo_requerido {
-
       font: 1.495vw Arial;
-
     }
     .row {
-      .row-2{
+      .row-2 {
         width: 50%;
       }
       .form-group2 {
@@ -580,36 +578,71 @@ input:checked + .slider:before {
         //flex-direction: column;
         align-items: center;
         // width: 90%;
-  }
+      }
     }
   }
-  
 }
 
 @media screen and (max-width: 900px) {
-  .botones-arriba{
+  .botones-arriba {
     display: none;
   }
-  .ngnum0{
-    width: 90vw;
-    .estilo_titulo {
-      font-size: 14px;
-      padding-left: 1rem;
-    }
-    .estilo_label {
-      font-size: 9px;
-      padding-left: 1rem;
-    }
 
-    .estilo_campo_requerido {
-      font: 9px Arial;
-    }
+  .contenedor {
+    .div-center {
+      .ngnum0 {
+        width: 90vw;
+        .estilo_titulo {
+          font-size: 14px;
+          padding-left: 1rem;
+        }
+        .estilo_label {
+          font-size: 9px;
+          padding-left: 1rem;
+        }
 
-    .row{
-      .row-2{
-        width: 100%;
+        .estilo_campo_requerido {
+          font: 9px Arial;
+        }
+
+        .row {
+          flex-direction: column;
+          align-items: center;
+
+          .column {
+            width: 100%;
+
+            .form-group {
+              .genero {
+                font-size: 9px;
+
+                .radio-inline {
+                  margin-left: 1rem;
+
+                  .div_radiobutton {
+                    width: 12px;
+                    margin-right: 5px;
+                  }
+
+                  .radio-button {
+                    height: 12px;
+                  }
+                }
+              }
+            }
+          }
+
+          .row-2 {
+            width: 90%;
+
+            .select-30 {
+              .estilo_inputs {
+                width: 100%;
+              }
+            }
+          }
+        }
       }
-
     }
   }
 }

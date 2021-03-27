@@ -61,7 +61,7 @@ export class NavbarCtComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.router.url === '/' || this.router.url === '/inicio-sesion' || this.router.url === '/agregar-usuario') {
+    if (this.router.url === '/' || this.router.url === '/inicio-sesion') {
       this.hideNavbar = true;
     } else {
       this.hideNavbar = false;
@@ -78,7 +78,7 @@ export class NavbarCtComponent implements OnInit {
           this.showNavbar = this.accountService.isAuthenticated() ? true : false;
           this.showElement = this.accountService.isAuthenticated() ? true : false;
           this.logged = this.accountService.isAuthenticated() ? true : false;
-          if (this.router.url === '/inicio-sesion' || this.router.url === '/agregar-usuario') {
+          if (this.router.url === '/inicio-sesion') {
             this.hideNavbar = true;
             if (this.logged) {
               if (this.account?.user) {

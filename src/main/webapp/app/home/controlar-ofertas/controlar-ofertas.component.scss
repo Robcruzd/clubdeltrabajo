@@ -127,7 +127,6 @@
               align-items: center;
               justify-content: space-between;
 
-
               .titulo_div1 {
                 text-align: left;
                 font-size: 12px;
@@ -137,15 +136,14 @@
                 color: #ffffff;
                 opacity: 1;
               }
-              .boton-eliminar{
+              .boton-eliminar {
                 border: none;
                 background: transparent;
                 border-color: transparent;
                 outline: none;
-                
+
                 .border-icon2 {
-                  
-                  color:#ffffff;
+                  color: #ffffff;
                   width: 12px;
                   height: 12px;
                   opacity: 1;
@@ -153,13 +151,13 @@
                   border-radius: 50%;
                 }
               }
-              .boton-eliminar:focus{
+              .boton-eliminar:focus {
                 border: none;
                 background: transparent;
                 border-color: transparent;
                 outline: 0;
                 .border-icon2 {
-                  color:#ffffff;
+                  color: #ffffff;
                   width: 34px;
                   height: 34px;
                   opacity: 1;
@@ -167,7 +165,6 @@
                   border-radius: 50%;
                 }
               }
-              
             }
             .div2Oferta {
               width: 100%;
@@ -180,7 +177,7 @@
               max-width: none;
               display: flex;
               flex-direction: column;
-              p{
+              p {
                 padding-right: 0.7rem;
               }
 
@@ -206,9 +203,9 @@
                 color: #645d5d;
                 height: 33px;
               }
-              
-              .btnEditar{
-                display: flex; 
+
+              .btnEditar {
+                display: flex;
                 justify-content: flex-end;
                 .boton-editar {
                   align-self: flex-end;
@@ -216,7 +213,7 @@
                   height: 21px;
                   background: #cccccc 0% 0% no-repeat padding-box;
                   padding: 0;
-                  p{
+                  p {
                     padding-right: 0;
                   }
 
@@ -225,7 +222,7 @@
                     font: normal normal normal 8px/7px Roboto;
                     letter-spacing: 0px;
                     color: #001045;
-                }
+                  }
                 }
               }
             }
@@ -264,7 +261,6 @@
               padding-right: 0.3rem;
               align-items: center;
               padding-top: 5px;
-
 
               .div-switch {
                 display: flex;
@@ -372,8 +368,8 @@
           opacity: 1;
         }
 
-        .btnVolver{
-          margin-top: 2rem; 
+        .btnVolver {
+          margin-top: 2rem;
           align-items: center;
           .boton-volver {
             display: flex;
@@ -383,11 +379,27 @@
             border-radius: 24px;
             align-items: center;
             justify-content: center;
-            color: #1B2455;
+            color: #1b2455;
             font-family: 'Roboto';
             font-size: 10px;
             font-weight: bold;
             margin-bottom: 50px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .contenedor {
+    .div-center {
+      .contenedor3 {
+        .div-center3 {
+          .ngnum3 {
+            width: 96%;
+            min-width: auto;
+            justify-content: space-evenly;
           }
         }
       }
