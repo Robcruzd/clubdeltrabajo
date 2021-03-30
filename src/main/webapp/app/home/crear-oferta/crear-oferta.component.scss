@@ -9,7 +9,6 @@
     width: min-content;
 
     .botones-arriba {
-      display: flex;
       flex-direction: row;
       width: 783px;
       flex-wrap: wrap;
@@ -70,7 +69,7 @@
     }
 
     .ngnum0 {
-      width: 61.378vw;
+      //width: 61.378vw;
       align-self: center;
       justify-self: center;
       background: transparent linear-gradient(181deg, #edeff2 0%, #edeff2 100%) 0% 0% no-repeat padding-box;
@@ -85,24 +84,24 @@
 
       .estilo_titulo {
         text-align: left;
-        font-size: 1.3vw;
+        //font-size: 1.3vw;
         font-family: 'Open Sans';
         font-weight: bold;
         letter-spacing: 0px;
         color: #1b2455;
         opacity: 1;
-        padding-left: 1.7rem;
+        //padding-left: 1.7rem;
       }
 
       .estilo_label {
         width: 100%;
         text-align: left;
-        font-size: 0.91vw;
+        //font-size: 0.91vw;
         font-family: Arial;
         letter-spacing: 0px;
         color: #1b2455;
         opacity: 1;
-        padding-left: 1.04vw;
+        //padding-left: 1.04vw;
         margin-bottom: 0.52vw;
       }
 
@@ -120,15 +119,16 @@
           justify-content: space-between;
           padding-left: 2.5%;
           padding-right: 2.5%;
+          margin-bottom: 1rem;
 
           .select-70 {
             @extend .form-group2;
-            width: 67.5%;
+            width: 45%;
           }
 
           .select-30 {
             @extend .form-group2;
-            width: 27.5%;
+            width: 45%;
           }
 
           .form-group2 {
@@ -142,7 +142,7 @@
               padding-right: 1rem;
               padding-left: 1.5rem;
               font-size: 0.875rem;
-              width: 100%;
+              //width: 100%;
               border: none;
               border-radius: 23px;
             }
@@ -268,7 +268,7 @@
         .estilo_campo_requerido {
           text-align: left;
           margin-bottom: 0.52vw;
-          font: 1.495vw Arial;
+          //font: 1.495vw Arial;
           letter-spacing: 0px;
           color: #fd2b4c;
           opacity: 1;
@@ -279,7 +279,7 @@
 }
 
 .btn-success {
-  width: 132px;
+  //width: 132px;
   height: 31px;
   background: #2699fb 0% 0% no-repeat padding-box;
   border-radius: 24px;
@@ -295,7 +295,7 @@
 }
 
 .boton-volver {
-  width: 132px;
+  //width: 132px;
   height: 31px;
   background: #e5e5e5 0% 0% no-repeat padding-box;
   border-radius: 24px;
@@ -318,10 +318,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: min-content;
+    //width: min-content;
 
     .ngnum1 {
-      width: 61.378vw;
+      //width: 61.378vw;
       align-self: center;
       justify-self: center;
       background: #f8f8f8 0% 0% no-repeat padding-box;
@@ -363,7 +363,7 @@
 
       .titulo_oferta {
         text-align: left;
-        font-size: 1.3vw;
+        //font-size: 1.3vw;
         font-family: 'Open Sans';
         font-weight: bold;
         letter-spacing: 0px;
@@ -374,7 +374,7 @@
 
       .profesion_oferta {
         text-align: left;
-        font-size: 1.3vw;
+        //font-size: 1.3vw;
         font-family: 'Open Sans';
         font-weight: bold;
         letter-spacing: 0px;
@@ -385,13 +385,14 @@
 
       .descripcion_profesion {
         text-align: left;
-        font-size: 1.3vw;
+        //font-size: 1.3vw;
         font-family: 'Open Sans';
         font-weight: bold;
         letter-spacing: 0px;
         color: #7e7474;
         opacity: 1;
         margin-left: 1rem;
+        margin-right: 1rem;
       }
 
       .titulo_oferta_previsualizacion {
@@ -413,7 +414,7 @@
 
     .estilo_titulo2 {
       text-align: left;
-      font-size: 1.3vw;
+      //font-size: 1.3vw;
       font-family: 'Open Sans';
       font-weight: bold;
       letter-spacing: 0px;
@@ -425,7 +426,7 @@
       display: flex;
       flex-direction: row;
       justify-content: space-evenly;
-      width: 100%;
+      //width: 100%;
       margin-bottom: 2rem;
     }
   }
@@ -549,4 +550,153 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+@media screen and (min-width: 900px) {
+  .botones-arriba {
+    display: flex;
+  }
+  .ngnum0 {
+    width: 61.378vw;
+    .estilo_titulo {
+      font-size: 1.3vw;
+      padding-left: 1.7rem;
+    }
+    .estilo_label {
+      font-size: 0.91vw;
+      padding-left: 1.04vw;
+    }
+    .estilo_campo_requerido {
+      font: 1.495vw Arial;
+    }
+    .row {
+      .row-2 {
+        width: 50%;
+      }
+      .form-group2 {
+        //display: flex;
+        //flex-direction: column;
+        align-items: center;
+        // width: 90%;
+      }
+    }
+  }
+  .div-center2 {
+    width: 900px;
+    .estilo_titulo2 {
+      font-size: 1.3vw;
+    }
+    .ngnum1 {
+      width: 61.378vw;
+      .titulo_oferta {
+        font-size: 1.3vw;
+      }
+      .profesion_oferta {
+        font-size: 1.3vw;
+      }
+      .descripcion_profesion {
+        font-size: 1.3vw;
+      }
+    }
+    .botones {
+      .boton-volver {
+        width: 132px;
+      }
+      .btn-success {
+        width: 132px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .botones-arriba {
+    display: none;
+  }
+
+  .contenedor {
+    .div-center {
+      .ngnum0 {
+        width: 90vw;
+        .estilo_titulo {
+          font-size: 14px;
+          padding-left: 1rem;
+        }
+        .estilo_label {
+          font-size: 9px;
+          padding-left: 1rem;
+        }
+
+        .estilo_campo_requerido {
+          font: 9px Arial;
+        }
+
+        .row {
+          flex-direction: column;
+          align-items: center;
+
+          .column {
+            width: 100%;
+
+            .form-group {
+              .genero {
+                font-size: 9px;
+
+                .radio-inline {
+                  margin-left: 1rem;
+
+                  .div_radiobutton {
+                    width: 12px;
+                    margin-right: 5px;
+                  }
+
+                  .radio-button {
+                    height: 12px;
+                  }
+                }
+              }
+            }
+          }
+
+          .row-2 {
+            width: 90%;
+
+            .select-30 {
+              .estilo_inputs {
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .div-center2 {
+    width: 100%;
+    max-width: 450px;
+    .estilo_titulo2 {
+      font-size: 14px;
+    }
+    .ngnum1 {
+      width: 100%;
+      .titulo_oferta {
+        font-size: 16px;
+      }
+      .profesion_oferta {
+        font-size: 14px;
+      }
+      .descripcion_profesion {
+        font-size: 9px;
+      }
+    }
+    .botones {
+      .boton-volver {
+        width: 50%;
+      }
+      .btn-success {
+        width: 50%;
+      }
+    }
+  }
 }

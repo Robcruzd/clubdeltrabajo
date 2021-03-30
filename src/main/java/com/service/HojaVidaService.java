@@ -210,17 +210,19 @@ public class HojaVidaService {
 			}
 		}
 		
-		List<Archivo> archivosDiferentes = new ArrayList<Archivo>();
-		for(Archivo dato :  hojaVida.getArchivos()) {
-			if(dato.getTipo() == 3 || dato.getTipo() == 4) {
-				archivosDiferentes.add(dato);
+		if (hojaVida.getArchivos() != null && !hojaVida.getArchivos().isEmpty()) {
+			List<Archivo> archivosDiferentes = new ArrayList<Archivo>();
+			for(Archivo dato :  hojaVida.getArchivos()) {
+				if(dato.getTipo() == 3 || dato.getTipo() == 4) {
+					archivosDiferentes.add(dato);
+				}
 			}
+			archivosDiferentes.stream().map(f -> {
+				return f;
+			}).forEach(f -> {
+				this.archivoRepository.save(f);
+			});
 		}
-		archivosDiferentes.stream().map(f -> {
-			return f;
-		}).forEach(f -> {
-			this.archivoRepository.save(f);
-		});
 	}
 
 	/**

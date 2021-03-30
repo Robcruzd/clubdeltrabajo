@@ -1,10 +1,10 @@
 <div class="container">
-    <div *ngIf="general === 'true'" style="display: flex; align-items: center; justify-content: center; margin-top: 2%; margin-bottom: 75px;">
+    <div *ngIf="general === 'true'" style="display: flex; align-items: center; justify-content: center; margin-top: 2%;" class="presentacion">
     <p class="text-top">¡Explora cientos de ofertas de trabajo!</p>
     <img src="../../../content/images/img3.png" class="imgTop" style="margin-left: 2%;">
     </div>
-    <div class="row" style="display: flex;">
-        <div class="col-md-8">
+    <div class="row">
+        <!--<div class="col-md-8">-->
             <div class="cuerpo">
                 <div *ngIf = "general === 'true'">
                     <div class="buscador">
@@ -17,10 +17,12 @@
                                 </fa-icon>
                             </button>
                         </div>
-                        <div class="empresas">
+                        <div class="empresas" >
                             <p class="titulo">Empresas</p>
                             <p class="resultado">{{totalEmpresas}} resultados</p>
                         </div>
+                       <div class="filtros" *ngIf = "filtrosOn">
+                        
                         <!-- <div class="Sector">
                             <p class="titulo">Profesión</p>
                             <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarOfertar()">
@@ -80,7 +82,11 @@
                                 </option>
                             </select>
                         </div>
-                            
+                       </div>
+                       <div *ngIf= "showBtn" class="btnVerOcultar">
+                        <button *ngIf= "!filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ver Filtros</button>
+                        <button *ngIf= "filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ocultar Filtros</button>
+                       </div>
                         <!-- <div class="Sector">
                             <p class="titulo">Fecha</p>
                             <select class="resultado" [(ngModel)]="fechaValue" (change)="cargarOfertar()">
@@ -121,6 +127,6 @@
                     maxSize="6">
                 </pagination-controls>
             </div>
-        </div>
+        <!--</div>-->
     </div>
 </div>

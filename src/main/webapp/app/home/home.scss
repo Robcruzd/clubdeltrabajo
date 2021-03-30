@@ -412,6 +412,150 @@ p {
       }
     }
 
+    .ofertas-destacadas {
+      width: 100%;
+      min-height: 281px;
+      background: #304580 0% 0% no-repeat padding-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .div-titulo {
+        width: 75%;
+        padding-bottom: 0.5rem;
+
+        .titulo {
+          text-align: left;
+          font: normal normal normal 17px/23px Roboto;
+          letter-spacing: 0px;
+          color: #ffffff;
+        }
+      }
+
+      .ofertas {
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+
+        p {
+          margin: 0;
+        }
+
+        .oferta {
+          width: 184px;
+          min-height: 153px;
+          background: #f8f8f8 0% 0% no-repeat padding-box;
+          display: flex;
+          flex-direction: column;
+          padding: 1rem;
+          justify-content: space-between;
+          margin-bottom: 1rem;
+
+          .oferta-arriba {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            .info {
+              display: flex;
+              flex-direction: column;
+
+              .negrita {
+                text-align: left;
+                font: normal normal bold 12px/17px Roboto;
+                letter-spacing: 0px;
+                color: #645d5d;
+              }
+            }
+
+            .logo-oferta {
+              width: 50px;
+              height: 50px;
+            }
+          }
+
+          .sin-negrita {
+            text-align: left;
+            font: normal normal normal 12px/17px Roboto;
+            letter-spacing: 0px;
+            color: #645d5d;
+          }
+
+          .button-ver {
+            width: 64px;
+            height: 23px;
+            background: #2699fb 0% 0% no-repeat padding-box;
+            text-align: center;
+            font: normal normal normal 11px/12px Roboto;
+            letter-spacing: 0px;
+            color: #ffffff;
+            border: none;
+            align-self: flex-end;
+            margin-top: 1rem;
+          }
+        }
+      }
+    }
+
+    .buscar-ofertas {
+      display: flex;
+      flex-direction: column;
+      width: 95%;
+
+      .texto-imagen {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        width: 90%;
+
+        .texto-explora {
+          width: 315px;
+          font-style: italic;
+          font-weight: 900;
+          font-size: small;
+          font-family: Roboto;
+          // font: italic normal 900 36px/43px Roboto;
+          letter-spacing: 0px;
+          color: #1a9fef;
+        }
+
+        .img {
+          width: 55%;
+        }
+      }
+
+      .inputs {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+
+        .input {
+          width: 48%;
+
+          .inputCiudades {
+            background: #f5f5f5 0% 0% no-repeat padding-box;
+            border: none;
+            width: 100%;
+            height: 48px;
+            padding-left: 10px;
+            font-size: small;
+          }
+        }
+      }
+
+      .boton-buscar {
+        width: 95px;
+        height: 24px;
+        background: #151d5c 0% 0% no-repeat padding-box;
+        color: white;
+        border: none;
+        font-family: Roboto;
+        font-size: 15px;
+      }
+    }
+
     .titulo2 {
       font: normal normal 300 130% Roboto;
       letter-spacing: 0px;
@@ -531,6 +675,10 @@ p {
         font-size: 46px;
         font-family: Roboto;
         color: white;
+
+        .eresEmpresa {
+          font-size: 14px;
+        }
       }
     }
 
@@ -538,11 +686,11 @@ p {
       background: #2699fb 0% 0% no-repeat padding-box;
       width: 100%;
       border: none;
-      // font-size: 3rem;
-      font: italic normal 900 60px/64px Roboto;
       color: white;
-      // font-weight: bold;
-      height: 103px;
+      font-size: 100%;
+      font-family: 'Roboto';
+      font-style: italic;
+      height: 3rem;
     }
   }
   // .estilo_home {

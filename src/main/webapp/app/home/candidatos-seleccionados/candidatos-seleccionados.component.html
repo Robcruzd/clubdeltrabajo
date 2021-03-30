@@ -1,4 +1,4 @@
-<div class="contenedor">
+<div class="contenedor" *ngIf="showBtnArriba">
     <div class="div-center">
         <div class="botones-arriba">
             <button class="btn boton-clicked" (click)="crearOferta()">
@@ -15,13 +15,13 @@
                     <p class="titulo-boton">Editar perfil</p>
                 </div>
             </button>
-            <button class="btn boton-no-clicked" (click)="clubEmpresas()">
+            <!-- <button class="btn boton-no-clicked" (click)="clubEmpresas()">
                 <fa-icon icon="suitcase" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
                     <p class="titulo-boton">Club de empresas</p>
                 </div>
-            </button>
+            </button> -->
             <button class="btn boton-no-clicked" (click)="controlaOferta()">
                 <fa-icon icon="eye" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
@@ -29,13 +29,13 @@
                     <p class="titulo-boton">Controla tus ofertas</p>
                 </div>
             </button>
-            <button class="btn boton-no-clicked" (click)="membresia()">
+            <!-- <button class="btn boton-no-clicked" (click)="membresia()">
                 <fa-icon [icon]="faStar" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
                     <p class="titulo-boton">Membresía</p>
                 </div>
-            </button>
+            </button> -->
         </div>
     </div>
 </div>
@@ -48,7 +48,7 @@
                         <p class="titulo_oferta">{{listaResultadoOfertas[0].titulo}}</p>
                         <!--<p class="profesion_oferta">profesionOferta</p>-->
                         <p class="descripcion_profesion">{{listaResultadoOfertas[0].descripcion}}</p>
-                        <table class="tabla_oferta" style="width: 90%;">
+                        <table class="tabla_oferta">
                             <tr>
                               <th class="titulo_oferta_previsualizacion">Titulo:</th>
                               <th class="titulo_oferta_previsualizacion">Tipo de contrato:</th>
@@ -60,7 +60,7 @@
                               <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].publicado}}</td>
                             </tr>
                         </table>
-                        <table class="tabla_oferta" style="width: 90%;">
+                        <table class="tabla_oferta">
                             <tr>
                               <th class="titulo_oferta_previsualizacion">Experiencia:</th>
                               <th class="titulo_oferta_previsualizacion">Ciudad:</th>
@@ -94,6 +94,7 @@
                     <p class="titulo">Perfiles</p>
                     <p class="resultado">{{totalAspirantes}} resultados</p>
                 </div>
+                <div class="filtros" *ngIf = "filtrosOn">
                 <div class="Sector">
                     <p class="titulo">Edad</p>
                     <select class="resultado" [(ngModel)]="edadValue" (change)="cargarAspirantes()">
@@ -143,17 +144,21 @@
                         </option>
                     </select>
                 </div>
-                        
+                </div>                        
+                
+                <div *ngIf= "!showBtnArriba" class="btnVerOcultar">
+                    <button *ngIf= "!filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ver Filtros</button>
+                    <button *ngIf= "filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ocultar Filtros</button>
+                </div>
                 </div> 
                 <div class="perfil">
-                    <div style="height: 710px; margin-bottom: 20px;">
-                    <div *ngFor="let item of listaResultadoBusquedaAspirantes | paginate: { itemsPerPage: 6, currentPage: page }" style="height: 122px;">
+                    <div *ngFor="let item of listaResultadoBusquedaAspirantes | paginate: { itemsPerPage: 6, currentPage: page }" class="contngfor">
                     <a class="perfiles" (click)="verAspirante(item)" [style.background]="item.color">
                         <div class="mitad1">
                             <div class="imagen">
                                  <img src="../../../content/images/Image 282.png" alt="">
                             </div>
-                            <div>
+                            <div class="contenedornc">
                             <!-- <p class="nombre">Bavaria</p> -->
                             <p class="nombre">{{item.nombre}} {{ item.apellido}}</p>
                             <p class="carrera">{{item.profesion}}</p>
@@ -189,7 +194,6 @@
                         <button *ngIf="cargando" class="btn1" (click)="enviarEmail(item)"> <fa-icon [icon]="faPaperPlane" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> Enviar Mail</button>
                         <span *ngIf="!cargando" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         <button class="btn2" (click)="getHojaVida(item)"> <fa-icon [icon]="faArrowDown" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> Descargar H.V</button>
-                    </div>
                     </div>
                     </div>
                     <pagination-controls (pageChange)="page = $event" class="controls" 

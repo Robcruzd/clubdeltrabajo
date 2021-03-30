@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { AccountService } from 'app/core/auth/account.service';
 import { OfertaService } from 'app/entities/oferta/oferta.service';
 import { AplicacionOfertaService } from 'app/entities/aplicacion-oferta/aplicacion-oferta.service';
@@ -21,6 +21,7 @@ declare let alertify: any;
   templateUrl: './controlar-ofertas.component.html',
   styleUrls: ['./controlar-ofertas.component.scss']
 })
+
 export class ControlarOfertasComponent implements OnInit {
   listaOFertasCreadas: Array<IlistarOfertas> = [];
   faStar = faStar;

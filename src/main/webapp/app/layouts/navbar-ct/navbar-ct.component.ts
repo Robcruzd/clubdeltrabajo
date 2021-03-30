@@ -35,8 +35,8 @@ export class NavbarCtComponent implements OnInit {
 
   lstOpcionesMenu: any = [
     { id: 1, etiqueta: 'Inicio', ruta: '/' },
-    { id: 2, etiqueta: 'Personas', ruta: '/inicio-sesion' },
-    { id: 3, etiqueta: 'Empresas', ruta: '/inicio-sesion' },
+    { id: 2, etiqueta: 'Personas', ruta: '/previo-registrar' },
+    { id: 3, etiqueta: 'Empresas', ruta: '/previo-registrar-emp' },
     { id: 4, etiqueta: 'Publicaciones', ruta: '/resultados-busqueda' },
     { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
     { id: 6, etiqueta: 'Contacto', ruta: '/informacion-empresa' }
@@ -61,7 +61,7 @@ export class NavbarCtComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.router.url === '/' || this.router.url === '/inicio-sesion' || this.router.url === '/agregar-usuario') {
+    if (this.router.url === '/' || this.router.url === '/inicio-sesion') {
       this.hideNavbar = true;
     } else {
       this.hideNavbar = false;
@@ -78,7 +78,7 @@ export class NavbarCtComponent implements OnInit {
           this.showNavbar = this.accountService.isAuthenticated() ? true : false;
           this.showElement = this.accountService.isAuthenticated() ? true : false;
           this.logged = this.accountService.isAuthenticated() ? true : false;
-          if (this.router.url === '/' || this.router.url === '/inicio-sesion' || this.router.url === '/agregar-usuario') {
+          if (this.router.url === '/inicio-sesion') {
             this.hideNavbar = true;
             if (this.logged) {
               if (this.account?.user) {
@@ -104,8 +104,22 @@ export class NavbarCtComponent implements OnInit {
           }
           if (this.showNavbar) {
             if (this.account?.user) {
+              this.lstOpcionesMenu = [
+                { id: 1, etiqueta: 'Inicio', ruta: '/' },
+                { id: 2, etiqueta: 'Personas', ruta: '/perfil' },
+                { id: 4, etiqueta: 'Publicaciones', ruta: '/resultados-busqueda' },
+                { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
+                { id: 6, etiqueta: 'Contacto', ruta: '/informacion-empresa' }
+              ];
               this.consultarImagen();
             } else if (this.account?.userEmpresa) {
+              this.lstOpcionesMenu = [
+                { id: 1, etiqueta: 'Inicio', ruta: '/' },
+                { id: 3, etiqueta: 'Empresas', ruta: '/perfil-empresa' },
+                { id: 4, etiqueta: 'Publicaciones', ruta: '/resultados-busqueda' },
+                { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
+                { id: 6, etiqueta: 'Contacto', ruta: '/informacion-empresa' }
+              ];
               this.consultarImagenEmp();
             }
           }

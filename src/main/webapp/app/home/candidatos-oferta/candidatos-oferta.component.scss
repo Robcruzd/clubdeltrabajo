@@ -675,3 +675,29 @@
     opacity: 1;
   }
 }
+
+@media screen and (min-width: 900px) {
+  .div_autocompletes {
+    display: flex;
+    }
+  .divInputComplete {
+    width: 48%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .div_autocompletes {
+
+    display: contents;
+
+    .divInputComplete {
+      margin-bottom: 3%;
+      width: 80%;
+      max-width: 220px;
+      justify-content: center;
+    }
+  }
+  .btns_registra {
+    display: contents;
+  }
+}

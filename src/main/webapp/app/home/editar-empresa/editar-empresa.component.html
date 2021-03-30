@@ -15,13 +15,13 @@
                     <p class="titulo-boton">Editar perfil</p>
                 </div>
             </button>
-            <button class="btn boton-no-clicked" (click)="clubEmpresas()">
+            <!-- <button class="btn boton-no-clicked" (click)="clubEmpresas()">
                 <fa-icon icon="suitcase" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
                     <p class="titulo-boton">Club de empresas</p>
                 </div>
-            </button>
+            </button> -->
             <button class="btn boton-no-clicked" (click)="verOferta()">
                 <fa-icon icon="eye" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
@@ -29,13 +29,13 @@
                     <p class="titulo-boton">Controla tus ofertas</p>
                 </div>
             </button>
-            <button class="btn boton-no-clicked" (click)="membresia()">
+            <!-- <button class="btn boton-no-clicked" (click)="membresia()">
                 <fa-icon [icon]="faStar" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
                     <p class="titulo-boton">Membresía</p>
                 </div>
-            </button>
+            </button> -->
         </div>
         <div class="div-infos">
             <form [formGroup]="formEmpresa" (ngSubmit)="onSubmit()">
@@ -65,7 +65,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group">
+                <div class="form-group-2">
                     <p class="estilo_label">Nombre comercial de la empresa <span
                             class="estilo_campo_requerido">*</span></p>
                     <input type="text" class="estilo_inputs" formControlName="razonComercial" oninput="this.value = this.value.toUpperCase()">
@@ -76,7 +76,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group">
+                <div class="form-group-2">
                     <p class="estilo_label">Razón Social <span
                             class="estilo_campo_requerido">*</span></p>
                     <input type="text" class="estilo_inputs" formControlName="razonSocial" oninput="this.value = this.value.toUpperCase()">

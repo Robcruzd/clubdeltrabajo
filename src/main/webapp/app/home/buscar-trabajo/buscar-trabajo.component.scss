@@ -30,7 +30,7 @@
 
   .div_autocompletes {
     width: 60%;
-    display: flex;
+    //display: flex;
     flex-direction: row;
     justify-content: space-between;
 
@@ -44,7 +44,7 @@
     }
 
     .divInputComplete {
-      width: 48%;
+      //width: 48%;
       background: #ffffff 0% 0% no-repeat padding-box;
       border-radius: 24px;
       display: flex;
@@ -97,3 +97,32 @@
     opacity: 1;
   }
 }
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media screen and (min-width: 900px) {
+  .div_autocompletes {
+
+    display: flex;
+    }
+  .divInputComplete {
+    width: 48%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .div_autocompletes {
+
+    display: contents;
+
+    .divInputComplete {
+      margin-bottom: 3%;
+      width: 80%;
+      max-width: 220px;
+      justify-content: center;
+    }
+  }
+  .btns_registra {
+    display: contents;
+  }
+}
+

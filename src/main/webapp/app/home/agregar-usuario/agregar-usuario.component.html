@@ -1,5 +1,5 @@
 <div class="estilo_body">
-    <img class="estilo_logo" src="../../../content/images/logo_cdt_fondo2.png">
+    <!-- <img class="estilo_logo" src="../../../content/images/logo_cdt_fondo2.png"> -->
     <!-- #EDEFF2 -->
     <div class="div_centro" [ngStyle]="{ 'background': tipoUsuario.id==1 ? 'transparent linear-gradient(180deg, #2d427d 0%, #1a2152 100%) 0% 0% no-repeat padding-box' : '#EDEFF2' }"> 
         <p class="estilo_titulo" [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'">Regístrate y entra al club.</p>
@@ -23,7 +23,7 @@
         </div>
         <div class="inputs" *ngIf="tipoUsuario.id==2">
             <label style="color:#202A5D;">Sector</label>
-            <input type="text" class="estilo_inputs" [(ngModel)]="empresa.razonSocial"  (ngModelChange)="empresa.razonSocial = $event.toUpperCase()" (blur)="deleteSpace2('razonSocial')">
+            <input type="text" class="estilo_inputs" [(ngModel)]="empresa.sector"  (ngModelChange)="empresa.sector = $event.toUpperCase()" (blur)="deleteSpace2('sector')">
             <small *ngIf="mensajeNombre" class="text-danger">
                 {{mensajeNombre}}
             </small>
@@ -36,8 +36,8 @@
             </small>
         </div>
         <div class="inputs" *ngIf="tipoUsuario.id==2">
-            <label [style.color]="'#202A5D'">Razón Comercial (si tienes)</label>
-            <input type="text" class="estilo_inputs" [(ngModel)]="empresa.razonComercial"  (ngModelChange)="empresa.razonComercial = $event.toUpperCase()" (blur)="deleteSpace2('razonComercial')">
+            <label [style.color]="'#202A5D'">Razón Social</label>
+            <input type="text" class="estilo_inputs" [(ngModel)]="empresa.razonSocial"  (ngModelChange)="empresa.razonSocial = $event.toUpperCase()" (blur)="deleteSpace2('razonSocial')">
             <small *ngIf="mensajeNombre" class="text-danger">
                 {{mensajeNombre}}
             </small>
@@ -165,5 +165,5 @@
     <div class="modal-footer">
       <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Aceptar</button>
     </div>
-  </ng-template>
+</ng-template>
 

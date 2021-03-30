@@ -65,6 +65,8 @@ export class ResultadosBusquedaComponent implements OnInit {
   experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
   archivoEmpresa:any;
   ofertaBuscaAll = new Oferta();
+  filtrosOn = false;
+  showBtn = false;
 
   public page = 1;
   constructor(
@@ -94,6 +96,14 @@ export class ResultadosBusquedaComponent implements OnInit {
     }
     this.profesion = this.dataService.data?.profesion;
     this.ubicacion = this.dataService.data?.ubicacion;
+
+    if (window.screen.width <= 900) {
+      this.showBtn = true;
+    }
+
+    if (window.screen.width >= 900) {
+      this.filtrosOn = true;
+    }
   }
 
   cargarCuentaUsuario(): void {
@@ -206,49 +216,51 @@ export class ResultadosBusquedaComponent implements OnInit {
         }
       });
     } else {
-        this.personaFiltro = await this.getPersonaInicial();
-        this.ListaAplicacionOferta = await this.getPersonaFiltro(this.personaFiltro);
-        if (this.ListaAplicacionOferta) {
-          for(let i=0; i<this.ListaAplicacionOferta.length; i++){
-            const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === this.ListaAplicacionOferta[i].oferta?.salario);
-            const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === this.ListaAplicacionOferta[i].oferta?.ciudad?.toString());
-            const profesionBD = this.profesiones.find(profesion => profesion.id === this.ListaAplicacionOferta[i].oferta?.profesion);
-            // this.archivoEmpresa = await this.getArchivoImagenEmpresa(this.ListaAplicacionOferta[i].usuario?.id!);
-            this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, this.ListaAplicacionOferta[i].usuario?.id!).subscribe(
-              archivos => {
-                if (archivos.body !== null) {
-                  this.imagen = archivos.body;
-                }
-                this.listaResultadoBusquedaOfertas.push({
-                  profesion: profesionBD?.profesion,
-                  salario: salarioBD?.nombre,
-                  ciudad: ciudadBD?.nombre,
-                  fechaPublicacion: this.ListaAplicacionOferta[i].oferta?.fechaPublicacion?.toString(),
-                  empresa: this.ListaAplicacionOferta[i]?.oferta?.usuario?.razonSocial,
-                  idEmpresa: this.ListaAplicacionOferta[i]?.oferta?.usuario?.id,
-                  idOferta: this.ListaAplicacionOferta[i]?.oferta?.id,
-                  imagen: archivos.body?.archivo
-                });
-                this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
-              },
-              error => {
-                // eslint-disable-next-line no-console
-                console.log('eeeeeeeeeeeeeeeee', error);
-                this.listaResultadoBusquedaOfertas.push({
-                  profesion: profesionBD?.profesion,
-                  salario: salarioBD?.nombre,
-                  ciudad: ciudadBD?.nombre,
-                  fechaPublicacion: this.ListaAplicacionOferta[i]?.oferta?.fechaPublicacion?.toString(),
-                  empresa: this.ListaAplicacionOferta[i]?.oferta?.usuario?.razonSocial,
-                  idEmpresa: this.ListaAplicacionOferta[i]?.oferta?.usuario?.id,
-                  idOferta: this.ListaAplicacionOferta[i]?.oferta?.id,
-                  imagen: this.urlImgDefault
-                });
-                this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+      this.personaFiltro = await this.getPersonaInicial();
+      this.ListaAplicacionOferta = await this.getPersonaFiltro(this.personaFiltro);
+      if (this.ListaAplicacionOferta) {
+        for (let i = 0; i < this.ListaAplicacionOferta.length; i++) {
+          const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === this.ListaAplicacionOferta[i].oferta?.salario);
+          const ciudadBD = this.municipiosPersonal.find(
+            ciudad => ciudad.codigo === this.ListaAplicacionOferta[i].oferta?.ciudad?.toString()
+          );
+          const profesionBD = this.profesiones.find(profesion => profesion.id === this.ListaAplicacionOferta[i].oferta?.profesion);
+          // this.archivoEmpresa = await this.getArchivoImagenEmpresa(this.ListaAplicacionOferta[i].usuario?.id!);
+          this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, this.ListaAplicacionOferta[i].usuario?.id!).subscribe(
+            archivos => {
+              if (archivos.body !== null) {
+                this.imagen = archivos.body;
               }
-            );
-          }
+              this.listaResultadoBusquedaOfertas.push({
+                profesion: profesionBD?.profesion,
+                salario: salarioBD?.nombre,
+                ciudad: ciudadBD?.nombre,
+                fechaPublicacion: this.ListaAplicacionOferta[i].oferta?.fechaPublicacion?.toString(),
+                empresa: this.ListaAplicacionOferta[i]?.oferta?.usuario?.razonSocial,
+                idEmpresa: this.ListaAplicacionOferta[i]?.oferta?.usuario?.id,
+                idOferta: this.ListaAplicacionOferta[i]?.oferta?.id,
+                imagen: archivos.body?.archivo
+              });
+              this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+            },
+            error => {
+              // eslint-disable-next-line no-console
+              console.log('eeeeeeeeeeeeeeeee', error);
+              this.listaResultadoBusquedaOfertas.push({
+                profesion: profesionBD?.profesion,
+                salario: salarioBD?.nombre,
+                ciudad: ciudadBD?.nombre,
+                fechaPublicacion: this.ListaAplicacionOferta[i]?.oferta?.fechaPublicacion?.toString(),
+                empresa: this.ListaAplicacionOferta[i]?.oferta?.usuario?.razonSocial,
+                idEmpresa: this.ListaAplicacionOferta[i]?.oferta?.usuario?.id,
+                idOferta: this.ListaAplicacionOferta[i]?.oferta?.id,
+                imagen: this.urlImgDefault
+              });
+              this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+            }
+          );
         }
+      }
     }
 
     // let params = {
@@ -257,7 +269,7 @@ export class ResultadosBusquedaComponent implements OnInit {
     // }
   }
 
-  getPersonaInicial():Promise<any>{
+  getPersonaInicial(): Promise<any> {
     return new Promise(resolve => {
       this.personaService.find(this.personaInicial).subscribe(personaResponse => {
         resolve(personaResponse.body);
@@ -265,7 +277,7 @@ export class ResultadosBusquedaComponent implements OnInit {
     });
   }
 
-  getPersonaFiltro(personaFiltro:any):Promise<any>{
+  getPersonaFiltro(personaFiltro: any): Promise<any> {
     return new Promise(resolve => {
       this.aplicacionOfertaService.getPersonaFiltro(personaFiltro).subscribe(ApliOfeResponse => {
         resolve(ApliOfeResponse);
@@ -273,10 +285,9 @@ export class ResultadosBusquedaComponent implements OnInit {
     });
   }
 
-  getArchivoImagenEmpresa(idUsuario:any):Promise<any>{
+  getArchivoImagenEmpresa(idUsuario: any): Promise<any> {
     return new Promise(resolve => {
-      this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL,idUsuario ).subscribe(
-        archivos => {
+      this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, idUsuario).subscribe(archivos => {
         resolve(archivos);
       });
     });

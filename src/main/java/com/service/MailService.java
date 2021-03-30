@@ -114,6 +114,12 @@ public class MailService {
     }
 
     @Async
+    public void sendActivationEmailEmp(User user) {
+        log.debug("Sending activation email to '{}'", user.getEmail());
+        sendEmailFromTemplate(user, "mail/activationEmailEmp", "email.activation.title");
+    }
+
+    @Async
     public void sendCreationEmail(User user) {
         log.debug("Sending creation email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/creationEmail", "email.activation.title");

@@ -165,14 +165,14 @@ public class EmpresaResource {
     public ResponseEntity<Empresa> crearUsuarioEmpresa(@Valid @RequestBody EmpresaVo empresaVo) throws URISyntaxException {
         log.debug("REST request to save Persona : {}", empresaVo);
         if (empresaVo.getEmpresa().getId() != null) {
-            throw new BadRequestAlertException("A new persona cannot already have an ID", ENTITY_NAME, "idexists");
+            throw new BadRequestAlertException("A new empresa cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Empresa result = empresaService.save(empresaVo.getEmpresa());
         empresaVo.getUsuario().setUserEmpresa(result.getId());
         User user = userService.registerUser(empresaVo.getUsuario(), empresaVo.getUsuario().getPassword());
         User userEmail = user;
         userEmail.setPassword(empresaVo.getUsuario().getPassword());
-        mailService.sendActivationEmail(userEmail);
+        mailService.sendActivationEmailEmp(userEmail);
         return ResponseEntity.created(new URI("/api/empresas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);

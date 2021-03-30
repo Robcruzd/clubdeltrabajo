@@ -34,9 +34,9 @@ public class TareaEnviarCorreo extends TimerTask {
     public void run() {
         Connection connection ;
         try {	            
-        	String url = "jdbc:postgresql://localhost:5432/clubTrabajoDB";	            
-        	String user = "postgres";	            
-        	String pass = "1234";	            
+        	String url = "jdbc:postgresql://ec2-18-190-28-55.us-east-2.compute.amazonaws.com:5432/cdtdb";	            
+        	String user = "cdtuser";	            
+        	String pass = "cdtuser";	            
         	connection = DriverManager.getConnection(url ,user, pass);	            
         	Statement stmt = connection.createStatement();	            
         	ResultSet result = stmt.executeQuery("select\r\n" + 
