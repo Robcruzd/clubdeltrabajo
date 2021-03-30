@@ -198,7 +198,7 @@ export class CrearOfertaComponent implements OnInit {
       areaTrabajo: ['', [Validators.required]],
       experiencia: ['', [Validators.required]],
       ciudad: ['', [Validators.required]],
-      idIdioma: ['', [Validators.required]],
+      idIdioma: [''],
       nivelLaboral: ['', [Validators.required]],
       tipoContrato: ['', [Validators.required]],
       modalidadLaboral: ['', [Validators.required]],

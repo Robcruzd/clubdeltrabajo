@@ -64,6 +64,7 @@ export class ResultadosBusquedaComponent implements OnInit {
   experienciaValue: any = null;
   experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
   archivoEmpresa:any;
+  ofertaBuscaAll = new Oferta();
 
   public page = 1;
   constructor(
@@ -160,8 +161,9 @@ export class ResultadosBusquedaComponent implements OnInit {
 
   async getOfertas(): Promise<any> {
     if (this.general === 'true') {
-      this.ofertaService.query().subscribe(response => {
-        this.resultadoBusqueda = response.body;
+      this.ofertaBuscaAll.estado = "A";
+      this.ofertaService.listar(this.ofertaBuscaAll).subscribe(response => {
+        this.resultadoBusqueda = response.content;
         if (this.resultadoBusqueda) {
           this.resultadoBusqueda.forEach(element => {
             const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
@@ -169,8 +171,6 @@ export class ResultadosBusquedaComponent implements OnInit {
             const profesionBD = this.profesiones.find(profesion => profesion.id === element.profesion);
             this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
               archivos => {
-                // eslint-disable-next-line no-console
-                console.log('aaaaaaaaaaaaaaaaaaa', archivos);
                 if (archivos.body !== null) {
                   this.imagen = archivos.body;
                 }
@@ -178,7 +178,7 @@ export class ResultadosBusquedaComponent implements OnInit {
                   profesion: profesionBD?.profesion,
                   salario: salarioBD?.nombre,
                   ciudad: ciudadBD?.nombre,
-                  fecha: element.fechaPublicacion?.format('YYYY-MM-DD'),
+                  fecha: element.fechaPublicacion?.toString(),
                   empresa: element.usuario?.razonSocial,
                   idEmpresa: element.usuario?.id,
                   idOferta: element.id,
@@ -193,7 +193,7 @@ export class ResultadosBusquedaComponent implements OnInit {
                   profesion: profesionBD?.profesion,
                   salario: salarioBD?.nombre,
                   ciudad: ciudadBD?.nombre,
-                  fecha: element.fechaPublicacion?.format('YYYY-MM-DD'),
+                  fecha: element.fechaPublicacion?.toString(),
                   empresa: element.usuario?.razonSocial,
                   idEmpresa: element.usuario?.id,
                   idOferta: element.id,
@@ -293,6 +293,12 @@ export class ResultadosBusquedaComponent implements OnInit {
         if (this.salarioValue != null) {
           params.salario = this.salarioValue;
         }
+        if (this.generoValue != null) {
+          params.genero = this.generoValue;
+        }
+        if (this.experienciaValue != null) {
+          params.experiencia = this.experienciaValue;
+        }
         this.ofertaService.listar(params).subscribe(response => {
           this.resultadoBusqueda = response.content;
           if (this.resultadoBusqueda) {
@@ -328,7 +334,7 @@ export class ResultadosBusquedaComponent implements OnInit {
                     profesion: profesionBD?.profesion,
                     salario: salarioBD?.nombre,
                     ciudad: ciudadBD?.nombre,
-                    fecha: element.fechaPublicacion?.format('YYYY-MM-DD'),
+                    fecha: element.fechaPublicacion?.toString(),
                     empresa: element.usuario?.razonSocial,
                     idEmpresa: element.usuario?.id,
                     idOferta: element.id,
@@ -383,7 +389,7 @@ export class ResultadosBusquedaComponent implements OnInit {
                     profesion: profesionBD?.profesion,
                     salario: salarioBD?.nombre,
                     ciudad: ciudadBD?.nombre,
-                    fecha: element.fechaPublicacion?.format('YYYY-MM-DD'),
+                    fecha: element.fechaPublicacion?.toString(),
                     empresa: element.usuario?.razonSocial,
                     idEmpresa: element.usuario?.id,
                     idOferta: element.id,
@@ -409,6 +415,12 @@ export class ResultadosBusquedaComponent implements OnInit {
             }
             if (this.salarioValue != null) {
               params.salario = this.salarioValue;
+            }
+            if (this.generoValue != null) {
+              params.genero = this.generoValue;
+            }
+            if (this.experienciaValue != null) {
+              params.experiencia = this.experienciaValue;
             }
             params.profesion = this.profesionesFiltro[i].id;
             this.resultadoBusqueda = await this.listarOfertas(params);
@@ -442,7 +454,7 @@ export class ResultadosBusquedaComponent implements OnInit {
                         profesion: profesionBD?.profesion,
                         salario: salarioBD?.nombre,
                         ciudad: ciudadBD?.nombre,
-                        fecha: element.fechaPublicacion?.format('YYYY-MM-DD'),
+                        fecha: element.fechaPublicacion?.toString(),
                         empresa: element.usuario?.razonSocial,
                         idEmpresa: element.usuario?.id,
                         idOferta: element.id,
@@ -498,7 +510,7 @@ export class ResultadosBusquedaComponent implements OnInit {
                         profesion: profesionBD?.profesion,
                         salario: salarioBD?.nombre,
                         ciudad: ciudadBD?.nombre,
-                        fecha: element.fechaPublicacion?.format('YYYY-MM-DD'),
+                        fecha: element.fechaPublicacion?.toString(),
                         empresa: element.usuario?.razonSocial,
                         idEmpresa: element.usuario?.id,
                         idOferta: element.id,
