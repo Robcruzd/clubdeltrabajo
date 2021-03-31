@@ -66,6 +66,7 @@ export interface IResultadoOfertas {
   experiencia: string | undefined;
   ciudad: string | undefined;
   salario: string | undefined;
+  mostrarSalario?: boolean | undefined;
   // idEmpresa?: number | undefined;
   // idOferta?: number | undefined;
 }

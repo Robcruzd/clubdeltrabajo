@@ -83,6 +83,7 @@ export class CrearOfertaComponent implements OnInit {
   datosOferta!: Oferta | null;
   idOferta = 0;
   subnivelesLaborales: IOpcionVo[] = commonMessages.ARRAY_NIVEL_LABORAL[0].subniveles;
+  mostrarSalario = false;
 
   constructor(
     private cargoService: CargoService,
@@ -268,7 +269,7 @@ export class CrearOfertaComponent implements OnInit {
           this.empresaService.find(this.usuario.userEmpresa).subscribe(RESPONSE => {
             this.oferta.usuario = RESPONSE.body;
             if (this.idOferta === 0) {
-              if(ofertaResponse.length < 1){
+              if(ofertaResponse.length < 1000){
                 this.oferta.activado = true;
                 this.ofertaService.create(this.oferta).subscribe(
                   response => {
@@ -426,6 +427,7 @@ export class CrearOfertaComponent implements OnInit {
     this.descripcionOferta = this.formDatosBasicos.controls['requisitos'].value;
     this.profesionOferta = this.formDatosBasicos.controls['profesion'].value.profesion;
     this.tituloOferta = this.formDatosBasicos.controls['nombre'].value;
+    this.mostrarSalario = this.formDatosBasicos.controls['mostrarSalario'].value;
     this.tiposContrato.forEach(element => {
       if (element.codigo === this.formDatosBasicos.controls['tipoContrato'].value) {
         this.contratoOferta = element.nombre;
@@ -449,7 +451,10 @@ export class CrearOfertaComponent implements OnInit {
     });
 
     const f = new Date();
-    this.publicadoOFerta = f.getDate() + '-' + f.getMonth() + '-' + f.getFullYear();
+    // eslint-disable-next-line no-console
+    console.log(f);
+    const mes = f.getMonth() + 1;
+    this.publicadoOFerta = f.getDate() + '-' + mes + '-' + f.getFullYear();
   }
 
   volverCrearOferta(): void {

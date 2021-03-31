@@ -28,12 +28,16 @@
                 <tr>
                   <th class="titulo_oferta_previsualizacion">Experiencia:</th>
                   <th class="titulo_oferta_previsualizacion">Ciudad:</th>
-                  <th class="titulo_oferta_previsualizacion">Salario:</th>
+                  <div *ngIf="!listaResultadoOfertas[0].mostrarSalario">
+                    <th class="titulo_oferta_previsualizacion">Salario:</th>
+                  </div>
                 </tr>
                 <tr>
                   <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].experiencia}}</td>
                   <td class="des_titulo" style="width: 40%;">{{listaResultadoOfertas[0].ciudad}}</td>
-                  <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].salario}}</td>
+                  <div *ngIf="!listaResultadoOfertas[0].mostrarSalario">
+                    <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].salario}}</td>
+                  </div>  
                 </tr>
             </table>
         </div>

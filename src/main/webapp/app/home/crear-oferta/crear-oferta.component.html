@@ -232,6 +232,12 @@
                                         </div>
                                         <span class="text">Femenino</span>
                                     </label>
+                                    <label class="radio-inline">
+                                        <div class="div_radiobutton">
+                                            <input class="radio-button" type="radio" [value]="null" formControlName="genero">
+                                        </div>
+                                        <span class="text">No aplica</span>
+                                    </label>
                                 </div>
                                 <small *ngIf="formDatosBasicos.get('genero')?.errors?.required"
                                         class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
@@ -348,8 +354,10 @@
                         <div class="data-ver">
                             <p class="titulo">Publicado:</p>
                             <p class="info">{{publicadoOFerta}}</p>
-                            <p class="titulo">Salario:</p>
-                            <p class="info">{{salarioOferta}}</p>
+                            <div *ngIf="!mostrarSalario">
+                                <p class="titulo">Salario:</p>
+                                <p class="info">{{salarioOferta}}</p>
+                            </div>
                         </div>
                     </div>
                 </ng-container>

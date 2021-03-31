@@ -192,7 +192,8 @@ export class ResultadosBusquedaComponent implements OnInit {
                   empresa: element.usuario?.razonSocial,
                   idEmpresa: element.usuario?.id,
                   idOferta: element.id,
-                  imagen: archivos.body?.archivo
+                  imagen: archivos.body?.archivo,
+                  mostrarSalario: element.mostrarSalario
                 });
                 this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
               },
@@ -207,7 +208,8 @@ export class ResultadosBusquedaComponent implements OnInit {
                   empresa: element.usuario?.razonSocial,
                   idEmpresa: element.usuario?.id,
                   idOferta: element.id,
-                  imagen: this.urlImgDefault
+                  imagen: this.urlImgDefault,
+                  mostrarSalario: element.mostrarSalario
                 });
                 this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
               }
@@ -239,7 +241,8 @@ export class ResultadosBusquedaComponent implements OnInit {
                 empresa: this.ListaAplicacionOferta[i]?.oferta?.usuario?.razonSocial,
                 idEmpresa: this.ListaAplicacionOferta[i]?.oferta?.usuario?.id,
                 idOferta: this.ListaAplicacionOferta[i]?.oferta?.id,
-                imagen: archivos.body?.archivo
+                imagen: archivos.body?.archivo,
+                mostrarSalario: this.ListaAplicacionOferta[i].oferta?.mostrarSalario
               });
               this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
             },
@@ -254,7 +257,8 @@ export class ResultadosBusquedaComponent implements OnInit {
                 empresa: this.ListaAplicacionOferta[i]?.oferta?.usuario?.razonSocial,
                 idEmpresa: this.ListaAplicacionOferta[i]?.oferta?.usuario?.id,
                 idOferta: this.ListaAplicacionOferta[i]?.oferta?.id,
-                imagen: this.urlImgDefault
+                imagen: this.urlImgDefault,
+                mostrarSalario: this.ListaAplicacionOferta[i].oferta?.mostrarSalario
               });
               this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
             }
@@ -334,7 +338,8 @@ export class ResultadosBusquedaComponent implements OnInit {
                     empresa: element.usuario?.razonSocial,
                     idEmpresa: element.usuario?.id,
                     idOferta: element.id,
-                    imagen: archivos.body?.archivo
+                    imagen: archivos.body?.archivo,
+                    mostrarSalario: element.mostrarSalario
                   });
                   this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
                 },
@@ -349,7 +354,8 @@ export class ResultadosBusquedaComponent implements OnInit {
                     empresa: element.usuario?.razonSocial,
                     idEmpresa: element.usuario?.id,
                     idOferta: element.id,
-                    imagen: this.urlImgDefault
+                    imagen: this.urlImgDefault,
+                    mostrarSalario: element.mostrarSalario
                   });
                   this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
                 }
@@ -389,7 +395,8 @@ export class ResultadosBusquedaComponent implements OnInit {
                     empresa: element.usuario?.razonSocial,
                     idEmpresa: element.usuario?.id,
                     idOferta: element.id,
-                    imagen: archivos.body?.archivo
+                    imagen: archivos.body?.archivo,
+                    mostrarSalario: element.mostrarSalario
                   });
                   this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
                 },
@@ -404,7 +411,8 @@ export class ResultadosBusquedaComponent implements OnInit {
                     empresa: element.usuario?.razonSocial,
                     idEmpresa: element.usuario?.id,
                     idOferta: element.id,
-                    imagen: this.urlImgDefault
+                    imagen: this.urlImgDefault,
+                    mostrarSalario: element.mostrarSalario
                   });
                   this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
                 }
@@ -454,7 +462,8 @@ export class ResultadosBusquedaComponent implements OnInit {
                         empresa: element.usuario?.razonSocial,
                         idEmpresa: element.usuario?.id,
                         idOferta: element.id,
-                        imagen: archivos.body?.archivo
+                        imagen: archivos.body?.archivo,
+                        mostrarSalario: element.mostrarSalario
                       });
                       this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
                     },
@@ -469,7 +478,8 @@ export class ResultadosBusquedaComponent implements OnInit {
                         empresa: element.usuario?.razonSocial,
                         idEmpresa: element.usuario?.id,
                         idOferta: element.id,
-                        imagen: this.urlImgDefault
+                        imagen: this.urlImgDefault,
+                        mostrarSalario: element.mostrarSalario
                       });
                       this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
                     }
@@ -510,7 +520,8 @@ export class ResultadosBusquedaComponent implements OnInit {
                         empresa: element.usuario?.razonSocial,
                         idEmpresa: element.usuario?.id,
                         idOferta: element.id,
-                        imagen: archivos.body?.archivo
+                        imagen: archivos.body?.archivo,
+                        mostrarSalario: element.mostrarSalario
                       });
                       this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
                     },
@@ -525,7 +536,8 @@ export class ResultadosBusquedaComponent implements OnInit {
                         empresa: element.usuario?.razonSocial,
                         idEmpresa: element.usuario?.id,
                         idOferta: element.id,
-                        imagen: this.urlImgDefault
+                        imagen: this.urlImgDefault,
+                        mostrarSalario: element.mostrarSalario
                       });
                       this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
                     }

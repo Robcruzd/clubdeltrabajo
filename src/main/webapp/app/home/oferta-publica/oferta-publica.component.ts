@@ -81,8 +81,9 @@ export class OfertaPublicaComponent implements OnInit {
         publicado: this.oferta?.fechaPublicacion?.format('YYYY-MM-DD'),
         experiencia: experienciaDB?.nombre,
         ciudad: ciudadDB?.nombre,
-        salario: aspiracionDB?.nombre
-      });
+        salario: aspiracionDB?.nombre,
+        mostrarSalario: this.oferta?.mostrarSalario
+      });      
     });
   }
 
