@@ -197,7 +197,8 @@ export class HomeComponent implements OnInit, OnDestroy {
               activado: element?.activado,
               empresa: element?.usuario?.razonSocial,
               fecha: element.fechaPublicacion?.format('DD/MM/YYYY'),
-              imagen: response.body?.archivo
+              imagen: response.body?.archivo,
+              mostrarSalario: element?.mostrarSalario
             });
           });
         });
@@ -240,6 +241,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   verOferta(oferta: any): void {
-    this.router.navigate(['/oferta-publica', { oferta: oferta.idOferta, general: 'true' }]);
+    this.router.navigate(['/oferta-publica', { oferta: oferta.id, general: 'true' }]);
   }
 }

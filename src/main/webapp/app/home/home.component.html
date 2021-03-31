@@ -31,7 +31,9 @@
                     <div class="info">
                         <p class="negrita">{{oferta.empresa}}</p>
                         <p class="negrita">{{oferta.profesion}}</p>
-                        <p class="sin-negrita">{{oferta.salario}}</p>
+                        <div *ngIf = "!oferta.mostrarSalario">
+                            <p class="sin-negrita">{{oferta.salario}}</p>
+                        </div>
                     </div>
                     <img class="logo-oferta rounded-circle" [src]="oferta.imagen || urlImgDefault">
                 </div>
