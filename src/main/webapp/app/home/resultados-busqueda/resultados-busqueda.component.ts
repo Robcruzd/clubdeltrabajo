@@ -63,7 +63,7 @@ export class ResultadosBusquedaComponent implements OnInit {
   generoValue: any = null;
   experienciaValue: any = null;
   experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
-  archivoEmpresa:any;
+  archivoEmpresa: any;
   ofertaBuscaAll = new Oferta();
   filtrosOn = false;
   showBtn = false;
@@ -100,7 +100,6 @@ export class ResultadosBusquedaComponent implements OnInit {
     if (window.screen.width <= 900) {
       this.showBtn = true;
     }
-
     if (window.screen.width >= 900) {
       this.filtrosOn = true;
     }
@@ -171,7 +170,7 @@ export class ResultadosBusquedaComponent implements OnInit {
 
   async getOfertas(): Promise<any> {
     if (this.general === 'true') {
-      this.ofertaBuscaAll.estado = "A";
+      this.ofertaBuscaAll.estado = 'A';
       this.ofertaService.listar(this.ofertaBuscaAll).subscribe(response => {
         this.resultadoBusqueda = response.content;
         if (this.resultadoBusqueda) {

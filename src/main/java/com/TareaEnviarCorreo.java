@@ -40,13 +40,11 @@ public class TareaEnviarCorreo extends TimerTask {
         	connection = DriverManager.getConnection(url ,user, pass);	            
         	Statement stmt = connection.createStatement();	            
         	ResultSet result = stmt.executeQuery("select\r\n" + 
-        			"case \r\n" + 
-        			"when (CURRENT_DATE between jhi.created_date and jhi.created_date + '24 hr'::INTERVAL) then jhi.email\r\n" + 
-        			"when (CURRENT_DATE between jhi.created_date + '72 hr' and jhi.created_date + '96 hr'::INTERVAL) then jhi.email\r\n" + 
+        			"case \r\n" +  
         			"when (CURRENT_DATE between jhi.created_date + '336 hr' and jhi.created_date + '360 hr'::INTERVAL) then jhi.email\r\n" + 
         			"end as email\r\n" + 
         			"from ct_persona_tb per\r\n" + 
-        			"left join ct_informacion_academica_tb inf on inf.usuario_id = per.id\r\n" + 
+        			"left join ct_informacon_laboral_tb inf on inf.usuario_id = per.id\r\n" + 
         			"inner join jhi_user jhi on per.id = jhi.usuario_id\r\n" + 
         			"where inf.id is null\r\n" + 
         			"group by 1");	            
