@@ -15,6 +15,10 @@ import { Account } from 'app/core/user/account.model';
 import { PersonaService } from 'app/entities/persona/persona.service';
 import { IPersona } from 'app/shared/model/persona.model';
 import { AplicacionOfertaService } from 'app/entities/aplicacion-oferta/aplicacion-oferta.service';
+import { Archivo } from 'app/shared/model/archivo.model';
+import { ArchivoService } from 'app/entities/archivo/archivo.service';
+import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
+import { IEmpresa } from 'app/shared/model/empresa.model';
 
 declare let alertify: any;
 
@@ -39,6 +43,8 @@ export class OfertaPublicaComponent implements OnInit {
   personaAplicar!: IPersona | null;
   aplicacionOfertaFiltro: Array<IAplicacionOferta> = [];
   general = '';
+  urlImageDefault = '../../../content/images/Image 28_M.png';
+  imagen!: Archivo;
 
   constructor(
     private router: Router,
@@ -47,7 +53,8 @@ export class OfertaPublicaComponent implements OnInit {
     private ofertaService: OfertaService,
     private regionService: RegionesService,
     private personaService: PersonaService,
-    private aplicacionOfertaService: AplicacionOfertaService
+    private aplicacionOfertaService: AplicacionOfertaService,
+    private archivoService: ArchivoService
   ) {
     this.traerCiudad();
   }
@@ -70,6 +77,7 @@ export class OfertaPublicaComponent implements OnInit {
     this.listaResultadoOfertas = [];
     this.ofertaService.find(id).subscribe(response => {
       this.oferta = response.body;
+      this.consultarImagenEmp(this.oferta?.usuario?.id!);
       const tipoContratoDB = this.tiposContrato.find(tipo => tipo.codigo === this.oferta?.tipoContrato);
       const experienciaDB = this.experienciasLaborales.find(item => item.codigo === this.oferta?.experiencia?.toString());
       const ciudadDB = this.municipiosPersonal.find(ciudad => ciudad.codigo === this.oferta?.ciudad?.toString());
@@ -83,7 +91,7 @@ export class OfertaPublicaComponent implements OnInit {
         ciudad: ciudadDB?.nombre,
         salario: aspiracionDB?.nombre,
         mostrarSalario: this.oferta?.mostrarSalario
-      });      
+      });
     });
   }
 
@@ -120,38 +128,44 @@ export class OfertaPublicaComponent implements OnInit {
     this.getOFerta(this.idOferta);
   }
 
-  aplicarOferta(): void{
-    if(this.personaInicial !== 0){
+  aplicarOferta(): void {
+    if (this.personaInicial !== 0) {
       this.ofertaService.find(this.idOferta).subscribe(ofertaResponse => {
         this.ofertaAplicar = ofertaResponse.body;
-        if(this.ofertaAplicar){
+        if (this.ofertaAplicar) {
           this.aplicacionOferta.oferta = this.ofertaAplicar;
         }
         this.personaService.find(this.personaInicial).subscribe(personaResponse => {
           this.personaAplicar = personaResponse.body;
-          this.aplicacionOferta.estado = "Ninguno";
+          this.aplicacionOferta.estado = 'Ninguno';
           this.aplicacionOferta.fechaPostulacion = moment(new Date(), 'YYYY-MMM-DD');
-          if(this.personaAplicar){
+          if (this.personaAplicar) {
             this.aplicacionOferta.usuario = this.personaAplicar;
-            this.aplicacionOfertaService.getByOfertaAndPersonaFiltro(this.ofertaAplicar, this.personaAplicar).subscribe(ofertaFiltro =>{
+            this.aplicacionOfertaService.getByOfertaAndPersonaFiltro(this.ofertaAplicar, this.personaAplicar).subscribe(ofertaFiltro => {
               this.aplicacionOfertaFiltro = ofertaFiltro;
-              if(this.aplicacionOfertaFiltro.length === 0){
-                this.aplicacionOfertaService.create(this.aplicacionOferta).subscribe(()=>{
-                  this.router.navigate(['resultados-busqueda',{general:this.general}]);
+              if (this.aplicacionOfertaFiltro.length === 0) {
+                this.aplicacionOfertaService.create(this.aplicacionOferta).subscribe(() => {
+                  this.router.navigate(['resultados-busqueda', { general: this.general }]);
                 });
-              }else{
+              } else {
                 alertify.set('notifier', 'position', 'top-right');
-                alertify.error("Usted ya aplico a esta oferta!");
+                alertify.error('Usted ya aplico a esta oferta!');
               }
-            })
-            
+            });
           }
         });
       });
-    }else{
+    } else {
       this.router.navigate(['inicio-sesion']);
     }
-    
+  }
+
+  consultarImagenEmp(user: number): void {
+    this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, user).subscribe(response => {
+      if (response.body !== null) {
+        this.imagen = response.body;
+      }
+    });
   }
 
   volver(): void {

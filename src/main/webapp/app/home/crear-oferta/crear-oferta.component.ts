@@ -269,7 +269,7 @@ export class CrearOfertaComponent implements OnInit {
           this.empresaService.find(this.usuario.userEmpresa).subscribe(RESPONSE => {
             this.oferta.usuario = RESPONSE.body;
             if (this.idOferta === 0) {
-              if(ofertaResponse.length < 1000){
+              if (ofertaResponse.length < 1) {
                 this.oferta.activado = true;
                 this.ofertaService.create(this.oferta).subscribe(
                   response => {
@@ -285,9 +285,25 @@ export class CrearOfertaComponent implements OnInit {
                     // this.router.navigate(['/controlar-ofertas']);
                   }
                 );
-              }else {
+              } else if (ofertaResponse.length < 3 && this.oferta.usuario?.id === 63951) {
+                this.oferta.activado = true;
+                this.ofertaService.create(this.oferta).subscribe(
+                  response => {
+                    if (response.body !== null) {
+                      alertify.set('notifier', 'position', 'top-right');
+                      alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                      this.router.navigate(['/controlar-ofertas']);
+                    }
+                  },
+                  () => {
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.error(commonMessages.HTTP_ERROR_LABEL);
+                    // this.router.navigate(['/controlar-ofertas']);
+                  }
+                );
+              } else {
                 alertify.set('notifier', 'position', 'top-right');
-                alertify.error('No es posible publicar más de una oferta debe adquirir un plan!');
+                alertify.error('No es posible publicar más ofertas, debe adquirir un plan!');
                 this.router.navigate(['/controlar-ofertas']);
               }
             } else {
@@ -308,7 +324,7 @@ export class CrearOfertaComponent implements OnInit {
               );
             }
           });
-        } 
+        }
       });
     }
 

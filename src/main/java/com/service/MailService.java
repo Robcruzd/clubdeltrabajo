@@ -133,7 +133,13 @@ public class MailService {
     
     @Async
     public void sendInformacionEmpresa(InformacionEmpresaVo informacionEmpresa) {
-        log.debug("Sending password reset email to '{}'", informacionEmpresa.getNombre() + ' ' + informacionEmpresa.getApellidos());
+        log.debug("Sending information company to '{}'", informacionEmpresa.getNombre() + ' ' + informacionEmpresa.getApellidos());
         sendEmailFromTemplateCustom(informacionEmpresa, "mail/informacionEmpresaEmail", "informacionEmpresa.title");
+    }
+
+    @Async
+    public void sendApplyment(User user) {
+        log.debug("Sending password reset email to '{}'", user.getEmail());
+        sendEmailFromTemplateCustom(user, "mail/aplicacionPostulante", "email.aplica.title");
     }
 }

@@ -2,7 +2,8 @@
     <div class="cuerpo">
         <div class="img-titulo">
             <div class="img">
-                <img src="../../../content/images/Image 282.png" class="img2">
+                <img class="img2"
+                [src]="imagen?.archivo || urlImageDefault">
             </div>
             <div>
             <p class="titulo">{{listaResultadoOfertas[0].titulo}}</p>

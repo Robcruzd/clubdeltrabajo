@@ -1,11 +1,11 @@
 .etiqueta-resultado {
-  top: 125px;
-  margin-left: 163px;
-  margin-bottom: 8px;
-  width: 108px;
-  height: 18px;
+  top: 8.127vw;
+  margin-left: 10.598vw;
+  margin-bottom: 0.52vw;
+  width: 7.022vw;
+  height: 1.17vw;
   text-align: left;
-  font-size: 15px;
+  font-size: 0.975vw;
   font-family: 'OpenSans';
   font-weight: bold;
   letter-spacing: 0px;
@@ -25,27 +25,27 @@
 }
 
 .resultados-busqueda {
-  margin-left: 3px;
+  margin-left: 0.195vw;
   padding-left: 0px !important;
   //.controls{
   // margin-bottom: 40px;
   // margin-left: 40%;
   .controls {
     display: flex;
-    font-size: 15px;
+    font-size: 0.975vw;
     font-family: 'Roboto';
-    margin-top: 20px;
-    height: 28px;
+    margin-top: 1.3vw;
+    height: 1.821vw;
     margin-left: 29%;
-    margin-bottom: 40px;
+    margin-bottom: 2.601vw;
     //padding: 5%;
   }
   //}
 }
 .cuerpo {
   .btnBuscar {
-    height: 15px;
-    width: 15px;
+    height: 0.975vw;
+    width: 0.975vw;
     display: contents;
     //background: #020d52;
     //color: #fbfbfb;
@@ -57,8 +57,8 @@
 
     .border-icon2 {
       //margin-right: 0.325vw;
-      width: 13px;
-      height: 13px;
+      width: 0.845vw;
+      height: 0.845vw;
       opacity: 1;
       //display: flex;
       align-items: center;
@@ -76,68 +76,68 @@
   //margin-right: 24px; //1062
   .input-buscador {
     display: flex;
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-left: 0.975vw;
+    margin-right: 0.975vw;
     background: #ffffff 0% 0% no-repeat padding-box;
     opacity: 1;
-    height: 15px;
+    height: 0.975vw;
     .form-control {
-      font-size: 9px;
+      font-size: 0.585vw;
     }
   }
   .empresas {
-    margin-top: 19px;
+    margin-top: 1.235vw;
     .titulo {
       display: flex;
       font-family: 'Roboto';
       color: #020d52;
       text-align: left;
-      margin-left: 23px;
+      margin-left: 1.495vw;
       margin-bottom: 0px;
-      font-size: 9px;
+      font-size: 0.585vw;
       font-weight: normal;
       opacity: 1;
     }
     .resultado {
       display: flex;
       font-family: 'Roboto';
-      font-size: 10px;
+      font-size: 0.65vw;
       color: #5b5c62;
       opacity: 1;
-      margin-top: 4px;
+      margin-top: 0.26vw;
       font-weight: normal;
       text-align: left;
-      margin-left: 23px;
+      margin-left: 1.495vw;
     }
   }
   .Sector {
-    height: 35px;
-    margin-top: 14px;
+    height: 2.276vw;
+    margin-top: 2.276vw;
     .titulo {
       display: flex;
       font-family: 'Roboto';
       color: #020d52;
       text-align: left;
-      margin-left: 23px;
-      margin-top: 2px;
-      font-size: 9px;
+      margin-left: 1.495vw;
+      margin-top: 0.13vw;
+      font-size: 0.585vw;
       font-weight: normal;
       opacity: 1;
-      margin-bottom: 4px;
+      margin-bottom: 0.26vw;
     }
     .resultado {
       display: flex;
       font-family: 'Roboto';
-      font-size: 10px;
+      font-size: 0.65vw;
       color: #5b5c62;
       opacity: 1;
-      margin-top: 4px;
+      margin-top: 0.26vw;
       font-weight: normal;
       text-align: left;
-      margin-left: 19px;
+      margin-left: 1.495vw;
       border: none;
       background: none;
-      width: 95px;
+      width: 6.177vw;
     }
   }
 }
@@ -158,10 +158,10 @@
     background: #f8f8f8 0% 0% no-repeat padding-box;
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    padding: 1.04vw;
     justify-content: space-between;
-    margin-bottom: 1rem;
-    margin-left: 1rem;
+    margin-bottom: 1.04vw;
+    margin-left: 1.04vw;
 
     .oferta-arriba {
       display: flex;
@@ -174,7 +174,7 @@
 
         .negrita {
           text-align: left;
-          font: normal normal bold 12px/17px Roboto;
+          font: normal normal bold 0.78vw Roboto;
           letter-spacing: 0px;
           color: #645d5d;
         }
@@ -188,14 +188,14 @@
 
     .sin-negrita {
       text-align: left;
-      font: normal normal normal 12px/17px Roboto;
+      font: normal normal normal 3.251vw Roboto;
       letter-spacing: 0px;
-      color: #645d5d;
+      color: 3.251vw;
     }
 
     .button-ver {
-      width: 64px;
-      height: 23px;
+      width: 3.251vw;
+      height: 1.495vw;
       background: #2699fb 0% 0% no-repeat padding-box;
       text-align: center;
       font: normal normal normal 11px/12px Roboto;
@@ -209,11 +209,11 @@
 }
 
 .elemento-busqueda {
-  top: 208px;
-  width: 184px;
-  height: 160px;
+  top: road;
+  width: 11.964vw;
+  height: 10.403vw;
   margin-right: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 0.78vwx;
   background: #f8f8f8 0% 0% no-repeat padding-box;
   //border-radius: 19px;
   opacity: 1;
@@ -224,15 +224,15 @@
   //margin-top: 14px;
   //margin-right: 9px;
   position: relative;
-  top: 14px;
-  right: 9px;
+  top: 0.91vw;
+  right: 0.585vw;
   //left: 120px;
-  bottom: 84px;
+  bottom: 5.462vw;
   float: right;
-  width: 55px;
-  height: 55px;
+  width: 3.576vw;
+  height: 3.576vw;
   background: transparent 0% 0% no-repeat padding-box;
-  border-radius: 35px;
+  border-radius: 2.276vw;
   opacity: 1;
 }
 
@@ -241,44 +241,44 @@
   float: right;
   //margin-top: 25px;
   //margin-left: 107px;
-  bottom: -17px;
-  right: 10px;
-  width: 67px;
-  height: 26px;
+  bottom: -1.105vw;
+  right: 0.65vw;
+  width: 4.356vw;
+  height: 1.691vw;
   padding: 0px;
   background: #2699fb 0% 0% no-repeat padding-box;
   //border-radius: 49px;
   opacity: 1;
   color: #ffffff;
-  font-size: 11px;
+  font-size: 1.691vw;
   font-family: 'Roboto';
   //font-weight: bold;
   letter-spacing: 0px;
 }
 
 .titulo-resultado {
-  margin-top: 21px;
-  margin-left: 16px;
+  margin-top: 1.365vw;
+  margin-left: 1.04vw;
   //position: relative;
-  width: 103px;
+  width: 6.697vw;
   //height: min-content;
   text-align: left;
-  font-size: 12px;
+  font-size: 0.78vw;
   font-family: 'Roboto';
   font-weight: bold;
   letter-spacing: 0px;
   color: #645d5d;
-  line-height: 12px;
+  line-height: 0.78vw;
 }
 
 .subtitulo-resultado {
-  top: 15px;
-  left: 16px;
+  top: 0.78vw;
+  left: 1.04vw;
   position: relative;
-  width: 155px;
-  height: 51px;
+  width: 10.078vw;
+  height: 3.316vw;
   text-align: left;
-  font-size: 12px;
+  font-size: 0.78vw;
   font-family: 'Roboto';
   letter-spacing: 0px;
   color: #645d5d;

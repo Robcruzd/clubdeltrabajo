@@ -1,6 +1,6 @@
 <div class="navbar-ct" [ngClass]="{ 'navbar-ct':hideNavbar!==true, 'navbar-ct2':hideNavbar }" [ngStyle]="{ 'background': account?.userEmpresa==null && navbarState==true ? 'transparent linear-gradient(0deg, #304580 0%, #1a2050 100%) 0% 0% no-repeat padding-box' : '#FFFFFF 0% 0% no-repeat padding-box' }">
-    <img *ngIf="navbarState==true && account?.userEmpresa===null" class="logo" src="../../../content/images/logo_empresa.png">
-    <img *ngIf="navbarState==true && account?.userEmpresa!==null" class="logo" src="../../../content/images/logo_cdt.png">
+    <img *ngIf="navbarState===true && account?.userEmpresa===null" class="logo" src="../../../content/images/logo_empresa.png">
+    <img *ngIf="navbarState===false || account?.userEmpresa!==null" class="logo" src="../../../content/images/logo_cdt.png">
     <!-- <div class="opciones"> -->
         <nav class="nav-navbar">
             <!-- <div class="collapse navbar-collapse" id="navbarNavAltMarkup"> -->

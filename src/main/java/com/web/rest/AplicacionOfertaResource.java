@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import com.service.MailService;
 
 import com.domain.AplicacionOferta;
 import com.service.AplicacionOfertaQueryService;
@@ -55,9 +56,12 @@ public class AplicacionOfertaResource {
 
     private final AplicacionOfertaQueryService aplicacionOfertaQueryService;
 
-    public AplicacionOfertaResource(AplicacionOfertaService aplicacionOfertaService, AplicacionOfertaQueryService aplicacionOfertaQueryService) {
+    private final MailService mailService;
+
+    public AplicacionOfertaResource(AplicacionOfertaService aplicacionOfertaService, AplicacionOfertaQueryService aplicacionOfertaQueryService, MailService mailService) {
         this.aplicacionOfertaService = aplicacionOfertaService;
         this.aplicacionOfertaQueryService = aplicacionOfertaQueryService;
+        this.mailService = mailService;
     }
 
     /**
@@ -75,6 +79,7 @@ public class AplicacionOfertaResource {
         }
         AplicacionOferta result = aplicacionOfertaService.save(aplicacionOferta);
         aplicacionOfertaService.enviarEmailEmpresa(result.getOferta().getUsuario().getEmail());
+        // mailService.sendApplyment(result.getOferta().getUsuario());
         return ResponseEntity.created(new URI("/api/aplicacion-ofertas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
