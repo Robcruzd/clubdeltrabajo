@@ -353,9 +353,13 @@
       background: #f8f8f8 0% 0% no-repeat padding-box;
       margin-top: 3%;
       width: 100%;
+      margin-left: 15px;
+      margin-right: 15px;
+      height: 15px;
       .form-control {
         width: 100%;
         height: 15px;
+        font-size: 0.5rem;
       }
     }
   }
