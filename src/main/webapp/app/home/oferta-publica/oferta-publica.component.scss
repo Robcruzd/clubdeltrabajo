@@ -33,8 +33,6 @@ p.titulo {
   display: flex;
   margin-bottom: 41px;
   align-items: center;
-  
-  
 }
 .oferta {
   font-family: 'Roboto';
@@ -97,14 +95,14 @@ p.titulo {
   }
   .img {
     .img2 {
-      width: 5.0vw;
-      height: 5.0vw;
+      width: 5vw;
+      height: 5vw;
       border-radius: 50%;
     }
   }
   .cuerpo {
     width: 60.678vw;
-    margin-top: 1.300vw;
+    margin-top: 1.3vw;
   }
   .aplicar {
     width: 60.678vw;
@@ -114,7 +112,7 @@ p.titulo {
   }
   p.titulo {
     font-family: 'Roboto';
-    font-size: 1.400vw;
+    font-size: 1.4vw;
     color: #020d52;
     opacity: 1;
     font-weight: bold;

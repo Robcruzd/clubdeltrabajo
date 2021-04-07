@@ -15,6 +15,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Group, pdf } from '@progress/kendo-drawing';
 import { AplicacionOfertaService } from 'app/entities/aplicacion-oferta/aplicacion-oferta.service';
+import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { InformacionPersonalService } from 'app/entities/informacion-personal/informacion-personal.service';
 import { OfertaService } from 'app/entities/oferta/oferta.service';
 import { PersonaService } from 'app/entities/persona/persona.service';
@@ -22,7 +23,7 @@ import { ProfesionService } from 'app/entities/profesion/profesion.service';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { commonMessages } from 'app/shared/constants/commonMessages';
 import { IAplicacionOferta } from 'app/shared/model/aplicacion-oferta.model';
-import { Archivo } from 'app/shared/model/archivo.model';
+import { Archivo, IArchivo } from 'app/shared/model/archivo.model';
 import { IInformacionPersonal, InformacionPersonal } from 'app/shared/model/informacion-personal.model';
 import { IOferta } from 'app/shared/model/oferta.model';
 import { Persona } from 'app/shared/model/persona.model';
@@ -33,6 +34,9 @@ import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { HojaVidaVo } from 'app/shared/vo/hoja-vida-vo';
 import { IOpcionVo, IResultadoBusquedaAspirantes, IResultadoOfertas } from 'app/shared/vo/opcion-vo';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
+import { AccountService } from '../../core/auth/account.service';
+import { User } from '../../core/user/user.model';
+import { EmpresaService } from '../../entities/empresa/empresa.service';
 
 const { exportPDF } = pdf;
 declare let alertify: any;
@@ -91,7 +95,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   hojaVidaVo!: HojaVidaVo | null;
   pdfHojaVida64: any;
   showElement = false;
-  urlImageDefault = '';
+  urlImageDefault = '../../../content/images/Image 28_M.png';
   archivos!: Array<Archivo> | undefined;
   nivelIdioma: Array<IOpcionVo> = commonMessages.ARRAY_NIVEL_IDIOMA;
   estadoNivelEstudio: IOpcionVo[] = commonMessages.ARRAY_ESTADO_NIVEL_ESTUDIO;
@@ -102,6 +106,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   mensajeEmail = '';
   aplicacionOferta: any;
   cargando = true;
+  usuario!: User | null;
   filtrosOn = false;
   showBtnArriba = false;
 
@@ -114,7 +119,10 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     private aplicacionOfertaService: AplicacionOfertaService,
     private hojaVidaService: HojaVidaService,
     private personaService: PersonaService,
-    private profesionService: ProfesionService
+    private profesionService: ProfesionService,
+    private archivoService: ArchivoService,
+    private accountService: AccountService,
+    private empresaService: EmpresaService
   ) {
     this.traerCiudad();
   }
@@ -134,6 +142,9 @@ export class CandidatosSeleccionadosComponent implements OnInit {
       this.showBtnArriba = false;
       this.filtrosOn = false;
     }
+    this.accountService.getAuthenticationState().subscribe(account => {
+      this.usuario = account;
+    });
   }
 
   getOFerta(id: number): void {
@@ -201,6 +212,8 @@ export class CandidatosSeleccionadosComponent implements OnInit {
           params.ciudad = this.municipioValue;
           this.resultadoBusqueda = await this.obtenerInformacionPersonal(params);
           if (this.resultadoBusqueda) {
+            // eslint-disable-next-line no-console
+            console.log(this.resultadoBusqueda);
             this.resultadoBusqueda.forEach(element => {
               let postulacionBD = '';
               let colorApirante = '';
@@ -251,6 +264,8 @@ export class CandidatosSeleccionadosComponent implements OnInit {
           params.profesionId = this.profesionesFiltro[i].id;
           this.resultadoBusqueda = await this.obtenerInformacionPersonal(params);
           if (this.resultadoBusqueda) {
+            // eslint-disable-next-line no-console
+            console.log(this.resultadoBusqueda);
             for (let j = 0; j < this.resultadoBusqueda.length; j++) {
               let postulacionBD = '';
               let colorApirante = '';
@@ -334,17 +349,35 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     });
   }
 
+  consultarImagen(): void {
+    this.archivoService.get(0, TipoArchivo.IMAGEN_PERFIL).subscribe(response => {
+      if (response.body !== null) {
+        this.imagen = response.body;
+      }
+    });
+  }
+
   obtenerPersonaInfo(params: any, ofer: any): Promise<any> {
     this.resultadoBusqueda = [];
     return new Promise(resolve => {
       this.informacionPersonalService.listar(params).subscribe(response => {
         this.resultadoBusqueda = response.content;
         if (this.resultadoBusqueda) {
+          // eslint-disable-next-line no-console
+          console.log(this.resultadoBusqueda);
           let postulacionBD = '';
           let colorApirante = '';
+          let imagenn: string | ArrayBuffer | null | undefined = undefined;
           this.aplicacionOfertaService.getByOfertaAndPersonaFiltro(ofer, this.resultadoBusqueda[0].usuario).subscribe(aplicacionOferta => {
             colorApirante = this.backColor(aplicacionOferta[0].estado);
             postulacionBD = aplicacionOferta[0].fechaPostulacion;
+          });
+          this.archivoService.get(this.resultadoBusqueda[0].usuario?.id!, TipoArchivo.IMAGEN_PERFIL).subscribe(respImagen => {
+            if (respImagen.body !== null) {
+              // eslint-disable-next-line no-console
+              console.log(respImagen);
+              imagenn = respImagen.body.archivo;
+            }
           });
           const edadBD = this.obtenerEdad(this.resultadoBusqueda[0]);
           const experienciaBD = this.obtenerExperiencia(this.resultadoBusqueda[0]);
@@ -365,7 +398,8 @@ export class CandidatosSeleccionadosComponent implements OnInit {
               verche: this.verche,
               verh: this.verh,
               verno: this.verno,
-              btnestado: this.btnestado
+              btnestado: this.btnestado,
+              imagen: imagenn
             });
             this.totalAspirantes = this.listaResultadoBusquedaAspirantes.length;
             resolve(true);
@@ -564,7 +598,22 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   }
 
   descargarPDF(): void {
-    saveAs(this.pdfHojaVida64RenderDescarga, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.pdf');
+    this.empresaService.find(this.usuario?.userEmpresa).subscribe(response => {
+      if (response.body !== null) {
+        const empresaValidada = response.body;
+        if (empresaValidada?.descargasHv !== 0) {
+          saveAs(this.pdfHojaVida64RenderDescarga, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.pdf');
+          const numero = empresaValidada.descargasHv;
+          if (numero !== undefined) {
+            empresaValidada.descargasHv = numero - 1;
+            this.empresaService.update(empresaValidada).subscribe(() => {});
+          }
+        } else {
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.error('No cuenta con descargas disponibles!. Debe contratar un plan!');
+        }
+      }
+    });
   }
 
   async visualizarArchivoPDF(): Promise<any> {
