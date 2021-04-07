@@ -13,6 +13,7 @@ export interface IUser {
   lastModifiedDate?: Date;
   password?: string;
   userEmpresa?: number;
+  user?: number;
 }
 
 export class User implements IUser {
@@ -30,6 +31,7 @@ export class User implements IUser {
     public lastModifiedBy?: string,
     public lastModifiedDate?: Date,
     public password?: string,
-    public userEmpresa?: number
+    public userEmpresa?: number,
+    public user?: number
   ) {}
 }
