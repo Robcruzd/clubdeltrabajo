@@ -11,7 +11,7 @@
     .botones-arriba {
       display: flex;
       flex-direction: row;
-      width: 783px;
+      width: 50.91vw;
       flex-wrap: wrap;
 
       .boton-clicked {
@@ -26,23 +26,23 @@
       }
 
       .boton-base {
-        width: 261px;
-        height: 41px;
+        width: 16.97vw;
+        height: 2.666vw;
         // background: #ffffff 0% 0% no-repeat padding-box;
         // box-shadow: 0px 3px 6px #00000029;
-        border-radius: 13px;
+        border-radius: 0.845vw;
         opacity: 1;
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding: 0rem 1rem;
-        margin-top: 5px;
+        padding: 0rem 1.04vw;
+        margin-top: 0.325vw;
         align-self: flex-start;
 
         .border-icon {
           margin-right: 0.325vw;
-          width: 34px;
-          height: 34px;
+          width: 2.211vw;
+          height: 2.211vw;
           opacity: 1;
           display: flex;
           align-items: center;
@@ -57,7 +57,7 @@
           justify-content: center;
 
           .titulo-boton {
-            font-size: 14px;
+            font-size: 0.91vw;
             font-family: Arial, Helvetica, sans-serif;
             color: #6d7184;
             letter-spacing: 0px;
@@ -138,173 +138,173 @@
             // width: 90%;
 
             .estilo_inputs {
-              min-height: 3rem;
-              padding-right: 1rem;
-              padding-left: 1.5rem;
-              font-size: 0.875rem;
+              min-height: 3.121vw;
+              padding-right: 1.04vw;
+              padding-left: 1.56vw;
+              font-size: 0.91vw;
               width: 100%;
               border: none;
-              border-radius: 23px;
+              border-radius: 1.495vw;
             }
           }
         }
 
-        .column {
-          width: 50%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
+        // .column {
+        //   width: 50%;
+        //   display: flex;
+        //   flex-direction: column;
+        //   align-items: center;
 
-          .form-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 90%;
+        //   .form-group {
+        //     display: flex;
+        //     flex-direction: column;
+        //     align-items: center;
+        //     width: 90%;
 
-            .estilo_inputs {
-              min-height: 3rem;
-              padding-right: 1rem;
-              padding-left: 1.5rem;
-              font-size: 0.875rem;
-            }
+        //     .estilo_inputs {
+        //       min-height: 3.121vw;
+        //       padding-right: 1.040vw;
+        //       padding-left: 1.560vw;
+        //       font-size: 0.910vw;
+        //     }
 
-            .no-publicar {
-              display: flex;
-              flex-direction: row;
-              width: 90%;
-              margin-top: 1.04vw;
+        //     .no-publicar {
+        //       display: flex;
+        //       flex-direction: row;
+        //       width: 90%;
+        //       margin-top: 1.04vw;
 
-              .radioB {
-                margin-top: 0.325vw;
-                margin-right: 0.325vw;
-              }
+        //       .radioB {
+        //         margin-top: 0.325vw;
+        //         margin-right: 0.325vw;
+        //       }
 
-              .label-terminos {
-                text-align: center;
-                margin-left: 0rem;
-              }
-            }
+        //       .label-terminos {
+        //         text-align: center;
+        //         margin-left: 0rem;
+        //       }
+        //     }
 
-            .genero {
-              display: flex;
-              flex-direction: row;
-              align-self: flex-start;
-              font-size: 0.91vw;
+        //     .genero {
+        //       display: flex;
+        //       flex-direction: row;
+        //       align-self: flex-start;
+        //       font-size: 0.91vw;
 
-              .radio-inline {
-                margin-left: 1.04vw;
-                display: flex;
+        //       .radio-inline {
+        //         margin-left: 1.04vw;
+        //         display: flex;
 
-                .radio-button {
-                  border: 0rem;
-                  width: 100%;
-                  height: 0.832vw;
-                }
-              }
+        //         .radio-button {
+        //           border: 0rem;
+        //           width: 100%;
+        //           height: 0.832vw;
+        //         }
+        //       }
 
-              .div_checkbox {
-                width: 1vw;
-                margin-right: 0.26vw;
-              }
+        //       .div_checkbox {
+        //         width: 1vw;
+        //         margin-right: 0.26vw;
+        //       }
 
-              .div_radiobutton {
-                width: 0.832vw;
-                margin-right: 0.26vw;
-              }
+        //       .div_radiobutton {
+        //         width: 0.832vw;
+        //         margin-right: 0.26vw;
+        //       }
 
-              .checkbox-estado {
-                height: 1vw;
-                width: 1vw;
-              }
-            }
-          }
+        //       .checkbox-estado {
+        //         height: 1vw;
+        //         width: 1vw;
+        //       }
+        //     }
+        //   }
 
-          .estilo_inputs_idioma {
-            min-height: 3rem;
-            padding-right: 1rem;
-            padding-left: 1.5rem;
-            font-size: 0.875rem;
-            width: 50%;
-            border: none;
-            border-radius: 23px;
-          }
+        //   // .estilo_inputs_idioma {
+        //   //   min-height: 3rem;
+        //   //   padding-right: 1rem;
+        //   //   padding-left: 1.5rem;
+        //   //   font-size: 0.875rem;
+        //   //   width: 50%;
+        //   //   border: none;
+        //   //   border-radius: 23px;
+        //   // }
 
-          .estilo_inputs_nivel_idioma {
-            min-height: 3rem;
-            padding-right: 1rem;
-            padding-left: 1.5rem;
-            font-size: 0.875rem;
-            width: 30%;
-            border: none;
-            border-radius: 23px;
-          }
+        //   // .estilo_inputs_nivel_idioma {
+        //   //   min-height: 3rem;
+        //   //   padding-right: 1rem;
+        //   //   padding-left: 1.5rem;
+        //   //   font-size: 0.875rem;
+        //   //   width: 30%;
+        //   //   border: none;
+        //   //   border-radius: 23px;
+        //   // }
 
-          .btn-success {
-            width: 132px;
-            height: 31px;
-            background: #2699fb 0% 0% no-repeat padding-box;
-            border-radius: 24px;
-            align-items: center;
+        //   .btn-success {
+        //     width: 132px;
+        //     height: 31px;
+        //     background: #2699fb 0% 0% no-repeat padding-box;
+        //     border-radius: 24px;
+        //     align-items: center;
 
-            .titulo-boton {
-              text-align: center;
-              font: normal normal normal 10px/12px Roboto;
-              letter-spacing: 0px;
-              color: #ffffff;
-              margin: 0rem;
-            }
-          }
+        //     .titulo-boton {
+        //       text-align: center;
+        //       font: normal normal normal 10px/12px Roboto;
+        //       letter-spacing: 0px;
+        //       color: #ffffff;
+        //       margin: 0rem;
+        //     }
+        //   }
 
-          .boton-volver {
-            width: 132px;
-            height: 31px;
-            background: #e5e5e5 0% 0% no-repeat padding-box;
-            border-radius: 24px;
-            align-items: center;
+        //   .boton-volver {
+        //     width: 132px;
+        //     height: 31px;
+        //     background: #e5e5e5 0% 0% no-repeat padding-box;
+        //     border-radius: 24px;
+        //     align-items: center;
 
-            .titulo-boton {
-              text-align: center;
-              font: normal normal normal 10px/12px Roboto;
-              letter-spacing: 0px;
-              color: #1b2455;
-              margin: 0rem;
-            }
-          }
-        }
+        //     .titulo-boton {
+        //       text-align: center;
+        //       font: normal normal normal 10px/12px Roboto;
+        //       letter-spacing: 0px;
+        //       color: #1b2455;
+        //       margin: 0rem;
+        //     }
+        //   }
+        // }
 
-        .form-group {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          width: 95%;
+        // .form-group {
+        //   display: flex;
+        //   flex-direction: column;
+        //   align-items: center;
+        //   width: 95%;
 
-          .estilo_inputs {
-            min-height: 3rem;
-            padding-right: 1rem;
-            padding-left: 1.5rem;
-            font-size: 0.875rem;
-            width: 100%;
-            border: none;
-            border-radius: 23px;
-          }
-        }
+        //   .estilo_inputs {
+        //     min-height: 3rem;
+        //     padding-right: 1rem;
+        //     padding-left: 1.5rem;
+        //     font-size: 0.875rem;
+        //     width: 100%;
+        //     border: none;
+        //     border-radius: 23px;
+        //   }
+        // }
 
-        .form-group-descripcion {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          width: 90%;
-          margin-bottom: 1.04vw;
-        }
+        // .form-group-descripcion {
+        //   display: flex;
+        //   flex-direction: column;
+        //   align-items: center;
+        //   width: 90%;
+        //   margin-bottom: 1.04vw;
+        // }
 
-        .estilo_campo_requerido {
-          text-align: left;
-          margin-bottom: 0.52vw;
-          font: 1.495vw Arial;
-          letter-spacing: 0px;
-          color: #fd2b4c;
-          opacity: 1;
-        }
+        // .estilo_campo_requerido {
+        //   text-align: left;
+        //   margin-bottom: 0.52vw;
+        //   font: 1.495vw Arial;
+        //   letter-spacing: 0px;
+        //   color: #fd2b4c;
+        //   opacity: 1;
+        // }
       }
     }
   }
@@ -324,16 +324,16 @@
       //justify-self: center;
       background: #f8f8f8 0% 0% no-repeat padding-box;
       opacity: 1;
-      margin-bottom: 28px;
+      margin-bottom: 1.821vw;
       //padding: 0rem;
-      padding-top: 24px;
-      padding-bottom: 28px;
-      padding-left: 23px;
+      padding-top: 1.56vw;
+      padding-bottom: 1.821vw;
+      padding-left: 1.495vw;
       //max-width: 600px;
 
       .titulo_oferta {
         text-align: left;
-        font-size: 12px;
+        font-size: 0.78vw;
         font-family: 'Roboto';
         font-weight: bold;
         letter-spacing: 0px;
@@ -350,38 +350,38 @@
         letter-spacing: 0px;
         color: #645d5d;
         opacity: 1;
-        margin-left: 1rem;
+        margin-left: 1.04vw;
       }
 
       .descripcion_profesion {
         text-align: left;
-        font-size: 11px;
+        font-size: 0.715vw;
         font-family: 'Roboto';
         font-weight: bold;
         letter-spacing: 0px;
         color: #7e7474;
         opacity: 1;
-        line-height: 17px;
+        line-height: 1.105vw;
         margin-right: 5%;
         //margin-left: 1rem;
       }
 
       .titulo_oferta_previsualizacion {
         text-align: left;
-        font-size: 12px;
+        font-size: 1.105vw;
         font-family: 'Open Sans';
         font-weight: bold;
         letter-spacing: 0px;
         color: #1fb9fd;
         opacity: 1;
-        margin-left: 1rem;
+        margin-left: 1.04vw;
       }
 
       .tabla_oferta {
         width: 100%;
         .des_titulo {
           font-family: 'Roboto';
-          font-size: 12px;
+          font-size: 0.78vw;
           font-weight: normal;
           color: #7e7474;
           letter-spacing: 0px;
@@ -392,7 +392,7 @@
     .estilo_titulo2 {
       margin-top: 6%;
       margin-right: 83%;
-      font-size: 20px;
+      font-size: 1.3vw;
       font-family: 'Roboto';
       font-weight: 500;
       letter-spacing: 0px;
@@ -415,8 +415,8 @@
     .titulo_aspirantes {
       font-family: 'Roboto';
       color: #1b2455;
-      font-size: 20px;
-      margin-bottom: 25px;
+      font-size: 1.3vw;
+      margin-bottom: 1.625vw;
       font-weight: bolder;
       margin-right: 52%;
     }
@@ -425,21 +425,21 @@
       display: flex;
 
       .btnBuscar {
-        height: 15px;
-        width: 15px;
+        height: 0.975vw;
+        width: 0.975vw;
         display: contents;
         //background: #020d52;
         //color: #fbfbfb;
         font-family: 'Arial';
-        font-size: 12px;
+        font-size: 0.78vw;
         text-align: center;
         border: none;
         //margin-left: 5px;
 
         .border-icon2 {
           //margin-right: 0.325vw;
-          width: 13px;
-          height: 13px;
+          width: 0.845vw;
+          height: 0.845vw;
           opacity: 1;
           //display: flex;
           align-items: center;
@@ -457,73 +457,73 @@
         .input-buscador {
           display: flex;
           //margin-top: 23px;
-          margin-left: 15px;
-          margin-right: 15px;
+          // margin-left: 15px;
+          // margin-right: 15px;
           background: #ffffff 0% 0% no-repeat padding-box;
           opacity: 1;
           //width: 75px;
-          height: 15px;
-          margin-left: 10px;
+          height: 0.975vw;
+          // margin-left: 10px;
           .form-control {
             //width: 85px;
             //height: 15px;
-            font-size: 9px;
-            margin-left: 6px;
+            font-size: 0.585vw;
+            margin-left: 0.39vw;
           }
         }
         .empresas {
-          margin-top: 19px;
+          margin-top: 1.235vw;
           .titulo {
             display: flex;
             font-family: 'Roboto';
             color: #020d52;
             text-align: left;
-            margin-left: 23px;
+            margin-left: 1.495vw;
             margin-bottom: 0px;
-            font-size: 9px;
+            font-size: 0.585vw;
             font-weight: normal;
             opacity: 1;
           }
           .resultado {
             display: flex;
             font-family: 'Roboto';
-            font-size: 10px;
+            font-size: 0.65vw;
             color: #5b5c62;
             opacity: 1;
-            margin-top: 4px;
+            margin-top: 0.26vw;
             font-weight: normal;
             text-align: left;
-            margin-left: 23px;
+            margin-left: 1.495vw;
           }
         }
         .Sector {
-          height: 61px;
+          height: 3.966vw;
           margin-top: 0px;
           .titulo {
             display: flex;
             font-family: 'Roboto';
             color: #020d52;
             text-align: left;
-            margin-left: 23px;
-            margin-top: 2px;
-            font-size: 9px;
+            margin-left: 1.495vw;
+            margin-top: 0.13vw;
+            font-size: 0.585vw;
             font-weight: normal;
             opacity: 1;
-            margin-bottom: 4px;
+            margin-bottom: 0.26vw;
           }
           .resultado {
             display: flex;
             font-family: 'Roboto';
-            font-size: 10px;
+            font-size: 0.65vw;
             color: #5b5c62;
             opacity: 1;
-            margin-top: 4px;
+            margin-top: 0.26vw;
             font-weight: normal;
             text-align: left;
-            margin-left: 18px;
+            margin-left: 1.17vw;
             border: none;
             background: none;
-            width: 102px;
+            width: 6.632vw;
           }
         }
       }
@@ -532,22 +532,22 @@
           display: flex;
           .imagen {
             display: flex;
-            width: 56px;
-            height: 56px;
-            border-radius: 130px;
+            width: 3.641vw;
+            height: 3.641vw;
+            border-radius: 8.453vw;
             border: none;
           }
           p.nombre {
-            font-size: 15px;
+            font-size: 0.975vw;
             font-family: 'Roboto';
             font-weight: bold;
             position: relative;
             height: min-content;
             color: #020d52;
-            line-height: 15px;
+            line-height: 0.975vw;
           }
           p.carrera {
-            font-size: 13px;
+            font-size: 0.845vw;
             font-family: 'Roboto';
             color: #7e7474;
             opacity: 1;
@@ -559,7 +559,7 @@
           //width: 170px; cambiar en menor a 900px
 
           p.resumen {
-            font-size: 11px;
+            font-size: 0.715vw;
             font-family: 'Roboto';
             font-weight: normal;
             text-align: left;
@@ -569,15 +569,15 @@
         .parte3 {
           .textp3 {
             //font-family: 'Roboto';
-            font-size: 11px;
-            line-height: 16px;
+            font-size: 0.715vw;
+            line-height: 1.04vw;
             color: #7e7474;
             font-weight: bold;
             margin-bottom: 0px;
           }
           .textp4 {
-            font-size: 11px;
-            line-height: 16px;
+            font-size: 0.715vw;
+            line-height: 1.04vw;
             font-weight: normal;
             color: #7e7474;
             //
@@ -590,9 +590,9 @@
 
           .verhv {
             font-family: 'Roboto';
-            font-size: 12px;
+            font-size: 0.78vw;
             color: #ffffff;
-            line-height: 24px;
+            line-height: 1.56vw;
             opacity: 1;
           }
         }
@@ -615,12 +615,12 @@
       }
       .controls {
         display: flex;
-        font-size: 15px;
+        font-size: 0.975vw;
         font-family: 'Roboto';
 
-        height: 20px;
+        height: 1.3vw;
         margin-left: 40%;
-        margin-bottom: 40px;
+        margin-bottom: 2.601vw;
         //padding: 5%;
       }
     }
@@ -656,32 +656,32 @@
   display: -ms-inline-grid;
   justify-content: center;
   padding-left: 25%;
-  padding-bottom: 119px;
+  padding-bottom: 7.737vw;
   .titulo5 {
     color: #1b2455;
-    font-size: 20px;
+    font-size: 1.3vw;
     opacity: 1;
     font-family: 'Roboto';
     font-weight: bolder;
   }
   .buscar2 {
     background: #f5f5f5 0% 0% no-repeat padding-box;
-    width: 355px;
-    height: 48px;
+    width: 23.082vw;
+    height: 3.121vw;
     opacity: 1;
     border: none;
     //color: #BABABA;
-    margin-right: 23px;
+    margin-right: 1.495vw;
     padding-left: 1%;
     font-family: 'Roboto';
   }
   .btn-buscar {
     background: #151d5c;
-    width: 95px;
-    height: 27px;
+    width: 6.177vw;
+    height: 1.756vw;
     color: #ffffff;
     font-family: 'Roboto';
-    font-size: 15px;
+    font-size: 0.975vw;
     letter-spacing: 0px;
     opacity: 1;
   }
@@ -969,20 +969,18 @@ kendo-pdf-export {
 
   .perfil {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-flow: wrap;
     width: 100%;
     .contngfor {
-      width: 48%;
+      width: 95%;
       margin: 1%;
-      max-width: 200px;
+      // max-width: 200px;
       min-width: 150px;
       .perfiles {
         display: inline-table;
         justify-content: space-between;
         padding: 2%;
-        margin-bottom: 2%;
-        margin-right: 1%;
         width: 100%;
         .mitad1 {
           width: 100%;
@@ -991,9 +989,11 @@ kendo-pdf-export {
           .contenedornc {
             display: flex;
             align-content: center;
+            justify-content: center;
             flex-flow: wrap;
             p.nombre {
               margin-bottom: 0;
+              position: inherit;
             }
             p.carrera {
               line-height: 13px;
@@ -1073,7 +1073,7 @@ kendo-pdf-export {
     display: flex;
     flex-flow: column;
     height: 45.189vw;
-    width: 8.192vw;
+    min-width: 8.192vw;
     margin-bottom: 2%;
     .input-buscador {
       margin-top: 1.495vw;
@@ -1143,6 +1143,8 @@ kendo-pdf-export {
     }
     .btn-seleccionado {
       padding-left: 44%;
+      display: flex;
+      justify-content: space-between;
       .mensajeEmail {
         min-height: 1.56vw;
         width: 13.069vw;
@@ -1179,6 +1181,202 @@ kendo-pdf-export {
         width: 100%;
         justify-content: center;
         margin-bottom: 1rem;
+
+        .boton-base {
+          width: 261px;
+          height: 41px;
+          border-radius: 13px;
+          padding: 0rem 1rem;
+          margin-top: 5px;
+
+          .border-icon {
+            margin-right: 0.325vw;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+          }
+
+          .div-info-boton {
+            .titulo-boton {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .contenedor2 {
+    .div-center2 {
+      .ngnum1 {
+        margin-bottom: 28px;
+        padding-top: 24px;
+        padding-bottom: 28px;
+        padding-left: 23px;
+
+        .titulo_oferta {
+          font-size: 12px;
+          margin-right: 5%;
+        }
+
+        .profesion_oferta {
+          font-size: 20px;
+          margin-left: 1rem;
+        }
+
+        .descripcion_profesion {
+          font-size: 11px;
+          line-height: 17px;
+          margin-right: 5%;
+        }
+
+        .titulo_oferta_previsualizacion {
+          font-size: 12px;
+          margin-left: 1rem;
+        }
+
+        .tabla_oferta {
+          width: 100%;
+          .des_titulo {
+            font-size: 12px;
+          }
+        }
+      }
+
+      .estilo_titulo2 {
+        margin-top: 6%;
+        margin-right: 83%;
+        font-size: 20px;
+      }
+    }
+  }
+
+  .contenedor3 {
+    .div-center3 {
+      .titulo_aspirantes {
+        font-size: 20px;
+        margin-bottom: 25px;
+        margin-right: 52%;
+      }
+      .cuerpo {
+        display: flex;
+
+        .btnBuscar {
+          height: 15px;
+          width: 15px;
+          font-size: 12px;
+
+          .border-icon2 {
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+          }
+        }
+
+        .buscador {
+          .input-buscador {
+            display: flex;
+            margin-left: 15px;
+            margin-right: 15px;
+            height: 15px;
+            margin-left: 10px;
+            .form-control {
+              font-size: 9px;
+              margin-left: 6px;
+            }
+          }
+          .empresas {
+            margin-top: 19px;
+            .titulo {
+              margin-left: 23px;
+              margin-bottom: 0px;
+              font-size: 9px;
+            }
+            .resultado {
+              font-size: 10px;
+              margin-top: 4px;
+              margin-left: 23px;
+            }
+          }
+          .Sector {
+            height: 61px;
+            margin-top: 0px;
+            .titulo {
+              margin-left: 23px;
+              margin-top: 2px;
+              font-size: 9px;
+              margin-bottom: 4px;
+            }
+            .resultado {
+              font-size: 10px;
+              margin-top: 4px;
+              margin-left: 18px;
+              width: 102px;
+            }
+          }
+        }
+        .perfiles {
+          .mitad1 {
+            display: flex;
+            .imagen {
+              display: flex;
+              width: 56px;
+              height: 56px;
+              border-radius: 130px;
+            }
+            p.nombre {
+              font-size: 15px;
+              line-height: 15px;
+            }
+            p.carrera {
+              font-size: 13px;
+            }
+          }
+          .mitad2 {
+            p.resumen {
+              font-size: 11px;
+              margin-bottom: 0px;
+            }
+          }
+          .parte3 {
+            .textp3 {
+              font-size: 11px;
+              line-height: 16px;
+              margin-bottom: 0px;
+            }
+            .textp4 {
+              font-size: 11px;
+              line-height: 16px;
+            }
+          }
+          .parte4 {
+            .verhv {
+              font-size: 12px;
+              line-height: 24px;
+            }
+          }
+        }
+        .controls {
+          font-size: 15px;
+          height: 20px;
+          margin-left: 40%;
+          margin-bottom: 40px;
+        }
+      }
+      .ngnum3 {
+        width: 944px;
+        margin-top: 48px;
+        margin-bottom: 48px;
+        padding-top: 48px;
+        padding-bottom: 48px;
+
+        .foto-perfil {
+          top: 133px;
+          margin-left: 39px;
+          width: 168px;
+          height: 168px;
+          margin-bottom: 7px;
+        }
       }
     }
   }
@@ -1196,37 +1394,34 @@ kendo-pdf-export {
   .buscador {
     display: flex;
     flex-flow: column;
-    height: 695px;
-    width: 126px;
+    width: 97%;
     margin-bottom: 2%;
+    padding: 0.5rem;
     .input-buscador {
-      margin-top: 23px;
-      width: 75px;
+      margin: 0px;
+      width: 100%;
       .form-control {
-        width: 85px;
-        height: 15px;
+        width: 100%;
+        min-height: 15px;
       }
     }
   }
   .div-center3 {
-    width: min-content;
+    width: 100%;
     .cuerpo {
-      width: 1071px;
-      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
     }
   }
   .perfil {
-    height: 710px;
-    margin-bottom: 20px;
     .contngfor {
-      height: 122px;
+      min-height: 122px;
     }
     .perfiles {
       display: flex;
       background: #f8f8f8;
-      width: 767px;
       height: 85px;
-      margin-left: 24px;
       align-items: center;
       justify-content: space-between;
       .mitad1 {
@@ -1234,15 +1429,11 @@ kendo-pdf-export {
         height: 85px;
         display: flex;
         .imagen {
-          margin-top: 14px;
-          margin-left: 43px;
-          margin-right: 24px;
-          margin-bottom: 15px;
-        }
-        p.nombre {
-          top: 23%;
-          margin-bottom: 20px;
-          width: 150px;
+          margin: 8px;
+          img {
+            width: 50px;
+            height: 50px;
+          }
         }
       }
       .mitad2 {
@@ -1264,7 +1455,7 @@ kendo-pdf-export {
       }
     }
     .btn-seleccionado {
-      padding-left: 44%;
+      margin-top: 5px;
       .mensajeEmail {
         height: 24px;
         width: 201px;
@@ -1288,6 +1479,11 @@ kendo-pdf-export {
         font-size: 12px;
         text-align: center;
         border: none;
+      }
+      .botones-enviar-des {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5px;
       }
     }
   }

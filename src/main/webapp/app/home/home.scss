@@ -436,18 +436,19 @@ p {
       .ofertas {
         flex-wrap: wrap;
         justify-content: space-evenly;
+        width: 97%;
 
         p {
           margin: 0;
         }
 
         .oferta {
-          width: 184px;
+          width: 45%;
           min-height: 153px;
           background: #f8f8f8 0% 0% no-repeat padding-box;
           display: flex;
           flex-direction: column;
-          padding: 1rem;
+          padding: 0.5rem;
           justify-content: space-between;
           margin-bottom: 1rem;
 
@@ -455,6 +456,12 @@ p {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            -ms-hyphens: auto;
+            hyphens: auto;
 
             .info {
               display: flex;

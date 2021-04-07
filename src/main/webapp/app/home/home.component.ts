@@ -182,25 +182,42 @@ export class HomeComponent implements OnInit, OnDestroy {
           const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
           const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
           const profBD = this.dataProf.find(profesion => profesion.id === element.profesion);
-          this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(response => {
-            // eslint-disable-next-line no-console
-            console.log('response:     ', element);
-            if (response.body !== null) {
-              this.imagen = response.body;
-            }
+          this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
+            response => {
+              // eslint-disable-next-line no-console
+              console.log('response:     ', element);
+              // if (response.body !== null) {
+              //   this.imagen = response.body;
+              // }
 
-            this.listaOfertas.push({
-              id: element.id?.toString(),
-              profesion: profBD?.profesion,
-              salario: salarioBD?.nombre,
-              ciudad: ciudadBD?.nombre,
-              activado: element?.activado,
-              empresa: element?.usuario?.razonSocial,
-              fecha: element.fechaPublicacion?.format('DD/MM/YYYY'),
-              imagen: response.body?.archivo,
-              mostrarSalario: element?.mostrarSalario
-            });
-          });
+              this.listaOfertas.push({
+                id: element.id?.toString(),
+                profesion: profBD?.profesion,
+                salario: salarioBD?.nombre,
+                ciudad: ciudadBD?.nombre,
+                activado: element?.activado,
+                empresa: element?.usuario?.razonSocial,
+                fecha: element.fechaPublicacion?.format('DD/MM/YYYY'),
+                imagen: response.body?.archivo,
+                mostrarSalario: element?.mostrarSalario
+              });
+            },
+            error => {
+              // eslint-disable-next-line no-console
+              console.log(error);
+              this.listaOfertas.push({
+                id: element.id?.toString(),
+                profesion: profBD?.profesion,
+                salario: salarioBD?.nombre,
+                ciudad: ciudadBD?.nombre,
+                activado: element?.activado,
+                empresa: element?.usuario?.razonSocial,
+                fecha: element.fechaPublicacion?.format('DD/MM/YYYY'),
+                imagen: this.urlImgDefault,
+                mostrarSalario: element?.mostrarSalario
+              });
+            }
+          );
         });
         // eslint-disable-next-line no-console
         console.log('lista ofertas: ', this.listaOfertas);
@@ -225,7 +242,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       ubicacion: this.myControlCiudades.value
     };
     this.dataService.data = busqueda;
-    this.router.navigate(['/resultados-busqueda', {general:true}]);
+    this.router.navigate(['/resultados-busqueda', { general: true }]);
   }
 
   abrirAgregarUsuario(): void {

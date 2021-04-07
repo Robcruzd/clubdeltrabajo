@@ -191,9 +191,11 @@
                     </a>
                     <div class="btn-seleccionado" *ngIf="item.btnestado">
                         <input class="mensajeEmail" type="text" [(ngModel)]="mensajeEmail" placeholder="Ingrese cuerpo de email">
-                        <button *ngIf="cargando" class="btn1" (click)="enviarEmail(item)"> <fa-icon [icon]="faPaperPlane" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> Enviar Mail</button>
-                        <span *ngIf="!cargando" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        <button class="btn2" (click)="getHojaVida(item)"> <fa-icon [icon]="faArrowDown" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> Descargar H.V</button>
+                        <div class="botones-enviar-des">
+                            <button *ngIf="cargando" class="btn1" (click)="enviarEmail(item)"> <fa-icon [icon]="faPaperPlane" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> Enviar Mail</button>
+                            <span *ngIf="!cargando" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <button class="btn2" (click)="getHojaVida(item)"> <fa-icon [icon]="faArrowDown" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> Descargar H.V</button>
+                        </div>
                     </div>
                     </div>
                     <pagination-controls (pageChange)="page = $event" class="controls" 
