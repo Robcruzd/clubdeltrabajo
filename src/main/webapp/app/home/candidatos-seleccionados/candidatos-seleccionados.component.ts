@@ -34,6 +34,9 @@ import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { HojaVidaVo } from 'app/shared/vo/hoja-vida-vo';
 import { IOpcionVo, IResultadoBusquedaAspirantes, IResultadoOfertas } from 'app/shared/vo/opcion-vo';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
+import { AccountService } from '../../core/auth/account.service';
+import { User } from '../../core/user/user.model';
+import { EmpresaService } from '../../entities/empresa/empresa.service';
 
 const { exportPDF } = pdf;
 declare let alertify: any;
@@ -103,8 +106,9 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   mensajeEmail = '';
   aplicacionOferta: any;
   cargando = true;
+  usuario!: User | null;
   filtrosOn = false;
-  showBtnArriba = true;
+  showBtnArriba = false;
 
   constructor(
     private router: Router,
@@ -116,7 +120,9 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     private hojaVidaService: HojaVidaService,
     private personaService: PersonaService,
     private profesionService: ProfesionService,
-    private archivoService: ArchivoService
+    private archivoService: ArchivoService,
+    private accountService: AccountService,
+    private empresaService: EmpresaService
   ) {
     this.traerCiudad();
   }
@@ -128,12 +134,17 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     this.getOFerta(this.idOferta);
 
     if (window.screen.width <= 900) {
-      this.showBtnArriba = false;
+      this.showBtnArriba = true;
+      this.filtrosOn = true;
     }
 
     if (window.screen.width >= 900) {
-      this.showBtnArriba = true;
+      this.showBtnArriba = false;
+      this.filtrosOn = false;
     }
+    this.accountService.getAuthenticationState().subscribe(account => {
+      this.usuario = account;
+    });
   }
 
   getOFerta(id: number): void {
@@ -587,7 +598,22 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   }
 
   descargarPDF(): void {
-    saveAs(this.pdfHojaVida64RenderDescarga, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.pdf');
+    this.empresaService.find(this.usuario?.userEmpresa).subscribe(response => {
+      if (response.body !== null) {
+        const empresaValidada = response.body;
+        if (empresaValidada?.descargasHv !== 0) {
+          saveAs(this.pdfHojaVida64RenderDescarga, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.pdf');
+          const numero = empresaValidada.descargasHv;
+          if (numero !== undefined) {
+            empresaValidada.descargasHv = numero - 1;
+            this.empresaService.update(empresaValidada).subscribe(() => {});
+          }
+        } else {
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.error('No cuenta con descargas disponibles!. Debe contratar un plan!');
+        }
+      }
+    });
   }
 
   async visualizarArchivoPDF(): Promise<any> {

@@ -139,6 +139,7 @@
       font-weight: normal;
       text-align: left;
       margin-left: 1.495vw;
+      margin-bottom: 0;
     }
   }
   .Sector {
@@ -185,7 +186,7 @@
 
   .oferta {
     //width: 184px;
-    min-height: 153px;
+    min-height: min-content;
     background: #f8f8f8 0% 0% no-repeat padding-box;
     display: flex;
     flex-direction: column;
@@ -223,13 +224,16 @@
     .sin-negrita {
       text-align: left;
       font: normal normal normal 0.78vw Roboto;
-      letter-spacing: 0px;
-      color: 3.251vw;
+      letter-spacing: 0;
+      color: #645d5d;
     }
 
     .button-ver {
+      display: flex;
       width: 3.251vw;
       height: 1.495vw;
+      justify-content: center;
+      align-items: center;
       background: #2699fb 0% 0% no-repeat padding-box;
       text-align: center;
       font: normal normal normal 0.78vw Roboto;
@@ -237,7 +241,7 @@
       color: #ffffff;
       border: none;
       align-self: flex-end;
-      margin-top: 1rem;
+      //margin-top: 1.185vw;
     }
   }
 }
@@ -341,6 +345,10 @@
     display: flex;
     width: 65%;
     // margin-left: 80px;
+  }
+  .button-ver {
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -518,7 +526,8 @@
     .Sector {
       height: 35px;
       margin-top: 14px;
-      width: 50%;
+      width: 25%;
+      min-width: 125px;
       .titulo {
         display: flex;
         font-family: 'Roboto';
@@ -561,11 +570,10 @@
     }
 
     .oferta {
-      //width: 184px;
-      // max-width: 184px;
-      // width: 184px;
+      max-width: 200px;
+      min-width: 140px;
       width: 45%;
-      min-height: 153px;
+      min-height: min-content;
       background: #f8f8f8 0% 0% no-repeat padding-box;
       display: flex;
       flex-direction: column;
@@ -608,13 +616,13 @@
         width: 64px;
         height: 23px;
         background: #2699fb 0% 0% no-repeat padding-box;
-        text-align: center;
+        //text-align: center;
         font: normal normal normal 11px/12px Roboto;
         letter-spacing: 0px;
         color: #ffffff;
         border: none;
         align-self: flex-end;
-        margin-top: 1rem;
+        margin-top: 1.185vw;
       }
     }
   }

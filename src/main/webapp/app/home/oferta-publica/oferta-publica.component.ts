@@ -18,7 +18,6 @@ import { AplicacionOfertaService } from 'app/entities/aplicacion-oferta/aplicaci
 import { Archivo } from 'app/shared/model/archivo.model';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
-import { IEmpresa } from 'app/shared/model/empresa.model';
 
 declare let alertify: any;
 

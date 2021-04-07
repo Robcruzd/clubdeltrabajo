@@ -28,7 +28,7 @@ export class EmpresaService {
     return this.http.put<IEmpresa>(this.resourceUrl, empresa, { observe: 'response' });
   }
 
-  find(id: number): Observable<EntityResponseType> {
+  find(id?: number): Observable<EntityResponseType> {
     return this.http.get<IEmpresa>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
