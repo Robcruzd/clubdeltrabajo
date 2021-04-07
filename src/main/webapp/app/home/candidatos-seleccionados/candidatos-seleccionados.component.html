@@ -1,4 +1,4 @@
-<div class="contenedor" *ngIf="showBtnArriba">
+<div class="contenedor" *ngIf="!showBtnArriba">
     <div class="div-center">
         <div class="botones-arriba">
             <button class="btn boton-clicked" (click)="crearOferta()">
@@ -94,7 +94,7 @@
                     <p class="titulo">Perfiles</p>
                     <p class="resultado">{{totalAspirantes}} resultados</p>
                 </div>
-                <div class="filtros" *ngIf = "filtrosOn">
+                <div class="filtros" *ngIf = "!filtrosOn">
                 <div class="Sector">
                     <p class="titulo">Edad</p>
                     <select class="resultado" [(ngModel)]="edadValue" (change)="cargarAspirantes()">
@@ -146,9 +146,9 @@
                 </div>
                 </div>                        
                 
-                <div *ngIf= "!showBtnArriba" class="btnVerOcultar">
-                    <button *ngIf= "!filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ver Filtros</button>
-                    <button *ngIf= "filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ocultar Filtros</button>
+                <div *ngIf= "showBtnArriba" class="btnVerOcultar">
+                    <button *ngIf= "filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ver Filtros</button>
+                    <button *ngIf= "!filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ocultar Filtros</button>
                 </div>
                 </div> 
                 <div class="perfil">
@@ -164,7 +164,7 @@
                             <p class="carrera">{{item.profesion}}</p>
                             </div>
                         </div>
-                        <div class="mitad2" style="padding-top: 10px;">
+                        <div class="mitad2">
                             <div>
                                 <p class="resumen">Edad: {{item.edad}}</p>
                                 <p class="resumen">Ciudad: {{item.ciudad}}</p>

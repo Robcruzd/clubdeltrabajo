@@ -105,9 +105,9 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   mensajeEmail = '';
   aplicacionOferta: any;
   cargando = true;
-  filtrosOn = true;
-  showBtnArriba = true;
   usuario!: User | null;
+  filtrosOn = false;
+  showBtnArriba = false;
 
   constructor(
     private router: Router,
@@ -132,11 +132,13 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     this.getOFerta(this.idOferta);
 
     if (window.screen.width <= 900) {
-      this.showBtnArriba = false;
+      this.showBtnArriba = true;
+      this.filtrosOn = true;
     }
 
     if (window.screen.width >= 900) {
-      this.showBtnArriba = true;
+      this.showBtnArriba = false;
+      this.filtrosOn = false;
     }
     this.accountService.getAuthenticationState().subscribe(account => {
       this.usuario = account;
