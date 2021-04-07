@@ -103,7 +103,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   aplicacionOferta: any;
   cargando = true;
   filtrosOn = false;
-  showBtnArriba = true;
+  showBtnArriba = false;
 
   constructor(
     private router: Router,
@@ -126,11 +126,13 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     this.getOFerta(this.idOferta);
 
     if (window.screen.width <= 900) {
-      this.showBtnArriba = false;
+      this.showBtnArriba = true;
+      this.filtrosOn = true;
     }
 
     if (window.screen.width >= 900) {
-      this.showBtnArriba = true;
+      this.showBtnArriba = false;
+      this.filtrosOn = false;
     }
   }
 
