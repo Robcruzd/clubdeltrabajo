@@ -74,6 +74,8 @@ export class NavbarCtComponent implements OnInit {
       if (val instanceof NavigationEnd) {
         this.accountService.getAuthenticationState().subscribe(account => {
           this.account = account;
+          // eslint-disable-next-line no-console
+          console.log(this.account);
           this.persona = account?.user || 0;
           this.showNavbar = this.accountService.isAuthenticated() ? true : false;
           this.showElement = this.accountService.isAuthenticated() ? true : false;
