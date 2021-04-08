@@ -23,6 +23,6 @@ export class PrevioRegistrarEmpComponent implements OnInit, OnDestroy {
   }
 
   crearOferta(): void {
-    this.router.navigate(['/agregar-usuario', { userType: 'juridico' }]);
+    this.router.navigate(['/agregar-usuario'], {queryParams:{ userType: 'juridico' }});
   }
 }

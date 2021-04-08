@@ -23,7 +23,7 @@ import { ProfesionService } from 'app/entities/profesion/profesion.service';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { commonMessages } from 'app/shared/constants/commonMessages';
 import { IAplicacionOferta } from 'app/shared/model/aplicacion-oferta.model';
-import { Archivo, IArchivo } from 'app/shared/model/archivo.model';
+import { Archivo } from 'app/shared/model/archivo.model';
 import { IInformacionPersonal, InformacionPersonal } from 'app/shared/model/informacion-personal.model';
 import { IOferta } from 'app/shared/model/oferta.model';
 import { Persona } from 'app/shared/model/persona.model';

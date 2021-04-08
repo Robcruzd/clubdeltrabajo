@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -158,6 +159,12 @@ public class InformacionPersonalResource {
 	public Page<InformacionPersonal> listar(InformacionPersonalCriteria informacionPersonalBuilder) {
     	Pageable paging = PageRequest.of(0, 9999, Sort.by("id"));
     	return informacionPersonalQueryService.findByCriteria(informacionPersonalBuilder, paging);
+		//return informacionPersonalVOService.listar(new CommonSpecifications<InformacionPersonalVO>(informacionPersonalBuilder));
+	}
+    
+    @GetMapping("/informacion-personals/obtenerInfoUsuario")
+	public InformacionPersonal obtenerInfoUsuario(@RequestParam("persona") String persona) {
+    	return informacionPersonalService.obtenerInfoUsuario(Long.parseLong(persona));
 		//return informacionPersonalVOService.listar(new CommonSpecifications<InformacionPersonalVO>(informacionPersonalBuilder));
 	}
     

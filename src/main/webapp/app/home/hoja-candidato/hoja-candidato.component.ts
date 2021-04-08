@@ -68,7 +68,7 @@ export class HojaCandidatoComponent implements OnInit {
       if (this.personaInfo) {
         this.informacionPersonal.usuario = this.personaInfo;
         this.informacionAcademica.usuario = this.personaInfo;
-        this.informacionPersonalService.listar(this.informacionPersonal).subscribe(info => {
+        this.informacionPersonalService.getPersonaFiltro(this.personaInfo.id).subscribe(info => {
           this.informacionAcademicaService.listar(this.informacionAcademica).subscribe(academica => {
             this.listaInformacionAcademica = academica.content;
             this.personaIdiomaService.getPersonaFiltro(this.informacionPersonal.usuario).subscribe(personaFiltro => {
@@ -87,8 +87,8 @@ export class HojaCandidatoComponent implements OnInit {
             });
             this.listaResultadoHojaCandidato.push({
               nombre: this.personaInfo?.nombre,
-              profesion: info.content[0].profesion.profesion,
-              descripcion: info.content[0].perfilProfesional
+              profesion: info.profesion.profesion,
+              descripcion: info.perfilProfesional
             });
           });
         });

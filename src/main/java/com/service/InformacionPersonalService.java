@@ -95,4 +95,8 @@ public class InformacionPersonalService {
         return informacionPersonalRepository.findByProfesion(profesion);
     }
     
+    public InformacionPersonal obtenerInfoUsuario( Long persona) {
+    	return informacionPersonalRepository.obtenerInfoUsuario(persona);
+    }
+    
 }

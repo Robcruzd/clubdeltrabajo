@@ -21,4 +21,8 @@ extends JpaRepository<InformacionPersonal, Long>, JpaSpecificationExecutor<Infor
 InformacionPersonal findByUsuario(Persona usuario);
 
 	List<InformacionPersonal> findByProfesion(@Param("profesion") Profesion profesion);
+	
+	@Query(value = "select * from ct_informacion_personal_tb where usuario_id = :persona limit 1",
+			nativeQuery = true)
+	InformacionPersonal obtenerInfoUsuario(@Param("persona") Long persona);
 }
