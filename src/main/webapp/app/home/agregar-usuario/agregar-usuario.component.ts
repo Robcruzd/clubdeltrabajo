@@ -78,7 +78,7 @@ export class AgregarUsuarioComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.route.snapshot.paramMap.get('userType') === 'juridico') {
+    if (this.route.snapshot.queryParamMap.get('userType') === 'juridico') {
       this.tipoUsuario.nombre = 'juridico';
       this.tipoUsuario.id = 2;
       this.natural = false;

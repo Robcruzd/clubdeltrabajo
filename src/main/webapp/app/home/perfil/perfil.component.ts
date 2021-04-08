@@ -242,10 +242,10 @@ export class PerfilComponent implements OnInit {
   }
 
   verOfertas(): void {
-    this.router.navigate(['resultados-busqueda', { general: false }]);
+    this.router.navigate(['resultados-busqueda'],{queryParams:{ general: false }});
   }
 
   buscaEmpleo(): void {
-    this.router.navigate(['resultados-busqueda', { general: true }]);
+    this.router.navigate(['resultados-busqueda'],{queryParams:{ general: true }} );
   }
 }

@@ -54,9 +54,9 @@ export class HojaCandidatoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const param = this.route.snapshot.paramMap.get('usuario')!;
+    const param = this.route.snapshot.queryParamMap.get('usuario')!;
     this.idUsuario = parseInt(param, 10);
-    const param2 = this.route.snapshot.paramMap.get('oferta')!;
+    const param2 = this.route.snapshot.queryParamMap.get('oferta')!;
     this.idOFerta = parseInt(param2, 10);
     this.getPersona();
   }
@@ -96,13 +96,13 @@ export class HojaCandidatoComponent implements OnInit {
     });
   }
 
-  guardarCambios(): void {
+  async guardarCambios(): Promise<any> {
     this.aplicacionOFertaActualizar.estado = this.model;
     this.aplicacionOFertaActualizar.id = this.idAplicacionOferta;
     this.aplicacionOFertaActualizar.usuario = this.idUsuarioAplicacionOferta;
     this.aplicacionOFertaActualizar.oferta = this.idOfertaAplicacionOferta;
     this.aplicacionOFertaActualizar.fechaPostulacion = this.fechaPostulacionAplicacionOferta;
-    this.aplicacionOfertaService.update(this.aplicacionOFertaActualizar).subscribe(() => {});
+    await this.actualizarAplicacionOferta(this.aplicacionOFertaActualizar);
     if (this.modelBandera !== this.model) {
       if (this.model === 'Seleccionado') {
         this.aplicacionOfertaService.getByOfertaAndPersonaFiltro(this.idOfertaAplicacionOferta,this.idUsuarioAplicacionOferta).subscribe(apliOferResponse =>{
@@ -118,10 +118,20 @@ export class HojaCandidatoComponent implements OnInit {
         });
       }
     }
-    this.router.navigate(['candidatos-seleccionados', { oferta: this.idOFerta }]);
+    setTimeout(() => {
+      this.router.navigate(['candidatos-seleccionados'],{queryParams:{ oferta: this.idOFerta }});
+    }, 500);
   }
 
   volver(): void{
-    this.router.navigate(['candidatos-seleccionados', { oferta: this.idOFerta }]);
+    this.router.navigate(['candidatos-seleccionados'], {queryParams:{ oferta: this.idOFerta }});
+  }
+
+  actualizarAplicacionOferta(datos: any): Promise<any> {
+    return new Promise(resolve => {
+      this.aplicacionOfertaService.update(datos).subscribe(() => { 
+        resolve("hecho");
+      });
+    });
   }
 }

@@ -12,6 +12,6 @@ export class PrevioRegistrarComponent implements OnInit {
   ngOnInit(): void {}
 
   crearOferta(): void {
-    this.router.navigate(['/agregar-usuario', { userType: 'natural' }]);
+    this.router.navigate(['/agregar-usuario'],{queryParams:{ userType: 'natural' }});
   }
 }

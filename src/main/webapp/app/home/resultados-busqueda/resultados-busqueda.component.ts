@@ -89,7 +89,7 @@ export class ResultadosBusquedaComponent implements OnInit {
   ngOnInit(): void {
     // eslint-disable-next-line no-console
     console.log(this.general);
-    const param = this.route.snapshot.paramMap.get('general')!;
+    const param = this.route.snapshot.queryParamMap.get('general')!;
 
     if (param !== null) {
       this.general = param;
@@ -567,6 +567,6 @@ export class ResultadosBusquedaComponent implements OnInit {
   }
 
   verOferta(oferta: any): void {
-    this.router.navigate(['/oferta-publica', { oferta: oferta.idOferta, general: this.general }]);
+    this.router.navigate(['/oferta-publica'], {queryParams:{ oferta: oferta.idOferta, general: this.general }});
   }
 }

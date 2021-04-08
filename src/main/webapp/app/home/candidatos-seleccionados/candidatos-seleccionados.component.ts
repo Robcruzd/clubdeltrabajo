@@ -129,7 +129,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
 
   ngOnInit(): void {
     this.backColor();
-    const param = this.route.snapshot.paramMap.get('oferta')!;
+    const param = this.route.snapshot.queryParamMap.get('oferta')!;
     this.idOferta = parseInt(param, 10);
     this.getOFerta(this.idOferta);
 
@@ -569,7 +569,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   }
 
   verAspirante(item: any): void {
-    this.router.navigate(['hoja-candidato', { usuario: item.idPersona, oferta: this.idOferta }]);
+    this.router.navigate(['hoja-candidato'], {queryParams:{ usuario: item.idPersona, oferta: this.idOferta }});
   }
 
   backColor(estado?: any): string {
