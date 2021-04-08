@@ -137,11 +137,11 @@ export class ControlarOfertasComponent implements OnInit {
   }
 
   editarOferta(id: any): void {
-    this.router.navigate(['/crear-oferta', { oferta: id }]);
+    this.router.navigate(['/crear-oferta'], {queryParams:{ oferta: id }});
   }
 
   entrarOferta(id: any): void {
-    this.router.navigate(['/candidatos-seleccionados', { oferta: id }]);
+    this.router.navigate(['/candidatos-seleccionados'], {queryParams:{ oferta: id }});
   }
 
   eliminarOfertaid(id: any): void {

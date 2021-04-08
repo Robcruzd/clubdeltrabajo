@@ -120,10 +120,10 @@ export class BuscarTrabajoComponent implements OnInit {
   }
 
   registrarHojaVida(): void {
-    this.router.navigate(['/agregar-usuario', { userType: 'natural' }]);
+    this.router.navigate(['/agregar-usuario'], {queryParams:{ userType: 'natural' }});
   }
 
   registrarHojaVidaEmpresa(): void {
-    this.router.navigate(['/agregar-usuario', { userType: 'juridico' }]);
+    this.router.navigate(['/agregar-usuario'], {queryParams:{ userType: 'juridico' }});
   }
 }

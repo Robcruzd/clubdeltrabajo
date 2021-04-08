@@ -103,7 +103,7 @@ export class CrearOfertaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const param = this.route.snapshot.paramMap.get('oferta')!;
+    const param = this.route.snapshot.queryParamMap.get('oferta')!;
     // eslint-disable-next-line no-console
     console.log('paaaaaaaaram: ', param);
     if (param !== null) {
