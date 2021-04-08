@@ -1,3 +1,5 @@
+import { Archivo, IArchivo } from '../model/archivo.model';
+
 export interface IOpcionVo {
   codigo: string | number | undefined;
   nombre: string;
@@ -56,6 +58,7 @@ export interface IResultadoBusquedaAspirantes {
   verche?: boolean | undefined | null;
   verno?: boolean | undefined | null;
   btnestado?: boolean | undefined | null;
+  imagen?: string | ArrayBuffer | null | undefined;
 }
 
 export interface IResultadoOfertas {

@@ -74,6 +74,7 @@
     .contenedor3 {
       display: flex;
       justify-content: center;
+      width: 100%;
 
       p {
         margin: 0;
@@ -108,7 +109,8 @@
             // margin-bottom: 3.121vw;
             padding: 0rem;
             padding-top: 3.121vw;
-            max-width: 210px;
+            max-width: 13.654vw;
+            //max-width: 210px;
             min-width: 144px;
             margin-right: 1%;
             margin-left: 1%;
@@ -129,7 +131,7 @@
 
               .titulo_div1 {
                 text-align: left;
-                font-size: 12px;
+                font-size: 0.910vw;
                 font-family: 'Open Sans';
                 font-weight: bold;
                 letter-spacing: 0px;
@@ -168,13 +170,15 @@
             }
             .div2Oferta {
               width: 100%;
-              height: 125px;
+              height: max-content;
+              min-height: 8.127vw;
+              //min-height: 125px;
               align-self: center;
               justify-self: center;
               background: #f8f8f8 0% 0% no-repeat padding-box;
               opacity: 1;
               padding: 1rem 0.3rem 0rem 1rem;
-              max-width: none;
+              //max-width: none;
               display: flex;
               flex-direction: column;
               p {
@@ -183,25 +187,26 @@
 
               .text1 {
                 text-align: left;
-                font: normal normal bold 12px/10px Roboto;
-                letter-spacing: 0px;
+                font: normal normal bold 1.110vw/0.980vw Roboto;
+                letter-spacing: 0;
                 color: #645d5d;
-                height: 30px;
+                height: max-content;
               }
 
               .text2 {
                 text-align: left;
-                font: normal normal normal 10px/17px Roboto;
+                font: normal normal normal 0.780vw/1.105vw Roboto;
                 letter-spacing: 0px;
                 color: #645d5d;
+                height: max-content;
               }
 
               .text3 {
                 text-align: left;
-                font: normal normal normal 10px/17px Roboto;
+                font: normal normal normal 0.780vw/1.105vw Roboto;
                 letter-spacing: 0px;
                 color: #645d5d;
-                height: 33px;
+                height: max-content;
               }
 
               .btnEditar {
@@ -209,8 +214,8 @@
                 justify-content: flex-end;
                 .boton-editar {
                   align-self: flex-end;
-                  width: 39px;
-                  height: 21px;
+                  width: 2.936vw;
+                  height: 1.365vw;
                   background: #cccccc 0% 0% no-repeat padding-box;
                   padding: 0;
                   p {
@@ -219,7 +224,7 @@
 
                   .titulo-boton {
                     text-align: center;
-                    font: normal normal normal 8px/7px Roboto;
+                    font: normal normal normal 0.650vw/0.455vw Roboto;
                     letter-spacing: 0px;
                     color: #001045;
                   }
@@ -238,7 +243,7 @@
 
               .titulo_div3 {
                 text-align: left;
-                font-size: 12px;
+                font-size: 0.780vw;
                 font-family: 'Open Sans';
                 font-weight: bold;
                 letter-spacing: 0px;
@@ -260,7 +265,10 @@
               padding-left: 0.3rem;
               padding-right: 0.3rem;
               align-items: center;
-              padding-top: 5px;
+              //padding-top: 5px;
+              min-height: 30px;
+              height: 1.311vw;
+              align-content: center;
 
               .div-switch {
                 display: flex;
@@ -271,22 +279,24 @@
 
                 .labelActivar {
                   text-align: center;
-                  font: normal normal normal 8px/15px Arial;
+                  font: normal normal normal 0.585vw/0.975vw Arial;
                   letter-spacing: 0px;
                   color: #000000;
                 }
               }
 
               .boton-entrar {
-                width: 40px;
-                height: 22px;
+                width: 2.601vw;
+                height: 1.425vw;
+                //width: 40px;
+                //height: 22px;
                 background: #2699fb 0% 0% no-repeat padding-box;
-                border-radius: 5px;
+                border-radius: 0.325vw;
                 padding: 0;
 
                 .titulo-boton-entrar {
                   text-align: center;
-                  font: normal normal normal 8px/7px Roboto;
+                  font: normal normal normal 0.585vw/0.455vw Roboto;
                   letter-spacing: 0px;
                   color: #ffffff;
                 }
@@ -319,15 +329,15 @@
               .slider:before {
                 position: absolute;
                 content: '';
-                height: 26px;
-                width: 26px;
-                left: 4px;
-                bottom: 4px;
+                height: 1.691vw;
+                width: 1.691vw;
+                left: 0.260vw;
+                bottom: 0.260vw;
                 background-color: white;
                 -webkit-transition: 0.4s;
                 transition: 0.4s;
-                width: 16px;
-                height: 16px;
+                width: 1.040vw;
+                height: 1.040vw;
               }
 
               input:checked + .slider {
@@ -335,20 +345,20 @@
               }
 
               input:focus + .slider {
-                box-shadow: 0 0 1px #1df5b3;
+                box-shadow: 0 0 0.065vw #1df5b3;
               }
 
               input:checked + .slider:before {
-                -webkit-transform: translateX(26px);
-                -ms-transform: translateX(26px);
-                transform: translateX(26px);
+                -webkit-transform: translateX(1.691vw);
+                -ms-transform: translateX(1.691vw);
+                transform: translateX(1.691vw);
               }
 
               /* Rounded sliders */
               .slider.round {
-                border-radius: 34px;
-                width: 50px;
-                height: 22px;
+                border-radius: 2.211vw;
+                width: 3.251vw;
+                height: 1.430vw;
               }
 
               .slider.round:before {
@@ -360,7 +370,7 @@
 
         .estilo_titulo3 {
           text-align: left;
-          font-size: 20px;
+          font-size: 1.625vw;
           font-family: 'Open Sans';
           font-weight: bold;
           letter-spacing: 0px;
@@ -373,8 +383,10 @@
           align-items: center;
           .boton-volver {
             display: flex;
-            width: 132px;
-            height: 31px;
+            width: 8.583vw;
+            height: 2.016vw;
+            //width: 132px;
+            //height: 31px;
             background: #e5e5e5 0% 0% no-repeat padding-box;
             border-radius: 24px;
             align-items: center;
@@ -384,6 +396,9 @@
             font-size: 10px;
             font-weight: bold;
             margin-bottom: 50px;
+            .titulo-boton{
+              font-size: 0.780vw;
+            }
           }
         }
       }
@@ -396,10 +411,100 @@
     .div-center {
       .contenedor3 {
         .div-center3 {
+          .estilo_titulo3{
+            font-size: 20px;
+          }
           .ngnum3 {
             width: 96%;
             min-width: auto;
             justify-content: space-evenly;
+            .ofertaCreada{
+              max-width: 210px;
+              .div1Oferta{
+                .titulo_div1{
+                  font-size: 12px;
+                }
+              }
+              .div2Oferta{
+                min-height: 125px;
+                .text1{
+                  font: normal normal bold 12px/10px Roboto;
+                  height: 30px;
+                }
+                .text2{
+                  font: normal normal normal 10px/17px Roboto;
+                }
+                .text3{
+                  font: normal normal normal 10px/17px Roboto;
+                }
+                .btnEditar{
+                  .boton-editar{
+                  width: 39px;
+                  height: 21px;
+                  .titulo-boton{
+                    font: normal normal normal 8px/7px Roboto;
+                  }
+                  }
+                }
+              }
+              .div3Oferta{
+                .titulo_div3{
+                font-size: 12px;
+                }
+              }
+              .div4Oferta{
+                height: 30px;
+                .div-switch{
+                  .labelActivar{
+                    font: normal normal normal 8px/15px Arial;
+                  }
+                }
+                .boton-entrar{
+                  width: 40px;
+                  height: 22px;
+                  .titulo-boton-entrar{
+                    font: normal normal normal 8px/7px Roboto;
+                  }
+                }
+                .slider:before{
+                  position: absolute;
+                  content: '';
+                  height: 26px;
+                  width: 26px;
+                  left: 4px;
+                  bottom: 4px;
+                  background-color: white;
+                  -webkit-transition: 0.4s;
+                  transition: 0.4s;
+                  width: 16px;
+                  height: 16px;
+                }
+                input:focus + .slider {
+                  box-shadow: 0 0 1px #1df5b3;
+                }
+  
+                input:checked + .slider:before {
+                  -webkit-transform: translateX(26px);
+                  -ms-transform: translateX(26px);
+                  transform: translateX(26px);
+                }
+                /* Rounded sliders */
+                .slider.round {
+                  border-radius: 34px;
+                  width: 50px;
+                  height: 22px;
+                }
+              }
+            }
+          }
+          .btnVolver{
+            .boton-volver{
+              width: 132px;
+              height: 31px;
+              .titulo-boton{
+                font-size: 12px;
+              }
+            }
           }
         }
       }

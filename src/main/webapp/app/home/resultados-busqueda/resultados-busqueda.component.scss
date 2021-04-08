@@ -111,7 +111,7 @@
     width: 6.047vw;
 
     .form-control {
-      font-size: 0.585vw;
+      font-size: 0.8vw;
       width: 6.047vw;
       height: 0.975vw;
     }
@@ -125,14 +125,14 @@
       text-align: left;
       margin-left: 1.495vw;
       margin-bottom: 0px;
-      font-size: 0.585vw;
+      font-size: 0.8vw;
       font-weight: normal;
       opacity: 1;
     }
     .resultado {
       display: flex;
       font-family: 'Roboto';
-      font-size: 0.65vw;
+      font-size: 0.85vw;
       color: #5b5c62;
       opacity: 1;
       margin-top: 0.26vw;
@@ -152,7 +152,7 @@
       text-align: left;
       margin-left: 1.495vw;
       margin-top: 0.13vw;
-      font-size: 0.585vw;
+      font-size: 0.8vw;
       font-weight: normal;
       opacity: 1;
       margin-bottom: 0.26vw;
@@ -160,7 +160,7 @@
     .resultado {
       display: flex;
       font-family: 'Roboto';
-      font-size: 0.65vw;
+      font-size: 0.85vw;
       color: #5b5c62;
       opacity: 1;
       margin-top: 0.26vw;
@@ -225,7 +225,7 @@
       text-align: left;
       font: normal normal normal 0.78vw Roboto;
       letter-spacing: 0;
-      color: #645D5D;
+      color: #645d5d;
     }
 
     .button-ver {
@@ -343,10 +343,10 @@
 @media screen and (min-width: 900px) {
   .cuerpo {
     display: flex;
-    width: 90%;
+    width: 65%;
     // margin-left: 80px;
   }
-  .button-ver{
+  .button-ver {
     justify-content: center;
     align-items: center;
   }

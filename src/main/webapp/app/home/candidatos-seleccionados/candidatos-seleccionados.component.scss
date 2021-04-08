@@ -1046,17 +1046,152 @@ kendo-pdf-export {
   }
 }
 
+.contenedor {
+  .div-center {
+    width: 100%;
+    .botones-arriba {
+      width: 100%;
+      justify-content: center;
+      margin-bottom: 1.04vw;
+    }
+  }
+}
+
 @media only screen and (min-width: 900px) {
   .estilo_titulo2 {
     padding-left: 10%;
   }
   .ngnum1 {
-    width: 767px;
-    margin-top: 25px;
+    width: 49.87vw;
+    margin-top: 1.625vw;
   }
   .div-center2 {
     align-items: center;
     width: min-content;
+  }
+  .buscador {
+    display: flex;
+    flex-flow: column;
+    height: 45.189vw;
+    width: 8.192vw;
+    margin-bottom: 2%;
+    .input-buscador {
+      margin-top: 1.495vw;
+      width: 4.876vw;
+      .form-control {
+        width: 5.527vw;
+        height: 0.975vw;
+      }
+    }
+  }
+  .div-center3 {
+    width: min-content;
+    .cuerpo {
+      width: 69.636vw;
+      display: flex;
+    }
+  }
+  .perfil {
+    height: 46.164vw;
+    margin-bottom: 1.3vw;
+    .contngfor {
+      height: 7.932vw;
+    }
+    .perfiles {
+      display: flex;
+      background: #f8f8f8;
+      width: 49.87vw;
+      padding-bottom: 0.52vw;
+      padding-right: 0.52vw;
+      min-height: 5.527vw;
+      margin-left: 1.56vw;
+      align-items: center;
+      justify-content: space-between;
+      .mitad1 {
+        min-width: 17.685vw;
+        min-height: 5.527vw;
+        display: flex;
+        .imagen {
+          margin-top: 0.91vw;
+          margin-left: 2.796vw;
+          margin-right: 1.56vw;
+          margin-bottom: 0.975vw;
+        }
+        p.nombre {
+          top: 23%;
+          margin-bottom: 1.3vw;
+          width: 9.753vw;
+        }
+      }
+      .mitad2 {
+        max-width: max-content;
+        min-height: 5.527vw;
+        display: flex;
+        p.resumen {
+          margin-right: 3.511vw;
+        }
+      }
+      .parte3 {
+        min-width: 7.217vw;
+        min-height: 2.016vw;
+      }
+      .parte4 {
+        min-width: 5.397vw;
+        min-height: 5.527vw;
+        padding-top: 1.3vw;
+      }
+    }
+    .btn-seleccionado {
+      padding-left: 44%;
+      .mensajeEmail {
+        min-height: 1.56vw;
+        width: 13.069vw;
+      }
+      .btn1 {
+        min-height: 1.56vw;
+        width: 7.542vw;
+        background: #020d52;
+        color: #fbfbfb;
+        font-family: 'Arial';
+        font-size: 0.78vw;
+        text-align: center;
+        border: none;
+      }
+      .btn2 {
+        min-height: 1.56vw;
+        width: 7.542vw;
+        background: #1a9fef;
+        color: #fbfbfb;
+        font-family: 'Arial';
+        font-size: 0.78vw;
+        text-align: center;
+        border: none;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .contenedor {
+    .div-center {
+      width: 100%;
+      .botones-arriba {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+  .estilo_titulo2 {
+    padding-left: 10%;
+  }
+  .ngnum1 {
+    width: 97%;
+    margin-top: 25px;
+  }
+  .div-center2 {
+    align-items: center;
+    width: 100%;
   }
   .buscador {
     display: flex;

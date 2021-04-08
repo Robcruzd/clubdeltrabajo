@@ -1,7 +1,7 @@
 <div class="contenedor" *ngIf="!showBtnArriba">
     <div class="div-center">
         <div class="botones-arriba">
-            <button class="btn boton-clicked" (click)="crearOferta()">
+            <button class="btn boton-no-clicked" (click)="crearOferta()">
                 <fa-icon [icon]="faCommentDots" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
@@ -22,7 +22,7 @@
                     <p class="titulo-boton">Club de empresas</p>
                 </div>
             </button> -->
-            <button class="btn boton-no-clicked" (click)="controlaOferta()">
+            <button class="btn boton-clicked" (click)="verOferta()">
                 <fa-icon icon="eye" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
@@ -156,7 +156,7 @@
                     <a class="perfiles" (click)="verAspirante(item)" [style.background]="item.color">
                         <div class="mitad1">
                             <div class="imagen">
-                                 <img src="../../../content/images/Image 282.png" alt="">
+                                 <img [src]="item?.imagen?  item?.imagen : urlImageDefault" alt="">
                             </div>
                             <div class="contenedornc">
                             <!-- <p class="nombre">Bavaria</p> -->
@@ -241,7 +241,7 @@
             <div class="box-right">
                 <h1><span style="color: grey;">{{hojaVidaVo?.informacionPersonal?.usuario?.nombre}}</span> {{hojaVidaVo?.informacionPersonal?.usuario?.apellido}}</h1>
                 <div style="padding-left: 3.121vw;" *ngFor="let item of hojaVidaVo?.experienciaLaboral">
-                    <h3>{{hojaVidaVo?.informacionPersonal?.profesion}}</h3>
+                    <h3>{{hojaVidaVo?.informacionPersonal?.profesion?.profesion}}</h3>
                     <!-- <div *ngIf="item.trabajoActual==true">
                         <div *ngIf="item.cargo?.cargo!=='Otro'">
                             
