@@ -449,25 +449,16 @@
       }
 
       .buscador {
-        //display: flex;
-        //flex-flow: column;
         background: #f5f5f5 0% 0% no-repeat padding-box;
-        //height: 695px;
-        //width: 126px;
         .input-buscador {
           display: flex;
-          //margin-top: 23px;
-          // margin-left: 15px;
-          // margin-right: 15px;
-          background: #ffffff 0% 0% no-repeat padding-box;
+          //background: #ffffff 0% 0% no-repeat padding-box;
           opacity: 1;
-          //width: 75px;
           height: 0.975vw;
-          // margin-left: 10px;
+          flex-flow: row-reverse;
+          width: 90%;
           .form-control {
-            //width: 85px;
-            //height: 15px;
-            font-size: 0.585vw;
+            font-size: 0.785vw;
             margin-left: 0.39vw;
           }
         }
@@ -532,10 +523,13 @@
           display: flex;
           .imagen {
             display: flex;
-            width: 3.641vw;
-            height: 3.641vw;
+            width: 4.641vw;
+            height: 4.641vw;
             border-radius: 8.453vw;
             border: none;
+            .img{
+              border-radius: 50%;
+            }
           }
           p.nombre {
             font-size: 0.975vw;
@@ -552,6 +546,7 @@
             color: #7e7474;
             opacity: 1;
             font-weight: bold;
+            margin-bottom: 0;
             //margin-top: 3px; modificar en menor a 900 px
           }
         }
@@ -598,6 +593,9 @@
         }
       }
       .btn-seleccionado {
+        .botones-enviar-des{
+        display: flex;
+        }
         .btn1 {
           background: #020d52;
           color: #fbfbfb;
@@ -973,9 +971,9 @@ kendo-pdf-export {
     flex-flow: wrap;
     width: 100%;
     .contngfor {
-      width: 95%;
+      width: 48%;
       margin: 1%;
-      // max-width: 200px;
+      max-width: 200px;
       min-width: 150px;
       .perfiles {
         display: inline-table;
@@ -1095,13 +1093,14 @@ kendo-pdf-export {
     height: 46.164vw;
     margin-bottom: 1.3vw;
     .contngfor {
-      height: 7.932vw;
+      min-height: 7.932vw;
+      height: max-content;
     }
     .perfiles {
       display: flex;
       background: #f8f8f8;
       width: 49.87vw;
-      padding-bottom: 0.52vw;
+      //padding-bottom: 0.52vw;
       padding-right: 0.52vw;
       min-height: 5.527vw;
       margin-left: 1.56vw;
@@ -1111,22 +1110,34 @@ kendo-pdf-export {
         min-width: 17.685vw;
         min-height: 5.527vw;
         display: flex;
+        align-items: center;
         .imagen {
-          margin-top: 0.91vw;
-          margin-left: 2.796vw;
-          margin-right: 1.56vw;
-          margin-bottom: 0.975vw;
+          //margin-top: 0.91vw;
+          margin-left: 1.796vw;
+          margin-right: 1.796vw;
+          //margin-bottom: 0.975vw;
+          .img{
+            width: 4.641vw;
+            height: 4.641vw;
+          }
         }
-        p.nombre {
-          top: 23%;
-          margin-bottom: 1.3vw;
-          width: 9.753vw;
+        .contenedornc{
+          width: 60%;
+          p.nombre {
+            //top: 23%;
+            margin-bottom: 0;
+            width: 9.753vw;
+          }
+          p.carrera{
+            line-height: 0.845vw;
+          }
         }
       }
       .mitad2 {
         max-width: max-content;
         min-height: 5.527vw;
         display: flex;
+        align-items: center;
         p.resumen {
           margin-right: 3.511vw;
         }
@@ -1142,12 +1153,14 @@ kendo-pdf-export {
       }
     }
     .btn-seleccionado {
-      padding-left: 44%;
+      padding-left: 50%;
       display: flex;
       justify-content: space-between;
+      margin-bottom: 0.5vw;
       .mensajeEmail {
-        min-height: 1.56vw;
-        width: 13.069vw;
+        height: 1.56vw;
+        width: 9vw;
+        font-size: 0.780vw;
       }
       .btn1 {
         min-height: 1.56vw;
@@ -1336,6 +1349,7 @@ kendo-pdf-export {
             p.resumen {
               font-size: 11px;
               margin-bottom: 0px;
+              width: max-content;
             }
           }
           .parte3 {
@@ -1433,6 +1447,7 @@ kendo-pdf-export {
           img {
             width: 50px;
             height: 50px;
+            border-radius: 50%;
           }
         }
       }

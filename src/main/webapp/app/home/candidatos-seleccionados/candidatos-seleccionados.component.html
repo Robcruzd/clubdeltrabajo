@@ -147,8 +147,8 @@
                 </div>                        
                 
                 <div *ngIf= "showBtnArriba" class="btnVerOcultar">
-                    <button *ngIf= "filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ver Filtros</button>
-                    <button *ngIf= "!filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ocultar Filtros</button>
+                    <button *ngIf= "!filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ver Filtros</button>
+                    <button *ngIf= "filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ocultar Filtros</button>
                 </div>
                 </div> 
                 <div class="perfil">
@@ -156,7 +156,7 @@
                     <a class="perfiles" (click)="verAspirante(item)" [style.background]="item.color">
                         <div class="mitad1">
                             <div class="imagen">
-                                 <img [src]="item?.imagen?  item?.imagen : urlImageDefault" alt="">
+                                 <img [src]="item?.imagen?  item?.imagen : urlImageDefault" alt="" class="img">
                             </div>
                             <div class="contenedornc">
                             <!-- <p class="nombre">Bavaria</p> -->

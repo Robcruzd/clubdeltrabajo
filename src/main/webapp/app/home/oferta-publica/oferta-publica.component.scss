@@ -40,6 +40,7 @@ p.titulo {
   color: #7e7474;
   opacity: 1;
   line-height: 17px;
+  font-weight: bolder;
 }
 .titulo_oferta_previsualizacion {
   color: #1fb9fd;
@@ -52,6 +53,7 @@ p.titulo {
   color: #7e7474;
   line-height: 17px;
   font-family: 'Roboto';
+  font-weight: bolder;
 }
 .aplicar {
   height: 39px;
@@ -122,21 +124,26 @@ p.titulo {
   }
   .oferta {
     font-family: 'Roboto';
-    font-size: 1.24vw;
+    font-size: 0.780vw;
     color: #7e7474;
     opacity: 1;
-    line-height: 1.24vw;
+    line-height: 1vw;
+    font-weight: bolder;
   }
   .titulo_oferta_previsualizacion {
     color: #1fb9fd;
-    font-size: 1.24vw;
-    line-height: 1.34vw;
+    font-size: 0.780vw;
+    line-height: 0.980vw;
     font-family: 'Roboto';
   }
   .des_titulo {
-    font-size: 1.24vw;
+    font-size: 0.780vw;
     color: #7e7474;
-    line-height: 1.34vw;
+    line-height: 0.980vw;
     font-family: 'Roboto';
+    font-weight: bolder;
+  }
+  .img-titulo {
+    margin-bottom: 2.666vw;
   }
 }

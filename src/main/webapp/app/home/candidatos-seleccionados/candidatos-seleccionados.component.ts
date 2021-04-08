@@ -549,7 +549,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   }
 
   verOferta(): void {
-    this.router.navigate(['oferta-publicada']);
+    this.router.navigate(['controlar-ofertas']);
   }
 
   membresia(): void {

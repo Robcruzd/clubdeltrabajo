@@ -42,6 +42,7 @@ export class ControlarOfertasComponent implements OnInit {
   totalSeleccionado = 0;
   totalTodo = 0;
   totalNinguno = 0;
+  showBtnArriba= false;
 
   constructor(
     private accountService: AccountService,
@@ -55,6 +56,14 @@ export class ControlarOfertasComponent implements OnInit {
   ngOnInit(): void {
     this.cargarInformacionCuenta();
     this.consultarInformacionGeografica();
+
+    if (window.screen.width <= 900) {
+      this.showBtnArriba = false;
+    }
+
+    if (window.screen.width >= 900) {
+      this.showBtnArriba = true;
+    }
   }
 
   consultarInformacionGeografica(): void {
