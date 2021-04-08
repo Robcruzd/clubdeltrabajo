@@ -1,6 +1,6 @@
 <div class="contenedor">
     <div class="div-center">
-        <div class="botones-arriba">
+        <div class="botones-arriba" *ngIf="showBtnArriba">
             <button class="btn boton-no-clicked" (click)="crearOferta()">
                 <fa-icon [icon]="faCommentDots" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
