@@ -33,9 +33,27 @@ export class PathUtil2 {
   }
 }
 
+export class PathUtil {
+  public static getPathParams(parameters: any): string {
+    const fields: string[] = Object.getOwnPropertyNames(parameters);
+    let path = '?';
+    fields.forEach((field: string, i: number) => {
+      const value: any = Object.values(parameters)[i];
+      if (i > 0 && path !== '?' && value !== null && value.toString().trim() !== '') {
+        path += '&';
+      }
+      if (value !== null && value.toString().trim() !== '') {
+        path += field + '=' + value;
+      }
+    });
+    return path !== '?' ? path : '';
+  }
+}
+
 @Injectable({ providedIn: 'root' })
 export class InformacionAcademicaService {
   public resourceUrl = SERVER_API_URL + 'api/informacion-academicas';
+  public resourceUrlByUsuario = SERVER_API_URL + 'api/informacion-academicas/obtenerInfoUsuario';
 
   constructor(protected http: HttpClient) {}
 
@@ -104,5 +122,11 @@ export class InformacionAcademicaService {
 
   public get(url: string, headers?:any):Observable<any>{
     return this.http.get<any>(url,headers);
+  }
+
+  public getPersonaFiltro(idPersona?: any): Observable<any> {
+    const params = PathUtil.getPathParams({ persona: idPersona });
+    const url = this.resourceUrlByUsuario + params;
+    return this.http.get<any>(url);
   }
 }

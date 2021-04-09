@@ -1,16 +1,17 @@
 package com.service;
 
-import com.domain.InformacionAcademica;
-import com.repository.InformacionAcademicaRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import com.domain.InformacionAcademica;
+import com.repository.InformacionAcademicaRepository;
 
 /**
  * Service Implementation for managing {@link InformacionAcademica}.
@@ -70,5 +71,9 @@ public class InformacionAcademicaService {
     public void delete(Long id) {
         log.debug("Request to delete InformacionAcademica : {}", id);
         informacionAcademicaRepository.deleteById(id);
+    }
+    
+    public List<InformacionAcademica> getByPersona( Long persona) {
+    	return informacionAcademicaRepository.getByPersona(persona);
     }
 }

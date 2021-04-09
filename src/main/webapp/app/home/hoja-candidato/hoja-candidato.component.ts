@@ -69,8 +69,8 @@ export class HojaCandidatoComponent implements OnInit {
         this.informacionPersonal.usuario = this.personaInfo;
         this.informacionAcademica.usuario = this.personaInfo;
         this.informacionPersonalService.getPersonaFiltro(this.personaInfo.id).subscribe(info => {
-          this.informacionAcademicaService.listar(this.informacionAcademica).subscribe(academica => {
-            this.listaInformacionAcademica = academica.content;
+          this.informacionAcademicaService.getPersonaFiltro(this.personaInfo.id).subscribe(academica => {
+            this.listaInformacionAcademica = academica;
             this.personaIdiomaService.getPersonaFiltro(this.informacionPersonal.usuario).subscribe(personaFiltro => {
               this.listaIdiomas = personaFiltro;
             });
