@@ -18,11 +18,11 @@ export class PrevioRegistrarEmpComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     // eslint-disable-next-line no-console
-    console.log('');
+    console.log('onDestroy');
     this.navbarService.setNavbarState(true);
   }
 
   crearOferta(): void {
-    this.router.navigate(['/agregar-usuario'], {queryParams:{ userType: 'juridico' }});
+    this.router.navigate(['/agregar-usuario'], { queryParams: { userType: 'juridico' } });
   }
 }

@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   height: min-content;
+  width: 55%;
 
   .nosotros {
     font-family: 'Roboto';
@@ -39,6 +40,7 @@
   }
 }
 .img {
-  width: 41%;
-  align-self: flex-end;
+  width: 45%;
+  height: min-content;
+  align-self: center;
 }

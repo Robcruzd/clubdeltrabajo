@@ -6,13 +6,13 @@
             <!-- <div class="collapse navbar-collapse" id="navbarNavAltMarkup"> -->
                 <!-- <div class="navbar-nav"> -->
                     <div class="opciones" >
-                        <a *ngFor="let item of lstOpcionesMenu" class="nav-item item" [ngStyle]="{ 'color': account?.userEmpresa==null && navbarState==true ? '#FFFFFF 0% 0% no-repeat padding-box' : '#797979' }"
+                        <a *ngFor="let item of lstOpcionesMenu" class="nav-item item" [ngStyle]="{ 'color': account?.userEmpresa==null && navbarState==true ? '#FFFFFF' : '#797979' }"
                             [routerLink]="[item.ruta]">{{item.etiqueta}}</a>
                     </div>
                     <div ngbDropdown *ngIf="logged" class="dropdownBurger">
                         <fa-icon icon="bars" ngbDropdownToggle href="javascript:void(0);" 
-                            class="burger dropdown-toggle rounded-circle" [ngStyle]="{ 'color': account?.userEmpresa==null&&navbarState==true ? '#FFFFFF' : '#6d7184' }"></fa-icon>
-                        <!-- <img class="burger dropdown-toggle rounded-circle" ngbDropdownToggle href="javascript:void(0);"
+                            class="burger dropdown-toggle rounded-circle" [ngStyle]="{ 'color': account?.userEmpresa==null && navbarState==true ? '#FFFFFF' : '#6d7184' }"></fa-icon>
+                        <!-- <img class="burger dropdown-toggle ro11unded-circle" ngbDropdownToggle href="javascript:void(0);"
                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAAAg0lEQVRoge3WMQoDMQxEUSnnWHKfzUFyce09JsWSYNQZgizMf53AxYyrMQMAYBeSXpJCfYWkc8zsqUCY2VH6a/PC3Z/fIxdQfZ557v7L/VgZ5B9ygWtJijkxHrnAOz9oJuzOCAAdiS1Ugi3UCluoGFsIQGdiC5VgC7XCFirGFgIA7OUDCr8ZYRVLYKMAAAAASUVORK5CYII="> -->
                         <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu aria-labelledby="account-menu">
                             <a class="dropdown-item elemento" (click)="verPerfil()" id="perfil">

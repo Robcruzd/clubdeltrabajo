@@ -45,10 +45,10 @@
                                     </option>
                                 </select>
                                 <!-- <input type="text" class="input_documento" formControlName="numeroDocumento"> -->
-                                <div *ngIf="formPersonal.get('tipoDocumento')!.value?.id===4" style="width: 50%;">
+                                <div *ngIf="formPersonal.get('tipoDocumento')!.value?.id===4 || formPersonal.get('tipoDocumento')!.value?.id===5" style="width: 50%;">
                                     <input type="text" class="input_documento" style="width: 100%;" formControlName="numeroDocumento">
                                 </div>
-                                <div *ngIf="formPersonal.get('tipoDocumento')!.value?.id!==4" style="width: 50%;">
+                                <div *ngIf="formPersonal.get('tipoDocumento')!.value?.id!==4 && formPersonal.get('tipoDocumento')!.value?.id!==5" style="width: 50%;">
                                     <input type="number" class="input_documento" style="width: 100%;" formControlName="numeroDocumento">
                                 </div>
                                 <div class="file_upload" >
@@ -396,7 +396,7 @@
                                 <p class="estilo_label">{{labels.ESTADO_LABEL}} <span
                                         class="estilo_campo_requerido">*</span>
                                 </p>
-                                <select formControlName="estado" class="estilo_inputs">
+                                <select formControlName="estado" class="estilo_inputs" (change)="onChangeIncompAcademic(indexAcademica, $event)">
                                     <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
                                     <option
                                         [ngValue]="estado.codigo === informacionAcademica.at(indexAcademica).get('estado')!.value ? informacionAcademica.at(indexAcademica).get('estado')!.value: estado.codigo"
