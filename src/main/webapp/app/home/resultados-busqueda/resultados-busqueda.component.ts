@@ -171,6 +171,7 @@ export class ResultadosBusquedaComponent implements OnInit {
   async getOfertas(): Promise<any> {
     if (this.general === 'true') {
       this.ofertaBuscaAll.estado = 'A';
+      this.ofertaBuscaAll.activado = true;
       this.ofertaService.listar(this.ofertaBuscaAll).subscribe(response => {
         this.resultadoBusqueda = response.content;
         if (this.resultadoBusqueda) {
@@ -313,6 +314,8 @@ export class ResultadosBusquedaComponent implements OnInit {
         if (this.experienciaValue != null) {
           params.experiencia = this.experienciaValue;
         }
+        params.estado = "A";
+        params.activado = true;
         this.ofertaService.listar(params).subscribe(response => {
           this.resultadoBusqueda = response.content;
           if (this.resultadoBusqueda) {
@@ -373,6 +376,8 @@ export class ResultadosBusquedaComponent implements OnInit {
         } else {
           params.salario = 0;
         }
+        params.estado = "A";
+        params.activado = true;
         params.fecha = this.fechaValue;
         this.ofertaService.getOfertasFiltro(params).subscribe(response => {
           this.resultadoBusqueda = response;
@@ -440,6 +445,8 @@ export class ResultadosBusquedaComponent implements OnInit {
             if (this.experienciaValue != null) {
               params.experiencia = this.experienciaValue;
             }
+            params.estado = "A";
+            params.activado = true;
             params.profesion = this.profesionesFiltro[i].id;
             this.resultadoBusqueda = await this.listarOfertas(params);
             if (this.resultadoBusqueda) {
@@ -497,6 +504,8 @@ export class ResultadosBusquedaComponent implements OnInit {
             } else {
               params.salario = 0;
             }
+            params.estado = "A";
+            params.activado = true;
             params.fecha = this.fechaValue;
             params.profesion = this.profesionesFiltro[i].id;
             this.ofertaService.getOfertasFiltroProfesion(params).subscribe(response => {

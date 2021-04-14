@@ -37,6 +37,7 @@ import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 import { AccountService } from '../../core/auth/account.service';
 import { User } from '../../core/user/user.model';
 import { EmpresaService } from '../../entities/empresa/empresa.service';
+import Swal from 'sweetalert2';
 
 const { exportPDF } = pdf;
 declare let alertify: any;
@@ -48,6 +49,7 @@ declare let alertify: any;
 })
 export class CandidatosSeleccionadosComponent implements OnInit {
   @ViewChild('pdf') pdfExport: any;
+  @ViewChild('searchInput') searchInput: any;
 
   public page = 1;
   faStar = faStar;
@@ -105,7 +107,6 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   profesionesFiltro: Array<IProfesion> | null = [];
   mensajeEmail = '';
   aplicacionOferta: any;
-  cargando = true;
   usuario!: User | null;
   filtrosOn = false;
   showBtnArriba = false;
@@ -659,12 +660,25 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   }
 
   enviarEmail(persona: any): void {
-    this.cargando = false;
-    this.personaService.enviarEmailAspirante(persona.idPersona, this.mensajeEmail).subscribe(() => {
-      alertify.set('notifier', 'position', 'top-right');
-      alertify.success('Email enviado correctamente!');
-      this.mensajeEmail = '';
-      this.cargando = true;
+    const mensaje = (document.getElementById("mensaje") as HTMLInputElement).value;
+    Swal.fire({
+      title: '¿Está seguro que desea enviar el email?',
+      text: mensaje,
+      icon: 'question',
+      showCancelButton: true,
+      showCloseButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#2699FB',
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar'
+    }).then(result => {
+      if (result.value) {
+        this.personaService.enviarEmailAspirante(persona.idPersona, mensaje).subscribe(() => {
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.success('Email enviado correctamente!');
+          this.searchInput.nativeElement.value = '';
+        });
+      }
     });
   }
 
