@@ -68,8 +68,8 @@ export class HojaCandidatoComponent implements OnInit {
       if (this.personaInfo) {
         this.informacionPersonal.usuario = this.personaInfo;
         this.informacionAcademica.usuario = this.personaInfo;
-        this.informacionPersonalService.getPersonaFiltro(this.personaInfo.id).subscribe(info => {
-          this.informacionAcademicaService.getPersonaFiltro(this.personaInfo.id).subscribe(academica => {
+        this.informacionPersonalService.getPersonaFiltro(this.personaInfo?.id).subscribe(info => {
+          this.informacionAcademicaService.getPersonaFiltro(this.personaInfo?.id).subscribe(academica => {
             this.listaInformacionAcademica = academica;
             this.personaIdiomaService.getPersonaFiltro(this.informacionPersonal.usuario).subscribe(personaFiltro => {
               this.listaIdiomas = personaFiltro;
@@ -105,32 +105,34 @@ export class HojaCandidatoComponent implements OnInit {
     await this.actualizarAplicacionOferta(this.aplicacionOFertaActualizar);
     if (this.modelBandera !== this.model) {
       if (this.model === 'Seleccionado') {
-        this.aplicacionOfertaService.getByOfertaAndPersonaFiltro(this.idOfertaAplicacionOferta,this.idUsuarioAplicacionOferta).subscribe(apliOferResponse =>{
-          this.apliOferResponseFiltro = apliOferResponse;
-          if(this.apliOferResponseFiltro.length === 0){
-            this.aplicacionOferta.estado = this.model;
-            this.aplicacionOferta.fechaPostulacion = moment(new Date(), 'YYYY-MMM-DD');
-            this.aplicacionOferta.oferta = this.idOfertaAplicacionOferta;
-            this.aplicacionOferta.usuario = this.idUsuarioAplicacionOferta;
-          }
-          this.aspiranteSeleccionado.id = this.idUsuarioAplicacionOferta.id;
-          this.personaService.seleccionadoAspirante(this.aspiranteSeleccionado).subscribe(() => {});
-        });
+        this.aplicacionOfertaService
+          .getByOfertaAndPersonaFiltro(this.idOfertaAplicacionOferta, this.idUsuarioAplicacionOferta)
+          .subscribe(apliOferResponse => {
+            this.apliOferResponseFiltro = apliOferResponse;
+            if (this.apliOferResponseFiltro.length === 0) {
+              this.aplicacionOferta.estado = this.model;
+              this.aplicacionOferta.fechaPostulacion = moment(new Date(), 'YYYY-MMM-DD');
+              this.aplicacionOferta.oferta = this.idOfertaAplicacionOferta;
+              this.aplicacionOferta.usuario = this.idUsuarioAplicacionOferta;
+            }
+            this.aspiranteSeleccionado.id = this.idUsuarioAplicacionOferta.id;
+            this.personaService.seleccionadoAspirante(this.aspiranteSeleccionado).subscribe(() => {});
+          });
       }
     }
     setTimeout(() => {
-      this.router.navigate(['candidatos-seleccionados'],{queryParams:{ oferta: this.idOFerta }});
+      this.router.navigate(['candidatos-seleccionados'], { queryParams: { oferta: this.idOFerta } });
     }, 500);
   }
 
-  volver(): void{
-    this.router.navigate(['candidatos-seleccionados'], {queryParams:{ oferta: this.idOFerta }});
+  volver(): void {
+    this.router.navigate(['candidatos-seleccionados'], { queryParams: { oferta: this.idOFerta } });
   }
 
   actualizarAplicacionOferta(datos: any): Promise<any> {
     return new Promise(resolve => {
-      this.aplicacionOfertaService.update(datos).subscribe(() => { 
-        resolve("hecho");
+      this.aplicacionOfertaService.update(datos).subscribe(() => {
+        resolve('hecho');
       });
     });
   }

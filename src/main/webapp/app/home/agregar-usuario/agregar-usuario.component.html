@@ -24,7 +24,7 @@
         <div class="inputs" *ngIf="tipoUsuario.id==2">
             <label style="color:#202A5D;">Sector</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="empresa.sector"  (ngModelChange)="empresa.sector = $event.toUpperCase()" (blur)="deleteSpace2('sector')">
-            <small *ngIf="mensajeNombre" class="text-danger">
+            <small *ngIf="mensajeSector" class="text-danger">
                 {{mensajeNombre}}
             </small>
         </div>
@@ -38,8 +38,8 @@
         <div class="inputs" *ngIf="tipoUsuario.id==2">
             <label [style.color]="'#202A5D'">Razón Social</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="empresa.razonSocial"  (ngModelChange)="empresa.razonSocial = $event.toUpperCase()" (blur)="deleteSpace2('razonSocial')">
-            <small *ngIf="mensajeNombre" class="text-danger">
-                {{mensajeNombre}}
+            <small *ngIf="mensajeRazon" class="text-danger">
+                {{mensajeApellido}}
             </small>
         </div>
         <div class="inputs" *ngIf="tipoUsuario.id==1">
@@ -56,10 +56,10 @@
                         {{ documento.nombreTipo }}
                     </option>
                 </select>
-                <div *ngIf="tipoDocumento.nombreTipo==='Pasaporte'" style="width: 100%;">
+                <div *ngIf="tipoDocumento.nombreTipo==='Pasaporte' || tipoDocumento.nombreTipo==='NIT'" style="width: 100%;">
                     <input type="text" class="input_documento" style="width: 100%;" [(ngModel)]="persona.numeroDocumento">
                 </div>
-                <div *ngIf="tipoDocumento.nombreTipo!=='Pasaporte'" style="width: 100%;">
+                <div *ngIf="tipoDocumento.nombreTipo!=='Pasaporte' && tipoDocumento.nombreTipo!=='NIT'" style="width: 100%;">
                     <input type="number" class="input_documento" style="width: 100%;" [(ngModel)]="persona.numeroDocumento">
                 </div>
             </div>
@@ -71,7 +71,7 @@
             <label [style.color]="'#202A5D'">NIT</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="empresa.numeroDocumento"  (ngModelChange)="empresa.numeroDocumento = $event.toUpperCase()">
             <small *ngIf="mensajeNombre" class="text-danger">
-                {{mensajeNombre}}
+                {{mensajeNumDoc}}
             </small>
         </div>
         <div class="inputs" *ngIf="tipoUsuario.id==1">

@@ -244,7 +244,6 @@ export class CrearOfertaComponent implements OnInit {
 
   onSubmit(): void {
     this.oferta = new Oferta();
-    this.oferta.estado = 'A';
     this.oferta.titulo = this.formDatosBasicos.controls['nombre'].value;
     this.oferta.descripcion = this.formDatosBasicos.controls['requisitos'].value;
     this.oferta.salario = this.formDatosBasicos.controls['rangoSalarial'].value;
@@ -270,6 +269,7 @@ export class CrearOfertaComponent implements OnInit {
             this.oferta.usuario = RESPONSE.body;
             if (this.idOferta === 0) {
               if (ofertaResponse.length < 1) {
+                this.oferta.estado = 'A';
                 this.oferta.activado = true;
                 this.ofertaService.create(this.oferta).subscribe(
                   response => {
@@ -286,6 +286,7 @@ export class CrearOfertaComponent implements OnInit {
                   }
                 );
               } else if (ofertaResponse.length < 3 && this.oferta.usuario?.id === 63951) {
+                this.oferta.estado = 'A';
                 this.oferta.activado = true;
                 this.ofertaService.create(this.oferta).subscribe(
                   response => {

@@ -1,6 +1,8 @@
 .contenedor {
   display: flex;
   flex-direction: column;
+  min-height: 80vh;
+  justify-content: space-between;
 
   .estilo_body {
     display: flex;

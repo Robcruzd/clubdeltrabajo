@@ -75,7 +75,7 @@ export class NavbarCtComponent implements OnInit {
         this.accountService.getAuthenticationState().subscribe(account => {
           this.account = account;
           // eslint-disable-next-line no-console
-          console.log(this.account);
+          console.log('acount---------------', this.account);
           this.persona = account?.user || 0;
           this.showNavbar = this.accountService.isAuthenticated() ? true : false;
           this.showElement = this.accountService.isAuthenticated() ? true : false;
@@ -147,6 +147,14 @@ export class NavbarCtComponent implements OnInit {
   }
 
   cerrarSesion(): void {
+    this.lstOpcionesMenu = [
+      { id: 1, etiqueta: 'Inicio', ruta: '/' },
+      { id: 2, etiqueta: 'Personas', ruta: '/previo-registrar' },
+      { id: 3, etiqueta: 'Empresas', ruta: '/previo-registrar-emp' },
+      { id: 4, etiqueta: 'Publicaciones', ruta: '/resultados-busqueda' },
+      { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
+      { id: 6, etiqueta: 'Contacto', ruta: '/informacion-empresa' }
+    ];
     this.logged = false;
     this.showElement = false;
     this.loginService.logout();

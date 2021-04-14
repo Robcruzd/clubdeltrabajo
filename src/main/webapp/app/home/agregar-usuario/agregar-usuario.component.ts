@@ -46,6 +46,8 @@ export class AgregarUsuarioComponent implements OnInit {
   mensajeConfClave: any;
   mensajeTipoPersona: any;
   mensajeTerminos: any;
+  mensajeRazon: any;
+  mensajeSector: any;
   validacionIncorrecta: any = true;
   condiciones: any;
   personaNatural: any;
@@ -133,6 +135,7 @@ export class AgregarUsuarioComponent implements OnInit {
     const CONTRASENA_REGEX = /.*(?=.{8,20})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*/;
     const PASAPORTE_REGEX = /^[0-9A-Za-z]{6,18}$/;
     const CEDULA_REGEX = /^[0-9]{5,18}$/;
+    const NIT_REGEX = /^[0-9-]{5,18}$/;
     this.validacionIncorrecta = false;
     this.mensajeNombre = '';
     this.mensajeApellido = '';
@@ -185,8 +188,24 @@ export class AgregarUsuarioComponent implements OnInit {
         this.mensajeNumDoc = '*El documento solo puede tener de 6 a 18 carácteres entre minúsculas, mayúsculas y números';
         this.validacionIncorrecta = true;
       }
+      // eslint-disable-next-line no-console
+      console.log(
+        'tipo:---',
+        this.tipoDocumento.nombreTipo === 'NIT',
+        this.persona.numeroDocumento,
+        !this.persona.numeroDocumento?.toString()?.match(NIT_REGEX)
+      );
+      if (
+        this.tipoDocumento.nombreTipo === 'NIT' &&
+        this.persona.numeroDocumento &&
+        !this.persona.numeroDocumento.toString()?.match(NIT_REGEX)
+      ) {
+        this.mensajeNumDoc = '*El documento solo puede tener de 6 a 18 carácteres';
+        this.validacionIncorrecta = true;
+      }
       if (
         this.tipoDocumento.nombreTipo !== 'Pasaporte' &&
+        this.tipoDocumento.nombreTipo !== 'NIT' &&
         this.persona.numeroDocumento &&
         !this.persona.numeroDocumento.toString()?.match(CEDULA_REGEX)
       ) {
@@ -199,19 +218,19 @@ export class AgregarUsuarioComponent implements OnInit {
       }
     } else {
       if (!this.empresa.razonSocial?.match(NOMBRE2_REGEX)) {
-        this.mensajeNombre = 'La razón social contiene carácteres no permitidos';
+        this.mensajeRazon = 'La razón social contiene carácteres no permitidos';
         this.validacionIncorrecta = true;
       }
       if (!this.empresa.razonSocial) {
-        this.mensajeNombre = commonMessages.CAMPO_REQUERIDO;
+        this.mensajeRazon = commonMessages.CAMPO_REQUERIDO;
         this.validacionIncorrecta = true;
       }
-      if (!this.empresa.sector?.match(NOMBRE_REGEX)) {
-        this.mensajeNombre = 'El sector contiene carácteres no permitidos';
+      if (!this.empresa.sector?.match(NOMBRE2_REGEX)) {
+        this.mensajeSector = 'El sector contiene carácteres no permitidos';
         this.validacionIncorrecta = true;
       }
       if (!this.empresa.sector) {
-        this.mensajeNombre = commonMessages.CAMPO_REQUERIDO;
+        this.mensajeSector = commonMessages.CAMPO_REQUERIDO;
         this.validacionIncorrecta = true;
       }
       if (!this.empresa.email?.match(EMAIL_REGEX)) {

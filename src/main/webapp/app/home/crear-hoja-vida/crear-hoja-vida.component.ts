@@ -145,6 +145,10 @@ export class CrearHojaVidaComponent implements OnInit {
     this.mostrar = false;
     this.cargarCuentaUsuario();
     this.globalForm = this.crearFormularioGeneral();
+    this.informacionAcademica
+      .at(0)
+      .get(['fechaFin'])
+      ?.disable();
     this.consultarInformacionGeografica();
     this.cargarPaises();
     this.cargarTipoDocumento();
@@ -394,6 +398,12 @@ export class CrearHojaVidaComponent implements OnInit {
           usuario: academica.usuario,
           institucion: academica.institucion
         });
+        if (academica.estado !== 3) {
+          this.informacionAcademica
+            .at(index)
+            .get(['fechaFin'])
+            ?.disable();
+        }
       }
     }
 
@@ -1475,11 +1485,31 @@ export class CrearHojaVidaComponent implements OnInit {
     return this.globalForm.get('experienciaLaboral') as FormArray;
   }
 
+  onChangeIncompAcademic(index: any, event: any): void {
+    // eslint-disable-next-line no-console
+    console.log(event.target.selectedOptions[0].label);
+    if (event.target.selectedOptions[0].label !== 'Completo') {
+      this.informacionAcademica
+        .at(index)
+        .get(['fechaFin'])
+        ?.disable();
+    } else {
+      this.informacionAcademica
+        .at(index)
+        .get(['fechaFin'])
+        ?.enable();
+    }
+  }
+
   onChangeTipoDoc(event: any): any {
     if (event.target.selectedOptions[0].label === 'Pasaporte') {
       this.mensajeDocumento = '*El documento solo puede tener de 6 a 18 carácteres entre minúsculas, mayúsculas y números';
       this.formPersonal.get('numeroDocumento')?.setValue('');
       this.formPersonal.get('numeroDocumento')?.setValidators([Validators.required, Validators.pattern('^[0-9A-Za-z]{6,18}$')]);
+    } else if (event.target.selectedOptions[0].label === 'NIT') {
+      this.mensajeDocumento = '*El documento solo puede tener de 6 a 18 carácteres';
+      this.formPersonal.get('numeroDocumento')?.setValue('');
+      this.formPersonal.get('numeroDocumento')?.setValidators([Validators.required, Validators.pattern('^[0-9-]{6,18}$')]);
     } else {
       this.mensajeDocumento = '*El documento debe contener de 6 a 18 números';
       this.formPersonal.get('numeroDocumento')?.setValue('');
