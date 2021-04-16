@@ -5,7 +5,7 @@
 
   .div-center {
     display: flex;
-    width: 753px;
+    width: 51.56vw;
     flex-direction: column;
     align-items: center;
     width: min-content;
@@ -14,7 +14,7 @@
     .botones-arriba {
       display: flex;
       flex-direction: row;
-      width: 783px;
+      width: 51.56vw;
       flex-wrap: wrap;
 
       .boton-clicked {
@@ -28,21 +28,21 @@
       }
 
       .boton-base {
-        width: 261px;
-        height: 41px;
-        border-radius: 13px;
+        width: 16.97vw;
+        height: 2.666vw;
+        border-radius: 0.845vw;
         opacity: 1;
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding: 0rem 1rem;
-        margin-top: 5px;
+        padding: 0rem 1.04vw;
+        margin-top: 0.325vw;
         align-self: flex-start;
 
         .border-icon {
           margin-right: 0.325vw;
-          width: 34px;
-          height: 34px;
+          width: 2.211vw;
+          height: 2.211vw;
           opacity: 1;
           display: flex;
           align-items: center;
@@ -57,7 +57,7 @@
           justify-content: center;
 
           .titulo-boton {
-            font-size: 14px;
+            font-size: 0.91vw;
             font-family: Arial, Helvetica, sans-serif;
             color: #6d7184;
             letter-spacing: 0px;
@@ -70,20 +70,20 @@
     }
 
     .div-infos {
-      width: 753px;
+      width: 51.56vw;
       background: #edeff2 0% 0% no-repeat padding-box;
-      border-radius: 30px;
+      border-radius: 1.951vw;
       opacity: 1;
 
       .estilo_titulo {
         text-align: left;
-        font-size: 20px;
+        font-size: 1.3vw;
         font-family: 'Open Sans';
         font-weight: bold;
         letter-spacing: 0px;
         color: #1b2455;
         opacity: 1;
-        padding: 3rem 0rem 1rem 2.5rem;
+        padding: 3.121vw 0rem 1.04vw 2.601vw;
       }
 
       .row {
@@ -95,21 +95,21 @@
 
         .info-arriba {
           width: 30%;
-          padding-left: 2rem;
+          padding-left: 2.601vw;
 
           .data {
             margin: 0;
-            font: normal normal normal 14px/16px Arial;
+            font: normal normal normal 0.91vw Arial;
           }
 
           .label {
-            font: normal normal bold 14px/16px Arial;
+            font: normal normal bold 0.91vw Arial;
           }
         }
 
         .image {
           width: 23%;
-          margin-left: 2rem;
+          margin-left: 2.081vw;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -156,10 +156,10 @@
 
             .estilo_inputs {
               width: 100%;
-              min-height: 45px;
+              min-height: 3.121vw;
               font-weight: bold;
               background: #ffffff 0% 0% no-repeat padding-box;
-              border-radius: 50rem;
+              border-radius: 3.251vw;
               border-width: 0rem;
               opacity: 1;
               padding-right: 1.04vw;
@@ -172,14 +172,14 @@
             }
 
             .text-danger {
-              font-size: 10px;
+              font-size: 3.251vw;
             }
 
             .file_upload_licence {
               width: 100%;
               min-height: 3.121vw;
               // background: linear-gradient(to right, rgba(255, 255, 255, 1) 85%, rgba(0, 0, 0, 1) 20%);
-              border-radius: 50rem;
+              border-radius: 3.251vw;
               border-width: 0rem;
               opacity: 1;
               display: flex;
@@ -196,9 +196,9 @@
               .multiSelect {
                 width: 100%;
                 height: 3.121vw;
-                border-width: 0rem 1px 0rem 0rem;
+                border-width: 0rem 0.065vw 0rem 0rem;
                 border-color: lightgray;
-                border-radius: 50rem;
+                border-radius: 3.251vw;
               }
             }
           }
@@ -223,13 +223,13 @@
           }
 
           .estilo_inputs {
-            min-height: 3rem;
-            padding-right: 1rem;
-            padding-left: 1.5rem;
-            font-size: 0.875rem;
+            min-height: 3.121vw;
+            padding-right: 1.04vw;
+            padding-left: 1.56vw;
+            font-size: 0.91vw;
             width: 100%;
             border: none;
-            border-radius: 23px;
+            border-radius: 1.495vw;
           }
         }
 
@@ -252,45 +252,25 @@
             margin-bottom: 0.52vw;
           }
         }
-
-        .boton_siguiente {
-          // width: 295px;
-          // height: 48px;
-          // background: #f54b1d 0% 0% no-repeat padding-box;
-          background: #2699fb 0% 0% no-repeat padding-box;
-          // border-radius: 13px;
-          opacity: 1;
-          z-index: 5;
-          font-size: 16px;
-          margin-top: 1.5rem;
-          width: 132px;
-          height: 31px;
-          border-radius: 24px;
-        }
       }
     }
 
-    .boton-volver {
-      width: 98px;
-      height: 31px;
-      background: #e5e5e5 0% 0% no-repeat padding-box;
-      border-radius: 13px;
-      letter-spacing: 0px;
-      text-align: center;
-      font: normal normal normal 12px/14px Arial;
-      color: #2a1d72;
+    .boton_siguiente {
+      // width: 295px;
+      // height: 48px;
+      // background: #f54b1d 0% 0% no-repeat padding-box;
+      background: #2699fb 0% 0% no-repeat padding-box;
+      // border-radius: 13px;
       opacity: 1;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      align-items: center;
-      align-self: flex-start;
-      margin-top: 2rem;
-      margin-bottom: 2rem;
-
-      .titulo-boton {
-        margin-bottom: 0rem;
-      }
+      margin-top: 1.56vw;
+      width: 8.583vw;
+      height: 2.016vw;
+      border-radius: 1.56vw;
+      text-align: center;
+      font: normal normal normal 0.65vw Roboto;
+      letter-spacing: 0px;
+      padding: 0px;
+      color: #ffffff;
     }
   }
 }
@@ -301,7 +281,7 @@
   justify-content: center;
   align-items: center;
   background-color: #9ba0af;
-  height: 118px;
+  height: 7.672vw;
   width: 100%;
 
   .icono {
@@ -317,7 +297,7 @@
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
   background-color: white !important;
   height: 3.121vw;
-  padding: 0 0.75em 0 0.75em !important;
+  padding: 0 0.78vw 0 0.78vw !important;
   border-radius: 50rem !important;
 }
 
@@ -337,29 +317,129 @@
         width: 100%;
         justify-content: center;
         margin-bottom: 1rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .boton-base {
+          width: 261px;
+          height: 41px;
+          border-radius: 13px;
+          padding: 0rem 1rem;
+          margin-top: 5px;
+
+          .border-icon {
+            margin-right: 0.3rem;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+          }
+
+          .div-info-boton {
+            height: 100%;
+
+            .titulo-boton {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+      .boton_siguiente {
+        opacity: 1;
+        margin-top: 1.5rem;
+        width: 132px;
+        height: 31px;
+        border-radius: 24px;
+        text-align: center;
+        font: normal normal normal 10px/12px Roboto;
+        letter-spacing: 0px;
+        color: #ffffff;
       }
       .div-infos {
         width: 100%;
+
+        .estilo_titulo {
+          font-size: 20px;
+          padding: 3rem 0rem 1rem 2.5rem;
+        }
+
         .row {
           flex-direction: column;
           align-items: center;
 
+          .info-arriba {
+            width: 100%;
+            padding-left: 2rem;
+
+            .data {
+              font: normal normal normal 14px/16px Arial;
+            }
+
+            .label {
+              font: normal normal bold 14px/16px Arial;
+            }
+          }
+
+          .image {
+            width: 23%;
+            margin-left: 2rem;
+
+            .foto-perfil {
+              width: 100%;
+            }
+          }
+
           .column {
             width: 100%;
+
             .form-group {
-              .estilo_inputs {
-                padding-right: 1rem;
-                padding-left: 1.5rem;
-                font-size: 0.875rem;
-              }
+              width: 90%;
 
               .estilo_label {
                 font-size: 0.875rem;
                 padding-left: 1rem;
                 margin-bottom: 0.5rem;
+
+                .estilo_campo_requerido {
+                  text-align: left;
+                  margin-bottom: 0.5rem;
+                  font: 1.1rem Arial;
+                }
+              }
+
+              .estilo_inputs {
+                min-height: 3rem;
+                padding-right: 1rem;
+                padding-left: 1.5rem;
+                font-size: 0.875rem;
+                width: 100%;
+                border: none;
+                border-radius: 23px;
+              }
+
+              .text-danger {
+                font-size: 10px;
+              }
+
+              .file_upload_licence {
+                width: 100%;
+                min-height: 3rem;
+                border-radius: 50rem;
+                border-width: 0rem;
+
+                .checkbox {
+                  margin-left: 1rem;
+                }
+
+                .multiSelect {
+                  width: 100%;
+                  height: 3rem;
+                  border-width: 0rem 1px 0rem 0rem;
+                  border-radius: 50rem;
+                }
               }
             }
           }
+
           .form-group-2 {
             margin-bottom: 1rem;
             .estilo_label {
@@ -367,24 +447,89 @@
               padding-left: 1rem;
               margin-bottom: 0.5rem;
             }
+
+            .estilo_inputs {
+              min-height: 3rem;
+              padding-right: 1rem;
+              padding-left: 1.5rem;
+              font-size: 0.875rem;
+              width: 100%;
+              border: none;
+              border-radius: 23px;
+            }
           }
 
           .form-group-descripcion {
+            width: 90%;
+            margin-bottom: 1rem;
+
             .estilo_label {
               font-size: 0.875rem;
               padding-left: 1rem;
               margin-bottom: 0.5rem;
             }
           }
-
-          .footer {
-            .icono {
-              width: 1.2rem;
-              height: 1.2rem;
-            }
-          }
         }
       }
+      // .div-infos {
+      //   width: 100%;
+      //   .row {
+
+      //     .column {
+      //       width: 100%;
+      //       .form-group {
+      //         .estilo_inputs {
+      //           padding-right: 1rem;
+      //           padding-left: 1.5rem;
+      //           font-size: 0.875rem;
+      //         }
+
+      //         .estilo_label {
+      //           font-size: 0.875rem;
+      //           padding-left: 1rem;
+      //           margin-bottom: 0.5rem;
+      //         }
+      //       }
+      //     }
+      //     .form-group-2 {
+      //       margin-bottom: 1rem;
+      //       .estilo_label {
+      //         font-size: 0.875rem;
+      //         padding-left: 1rem;
+      //         margin-bottom: 0.5rem;
+      //       }
+      //     }
+
+      //     .form-group-descripcion {
+      //       .estilo_label {
+      //         font-size: 0.875rem;
+      //         padding-left: 1rem;
+      //         margin-bottom: 0.5rem;
+      //       }
+      //     }
+
+      //     // .footer {
+      //     //   .icono {
+      //     //     width: 1.2rem;
+      //     //     height: 1.2rem;
+      //     //   }
+      //     // }
+      //   }
+      // }
+    }
+  }
+  .footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #9ba0af;
+    height: 118px;
+    width: 100%;
+
+    .icono {
+      width: 1.2rem;
+      height: 1.2rem;
     }
   }
 }
