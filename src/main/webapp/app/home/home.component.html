@@ -11,7 +11,7 @@
         <source src="../../content/images/VID-20200907-WA0040.mp4" type='video/mp4'>
         Su navegador no soporta la etiqueta de video.
     </video>
-    <div class="botones">
+    <div class="botones" *ngIf="account===null">
         <button class="registrar" (click)="abrirAgregarUsuario()">
             <p class="txt1">Registrar ya tu hoja de vida</p>
             <p class="txt2">¡Es gratis!</p>
@@ -70,13 +70,13 @@
         </div>
         <button class="boton-buscar" (click)="buscar()">Buscar</button>
     </div>
-    <p class="titulo2">¡Registra tu hoja de vida!</p>
+    <p class="titulo2" *ngIf="account===null">¡Registra tu hoja de vida!</p>
     <div class="imagenes">
         <img class="img1" src="../../content/images/img1.png"/>
         <img class="img2" src="../../content/images/img2.png"/>
         <img class="img4" src="../../content/images/img4.png"/>
     </div>
-    <button class="haz-clic" (click)="abrirAgregarUsuario()">¡Haz clic acá!</button>
+    <button class="haz-clic" (click)="abrirAgregarUsuario()" *ngIf="account===null">¡Haz clic acá!</button>
     <!-- <div class="haz-clic">
         
     </div> -->
@@ -90,7 +90,7 @@
         <div class="diag24">
             <p class="txtdiag">OFERTAS EN TU EMAIL</p></div>
     </div>
-    <div style="width: 100%;">
+    <div style="width: 100%;" *ngIf="account===null">
         <div style="width: 100%; margin-top: 2rem">
             <div class="imagenes-final">
                 <img class="imgfooter" src="../../content/images/img6.png"/>

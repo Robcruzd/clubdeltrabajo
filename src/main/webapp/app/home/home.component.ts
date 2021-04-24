@@ -48,6 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   listaOfertas: any = [];
   imagen: any;
   urlImgDefault = '../../../content/images/Image 28.png';
+  showButtons = null;
 
   constructor(
     private accountService: AccountService,
@@ -70,7 +71,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
+    this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => {
+      this.account = account;
+      /* eslint-disable no-console */
+      console.log(account);
+    });
+    /* eslint-disable no-console */
+    console.log(this.account);
     const vid = document.getElementById('vid') as HTMLVideoElement;
     vid.muted = true;
     vid.loop = true;

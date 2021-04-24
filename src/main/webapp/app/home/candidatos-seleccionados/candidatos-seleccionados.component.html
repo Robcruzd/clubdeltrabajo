@@ -82,74 +82,74 @@
             <p class="titulo_aspirantes">Perfiles aspirantes</p>
             <div class="cuerpo">
                 <div class="buscador">
-                <div class="input-buscador">
-                    <button class="btnBuscar" (click)="cargarAspirantes()">
-                        <fa-icon [icon]="faSearch" class="border-icon2" style="
-                        background: transparent; color: #0a0a0a;">
-                        </fa-icon>
-                    </button>
-                    <input matInput class="form-control" [(ngModel)]="valorBusqueda">
-                </div>
-                <div class="empresas">
-                    <p class="titulo">Perfiles</p>
-                    <p class="resultado">{{totalAspirantes}} resultados</p>
-                </div>
-                <div class="filtros" *ngIf = "!filtrosOn">
-                <div class="Sector">
-                    <p class="titulo">Edad</p>
-                    <select class="resultado" [(ngModel)]="edadValue" (change)="cargarAspirantes()">
-                        <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                        <option *ngFor="let edad of edades" 
-                        [ngValue]="edad.codigo" >
-                            {{ edad.nombre }}
-                        </option>
-                    </select>
-                </div>
-                <div class="Sector">
-                    <p class="titulo">Ciudad</p>
-                    <select class="resultado" [(ngModel)]="municipioValue" (change)="cargarAspirantes()">
-                        <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                        <option
-                        [ngValue]="municipio.codigo"
-                            *ngFor="let municipio of municipiosPersonal">
-                            {{ municipio.nombre }}
-                        </option>
-                    </select>
-                </div>
-                <div class="Sector">
-                    <p class="titulo">Género</p>
-                    <select class="resultado" [(ngModel)]="generoValue" (change)="cargarAspirantes()">
-                        <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                        <option value="M" >Masculino</option>
-                        <option value="F" >Femenino</option>
-                    </select>
-                </div>
-                <div class="Sector">
-                    <p class="titulo">Experiencia</p>
-                    <select class="resultado" [(ngModel)]="experienciaValue" (change)="cargarAspirantes()">
-                        <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                        <option *ngFor="let experiencia of experienciasLaborales" 
-                        [ngValue]="experiencia.codigo" >
-                            {{ experiencia.nombre }}
-                        </option>
-                    </select>
-                </div>
-                <div class="Sector">
-                    <p class="titulo">Salario</p>
-                    <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarAspirantes()">
-                        <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                        <option *ngFor="let aspiracion of aspiracionesSalariales" 
-                        [ngValue]="aspiracion.codigo" >
-                            {{ aspiracion.nombre }}
-                        </option>
-                    </select>
-                </div>
-                </div>                        
-                
-                <div *ngIf= "showBtnArriba" class="btnVerOcultar">
-                    <button *ngIf= "!filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ver Filtros</button>
-                    <button *ngIf= "filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ocultar Filtros</button>
-                </div>
+                    <div class="input-buscador">
+                        <button class="btnBuscar" (click)="cargarAspirantes()">
+                            <fa-icon [icon]="faSearch" class="border-icon2" style="
+                            background: transparent; color: #0a0a0a;">
+                            </fa-icon>
+                        </button>
+                        <input matInput class="form-control" [(ngModel)]="valorBusqueda">
+                    </div>
+                    <div class="empresas">
+                        <p class="titulo">Perfiles</p>
+                        <p class="resultado">{{totalAspirantes}} resultados</p>
+                    </div>
+                    <div class="filtros" *ngIf = "!filtrosOn">
+                    <div class="Sector">
+                        <p class="titulo">Edad</p>
+                        <select class="resultado" [(ngModel)]="edadValue" (change)="cargarAspirantes()">
+                            <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                            <option *ngFor="let edad of edades" 
+                            [ngValue]="edad.codigo" >
+                                {{ edad.nombre }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="Sector">
+                        <p class="titulo">Ciudad</p>
+                        <select class="resultado" [(ngModel)]="municipioValue" (change)="cargarAspirantes()">
+                            <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                            <option
+                            [ngValue]="municipio.codigo"
+                                *ngFor="let municipio of municipiosPersonal">
+                                {{ municipio.nombre }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="Sector">
+                        <p class="titulo">Género</p>
+                        <select class="resultado" [(ngModel)]="generoValue" (change)="cargarAspirantes()">
+                            <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                            <option value="M" >Masculino</option>
+                            <option value="F" >Femenino</option>
+                        </select>
+                    </div>
+                    <div class="Sector">
+                        <p class="titulo">Experiencia</p>
+                        <select class="resultado" [(ngModel)]="experienciaValue" (change)="cargarAspirantes()">
+                            <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                            <option *ngFor="let experiencia of experienciasLaborales" 
+                            [ngValue]="experiencia.codigo" >
+                                {{ experiencia.nombre }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="Sector">
+                        <p class="titulo">Salario</p>
+                        <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarAspirantes()">
+                            <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                            <option *ngFor="let aspiracion of aspiracionesSalariales" 
+                            [ngValue]="aspiracion.codigo" >
+                                {{ aspiracion.nombre }}
+                            </option>
+                        </select>
+                    </div>
+                    </div>                        
+                    
+                    <div *ngIf= "showBtnArriba" class="btnVerOcultar">
+                        <button *ngIf= "!filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ver Filtros</button>
+                        <button *ngIf= "filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ocultar Filtros</button>
+                    </div>
                 </div> 
                 <div class="perfil">
                     <div *ngFor="let item of listaResultadoBusquedaAspirantes | paginate: { itemsPerPage: 6, currentPage: page }" class="contngfor">

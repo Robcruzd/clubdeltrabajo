@@ -177,6 +177,7 @@ export const commonMessages = {
     { codigo: 18, nombre: 'Mas de $21' }
   ],
   ARRAY_ANIOS_EXPERIENCIA: [
+    { codigo: 0, nombre: '0' },
     { codigo: 1, nombre: '1' },
     { codigo: 2, nombre: '2' },
     { codigo: 3, nombre: '3' },
@@ -229,6 +230,7 @@ export const commonMessages = {
     { codigo: 50, nombre: '50' }
   ],
   ARRAY_MESES_EXPERIENCIA: [
+    { codigo: 0, nombre: '0' },
     { codigo: 1, nombre: '1' },
     { codigo: 2, nombre: '2' },
     { codigo: 3, nombre: '3' },
@@ -239,8 +241,7 @@ export const commonMessages = {
     { codigo: 8, nombre: '8' },
     { codigo: 9, nombre: '9' },
     { codigo: 10, nombre: '10' },
-    { codigo: 11, nombre: '11' },
-    { codigo: 12, nombre: '12' }
+    { codigo: 11, nombre: '11' }
   ],
   ESTADO_CIVIL_LABEL: 'Estado civil',
   NOTIFICACIONES_LABEL: 'Desea recibir notificaciones, alertas y mensajes de Club del Trabajo vía mensaje de texto?',
