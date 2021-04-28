@@ -266,6 +266,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   verOferta(oferta: any): void {
-    this.router.navigate(['/oferta-publica', { oferta: oferta.id, general: 'true' }]);
+    this.router.navigate(['/oferta-publica'], { queryParams: { oferta: oferta.id, general: 'true' } });
   }
 }
