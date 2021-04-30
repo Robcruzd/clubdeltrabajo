@@ -262,16 +262,17 @@
               justify-content: space-between;
               padding-left: 0.3rem;
               padding-right: 0.3rem;
-              align-items: center;
+              //align-items: center;
               //padding-top: 5px;
-              min-height: 30px;
-              height: 1.811vw;
-              align-content: center;
+              //min-height: 30px;
+              height: 1.951vw;
+              margin-top: 0.325vw;
+              //align-content: center;
 
               .div-switch {
                 display: flex;
                 flex-direction: row;
-                align-items: center;
+                //align-items: center;
                 width: 30%;
                 justify-content: space-between;
 
@@ -303,7 +304,7 @@
               .switch {
                 position: relative;
                 display: inline-block;
-                //margin: 0;
+                margin: 0;
               }
 
               .switch input {
