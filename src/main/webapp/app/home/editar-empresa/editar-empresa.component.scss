@@ -74,6 +74,7 @@
       background: #edeff2 0% 0% no-repeat padding-box;
       border-radius: 1.951vw;
       opacity: 1;
+      margin-top: 1.951vw;
 
       .estilo_titulo {
         text-align: left;
@@ -172,7 +173,7 @@
             }
 
             .text-danger {
-              font-size: 3.251vw;
+              font-size: 0.715vw;
             }
 
             .file_upload_licence {
@@ -308,7 +309,16 @@
 ::ng-deep .mat-form-field-appearance-fill .mat-select-arrow-wrapper {
   transform: translateY(0%) !important;
 }
-
+@media only screen and (min-width: 900px){
+  .row{
+    min-height: 6.502vw;
+    .info-arriba{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+  }
+}
 @media only screen and (max-width: 900px) {
   .contenedor {
     .div-center {
@@ -356,6 +366,7 @@
       }
       .div-infos {
         width: 100%;
+
 
         .estilo_titulo {
           font-size: 20px;

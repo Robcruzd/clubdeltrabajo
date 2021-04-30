@@ -333,7 +333,7 @@
 
       .titulo_oferta {
         text-align: left;
-        font-size: 0.78vw;
+        font-size: 0.910vw;
         font-family: 'Roboto';
         font-weight: bold;
         letter-spacing: 0px;
@@ -368,7 +368,7 @@
 
       .titulo_oferta_previsualizacion {
         text-align: left;
-        font-size: 1.105vw;
+        font-size: 0.910vw;
         font-family: 'Open Sans';
         font-weight: bold;
         letter-spacing: 0px;
@@ -971,7 +971,7 @@ kendo-pdf-export {
     flex-flow: wrap;
     width: 100%;
     .contngfor {
-      width: 48%;
+      //width: 48%;
       margin: 1%;
       max-width: 200px;
       min-width: 150px;
@@ -1015,17 +1015,22 @@ kendo-pdf-export {
         }
       }
       .btn-seleccionado {
+        .botones-enviar-des{
+          line-height: normal;
+          align-items: center;
+        }
         .mensajeEmail {
-          height: 20px;
+          height: 35px;
           width: 100%;
+          font-size: 8.5px;
         }
         .btn1 {
-          height: 20px;
+          height: 35px;
           width: 49%;
-          font-size: 10px;
+          font-size: 8px;
         }
         .btn2 {
-          height: 20px;
+          height: 35px;
           width: 49%;
           font-size: 8px;
         }
@@ -1329,8 +1334,12 @@ kendo-pdf-export {
           }
         }
         .perfiles {
+          padding: 0;
           .mitad1 {
             display: flex;
+            .contenedornc{
+              width: 108px;
+            }
             .imagen {
               display: flex;
               width: 56px;
@@ -1347,6 +1356,7 @@ kendo-pdf-export {
           }
           .mitad2 {
             p.resumen {
+              padding: 1% 0% 1% 2%;
               font-size: 11px;
               margin-bottom: 0px;
               width: max-content;

@@ -265,7 +265,7 @@
               align-items: center;
               //padding-top: 5px;
               min-height: 30px;
-              height: 1.311vw;
+              height: 1.811vw;
               align-content: center;
 
               .div-switch {
@@ -303,7 +303,7 @@
               .switch {
                 position: relative;
                 display: inline-block;
-                margin: 0;
+                //margin: 0;
               }
 
               .switch input {
@@ -543,5 +543,8 @@
         }
       }
     }
+  }
+  .switch{
+    margin-bottom: 0;
   }
 }

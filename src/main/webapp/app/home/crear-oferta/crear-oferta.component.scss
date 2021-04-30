@@ -280,14 +280,14 @@
 
 .btn-success {
   //width: 132px;
-  height: 31px;
+  //height: 31px;
   background: #2699fb 0% 0% no-repeat padding-box;
   border-radius: 24px;
   align-items: center;
 
   .titulo-boton {
     text-align: center;
-    font: normal normal normal 10px/12px Roboto;
+    //font: normal normal normal 10px/12px Roboto;
     letter-spacing: 0px;
     color: #ffffff;
     margin: 0rem;
@@ -296,14 +296,14 @@
 
 .boton-volver {
   //width: 132px;
-  height: 31px;
+  //height: 31px;
   background: #e5e5e5 0% 0% no-repeat padding-box;
   border-radius: 24px;
   align-items: center;
 
   .titulo-boton {
     text-align: center;
-    font: normal normal normal 10px/12px Roboto;
+    //font: normal normal normal 10px/12px Roboto;
     letter-spacing: 0px;
     color: #1b2455;
     margin: 0rem;
@@ -584,6 +584,18 @@ input:checked + .slider:before {
       }
     }
   }
+  .btn-success{
+    height: 2.016vw;
+    .titulo-boton{
+      font: normal normal normal 0.650vw/0.780vw Roboto;
+    }
+  }
+  .boton-volver{
+    height: 2.016vw;
+    .titulo-boton{
+      font: normal normal normal 0.650vw/0.780vw Roboto;
+    }
+  }
   .div-center2 {
     width: 900px;
     .estilo_titulo2 {
@@ -603,10 +615,10 @@ input:checked + .slider:before {
     }
     .botones {
       .boton-volver {
-        width: 132px;
+        width: 8.583vw;
       }
       .btn-success {
-        width: 132px;
+        width: 8.583vw;
       }
     }
   }
@@ -677,6 +689,20 @@ input:checked + .slider:before {
       }
     }
   }
+  .btn-success{
+    width: 50%;
+    height: 31px;
+    .titulo-boton{
+      font: normal normal normal 10px/12px Roboto;
+    }
+  }
+  .boton-volver{
+    width: 50%;
+    height: 31px;
+    .titulo-boton{
+      font: normal normal normal 10px/12px Roboto;
+    }
+  }
 
   .div-center2 {
     width: 100%;
@@ -697,11 +723,12 @@ input:checked + .slider:before {
       }
     }
     .botones {
+      width: 100%;
       .boton-volver {
-        width: 50%;
+        width: 40%;
       }
       .btn-success {
-        width: 50%;
+        width: 40%;
       }
     }
   }
