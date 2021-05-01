@@ -119,10 +119,20 @@ public class HojaVidaService {
 	}
 	
 	public void guardarInformacionArchivos(HojaVidaVo hojaVida) {
-		// System.out.println("-----------------------probandito---------------------");
+		System.out.println("-----------------------probandito---------------------");
 		if (hojaVida.getInformacionAcademica() != null && !hojaVida.getInformacionAcademica().isEmpty()) {
+			System.out.println("---probanditopersona---------------------"+hojaVida.getInformacionAcademica().get(0).getUsuario());
+			List<InformacionAcademica> infosAcademicas = this.academicaRepository.findByUsuario(hojaVida.getInformacionAcademica().get(0).getUsuario());
+			System.out.println("---probanditoinf---------------------"+infosAcademicas);
+			if(!infosAcademicas.isEmpty()){
+				System.out.println("---probanditoinfoooo---------------------"+infosAcademicas);
+				for (InformacionAcademica infAcad: infosAcademicas) {
+					if(!hojaVida.getInformacionAcademica().contains(infAcad)){
+						this.archivoRepository.deleteByInformacionAcademica(infAcad);
+						this.academicaRepository.deleteById(infAcad.getId());
+					}}}
 			for (InformacionAcademica infAca: hojaVida.getInformacionAcademica()) {
-				// System.out.println("---probandito---------------------"+infAca);
+				System.out.println("---probandito---------------------"+infAca);
 				Optional<InformacionAcademica> informacionAcademicaBusqueda = this.academicaRepository.findById(infAca.getId());
 				System.out.println("---probandito---------------------"+informacionAcademicaBusqueda);
 				if (informacionAcademicaBusqueda.isPresent()) {
@@ -168,6 +178,16 @@ public class HojaVidaService {
 		}
 		
 		if (hojaVida.getExperienciaLaboral() != null && !hojaVida.getExperienciaLaboral().isEmpty()) {
+			System.out.println("---probanditopersonaexp---------------------"+hojaVida.getExperienciaLaboral().get(0).getUsuario());
+			List<InformacionLaboral> infosLaborales = this.experienciaRepository.findByUsuario(hojaVida.getExperienciaLaboral().get(0).getUsuario());
+			System.out.println("---probanditoinfexp---------------------"+infosLaborales);
+			if(!infosLaborales.isEmpty()){
+				System.out.println("---probanditoinfooooexp---------------------"+infosLaborales);
+				for (InformacionLaboral infLabor: infosLaborales) {
+					if(!hojaVida.getExperienciaLaboral().contains(infLabor)){
+						this.archivoRepository.deleteByInformacionLaboral(infLabor);
+						this.experienciaRepository.deleteById(infLabor.getId());
+					}}}
 			for (InformacionLaboral infLab: hojaVida.getExperienciaLaboral()) {
 				Optional<InformacionLaboral> informacionLaboralBusqueda = this.experienciaRepository.findById(infLab.getId());
 				if (informacionLaboralBusqueda.isPresent()) {
