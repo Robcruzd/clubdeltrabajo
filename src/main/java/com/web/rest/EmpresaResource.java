@@ -11,7 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,6 +33,7 @@ import com.service.EmpresaQueryService;
 import com.service.EmpresaService;
 import com.service.UserService;
 import com.service.dto.EmpresaCriteria;
+import com.service.dto.UserDTO;
 import com.web.rest.errors.BadRequestAlertException;
 import com.service.MailService;
 import com.domain.vo.UsuarioVo;
@@ -102,10 +105,37 @@ public class EmpresaResource {
         if (empresa.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Empresa result = empresaService.save(empresa);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, empresa.getId().toString()))
-            .body(result);
+        User user = new User();
+        user = userService.findOneByUserEmpresa(empresa.getId());
+        if(!user.getLogin().equals(empresa.getEmail())) {
+        	User user2 = new User();
+        	user2 =  userService.findByLogin(empresa.getEmail());
+        	if(user2 == null) {
+        		Pageable paging = PageRequest.of(0, 9999, Sort.by("id"));
+                Page<UserDTO> userDTO = userService.getUserDTO(paging, user.getId());
+                userDTO.getContent().get(0).setEmail(empresa.getEmail());
+                userDTO.getContent().get(0).setLogin(empresa.getEmail());
+                userDTO.getContent().get(0).setFirstName(empresa.getRazonSocial());
+                userService.updateUser(userDTO.getContent().get(0));
+                Empresa result = empresaService.save(empresa);
+                return ResponseEntity.ok()
+                    .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, empresa.getId().toString()))
+                    .body(result);
+        	}else {
+        		throw new BadRequestAlertException("Correo existente", ENTITY_NAME, "repetido");
+        	}
+        }else {
+        	Pageable paging = PageRequest.of(0, 9999, Sort.by("id"));
+            Page<UserDTO> userDTO = userService.getUserDTO(paging, user.getId());
+            userDTO.getContent().get(0).setEmail(empresa.getEmail());
+            userDTO.getContent().get(0).setLogin(empresa.getEmail());
+            userDTO.getContent().get(0).setFirstName(empresa.getRazonSocial());
+            userService.updateUser(userDTO.getContent().get(0));
+            Empresa result = empresaService.save(empresa);
+            return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, empresa.getId().toString()))
+                .body(result);
+        }
     }
 
     /**

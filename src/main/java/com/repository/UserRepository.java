@@ -29,7 +29,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findOneByLogin(String login);
 
-
+    User findOneByUserEmpresa(Long empresa);
+    
+    User findByLogin(String email);
 
     @EntityGraph(attributePaths = "authorities")
     Optional<User> findOneWithAuthoritiesById(Long id);
@@ -41,4 +43,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findOneWithAuthoritiesByEmailIgnoreCase(String email);
 
     Page<User> findAllByLoginNot(Pageable pageable, String login);
+    
+    Page<User> findOneById(Pageable pageable,Long id);
 }
