@@ -282,5 +282,18 @@ public class UserService {
     public List<String> getAuthorities() {
         return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
     }
+    
+    public User findOneByUserEmpresa(Long empresa) {
+    	return userRepository.findOneByUserEmpresa(empresa);
+    }
+    
+    @Transactional(readOnly = true)
+    public Page<UserDTO> getUserDTO(Pageable pageable, Long id) {
+        return userRepository.findOneById(pageable, id).map(UserDTO::new);
+    }
+    
+    public User findByLogin(String email) {
+    	return userRepository.findByLogin(email);
+    }
 
 }
