@@ -333,7 +333,7 @@
 
       .titulo_oferta {
         text-align: left;
-        font-size: 0.78vw;
+        font-size: 0.91vw;
         font-family: 'Roboto';
         font-weight: bold;
         letter-spacing: 0px;
@@ -368,7 +368,7 @@
 
       .titulo_oferta_previsualizacion {
         text-align: left;
-        font-size: 1.105vw;
+        font-size: 0.91vw;
         font-family: 'Open Sans';
         font-weight: bold;
         letter-spacing: 0px;
@@ -1339,6 +1339,7 @@ kendo-pdf-export {
           }
         }
         .perfiles {
+          padding: 0;
           .mitad1 {
             display: flex;
             hyphens: auto;
@@ -1355,6 +1356,7 @@ kendo-pdf-export {
           }
           .mitad2 {
             p.resumen {
+              padding: 1% 0% 1% 2%;
               font-size: 11px;
               margin-bottom: 0px;
               width: max-content;

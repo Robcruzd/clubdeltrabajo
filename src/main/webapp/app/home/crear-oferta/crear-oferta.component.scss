@@ -280,14 +280,14 @@
 
 .btn-success {
   //width: 132px;
-  height: 31px;
+  //height: 31px;
   background: #2699fb 0% 0% no-repeat padding-box;
   border-radius: 24px;
   align-items: center;
 
   .titulo-boton {
     text-align: center;
-    font: normal normal normal 10px/12px Roboto;
+    //font: normal normal normal 10px/12px Roboto;
     letter-spacing: 0px;
     color: #ffffff;
     margin: 0rem;
@@ -296,14 +296,14 @@
 
 .boton-volver {
   //width: 132px;
-  height: 31px;
+  //height: 31px;
   background: #e5e5e5 0% 0% no-repeat padding-box;
   border-radius: 24px;
   align-items: center;
 
   .titulo-boton {
     text-align: center;
-    font: normal normal normal 10px/12px Roboto;
+    //font: normal normal normal 10px/12px Roboto;
     letter-spacing: 0px;
     color: #1b2455;
     margin: 0rem;
@@ -556,8 +556,8 @@ input:checked + .slider:before {
   .botones-arriba {
     display: flex;
   }
-  .tabla-hor{
-    font: normal normal normal 0.780vw/1.105vw Roboto;
+  .tabla-hor {
+    font: normal normal normal 0.78vw/1.105vw Roboto;
   }
   .ngnum0 {
     width: 61.378vw;
@@ -584,6 +584,18 @@ input:checked + .slider:before {
       }
     }
   }
+  .btn-success {
+    height: 2.016vw;
+    .titulo-boton {
+      font: normal normal normal 0.65vw/0.78vw Roboto;
+    }
+  }
+  .boton-volver {
+    height: 2.016vw;
+    .titulo-boton {
+      font: normal normal normal 0.65vw/0.78vw Roboto;
+    }
+  }
   .div-center2 {
     width: 900px;
     .estilo_titulo2 {
@@ -598,15 +610,15 @@ input:checked + .slider:before {
         font-size: 1.3vw;
       }
       .descripcion_profesion {
-        font-size: 0.780vw;
+        font-size: 0.78vw;
       }
     }
     .botones {
       .boton-volver {
-        width: 132px;
+        width: 8.583vw;
       }
       .btn-success {
-        width: 132px;
+        width: 8.583vw;
       }
     }
   }
@@ -616,7 +628,7 @@ input:checked + .slider:before {
   .botones-arriba {
     display: none;
   }
-  .tabla-hor{
+  .tabla-hor {
     font: normal normal normal 12px/17px Roboto;
   }
 
@@ -677,6 +689,20 @@ input:checked + .slider:before {
       }
     }
   }
+  .btn-success {
+    width: 50%;
+    height: 31px;
+    .titulo-boton {
+      font: normal normal normal 10px/12px Roboto;
+    }
+  }
+  .boton-volver {
+    width: 50%;
+    height: 31px;
+    .titulo-boton {
+      font: normal normal normal 10px/12px Roboto;
+    }
+  }
 
   .div-center2 {
     width: 100%;
@@ -697,11 +723,12 @@ input:checked + .slider:before {
       }
     }
     .botones {
+      width: 100%;
       .boton-volver {
-        width: 50%;
+        width: 40%;
       }
       .btn-success {
-        width: 50%;
+        width: 40%;
       }
     }
   }

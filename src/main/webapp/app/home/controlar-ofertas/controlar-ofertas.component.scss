@@ -129,7 +129,7 @@
 
               .titulo_div1 {
                 text-align: left;
-                font-size: 0.910vw;
+                font-size: 0.91vw;
                 font-family: 'Open Sans';
                 font-weight: bold;
                 letter-spacing: 0px;
@@ -185,7 +185,7 @@
 
               .text1 {
                 text-align: left;
-                font: normal normal bold 1.110vw/0.980vw Roboto;
+                font: normal normal bold 1.11vw/0.98vw Roboto;
                 letter-spacing: 0;
                 color: #645d5d;
                 height: max-content;
@@ -193,7 +193,7 @@
 
               .text2 {
                 text-align: left;
-                font: normal normal normal 0.780vw/1.105vw Roboto;
+                font: normal normal normal 0.78vw/1.105vw Roboto;
                 letter-spacing: 0px;
                 color: #645d5d;
                 height: max-content;
@@ -201,7 +201,7 @@
 
               .text3 {
                 text-align: left;
-                font: normal normal normal 0.780vw/1.105vw Roboto;
+                font: normal normal normal 0.78vw/1.105vw Roboto;
                 letter-spacing: 0px;
                 color: #645d5d;
                 height: max-content;
@@ -222,7 +222,7 @@
 
                   .titulo-boton {
                     text-align: center;
-                    font: normal normal normal 0.650vw/0.455vw Roboto;
+                    font: normal normal normal 0.65vw/0.455vw Roboto;
                     letter-spacing: 0px;
                     color: #001045;
                   }
@@ -241,7 +241,7 @@
 
               .titulo_div3 {
                 text-align: left;
-                font-size: 0.780vw;
+                font-size: 0.78vw;
                 font-family: 'Open Sans';
                 font-weight: bold;
                 letter-spacing: 0px;
@@ -262,16 +262,17 @@
               justify-content: space-between;
               padding-left: 0.3rem;
               padding-right: 0.3rem;
-              align-items: center;
+              //align-items: center;
               //padding-top: 5px;
-              min-height: 30px;
-              height: 1.311vw;
-              align-content: center;
+              //min-height: 30px;
+              height: 1.951vw;
+              margin-top: 0.325vw;
+              //align-content: center;
 
               .div-switch {
                 display: flex;
                 flex-direction: row;
-                align-items: center;
+                //align-items: center;
                 width: 30%;
                 justify-content: space-between;
 
@@ -329,13 +330,13 @@
                 content: '';
                 height: 1.691vw;
                 width: 1.691vw;
-                left: 0.260vw;
-                bottom: 0.260vw;
+                left: 0.26vw;
+                bottom: 0.26vw;
                 background-color: white;
                 -webkit-transition: 0.4s;
                 transition: 0.4s;
-                width: 1.040vw;
-                height: 1.040vw;
+                width: 1.04vw;
+                height: 1.04vw;
               }
 
               input:checked + .slider {
@@ -356,7 +357,7 @@
               .slider.round {
                 border-radius: 2.211vw;
                 width: 3.251vw;
-                height: 1.430vw;
+                height: 1.43vw;
               }
 
               .slider.round:before {
@@ -394,8 +395,8 @@
             font-size: 10px;
             font-weight: bold;
             margin-bottom: 50px;
-            .titulo-boton{
-              font-size: 0.780vw;
+            .titulo-boton {
+              font-size: 0.78vw;
             }
           }
         }
@@ -445,62 +446,62 @@
       }
       .contenedor3 {
         .div-center3 {
-          .estilo_titulo3{
+          .estilo_titulo3 {
             font-size: 20px;
           }
           .ngnum3 {
             width: 96%;
             min-width: auto;
             justify-content: space-evenly;
-            .ofertaCreada{
+            .ofertaCreada {
               max-width: 210px;
-              .div1Oferta{
-                .titulo_div1{
+              .div1Oferta {
+                .titulo_div1 {
                   font-size: 12px;
                 }
               }
-              .div2Oferta{
+              .div2Oferta {
                 min-height: 125px;
-                .text1{
+                .text1 {
                   font: normal normal bold 12px/10px Roboto;
                   height: 30px;
                 }
-                .text2{
+                .text2 {
                   font: normal normal normal 10px/17px Roboto;
                 }
-                .text3{
+                .text3 {
                   font: normal normal normal 10px/17px Roboto;
                 }
-                .btnEditar{
-                  .boton-editar{
-                  width: 39px;
-                  height: 21px;
-                  .titulo-boton{
-                    font: normal normal normal 8px/7px Roboto;
-                  }
+                .btnEditar {
+                  .boton-editar {
+                    width: 39px;
+                    height: 21px;
+                    .titulo-boton {
+                      font: normal normal normal 8px/7px Roboto;
+                    }
                   }
                 }
               }
-              .div3Oferta{
-                .titulo_div3{
-                font-size: 12px;
+              .div3Oferta {
+                .titulo_div3 {
+                  font-size: 12px;
                 }
               }
-              .div4Oferta{
+              .div4Oferta {
                 height: 30px;
-                .div-switch{
-                  .labelActivar{
+                .div-switch {
+                  .labelActivar {
                     font: normal normal normal 8px/15px Arial;
                   }
                 }
-                .boton-entrar{
+                .boton-entrar {
                   width: 40px;
                   height: 22px;
-                  .titulo-boton-entrar{
+                  .titulo-boton-entrar {
                     font: normal normal normal 8px/7px Roboto;
                   }
                 }
-                .slider:before{
+                .slider:before {
                   position: absolute;
                   content: '';
                   height: 26px;
@@ -516,7 +517,7 @@
                 input:focus + .slider {
                   box-shadow: 0 0 1px #1df5b3;
                 }
-  
+
                 input:checked + .slider:before {
                   -webkit-transform: translateX(26px);
                   -ms-transform: translateX(26px);
@@ -531,11 +532,11 @@
               }
             }
           }
-          .btnVolver{
-            .boton-volver{
+          .btnVolver {
+            .boton-volver {
               width: 132px;
               height: 31px;
-              .titulo-boton{
+              .titulo-boton {
                 font-size: 12px;
               }
             }
@@ -543,5 +544,8 @@
         }
       }
     }
+  }
+  .switch {
+    margin-bottom: 0;
   }
 }
