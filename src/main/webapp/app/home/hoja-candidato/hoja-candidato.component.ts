@@ -4,10 +4,12 @@ import { AplicacionOfertaService } from 'app/entities/aplicacion-oferta/aplicaci
 import { InformacionAcademicaService } from 'app/entities/informacion-academica/informacion-academica.service';
 import { InformacionLaboralService } from 'app/entities/informacion-laboral/informacion-laboral.service';
 import { InformacionPersonalService } from 'app/entities/informacion-personal/informacion-personal.service';
+import { OfertaService } from 'app/entities/oferta/oferta.service';
 import { PersonaIdiomaService } from 'app/entities/persona-idioma/persona-idioma.service';
 import { AplicacionOferta } from 'app/shared/model/aplicacion-oferta.model';
 import { IInformacionAcademica, InformacionAcademica } from 'app/shared/model/informacion-academica.model';
 import { InformacionPersonal } from 'app/shared/model/informacion-personal.model';
+import { IOferta } from 'app/shared/model/oferta.model';
 import { IPersona, Persona } from 'app/shared/model/persona.model';
 import { IResultadoHojaCandidato } from 'app/shared/vo/opcion-vo';
 import * as moment from 'moment';
@@ -41,9 +43,12 @@ export class HojaCandidatoComponent implements OnInit {
   aspiranteSeleccionado = new Persona();
   apliOferResponseFiltro: any;
   aplicacionOferta = new AplicacionOferta();
+  ofertaInfo!: IOferta | null;
+  cargando = false;
 
   constructor(
     private personaService: PersonaService,
+    private ofertaService: OfertaService,
     private route: ActivatedRoute,
     private informacionPersonalService: InformacionPersonalService,
     private informacionAcademicaService: InformacionAcademicaService,
@@ -63,6 +68,9 @@ export class HojaCandidatoComponent implements OnInit {
 
   getPersona(): void {
     this.listaResultadoHojaCandidato = [];
+    this.ofertaService.find(this.idOFerta).subscribe(oferta => {
+      this.ofertaInfo = oferta.body;
+    });
     this.personaService.find(this.idUsuario).subscribe(persona => {
       this.personaInfo = persona.body;
       if (this.personaInfo) {
@@ -97,12 +105,24 @@ export class HojaCandidatoComponent implements OnInit {
   }
 
   async guardarCambios(): Promise<any> {
-    this.aplicacionOFertaActualizar.estado = this.model;
-    this.aplicacionOFertaActualizar.id = this.idAplicacionOferta;
-    this.aplicacionOFertaActualizar.usuario = this.idUsuarioAplicacionOferta;
-    this.aplicacionOFertaActualizar.oferta = this.idOfertaAplicacionOferta;
-    this.aplicacionOFertaActualizar.fechaPostulacion = this.fechaPostulacionAplicacionOferta;
-    await this.actualizarAplicacionOferta(this.aplicacionOFertaActualizar);
+    // eslint-disable-next-line no-console
+    console.log('guaraaaaaaaaaaaaaaaaaaaaadar');
+    this.cargando = true;
+    if (this.idAplicacionOferta) {
+      this.aplicacionOFertaActualizar.estado = this.model;
+      this.aplicacionOFertaActualizar.id = this.idAplicacionOferta;
+      this.aplicacionOFertaActualizar.usuario = this.idUsuarioAplicacionOferta;
+      this.aplicacionOFertaActualizar.oferta = this.idOfertaAplicacionOferta;
+      this.aplicacionOFertaActualizar.fechaPostulacion = this.fechaPostulacionAplicacionOferta;
+      await this.actualizarAplicacionOferta(this.aplicacionOFertaActualizar);
+    } else {
+      this.aplicacionOFertaActualizar.estado = this.model;
+      this.aplicacionOFertaActualizar.id = this.idAplicacionOferta;
+      this.aplicacionOFertaActualizar.usuario = this.personaInfo!;
+      this.aplicacionOFertaActualizar.oferta = this.ofertaInfo!;
+      this.aplicacionOFertaActualizar.fechaPostulacion = moment(new Date(), 'YYYY-MMM-DD').subtract(5, 'hours');
+      await this.guardarAplicacionOferta(this.aplicacionOFertaActualizar);
+    }
     if (this.modelBandera !== this.model) {
       if (this.model === 'Seleccionado') {
         this.aplicacionOfertaService
@@ -111,7 +131,7 @@ export class HojaCandidatoComponent implements OnInit {
             this.apliOferResponseFiltro = apliOferResponse;
             if (this.apliOferResponseFiltro.length === 0) {
               this.aplicacionOferta.estado = this.model;
-              this.aplicacionOferta.fechaPostulacion = moment(new Date(), 'YYYY-MMM-DD');
+              this.aplicacionOferta.fechaPostulacion = moment(new Date(), 'YYYY-MMM-DD').subtract(5, 'hours');
               this.aplicacionOferta.oferta = this.idOfertaAplicacionOferta;
               this.aplicacionOferta.usuario = this.idUsuarioAplicacionOferta;
             }
@@ -132,6 +152,13 @@ export class HojaCandidatoComponent implements OnInit {
   actualizarAplicacionOferta(datos: any): Promise<any> {
     return new Promise(resolve => {
       this.aplicacionOfertaService.update(datos).subscribe(() => {
+        resolve('hecho');
+      });
+    });
+  }
+  guardarAplicacionOferta(datos: any): Promise<any> {
+    return new Promise(resolve => {
+      this.aplicacionOfertaService.create(datos).subscribe(() => {
         resolve('hecho');
       });
     });

@@ -137,14 +137,14 @@ export class OfertaPublicaComponent implements OnInit {
         this.personaService.find(this.personaInicial).subscribe(personaResponse => {
           this.personaAplicar = personaResponse.body;
           this.aplicacionOferta.estado = 'Ninguno';
-          this.aplicacionOferta.fechaPostulacion = moment(new Date(), 'YYYY-MMM-DD');
+          this.aplicacionOferta.fechaPostulacion = moment(new Date(), 'YYYY-MMM-DD').subtract(5, 'hours');
           if (this.personaAplicar) {
             this.aplicacionOferta.usuario = this.personaAplicar;
             this.aplicacionOfertaService.getByOfertaAndPersonaFiltro(this.ofertaAplicar, this.personaAplicar).subscribe(ofertaFiltro => {
               this.aplicacionOfertaFiltro = ofertaFiltro;
               if (this.aplicacionOfertaFiltro.length === 0) {
                 this.aplicacionOfertaService.create(this.aplicacionOferta).subscribe(() => {
-                  this.router.navigate(['resultados-busqueda'], {queryParams:{ general: this.general }});
+                  this.router.navigate(['resultados-busqueda'], { queryParams: { general: this.general } });
                 });
               } else {
                 alertify.set('notifier', 'position', 'top-right');
@@ -168,6 +168,6 @@ export class OfertaPublicaComponent implements OnInit {
   }
 
   volver(): void {
-    this.router.navigate(['resultados-busqueda'], {queryParams:{ general: this.general }});
+    this.router.navigate(['resultados-busqueda'], { queryParams: { general: this.general } });
   }
 }

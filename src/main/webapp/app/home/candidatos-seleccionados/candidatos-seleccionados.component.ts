@@ -224,6 +224,8 @@ export class CandidatosSeleccionadosComponent implements OnInit {
               const edadEncontrada = this.validarEdadSeleccionada(edadBD);
               const experienciaEncontrada = this.validarExperienciaSeleccionada(experienciaBD);
               this.aplicacionOfertaService.getPersonaFiltro(element.usuario).subscribe(aplicacionOferta => {
+                /* eslint-disable no-console */
+                console.log('1----------', aplicacionOferta);
                 colorApirante = this.backColor(aplicacionOferta[0].estado);
                 postulacionBD = aplicacionOferta[0].fechaPostulacion;
               });
@@ -276,8 +278,15 @@ export class CandidatosSeleccionadosComponent implements OnInit {
               const edadEncontrada = this.validarEdadSeleccionada(edadBD);
               const experienciaEncontrada = this.validarExperienciaSeleccionada(experienciaBD);
               this.aplicacionOferta = await this.obetenerPersonaFiltro(this.resultadoBusqueda[j].usuario);
-              colorApirante = this.backColor(this.aplicacionOferta[0].estado);
-              postulacionBD = this.aplicacionOferta[0].fechaPostulacion;
+              /* eslint-disable no-console */
+              console.log('2----------', this.aplicacionOferta[j]);
+              if (this.aplicacionOferta[0]) {
+                colorApirante = this.backColor(this.aplicacionOferta[0].estado);
+                postulacionBD = this.aplicacionOferta[0].fechaPostulacion;
+              } else {
+                colorApirante = this.backColor('Ninguno');
+                postulacionBD = 'sin definir';
+              }
               if (edadEncontrada && experienciaEncontrada) {
                 this.listaResultadoBusquedaAspirantes.push({
                   nombre: this.resultadoBusqueda[j].usuario?.nombre,
@@ -306,8 +315,12 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   }
 
   obetenerPersonaFiltro(valor: any): Promise<any> {
+    /* eslint-disable no-console */
+    console.log('obttt----------', valor);
     return new Promise(resolve => {
       this.aplicacionOfertaService.getPersonaFiltro(valor).subscribe(aplicacionOferta => {
+        /* eslint-disable no-console */
+        console.log('aaappp----------', aplicacionOferta);
         resolve(aplicacionOferta);
       });
     });
@@ -370,8 +383,11 @@ export class CandidatosSeleccionadosComponent implements OnInit {
           let colorApirante = '';
           let imagenn: string | ArrayBuffer | null | undefined = undefined;
           this.aplicacionOfertaService.getByOfertaAndPersonaFiltro(ofer, this.resultadoBusqueda[0].usuario).subscribe(aplicacionOferta => {
+            /* eslint-disable no-console */
+            console.log('3----------', aplicacionOferta[0]);
             colorApirante = this.backColor(aplicacionOferta[0].estado);
             postulacionBD = aplicacionOferta[0].fechaPostulacion;
+            console.log(aplicacionOferta);
           });
           this.archivoService.get(this.resultadoBusqueda[0].usuario?.id!, TipoArchivo.IMAGEN_PERFIL).subscribe(respImagen => {
             if (respImagen.body !== null) {
@@ -570,10 +586,12 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   }
 
   verAspirante(item: any): void {
-    this.router.navigate(['hoja-candidato'], {queryParams:{ usuario: item.idPersona, oferta: this.idOferta }});
+    this.router.navigate(['hoja-candidato'], { queryParams: { usuario: item.idPersona, oferta: this.idOferta } });
   }
 
   backColor(estado?: any): string {
+    /* eslint-disable no-console */
+    console.log('4----------', estado);
     if (estado === 'Descartado') {
       this.backcolor = '#FFC1C1';
       this.btnestado = false;
@@ -660,7 +678,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   }
 
   enviarEmail(persona: any): void {
-    const mensaje = (document.getElementById("mensaje") as HTMLInputElement).value;
+    const mensaje = (document.getElementById('mensaje') as HTMLInputElement).value;
     Swal.fire({
       title: '¿Está seguro que desea enviar el email?',
       text: mensaje,
@@ -689,6 +707,8 @@ export class CandidatosSeleccionadosComponent implements OnInit {
 
   public getEstado(codigo: number): string {
     const estado = this.estadoNivelEstudio.find(item => item.codigo === codigo);
+    /* eslint-disable no-console */
+    console.log('5----------', estado);
     return estado?.nombre || '';
   }
 

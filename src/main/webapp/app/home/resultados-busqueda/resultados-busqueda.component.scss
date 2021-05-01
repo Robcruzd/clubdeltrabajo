@@ -100,6 +100,17 @@
   margin-bottom: 2%;
   //margin-left: 178;
   //margin-right: 24px; //1062
+  .titulo-prof {
+    font-family: 'Roboto';
+    color: #020d52;
+    text-align: left;
+    margin-left: 1.495vw;
+    margin-bottom: 0px;
+    margin-top: 1.495vw;
+    font-size: 0.8vw;
+    font-weight: normal;
+    opacity: 1;
+  }
   .input-buscador {
     display: flex;
     margin-left: 0.975vw;
@@ -107,7 +118,6 @@
     background: #ffffff 0% 0% no-repeat padding-box;
     opacity: 1;
     height: 0.975vw;
-    margin-top: 1.495vw;
     width: 6.047vw;
 
     .form-control {
@@ -482,13 +492,24 @@
     height: auto;
     width: 100%;
     padding: 10px;
+
+    .titulo-prof {
+      margin-top: 3%;
+      font-family: 'Roboto';
+      color: #020d52;
+      text-align: left;
+      margin-left: 23px;
+      margin-bottom: 0px;
+      font-size: 9px;
+      font-weight: normal;
+      opacity: 1;
+    }
     .input-buscador {
       display: flex;
       margin-left: 0px;
       margin-right: 0px;
       // background: #ffffff 0% 0% no-repeat padding-box;
       background: #f8f8f8 0% 0% no-repeat padding-box;
-      margin-top: 3%;
       width: 100%;
       opacity: 1;
       height: 15px;

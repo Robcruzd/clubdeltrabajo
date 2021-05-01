@@ -599,6 +599,9 @@ export class CrearHojaVidaComponent implements OnInit {
         // eslint-disable-next-line no-console
         console.log('archivos: ', this.archivos);
         if (response.body !== null) {
+          if (response.body.informacionPersonal !== null) {
+            this.formPersonal.get('id')?.setValue(response.body.informacionPersonal.id);
+          }
           this.archivosaws.forEach((element: { file: File; name: string }) => {
             const formData = new FormData();
             formData.append('file', element.file, element.name);
@@ -688,6 +691,8 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   procesarInformacionPersonal(): IInformacionPersonal {
+    // eslint-disable-next-line no-console
+    console.log('iiiiiiiiiiiiiiiiid: ', this.formPersonal.get(['id'])!.value);
     return {
       ...new InformacionPersonal(),
       id: this.formPersonal.get(['id'])!.value,

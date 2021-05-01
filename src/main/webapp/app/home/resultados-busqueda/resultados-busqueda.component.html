@@ -8,6 +8,7 @@
             <div class="cuerpo">
                 <div *ngIf = "general === 'true'">
                     <div class="buscador">
+                        <p class="titulo-prof">Profesión</p>
                         <div class="input-buscador">
                             <input matInput placeholder="Busqueda" class="form-control"
                             (keyup.enter)="cargarOfertar()" [(ngModel)]="valorBusqueda">

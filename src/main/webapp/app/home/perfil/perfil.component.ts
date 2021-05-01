@@ -76,26 +76,17 @@ export class PerfilComponent implements OnInit {
       this.archivos = this.hojaVidaVo?.archivos;
       this.imagen = this.archivos?.find(item => item.tipo === TipoArchivo.IMAGEN_PERFIL) || new Archivo();
       if (this.hojaVidaVo?.informacionPersonal === null && this.imagen.archivo !== undefined) {
-        alertify
-          .alert('ATENCIÓN', 'Debe registrar su hoja de vida en el botón Editar Hoja de Vida')
-          .setting({
-            label: 'Aceptar'
-          })
-          .show();
+        alertify.alert('ATENCIÓN', 'Debe registrar su hoja de vida en el botón Editar Hoja de Vida').setting({
+          label: 'Aceptar'
+        });
       } else if (this.imagen.archivo === undefined && this.hojaVidaVo?.informacionPersonal !== null) {
-        alertify
-          .alert('ATENCIÓN', 'Debe insertar su foto de perfil.')
-          .setting({
-            label: 'Aceptar'
-          })
-          .show();
+        alertify.alert('ATENCIÓN', 'Debe insertar su foto de perfil.').setting({
+          label: 'Aceptar'
+        });
       } else if (this.hojaVidaVo?.informacionPersonal === null && this.imagen.archivo === undefined) {
-        alertify
-          .alert('ATENCIÓN', 'Debe insertar su foto de perfil y registrar su hoja de vida en el botón Editar Hoja de Vida.')
-          .setting({
-            label: 'Aceptar'
-          })
-          .show();
+        alertify.alert('ATENCIÓN', 'Debe insertar su foto de perfil y registrar su hoja de vida en el botón Editar Hoja de Vida.').setting({
+          label: 'Aceptar'
+        });
       }
     });
   }
@@ -242,10 +233,10 @@ export class PerfilComponent implements OnInit {
   }
 
   verOfertas(): void {
-    this.router.navigate(['resultados-busqueda'],{queryParams:{ general: false }});
+    this.router.navigate(['resultados-busqueda'], { queryParams: { general: false } });
   }
 
   buscaEmpleo(): void {
-    this.router.navigate(['resultados-busqueda'],{queryParams:{ general: true }} );
+    this.router.navigate(['resultados-busqueda'], { queryParams: { general: true } });
   }
 }

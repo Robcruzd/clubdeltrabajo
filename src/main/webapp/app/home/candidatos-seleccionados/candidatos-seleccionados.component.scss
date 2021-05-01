@@ -522,12 +522,12 @@
         .mitad1 {
           display: flex;
           .imagen {
-            display: flex;
-            width: 4.641vw;
-            height: 4.641vw;
-            border-radius: 8.453vw;
-            border: none;
-            .img{
+            // display: flex;
+            // width: 4.641vw;
+            // height: 4.641vw;
+            // border-radius: 8.453vw;
+            // border: none;
+            .img {
               border-radius: 50%;
             }
           }
@@ -593,8 +593,8 @@
         }
       }
       .btn-seleccionado {
-        .botones-enviar-des{
-        display: flex;
+        .botones-enviar-des {
+          display: flex;
         }
         .btn1 {
           background: #020d52;
@@ -620,6 +620,10 @@
         margin-left: 40%;
         margin-bottom: 2.601vw;
         //padding: 5%;
+
+        .ngx-pagination {
+          padding: 0;
+        }
       }
     }
     .ngnum3 {
@@ -683,6 +687,10 @@
     letter-spacing: 0px;
     opacity: 1;
   }
+}
+
+::ng-deep .ngx-pagination {
+  padding: 0;
 }
 
 // kendo
@@ -902,146 +910,143 @@ kendo-pdf-export {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 900px) {
-  .container {
-    .row {
-      width: 100%;
+  // .container {
+  //   .row {
+  //     width: 100%;
 
-      .col-md-5 {
-        width: 100%;
-        max-width: 100vw;
+  //     .col-md-5 {
+  //       width: 100%;
+  //       max-width: 100vw;
 
-        .informacion-hoja-vida {
-          top: 0px;
-          left: 0px;
-          width: 90vw;
-          height: 530px;
-          border: 1px solid #ebebeb;
-          opacity: 1;
-          margin-bottom: 14px;
+  //       .informacion-hoja-vida {
+  //         top: 0px;
+  //         left: 0px;
+  //         width: 90vw;
+  //         height: 530px;
+  //         border: 1px solid #ebebeb;
+  //         opacity: 1;
+  //         margin-bottom: 14px;
 
-          .pdfViewer {
-            width: 85vw;
-          }
-        }
-      }
-    }
-  }
-  .estilo_titulo2 {
-    padding-left: 10%;
-  }
-  .ngnum1 {
-    width: 100%;
-    max-width: 600px;
-  }
-  .buscador {
-    display: flex;
-    flex-flow: wrap;
-    min-height: 55px;
-    margin-bottom: 2%;
-    justify-content: center;
-    width: 100%;
-    .input-buscador {
-      background: #f8f8f8 0% 0% no-repeat padding-box;
-      margin-top: 3%;
-      width: 100%;
-      .form-control {
-        width: 100%;
-        height: 15px;
-      }
-    }
-    .filtros {
-      display: flex;
-      flex-flow: wrap;
-      justify-content: center;
-      width: 100%;
-    }
-  }
-  .div-center3 {
-    width: 90%;
-    .cuerpo {
-      width: 100%;
-      display: flex;
-      flex-flow: wrap;
-    }
-  }
+  //         .pdfViewer {
+  //           width: 85vw;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+  // .ngnum1 {
+  //   width: 100%;
+  //   max-width: 600px;
+  // }
+  // .buscador {
+  //   display: flex;
+  //   flex-flow: wrap;
+  //   min-height: 55px;
+  //   margin-bottom: 2%;
+  //   justify-content: center;
+  //   width: 100%;
+  //   .input-buscador {
+  //     background: #f8f8f8 0% 0% no-repeat padding-box;
+  //     margin-top: 3%;
+  //     width: 100%;
+  //     .form-control {
+  //       width: 100%;
+  //       height: 15px;
+  //     }
+  //   }
+  //   .filtros {
+  //     display: flex;
+  //     flex-flow: wrap;
+  //     justify-content: center;
+  //     width: 100%;
+  //   }
+  // }
+  // .div-center3 {
+  //   width: 90%;
+  //   .cuerpo {
+  //     width: 100%;
+  //     display: flex;
+  //     flex-flow: wrap;
+  //   }
+  // }
 
-  .perfil {
-    display: flex;
-    justify-content: center;
-    flex-flow: wrap;
-    width: 100%;
-    .contngfor {
-      width: 48%;
-      margin: 1%;
-      max-width: 200px;
-      min-width: 150px;
-      .perfiles {
-        display: inline-table;
-        justify-content: space-between;
-        padding: 2%;
-        width: 100%;
-        .mitad1 {
-          width: 100%;
-          display: flex;
-          justify-content: center;
-          .contenedornc {
-            display: flex;
-            align-content: center;
-            justify-content: center;
-            flex-flow: wrap;
-            p.nombre {
-              margin-bottom: 0;
-              position: inherit;
-            }
-            p.carrera {
-              line-height: 13px;
-              margin-bottom: 0;
-            }
-          }
-        }
-        .mitad2 {
-          padding: 1% 0% 1% 0%;
-          height: max-content;
-          min-height: 70px;
-          display: flex;
-        }
-        .parte4 {
-          width: 100%;
-          height: min-content;
-          text-align: center;
-          .verhv {
-            margin-bottom: 0;
-          }
-        }
-      }
-      .btn-seleccionado {
-        .mensajeEmail {
-          height: 20px;
-          width: 100%;
-        }
-        .btn1 {
-          height: 20px;
-          width: 49%;
-          font-size: 10px;
-        }
-        .btn2 {
-          height: 20px;
-          width: 49%;
-          font-size: 8px;
-        }
-      }
-    }
-  }
-  .btnVerOcultar {
-    width: 100%;
-    display: grid;
-    .button-filtros {
-      color: #f5f5f5;
-      background: #020d52;
-      font-size: 9px;
-      font-family: 'Roboto';
-    }
-  }
+  // .perfil {
+  //   display: flex;
+  //   justify-content: center;
+  //   flex-flow: wrap;
+  //   width: 100%;
+  //   .contngfor {
+  //     width: 48%;
+  //     margin: 1%;
+  //     max-width: 200px;
+  //     min-width: 150px;
+  //     .perfiles {
+  //       display: inline-table;
+  //       justify-content: space-between;
+  //       padding: 2%;
+  //       width: 100%;
+  //       .mitad1 {
+  //         width: 100%;
+  //         display: flex;
+  //         justify-content: center;
+  //         .contenedornc {
+  //           display: flex;
+  //           align-content: center;
+  //           justify-content: center;
+  //           flex-flow: wrap;
+  //           p.nombre {
+  //             margin-bottom: 0;
+  //             position: inherit;
+  //           }
+  //           p.carrera {
+  //             line-height: 13px;
+  //             margin-bottom: 0;
+  //           }
+  //         }
+  //       }
+  //       .mitad2 {
+  //         padding: 1% 0% 1% 0%;
+  //         height: max-content;
+  //         min-height: 70px;
+  //         display: flex;
+  //       }
+  //       .parte4 {
+  //         width: 100%;
+  //         height: min-content;
+  //         text-align: center;
+  //         .verhv {
+  //           margin-bottom: 0;
+  //         }
+  //       }
+  //     }
+  //     .btn-seleccionado {
+  //       .mensajeEmail {
+  //         height: 20px;
+  //         width: 100%;
+  //       }
+  //       .btn1 {
+  //         height: 20px;
+  //         width: 49%;
+  //         font-size: 10px;
+  //       }
+  //       .btn2 {
+  //         height: 20px;
+  //         width: 49%;
+  //         font-size: 8px;
+  //       }
+  //     }
+  //   }
+  // }
+  // .btnVerOcultar {
+  //   width: 100%;
+  //   display: grid;
+  //   .button-filtros {
+  //     color: #f5f5f5;
+  //     background: #020d52;
+  //     font-size: 9px;
+  //     font-family: 'Roboto';
+  //   }
+  // }
 }
 
 .contenedor {
@@ -1112,23 +1117,28 @@ kendo-pdf-export {
         display: flex;
         align-items: center;
         .imagen {
-          //margin-top: 0.91vw;
-          margin-left: 1.796vw;
-          margin-right: 1.796vw;
-          //margin-bottom: 0.975vw;
-          .img{
+          // //margin-top: 0.91vw;
+          // margin-left: 1.796vw;
+          // margin-right: 1.796vw;
+          // //margin-bottom: 0.975vw;
+          display: flex;
+          width: 4.641vw;
+          height: 4.641vw;
+          border-radius: 8.453vw;
+          border: none;
+          .img {
             width: 4.641vw;
             height: 4.641vw;
           }
         }
-        .contenedornc{
+        .contenedornc {
           width: 60%;
           p.nombre {
             //top: 23%;
             margin-bottom: 0;
             width: 9.753vw;
           }
-          p.carrera{
+          p.carrera {
             line-height: 0.845vw;
           }
         }
@@ -1160,7 +1170,7 @@ kendo-pdf-export {
       .mensajeEmail {
         height: 1.56vw;
         width: 9vw;
-        font-size: 0.780vw;
+        font-size: 0.78vw;
       }
       .btn1 {
         min-height: 1.56vw;
@@ -1331,12 +1341,10 @@ kendo-pdf-export {
         .perfiles {
           .mitad1 {
             display: flex;
-            .imagen {
-              display: flex;
-              width: 56px;
-              height: 56px;
-              border-radius: 130px;
-            }
+            hyphens: auto;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+
             p.nombre {
               font-size: 15px;
               line-height: 15px;
@@ -1373,8 +1381,13 @@ kendo-pdf-export {
         .controls {
           font-size: 15px;
           height: 20px;
-          margin-left: 40%;
-          margin-bottom: 40px;
+          margin-left: 0;
+          margin-bottom: 20px;
+          margin-top: 20px;
+
+          .ngx-pagination {
+            padding: 0;
+          }
         }
       }
       .ngnum3 {
@@ -1411,13 +1424,21 @@ kendo-pdf-export {
     width: 97%;
     margin-bottom: 2%;
     padding: 0.5rem;
+
     .input-buscador {
-      margin: 0px;
+      background: #f8f8f8 0% 0% no-repeat padding-box;
+      margin-top: 3%;
       width: 100%;
       .form-control {
         width: 100%;
-        min-height: 15px;
+        height: 15px;
       }
+    }
+    .filtros {
+      display: flex;
+      flex-flow: wrap;
+      justify-content: center;
+      width: 100%;
     }
   }
   .div-center3 {
@@ -1429,77 +1450,134 @@ kendo-pdf-export {
     }
   }
   .perfil {
+    display: flex;
+    justify-content: center;
+    flex-flow: wrap;
+    width: 100%;
+
     .contngfor {
       min-height: 122px;
+      width: 48%;
+      margin: 1%;
+      // max-width: 200px;
+      // min-width: 150px;
     }
     .perfiles {
       display: flex;
+      flex-direction: column;
       background: #f8f8f8;
-      height: 85px;
       align-items: center;
       justify-content: space-between;
+      padding: 2%;
+      width: 100%;
       .mitad1 {
-        width: 272px;
-        height: 85px;
+        min-height: 85px;
         display: flex;
+        width: 100%;
+        align-items: center;
+        .contenedornc {
+          flex-flow: wrap;
+          hyphens: auto;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+          width: 70%;
+          p.nombre {
+            margin-bottom: 0;
+            position: inherit;
+          }
+          p.carrera {
+            line-height: 13px;
+            margin-bottom: 0;
+          }
+        }
         .imagen {
           margin: 8px;
+          display: flex;
+          width: 30%;
+          height: min-content;
+          border-radius: 130px;
           img {
-            width: 50px;
-            height: 50px;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
           }
         }
       }
       .mitad2 {
-        max-width: max-content;
-        height: 85px;
+        padding: 1% 0% 1% 0%;
+        min-height: 70px;
         display: flex;
+        width: 95%;
         p.resumen {
-          margin-right: 54px;
+          margin-right: 0;
         }
       }
       .parte3 {
-        width: 111px;
-        height: 31px;
+        width: 95%;
+        min-height: 31px;
       }
       .parte4 {
-        width: 83px;
-        height: 85px;
-        padding-top: 20px;
+        // width: 83px;
+        // height: 85px;
+        padding-top: 0;
+        width: 100%;
+        height: min-content;
+        text-align: center;
+        .verhv {
+          margin-bottom: 0;
+        }
       }
     }
     .btn-seleccionado {
       margin-top: 5px;
+      display: flex;
+      flex-direction: column;
       .mensajeEmail {
         height: 24px;
-        width: 201px;
+        width: 100%;
       }
       .btn1 {
-        height: 24px;
-        width: 116px;
+        // height: 24px;
+        // width: 116px;
         background: #020d52;
         color: #fbfbfb;
         font-family: 'Arial';
-        font-size: 12px;
+        // font-size: 12px;
         text-align: center;
         border: none;
+        height: 20px;
+        width: 49%;
+        font-size: 10px;
       }
       .btn2 {
-        height: 24px;
-        width: 116px;
+        // height: 24px;
+        // width: 116px;
         background: #1a9fef;
         color: #fbfbfb;
         font-family: 'Arial';
-        font-size: 12px;
+        // font-size: 12px;
         text-align: center;
         border: none;
+        height: 20px;
+        width: 49%;
+        font-size: 8px;
       }
       .botones-enviar-des {
         display: flex;
+        flex-direction: row;
         justify-content: space-between;
         margin-top: 5px;
       }
+    }
+  }
+  .btnVerOcultar {
+    width: 100%;
+    display: grid;
+    .button-filtros {
+      color: #f5f5f5;
+      background: #020d52;
+      font-size: 9px;
+      font-family: 'Roboto';
     }
   }
 }

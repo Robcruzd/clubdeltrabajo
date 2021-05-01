@@ -62,6 +62,9 @@
     </div>
     <div class = "botones_abajo">
         <button class="volver" (click)="volver()">Volver</button>
-        <button class="finalizar" (click)="guardarCambios()">Finalizar</button>
+        <button class="finalizar" (click)="guardarCambios()" [disabled]="cargando">
+            <div *ngIf="!cargando">Finalizar</div>
+            <span *ngIf="cargando" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </button>
     </div>
 </div>

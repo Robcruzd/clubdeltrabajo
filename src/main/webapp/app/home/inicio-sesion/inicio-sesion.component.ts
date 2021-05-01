@@ -55,7 +55,7 @@ export class InicioSesionComponent implements OnInit {
       this.passwordInvalid = true;
     }
     if (!this.usernameInvalid && !this.passwordInvalid) {
-      this.login.rememberMe = false;
+      this.login.rememberMe = true;
       this.loginService.login(this.login).subscribe(
         res => {
           if (res?.user !== null) {

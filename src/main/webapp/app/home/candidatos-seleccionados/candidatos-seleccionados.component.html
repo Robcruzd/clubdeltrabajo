@@ -190,21 +190,20 @@
                         </div>
                     </a>
                     <div class="btn-seleccionado" *ngIf="item.btnestado">
+                        <input class="mensajeEmail" #searchInput id="mensaje" type="text" placeholder="Ingrese cuerpo de email">
                         <div class="botones-enviar-des">
-                            <input class="mensajeEmail" #searchInput id="mensaje" type="text" placeholder="Ingrese cuerpo de email">
                             <button class="btn1" (click)="enviarEmail(item)"> <fa-icon [icon]="faPaperPlane" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> Enviar Mail</button>
                             <button class="btn2" (click)="getHojaVida(item)"> <fa-icon [icon]="faArrowDown" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> Descargar H.V</button>
                         </div>
                     </div>
                     </div>
-                    <pagination-controls (pageChange)="page = $event" class="controls" 
+                </div>
+                <pagination-controls (pageChange)="page = $event" class="controls" 
                     previousLabel=""
                     nextLabel=""
                     autoHide="true"
                     maxSize="6">
                     </pagination-controls>
-                </div>
-                
             </div>
         </div>
     </div>    

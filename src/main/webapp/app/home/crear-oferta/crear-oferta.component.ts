@@ -251,7 +251,7 @@ export class CrearOfertaComponent implements OnInit {
     this.oferta.experiencia = this.formDatosBasicos.controls['experiencia'].value;
     this.oferta.ciudad = this.formDatosBasicos.controls['ciudad'].value;
     this.oferta.area = this.formDatosBasicos.controls['areaTrabajo'].value;
-    this.oferta.fechaPublicacion = moment(new Date(), 'YYYY-MMM-DD');
+    this.oferta.fechaPublicacion = moment(new Date(), 'YYYY-MMM-DD').subtract(5, 'hours');
     this.oferta.idioma = this.formDatosBasicos.controls['idIdioma'].value;
     this.oferta.nivelLaboral = this.formDatosBasicos.controls['nivelLaboral'].value;
     this.oferta.tipoContrato = this.formDatosBasicos.controls['tipoContrato'].value;
@@ -285,7 +285,7 @@ export class CrearOfertaComponent implements OnInit {
                     // this.router.navigate(['/controlar-ofertas']);
                   }
                 );
-              } else if (ofertaResponse.length < 3 && this.oferta.usuario?.id === 63951) {
+              } else if (ofertaResponse.length < 10 && this.oferta.usuario?.id === 63951) {
                 this.oferta.estado = 'A';
                 this.oferta.activado = true;
                 this.ofertaService.create(this.oferta).subscribe(
