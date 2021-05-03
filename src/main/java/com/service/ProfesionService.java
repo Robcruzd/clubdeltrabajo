@@ -73,11 +73,15 @@ public class ProfesionService {
         profesionRepository.deleteById(id);
     }
     
-    public List<Profesion> getByProfesionFiltro(String profesion) {
+    public List<Profesion> getByProfesionFiltro2(String profesion) {
     	return profesionRepository.findByProfesionContainingIgnoreCase(profesion);
     }
     
     public Profesion getById(Long profesion) {
     	return profesionRepository.findByIdQuery(profesion);
+    }
+
+    public List<Profesion> getByProfesionFiltro(String profesion) {
+    	return profesionRepository.findByProfesionLikeUsingQueryAnnotation(profesion);
     }
 }

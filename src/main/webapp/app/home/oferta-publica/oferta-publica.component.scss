@@ -2,6 +2,7 @@
   background: #2f447f;
   display: grid;
   align-items: center;
+  min-height: 80vh;
   //justify-content: center;
   //max-width: 100%;
   //max-height: 100%;
@@ -124,7 +125,7 @@ p.titulo {
   }
   .oferta {
     font-family: 'Roboto';
-    font-size: 0.780vw;
+    font-size: 0.78vw;
     color: #7e7474;
     opacity: 1;
     line-height: 1vw;
@@ -132,14 +133,14 @@ p.titulo {
   }
   .titulo_oferta_previsualizacion {
     color: #1fb9fd;
-    font-size: 0.780vw;
-    line-height: 0.980vw;
+    font-size: 0.78vw;
+    line-height: 0.98vw;
     font-family: 'Roboto';
   }
   .des_titulo {
-    font-size: 0.780vw;
+    font-size: 0.78vw;
     color: #7e7474;
-    line-height: 0.980vw;
+    line-height: 0.98vw;
     font-family: 'Roboto';
     font-weight: bolder;
   }

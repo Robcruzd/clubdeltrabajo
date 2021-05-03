@@ -103,22 +103,26 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private _filterCiudades(value: string): string[] {
     this.ciudades = [];
-    const filterValue = value.toLowerCase();
+    const filterValue = this.removeAccents(value.toLowerCase());
     for (const valor of this.data) {
       this.ciudades.push(valor.municipio);
     }
-    return this.ciudades.filter(option => option.toLowerCase().includes(filterValue)).sort();
+    return this.ciudades.filter(option => this.removeAccents(option.toLowerCase()).includes(filterValue)).sort();
   }
 
   private _filterProfesiones(value: string): string[] {
     this.profesiones = [];
-    const filterValue = value.toLowerCase();
+    const filterValue = this.removeAccents(value.toLowerCase());
     // return this.profesiones.filter(option => option.profesion?.toLowerCase().includes(filterValue));
     for (const valor of this.dataProf) {
       this.profesiones.push(valor.profesion!);
     }
-    return this.profesiones.filter(option => option.toLowerCase().includes(filterValue)).sort();
+    return this.profesiones.filter(option => this.removeAccents(option.toLowerCase()).includes(filterValue)).sort();
   }
+
+  private removeAccents = (str: string) => {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  };
 
   traerCiudad(): void {
     this.regionService

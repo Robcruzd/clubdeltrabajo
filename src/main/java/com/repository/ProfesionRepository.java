@@ -23,4 +23,14 @@ public interface ProfesionRepository extends JpaRepository<Profesion, Long>, Jpa
 			"select * from ct_profesion_tb where id = :profesion", 
 			nativeQuery = true)
 	Profesion findByIdQuery(@Param("profesion") Long profesion);
+
+	@Query(value = "\r\n" + 
+		"select * from ct_profesion_tb ctp where unaccent(lower(ctp.profesion)) like unaccent(lower(concat('%', ?1,'%')))",
+		nativeQuery = true)
+	List<Profesion> findByProfesionLikeUsingQueryAnnotation(@Param("profesion") String profesion);
+
+	// @Query(value = "\r\n" + 
+	// 	"select * from ct_profesion_tb cpt where to_tsquery('administrador') <@ to_tsvector(cpt.profesion)",
+	// 	nativeQuery = true)
+	// List<Profesion> findByProfesionLikeUsingQueryAnnotation(@Param("profesion") String profesion);
 }
