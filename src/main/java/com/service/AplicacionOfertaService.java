@@ -139,7 +139,58 @@ public class AplicacionOfertaService {
             imagePart.setDisposition(MimeBodyPart.INLINE);
             multipart.addBodyPart(imagePart);
             message.setContent(multipart);
-            message.setSubject("Hoja de vida Seleccionada para revisión");
+            message.setSubject("Hoja de vida Seleccionada para revisiï¿½n");
+            message.setRecipients(Message.RecipientType.TO,
+                     InternetAddress.parse(to));
+            Transport.send(message);
+    	} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+
+    public void enviarEmailAplicante(String email) {
+    	String to = email;
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtpout.secureserver.net");
+        props.put("mail.smtp.port", "587");
+    	String correoEnvia = "info@clubdeltrabajo.com";
+    	String contrasena = "Temporal22";
+        Session session = Session.getInstance(props,
+           new javax.mail.Authenticator() {
+              protected PasswordAuthentication getPasswordAuthentication() {
+                 return new PasswordAuthentication(correoEnvia, contrasena);
+         }
+           });
+    	
+    	try {
+    		MimeMessage message = new MimeMessage(session);
+            message.setSubject("HTML  mail with images");
+            message.setFrom(new InternetAddress(correoEnvia));
+            message.addRecipient(Message.RecipientType.TO,
+                 new InternetAddress(to));
+
+            // Mail Body
+            MimeMultipart multipart = new MimeMultipart("related");
+            BodyPart textPart = new MimeBodyPart();
+            String htmlText ="<img src=\"cid:image\"> ";
+            textPart.setContent(htmlText, "text/html");
+
+            multipart.addBodyPart(textPart);
+            BodyPart imagePart = new MimeBodyPart();
+	        DataSource fds = new FileDataSource
+	          ("src/main/resources/image/Bienvenido.jpg");
+            imagePart.setDataHandler(new DataHandler(fds));
+            imagePart.setHeader("Content-ID","<image>");
+            imagePart.setDisposition(MimeBodyPart.INLINE);
+            multipart.addBodyPart(imagePart);
+            message.setContent(multipart);
+            message.setSubject("Hoja de vida Seleccionada para revisiï¿½n");
             message.setRecipients(Message.RecipientType.TO,
                      InternetAddress.parse(to));
             Transport.send(message);

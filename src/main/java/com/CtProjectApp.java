@@ -23,6 +23,10 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Timer;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.service.MailService;
+
 @SpringBootApplication
 @EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
 @EnableDiscoveryClient
@@ -31,6 +35,9 @@ public class CtProjectApp {
     private static final Logger log = LoggerFactory.getLogger(CtProjectApp.class);
 
     private final Environment env;
+
+    @Autowired
+    private MailService mailService;
 
     public CtProjectApp(Environment env) {
         this.env = env;
@@ -67,10 +74,13 @@ public class CtProjectApp {
         Environment env = app.run(args).getEnvironment();
         logApplicationStartup(env);
         TareaEnviarCorreo tarea = new TareaEnviarCorreo();
-        Timer temporizador = new Timer();
-        Integer hora = 48;
-        temporizador.scheduleAtFixedRate(tarea, 0, 3600000*hora);
-
+        TareaNullDate tareaNull = new TareaNullDate();
+        Timer temporizador1 = new Timer();
+        Timer temporizador15 = new Timer();
+        long dias1 = 15;
+        long dias15 = 1;
+        temporizador15.scheduleAtFixedRate(tareaNull, 0, 86400000*dias15);
+        temporizador1.scheduleAtFixedRate(tarea, 0, 86400000*dias1);
     }
 
     private static void logApplicationStartup(Environment env) {

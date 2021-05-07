@@ -16,11 +16,17 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
+import java.util.Optional;
 
 import com.domain.User;
+import com.domain.Profesion;
+import com.domain.Persona;
+import com.domain.AplicacionOferta;
 import com.domain.vo.InformacionEmpresaVo;
 
 import io.github.jhipster.config.JHipsterProperties;
+import java.util.List;
+import java.time.LocalDate;
 
 /**
  * Service for sending emails.
@@ -38,6 +44,8 @@ public class MailService {
     
     private static final String INFORMACION = "informacion";
 
+    private static final String PROFESION = "profesion";
+
     private final JHipsterProperties jHipsterProperties;
 
     private final JavaMailSender javaMailSender;
@@ -45,14 +53,28 @@ public class MailService {
     private final MessageSource messageSource;
 
     private final SpringTemplateEngine templateEngine;
+    private final UserService userService;
+    private final ProfesionService profesionService;
+    private final PersonaService personaService;
 
-    public MailService(JHipsterProperties jHipsterProperties, JavaMailSender javaMailSender,
-            MessageSource messageSource, SpringTemplateEngine templateEngine) {
+    // public MailService(){}
+
+    public MailService(
+        JHipsterProperties jHipsterProperties, 
+        JavaMailSender javaMailSender,
+        MessageSource messageSource, 
+        SpringTemplateEngine templateEngine,
+        UserService userService,
+        ProfesionService profesionService,
+        PersonaService personaService) {
 
         this.jHipsterProperties = jHipsterProperties;
         this.javaMailSender = javaMailSender;
         this.messageSource = messageSource;
         this.templateEngine = templateEngine;
+        this.userService = userService;
+        this.profesionService = profesionService;
+        this.personaService = personaService;
     }
 
     @Async
@@ -91,6 +113,35 @@ public class MailService {
         String content = templateEngine.process(templateName, context);
         String subject = messageSource.getMessage(titleKey, null, locale);
         sendEmail(user.getEmail(), subject, content, false, true);
+    }
+
+    @Async
+    public void sendEmailFromTemplateApli(User user, Profesion profesion, String templateName, String titleKey) {
+        if (user.getEmail() == null) {
+            log.debug("Email doesn't exist for user '{}'", user.getLogin());
+            return;
+        }
+        Locale locale = Locale.forLanguageTag(user.getLangKey());
+        Context context = new Context(locale);
+        context.setVariable(USER, user);
+        context.setVariable(PROFESION, profesion);
+        System.out.println("Templaaaaaaaaaaaaate: "+jHipsterProperties.getMail());
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        // jHipsterProperties.getMail().getBaseUrl()
+        // "http://localhost:9000"
+        String content = templateEngine.process(templateName, context);
+        String subject = messageSource.getMessage(titleKey, null, locale);
+        sendEmail(user.getEmail(), subject, content, false, true);
+    }
+
+    @Async
+    public void sendEmailFromTemplateRem(String email, String templateName, String titleKey) {        
+        Locale locale = Locale.forLanguageTag("es");
+        Context context = new Context(locale);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process(templateName, context);
+        String subject = messageSource.getMessage(titleKey, null, locale);
+        sendEmail(email, subject, content, false, true);
     }
     
     @Async
@@ -138,8 +189,28 @@ public class MailService {
     }
 
     @Async
-    public void sendApplyment(User user) {
-        log.debug("Sending password reset email to '{}'", user.getEmail());
-        sendEmailFromTemplateCustom(user, "mail/aplicacionPostulante", "email.aplica.title");
+    public void sendApplyment(AplicacionOferta aplicacionOferta) {
+        log.debug("Sending password reset email to '{}'", aplicacionOferta.getUsuario().getEmail());
+        User user = userService.findByLogin(aplicacionOferta.getUsuario().getEmail());
+        Profesion profesion = profesionService.getById(aplicacionOferta.getOferta().getProfesion());
+        sendEmailFromTemplateApli(user, profesion, "mail/aplicacionPostulante", "email.aplica.title");
+    }
+
+    @Async
+    public void emailRemember() {
+        log.debug("Sending password reset email to '{}'", userService.findEmailByQuery());
+        List<Long> ids = userService.findEmailByQuery();
+        for(Long id : ids) {
+            Optional<Persona> opt = personaService.findOne(id);
+            Persona persona = opt.get();
+            // log.debug("Sending password reset email to '{}'", email);
+            sendEmailFromTemplateRem(persona.getEmail(), "mail/rememberEmail", "email.remember.title");
+            LocalDate date = LocalDate.now();
+            persona.setFechaRecordatorio(date);
+            personaService.save(persona);
+        }
+        // User user = userService.findByLogin(aplicacionOferta.getUsuario().getEmail());
+        // Profesion profesion = profesionService.getById(aplicacionOferta.getOferta().getProfesion());
+        // sendEmailFromTemplateApli(user, profesion, "mail/aplicacionPostulante", "email.aplica.title");
     }
 }

@@ -79,7 +79,7 @@ public class AplicacionOfertaResource {
         }
         AplicacionOferta result = aplicacionOfertaService.save(aplicacionOferta);
         aplicacionOfertaService.enviarEmailEmpresa(result.getOferta().getUsuario().getEmail());
-        // mailService.sendApplyment(result.getOferta().getUsuario());
+        mailService.sendApplyment(result);
         return ResponseEntity.created(new URI("/api/aplicacion-ofertas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);

@@ -8,19 +8,19 @@
     <body>
         <img th:src="@{|https://www.clubdeltrabajo.com/content/images/logo_cdt_fondo.png|}" width="100%" height="100px"/>
        	<br/>
-        <p th:text="Hola ${user.firstName})}">
+        <p th:text="#{email.aplica.greeting(${user.firstName} + ' ' + ${user.lastName})}">
             Dear
         </p>
-        <p th:text="Has aplicado correctamente a la oferta de de empleo: ${}">
-            Your JHipster account has been created, please click on the URL below to activate it:
+        <p th:text="#{email.aplica.text1(${profesion.profesion})}">
+            aplicado
         </p>
-        <!-- <p th:text="Gracias por hacer parte de nuestro Club, recuerda mantener tu hoja de vida actualizada para acceder a miles de ofertas.">
-            
-        </p> -->
+        <p th:text="#{email.aplica.text2}">
+            gracias
+        </p>
         <p>
-            <span th:text="Cordialmente:">Regards, </span>
+            <span th:text="#{email.aplica.text3}">Regards, </span>
             <br/>
-            <em th:text="#{email.signature}">JHipster.</em>
+            <em th:text="#{email.aplica.signature}">JHipster.</em>
         </p>
     </body>
 </html>

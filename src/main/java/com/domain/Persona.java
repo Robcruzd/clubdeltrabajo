@@ -7,6 +7,7 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.time.LocalDate;
 
 /**
  * A Persona.
@@ -47,6 +48,10 @@ public class Persona implements Serializable {
     @NotNull
     @JsonIgnoreProperties("personas")
     private TipoDocumento tipoDocumento;
+
+    @NotNull
+    @Column(name = "fecha_recordatorio", nullable = false)
+    private LocalDate fechaRecordatorio;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -133,6 +138,19 @@ public class Persona implements Serializable {
 
     public void setTipoDocumento(TipoDocumento tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
+    }
+
+    public LocalDate getFechaRecordatorio() {
+        return fechaRecordatorio;
+    }
+
+    public Persona fechaRecordatorio(LocalDate fechaRecordatorio) {
+        this.fechaRecordatorio = fechaRecordatorio;
+        return this;
+    }
+
+    public void setFechaRecordatorio(LocalDate fechaRecordatorio) {
+        this.fechaRecordatorio = fechaRecordatorio;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

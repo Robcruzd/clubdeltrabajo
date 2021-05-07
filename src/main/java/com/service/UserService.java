@@ -3,6 +3,7 @@ package com.service;
 import com.config.Constants;
 import com.domain.Authority;
 import com.domain.User;
+import com.domain.Persona;
 import com.repository.AuthorityRepository;
 import com.repository.UserRepository;
 import com.security.AuthoritiesConstants;
@@ -296,4 +297,9 @@ public class UserService {
     	return userRepository.findByLogin(email);
     }
 
+    public List<Long> findEmailByQuery() {
+        Object obj = userRepository.findEmailByQuery();
+        // Persona persona = new Persona(obj);
+    	return  userRepository.findEmailByQuery();
+    }
 }

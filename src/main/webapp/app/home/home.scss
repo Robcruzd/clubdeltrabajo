@@ -434,16 +434,17 @@ p {
       }
 
       .ofertas {
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-        width: 97%;
+        // flex-wrap: wrap;
+        overflow-x: scroll;
+        justify-content: start;
+        width: 90vw;
 
         p {
           margin: 0;
         }
 
         .oferta {
-          width: 45%;
+          // width: 45%;
           min-height: 153px;
           background: #f8f8f8 0% 0% no-repeat padding-box;
           display: flex;
@@ -451,6 +452,8 @@ p {
           padding: 0.5rem;
           justify-content: space-between;
           margin-bottom: 1rem;
+          margin-right: 5px;
+          min-width: 180px;
 
           .oferta-arriba {
             display: flex;

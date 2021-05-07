@@ -96,6 +96,10 @@ public class PersonaService {
     public List<Persona> getPersonas() {
     	return personaRepository.findAll();
     }
+
+    public List<Long> updateFechaRem() {
+        return personaRepository.updateFechaRem();
+    }
     
     public void seleccionadoAspirante(String email) {
     	String to = email;
@@ -135,7 +139,7 @@ public class PersonaService {
             imagePart.setDisposition(MimeBodyPart.INLINE);
             multipart.addBodyPart(imagePart);
             message.setContent(multipart);
-            message.setSubject("Hoja de vida Seleccionada para revisión");
+            message.setSubject("Hoja de vida Seleccionada para revisiï¿½n");
             message.setRecipients(Message.RecipientType.TO,
                      InternetAddress.parse(to));
             Transport.send(message);
@@ -150,14 +154,14 @@ public class PersonaService {
     }
     
     public void enviarEmailAspirante(String email, String mensaje) {    	
-    	// Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el remitente también.
-        String remitente = "info@clubdeltrabajo.com";  //Para la dirección nomcuenta@gmail.com
+    	// Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el remitente tambiï¿½n.
+        String remitente = "info@clubdeltrabajo.com";  //Para la direcciï¿½n nomcuenta@gmail.com
         String destinatario =  email;
         Properties props = System.getProperties();
         props.put("mail.smtp.host", "smtpout.secureserver.net");  //El servidor SMTP de Google
         props.put("mail.smtp.user", remitente);
         props.put("mail.smtp.clave", "Temporal22");    //La clave de la cuenta
-        props.put("mail.smtp.auth", "true");    //Usar autenticación mediante usuario y clave
+        props.put("mail.smtp.auth", "true");    //Usar autenticaciï¿½n mediante usuario y clave
         props.put("mail.smtp.starttls.enable", "true"); //Para conectar de manera segura al servidor SMTP
         props.put("mail.smtp.port", "587"); //El puerto SMTP seguro de Google
 
@@ -166,7 +170,7 @@ public class PersonaService {
 
         try {
             message.setFrom(new InternetAddress(remitente));
-            message.addRecipients(Message.RecipientType.TO, destinatario);   //Se podrían añadir varios de la misma manera
+            message.addRecipients(Message.RecipientType.TO, destinatario);   //Se podrï¿½an aï¿½adir varios de la misma manera
             message.setSubject("Una empresa esta interesada en contratarte");
             if(mensaje.equals("")) {
             	message.setText("Hola buen dia, nuestra empresa esta interesada en contratar sus servicios");

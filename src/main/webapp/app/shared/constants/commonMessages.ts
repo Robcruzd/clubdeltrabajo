@@ -286,7 +286,8 @@ export const commonMessages = {
     { codigo: 1, nombre: 'Freelance' },
     { codigo: 2, nombre: 'Mensual' },
     { codigo: 3, nombre: 'Por Hora' },
-    { codigo: 4, nombre: 'Semanal' }
+    { codigo: 4, nombre: 'Semanal' },
+    { codigo: 5, nombre: 'Quincenal' }
   ],
 
   ARRAY_NIVEL_LABORAL: [

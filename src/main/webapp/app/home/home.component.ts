@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { LoginModalService } from 'app/core/login/login-modal.service';
 import { AccountService } from 'app/core/auth/account.service';
@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   imagen: any;
   urlImgDefault = '../../../content/images/Image 28.png';
   showButtons = null;
+  @ViewChild('widgetsContent', { read: ElementRef }) public widgetsContent!: ElementRef<any>;
 
   constructor(
     private accountService: AccountService,
@@ -99,6 +100,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
     }
+  }
+
+  public scrollRight(): void {
+    this.widgetsContent?.nativeElement.scrollTo({ left: this.widgetsContent?.nativeElement.scrollLeft + 150, behavior: 'smooth' });
+  }
+
+  public scrollLeft(): void {
+    this.widgetsContent?.nativeElement.scrollTo({ left: this.widgetsContent?.nativeElement.scrollLeft - 150, behavior: 'smooth' });
   }
 
   private _filterCiudades(value: string): string[] {
