@@ -79,8 +79,8 @@ public class CtProjectApp {
         Timer temporizador15 = new Timer();
         long dias1 = 15;
         long dias15 = 1;
-        temporizador15.scheduleAtFixedRate(tareaNull, 0, 86400000*dias15);
-        temporizador1.scheduleAtFixedRate(tarea, 0, 86400000*dias1);
+        // temporizador15.scheduleAtFixedRate(tareaNull, 0, 86400000*dias15);
+        // temporizador1.scheduleAtFixedRate(tarea, 0, 86400000*dias1);
     }
 
     private static void logApplicationStartup(Environment env) {

@@ -81,129 +81,133 @@
         <div class="div-center3">
             <p class="titulo_aspirantes">Perfiles aspirantes</p>
             <div class="cuerpo">
-                <div class="buscador">
-                    <div class="input-buscador">
-                        <button class="btnBuscar" (click)="cargarAspirantes()">
-                            <fa-icon [icon]="faSearch" class="border-icon2" style="
-                            background: transparent; color: #0a0a0a;">
-                            </fa-icon>
-                        </button>
-                        <input matInput class="form-control" [(ngModel)]="valorBusqueda">
-                    </div>
-                    <div class="empresas">
-                        <p class="titulo">Perfiles</p>
-                        <p class="resultado">{{totalAspirantes}} resultados</p>
-                    </div>
-                    <div class="filtros" *ngIf = "!filtrosOn">
-                    <div class="Sector">
-                        <p class="titulo">Edad</p>
-                        <select class="resultado" [(ngModel)]="edadValue" (change)="cargarAspirantes()">
-                            <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                            <option *ngFor="let edad of edades" 
-                            [ngValue]="edad.codigo" >
-                                {{ edad.nombre }}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="Sector">
-                        <p class="titulo">Ciudad</p>
-                        <select class="resultado" [(ngModel)]="municipioValue" (change)="cargarAspirantes()">
-                            <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                            <option
-                            [ngValue]="municipio.codigo"
-                                *ngFor="let municipio of municipiosPersonal">
-                                {{ municipio.nombre }}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="Sector">
-                        <p class="titulo">Género</p>
-                        <select class="resultado" [(ngModel)]="generoValue" (change)="cargarAspirantes()">
-                            <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                            <option value="M" >Masculino</option>
-                            <option value="F" >Femenino</option>
-                        </select>
-                    </div>
-                    <div class="Sector">
-                        <p class="titulo">Experiencia</p>
-                        <select class="resultado" [(ngModel)]="experienciaValue" (change)="cargarAspirantes()">
-                            <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                            <option *ngFor="let experiencia of experienciasLaborales" 
-                            [ngValue]="experiencia.codigo" >
-                                {{ experiencia.nombre }}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="Sector">
-                        <p class="titulo">Salario</p>
-                        <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarAspirantes()">
-                            <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                            <option *ngFor="let aspiracion of aspiracionesSalariales" 
-                            [ngValue]="aspiracion.codigo" >
-                                {{ aspiracion.nombre }}
-                            </option>
-                        </select>
-                    </div>
-                    </div>                        
-                    
-                    <div *ngIf= "showBtnArriba" class="btnVerOcultar">
-                        <button *ngIf= "!filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ocultar Filtros</button>
-                        <button *ngIf= "filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ver Filtros</button>
-                    </div>
-                </div> 
-                <div class="perfil">
-                    <div *ngFor="let item of listaResultadoBusquedaAspirantes | paginate: { itemsPerPage: 6, currentPage: page }" class="contngfor">
-                    <a class="perfiles" (click)="verAspirante(item)" [style.background]="item.color">
-                        <div class="mitad1">
-                            <div class="imagen">
-                                 <img [src]="item?.imagen?  item?.imagen : urlImageDefault" alt="" class="img">
-                            </div>
-                            <div class="contenedornc">
-                            <!-- <p class="nombre">Bavaria</p> -->
-                            <p class="nombre">{{item.nombre}} {{ item.apellido}}</p>
-                            <p class="carrera">{{item.profesion}}</p>
-                            </div>
+                <div>
+                    <div class="buscador">
+                        <div class="input-buscador">
+                            <button class="btnBuscar" (click)="cargarAspirantes()">
+                                <fa-icon [icon]="faSearch" class="border-icon2" style="
+                                background: transparent; color: #0a0a0a;">
+                                </fa-icon>
+                            </button>
+                            <input matInput class="form-control" [(ngModel)]="valorBusqueda">
                         </div>
-                        <div class="mitad2">
-                            <div>
-                                <p class="resumen">Edad: {{item.edad}}</p>
-                                <p class="resumen">Ciudad: {{item.ciudad}}</p>
-                                <p class="resumen">Experiencia: {{item.experiencia}}</p>
-                                <p class="resumen">Titulo: {{item.titulo}}</p>
-                            </div>
+                        <div class="empresas">
+                            <p class="titulo">Perfiles</p>
+                            <p class="resultado">{{totalAspirantes}} resultados</p>
                         </div>
-                        <div class="parte3">
-                            <p class="textp4">Fecha de postulación</p>
-                            <p class="textp4">{{item.fechaPostulacion}}</p>
+                        <div class="filtros" *ngIf = "!filtrosOn">
+                        <div class="Sector">
+                            <p class="titulo">Edad</p>
+                            <select class="resultado" [(ngModel)]="edadValue" (change)="cargarAspirantes()">
+                                <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option *ngFor="let edad of edades" 
+                                [ngValue]="edad.codigo" >
+                                    {{ edad.nombre }}
+                                </option>
+                            </select>
                         </div>
-                        <div class="parte4" style="justify-content: center;" *ngIf="item.verh">
-                            <fa-icon [icon]="faUserCircle" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon>
-                            <p class="verhv">Ver H.V.</p>
+                        <div class="Sector">
+                            <p class="titulo">Ciudad</p>
+                            <select class="resultado" [(ngModel)]="municipioValue" (change)="cargarAspirantes()">
+                                <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option
+                                [ngValue]="municipio.codigo"
+                                    *ngFor="let municipio of municipiosPersonal">
+                                    {{ municipio.nombre }}
+                                </option>
+                            </select>
                         </div>
-                        <div class="parte4" style="justify-content: center; background: #BAFFE3;" *ngIf="item.verche">
-                            <fa-icon [icon]="faCheck" class="border-icon" style="color: #151D5C; margin-top: 20px;"></fa-icon>
-                            <p class="verhv" style="color: #151D5C;">Seleccionado</p>
+                        <div class="Sector">
+                            <p class="titulo">Género</p>
+                            <select class="resultado" [(ngModel)]="generoValue" (change)="cargarAspirantes()">
+                                <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option value="M" >Masculino</option>
+                                <option value="F" >Femenino</option>
+                            </select>
                         </div>
-                        <div class="parte4" style="justify-content: center; background: #FFC1C1;" *ngIf="item.verno">
-                            <fa-icon [icon]="faTimes" class="border-icon" style="color: #151D5C; margin-top: 20px;"></fa-icon>
-                            <p class="verhv" style="color: #151D5C;"> Descartado</p>
+                        <div class="Sector">
+                            <p class="titulo">Experiencia</p>
+                            <select class="resultado" [(ngModel)]="experienciaValue" (change)="cargarAspirantes()">
+                                <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option *ngFor="let experiencia of experienciasLaborales" 
+                                [ngValue]="experiencia.codigo" >
+                                    {{ experiencia.nombre }}
+                                </option>
+                            </select>
                         </div>
-                    </a>
-                    <div class="btn-seleccionado" *ngIf="item.btnestado">
-                        <input class="mensajeEmail" #searchInput id="mensaje" type="text" placeholder="Ingrese cuerpo de email">
-                        <div class="botones-enviar-des">
-                            <button class="btn1" (click)="enviarEmail(item)"> <fa-icon [icon]="faPaperPlane" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> Enviar Mail</button>
-                            <button class="btn2" (click)="getHojaVida(item)"> <fa-icon [icon]="faArrowDown" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> Descargar H.V</button>
+                        <div class="Sector">
+                            <p class="titulo">Salario</p>
+                            <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarAspirantes()">
+                                <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option *ngFor="let aspiracion of aspiracionesSalariales" 
+                                [ngValue]="aspiracion.codigo" >
+                                    {{ aspiracion.nombre }}
+                                </option>
+                            </select>
                         </div>
-                    </div>
-                    </div>
+                        </div>                        
+                        
+                        <div *ngIf= "showBtnArriba" class="btnVerOcultar">
+                            <button *ngIf= "!filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ocultar Filtros</button>
+                            <button *ngIf= "filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ver Filtros</button>
+                        </div>
+                    </div> 
                 </div>
-                <pagination-controls (pageChange)="page = $event" class="controls" 
-                    previousLabel=""
-                    nextLabel=""
-                    autoHide="true"
-                    maxSize="6">
+                <div >
+                    <div class="perfil">
+                        <div *ngFor="let item of listaResultadoBusquedaAspirantes | paginate: { itemsPerPage: 6, currentPage: page }" class="contngfor">
+                        <a class="perfiles" (click)="verAspirante(item)" [style.background]="item.color">
+                            <div class="mitad1">
+                                <div class="imagen">
+                                    <img [src]="item?.imagen?  item?.imagen : urlImageDefault" alt="" class="img">
+                                </div>
+                                <div class="contenedornc">
+                                <!-- <p class="nombre">Bavaria</p> -->
+                                <p class="nombre">{{item.nombre}} {{ item.apellido}}</p>
+                                <p class="carrera">{{item.profesion}}</p>
+                                </div>
+                            </div>
+                            <div class="mitad2">
+                                <div>
+                                    <p class="resumen">Edad: {{item.edad}}</p>
+                                    <p class="resumen">Ciudad: {{item.ciudad}}</p>
+                                    <p class="resumen">Experiencia: {{item.experiencia}}</p>
+                                    <p class="resumen">Titulo: {{item.titulo}}</p>
+                                </div>
+                            </div>
+                            <div class="parte3">
+                                <p class="textp4">Fecha de postulación</p>
+                                <p class="textp4">{{item.fechaPostulacion}}</p>
+                            </div>
+                            <div class="parte4" style="justify-content: center;" *ngIf="item.verh">
+                                <fa-icon [icon]="faUserCircle" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon>
+                                <p class="verhv">Ver H.V.</p>
+                            </div>
+                            <div class="parte4" style="justify-content: center; background: #BAFFE3;" *ngIf="item.verche">
+                                <fa-icon [icon]="faCheck" class="border-icon" style="color: #151D5C; margin-top: 20px;"></fa-icon>
+                                <p class="verhv" style="color: #151D5C;">Seleccionado</p>
+                            </div>
+                            <div class="parte4" style="justify-content: center; background: #FFC1C1;" *ngIf="item.verno">
+                                <fa-icon [icon]="faTimes" class="border-icon" style="color: #151D5C; margin-top: 20px;"></fa-icon>
+                                <p class="verhv" style="color: #151D5C;"> Descartado</p>
+                            </div>
+                        </a>
+                        <div class="btn-seleccionado" *ngIf="item.btnestado">
+                            <input class="mensajeEmail" #searchInput id="mensaje" type="text" placeholder="Ingrese cuerpo de email">
+                            <div class="botones-enviar-des">
+                                <button class="btn1" (click)="enviarEmail(item)"> <fa-icon [icon]="faPaperPlane" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> Enviar Mail</button>
+                                <button class="btn2" (click)="getHojaVida(item)"> <fa-icon [icon]="faArrowDown" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> Descargar H.V</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <pagination-controls (pageChange)="page = $event" class="controls" 
+                        previousLabel=""
+                        nextLabel=""
+                        autoHide="true"
+                        maxSize="6">
                     </pagination-controls>
+                </div>
             </div>
         </div>
     </div>    

@@ -453,12 +453,14 @@
         .input-buscador {
           display: flex;
           //background: #ffffff 0% 0% no-repeat padding-box;
+          display: flex;
           opacity: 1;
           height: 0.975vw;
           flex-flow: row-reverse;
+          align-items: center;
           width: 90%;
           .form-control {
-            font-size: 0.785vw;
+            font-size: 0.9vw;
             margin-left: 0.39vw;
           }
         }
@@ -471,14 +473,14 @@
             text-align: left;
             margin-left: 1.495vw;
             margin-bottom: 0px;
-            font-size: 0.585vw;
+            font-size: 0.8vw;
             font-weight: normal;
             opacity: 1;
           }
           .resultado {
             display: flex;
             font-family: 'Roboto';
-            font-size: 0.65vw;
+            font-size: 0.85vw;
             color: #5b5c62;
             opacity: 1;
             margin-top: 0.26vw;
@@ -497,7 +499,7 @@
             text-align: left;
             margin-left: 1.495vw;
             margin-top: 0.13vw;
-            font-size: 0.585vw;
+            font-size: 0.8vw;
             font-weight: normal;
             opacity: 1;
             margin-bottom: 0.26vw;
@@ -505,16 +507,16 @@
           .resultado {
             display: flex;
             font-family: 'Roboto';
-            font-size: 0.65vw;
+            font-size: 0.85vw;
             color: #5b5c62;
             opacity: 1;
             margin-top: 0.26vw;
             font-weight: normal;
             text-align: left;
-            margin-left: 1.17vw;
+            padding-left: 1.17vw;
             border: none;
             background: none;
-            width: 6.632vw;
+            width: 90%;
           }
         }
       }
@@ -1075,15 +1077,14 @@ kendo-pdf-export {
   .buscador {
     display: flex;
     flex-flow: column;
-    height: 45.189vw;
     min-width: 8.192vw;
     margin-bottom: 2%;
     .input-buscador {
       margin-top: 1.495vw;
-      width: 4.876vw;
+      // width: 4.876vw;
       .form-control {
-        width: 5.527vw;
-        height: 0.975vw;
+        // width: 5.527vw;
+        height: 1.3vw;
       }
     }
   }
@@ -1106,7 +1107,7 @@ kendo-pdf-export {
       background: #f8f8f8;
       width: 49.87vw;
       //padding-bottom: 0.52vw;
-      padding-right: 0.52vw;
+      // padding-right: 0.52vw;
       min-height: 5.527vw;
       margin-left: 1.56vw;
       align-items: center;
