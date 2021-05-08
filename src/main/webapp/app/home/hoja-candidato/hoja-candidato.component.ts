@@ -85,7 +85,7 @@ export class HojaCandidatoComponent implements OnInit {
             this.informacionLaboralService.getPersonaFiltro(this.informacionPersonal.usuario).subscribe(personaLab => {
               this.listaExperiencias = personaLab;
             });
-            this.aplicacionOfertaService.getPersonaFiltro(this.informacionPersonal.usuario).subscribe(aplicacionOferta => {
+            this.aplicacionOfertaService.getByOfertaAndPersonaFiltro(this.ofertaInfo,this.informacionPersonal.usuario).subscribe(aplicacionOferta => {
               this.idAplicacionOferta = aplicacionOferta[0].id;
               this.model = aplicacionOferta[0].estado;
               this.modelBandera = aplicacionOferta[0].estado;
@@ -105,8 +105,6 @@ export class HojaCandidatoComponent implements OnInit {
   }
 
   async guardarCambios(): Promise<any> {
-    // eslint-disable-next-line no-console
-    console.log('guaraaaaaaaaaaaaaaaaaaaaadar');
     this.cargando = true;
     if (this.idAplicacionOferta) {
       this.aplicacionOFertaActualizar.estado = this.model;
