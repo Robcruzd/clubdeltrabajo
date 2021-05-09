@@ -10,10 +10,7 @@
             <img th:src="@{|https://www.clubdeltrabajo.com/content/images/logo_empresa.png|}" width="auto" height="100%"/>
         </div>
        	<br/>
-        <p th:text="'Nombre: ' + ${informacion.nombre} + ' ' + ${informacion.apellidos}"></p>
-        <p th:text="'Correo: ' + ${informacion.email}"></p>
-        <p th:text="'Teléfono: ' + ${informacion.telefono}"></p>
-        <p th:text="'Mensaje: ' + ${informacion.mensaje}"></p>
+        <p th:text="${informacion}"></p>
         <p>
         	<br/>
             <em th:text="#{email.signature}">JHipster.</em>

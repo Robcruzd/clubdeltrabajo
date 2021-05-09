@@ -143,6 +143,17 @@ public class MailService {
         String subject = messageSource.getMessage(titleKey, null, locale);
         sendEmail(email, subject, content, false, true);
     }
+
+    @Async
+    public void sendEmailFromTemplateAspir(String email, String mensaje, String templateName, String titleKey) {        
+        Locale locale = Locale.forLanguageTag("es");
+        Context context = new Context(locale);
+        context.setVariable("informacion", mensaje);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process(templateName, context);
+        String subject = messageSource.getMessage(titleKey, null, locale);
+        sendEmail(email, subject, content, false, true);
+    }
     
     @Async
     public void sendEmailFromTemplateCustom(Object object, String templateName, String titleKey) {
@@ -212,5 +223,14 @@ public class MailService {
         // User user = userService.findByLogin(aplicacionOferta.getUsuario().getEmail());
         // Profesion profesion = profesionService.getById(aplicacionOferta.getOferta().getProfesion());
         // sendEmailFromTemplateApli(user, profesion, "mail/aplicacionPostulante", "email.aplica.title");
+    }
+
+    @Async
+    public void sendSelectionEmail(String email, String mensaje) {
+        log.debug("Sending password reset email to '{}'", email);
+        if(mensaje.equals("")) {
+            mensaje = "Hola, nuestra empresa esta interesada en contratar sus servicios";
+        }
+        sendEmailFromTemplateAspir(email, mensaje, "mail/emailSeleccion", "email.selection.title");
     }
 }

@@ -1,4 +1,4 @@
-<div class="contenedor" *ngIf="!showBtnArriba">
+<div class="contenedor">
     <div class="div-center">
         <div class="botones-arriba">
             <button class="btn boton-no-clicked" (click)="crearOferta()">
@@ -81,7 +81,7 @@
         <div class="div-center3">
             <p class="titulo_aspirantes">Perfiles aspirantes</p>
             <div class="cuerpo">
-                <div>
+                <div class="div-buscador">
                     <div class="buscador">
                         <div class="input-buscador">
                             <button class="btnBuscar" (click)="cargarAspirantes()">
@@ -210,7 +210,15 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
+    <div class="footer">
+        <a href="https://www.facebook.com/Club-del-Trabajo-100955765079986/" target="_blank" style="margin-right: 1.52vw;">
+            <img class="icono" src="../../../content/images/facebook.png"></a>
+        <a href="https://instagram.com/clubdeltrabajo?igshid=1m37k1eb9p16a" target="_blank" style="margin-right: 1.52vw;">
+            <img class="icono" path="fill: currentColor !important;" src="../../../content/images/instagram.png"></a>
+        <a href="https://twitter.com/ClubdelTrabajo" target="_blank" style="margin-right: 1.52vw;">
+            <img class="icono" src="../../../content/images/twitter.png"></a>
+    </div>
     <!-- <div class="contenedor4">
         <p class="titulo5">Buscar más perfiles</p>
         <div style="display: flex;">

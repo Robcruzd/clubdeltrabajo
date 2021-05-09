@@ -29,7 +29,7 @@ public class TareaNullDate extends TimerTask {
     @PostConstruct
     public void run() {
         System.out.println("Probaaaaaaaaaaaaaaaaaaaaaaaando");
-        this.personaService.updateFechaRem();
+        // this.personaService.updateFechaRem();
     }
 
 }

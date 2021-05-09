@@ -49,7 +49,6 @@ public class Persona implements Serializable {
     @JsonIgnoreProperties("personas")
     private TipoDocumento tipoDocumento;
 
-    @NotNull
     @Column(name = "fecha_recordatorio", nullable = false)
     private LocalDate fechaRecordatorio;
 
