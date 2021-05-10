@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Archivo } from 'app/shared/model/archivo.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faStar, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import { EmpresaService } from 'app/entities/empresa/empresa.service';
 import { IEmpresa } from 'app/shared/model/empresa.model';
@@ -22,16 +22,24 @@ export class PerfilEmpresaComponent implements OnInit {
   empresaEnSesion!: IEmpresa | any;
   account!: Account | any;
   tipoArchivo = TipoArchivo;
+  showButton = true;
 
   constructor(
     private router: Router,
     private empresaService: EmpresaService,
     private accountService: AccountService,
-    private archivoService: ArchivoService
+    private archivoService: ArchivoService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.cargarCuentaUsuario();
+    const param = this.route.snapshot.queryParamMap.get('general')!;
+    if (param) {
+      this.cargarCuentaEmpresa(parseInt(param, 10));
+      this.showButton = false;
+    } else {
+      this.cargarCuentaUsuario();
+    }
   }
 
   cargarCuentaUsuario(): void {
@@ -41,6 +49,13 @@ export class PerfilEmpresaComponent implements OnInit {
         this.empresaEnSesion = response.body;
         this.consultarImagen();
       });
+    });
+  }
+
+  cargarCuentaEmpresa(id: number): void {
+    this.empresaService.find(id).subscribe(response => {
+      this.empresaEnSesion = response.body;
+      this.consultarImagen();
     });
   }
 

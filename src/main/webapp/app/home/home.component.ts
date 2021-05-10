@@ -19,6 +19,7 @@ import { IOpcionVo } from 'app/shared/vo/opcion-vo';
 import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 declare let gtag: Function;
 
@@ -28,6 +29,7 @@ declare let gtag: Function;
   styleUrls: ['home.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  faArrowRight = faArrowRight;
   account: Account | null = null;
   authSubscription?: Subscription;
   region: Array<IRegiones> = [];
@@ -49,7 +51,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   imagen: any;
   urlImgDefault = '../../../content/images/Image 28.png';
   showButtons = null;
-  @ViewChild('widgetsContent', { read: ElementRef }) public widgetsContent!: ElementRef<any>;
+  @ViewChild('panel', { read: ElementRef }) public panel!: ElementRef<any>;
 
   constructor(
     private accountService: AccountService,
@@ -103,11 +105,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   public scrollRight(): void {
-    this.widgetsContent?.nativeElement.scrollTo({ left: this.widgetsContent?.nativeElement.scrollLeft + 150, behavior: 'smooth' });
+    this.panel?.nativeElement.scrollTo({ left: this.panel?.nativeElement.scrollLeft + 150, behavior: 'smooth' });
   }
 
   public scrollLeft(): void {
-    this.widgetsContent?.nativeElement.scrollTo({ left: this.widgetsContent?.nativeElement.scrollLeft - 150, behavior: 'smooth' });
+    this.panel?.nativeElement.scrollTo({ left: this.panel?.nativeElement.scrollLeft - 150, behavior: 'smooth' });
   }
 
   private _filterCiudades(value: string): string[] {

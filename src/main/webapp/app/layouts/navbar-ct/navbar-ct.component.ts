@@ -100,6 +100,7 @@ export class NavbarCtComponent implements OnInit {
                   ? '../../../content/images/Image 28_F.png'
                   : '../../../content/images/Image 28_M.png';
             });
+            this.perfil = '/perfil';
           } else if (this.account?.userEmpresa) {
             this.perfil = '/perfil-empresa';
             this.urlImageDefault = '../../../content/images/Image 28_M.png';

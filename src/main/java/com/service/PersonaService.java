@@ -29,6 +29,8 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.springframework.scheduling.annotation.Scheduled;
+
 /**
  * Service Implementation for managing {@link Persona}.
  */
@@ -97,6 +99,7 @@ public class PersonaService {
     	return personaRepository.findAll();
     }
 
+    @Scheduled(cron = "0 0 8 0/15 * *", zone="America/Bogota")
     public List<Long> updateFechaRem() {
         return personaRepository.updateFechaRem();
     }

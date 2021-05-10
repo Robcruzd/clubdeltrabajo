@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AplicacionOfertaService } from 'app/entities/aplicacion-oferta/aplicacion-oferta.service';
+import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { InformacionAcademicaService } from 'app/entities/informacion-academica/informacion-academica.service';
 import { InformacionLaboralService } from 'app/entities/informacion-laboral/informacion-laboral.service';
 import { InformacionPersonalService } from 'app/entities/informacion-personal/informacion-personal.service';
 import { OfertaService } from 'app/entities/oferta/oferta.service';
 import { PersonaIdiomaService } from 'app/entities/persona-idioma/persona-idioma.service';
 import { AplicacionOferta } from 'app/shared/model/aplicacion-oferta.model';
+import { Archivo } from 'app/shared/model/archivo.model';
 import { IInformacionAcademica, InformacionAcademica } from 'app/shared/model/informacion-academica.model';
 import { InformacionPersonal } from 'app/shared/model/informacion-personal.model';
 import { IOferta } from 'app/shared/model/oferta.model';
 import { IPersona, Persona } from 'app/shared/model/persona.model';
 import { IResultadoHojaCandidato } from 'app/shared/vo/opcion-vo';
+import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 import * as moment from 'moment';
 import { PersonaService } from '../../entities/persona/persona.service';
 
@@ -45,6 +48,8 @@ export class HojaCandidatoComponent implements OnInit {
   aplicacionOferta = new AplicacionOferta();
   ofertaInfo!: IOferta | null;
   cargando = false;
+  imagen!: Archivo;
+  urlImgDefault = '../../../content/images/Image 28_M.png';
 
   constructor(
     private personaService: PersonaService,
@@ -55,7 +60,8 @@ export class HojaCandidatoComponent implements OnInit {
     private personaIdiomaService: PersonaIdiomaService,
     private informacionLaboralService: InformacionLaboralService,
     private aplicacionOfertaService: AplicacionOfertaService,
-    private router: Router
+    private router: Router,
+    private archivoService: ArchivoService
   ) {}
 
   ngOnInit(): void {
@@ -64,6 +70,14 @@ export class HojaCandidatoComponent implements OnInit {
     const param2 = this.route.snapshot.queryParamMap.get('oferta')!;
     this.idOFerta = parseInt(param2, 10);
     this.getPersona();
+  }
+
+  consultarImagen(): void {
+    this.archivoService.get(this.personaInfo?.id!, TipoArchivo.IMAGEN_PERFIL).subscribe(response => {
+      if (response.body !== null) {
+        this.imagen = response.body;
+      }
+    });
   }
 
   getPersona(): void {
@@ -76,6 +90,7 @@ export class HojaCandidatoComponent implements OnInit {
       if (this.personaInfo) {
         this.informacionPersonal.usuario = this.personaInfo;
         this.informacionAcademica.usuario = this.personaInfo;
+        this.consultarImagen();
         this.informacionPersonalService.getPersonaFiltro(this.personaInfo?.id).subscribe(info => {
           this.informacionAcademicaService.getPersonaFiltro(this.personaInfo?.id).subscribe(academica => {
             this.listaInformacionAcademica = academica;
@@ -85,16 +100,19 @@ export class HojaCandidatoComponent implements OnInit {
             this.informacionLaboralService.getPersonaFiltro(this.informacionPersonal.usuario).subscribe(personaLab => {
               this.listaExperiencias = personaLab;
             });
-            this.aplicacionOfertaService.getByOfertaAndPersonaFiltro(this.ofertaInfo,this.informacionPersonal.usuario).subscribe(aplicacionOferta => {
-              this.idAplicacionOferta = aplicacionOferta[0].id;
-              this.model = aplicacionOferta[0].estado;
-              this.modelBandera = aplicacionOferta[0].estado;
-              this.idUsuarioAplicacionOferta = aplicacionOferta[0].usuario;
-              this.idOfertaAplicacionOferta = aplicacionOferta[0].oferta;
-              this.fechaPostulacionAplicacionOferta = aplicacionOferta[0].fechaPostulacion;
-            });
+            this.aplicacionOfertaService
+              .getByOfertaAndPersonaFiltro(this.ofertaInfo, this.informacionPersonal.usuario)
+              .subscribe(aplicacionOferta => {
+                this.idAplicacionOferta = aplicacionOferta[0].id;
+                this.model = aplicacionOferta[0].estado;
+                this.modelBandera = aplicacionOferta[0].estado;
+                this.idUsuarioAplicacionOferta = aplicacionOferta[0].usuario;
+                this.idOfertaAplicacionOferta = aplicacionOferta[0].oferta;
+                this.fechaPostulacionAplicacionOferta = aplicacionOferta[0].fechaPostulacion;
+              });
             this.listaResultadoHojaCandidato.push({
               nombre: this.personaInfo?.nombre,
+              apellido: this.personaInfo?.apellido,
               profesion: info.profesion.profesion,
               descripcion: info.perfilProfesional
             });

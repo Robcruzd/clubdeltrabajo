@@ -73,14 +73,6 @@ public class CtProjectApp {
         DefaultProfileUtil.addDefaultProfile(app);
         Environment env = app.run(args).getEnvironment();
         logApplicationStartup(env);
-        // TareaEnviarCorreo tarea = new TareaEnviarCorreo();
-        // TareaNullDate tareaNull = new TareaNullDate();
-        Timer temporizador1 = new Timer();
-        Timer temporizador15 = new Timer();
-        long dias1 = 15;
-        long dias15 = 1;
-        // temporizador15.scheduleAtFixedRate(tareaNull, 0, 86400000*dias15);
-        // temporizador1.scheduleAtFixedRate(tarea, 0, 86400000*dias1);
     }
 
     private static void logApplicationStartup(Environment env) {

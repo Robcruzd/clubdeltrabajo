@@ -1,6 +1,7 @@
 .body {
   background: #2f447f;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   min-height: 80vh;
   //justify-content: center;
@@ -14,6 +15,7 @@
   padding: 19px;
 }
 .img {
+  cursor: pointer;
   .img2 {
     width: 60px;
     height: 60px;

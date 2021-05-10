@@ -27,6 +27,7 @@ import com.domain.vo.InformacionEmpresaVo;
 import io.github.jhipster.config.JHipsterProperties;
 import java.util.List;
 import java.time.LocalDate;
+import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * Service for sending emails.
@@ -208,6 +209,7 @@ public class MailService {
     }
 
     @Async
+    @Scheduled(cron = "0 0 10 * * *", zone="America/Bogota")
     public void emailRemember() {
         log.debug("Sending password reset email to '{}'", userService.findEmailByQuery());
         List<Long> ids = userService.findEmailByQuery();
@@ -220,9 +222,6 @@ public class MailService {
             persona.setFechaRecordatorio(date);
             personaService.save(persona);
         }
-        // User user = userService.findByLogin(aplicacionOferta.getUsuario().getEmail());
-        // Profesion profesion = profesionService.getById(aplicacionOferta.getOferta().getProfesion());
-        // sendEmailFromTemplateApli(user, profesion, "mail/aplicacionPostulante", "email.aplica.title");
     }
 
     @Async

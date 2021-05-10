@@ -170,4 +170,8 @@ export class OfertaPublicaComponent implements OnInit {
   volver(): void {
     this.router.navigate(['resultados-busqueda'], { queryParams: { general: this.general } });
   }
+
+  abrirEmpresa(): void {
+    this.router.navigate(['perfil-empresa'], { queryParams: { general: this.oferta?.usuario?.id! } });
+  }
 }

@@ -1,11 +1,12 @@
 <div class = "container">
     <div class="info">
         <div class="img0">
-            <img src="../../../content/images/Image 28_M.png" class="img">
+            <!-- <img src="../../../content/images/Image 28_M.png" class="img"> -->
+            <img class="img" [src]="imagen?.archivo || urlImgDefault">
         </div>
         <div class = "informacion_candidato"> 
         <div class="nombre">
-            {{listaResultadoHojaCandidato[0].nombre}}
+            {{listaResultadoHojaCandidato[0].nombre}} {{listaResultadoHojaCandidato[0].apellido}}
         </div>
         
         <div class="titulo">

@@ -1,7 +1,7 @@
 <div class="body">
     <div class="cuerpo">
         <div class="img-titulo">
-            <div class="img">
+            <div class="img" (click)="abrirEmpresa()">
                 <img class="img2"
                 [src]="imagen?.archivo || urlImageDefault">
             </div>
@@ -29,16 +29,26 @@
                 <tr>
                   <th class="titulo_oferta_previsualizacion">Experiencia:</th>
                   <th class="titulo_oferta_previsualizacion">Ciudad:</th>
-                  <div *ngIf="!listaResultadoOfertas[0].mostrarSalario">
+                  <div *ngIf="!listaResultadoOfertas[0].mostrarSalario; else loggedOut">
                     <th class="titulo_oferta_previsualizacion">Salario:</th>
                   </div>
+                  <ng-template #loggedOut>
+                    <div>
+                      <th class="titulo_oferta_previsualizacion"></th>
+                    </div>
+                  </ng-template>
                 </tr>
                 <tr>
                   <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].experiencia}}</td>
                   <td class="des_titulo" style="width: 40%;">{{listaResultadoOfertas[0].ciudad}}</td>
-                  <div *ngIf="!listaResultadoOfertas[0].mostrarSalario">
+                  <div *ngIf="!listaResultadoOfertas[0].mostrarSalario; else loggedOut">
                     <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].salario}}</td>
-                  </div>  
+                  </div> 
+                  <ng-template #loggedOut>
+                    <div>
+                      <td class="des_titulo" style="width: 30%;"></td>
+                    </div>
+                  </ng-template>
                 </tr>
             </table>
         </div>

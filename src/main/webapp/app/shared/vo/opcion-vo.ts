@@ -76,6 +76,7 @@ export interface IResultadoOfertas {
 
 export interface IResultadoHojaCandidato {
   nombre: string | undefined;
+  apellido: string | undefined;
   profesion: string | undefined;
   descripcion: string | undefined;
   // idEmpresa?: number | undefined;

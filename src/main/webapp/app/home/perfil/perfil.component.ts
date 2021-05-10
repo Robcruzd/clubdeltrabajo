@@ -122,8 +122,6 @@ export class PerfilComponent implements OnInit {
   }
 
   consultarImagen(): void {
-    // eslint-disable-next-line no-console
-    console.log('probaaaaaaaaaaaaaaaaaaaaandoito');
     this.archivoService.get(this.persona.id, TipoArchivo.IMAGEN_PERFIL).subscribe(response => {
       if (response.body !== null) {
         this.imagen = response.body;
