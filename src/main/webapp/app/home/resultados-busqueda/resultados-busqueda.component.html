@@ -1,7 +1,7 @@
 <div class="contenedor">
     <div *ngIf="general === 'true'" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 2%;" class="presentacion">
-    <p class="text-top">¡Explora cientos de ofertas de trabajo!</p>
-    <img src="../../../content/images/img3.png" class="imgTop" style="margin-left: 2%;">
+        <p class="text-top">¡Explora cientos de ofertas de trabajo!</p>
+        <img src="../../../content/images/img3.png" class="imgTop" style="margin-left: 2%;">
     </div>
     <div class="row">
         <!--<div class="col-md-8">-->
@@ -22,83 +22,91 @@
                             <p class="titulo">Empresas</p>
                             <p class="resultado">{{totalEmpresas}} resultados</p>
                         </div>
-                       <div class="filtros" *ngIf = "filtrosOn">
-                        <div class="Sector">
-                            <p class="titulo">Ciudad</p>
-                            <select class="resultado" [(ngModel)]="municipioValue" (change)="cargarOfertar()">
-                                <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                                <option
-                                [ngValue]="municipio.codigo"
-                                    *ngFor="let municipio of municipiosPersonal">
-                                    {{ municipio.nombre }}
-                                </option>
-                            </select>
-                        </div>  
-                        <div class="Sector">
-                            <p class="titulo">Género</p>
-                            <select class="resultado" [(ngModel)]="generoValue" (change)="cargarOfertar()">
-                                <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                                <option value="M" >Masculino</option>
-                                <option value="F" >Femenino</option>
-                            </select>
-                        </div>
-                        <div class="Sector">
-                            <p class="titulo">Experiencia</p>
-                            <select class="resultado" [(ngModel)]="experienciaValue" (change)="cargarOfertar()">
-                                <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                                <option *ngFor="let experiencia of experienciasLaborales" 
-                                [ngValue]="experiencia.codigo" >
-                                    {{ experiencia.nombre }}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="Sector">
-                            <p class="titulo">Salario</p>
-                            <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarOfertar()">
-                                <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                                <option *ngFor="let aspiracion of aspiracionesSalariales" 
-                                [ngValue]="aspiracion.codigo" >
-                                    {{ aspiracion.nombre }}
-                                </option>
-                            </select>
-                        </div>
+                        <div class="filtros" *ngIf = "filtrosOn">
+                            <div class="Sector">
+                                <p class="titulo">Ciudad</p>
+                                <select class="resultado" [(ngModel)]="municipioValue" (change)="cargarOfertar()">
+                                    <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                                    <option
+                                    [ngValue]="municipio.codigo"
+                                        *ngFor="let municipio of municipiosPersonal">
+                                        {{ municipio.nombre }}
+                                    </option>
+                                </select>
+                            </div>  
+                            <div class="Sector">
+                                <p class="titulo">Género</p>
+                                <select class="resultado" [(ngModel)]="generoValue" (change)="cargarOfertar()">
+                                    <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                                    <option value="M" >Masculino</option>
+                                    <option value="F" >Femenino</option>
+                                </select>
+                            </div>
+                            <div class="Sector">
+                                <p class="titulo">Experiencia</p>
+                                <select class="resultado" [(ngModel)]="experienciaValue" (change)="cargarOfertar()">
+                                    <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                                    <option *ngFor="let experiencia of experienciasLaborales" 
+                                    [ngValue]="experiencia.codigo" >
+                                        {{ experiencia.nombre }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="Sector">
+                                <p class="titulo">Salario</p>
+                                <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarOfertar()">
+                                    <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                                    <option *ngFor="let aspiracion of aspiracionesSalariales" 
+                                    [ngValue]="aspiracion.codigo" >
+                                        {{ aspiracion.nombre }}
+                                    </option>
+                                </select>
+                            </div>
                        </div>
                        <div *ngIf= "showBtn" class="btnVerOcultar">
-                        <button *ngIf= "!filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ver Filtros</button>
-                        <button *ngIf= "filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ocultar Filtros</button>
+                            <button *ngIf= "!filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ver Filtros</button>
+                            <button *ngIf= "filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ocultar Filtros</button>
                        </div>
-                </div>
-            </div>
-            <div class="container-fluid resultados-busqueda">
-                <div *ngIf = "general === 'false'">
-                    <br>
-                    <br>
-                </div>
-                <div class="ofertas" style="margin-left: 0 !important;">
-                    <div class="oferta" *ngFor="let oferta of listaResultadoBusquedaOfertas | paginate: { itemsPerPage: 20, currentPage: page }">
-                        <div class="oferta-arriba">
-                            <div class="info">
-                                <p class="negrita">{{oferta.empresa}}</p>
-                                <p class="negrita">{{oferta.profesion}}</p>
-                                <div *ngIf="!oferta.mostrarSalario">
-                                    <p class="sin-negrita">{{oferta.salario}}</p>
-                                </div>     
-                            </div>
-                            <img class="logo-oferta rounded-circle" [src]="oferta.imagen || urlImgDefault">
-                        </div>
-                        <p class="sin-negrita">{{oferta.ciudad}}</p>
-                        <p class="sin-negrita">Publicado: {{oferta.fecha}}</p>
-                        <!-- </div> -->
-                        <button class="btn shadow-none button-ver" (click)="verOferta(oferta)">VER</button>
                     </div>
                 </div>
-                <pagination-controls (pageChange)="page = $event" class="controls" 
-                    previousLabel=""
-                    nextLabel=""
-                    autoHide="true"
-                    maxSize="6">
-                </pagination-controls>
+                <div class="container-fluid resultados-busqueda">
+                    <div *ngIf = "general === 'false'">
+                        <br>
+                        <br>
+                    </div>
+                    <div class="ofertas" style="margin-left: 0 !important;">
+                        <div class="oferta" *ngFor="let oferta of listaResultadoBusquedaOfertas | paginate: { itemsPerPage: 20, currentPage: page }">
+                            <div class="oferta-arriba">
+                                <div class="info">
+                                    <p class="negrita">{{oferta.empresa}}</p>
+                                    <p class="negrita">{{oferta.profesion}}</p>
+                                    <div *ngIf="!oferta.mostrarSalario">
+                                        <p class="sin-negrita">{{oferta.salario}}</p>
+                                    </div>     
+                                </div>
+                                <img class="logo-oferta rounded-circle" [src]="oferta.imagen || urlImgDefault">
+                            </div>
+                            <p class="sin-negrita">{{oferta.ciudad}}</p>
+                            <p class="sin-negrita">Publicado: {{oferta.fecha}}</p>
+                            <!-- </div> -->
+                            <button class="btn shadow-none button-ver" (click)="verOferta(oferta)">VER</button>
+                        </div>
+                    </div>
+                    <pagination-controls (pageChange)="page = $event" class="controls" 
+                        previousLabel=""
+                        nextLabel=""
+                        autoHide="true"
+                        maxSize="6">
+                    </pagination-controls>
+                </div>
             </div>
-        <!--</div>-->
+    </div>
+    <div class="footer">
+        <a href="https://www.facebook.com/Club-del-Trabajo-100955765079986/" target="_blank" style="margin-right: 1.52vw;">
+            <img class="icono" src="../../../content/images/facebook.png"></a>
+        <a href="https://instagram.com/clubdeltrabajo?igshid=1m37k1eb9p16a" target="_blank" style="margin-right: 1.52vw;">
+            <img class="icono" path="fill: currentColor !important;" src="../../../content/images/instagram.png"></a>
+        <a href="https://twitter.com/ClubdelTrabajo" target="_blank" style="margin-right: 1.52vw;">
+            <img class="icono" src="../../../content/images/twitter.png"></a>
     </div>
 </div>

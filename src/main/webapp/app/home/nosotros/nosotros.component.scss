@@ -1,46 +1,127 @@
-.container {
-  width: 80%;
-  display: flex;
-  padding-top: 2rem;
-  flex-direction: row;
-  min-height: 80vh;
-}
-.text {
+.contenedor {
   display: flex;
   flex-direction: column;
-  height: min-content;
-  width: 55%;
+  justify-content: space-between;
+  min-height: 80vh;
+  align-items: center;
+  .contenido {
+    width: 80%;
+    display: flex;
+    padding-top: 2.081vw;
+    flex-direction: row;
 
-  .nosotros {
-    font-family: 'Roboto';
-    font-size: 72px;
-    color: #2699fb;
-    font-weight: 400;
-    letter-spacing: 0px;
-    opacity: 1;
+    .text {
+      display: flex;
+      flex-direction: column;
+      height: min-content;
+      width: 55%;
+
+      .nosotros {
+        font-family: 'Roboto';
+        font-size: 4.681vw;
+        color: #2699fb;
+        font-weight: 400;
+        letter-spacing: 0px;
+        opacity: 1;
+      }
+
+      .parrafo_1 {
+        color: #707070;
+        font-family: 'Roboto';
+        font-weight: normal;
+        margin-top: 2.081vw;
+        margin-bottom: 3.121vw;
+        font-size: 1.04vw;
+        line-height: 1.951vw;
+      }
+
+      .parrafo_2 {
+        color: #707070;
+        font-family: 'Roboto';
+        font-weight: normal;
+        margin-bottom: 2.081vw;
+        font-size: 1.04vw;
+        line-height: 1.951vw;
+      }
+    }
+    .img {
+      width: 45%;
+      height: min-content;
+      align-self: center;
+    }
   }
 
-  .parrafo_1 {
-    color: #707070;
-    font-family: 'Roboto';
-    font-weight: normal;
-    margin-top: 2rem;
-    margin-bottom: 3rem;
-    font-size: 16px;
-    line-height: 30px;
-  }
+  .footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #9ba0af;
+    height: 7.672vw;
+    width: 100%;
 
-  .parrafo_2 {
-    color: #707070;
-    font-family: 'Roboto';
-    font-weight: normal;
-    margin-bottom: 2rem;
-    font-size: 16px;
-    line-height: 30px;
+    .icono {
+      width: 1.248vw;
+      height: 1.248vw;
+    }
   }
 }
-.img {
-  width: 45%;
-  height: min-content;
-  align-self: center;
+
+@media screen and (max-width: 900px) {
+  .contenedor {
+    .contenido {
+      width: 80%;
+      display: flex;
+      padding-top: 2rem;
+      flex-direction: row;
+
+      .text {
+        display: flex;
+        flex-direction: column;
+        height: min-content;
+        width: 100%;
+
+        .nosotros {
+          font-family: 'Roboto';
+          font-size: 55px;
+          color: #2699fb;
+          font-weight: 400;
+          letter-spacing: 0px;
+          opacity: 1;
+        }
+
+        .parrafo_1 {
+          color: #707070;
+          font-family: 'Roboto';
+          font-weight: normal;
+          margin-top: 2rem;
+          margin-bottom: 3rem;
+          font-size: 16px;
+          line-height: 30px;
+        }
+
+        .parrafo_2 {
+          color: #707070;
+          font-family: 'Roboto';
+          font-weight: normal;
+          margin-bottom: 2rem;
+          font-size: 16px;
+          line-height: 30px;
+        }
+      }
+      .img {
+        width: 100%;
+        height: min-content;
+        align-self: center;
+      }
+    }
+    .footer {
+      height: 118px;
+
+      .icono {
+        width: 19px;
+        height: 19px;
+      }
+    }
+  }
 }

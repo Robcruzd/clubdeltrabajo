@@ -139,7 +139,7 @@ public class AplicacionOfertaService {
             imagePart.setDisposition(MimeBodyPart.INLINE);
             multipart.addBodyPart(imagePart);
             message.setContent(multipart);
-            message.setSubject("Hoja de vida Seleccionada para revisi�n");
+            message.setSubject("Hoja de vida Seleccionada para revisión");
             message.setRecipients(Message.RecipientType.TO,
                      InternetAddress.parse(to));
             Transport.send(message);
@@ -190,7 +190,7 @@ public class AplicacionOfertaService {
             imagePart.setDisposition(MimeBodyPart.INLINE);
             multipart.addBodyPart(imagePart);
             message.setContent(multipart);
-            message.setSubject("Hoja de vida Seleccionada para revisi�n");
+            message.setSubject("Hoja de vida Seleccionada para revisión");
             message.setRecipients(Message.RecipientType.TO,
                      InternetAddress.parse(to));
             Transport.send(message);

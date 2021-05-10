@@ -1,7 +1,7 @@
 {
   "name": "ct-project",
   "version": "0.0.1-SNAPSHOT",
-  "description": "Description for ctProject",
+  "description": "Encuentra el trabajo que siempre has deseado",
   "private": true,
   "license": "UNLICENSED",
   "cacheDirectories": [

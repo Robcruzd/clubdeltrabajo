@@ -35,6 +35,7 @@ import com.domain.vo.UsuarioVo;
 import com.service.PersonaQueryService;
 import com.service.PersonaService;
 import com.service.UserService;
+import com.service.MailService;
 import com.service.dto.InformacionPersonalCriteria;
 import com.service.dto.PersonaCriteria;
 import com.web.rest.errors.BadRequestAlertException;
@@ -63,10 +64,13 @@ public class PersonaResource {
     
     private final UserService userService;
 
-    public PersonaResource(PersonaService personaService, PersonaQueryService personaQueryService, UserService userService) {
+    private final MailService mailService;
+
+    public PersonaResource(PersonaService personaService, PersonaQueryService personaQueryService, UserService userService, MailService mailService) {
         this.personaService = personaService;
         this.personaQueryService = personaQueryService;
         this.userService = userService;
+        this.mailService = mailService;
     }
 
     /**
@@ -197,7 +201,8 @@ public class PersonaResource {
     @GetMapping("/personas/enviarEmailAspirante")
 	public void enviarEmailAspirante(@RequestParam("persona") Long persona, @RequestParam("mensaje") String mensaje) {
     	Optional<Persona> personaDatos = personaService.findOne(persona);
-    	personaService.enviarEmailAspirante(personaDatos.get().getEmail(), mensaje);
+        mailService.sendSelectionEmail(personaDatos.get().getEmail(), mensaje);
+    	// personaService.enviarEmailAspirante(personaDatos.get().getEmail(), mensaje);
 	}
     
     

@@ -1,9 +1,13 @@
 .contenedor {
   width: 100%;
-  padding-right: 1.463vw;
-  padding-left: 1.463vw;
+  // padding-right: 1.463vw;
+  // padding-left: 1.463vw;
   margin-right: auto;
   margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 80vh;
 }
 
 .imgTop {
@@ -61,8 +65,8 @@
 .row {
   display: flex;
   flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
+  // margin-right: -15px;
+  // margin-left: -15px;
   justify-content: center;
 }
 .cuerpo {
@@ -95,9 +99,10 @@
 }
 .buscador {
   background: #f5f5f5 0% 0% no-repeat padding-box;
-  height: 41.612vw;
-  width: 8.192vw;
+  // height: 41.612vw;
+  // width: 8.192vw;
   margin-bottom: 2%;
+  padding-bottom: 1rem;
   //margin-left: 178;
   //margin-right: 24px; //1062
   .titulo-prof {
@@ -114,16 +119,14 @@
   .input-buscador {
     display: flex;
     margin-left: 0.975vw;
-    margin-right: 0.975vw;
+    margin-right: 0.5vw;
     background: #ffffff 0% 0% no-repeat padding-box;
     opacity: 1;
-    height: 0.975vw;
-    width: 6.047vw;
+    height: 1.5vw;
 
     .form-control {
-      font-size: 0.8vw;
-      width: 6.047vw;
-      height: 0.975vw;
+      font-size: 0.9vw;
+      height: 1.5vw;
     }
   }
   .empresas {
@@ -176,10 +179,10 @@
       margin-top: 0.26vw;
       font-weight: normal;
       text-align: left;
-      margin-left: 1.495vw;
+      padding-left: 1.495vw;
       border: none;
       background: none;
-      width: 6.177vw;
+      width: 90%;
     }
   }
 }
@@ -349,11 +352,26 @@
   flex-flow: column;
 }
 
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #9ba0af;
+  height: 7.672vw;
+  width: 100%;
+
+  .icono {
+    width: 1.248vw;
+    height: 1.248vw;
+  }
+}
+
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media screen and (min-width: 900px) {
   .cuerpo {
     display: flex;
-    width: 65%;
+    width: 67%;
     // margin-left: 80px;
   }
   .button-ver {
@@ -396,8 +414,6 @@
 
   .contenedor {
     width: 100%;
-    padding-right: 24px;
-    padding-left: 24px;
     margin-right: auto;
     margin-left: auto;
   }
@@ -443,15 +459,17 @@
       display: flex;
       font-size: 15px;
       font-family: 'Roboto';
-      margin-top: 20px;
+      // margin-top: 20px;
       height: 28px;
       margin-left: 29%;
-      margin-bottom: 40px;
+      // margin-bottom: 40px;
       //padding: 5%;
     }
     //}
   }
   .cuerpo {
+    padding-right: 24px;
+    padding-left: 24px;
     .btnBuscar {
       height: 15px;
       width: 15px;
@@ -727,5 +745,14 @@
 
   .presentacion {
     margin-bottom: 15px;
+  }
+
+  .footer {
+    height: 118px;
+
+    .icono {
+      width: 19px;
+      height: 19px;
+    }
   }
 }
