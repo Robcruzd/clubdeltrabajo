@@ -1,5 +1,6 @@
 import { ITipoUsuario } from 'app/shared/model/tipo-usuario.model';
 import { ITipoDocumento } from 'app/shared/model/tipo-documento.model';
+import { Moment } from 'moment';
 
 export interface IPersona {
   id?: number;
@@ -9,6 +10,7 @@ export interface IPersona {
   numeroDocumento?: string;
   tipoUsuario?: ITipoUsuario;
   tipoDocumento?: ITipoDocumento;
+  fechaRecordatorio?: Moment;
 }
 
 export class Persona implements IPersona {
@@ -19,6 +21,7 @@ export class Persona implements IPersona {
     public email?: string,
     public numeroDocumento?: string,
     public tipoUsuario?: ITipoUsuario,
-    public tipoDocumento?: ITipoDocumento
+    public tipoDocumento?: ITipoDocumento,
+    public fechaRecordatorio?: Moment
   ) {}
 }

@@ -8,11 +8,29 @@ import { Observable } from 'rxjs';
 type EntityResponseType = HttpResponse<IArchivo>;
 type EntityArrayResponseType = HttpResponse<IArchivo[]>;
 
+export class PathUtil {
+  public static getPathParams(parameters: any): string {
+    const fields: string[] = Object.getOwnPropertyNames(parameters);
+    let path = '?';
+    fields.forEach((field: string, i: number) => {
+      const value: any = Object.values(parameters)[i];
+      if (i > 0 && path !== '?' && value !== null) {
+        path += '&';
+      }
+      if (value !== null) {
+        path += field + '=' + value;
+      }
+    });
+    return path !== '?' ? path : '';
+  }
+}
+
 @Injectable({ providedIn: 'root' })
 export class ArchivoService {
   public resourceUrl = SERVER_API_URL + 'api/archivos';
   public uploads3Service = SERVER_API_URL + 'api/uploadFileS3';
   public deletes3Service = SERVER_API_URL + 'api/deleteFileS3';
+  public resourceUrlFiltroByTipoAndEmpresa = SERVER_API_URL + 'api/archivos/filtroByTipoAndEmpresa';
 
   constructor(protected http: HttpClient) {}
 
@@ -51,5 +69,11 @@ export class ArchivoService {
 
   deleteS3(name: string): any {
     return this.http.post(this.deletes3Service, name, { responseType: 'text' });
+  }
+
+  public getArchivoByTipoAndEmpresa(tipoId?: any, empresa?: any): Observable<any> {
+    const params = PathUtil.getPathParams({ tipo: tipoId, empresa: empresa?.id });
+    const url = this.resourceUrlFiltroByTipoAndEmpresa + params;
+    return this.http.get<any>(url);
   }
 }

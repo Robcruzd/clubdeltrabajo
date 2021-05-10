@@ -49,7 +49,7 @@ public class Persona implements Serializable {
     @JsonIgnoreProperties("personas")
     private TipoDocumento tipoDocumento;
 
-    @Column(name = "fecha_recordatorio", nullable = false)
+    @Column(name = "fecha_recordatorio")
     private LocalDate fechaRecordatorio;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

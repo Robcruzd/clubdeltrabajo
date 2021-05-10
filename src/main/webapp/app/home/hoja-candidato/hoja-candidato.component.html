@@ -1,8 +1,7 @@
 <div class = "container">
     <div class="info">
         <div class="img0">
-            <!-- <img src="../../../content/images/Image 28_M.png" class="img"> -->
-            <img class="img" [src]="imagen?.archivo || urlImgDefault">
+            <img [src]="urlImageDefault" alt="" class="img">
         </div>
         <div class = "informacion_candidato"> 
         <div class="nombre">
@@ -32,9 +31,31 @@
             </div>
             <div class="experiencia">
                 <p class="titulo_experiencia">Experiencia</p>
-                <p class="p_experiencia" *ngFor="let experiencia of listaExperiencias">
-                    {{experiencia.nombreEmpresa}}
-                </p>
+                <div class="p_experiencia" *ngFor="let experiencia of listaExperiencias">
+                <!-- <p class="p_experiencia" *ngFor="let experiencia of listaExperiencias"> -->
+                    <div style="display: flex;">
+                        <fa-icon icon="building" class="icono_experiencia color-letra"></fa-icon>&nbsp;
+                        <p class="texto-experiencia color-letra">{{experiencia?.nombreEmpresa}}</p>
+                    </div>
+                    <div style="display: flex;">
+                        <fa-icon icon="user-tie" class="icono_experiencia color-letra"></fa-icon>&nbsp;
+                        <p class="texto-experiencia color-letra">{{experiencia?.cargo?.cargo}}</p>
+                    </div>
+                    <div style="display: flex;">
+                        <fa-icon icon="thumbtack" class="icono_experiencia color-letra"></fa-icon>&nbsp;
+                        <div *ngIf="experiencia?.trabajoActual==true">
+                            <p class="texto-experiencia color-letra">{{experiencia?.fechaInicio}} / Actualidad</p>
+                        </div>
+                        <div *ngIf="experiencia?.trabajoActual==false">
+                            <p class="texto-experiencia color-letra">{{experiencia?.fechaInicio}} / {{experiencia?.fechaFin}}</p>
+                        </div>
+                    </div>
+                    <div *ngIf="experiencia?.ciudad || experiencia.ciudadExtranjera" style="display: flex; margin-bottom: 1.3vw;">                        
+                        <fa-icon icon="globe-americas" class="icono_experiencia color-letra"></fa-icon>&nbsp;
+                        <p class="texto-experiencia color-letra">{{experiencia.ciudad ? this.getCiudad(experiencia.ciudad + '') : experiencia.ciudadExtranjera}}</p>
+                    </div>
+                <!-- </p> -->
+                </div>
             </div>
         </div>
         <div class="clubtrabajo">

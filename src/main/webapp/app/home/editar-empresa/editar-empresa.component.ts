@@ -37,6 +37,9 @@ export class EditarEmpresaComponent implements OnInit {
   imagen!: Archivo;
   persona: any;
   tipoArchivo = TipoArchivo;
+  cargadoNit = false;
+  archivoNit = new Archivo();
+  archivosaws: any = [];
   // ciudad: Array<IOpcionVoMunicipio> = [];
 
   constructor(
@@ -76,6 +79,7 @@ export class EditarEmpresaComponent implements OnInit {
     this.empresaService.find(idEmpresa).subscribe(
       response => {
         this.empresa = response.body;
+        this.cargarArchivoNit(this.empresa);
         this.consultarImagen();
       },
       () => (alertify.set('notifier', 'position', 'top-right'), alertify.error(commonMessages.HTTP_ERROR_LABEL))
@@ -188,9 +192,45 @@ export class EditarEmpresaComponent implements OnInit {
         // eslint-disable-next-line no-console
         console.log(response);
         if (response.body !== null) {
-          alertify.set('notifier', 'position', 'top-right');
-          alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
-          this.router.navigate(['/perfil-empresa']);
+          if (this.archivoNit.id !== undefined) {
+            this.archivoService.update(this.archivoNit).subscribe(
+              archivoResponse => {
+                if (archivoResponse.body !== null) {
+                  this.archivosaws.forEach((element: { file: File; name: string }) => {
+                    const formData = new FormData();
+                    formData.append('file', element.file, element.name);
+                    this.archivoService.uploadS3(formData).subscribe(() => {});
+                  });
+                  alertify.set('notifier', 'position', 'top-right');
+                  alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                  this.router.navigate(['/perfil-empresa']);
+                }
+              },
+              () => {
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.error(commonMessages.HTTP_ERROR_LABEL);
+              }
+            );
+          } else {
+            this.archivoService.create(this.archivoNit).subscribe(
+              archivoResponse => {
+                this.archivosaws.forEach((element: { file: File; name: string }) => {
+                  const formData = new FormData();
+                  formData.append('file', element.file, element.name);
+                  this.archivoService.uploadS3(formData).subscribe(() => {});
+                });
+                if (archivoResponse.body !== null) {
+                  alertify.set('notifier', 'position', 'top-right');
+                  alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                  this.router.navigate(['/perfil-empresa']);
+                }
+              },
+              () => {
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.error(commonMessages.HTTP_ERROR_LABEL);
+              }
+            );
+          }
         }
       },
       () => {
@@ -279,5 +319,50 @@ export class EditarEmpresaComponent implements OnInit {
         }
       );
     }
+  }
+
+  // cargar archivos
+  addArchivo(event: any, tipoDocumento: number): void {
+    const file: File = event.target.files[0];
+    if (file.size > commonMessages.TAMANO_MAXIMO_PERMITIDO) {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error(commonMessages.ERROR_TAMANO_EXCEDIDO);
+      return;
+    }
+    const extension = file.name.split('.').pop() || '';
+    if (!commonMessages.ARCHIVOS_PERMITIDOS.includes(extension)) {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error(commonMessages.ERROR_ARCHIVO_NO_SOPORTADO);
+      return;
+    }
+
+    this.archivoNit = this.archivoNit || new Archivo();
+    this.archivoNit.nombre = file.name;
+    this.archivoNit.extension = extension;
+    this.archivoNit.empresa = this.empresa;
+    this.archivoNit.tipo = tipoDocumento;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.archivoNit.archivo = reader.result;
+    };
+    const fileaws = {};
+    fileaws['file'] = file;
+    fileaws['name'] = this.archivoNit.nombre;
+
+    this.archivosaws.push(fileaws);
+    this.cargadoNit = true;
+  }
+
+  cargarArchivoNit(empresa: any): void {
+    this.archivoService.getArchivoByTipoAndEmpresa(this.tipoArchivo.RUT, empresa).subscribe(response => {
+      if (response !== null && response !== undefined) {
+        if (response.length !== 0) {
+          this.archivoNit = response[0];
+          this.cargadoNit = true;
+        }
+      }
+    });
   }
 }

@@ -14,9 +14,14 @@ import { InformacionPersonal } from 'app/shared/model/informacion-personal.model
 import { IOferta } from 'app/shared/model/oferta.model';
 import { IPersona, Persona } from 'app/shared/model/persona.model';
 import { IResultadoHojaCandidato } from 'app/shared/vo/opcion-vo';
-import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 import * as moment from 'moment';
 import { PersonaService } from '../../entities/persona/persona.service';
+import { GeografiaVo } from '../../shared/vo/geografia-vo';
+import { IOpcionVo } from '../../shared/vo/opcion-vo';
+import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
+import { RegionesService } from 'app/entities/regiones/regiones.service';
+import { HttpResponse } from '@angular/common/http';
+import { IRegiones } from 'app/shared/model/regiones.model';
 
 @Component({
   selector: 'jhi-hoja-candidato',
@@ -48,8 +53,10 @@ export class HojaCandidatoComponent implements OnInit {
   aplicacionOferta = new AplicacionOferta();
   ofertaInfo!: IOferta | null;
   cargando = false;
-  imagen!: Archivo;
-  urlImgDefault = '../../../content/images/Image 28_M.png';
+  urlImageDefault?: string | ArrayBuffer | null | undefined = '../../../content/images/Image 28_M.png';
+  tipoArchivo = TipoArchivo;
+  geografia: Array<GeografiaVo> = [];
+  municipios: Array<IOpcionVo> = [];
 
   constructor(
     private personaService: PersonaService,
@@ -61,7 +68,8 @@ export class HojaCandidatoComponent implements OnInit {
     private informacionLaboralService: InformacionLaboralService,
     private aplicacionOfertaService: AplicacionOfertaService,
     private router: Router,
-    private archivoService: ArchivoService
+    private archivoService: ArchivoService,
+    private regionService: RegionesService
   ) {}
 
   ngOnInit(): void {
@@ -69,16 +77,16 @@ export class HojaCandidatoComponent implements OnInit {
     this.idUsuario = parseInt(param, 10);
     const param2 = this.route.snapshot.queryParamMap.get('oferta')!;
     this.idOFerta = parseInt(param2, 10);
-    this.getPersona();
+    this.consultarInformacionGeografica();
   }
 
-  consultarImagen(): void {
-    this.archivoService.get(this.personaInfo?.id!, TipoArchivo.IMAGEN_PERFIL).subscribe(response => {
-      if (response.body !== null) {
-        this.imagen = response.body;
-      }
-    });
-  }
+  // consultarImagen(): void {
+  //   this.archivoService.get(this.personaInfo?.id!, TipoArchivo.IMAGEN_PERFIL).subscribe(response => {
+  //     if (response.body !== null) {
+  //       this.imagen = response.body;
+  //     }
+  //   });
+  // }
 
   getPersona(): void {
     this.listaResultadoHojaCandidato = [];
@@ -90,7 +98,7 @@ export class HojaCandidatoComponent implements OnInit {
       if (this.personaInfo) {
         this.informacionPersonal.usuario = this.personaInfo;
         this.informacionAcademica.usuario = this.personaInfo;
-        this.consultarImagen();
+        // this.consultarImagen();
         this.informacionPersonalService.getPersonaFiltro(this.personaInfo?.id).subscribe(info => {
           this.informacionAcademicaService.getPersonaFiltro(this.personaInfo?.id).subscribe(academica => {
             this.listaInformacionAcademica = academica;
@@ -110,6 +118,11 @@ export class HojaCandidatoComponent implements OnInit {
                 this.idOfertaAplicacionOferta = aplicacionOferta[0].oferta;
                 this.fechaPostulacionAplicacionOferta = aplicacionOferta[0].fechaPostulacion;
               });
+            this.archivoService.get(this.idUsuario, this.tipoArchivo.IMAGEN_PERFIL).subscribe(respImagen => {
+              if (respImagen.body !== null) {
+                this.urlImageDefault = respImagen.body.archivo;
+              }
+            });
             this.listaResultadoHojaCandidato.push({
               nombre: this.personaInfo?.nombre,
               apellido: this.personaInfo?.apellido,
@@ -178,5 +191,40 @@ export class HojaCandidatoComponent implements OnInit {
         resolve('hecho');
       });
     });
+  }
+
+  getCiudad(codigo: string): string {
+    const ciudad = this.municipios.find(item => item.codigo === codigo);
+    return ciudad?.nombre || '';
+  }
+
+  private cargarMunicipios(): void {
+    this.municipios = this.geografia.map(item => {
+      return {
+        codigo: item.codigoMpio,
+        nombre: item.nombreMpio
+      };
+    });
+    this.getPersona();
+  }
+
+  consultarInformacionGeografica(): void {
+    this.regionService
+      .query({
+        page: 0,
+        size: 1150
+      })
+      .subscribe((res: HttpResponse<IRegiones[]>) => {
+        this.geografia = res.body!.map(
+          item =>
+            new GeografiaVo(
+              item.codigoDaneDelDepartamento?.toString()!,
+              item.departamento!,
+              item.codigoDaneDelMunicipio?.toString()!,
+              item.municipio!
+            )
+        );
+        this.cargarMunicipios();
+      });
   }
 }

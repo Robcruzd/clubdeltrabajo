@@ -20,7 +20,7 @@ extends JpaRepository<InformacionLaboral, Long>, JpaSpecificationExecutor<Inform
 
 List<InformacionLaboral> findByUsuario(Persona usuario);
 
-@Query(value = "select * from ct_informacon_laboral_tb where id_persona_id = :persona",
+@Query(value = "select * from ct_informacon_laboral_tb where usuario_id = :persona",
 nativeQuery = true)
 List<InformacionLaboral> getByPersona(@Param("persona") Long persona);
 }

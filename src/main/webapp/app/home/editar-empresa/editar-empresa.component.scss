@@ -202,6 +202,43 @@
                 border-radius: 3.251vw;
               }
             }
+
+            .file_upload {
+              width: 15%;
+              height: 100%;
+              min-height: 3.121vw;
+              background: #ffffff 0% 0% no-repeat padding-box;
+              border-radius: 0rem 50rem 50rem 0rem;
+              border-width: 0rem;
+              opacity: 1;
+              display: flex;
+              align-items: center;
+
+              .label_file {
+                margin-bottom: 0rem;
+                width: 1.56vw;
+                height: 1.3vw;
+              }
+
+              .file {
+                display: none;
+              }
+            }
+
+            .estilo_nit {
+              width: 75%;
+              height: 3.121vw;
+              background: #ffffff 0% 0% no-repeat padding-box;
+              border-radius: 50rem 0rem 0rem 50rem;
+              border-width: 0rem;
+              padding-left: 1.56vw;
+              opacity: 1;
+              font-weight: bold;
+            }
+            .archivo_subido {
+              margin-left: 0rem;
+              right: 0;
+            }
           }
         }
 
