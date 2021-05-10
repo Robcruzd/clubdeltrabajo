@@ -53,7 +53,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
         "left join ct_informacon_laboral_tb inf on inf.usuario_id = per.id\r\n" + 
         "inner join jhi_user jhi on per.id = jhi.usuario_id\r\n" + 
         "where inf.id is null and per.fecha_recordatorio is null \r\n" +
-        "group by 1 limit 2",
+        "group by 1 limit 300",
         nativeQuery = true)
 	List<Long> findEmailByQuery();
 }

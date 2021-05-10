@@ -107,10 +107,7 @@ public class MailService {
         Locale locale = Locale.forLanguageTag(user.getLangKey());
         Context context = new Context(locale);
         context.setVariable(USER, user);
-        System.out.println("Templaaaaaaaaaaaaate: "+jHipsterProperties.getMail());
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
-        // jHipsterProperties.getMail().getBaseUrl()
-        // "http://localhost:9000"
         String content = templateEngine.process(templateName, context);
         String subject = messageSource.getMessage(titleKey, null, locale);
         sendEmail(user.getEmail(), subject, content, false, true);
@@ -126,10 +123,7 @@ public class MailService {
         Context context = new Context(locale);
         context.setVariable(USER, user);
         context.setVariable(PROFESION, profesion);
-        System.out.println("Templaaaaaaaaaaaaate: "+jHipsterProperties.getMail());
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
-        // jHipsterProperties.getMail().getBaseUrl()
-        // "http://localhost:9000"
         String content = templateEngine.process(templateName, context);
         String subject = messageSource.getMessage(titleKey, null, locale);
         sendEmail(user.getEmail(), subject, content, false, true);
@@ -206,6 +200,14 @@ public class MailService {
         User user = userService.findByLogin(aplicacionOferta.getUsuario().getEmail());
         Profesion profesion = profesionService.getById(aplicacionOferta.getOferta().getProfesion());
         sendEmailFromTemplateApli(user, profesion, "mail/aplicacionPostulante", "email.aplica.title");
+    }
+
+    @Async
+    public void sendEmailEmpresa(AplicacionOferta aplicacionOferta) {
+        log.debug("Sending password reset email to '{}'", aplicacionOferta.getUsuario().getEmail());
+        User user = userService.findByLogin(aplicacionOferta.getOferta().getUsuario().getEmail());
+        Profesion profesion = profesionService.getById(aplicacionOferta.getOferta().getProfesion());
+        sendEmailFromTemplateApli(user, profesion, "mail/aplicacionEmpresa", "email.aplicaEmp.title");
     }
 
     @Async

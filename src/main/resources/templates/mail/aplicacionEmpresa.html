@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+    <head>
+        <title th:text="#{email.activation.title}">JHipster activation</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="shortcut icon" th:href="@{|https://www.clubdeltrabajo.com/favicon.ico|}" />
+    </head>
+    <body>
+        <div style="text-align: center; background: #1a2050; height: 100px;">
+            <img th:src="@{|https://www.clubdeltrabajo.com/content/images/logo_empresa.png|}" width="auto" height="100%"/>
+        </div>
+       	<br/>
+        <p th:text="#{email.aplicaEmp.greeting(${user.firstName})}">
+            Dear
+        </p>
+        <p th:text="#{email.aplicaEmp.text1(${profesion.profesion})}">
+            aplicado
+        </p>
+        <p th:text="#{email.aplicaEmp.text2}">
+            gracias
+        </p>
+        <p>
+            <span th:text="#{email.aplicaEmp.text3}">Regards, </span>
+            <br/>
+            <em th:text="#{email.aplicaEmp.signature}">JHipster.</em>
+        </p>
+    </body>
+</html>
