@@ -92,18 +92,18 @@
                         <p class="estilo_label">NIT <span
                                 class="estilo_campo_requerido">*</span></p>
                         <div class="estilo_nit" >
-                        <input type="text" class="estilo_inputs" formControlName="numeroDocumento">
+                            <input type="text" class="estilo_inputs" formControlName="numeroDocumento">
+                            <div class="file_upload" >
+                                <label class='label_file' for="file">
+                                    <fa-icon icon="images" class="float-right" (click)="tipodocumento.click()"></fa-icon>
+                                </label>
+                                <input type="file" #tipodocumento class='file' accept=".pdf"
+                                (change)="addArchivo($event, tipoArchivo.RUT)" />
+                                <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="cargadoNit" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
+                            </div>
+                        </div>
                         <small *ngIf="formEmpresa.get('numeroDocumento')?.errors?.required"
-                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                        </div>
-                        <div class="file_upload" >
-                            <label class='label_file' for="file">
-                                <fa-icon icon="images" class="float-right" (click)="tipodocumento.click()"></fa-icon>
-                            </label>
-                            <input type="file" #tipodocumento class='file' accept=".pdf"
-                            (change)="addArchivo($event, tipoArchivo.RUT)" />
-                            <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="cargadoNit" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
-                        </div>
+                                class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                     </div>
                     
                 </div>

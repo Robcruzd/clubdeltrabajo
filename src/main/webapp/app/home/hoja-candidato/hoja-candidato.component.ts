@@ -8,7 +8,6 @@ import { InformacionPersonalService } from 'app/entities/informacion-personal/in
 import { OfertaService } from 'app/entities/oferta/oferta.service';
 import { PersonaIdiomaService } from 'app/entities/persona-idioma/persona-idioma.service';
 import { AplicacionOferta } from 'app/shared/model/aplicacion-oferta.model';
-import { Archivo } from 'app/shared/model/archivo.model';
 import { IInformacionAcademica, InformacionAcademica } from 'app/shared/model/informacion-academica.model';
 import { InformacionPersonal } from 'app/shared/model/informacion-personal.model';
 import { IOferta } from 'app/shared/model/oferta.model';
