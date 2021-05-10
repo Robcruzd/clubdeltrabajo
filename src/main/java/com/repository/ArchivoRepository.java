@@ -2,14 +2,17 @@ package com.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
 import com.domain.Archivo;
-import com.domain.Persona;
 import com.domain.Empresa;
 import com.domain.InformacionAcademica;
 import com.domain.InformacionLaboral;
-
-import org.springframework.data.jpa.repository.*;
-import org.springframework.stereotype.Repository;
+import com.domain.Persona;
 
 /**
  * Spring Data  repository for the Archivo entity.
@@ -29,4 +32,8 @@ public interface ArchivoRepository extends JpaRepository<Archivo, Long>, JpaSpec
     Long deleteByInformacionAcademica(InformacionAcademica informacionAcademica);
 
     Long deleteByInformacionLaboral(InformacionLaboral informacionLaboral);
+    
+    @Query(value = "select * from ct_archivo_tb where tipo = :tipo and empresa_id = :empresa",
+			nativeQuery = true)
+	List<Archivo> getArchivoByTipoAndEmpresa(@Param("tipo") Long tipo, @Param("empresa") Long empresa);
 }

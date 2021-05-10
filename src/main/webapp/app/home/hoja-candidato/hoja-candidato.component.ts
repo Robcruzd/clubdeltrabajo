@@ -13,7 +13,14 @@ import { IOferta } from 'app/shared/model/oferta.model';
 import { IPersona, Persona } from 'app/shared/model/persona.model';
 import { IResultadoHojaCandidato } from 'app/shared/vo/opcion-vo';
 import * as moment from 'moment';
+import { ArchivoService } from '../../entities/archivo/archivo.service';
 import { PersonaService } from '../../entities/persona/persona.service';
+import { GeografiaVo } from '../../shared/vo/geografia-vo';
+import { IOpcionVo } from '../../shared/vo/opcion-vo';
+import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
+import { RegionesService } from 'app/entities/regiones/regiones.service';
+import { HttpResponse } from '@angular/common/http';
+import { IRegiones } from 'app/shared/model/regiones.model';
 
 @Component({
   selector: 'jhi-hoja-candidato',
@@ -45,6 +52,10 @@ export class HojaCandidatoComponent implements OnInit {
   aplicacionOferta = new AplicacionOferta();
   ofertaInfo!: IOferta | null;
   cargando = false;
+  urlImageDefault?: string | ArrayBuffer | null | undefined = "../../../content/images/Image 28_M.png";
+  tipoArchivo = TipoArchivo;
+  geografia: Array<GeografiaVo> = [];
+  municipios: Array<IOpcionVo> = [];
 
   constructor(
     private personaService: PersonaService,
@@ -55,7 +66,9 @@ export class HojaCandidatoComponent implements OnInit {
     private personaIdiomaService: PersonaIdiomaService,
     private informacionLaboralService: InformacionLaboralService,
     private aplicacionOfertaService: AplicacionOfertaService,
-    private router: Router
+    private router: Router,
+    private archivoService: ArchivoService,
+    private regionService: RegionesService
   ) {}
 
   ngOnInit(): void {
@@ -63,7 +76,7 @@ export class HojaCandidatoComponent implements OnInit {
     this.idUsuario = parseInt(param, 10);
     const param2 = this.route.snapshot.queryParamMap.get('oferta')!;
     this.idOFerta = parseInt(param2, 10);
-    this.getPersona();
+    this.consultarInformacionGeografica();
   }
 
   getPersona(): void {
@@ -92,6 +105,11 @@ export class HojaCandidatoComponent implements OnInit {
               this.idUsuarioAplicacionOferta = aplicacionOferta[0].usuario;
               this.idOfertaAplicacionOferta = aplicacionOferta[0].oferta;
               this.fechaPostulacionAplicacionOferta = aplicacionOferta[0].fechaPostulacion;
+            });
+            this.archivoService.get(this.idUsuario, this.tipoArchivo.IMAGEN_PERFIL).subscribe(respImagen => {
+              if (respImagen.body !== null) {
+                this.urlImageDefault = respImagen.body.archivo;
+              }
             });
             this.listaResultadoHojaCandidato.push({
               nombre: this.personaInfo?.nombre,
@@ -160,5 +178,40 @@ export class HojaCandidatoComponent implements OnInit {
         resolve('hecho');
       });
     });
+  }
+
+  getCiudad(codigo: string): string {
+    const ciudad = this.municipios.find(item => item.codigo === codigo);
+    return ciudad?.nombre || '';
+  }
+
+  private cargarMunicipios(): void {
+    this.municipios = this.geografia.map(item => {
+      return {
+        codigo: item.codigoMpio,
+        nombre: item.nombreMpio
+      };
+    });
+    this.getPersona();
+  }
+
+  consultarInformacionGeografica(): void {
+    this.regionService
+      .query({
+        page: 0,
+        size: 1150
+      })
+      .subscribe((res: HttpResponse<IRegiones[]>) => {
+        this.geografia = res.body!.map(
+          item =>
+            new GeografiaVo(
+              item.codigoDaneDelDepartamento?.toString()!,
+              item.departamento!,
+              item.codigoDaneDelMunicipio?.toString()!,
+              item.municipio!
+            )
+        );
+        this.cargarMunicipios();
+      });
   }
 }

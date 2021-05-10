@@ -240,4 +240,8 @@ public class ArchivoService {
             return e.getMessage();
         }
     }
+    
+    public List<Archivo> getArchivoByTipoAndEmpresa(Long tipo, Long empresa){
+    	return archivoRepository.getArchivoByTipoAndEmpresa(tipo,empresa);
+    }
 }
