@@ -494,5 +494,28 @@ export const commonMessages = {
   NIVEL_ESTUDIOS: 'Nivel de estudios',
   PUBLICAR_OFERTA: 'Publicar oferta',
   NIVEL_IDIOMA: 'Nivel %',
-  GENERO_ESPECIFICO: 'Género especifico'
+  GENERO_ESPECIFICO: 'Género especifico',
+
+  //anthony
+  //agregar-usuario.component.html
+  REGISTRATE: 'Regístrate y entra al club.', //linea 5
+  TIPO_USUARIO_1: 'Persona Natural', //linea 8
+  TIPO_USUARIO_2: 'Persona Jurídica', //linea 10
+  NOMBRES: 'Nombres', //linea 18
+  SECTOR: 'Sector', //linea 25
+  APELLIDOS: 'Apellidos', //linea 32
+  RAZON_SOCIAL: 'Razón Social', //linea 39
+  SELECCIONE_TIPO: 'Seleccione un tipo', //LINEA 51
+  NIT: 'NIT', //LINEA 71
+  CORREO_ELECTRONICO: 'Correo Electrónico', //LINEA 78-85
+  PASSWORD: 'Contraseña', //linea 92
+  CONFIRMAR_PASSWORD: 'Confirmar Contraseña', //LINEA 104
+  CAPTCHA_CUANTO_ES: '¿Cuánto es?', //LINEA 117
+  RESOLVER: 'Resolver', //linea 131
+  REGISTRARME: 'Registrarme', //linea 139
+  ACEPTO_LOS: 'Acepto los', //linea 143
+  TERMINOS_CONDICIONES_POLITICAS: 'Términos, Condiciones y Políticas de Privacidad.', //LINEA 144
+  YA_REGISTRADO: '¡Ya estoy registrado!', //LINEA 151
+  ACEPTAR: 'Aceptar', //linea 166
+
 };

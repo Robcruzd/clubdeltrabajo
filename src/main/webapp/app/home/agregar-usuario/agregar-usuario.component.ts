@@ -62,6 +62,28 @@ export class AgregarUsuarioComponent implements OnInit {
   mensajeCaptcha: any;
   mensajeActivacionCuenta = commonMessages.ACTIVACION_CUENTA_LABEL;
   Politicas = commonMessages.POLITICAS;
+  TCP = commonMessages.TERMINOS_CONDICIONES_POLITICAS;
+  Aceptolos = commonMessages.ACEPTO_LOS;
+  Registrarme = commonMessages.REGISTRARME;
+  resol = commonMessages.RESOLVER;
+  captchaCuanto = commonMessages.CAPTCHA_CUANTO_ES;
+  ConfirContra = commonMessages.CONFIRMAR_PASSWORD;
+  Contra = commonMessages.PASSWORD;
+  email = commonMessages.CORREO_ELECTRONICO;
+  nit = commonMessages.NIT;
+  SelecTipo = commonMessages.SELECCIONE_TIPO;
+  NumDoc = commonMessages.NUMERO_DOCUMENTO_LABEL;
+  RazonSocial= commonMessages.RAZON_SOCIAL;
+  Apellidos= commonMessages.APELLIDOS;
+  Sector = commonMessages.SECTOR;
+  Nombres = commonMessages.NOMBRES;
+  PersonaNatural = commonMessages.TIPO_USUARIO_1;
+  PersonaJuridica = commonMessages.TIPO_USUARIO_2;
+  YaRegistrado = commonMessages.YA_REGISTRADO;
+  Aceptar = commonMessages.ACEPTAR;
+  RegistroEntra = commonMessages.REGISTRATE;
+  
+
 
   eyePrimero = '../../../content/images/eye.svg';
   eyeSegundo = '../../../content/images/eye.svg';

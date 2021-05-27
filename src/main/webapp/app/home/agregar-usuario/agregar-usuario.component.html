@@ -2,12 +2,12 @@
     <!-- <img class="estilo_logo" src="../../../content/images/logo_cdt_fondo2.png"> -->
     <!-- #EDEFF2 -->
     <div class="div_centro" [ngStyle]="{ 'background': tipoUsuario.id==1 ? 'transparent linear-gradient(180deg, #2d427d 0%, #1a2152 100%) 0% 0% no-repeat padding-box' : '#EDEFF2' }"> 
-        <p class="estilo_titulo" [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'">Regístrate y entra al club.</p>
+        <p class="estilo_titulo" [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'">{{RegistroEntra}}</p>
         <div class="inputs" style="text-align: center;">
             <div class="typePersona">
-                <label [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'">Persona Natural </label>
+                <label [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'">{{PersonaNatural}}</label>
                 <input type="radio" value="natural" name="usuario" [(ngModel)]="tipoUsuario.nombre" (ngModelChange)="changeTipoUsuario('natural')"/>
-                <label [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'">Persona Jurídica </label>
+                <label [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'">{{PersonaJurídica}}</label>
                 <input type="radio" value="juridico" name="usuario" [(ngModel)]="tipoUsuario.nombre" (ngModelChange)="changeTipoUsuario('juridico')"/>
             </div>
             <small *ngIf="mensajeTipoPersona" class="text-danger">
@@ -15,28 +15,28 @@
             </small>
         </div>
         <div class="inputs" *ngIf="tipoUsuario.id==1">
-            <label style="color:white;">Nombres</label>
+            <label style="color:white;">{{Nombres}}</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="persona.nombre"  (ngModelChange)="persona.nombre = $event.toUpperCase()" (blur)="deleteSpace('nombre')">
             <small *ngIf="mensajeNombre" class="text-danger">
                 {{mensajeNombre}}
             </small>
         </div>
         <div class="inputs" *ngIf="tipoUsuario.id==2">
-            <label style="color:#202A5D;">Sector</label>
+            <label style="color:#202A5D;">{{Sector}}</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="empresa.sector"  (ngModelChange)="empresa.sector = $event.toUpperCase()" (blur)="deleteSpace2('sector')">
             <small *ngIf="mensajeSector" class="text-danger">
                 {{mensajeNombre}}
             </small>
         </div>
         <div class="inputs" *ngIf="tipoUsuario.id==1">
-            <label style="color:white;">Apellidos</label>
+            <label style="color:white;">{{Apellidos}}</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="persona.apellido" (ngModelChange)="persona.apellido = $event.toUpperCase()" (blur)="deleteSpace('apellido')">
             <small *ngIf="mensajeApellido" class="text-danger">
                 {{mensajeApellido}}
             </small>
         </div>
         <div class="inputs" *ngIf="tipoUsuario.id==2">
-            <label [style.color]="'#202A5D'">Razón Social</label>
+            <label [style.color]="'#202A5D'">{{RazonSocial}}</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="empresa.razonSocial"  (ngModelChange)="empresa.razonSocial = $event.toUpperCase()" (blur)="deleteSpace2('razonSocial')">
             <small *ngIf="mensajeRazon" class="text-danger">
                 {{mensajeApellido}}
@@ -44,11 +44,11 @@
         </div>
         <div class="inputs" *ngIf="tipoUsuario.id==1">
             <div>
-                <label style="color:white;">Número de Documento</label>
+                <label style="color:white;">{{NumDoc}}</label>
             </div>
             <div class="row_documento">
                 <select class="select_documento" [(ngModel)]="tipoDocumento">
-                    <option [ngValue]="null" class="option_docu" disabled>Seleccione un tipo</option>
+                    <option [ngValue]="null" class="option_docu" disabled>{{SelecTipo}}</option>
                     <option
                         class="option_docu"
                         [ngValue]="documento"
@@ -68,28 +68,28 @@
             </small>
         </div>
         <div class="inputs" *ngIf="tipoUsuario.id==2">
-            <label [style.color]="'#202A5D'">NIT</label>
+            <label [style.color]="'#202A5D'">{{nit}}</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="empresa.numeroDocumento"  (ngModelChange)="empresa.numeroDocumento = $event.toUpperCase()">
             <small *ngIf="mensajeNombre" class="text-danger">
                 {{mensajeNumDoc}}
             </small>
         </div>
         <div class="inputs" *ngIf="tipoUsuario.id==1">
-            <label style="color:white;">Correo Electrónico</label>
+            <label style="color:white;">{{email}}</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="persona.email" (blur)="deleteSpace('email')">
             <small *ngIf="mensajeEmail" class="text-danger">
                 {{mensajeEmail}}
             </small>
         </div>
         <div class="inputs" *ngIf="tipoUsuario.id==2">
-            <label [style.color]="'#202A5D'">Correo Electrónico</label>
+            <label [style.color]="'#202A5D'">{{email}}</label>
             <input type="text" class="estilo_inputs" [(ngModel)]="empresa.email" (blur)="deleteSpace('email')">
             <small *ngIf="mensajeEmail" class="text-danger">
                 {{mensajeEmail}}
             </small>
         </div>
         <div class="inputs">
-            <label [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'">Contraseña</label>
+            <label [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'">{{Contra}}</label>
             <div class="contra" style="margin-top: 0.520vw;">
                 <input class="input-contra" maxlength="30" [type]="inputPrimero" [(ngModel)]="user.password">
                 <button class="button-eye" (click)="clicPrimerInput()">
@@ -101,7 +101,7 @@
             </small>
         </div>
         <div class="inputs">
-            <label [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'">Confirmar Contraseña</label>
+            <label [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'">{{ConfirContra}}</label>
             <div class="contra" style="margin-top: 0.520vw;">
                 <input class="input-contra" maxlength="30" [type]="inputSegundo" [(ngModel)]="ConfirmarClave">
                 <button class="button-eye" (click)="clicSegundoInput()">
@@ -114,7 +114,7 @@
         </div>
         <div class="inputs">
             <div class="row">
-                <label [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'" style="padding-left: 1rem;">¿Cuánto es?</label>
+                <label [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'" style="padding-left: 1rem;">{{captchaCuanto}}</label>
             </div>
             <div class="row_documento">
                 <button class="icon-reload" (click)="crearCaptcha()">
@@ -128,7 +128,7 @@
             <div class="row_documento" style="margin-top: 0.520vw;">
                 <input class="input-answer" type="text" [(ngModel)]="criterioCaptcha"/>
                 <button class="button-resolver" (click)="validarCaptcha()">
-                    Resolver
+                    {{resol}}
                 </button>
             </div>
             <small *ngIf="mensajeCaptcha" class="text-danger">
@@ -136,25 +136,25 @@
             </small>
         </div>
         <button class="btn boton_registrar shadow-none" 
-            style="color:white;" (click)="onCrearUsuario()" [disabled]="!validacionIncorrecta">Registrarme</button>
+            style="color:white;" (click)="onCrearUsuario()" [disabled]="!validacionIncorrecta">{{Registrarme}}</button>
         <div class="inputs" style="align-items: center;">
             <div class="terminos">
                 <input type="radio" value="terminos" name="terminos" [(ngModel)]="condiciones" class="radioB" ngChecked="true"/>
-                <label class="label-terminos" [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'">Acepto los 
-                    <a style="color: #03ECFF;" (click)="openScrollableContent(longContent)">Términos, Condiciones y Políticas de Privacidad.</a>
+                <label class="label-terminos" [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'">{{Aceptolos}}
+                    <a style="color: #03ECFF;" (click)="openScrollableContent(longContent)">{{TCP}}</a>
                 </label>
             </div>
             <small *ngIf="mensajeTerminos" class="text-danger">
                 {{mensajeTerminos}}
             </small>
         </div>
-        <a class="ya-registrado" style="color: #03ECFF;" (click)="ventanaInicioSesionRegistrado()">¡Ya estoy registrado!</a>
+        <a class="ya-registrado" style="color: #03ECFF;" (click)="ventanaInicioSesionRegistrado()">{{YaRegistrado}}</a>
     </div>
 </div>
 
 <ng-template #longContent let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" style="color: #1FB9FD;">Términos, Condiciones y Póliticas de Privacidad.</h4>
+      <h4 class="modal-title" style="color: #1FB9FD;">{{TCP}}</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -163,7 +163,7 @@
       <pre style="white-space: pre-wrap; text-align: justify;">{{Politicas}}</pre>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Aceptar</button>
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">{{Aceptar}}</button>
     </div>
 </ng-template>
 
