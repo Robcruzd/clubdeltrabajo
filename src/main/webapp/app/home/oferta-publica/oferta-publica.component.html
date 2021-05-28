@@ -15,9 +15,9 @@
         <div class="caracte">
             <table class="tabla_oferta" style="width: 100%;">
                 <tr>
-                  <th class="titulo_oferta_previsualizacion">Titulo:</th>
-                  <th class="titulo_oferta_previsualizacion">Tipo de contrato:</th>
-                  <th class="titulo_oferta_previsualizacion">Publicado:</th>
+                  <th class="titulo_oferta_previsualizacion">{{Titulo}}:</th>
+                  <th class="titulo_oferta_previsualizacion">{{Tipo_Contrato}}:</th>
+                  <th class="titulo_oferta_previsualizacion">{{Publicado}}:</th>
                 </tr>
                 <tr>
                   <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].titulo}}</td>
@@ -27,10 +27,10 @@
             </table>
             <table class="tabla_oferta" style="width: 100%; margin-top: 15px;">
                 <tr>
-                  <th class="titulo_oferta_previsualizacion">Experiencia:</th>
-                  <th class="titulo_oferta_previsualizacion">Ciudad:</th>
+                  <th class="titulo_oferta_previsualizacion">{{Exp}}:</th>
+                  <th class="titulo_oferta_previsualizacion">{{Ciudad}}:</th>
                   <div *ngIf="!listaResultadoOfertas[0].mostrarSalario; else loggedOut">
-                    <th class="titulo_oferta_previsualizacion">Salario:</th>
+                    <th class="titulo_oferta_previsualizacion">{{Salario}}:</th>
                   </div>
                   <ng-template #loggedOut>
                     <div>
@@ -54,12 +54,12 @@
         </div>
     </div>
     <button class="aplicar" (click)="aplicarOferta()" *ngIf="general === 'true'">
-        Aplicar
+        {{Aplicar}}
     </button>
     <button class="aplicada" *ngIf="general === 'false'" disabled>
-        Aplicada
+        {{Aplicada}}
     </button>
     <div style="text-align: -webkit-center; margin-bottom: 99px; margin-top: 42px;">
-    <button class="volver" (click)="volver()">Volver</button>
+    <button class="volver" (click)="volver()">{{Volver}}</button>
     </div>
 </div>

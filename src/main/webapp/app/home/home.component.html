@@ -6,24 +6,24 @@
 </div>
 <div class="estilo_home">
     <img class="logo" src="../../content/images/logoazaz.png">
-    <p class="titulo">¡Haz parte del club!</p>
+    <p class="titulo">{{Haz_Parte}}</p>
     <video class="video" controls muted="true" id="vid">
         <source src="../../content/images/VID-20200907-WA0040.mp4" type='video/mp4'>
-        Su navegador no soporta la etiqueta de video.
+        {{D_VIDEO}}
     </video>
     <div class="botones" *ngIf="account===null">
         <button class="registrar" (click)="abrirAgregarUsuario()">
-            <p class="txt1">Registrar ya tu hoja de vida</p>
-            <p class="txt2">¡Es gratis!</p>
+            <p class="txt1">{{Registra_HV}}</p>
+            <p class="txt2">{{ES_GRATIS}}</p>
         </button>
         <button class="ingresar" (click)="ventanaInicioSesion()">
-            <p class="txt1">Ya estás registrado</p>
-            <p class="txt2">¡Entra!</p>
+            <p class="txt1">{{Ya_Registrado}}</p>
+            <p class="txt2">{{Entra}}</p>
         </button>
     </div>
     <div class="ofertas-destacadas">
         <div class="div-titulo">
-            <p class="titulo">Ofertas destacadas</p>
+            <p class="titulo">{{Ofertas_Destacadas}}</p>
         </div>
         <div class="div-ofertas">
             <button (click)="scrollLeft()" class="btn boton-base">
@@ -43,7 +43,7 @@
                     </div>
                     <p class="sin-negrita">{{oferta.ciudad}}</p>
                     <p class="sin-negrita">Publicado: {{oferta.fecha}}</p>
-                    <button class="button-ver" (click)="verOferta(oferta)">Ver</button>
+                    <button class="button-ver" (click)="verOferta(oferta)">{{Ver}}</button>
                 </div>
             </div>
             <button (click)="scrollRight()" class="btn boton-base">
@@ -53,7 +53,7 @@
     </div>
     <div class="buscar-ofertas">
         <div class="texto-imagen">
-            <p class="texto-explora">¡Explora cientos de ofertas de trabajo!</p>
+            <p class="texto-explora">{{Explora_ofertas}}</p>
             <img class="img" src="../../content/images/img3.png"/>
         </div>
         <div class="inputs">
@@ -76,37 +76,37 @@
                 </mat-autocomplete>
             </div>
         </div>
-        <button class="boton-buscar" (click)="buscar()">Buscar</button>
+        <button class="boton-buscar" (click)="buscar()">{{Buscar}}</button>
     </div>
-    <p class="titulo2" *ngIf="account===null">¡Registra tu hoja de vida!</p>
+    <p class="titulo2" *ngIf="account===null">{{Registra_Hoja}}</p>
     <div class="imagenes">
         <img class="img1" src="../../content/images/img1.png"/>
         <img class="img2" src="../../content/images/img2.png"/>
         <img class="img4" src="../../content/images/img4.png"/>
     </div>
-    <button class="haz-clic" (click)="abrirAgregarUsuario()" *ngIf="account===null">¡Haz clic acá!</button>
+    <button class="haz-clic" (click)="abrirAgregarUsuario()" *ngIf="account===null">{{Clic_Aca}}</button>
     <!-- <div class="haz-clic">
         
     </div> -->
     <div class="mensajes-diagonales">
         <div class="diag24">
-            <p class="txtdiag">ES GRATIS</p>
+            <p class="txtdiag">{{Es_Gratis_M}}</p>
         </div>
         <div class="diag3">
-            <p class="txtdiag3">NUEVAS OFERTAS DIARIAS</p>
+            <p class="txtdiag3">{{Nuevas_Ofertas}}</p>
         </div>
         <div class="diag24">
-            <p class="txtdiag">OFERTAS EN TU EMAIL</p></div>
+            <p class="txtdiag">{{Ofertas_Email}}</p></div>
     </div>
     <div style="width: 100%;" *ngIf="account===null">
         <div style="width: 100%; margin-top: 2rem">
             <div class="imagenes-final">
                 <img class="imgfooter" src="../../content/images/img6.png"/>
                 <div class="opacity">
-                    <p class="eresEmpresa">Si eres EMPRESA y buscas candidatos</p>
+                    <p class="eresEmpresa">{{Emp_B_Candidatos}}</p>
                 </div>
             </div>
         </div>
-        <button class="haz-clic2" (click)="registrarHojaVidaEmpresa()">¡Haz clic acá!</button>
+        <button class="haz-clic2" (click)="registrarHojaVidaEmpresa()">{{Clic_Aca}}</button>
     </div>
 </div>

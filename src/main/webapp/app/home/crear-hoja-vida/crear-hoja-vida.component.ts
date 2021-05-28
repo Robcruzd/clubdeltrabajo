@@ -119,6 +119,25 @@ export class CrearHojaVidaComponent implements OnInit {
   lblSeleccioneProfesion = commonMessages.SELECCIONE_PROFESION_LABEL;
   profesionState: Boolean = false;
 
+  Danger_telefono = commonMessages.DANGER_TELEFONO;
+  Danger_mail = commonMessages.DANGER_CORREO;
+  Danger_profesion = commonMessages.DANGER_PROFESION;
+  Quitar_Estudio = commonMessages.QUITAR_ESTUDIO;
+  Quitar_idioma = commonMessages.QUITAR_IDIOMA;
+  Perfil_Profesional = commonMessages.PERFIL_PROFESIONAL;
+  EXP_ANIOS = commonMessages.EXPERIENCIA_ANIOS;
+  Meses = commonMessages.MESES
+  Asp_Salarial = commonMessages.ASPIRACION_SALARIAL;
+  Selec_Option = commonMessages.SELECCIONE_OPCION_LABEL;
+  Movilidad_laboral = commonMessages.MOVILIDAD_LABORAL;
+  Permiso_trabajo = commonMessages.PERMISO_TRABAJO_PAISES;
+  Danger_Long_Telefono = commonMessages.DANGER_LONG_TELEFONO;
+  Nivel_cargo = commonMessages.NIVEL_CARGO;
+  Estado_Empleo = commonMessages.ESTADO_EMPLEO;
+  Empresa_Actual = commonMessages.EMPRESA_ACTUAL;
+  Quitar_experiencia = commonMessages.QUITAR_EXPERIENCIA;
+  
+
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,

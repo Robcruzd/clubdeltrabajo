@@ -5,41 +5,41 @@
                 <fa-icon [icon]="faCommentDots" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Crear oferta</p>
+                    <p class="titulo-boton">{{Crear_oferta}}</p>
                 </div>
             </button>
             <button class="btn boton-clicked" (click)="editarPerfil()">
                 <fa-icon [icon]="faEllipsisH" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Editar perfil</p>
+                    <p class="titulo-boton">{{Editar_Perfil}}</p>
                 </div>
             </button>
             <!-- <button class="btn boton-no-clicked" (click)="clubEmpresas()">
                 <fa-icon icon="suitcase" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Club de empresas</p>
+                    <p class="titulo-boton">{{Club_Empresas}}</p>
                 </div>
             </button> -->
             <button class="btn boton-no-clicked" (click)="verOferta()">
                 <fa-icon icon="eye" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Controla tus ofertas</p>
+                    <p class="titulo-boton">{{Controla_Ofertas}}</p>
                 </div>
             </button>
             <!-- <button class="btn boton-no-clicked" (click)="membresia()">
                 <fa-icon [icon]="faStar" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Membresía</p>
+                    <p class="titulo-boton">{{Membresia}}</p>
                 </div>
             </button> -->
         </div>
         <div class="div-infos">
             <form [formGroup]="formEmpresa" (ngSubmit)="onSubmit()">
-            <p class="estilo_titulo">Razón social: {{formEmpresa.get('razonSocial')?.value}}</p>
+            <p class="estilo_titulo">{{Razon_Social}}: {{formEmpresa.get('razonSocial')?.value}}</p>
             <div class="row" style="margin-bottom: 2rem">
                 <a class="image" (click)="subirdocu.click()">
                     <div *ngIf="imagen?.archivo">
@@ -66,7 +66,7 @@
             </div>
             <div class="row">
                 <div class="form-group-2">
-                    <p class="estilo_label">Nombre comercial de la empresa <span
+                    <p class="estilo_label">{{Nombre_Comercial}} <span
                             class="estilo_campo_requerido">*</span></p>
                     <input type="text" class="estilo_inputs" formControlName="razonComercial" oninput="this.value = this.value.toUpperCase()">
                     <small *ngIf="formEmpresa.get('razonComercial')?.errors?.required"
@@ -77,7 +77,7 @@
             </div>
             <div class="row">
                 <div class="form-group-2">
-                    <p class="estilo_label">Razón Social <span
+                    <p class="estilo_label">{{Razon_Social}} <span
                             class="estilo_campo_requerido">*</span></p>
                     <input type="text" class="estilo_inputs" formControlName="razonSocial" oninput="this.value = this.value.toUpperCase()">
                     <small *ngIf="formEmpresa.get('razonSocial')?.errors?.required"
@@ -89,7 +89,7 @@
             <div class="row">
                 <div class="column">
                     <div class="form-group">
-                        <p class="estilo_label">NIT <span
+                        <p class="estilo_label">{{Nit}} <span
                                 class="estilo_campo_requerido">*</span></p>
                         <div class="estilo_nit" >
                             <input type="text" class="estilo_inputs" formControlName="numeroDocumento">
@@ -109,7 +109,7 @@
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <p class="estilo_label">Teléfono <span
+                        <p class="estilo_label">{{Telefono}} <span
                                 class="estilo_campo_requerido">*</span></p>
                         <input type="text" class="estilo_inputs" formControlName="telefono">
                         <small *ngIf="formEmpresa.get('telefono')?.errors?.required"
@@ -122,7 +122,7 @@
             <div class="row">
                 <div class="column">
                     <div class="form-group">
-                        <p class="estilo_label">Sector empresa <span
+                        <p class="estilo_label">{{Sector_Empresa}} <span
                                 class="estilo_campo_requerido">*</span></p>
                         <input type="text" class="estilo_inputs" formControlName="sector">
                         <small *ngIf="formEmpresa.get('sector')?.errors?.required"
@@ -133,7 +133,7 @@
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <p class="estilo_label">Subsector empresa <span
+                        <p class="estilo_label">{{Subsector_Empresa}} <span
                                 class="estilo_campo_requerido">*</span></p>
                         <input type="text" class="estilo_inputs" formControlName="subsector">
                         <small *ngIf="formEmpresa.get('subsector')?.errors?.required"
@@ -146,7 +146,7 @@
             <div class="row">
                 <div class="column">
                     <div class="form-group">
-                        <p class="estilo_label">Página web <span
+                        <p class="estilo_label">{{Web}} <span
                                 class="estilo_campo_requerido">*</span></p>
                         <input type="text" class="estilo_inputs" formControlName="webPage">
                         <small *ngIf="formEmpresa.get('webPage')?.errors?.required"
@@ -157,7 +157,7 @@
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <p class="estilo_label">Cantidad empleados <span
+                        <p class="estilo_label">{{Cantidad_Empleados}} <span
                                 class="estilo_campo_requerido">*</span></p>
                         <input type="text" class="estilo_inputs" formControlName="cantidadEmpleados">
                         <small *ngIf="formEmpresa.get('cantidadEmpleados')?.errors?.required"
@@ -169,7 +169,7 @@
             </div>
             <div class="row">
                 <div class="form-group-descripcion">
-                    <p class="estilo_label">Descripción de la empresa <span class="estilo_campo_requerido">
+                    <p class="estilo_label">{{Descrip_Empresa}} <span class="estilo_campo_requerido">
                             *</span></p>
                     <textarea formControlName="descripcion" class="form-control text-area" rows="4"></textarea>
                     <small *ngIf="formEmpresa.get('descripcion')?.errors?.required"
@@ -181,7 +181,7 @@
             <div class="row">
                 <div class="column">
                     <div class="form-group">
-                        <p class="estilo_label">Nombre del representante legal <span
+                        <p class="estilo_label">{{Nombre_Representante}} <span
                                 class="estilo_campo_requerido">*</span></p>
                         <input type="text" class="estilo_inputs" formControlName="nombreRepresentante">
                         <small *ngIf="formEmpresa.get('nombreRepresentante')?.errors?.required"
@@ -192,7 +192,7 @@
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <p class="estilo_label">Apellidos del representante legal <span
+                        <p class="estilo_label">{{Apellidos_Representante}} <span
                                 class="estilo_campo_requerido">*</span></p>
                         <input type="text" class="estilo_inputs" formControlName="apellidosRepresentante">
                         <small *ngIf="formEmpresa.get('apellidosRepresentante')?.errors?.required"
@@ -205,7 +205,7 @@
             <div class="row">
                 <div class="column">
                     <div class="form-group">
-                        <p class="estilo_label">Correo electrónico <span
+                        <p class="estilo_label">{{Mail}} <span
                                 class="estilo_campo_requerido">*</span></p>
                         <input type="text" class="estilo_inputs" formControlName="email">
                         <small *ngIf="formEmpresa.get('email')?.errors?.required"
@@ -216,7 +216,7 @@
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <p class="estilo_label">Teléfono representante<span
+                        <p class="estilo_label">{{Telefono_Representante}}<span
                                 class="estilo_campo_requerido">*</span></p>
                         <input type="text" class="estilo_inputs" formControlName="telefonoRep">
                         <small *ngIf="formEmpresa.get('telefonoRep')?.errors?.required"
@@ -274,7 +274,7 @@
                 </div>
                 <div class="column">
                     <div class="form-group">
-                        <p class="estilo_label">Dirección<span
+                        <p class="estilo_label">{{Direccion}}<span
                                 class="estilo_campo_requerido">*</span></p>
                         <input type="text" class="estilo_inputs" formControlName="direccion">
                         <small *ngIf="formEmpresa.get('direccion')?.errors?.required"
@@ -287,7 +287,7 @@
             </div>
             <div class="row">
                 <button (click)="onSubmit()" class="btn boton_siguiente" [disabled]="formEmpresa.invalid">
-                        Finalizar
+                        {{Finalizar}}
                 </button>
             </div>
             </form>

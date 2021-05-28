@@ -5,28 +5,28 @@
                 <fa-icon [icon]="faCommentDots" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Crear oferta</p>
+                    <p class="titulo-boton">{{Crear_oferta}}</p>
                 </div>
             </button>
             <button class="btn boton-no-clicked" (click)="editarPerfil()">
                 <fa-icon [icon]="faEllipsisH" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Editar perfil</p>
+                    <p class="titulo-boton">{{Editar_Perfil}}</p>
                 </div>
             </button>
             <!-- <button class="btn boton-no-clicked" (click)="clubEmpresas()">
                 <fa-icon icon="suitcase" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Club de empresas</p>
+                    <p class="titulo-boton">{{Club_Empresas}}</p>
                 </div>
             </button> -->
             <button class="btn boton-no-clicked" (click)="verOferta()">
                 <fa-icon icon="eye" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Controla tus ofertas</p>
+                    <p class="titulo-boton">{{Controla_ofertas}}</p>
                 </div>
             </button>
             <!-- <button class="btn boton-no-clicked" (click)="membresia()">
@@ -40,7 +40,7 @@
         <form [formGroup]="formDatosBasicos" *ngIf = "!visualizarOferta && !visualizarOfertasCreadas" (ngSubmit)="vistaPreliminarOferta()">
             <ng-container>
                 <div class="ngnum0">
-                    <p class="estilo_titulo">Creando oferta</p>
+                    <p class="estilo_titulo">{{Creando_Oferta}}</p>
                     <div class="row">
                         <div class="form-group">
                             <p class="estilo_label">{{labels.NOMBRE_OFERTA}} <span
@@ -60,7 +60,7 @@
                                         class="estilo_campo_requerido">*</span></p>
                                 <select formControlName="nivelLaboral" class="estilo_inputs"
                                     (change)="cargarSubnivel(formDatosBasicos.value)">
-                                    <option [ngValue]="null" disabled>Seleccione una opción</option>
+                                    <option [ngValue]="null" disabled>{{Seleccione_Opcion}}</option>
                                     <option *ngFor="let nivel of nivelesLaborales" 
                                     [ngValue]="nivel.codigo">
                                         {{ nivel.nombre }}
@@ -74,7 +74,7 @@
                             <div class="form-group">
                                 <p class="estilo_label">{{labels.SUB_NIVEL_LABORAL}} </p>
                                 <select formControlName="subNivelLaboral" class="estilo_inputs">
-                                    <option [ngValue]="null" disabled>Seleccione una opción</option>
+                                    <option [ngValue]="null" disabled>{{Seleccione_Opcion}}</option>
                                     <option *ngFor="let nivel of subnivelesLaborales" 
                                     [ngValue]="nivel.codigo">
                                         {{ nivel.nombre }}
@@ -105,7 +105,7 @@
 
                     <div class="row">
                         <div class="form-group-descripcion">
-                            <p class="estilo_label">Descripción y requisitos <span class="estilo_campo_requerido">
+                            <p class="estilo_label">{{Desc_Requi}} <span class="estilo_campo_requerido">
                                     *</span></p>
                             <textarea formControlName="requisitos" class="form-control text-area" rows="4"></textarea>
                             <small *ngIf="formDatosBasicos.get('requisitos')?.errors?.required"
@@ -156,7 +156,7 @@
                                 <p class="estilo_label">{{labels.RANGO_SALARIAL}}  <span
                                     class="estilo_campo_requerido">*</span></p>
                                 <select formControlName="rangoSalarial" class="estilo_inputs">
-                                    <option [ngValue]="null" disabled>Seleccione una opción</option>
+                                    <option [ngValue]="null" disabled>{{Seleccione_opcion}}</option>
                                     <option *ngFor="let aspiracion of aspiracionesSalariales" 
                                     [ngValue]="aspiracion.codigo">
                                         {{ aspiracion.nombre }}
@@ -166,7 +166,7 @@
                                 class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                                 <div class="no-publicar">
                                     <input type="checkbox" value="terminos" name="terminos" formControlName="mostrarSalario" class="radioB" ngChecked="true"/>
-                                    <label class="estilo_label" >No publicar salario
+                                    <label class="estilo_label" >{{No_Salario}}
                                         <!-- <a style="color: #03ECFF;" (click)="openScrollableContent(longContent)">Términos, Condiciones y Políticas de Privacidad.</a> -->
                                     </label>
                                 </div>
@@ -177,7 +177,7 @@
                                 <p class="estilo_label">{{labels.EXPERIENCIA_MINIMA}} <span
                                         class="estilo_campo_requerido">*</span></p>
                                 <select formControlName="experiencia" class="estilo_inputs">
-                                    <option [ngValue]="null" disabled>Seleccione una opción</option>
+                                    <option [ngValue]="null" disabled>{{Seleccione_Opcion}}</option>
                                     <option *ngFor="let experiencia of experienciasLaborales" 
                                     [ngValue]="experiencia.codigo">
                                         {{ experiencia.nombre }}
@@ -205,7 +205,7 @@
                                 class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small> -->
                             </div>
                             <div class="select-30">
-                                <p class="estilo_label">Nivel Idioma </p>
+                                <p class="estilo_label">{{Nivel_Idioma}} </p>
                                 <select formControlName="nivelIdioma" class="estilo_inputs">
                                     <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                                     <option
@@ -224,19 +224,19 @@
                                         <div class="div_radiobutton">
                                             <input class="radio-button" type="radio" [value]="labels.MASCULINO" formControlName="genero">
                                         </div>
-                                        <span class="text">Masculino</span>
+                                        <span class="text">{{M_Label}}</span>
                                     </label>
                                     <label class="radio-inline">
                                         <div class="div_radiobutton">
                                             <input class="radio-button" type="radio" [value]="labels.FEMENINO" formControlName="genero">
                                         </div>
-                                        <span class="text">Femenino</span>
+                                        <span class="text">{{F_Label}}</span>
                                     </label>
                                     <label class="radio-inline">
                                         <div class="div_radiobutton">
                                             <input class="radio-button" type="radio" [value]="null" formControlName="genero">
                                         </div>
-                                        <span class="text">No aplica</span>
+                                        <span class="text">{{No_Aplica}}</span>
                                     </label>
                                 </div>
                                 <small *ngIf="formDatosBasicos.get('genero')?.errors?.required"
@@ -251,7 +251,7 @@
                                 <p class="estilo_label">{{labels.TIPO_CONTRATO}}<span
                                     class="estilo_campo_requerido">*</span></p>
                                 <select formControlName="tipoContrato" class="estilo_inputs">
-                                    <option [ngValue]="null" disabled>Seleccione una opción</option>
+                                    <option [ngValue]="null" disabled>{{Seleccione_Opcion}}</option>
                                     <option *ngFor="let tipo of tiposContrato" 
                                     [ngValue]="tipo.codigo">
                                         {{ tipo.nombre }}
@@ -309,14 +309,14 @@
                     <div class="row">
                         <div class="column">
                             <button class="btn boton-volver" (click)="volverOferta()">
-                                <p class="titulo-boton">Volver</p>
+                                <p class="titulo-boton">{{Volver}}</p>
                             </button>
                         </div>
                         <div class="column">
                             <button  class="btn btn-success" type="submit" 
                             [disabled]="formDatosBasicos.invalid"
                             >
-                                <p class="titulo-boton">Continuar</p>
+                                <p class="titulo-boton">{{Continuar}}</p>
                             </button>   
                         </div>
                     </div>
@@ -332,30 +332,30 @@
         <ng-container>
         <br>
         <br>
-            <p class="estilo_titulo2">Así quedará su oferta</p>
+            <p class="estilo_titulo2">{{Asi_Quedara_Oferta}}</p>
             <div *ngIf = "visualizarOferta" class="ngnum1">
                 <ng-container>
-                    <p class="titulo_oferta">Oferta</p>
+                    <p class="titulo_oferta">{{Oferta}}</p>
                     <p class="profesion_oferta">{{profesionOferta}}</p>
                     <p class="descripcion_profesion">{{descripcionOferta}}</p>
                     <div class="tabla-hor">
                         <div class="data-ver">
-                            <p class="titulo">Título:</p>
+                            <p class="titulo">{{Titulo}}:</p>
                             <p class="info">{{tituloOferta}}</p>
-                            <p class="titulo">Experiencia:</p>
+                            <p class="titulo">{{Experiencia}}:</p>
                             <p class="info">{{experienciaOferta}}</p>
                         </div>
                         <div class="data-ver">
-                            <p class="titulo">Tipo de Contrato:</p>
+                            <p class="titulo">{{Tipo_Contrato}}:</p>
                             <p class="info">{{contratoOferta}}</p>
-                            <p class="titulo">Ciudad:</p>
+                            <p class="titulo">{{Ciudad}}:</p>
                             <p class="info">{{ciudadOferta}}</p>
                         </div>
                         <div class="data-ver">
-                            <p class="titulo">Publicado:</p>
+                            <p class="titulo">{{Publicado}}:</p>
                             <p class="info">{{publicadoOFerta}}</p>
                             <div *ngIf="!mostrarSalario">
-                                <p class="titulo">Salario:</p>
+                                <p class="titulo">{{Salario}}:</p>
                                 <p class="info">{{salarioOferta}}</p>
                             </div>
                         </div>
@@ -364,10 +364,10 @@
             </div>
             <div class="botones">
                 <button class="btn boton-volver" (click)="volverCrearOferta()" *ngIf = "visualizarOferta">
-                    <p class="titulo-boton">Volver</p>
+                    <p class="titulo-boton">{{Volver}}</p>
                 </button>
                 <button class="btn btn-success" (click)="onSubmit()" *ngIf = "visualizarOferta">
-                    <p class="titulo-boton">Publicar</p>
+                    <p class="titulo-boton">{{Publicar}}</p>
                 </button>
             </div>
         </ng-container>

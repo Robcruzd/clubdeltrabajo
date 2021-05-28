@@ -5,35 +5,35 @@
                 <fa-icon [icon]="faCommentDots" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Crear oferta</p>
+                    <p class="titulo-boton">{{Crear_Oferta}}</p>
                 </div>
             </button>
             <button class="btn boton-no-clicked" (click)="editarPerfil()">
                 <fa-icon [icon]="faEllipsisH" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Editar perfil</p>
+                    <p class="titulo-boton">{{Editar_perfil}}</p>
                 </div>
             </button>
             <button class="btn boton-no-clicked" (click)="clubEmpresas()">
                 <fa-icon icon="suitcase" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Club de empresas</p>
+                    <p class="titulo-boton">{{Club_empresas}}</p>
                 </div>
             </button>
             <button class="btn boton-no-clicked" (click)="controlaOferta()">
                 <fa-icon icon="eye" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Controla tus ofertas</p>
+                    <p class="titulo-boton">{{Controla_ofertas}}</p>
                 </div>
             </button>
             <button class="btn boton-no-clicked" (click)="membresia()">
                 <fa-icon [icon]="faStar" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Membresía</p>
+                    <p class="titulo-boton">{{Membresia}}</p>
                 </div>
             </button>
         </div>
@@ -50,9 +50,9 @@
                         <p class="descripcion_profesion">{{listaResultadoOfertas[0].descripcion}}</p>
                         <table class="tabla_oferta" style="width: 90%;">
                             <tr>
-                              <th class="titulo_oferta_previsualizacion">Titulo:</th>
-                              <th class="titulo_oferta_previsualizacion">Tipo de contrato:</th>
-                              <th class="titulo_oferta_previsualizacion">Publicado:</th>
+                              <th class="titulo_oferta_previsualizacion">{{Titulo}}:</th>
+                              <th class="titulo_oferta_previsualizacion">{{Tipo_Contrato}}:</th>
+                              <th class="titulo_oferta_previsualizacion">{{Publicado}}:</th>
                             </tr>
                             <tr>
                               <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].titulo}}</td>
@@ -62,9 +62,9 @@
                         </table>
                         <table class="tabla_oferta" style="width: 90%;">
                             <tr>
-                              <th class="titulo_oferta_previsualizacion">Experiencia:</th>
-                              <th class="titulo_oferta_previsualizacion">Ciudad:</th>
-                              <th class="titulo_oferta_previsualizacion">Salario:</th>
+                              <th class="titulo_oferta_previsualizacion">{{Experiencia}}:</th>
+                              <th class="titulo_oferta_previsualizacion">{{Ciudad}}:</th>
+                              <th class="titulo_oferta_previsualizacion">{{Salario}}:</th>
                             </tr>
                             <tr>
                               <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].experiencia}}</td>
@@ -79,25 +79,25 @@
     </div>
     <div class="contenedor3">
         <div class="div-center3">
-            <p class="titulo_aspirantes" *ngIf="mostrar">Perfiles aspirantes</p>
-            <p class="titulo_aspirantes" *ngIf="!mostrar">Resultados para ******</p>
+            <p class="titulo_aspirantes" *ngIf="mostrar">{{Perfiles_Aspirantes}}</p>
+            <p class="titulo_aspirantes" *ngIf="!mostrar">{{Resultados_Para}}</p>
             <div class="cuerpo">
                 <div class="buscador">
                 <div class="input-buscador">
                     <input matInput placeholder="Busqueda" class="form-control" value="">
                 </div>
                 <div class="empresas">
-                    <p class="titulo">Perfiles</p>
+                    <p class="titulo">{{Perfiles}}</p>
                     <p class="resultado">{{totalAspirantes}} resultados</p>
                 </div>
                 <div class="Sector">
-                    <p class="titulo">Ordenar perfiles</p>
+                    <p class="titulo">{{Ordenar_Perfiles}}</p>
                     <select class="resultado">
-                    <option>Seleccionar</option>
+                    <option>{{Seleccionar}}</option>
                     </select>
                 </div>
                 <div class="Sector">
-                    <p class="titulo">Edad</p>
+                    <p class="titulo">{{Edad}}</p>
                     <select class="resultado" [(ngModel)]="edadValue" (change)="cargarAspirantes()">
                         <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
                         <option *ngFor="let edad of edades" 
@@ -107,13 +107,13 @@
                     </select>
                 </div>
                 <div class="Sector">
-                    <p class="titulo">Cargo</p>
+                    <p class="titulo">{{Cargo}}</p>
                     <select class="resultado">
-                    <option>Seleccionar</option>
+                    <option>{{Seleccionar}}</option>
                     </select>
                 </div>
                 <div class="Sector">
-                    <p class="titulo">Ciudad</p>
+                    <p class="titulo">{{Ciudad}}</p>
                     <select class="resultado" [(ngModel)]="municipioValue" (change)="cargarAspirantes()">
                         <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
                         <option
@@ -124,15 +124,15 @@
                     </select>
                 </div>
                 <div class="Sector">
-                    <p class="titulo">Género</p>
+                    <p class="titulo">{{Genero}}</p>
                     <select class="resultado" [(ngModel)]="generoValue" (change)="cargarAspirantes()">
                         <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                        <option value="M" >Masculino</option>
-                        <option value="F" >Femenino</option>
+                        <option value="M" >{{Masculino}}</option>
+                        <option value="F" >{{Femenino}}</option>
                     </select>
                 </div>
                 <div class="Sector">
-                    <p class="titulo">Experiencia</p>
+                    <p class="titulo">{{Experiencia}}</p>
                     <select class="resultado" [(ngModel)]="experienciaValue" (change)="cargarAspirantes()">
                         <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
                         <option *ngFor="let experiencia of experienciasLaborales" 
@@ -142,7 +142,7 @@
                     </select>
                 </div>
                 <div class="Sector">
-                    <p class="titulo">Salario</p>
+                    <p class="titulo">{{Salario}}</p>
                     <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarAspirantes()">
                         <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
                         <option *ngFor="let aspiracion of aspiracionesSalariales" 
@@ -181,7 +181,7 @@
                         </div>
                         <div class="parte4" style="justify-content: center;">
                             <fa-icon [icon]="faUserCircle" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon>
-                            <p class="verhv">Ver H.V.</p>
+                            <p class="verhv">{{VerHV}}</p>
                         </div>
                     </a>
                     </div>
@@ -197,10 +197,10 @@
         </div>
     </div>    
     <div class="contenedor4">
-        <p class="titulo5">Buscar más perfiles</p>
+        <p class="titulo5">{{Buscar_Mas_Perfiles}}</p>
         <div style="display: flex;">
         <input type="text" placeholder="Escribe un cargo" class="buscar2">
         <input type="text" placeholder="Escribe una ciudad" class="buscar2">
         </div>
-        <button class="btn-buscar">Buscar</button>
+        <button class="btn-buscar">{{Buscar}}</button>
     </div>

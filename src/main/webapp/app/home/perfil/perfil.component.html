@@ -16,16 +16,16 @@
                         <qrcode style="display: none;" class="codigo" *ngIf="qrCard" [qrdata]="qrCard" [width]="81"></qrcode>
                         <div class="titulo_div">
                             <h2 class="titulo" *ngIf="true">{{persona?.nombre}} {{persona?.apellido}}</h2>
-                            <label class="label_card" *ngIf="hojaVidaVo?.informacionPersonal?.profesion">Profesión</label>
+                            <label class="label_card" *ngIf="hojaVidaVo?.informacionPersonal?.profesion">{{Profesion}}</label>
                             <label class="label_card2" *ngIf="hojaVidaVo?.informacionPersonal?.profesion">{{hojaVidaVo?.informacionPersonal?.profesion?.profesion}}</label>
                             <br>
                             <label class="label_card">CC</label>
                             <label class='label_card2'> {{persona?.numeroDocumento}}</label>
                             <br>
-                            <label class="label_card" *ngIf="hojaVidaVo?.informacionPersonal?.telefono">Celular</label>
+                            <label class="label_card" *ngIf="hojaVidaVo?.informacionPersonal?.telefono">{{Celular}}</label>
                             <label class="label_card2" *ngIf="hojaVidaVo?.informacionPersonal?.telefono">{{hojaVidaVo?.informacionPersonal?.telefono}}</label>
                             <br>
-                            <label class="label_card">Email</label>
+                            <label class="label_card">{{Email}}</label>
                             <label class="label_card2">{{persona?.email}}</label>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                 <h2 class="titulo color-letra">{{persona?.nombre}} {{persona?.apellido}}</h2>
                 <p class="texto-hoja-vida color-letra">{{hojaVidaVo?.informacionPersonal?.perfilProfesional}}</p><br><br>
                 <div *ngIf="hojaVidaVo?.experienciaLaboral.length > 0" class="experiencias">
-                    <h4 class="titulo-experiencia color-letra">EXPERIENCIA LABORAL</h4><br>
+                    <h4 class="titulo-experiencia color-letra">{{Exp_Laboral}}</h4><br>
                     <div *ngFor="let item of hojaVidaVo?.experienciaLaboral">
                         <div style="display: flex;">
                             <fa-icon icon="building" class="icono_experiencia color-letra"></fa-icon>&nbsp;
@@ -48,7 +48,7 @@
                         <div style="display: flex;">
                             <fa-icon icon="thumbtack" class="icono_experiencia color-letra"></fa-icon>&nbsp;
                             <div *ngIf="item?.trabajoActual==true">
-                                <p class="texto-experiencia color-letra">{{item?.fechaInicio}} / Actualidad</p>
+                                <p class="texto-experiencia color-letra">{{item?.fechaInicio}} / {{Actualidad}}</p>
                             </div>
                             <div *ngIf="item?.trabajoActual==false">
                                 <p class="texto-experiencia color-letra">{{item?.fechaInicio}} / {{item?.fechaFin}}</p>
@@ -90,7 +90,7 @@
             <h2 class="titulo color-letra" style="text-align: center; font-size: 2.601vw;">{{persona?.nombre}} {{persona?.apellido}}</h2>
             <p class="texto-hoja-vida color-letra">{{hojaVidaVo?.informacionPersonal?.perfilProfesional}}</p><br><br>
             <div *ngIf="hojaVidaVo?.experienciaLaboral.length > 0" class="experiencias">
-                <h4 class="titulo-experiencia color-letra" style="font-size: 1.463vw;">EXPERIENCIA LABORAL</h4><br>
+                <h4 class="titulo-experiencia color-letra" style="font-size: 1.463vw;">{{Exp_Laboral}}</h4><br>
                 <div *ngFor="let item of hojaVidaVo?.experienciaLaboral">
                     <div style="display: flex;">
                         <fa-icon icon="building" class="icono_experiencia color-letra"></fa-icon>&nbsp;
@@ -103,7 +103,7 @@
                     <div style="display: flex;">
                         <fa-icon icon="thumbtack" class="icono_experiencia color-letra"></fa-icon>&nbsp;
                         <div *ngIf="item?.trabajoActual==true">
-                            <p class="texto-experiencia color-letra">{{item?.fechaInicio}} / Actualidad</p>
+                            <p class="texto-experiencia color-letra">{{item?.fechaInicio}} / {{Actualidad}}</p>
                         </div>
                         <div *ngIf="item?.trabajoActual==false">
                             <p class="texto-experiencia color-letra">{{item?.fechaInicio}} / {{item?.fechaFin}}</p>

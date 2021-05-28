@@ -51,6 +51,25 @@ export class HomeComponent implements OnInit, OnDestroy {
   imagen: any;
   urlImgDefault = '../../../content/images/Image 28.png';
   showButtons = null;
+
+  Haz_Parte = commonMessages.HAZ_PARTE;
+  D_VIDEO = commonMessages.DANGER_VIDEO;
+  Registra_HV = commonMessages.REGISTRA_YA_HV;
+  ES_GRATIS = commonMessages.ES_GRATIS;
+  Ya_Registrado = commonMessages.YA_ESTAS_REGISTRADO;
+  Entra = commonMessages.ENTRA;
+  Ofertas_Destacadas = commonMessages.OFERTAS_DESTACADAS;
+  Ver = commonMessages.VER;
+  Explora_ofertas = commonMessages.EXPLORA_CIENTOS_OFERTAS;
+  Registra_Hoja = commonMessages.REGISTRA_HOJA_VIDA;
+  Buscar = commonMessages.BUSCAR;
+  Clic_Aca = commonMessages.CLIC_ACA;
+  Es_Gratis_M = commonMessages.ES_GRATIS_M;
+  Nuevas_Ofertas = commonMessages.NUEVAS_OFERTAS;
+  Ofertas_Email = commonMessages.OFERTAS_EMAIL;
+  Emp_B_Candidatos = commonMessages.EMPRESA_BUSCA_CANDIDATOS;
+      
+
   @ViewChild('panel', { read: ElementRef }) public panel!: ElementRef<any>;
 
   constructor(

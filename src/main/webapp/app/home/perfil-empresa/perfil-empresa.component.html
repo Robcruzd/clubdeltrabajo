@@ -6,16 +6,16 @@
                 <fa-icon [icon]="faCommentDots" class="border-icon" style="
                 background: #D0D4F0 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Crear Oferta</p>
-                    <p class="texto-boton">Ingresa detalles y requisitos para tu oferta.</p>
+                    <p class="titulo-boton">{{Crear_Oferta}}</p>
+                    <p class="texto-boton">{{Requisitos_Oferta}}</p>
                 </div>
             </button>
             <button (click)="verOferta()" class="btn boton-base">
                 <fa-icon icon="eye" class="border-icon" style="
                 background: #BCFAF3 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Controla tus ofertas</p>
-                    <p class="texto-boton">Controla todas tus ofertas</p>
+                    <p class="titulo-boton">{{Controla_Ofertas}}</p>
+                    <p class="texto-boton">{{Controla_Todas_Ofertas}}</p>
                 </div>
             </button>
             <!-- <button (click)="membresia()" class="btn boton-base">
@@ -30,7 +30,7 @@
                 <fa-icon [icon]="faEllipsisH" class="border-icon" style="
                 background: #D5D0E8 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Editar Perfil</p>
+                    <p class="titulo-boton">{{Editar_Perfil}}</p>
                 </div>
             </button>
             <!-- <button (click)="clubEmpresas()" class="btn boton-base">
@@ -45,7 +45,7 @@
             <div class="left">
                 <img class="foto-perfil rounded-circle" [src]="imagen?.archivo || urlImgDefault">
                 <div class="info-empresa">
-                    <p class="titulo-text">Correo Electrónico</p>
+                    <p class="titulo-text">{{Correo_Electronico}}</p>
                     <p class="texto-text">{{empresaEnSesion.email}}</p>
                 </div>
             </div>

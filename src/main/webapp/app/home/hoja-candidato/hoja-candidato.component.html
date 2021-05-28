@@ -9,7 +9,7 @@
         </div>
         
         <div class="titulo">
-            <p class="titulo1">Título</p>
+            <p class="titulo1">{{Titulo}}</p>
             <p class="titulo2">{{listaResultadoHojaCandidato[0].profesion}}</p>
         </div>
 
@@ -18,19 +18,19 @@
         
 
             <div class="estudios">
-                <p class="titulo_estudios">Estudios</p>
+                <p class="titulo_estudios">{{Estudios}}</p>
                 <p class="p_estudios" *ngFor="let estudio of listaInformacionAcademica">
                     {{estudio.tituloOtorgado}}
                 </p>
             </div>
             <div class="idiomas">
-                <p class="titulo_idiomas">Idiomas</p>
+                <p class="titulo_idiomas">{{Idiomas}}</p>
                 <p class="p_idiomas" *ngFor="let idioma of listaIdiomas">
                     {{idioma.idIdioma.idioma}}    
                 </p>
             </div>
             <div class="experiencia">
-                <p class="titulo_experiencia">Experiencia</p>
+                <p class="titulo_experiencia">{{Exp}}</p>
                 <div class="p_experiencia" *ngFor="let experiencia of listaExperiencias">
                 <!-- <p class="p_experiencia" *ngFor="let experiencia of listaExperiencias"> -->
                     <div style="display: flex;">
@@ -44,7 +44,7 @@
                     <div style="display: flex;">
                         <fa-icon icon="thumbtack" class="icono_experiencia color-letra"></fa-icon>&nbsp;
                         <div *ngIf="experiencia?.trabajoActual==true">
-                            <p class="texto-experiencia color-letra">{{experiencia?.fechaInicio}} / Actualidad</p>
+                            <p class="texto-experiencia color-letra">{{experiencia?.fechaInicio}} / {{Actualidad}}</p>
                         </div>
                         <div *ngIf="experiencia?.trabajoActual==false">
                             <p class="texto-experiencia color-letra">{{experiencia?.fechaInicio}} / {{experiencia?.fechaFin}}</p>
@@ -61,10 +61,10 @@
         <div class="clubtrabajo">
             <div class="publicidad">
                 <img src="../../../content/images/logoazaz.png" alt="Club del Trabajo" class="img2">
-                <p class="web">www.clubdeltrabajo.com</p>
+                <p class="web">{{Web_Club}}</p>
             </div>
             <div class="btn-estado">
-                <p class="t_estado">Estado</p>
+                <p class="t_estado">{{Estado}}</p>
                 <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="model">
                     <label ngbButtonLabel class="btn-primary1">
                       <input ngbButton type="radio" value="Ninguno">
@@ -83,9 +83,9 @@
         </div>
     </div>
     <div class = "botones_abajo">
-        <button class="volver" (click)="volver()">Volver</button>
+        <button class="volver" (click)="volver()">{{Volver}}</button>
         <button class="finalizar" (click)="guardarCambios()" [disabled]="cargando">
-            <div *ngIf="!cargando">Finalizar</div>
+            <div *ngIf="!cargando">{{Finalizar}}</div>
             <span *ngIf="cargando" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         </button>
     </div>

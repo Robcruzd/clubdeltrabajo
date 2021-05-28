@@ -5,14 +5,14 @@
                 <fa-icon [icon]="faCommentDots" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Crear oferta</p>
+                    <p class="titulo-boton">{{Crear_oferta}}</p>
                 </div>
             </button>
             <button class="btn boton-no-clicked" (click)="editarPerfil()">
                 <fa-icon [icon]="faEllipsisH" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Editar perfil</p>
+                    <p class="titulo-boton">{{Editar_perfil}}</p>
                 </div>
             </button>
             <!-- <button class="btn boton-no-clicked" (click)="clubEmpresas()">
@@ -26,7 +26,7 @@
                 <fa-icon icon="eye" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Controla tus ofertas</p>
+                    <p class="titulo-boton">{{Controla_ofertas}}</p>
                 </div>
             </button>
             <!-- <button class="btn boton-no-clicked" (click)="membresia()">
@@ -41,13 +41,13 @@
             <div class="div-center3">
                 <ng-container>
                     <div style="padding-top: 2.601vw;">
-                    <p class="estilo_titulo3">Tus ofertas:</p>
+                    <p class="estilo_titulo3">{{Tus_Ofertas}}:</p>
                     </div>
                     <div class="ngnum3">
                         <ng-container *ngFor = "let oferta of listaOFertasCreadas; index as inde">
                             <div class="ofertaCreada" >
                                 <div class="div1Oferta">
-                                    <p class="titulo_div1">Oferta {{inde+1}}</p>
+                                    <p class="titulo_div1">{{Oferta}} {{inde+1}}</p>
                                     <fa-icon icon="eye" class="border-icon" style="
                                     background: transparent;" *ngIf="oferta.activado"></fa-icon>
                                     <button class="boton-eliminar" (click)='eliminarOfertaid(oferta.id)'>
@@ -61,7 +61,7 @@
                                     <p class="text3">{{oferta.ciudad}}</p>
                                     <div class="btnEditar">
                                     <button class="btn boton-editar" (click)="editarOferta(oferta.id)">
-                                        <p class="titulo-boton">Editar</p>
+                                        <p class="titulo-boton">{{Editar}}</p>
                                     </button>
                                     </div>
                                 </div>
@@ -72,15 +72,15 @@
                                 </div>
                                 <div class="div4Oferta"> 
                                     <div class="div-switch">
-                                        <p class="labelActivar" *ngIf="!oferta.activado">Activar oferta</p>
-                                        <p class="labelActivar" *ngIf="oferta.activado">Detener oferta</p>
+                                        <p class="labelActivar" *ngIf="!oferta.activado">{{A_oferta}}</p>
+                                        <p class="labelActivar" *ngIf="oferta.activado">{{D_oferta}}</p>
                                         <label class="switch">
                                             <input type="checkbox" [checked]= oferta.activado [(ngModel)]="oferta.activado" (change)="cambiarEstado($event, oferta)">
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
                                     <button class="btn boton-entrar">
-                                        <p class="titulo-boton-entrar" (click)="entrarOferta(oferta.id)">Entrar</p>
+                                        <p class="titulo-boton-entrar" (click)="entrarOferta(oferta.id)">{{Entrar}}</p>
                                     </button>
                                 </div>
                             </div> 
@@ -89,7 +89,7 @@
                     <div class="btnVolver">
                         <button class="btn boton-volver" (click)="volverCrearOferta()">
                             <!-- <fa-icon icon="chevron-left" class="border-icon" ></fa-icon> -->
-                            <p class="titulo-boton">Volver a perfil</p>
+                            <p class="titulo-boton">{{Volver_Perfil}}</p>
                         </button>
                     </div>
                 </ng-container>

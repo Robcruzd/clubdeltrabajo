@@ -44,6 +44,18 @@ export class ControlarOfertasComponent implements OnInit {
   totalNinguno = 0;
   showBtnArriba= false;
 
+  Crear_oferta = commonMessages.CREAR_OFERTA;
+  Editar_oferta = commonMessages.EDITAR_PERFIL;
+  Controla_ofertas = commonMessages.CONTROLA_TUS_OFERTAS;
+  Tus_Ofertas = commonMessages.TUS_OFERTAS;
+  Oferta = commonMessages.OFERTA;
+  Editar = commonMessages.EDITAR;
+  A_oferta = commonMessages.ACTIVAR_OFERTA;
+  D_oferta = commonMessages.DETENER_OFERTA;
+  Entrar = commonMessages.ENTRAR;
+  Volver_Perfil = commonMessages.VOLVER_A_PERFIL;
+  
+
   constructor(
     private accountService: AccountService,
     private ofertaService: OfertaService,

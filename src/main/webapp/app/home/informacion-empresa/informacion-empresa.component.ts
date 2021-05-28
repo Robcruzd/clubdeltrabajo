@@ -17,6 +17,20 @@ export class InformacionEmpresaComponent implements OnInit {
   formulario!: FormGroup;
   informacionEmpresaVo!: InformacionEmpresaVo | null;
 
+  Hablemos = commonMessages.HABLEMOS;
+  Nombre = commonMessages.NOMBRE_LABEL;
+  Danger_Campo_Obligatorio = commonMessages.DANGER_CAMPO_OBLIGATORIO;
+  Apellidos = commonMessages.APELLIDOS;
+  Email = commonMessages.CORREO_ELECTRONICO_LABEL;
+  Danger_Correo = commonMessages.DANGER_CORREO;
+  Tel = commonMessages.TELEFONO;
+  Mensaje = commonMessages.MENSAJE;
+  Enviar = commonMessages.ENVIAR;
+  Telefonos = commonMessages.TELEFONOS;
+  Correo_Info = commonMessages.CORREO_INFO;
+  Tel_Club = commonMessages.TEL_CLUB;
+  
+
   constructor(
     private fb: FormBuilder,
     private informacionEmpresaService: InformacionEmpresaService,

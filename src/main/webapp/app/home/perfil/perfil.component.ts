@@ -40,6 +40,13 @@ export class PerfilComponent implements OnInit {
   personaInicial!: number;
   archivos!: Array<Archivo> | undefined;
 
+  Profesion = commonMessages.PROFESION_LABEL;
+  Celular = commonMessages.CELULAR;
+  Email = commonMessages.CORREO_ELECTRONICO_LABEL;
+  Exp_Laboral = commonMessages.EXPERIENCIA_LABORAL_LABEL;
+  Actualidad = commonMessages.ACTUALIDAD;
+  
+
   constructor(
     private router: Router,
     private accountService: AccountService,

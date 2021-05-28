@@ -11,7 +11,7 @@
         <div class="col-md-5" style="max-width: 38.362vw;">
             <div class="informacion-hoja-vida">
                 <div *ngIf="!cargado" class="spinner-grow text-dark center-spinner" style="width: 3.121vw; height: 3.121vw;" role="status">
-                    <span class="sr-only">Loading...</span>
+                    <span class="sr-only">{{Loading}}</span>
                 </div>
                 <div style="height: 100%;" *ngIf="cargado">
                     <pdf-viewer [zoom]="0.9" [src]="pdfHojaVida64Render" [render-text-mode]="1" [original-size]="false" [show-all]="true"></pdf-viewer>
@@ -26,10 +26,10 @@
     <div class="container-pdf">
         <div class="box-left">
             <img class="foto-perfil" [src]="imagen?.archivo || urlImageDefault">
-            <h4 class="title">SOBRE MI</h4>
+            <h4 class="title">{{SOBRE_MI}}</h4>
             <div class='linea-base'></div>
             <p class="text" style="margin-top: 0.325vw;">{{hojaVidaVo?.informacionPersonal?.perfilProfesional}}</p>
-            <h4 class="title">CONTACTO</h4>
+            <h4 class="title">{{CONTACTO}}</h4>
             <div class='linea-base'></div>
             <div class="contacto-icons">
                 <img class="icono" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABJ0lEQVRIidXVLUsEURTG8Z+OICgYNBq0GQSjwaLB7bYtJpufwuQnEBYMgmhQq80iBi2CBhGLQRG2GBRsirqGuwt3x9mF2ZlFfODCnbmH5885577w3zUQzStYwVAqZgeXZcDe0MgYe0VMB6P5a4eYmSKAWGeyM/jERK+mcQZXHWISoT+FAd0audQrINY4Pvwu0TsWywDAccr8C6tlmcNyCrBZpjnh4F1EgFuMlA2ZF0rTguwXMUsy/tUxhoXm95zQ/PMioLSGca29Hxva7y7CNl8Tss6tSTylIAcYba4n2I3WnnGCLTnOzaxQshjyiCqOZF8tDdznyWQKd13MskY9D4DQ9G189wvQUgU3/QQQdk4Vpzpn9FAEEGsa6zgUGvsivB+1sgB/rx/ir3ZmFWUVPQAAAABJRU5ErkJggg=="/>
@@ -57,20 +57,20 @@
                     </div>
                 </div> -->
             </div>
-            <h4>EXPERIENCIA PROFESIONAL</h4>
+            <h4>{{Exp_Profesional}}</h4>
             <div class='linea-base'></div>
             <div class="experiencias" *ngFor="let item of hojaVidaVo?.experienciaLaboral">
                 <h5>{{item?.cargo?.cargo}}</h5>
                 <p>{{item?.nombreEmpresa}}</p>
                 <div *ngIf="item.trabajoActual==true">
-                    <p>{{item?.fechaInicio}} / Actualidad</p>
+                    <p>{{item?.fechaInicio}} / {{Actualidad}}</p>
                 </div>
                 <div *ngIf="item.trabajoActual!=true">
                     <p>{{item?.fechaInicio}} / {{item?.fechaFin}}</p>
                 </div>
                 <p>{{item.ciudad ? this.getCiudad('' + item.ciudad) : item.ciudadExtranjera}}</p>
             </div>
-            <h4>FORMACIÓN</h4>
+            <h4>{{FORMACION}}</h4>
             <div class='linea-base'></div>
             <div class="experiencias" *ngFor="let item of hojaVidaVo?.informacionAcademica">
                 <h5>{{item?.tituloOtorgado}}</h5>

@@ -1,6 +1,6 @@
 <div class="contenedor">
     <div *ngIf="general === 'true'" style="display: flex; align-items: flex-end; justify-content: center; margin-top: 2%;" class="presentacion">
-        <p class="text-top">¡Explora cientos de ofertas de trabajo!</p>
+        <p class="text-top">{{Explora_Ofertas}}</p>
         <img src="../../../content/images/img3.png" class="imgTop" style="margin-left: 2%;">
     </div>
     <div class="row">
@@ -8,7 +8,7 @@
             <div class="cuerpo">
                 <div *ngIf = "general === 'true'">
                     <div class="buscador">
-                        <p class="titulo-prof">Profesión</p>
+                        <p class="titulo-prof">{{Profesion}}</p>
                         <div class="input-buscador">
                             <input matInput placeholder="Busqueda" class="form-control"
                             (keyup.enter)="cargarOfertar()" [(ngModel)]="valorBusqueda">
@@ -19,12 +19,12 @@
                             </button>
                         </div>
                         <div class="empresas" >
-                            <p class="titulo">Empresas</p>
-                            <p class="resultado">{{totalEmpresas}} resultados</p>
+                            <p class="titulo">{{Empresas}}</p>
+                            <p class="resultado">{{totalEmpresas}} {{Resultados}}</p>
                         </div>
                         <div class="filtros" *ngIf = "filtrosOn">
                             <div class="Sector">
-                                <p class="titulo">Ciudad</p>
+                                <p class="titulo">{{Ciudad}}</p>
                                 <select class="resultado" [(ngModel)]="municipioValue" (change)="cargarOfertar()">
                                     <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
                                     <option
@@ -35,15 +35,15 @@
                                 </select>
                             </div>  
                             <div class="Sector">
-                                <p class="titulo">Género</p>
+                                <p class="titulo">{{Genero}}</p>
                                 <select class="resultado" [(ngModel)]="generoValue" (change)="cargarOfertar()">
                                     <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                                    <option value="M" >Masculino</option>
-                                    <option value="F" >Femenino</option>
+                                    <option value="M" >{{Masculino}}</option>
+                                    <option value="F" >{{Femenino}}</option>
                                 </select>
                             </div>
                             <div class="Sector">
-                                <p class="titulo">Experiencia</p>
+                                <p class="titulo">{{Experiencia}}</p>
                                 <select class="resultado" [(ngModel)]="experienciaValue" (change)="cargarOfertar()">
                                     <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
                                     <option *ngFor="let experiencia of experienciasLaborales" 
@@ -53,7 +53,7 @@
                                 </select>
                             </div>
                             <div class="Sector">
-                                <p class="titulo">Salario</p>
+                                <p class="titulo">{{Salario}}</p>
                                 <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarOfertar()">
                                     <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
                                     <option *ngFor="let aspiracion of aspiracionesSalariales" 
@@ -64,8 +64,8 @@
                             </div>
                        </div>
                        <div *ngIf= "showBtn" class="btnVerOcultar">
-                            <button *ngIf= "!filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ver Filtros</button>
-                            <button *ngIf= "filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ocultar Filtros</button>
+                            <button *ngIf= "!filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">{{Ver}}</button>
+                            <button *ngIf= "filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">{{Ocultar}}</button>
                        </div>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
                             <p class="sin-negrita">{{oferta.ciudad}}</p>
                             <p class="sin-negrita">Publicado: {{oferta.fecha}}</p>
                             <!-- </div> -->
-                            <button class="btn shadow-none button-ver" (click)="verOferta(oferta)">VER</button>
+                            <button class="btn shadow-none button-ver" (click)="verOferta(oferta)">{{Ver1}}</button>
                         </div>
                     </div>
                     <pagination-controls (pageChange)="page = $event" class="controls" 
