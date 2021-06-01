@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { commonMessages } from 'app/shared/constants/commonMessages';
-import { combineAll } from 'rxjs/operators';
+// import { combineAll } from 'rxjs/operators';
 
 @Component({
   selector: 'jhi-solicitar-registro',
@@ -9,7 +9,6 @@ import { combineAll } from 'rxjs/operators';
   styleUrls: ['./solicitar-registro.component.scss']
 })
 export class SolicitarRegistroComponent implements OnInit {
-
   Para_Ofrecer = commonMessages.PARA_OFRECER;
   Empresa_Registrada = commonMessages.EMPRESA_DEBE_REGISTRADA;
   Registra_Empresa = commonMessages.REGISTRA_EMPRESA;

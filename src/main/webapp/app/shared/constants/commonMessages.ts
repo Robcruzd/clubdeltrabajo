@@ -1,4 +1,4 @@
-import { EditarEmpresaComponent } from "app/home/editar-empresa/editar-empresa.component";
+// import { EditarEmpresaComponent } from "app/home/editar-empresa/editar-empresa.component";
 
 export const commonMessages = {
   PLACEHOLDER_CERTIFICADO: 'Adjunte certificado',
@@ -498,44 +498,44 @@ export const commonMessages = {
   NIVEL_IDIOMA: 'Nivel %',
   GENERO_ESPECIFICO: 'Género especifico',
 
-  //anthony
-  //agregar-usuario.component.html
-  REGISTRATE: 'Regístrate y entra al club.', //linea 5
-  TIPO_USUARIO_1: 'Persona Natural', //linea 8
-  TIPO_USUARIO_2: 'Persona Jurídica', //linea 10
-  NOMBRES: 'Nombres', //linea 18
-  SECTOR: 'Sector', //linea 25
-  APELLIDOS: 'Apellidos', //linea 32
-  RAZON_SOCIAL: 'Razón Social', //linea 39
-  SELECCIONE_TIPO: 'Seleccione un tipo', //LINEA 51
-  NIT: 'NIT', //LINEA 71
-  CORREO_ELECTRONICO: 'Correo Electrónico', //LINEA 78-85
-  PASSWORD: 'Contraseña', //linea 92
-  CONFIRMAR_PASSWORD: 'Confirmar Contraseña', //LINEA 104
-  CAPTCHA_CUANTO_ES: '¿Cuánto es?', //LINEA 117
-  RESOLVER: 'Resolver', //linea 131
-  REGISTRARME: 'Registrarme', //linea 139
-  ACEPTO_LOS: 'Acepto los', //linea 143
-  TERMINOS_CONDICIONES_POLITICAS: 'Términos, Condiciones y Políticas de Privacidad.', //LINEA 144
-  YA_REGISTRADO: '¡Ya estoy registrado!', //LINEA 151
-  ACEPTAR: 'Aceptar', //linea 166
+  // anthony
+  // agregar-usuario.component.html
+  REGISTRATE: 'Regístrate y entra al club.', // linea 5
+  TIPO_USUARIO_1: 'Persona Natural', // linea 8
+  TIPO_USUARIO_2: 'Persona Jurídica', // linea 10
+  NOMBRES: 'Nombres', // linea 18
+  SECTOR: 'Sector', // linea 25
+  APELLIDOS: 'Apellidos', // linea 32
+  RAZON_SOCIAL: 'Razón Social', // linea 39
+  SELECCIONE_TIPO: 'Seleccione un tipo', // LINEA 51
+  NIT: 'NIT', // LINEA 71
+  CORREO_ELECTRONICO: 'Correo Electrónico', // LINEA 78-85
+  PASSWORD: 'Contraseña', // linea 92
+  CONFIRMAR_PASSWORD: 'Confirmar Contraseña', // LINEA 104
+  CAPTCHA_CUANTO_ES: '¿Cuánto es?', // LINEA 117
+  RESOLVER: 'Resolver', // linea 131
+  REGISTRARME: 'Registrarme', // linea 139
+  ACEPTO_LOS: 'Acepto los', // linea 143
+  TERMINOS_CONDICIONES_POLITICAS: 'Términos, Condiciones y Políticas de Privacidad.', // LINEA 144
+  YA_REGISTRADO: '¡Ya estoy registrado!', // LINEA 151
+  ACEPTAR: 'Aceptar', // linea 166
 
-  //buscar-trabajo.component.html
+  // buscar-trabajo.component.html
   BUSCA_TRABAJO: 'Busca Trabajo',
   BUSCAR: 'Buscar',
   REGISTRA_HOJA_VIDA: 'Registra tu Hoja de Vida',
-  SOLUCIONES_EMPRESA : 'Soluciones para tu Empresa',
+  SOLUCIONES_EMPRESA: 'Soluciones para tu Empresa',
 
-  //Botones Arriba
+  // Botones Arriba
   CREAR_OFERTA: 'Crear oferta',
   EDITAR_PERFIL: 'Editar perfil',
   CLUB_DE_EMPRESAS: 'Club de empresas',
   CONTROLA_TUS_OFERTAS: 'Controla tus ofertas',
   MEMBRESIA: 'Membresía',
 
-  //Candidatos-oferta.component.html
-  //TITULO: 'Titulo:', TITULO_LABEL
-  //TIPO_CONTRATO: 'Tipo de contrato',
+  // Candidatos-oferta.component.html
+  // TITULO: 'Titulo:', TITULO_LABEL
+  // TIPO_CONTRATO: 'Tipo de contrato',
   PUBLICADO: 'Publicado',
   EXPERIENCIA: 'Experiencia',
   SALARIO: 'Salario',
@@ -564,7 +564,7 @@ export const commonMessages = {
   EXPERIENCIA_PROFESIONAL: 'EXPERIENCIA PROFESIONAL',
   ACTUALIDAD: 'Actualidad',
   FORMACION: 'FORMACIÓN',
-  
+
   TUS_OFERTAS: 'Tus ofertas',
   EDITAR: 'Editar',
   ACTIVAR_OFERTA: 'Activar oferta',
@@ -579,11 +579,11 @@ export const commonMessages = {
   QUITAR_IDIOMA: 'Quitar Idioma',
   PERFIL_PROFESIONAL: 'Perfil Profesional',
   EXPERIENCIA_ANIOS: '¿Cuántos años de experiencia laboral tienes?',
-  MESES : 'Meses',
+  MESES: 'Meses',
   ASPIRACION_SALARIAL: '¿Aspiración salarial? (en millones de pesos)',
   SELECCIONE_OPCION_LABEL: 'Seleccione una opción',
   MOVILIDAD_LABORAL: 'Movilidad Laboral (Opcional)',
-  PERMISO_TRABAJO_PAISES:'¿En cuales paises tiene permisos de trabajo?',
+  PERMISO_TRABAJO_PAISES: '¿En cuales paises tiene permisos de trabajo?',
   DANGER_LONG_TELEFONO: '*El teléfono debe contener de 7 a 10 números',
   NIVEL_CARGO: 'Nivel del Cargo',
   ESTADO_EMPLEO: 'Estado del empleo',
@@ -597,23 +597,23 @@ export const commonMessages = {
   CONTINUAR: 'Continuar',
   ASI_QUEDARA_OFERTA: 'Así quedará su oferta',
   PUBLICAR: 'Publicar',
-  
-  NOMBRE_COMERCIAL_EMPRESA:'Nombre comercial de la empresa',
+
+  NOMBRE_COMERCIAL_EMPRESA: 'Nombre comercial de la empresa',
   TELEFONO: 'Teléfono',
   TELEFONOS: 'Teléfonos',
   SECTOR_EMPRESA: 'Sector empresa',
   SUBSECTOR_EMPRESA: 'Subsector empresa',
   PAGINA_WEB: 'Página web',
   CANTIDAD_EMPLEADOS: 'Cantidad empleados',
-  DESCRIPCION_EMPRESA:'Descripción de la empresa',
+  DESCRIPCION_EMPRESA: 'Descripción de la empresa',
   NOMBRE_REPRESENTANTE_LEGAL: 'Nombre del representante legal',
   APELLIDOS_REPRESENTANTE_LEGAL: 'Apellidos del representante legal',
   TELEFONO_REPRESENTANTE_LEGAL: 'Teléfono representante',
   FINALIZAR: 'Finalizar',
 
   ESTUDIOS: 'Estudios',
-  WEB_CLUBDELTRABAJO : 'www.clubdeltrabajo.com',
-  
+  WEB_CLUBDELTRABAJO: 'www.clubdeltrabajo.com',
+
   HABLEMOS: 'Hablemos',
   DANGER_CAMPO_OBLIGATORIO: 'Este campo es obligatorio.',
   MENSAJE: 'Mensaje',
@@ -629,11 +629,13 @@ export const commonMessages = {
   HAZLO_AQUI: 'Hazlo aquí',
 
   NOSOTROS: 'Nosotros',
-  NOSOTROS_1: 'EL CLUB DEL TRABAJO es una plataforma digital que ofrece a nuestros socios crear un sistema de relacion directa con el empleo ideal, agilizando y facilitando los procesos de la gestión del talento humano.',
-  NOSOTROS_2: 'Tenemos a disposición diversos candidatos, en el caso de las nuevas necesidades de empleabilidad de manera permanente. Todo ello, sin necesidad de abrir nuevos y costosos procesos de selección y a la vez se reducen los tiempos de incorporación de nuestros socios a las diferentes empresas inscritas en el Club.',
+  NOSOTROS_1:
+    'EL CLUB DEL TRABAJO es una plataforma digital que ofrece a nuestros socios crear un sistema de relacion directa con el empleo ideal, agilizando y facilitando los procesos de la gestión del talento humano.',
+  NOSOTROS_2:
+    'Tenemos a disposición diversos candidatos, en el caso de las nuevas necesidades de empleabilidad de manera permanente. Todo ello, sin necesidad de abrir nuevos y costosos procesos de selección y a la vez se reducen los tiempos de incorporación de nuestros socios a las diferentes empresas inscritas en el Club.',
 
   CAMBIAR_CONTRASENIA: 'Cambiar contraseña',
-  CAMBIAR : 'Cambiar',
+  CAMBIAR: 'Cambiar',
   APLICAR: 'Aplicar',
   APLICADA: 'Aplicada',
 
@@ -648,7 +650,7 @@ export const commonMessages = {
 
   REGISTRA_EMPRESA_ENCUENTRA: 'Registra tu empresa, encuentra cientos de perfiles para tus vacantes.',
   REGISTRAR: 'Registrar',
-  
+
   BIENVENIDO: 'Bienvenido',
   PUBLICA_OFERTA_EMPLEO: 'Publica tu primera oferta de empleo',
   GRATIS: 'gratis',
@@ -656,11 +658,11 @@ export const commonMessages = {
   PUBLICA_OFERTA: 'Publica tu oferta',
   SELECCIONA_CANDIDATOS: 'Selecciona los mejores candidatos',
 
-  RECUPERA_CONTRASENIA : 'Recupera tu contraseña',
+  RECUPERA_CONTRASENIA: 'Recupera tu contraseña',
   ME_ACORDE: '¡Ya me acordé!',
   RECUPERAR: 'Recuperar',
 
-  EXPLORA_CIENTOS_OFERTAS : '¡Explora cientos de ofertas de trabajo!',
+  EXPLORA_CIENTOS_OFERTAS: '¡Explora cientos de ofertas de trabajo!',
   EMPRESAS: 'Empresas',
   RESULTADOS: 'resultados',
   VER: 'VER',
@@ -681,5 +683,5 @@ export const commonMessages = {
   CLIC_ACA: '¡Haz clic acá!',
   NUEVAS_OFERTAS: 'NUEVAS OFERTAS DIARIAS',
   OFERTAS_EMAIL: 'OFERTAS EN TU EMAIL',
-  EMPRESA_BUSCA_CANDIDATOS: 'Si eres EMPRESA y buscas candidatos',
+  EMPRESA_BUSCA_CANDIDATOS: 'Si eres EMPRESA y buscas candidatos'
 };

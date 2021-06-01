@@ -21,7 +21,6 @@ declare let alertify: any;
   templateUrl: './controlar-ofertas.component.html',
   styleUrls: ['./controlar-ofertas.component.scss']
 })
-
 export class ControlarOfertasComponent implements OnInit {
   listaOFertasCreadas: Array<IlistarOfertas> = [];
   faStar = faStar;
@@ -42,10 +41,10 @@ export class ControlarOfertasComponent implements OnInit {
   totalSeleccionado = 0;
   totalTodo = 0;
   totalNinguno = 0;
-  showBtnArriba= false;
+  showBtnArriba = false;
 
   Crear_oferta = commonMessages.CREAR_OFERTA;
-  Editar_oferta = commonMessages.EDITAR_PERFIL;
+  Editar_perfil = commonMessages.EDITAR_PERFIL;
   Controla_ofertas = commonMessages.CONTROLA_TUS_OFERTAS;
   Tus_Ofertas = commonMessages.TUS_OFERTAS;
   Oferta = commonMessages.OFERTA;
@@ -54,7 +53,6 @@ export class ControlarOfertasComponent implements OnInit {
   D_oferta = commonMessages.DETENER_OFERTA;
   Entrar = commonMessages.ENTRAR;
   Volver_Perfil = commonMessages.VOLVER_A_PERFIL;
-  
 
   constructor(
     private accountService: AccountService,
@@ -158,11 +156,11 @@ export class ControlarOfertasComponent implements OnInit {
   }
 
   editarOferta(id: any): void {
-    this.router.navigate(['/crear-oferta'], {queryParams:{ oferta: id }});
+    this.router.navigate(['/crear-oferta'], { queryParams: { oferta: id } });
   }
 
   entrarOferta(id: any): void {
-    this.router.navigate(['/candidatos-seleccionados'], {queryParams:{ oferta: id }});
+    this.router.navigate(['/candidatos-seleccionados'], { queryParams: { oferta: id } });
   }
 
   eliminarOfertaid(id: any): void {

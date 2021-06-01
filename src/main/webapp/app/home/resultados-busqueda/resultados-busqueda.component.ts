@@ -68,7 +68,7 @@ export class ResultadosBusquedaComponent implements OnInit {
   filtrosOn = false;
   showBtn = false;
 
-  Explora_Oferas = commonMessages.EXPLORA_CIENTOS_OFERTAS;
+  Explora_Ofertas = commonMessages.EXPLORA_CIENTOS_OFERTAS;
   Profesion = commonMessages.PROFESION_LABEL;
   Empresas = commonMessages.EMPRESAS;
   Resultados = commonMessages.RESULTADOS;
@@ -81,7 +81,6 @@ export class ResultadosBusquedaComponent implements OnInit {
   Ver = commonMessages.VER_FILTROS;
   Ocultar = commonMessages.OCULTAR_FILTROS;
   Ver1 = commonMessages.VER;
-  
 
   public page = 1;
   constructor(
@@ -329,7 +328,7 @@ export class ResultadosBusquedaComponent implements OnInit {
         if (this.experienciaValue != null) {
           params.experiencia = this.experienciaValue;
         }
-        params.estado = "A";
+        params.estado = 'A';
         params.activado = true;
         this.ofertaService.listar(params).subscribe(response => {
           this.resultadoBusqueda = response.content;
@@ -391,7 +390,7 @@ export class ResultadosBusquedaComponent implements OnInit {
         } else {
           params.salario = 0;
         }
-        params.estado = "A";
+        params.estado = 'A';
         params.activado = true;
         params.fecha = this.fechaValue;
         this.ofertaService.getOfertasFiltro(params).subscribe(response => {
@@ -460,7 +459,7 @@ export class ResultadosBusquedaComponent implements OnInit {
             if (this.experienciaValue != null) {
               params.experiencia = this.experienciaValue;
             }
-            params.estado = "A";
+            params.estado = 'A';
             params.activado = true;
             params.profesion = this.profesionesFiltro[i].id;
             this.resultadoBusqueda = await this.listarOfertas(params);
@@ -519,7 +518,7 @@ export class ResultadosBusquedaComponent implements OnInit {
             } else {
               params.salario = 0;
             }
-            params.estado = "A";
+            params.estado = 'A';
             params.activado = true;
             params.fecha = this.fechaValue;
             params.profesion = this.profesionesFiltro[i].id;
@@ -591,6 +590,6 @@ export class ResultadosBusquedaComponent implements OnInit {
   }
 
   verOferta(oferta: any): void {
-    this.router.navigate(['/oferta-publica'], {queryParams:{ oferta: oferta.idOferta, general: this.general }});
+    this.router.navigate(['/oferta-publica'], { queryParams: { oferta: oferta.idOferta, general: this.general } });
   }
 }

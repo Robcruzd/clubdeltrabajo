@@ -7,7 +7,7 @@
             <div class="typePersona">
                 <label [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'">{{PersonaNatural}}</label>
                 <input type="radio" value="natural" name="usuario" [(ngModel)]="tipoUsuario.nombre" (ngModelChange)="changeTipoUsuario('natural')"/>
-                <label [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'">{{PersonaJurídica}}</label>
+                <label [style.color]="tipoUsuario.id==1 ? 'white' : '#202A5D'">{{PersonaJuridica}}</label>
                 <input type="radio" value="juridico" name="usuario" [(ngModel)]="tipoUsuario.nombre" (ngModelChange)="changeTipoUsuario('juridico')"/>
             </div>
             <small *ngIf="mensajeTipoPersona" class="text-danger">

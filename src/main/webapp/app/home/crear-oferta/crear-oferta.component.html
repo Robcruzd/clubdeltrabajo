@@ -156,7 +156,7 @@
                                 <p class="estilo_label">{{labels.RANGO_SALARIAL}}  <span
                                     class="estilo_campo_requerido">*</span></p>
                                 <select formControlName="rangoSalarial" class="estilo_inputs">
-                                    <option [ngValue]="null" disabled>{{Seleccione_opcion}}</option>
+                                    <option [ngValue]="null" disabled>{{Seleccione_Opcion}}</option>
                                     <option *ngFor="let aspiracion of aspiracionesSalariales" 
                                     [ngValue]="aspiracion.codigo">
                                         {{ aspiracion.nombre }}

@@ -38,7 +38,7 @@ import { AccountService } from '../../core/auth/account.service';
 import { User } from '../../core/user/user.model';
 import { EmpresaService } from '../../entities/empresa/empresa.service';
 import Swal from 'sweetalert2';
-import { CONNREFUSED } from 'dns';
+// import { CONNREFUSED } from 'dns';
 
 const { exportPDF } = pdf;
 declare let alertify: any;
@@ -112,7 +112,6 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   filtrosOn = false;
   showBtnArriba = false;
 
-  
   Crear_Oferta = commonMessages.CREAR_OFERTA;
   Editar_perfil = commonMessages.EDITAR_PERFIL;
   Controla_ofertas = commonMessages.CONTROLA_TUS_OFERTAS;
@@ -142,7 +141,6 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   EXPERIENCIA_PROFESIONAL = commonMessages.EXPERIENCIA_PROFESIONAL;
   Actualidad = commonMessages.ACTUALIDAD;
   Formacion = commonMessages.FORMACION;
-  
 
   constructor(
     private router: Router,

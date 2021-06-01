@@ -9,8 +9,6 @@ import { commonMessages } from 'app/shared/constants/commonMessages';
   styleUrls: ['./primer-oferta.component.scss']
 })
 export class PrimerOfertaComponent implements OnInit {
-  constructor(private router: Router, private _location: Location) {}
-
   Bienvenido = commonMessages.BIENVENIDO;
   Publica_oferta_empleo = commonMessages.PUBLICA_OFERTA_EMPLEO;
   gratis = commonMessages.GRATIS;
@@ -18,7 +16,9 @@ export class PrimerOfertaComponent implements OnInit {
   Publica_Oferta = commonMessages.PUBLICAR_OFERTA;
   Selecciona_Candidatos = commonMessages.SELECCIONA_CANDIDATOS;
   Volver = commonMessages.VOLVER;
-  Crear = commonMessages.CREAR_OFERTA;  
+  Crear = commonMessages.CREAR_OFERTA;
+
+  constructor(private router: Router, private _location: Location) {}
 
   ngOnInit(): void {}
 

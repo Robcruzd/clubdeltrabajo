@@ -9,13 +9,13 @@ import { NavbarService } from 'app/shared/services/navbar.service';
   styleUrls: ['./previo-registrar-emp.component.scss']
 })
 export class PrevioRegistrarEmpComponent implements OnInit, OnDestroy {
-  constructor(private router: Router, private navbarService: NavbarService) {}
-
   Hola = commonMessages.HOLA;
   Parte_Club = commonMessages.HAZ_PARTE;
   Registra_Empresa = commonMessages.REGISTRA_EMPRESA_ENCUENTRA;
   Registrar = commonMessages.REGISTRAR;
-  
+
+  constructor(private router: Router, private navbarService: NavbarService) {}
+
   ngOnInit(): void {
     // eslint-disable-next-line no-console
     console.log('ngonit');
