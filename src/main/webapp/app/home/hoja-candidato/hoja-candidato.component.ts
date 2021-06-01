@@ -21,6 +21,7 @@ import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { HttpResponse } from '@angular/common/http';
 import { IRegiones } from 'app/shared/model/regiones.model';
+import { commonMessages } from 'app/shared/constants/commonMessages';
 
 @Component({
   selector: 'jhi-hoja-candidato',
@@ -57,6 +58,16 @@ export class HojaCandidatoComponent implements OnInit {
   geografia: Array<GeografiaVo> = [];
   municipios: Array<IOpcionVo> = [];
 
+  Titulo = commonMessages.TITULO_LABEL;
+  Estudios = commonMessages.ESTUDIOS;
+  Idiomas = commonMessages.IDIOMAS_LABEL;
+  Exp = commonMessages.EXPERIENCIA;
+  Actualidad = commonMessages.ACTUALIDAD;
+  Web_Club = commonMessages.WEB_CLUBDELTRABAJO;
+  Estado = commonMessages.ESTADO_LABEL;
+  Volver = commonMessages.VOLVER;
+  Finalizar = commonMessages.FINALIZAR;
+  
   constructor(
     private personaService: PersonaService,
     private ofertaService: OfertaService,

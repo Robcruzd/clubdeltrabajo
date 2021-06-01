@@ -1,15 +1,15 @@
 <div class="estilo_home">
     <img class="logo" src="../../../content/images/logo_cdt_fondo2.png">
     <div class="div_centro">
-        <h3 class="titulo1">Recupera tu contraseña</h3>
+        <h3 class="titulo1">{{Recupera}}</h3>
         <div class="inputs">
-            <label class="label-restaurar" style="color: white;">Email</label>
+            <label class="label-restaurar" style="color: white;">{{Email}}</label>
             <input type="text" class="estilo_input" [(ngModel)]="nombre">
             <label *ngIf="mensajeNombre" class="text-danger">
                 {{mensajeNombre}}
             </label>
         </div>
-        <button class="button_iniciar_sesion" (click)="resetPassword()">Recuperar</button>
-        <a class="recoverPassword" (click)="ventanaInicioSesionRegistrado()">¡Ya me acordé!</a>
+        <button class="button_iniciar_sesion" (click)="resetPassword()">{{Recuperar}}</button>
+        <a class="recoverPassword" (click)="ventanaInicioSesionRegistrado()">{{Recordar}}</a>
     </div>
 </div>

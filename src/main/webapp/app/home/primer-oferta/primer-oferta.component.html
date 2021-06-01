@@ -1,17 +1,17 @@
 <div class="estilo_home">
     <img class="estilo_imagen" src="../../../content/images/persona_contact3.png">
     <div class="div_centro">
-        <p class="titulo1">Bienvenido</p>
-        <p class="titulo2">Publica tu primera oferta de empleo <span class="texto-azul">gratis:</span></p>
+        <p class="titulo1">{{Bienvenido}}</p>
+        <p class="titulo2">{{Publica_oferta_empleo}} <span class="texto-azul">{{gratis}}:</span></p>
         <ol type="1" class="lista">
-            <li>Diligencia el formulario con los datos de tu oferta laboral</li>
-            <li>Publica tu oferta</li>
-            <li>Selecciona los mejores candidatos</li>
+            <li>{{Formulario}}</li>
+            <li>{{Publica_Oferta}}</li>
+            <li>{{Selecciona_Candidatos}}</li>
           </ol>
-        <button class="btn boton-crear-oferta shadow-none" value="Crear oferta" style="color:white;" (click)="crearOferta()">Crear oferta</button>
+        <button class="btn boton-crear-oferta shadow-none" value="Crear oferta" style="color:white;" (click)="crearOferta()">{{Crear}}</button>
         <button class="btn boton-volver" (click)="backClicked()">
             <fa-icon icon="chevron-left" class="border-icon" ></fa-icon>
-            <p class="titulo-boton">Volver</p>
+            <p class="titulo-boton">{{Volver}}</p>
         </button>
     </div>
 </div>

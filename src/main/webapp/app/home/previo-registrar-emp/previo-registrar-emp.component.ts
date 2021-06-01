@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { commonMessages } from 'app/shared/constants/commonMessages';
 import { NavbarService } from 'app/shared/services/navbar.service';
 
 @Component({
@@ -10,6 +11,11 @@ import { NavbarService } from 'app/shared/services/navbar.service';
 export class PrevioRegistrarEmpComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private navbarService: NavbarService) {}
 
+  Hola = commonMessages.HOLA;
+  Parte_Club = commonMessages.HAZ_PARTE;
+  Registra_Empresa = commonMessages.REGISTRA_EMPRESA_ENCUENTRA;
+  Registrar = commonMessages.REGISTRAR;
+  
   ngOnInit(): void {
     // eslint-disable-next-line no-console
     console.log('ngonit');

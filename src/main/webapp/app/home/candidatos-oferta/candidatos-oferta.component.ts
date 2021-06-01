@@ -47,6 +47,33 @@ export class CandidatosOfertaComponent implements OnInit {
   oferta!: IOferta | null;
   mostrar = true;
 
+  Crear_Oferta = commonMessages.CREAR_OFERTA;
+  Editar_perfil = commonMessages.EDITAR_PERFIL;
+  Club_empresas = commonMessages.CLUB_DE_EMPRESAS;
+  Controla_ofertas = commonMessages.CONTROLA_TUS_OFERTAS;
+  Membresia = commonMessages.MEMBRESIA;
+  Titulo = commonMessages.TITULO_LABEL;
+  Tipo_Contrato = commonMessages.TIPO_CONTRATO;
+  Publicado = commonMessages.PUBLICADO;
+  Experiencia = commonMessages.EXPERIENCIA;
+  Ciudad = commonMessages.CIUDAD_LABEL;
+  Salario = commonMessages.SALARIO;
+  Perfiles_Aspirantes = commonMessages.PERFILES_ASPIRANTES;
+  Resultados_Para = commonMessages.RESULTADOS_PARA;
+  Perfiles = commonMessages.PERFILES;
+  Ordenar_Perfiles = commonMessages.ORDENAR_PERFILES;
+  Seleccionar = commonMessages.SELECCIONAR;
+  Edad = commonMessages.EDAD;
+  Cargo = commonMessages.CARGO_LABEL;
+  Genero = commonMessages.GENERO;
+  Masculino = commonMessages.MASCULINO_LABEL;
+  Femenino = commonMessages.FEMENINO_LABEL;
+  VerHV = commonMessages.VER_HV;
+  Buscar_Mas_Perfiles = commonMessages.BUSCAR_MAS_PERFILES;
+  Buscar = commonMessages.BUSCAR;
+  
+
+
   constructor(
     private router: Router,
     private informacionPersonalService: InformacionPersonalService,

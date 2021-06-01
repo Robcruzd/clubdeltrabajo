@@ -68,6 +68,21 @@ export class ResultadosBusquedaComponent implements OnInit {
   filtrosOn = false;
   showBtn = false;
 
+  Explora_Oferas = commonMessages.EXPLORA_CIENTOS_OFERTAS;
+  Profesion = commonMessages.PROFESION_LABEL;
+  Empresas = commonMessages.EMPRESAS;
+  Resultados = commonMessages.RESULTADOS;
+  Ciudad = commonMessages.CIUDAD_LABEL;
+  Genero = commonMessages.GENERO_LABEL;
+  Masculino = commonMessages.MASCULINO_LABEL;
+  Femenino = commonMessages.FEMENINO_LABEL;
+  Experiencia = commonMessages.EXPERIENCIA;
+  Salario = commonMessages.SALARIO;
+  Ver = commonMessages.VER_FILTROS;
+  Ocultar = commonMessages.OCULTAR_FILTROS;
+  Ver1 = commonMessages.VER;
+  
+
   public page = 1;
   constructor(
     private dataService: DataService,

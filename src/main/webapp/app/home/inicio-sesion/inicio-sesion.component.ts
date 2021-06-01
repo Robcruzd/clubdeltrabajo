@@ -4,6 +4,7 @@ import { LoginService } from '../../core/login/login.service';
 import { Login } from '../../core/login/login.model';
 import { flatMap } from 'rxjs/operators';
 import { ActivateService } from 'app/account/activate/activate.service';
+import { commonMessages } from 'app/shared/constants/commonMessages';
 
 declare let alertify: any;
 
@@ -20,6 +21,15 @@ export class InicioSesionComponent implements OnInit {
   login = new Login(this.username, this.password, false);
   eyePrimero = '../../../content/images/eye.svg';
   inputPrimero = 'password';
+
+  Mensaje_Bienvenido = commonMessages.MENSAJE_BIENVENIDO;
+  Inicio_Registrado = commonMessages.INICIA_REGISTRADO;
+  Danger_Campo = commonMessages.DANGER_CAMPO_OBLIGATORIO;
+  Inicio_Sesion = commonMessages.INICIO_SESION;
+  Olvidaste_Contra = commonMessages.OLVIDASTE_CONTRASENIA;
+  No_Registrado = commonMessages.NO_REGISTRADO;
+  Hazlo_Aqui = commonMessages.HAZLO_AQUI;
+  
 
   constructor(
     private route: ActivatedRoute,

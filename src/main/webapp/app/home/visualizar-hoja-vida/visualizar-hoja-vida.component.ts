@@ -48,6 +48,14 @@ export class VisualizarHojaVidaComponent implements OnInit {
   showElement = true;
   qrCard: any;
 
+  Loading = commonMessages.LOADING;
+  SOBRE_MI = commonMessages.SOBRE_MI;
+  CONTACTO = commonMessages.CONTACTO;
+  Exp_Profesional = commonMessages.EXPERIENCIA_PROFESIONAL;
+  Actualidad = commonMessages.ACTUALIDAD;
+  FORMACION = commonMessages.FORMACION;
+  
+
   constructor(
     private router: Router,
     private accountService: AccountService,

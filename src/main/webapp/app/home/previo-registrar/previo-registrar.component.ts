@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { commonMessages } from 'app/shared/constants/commonMessages';
 
 @Component({
   selector: 'jhi-previo-registrar',
@@ -8,6 +9,11 @@ import { Router } from '@angular/router';
 })
 export class PrevioRegistrarComponent implements OnInit {
   constructor(private router: Router) {}
+
+  Hola = commonMessages.HOLA;
+  Parte_Club = commonMessages.HAZ_PARTE;
+  Registra_Completa_Encuentra = commonMessages.REGISTRATE_COMPLETA_ENCUENTRA;
+  Registrarte = commonMessages.REGISTRARTE;
 
   ngOnInit(): void {}
 

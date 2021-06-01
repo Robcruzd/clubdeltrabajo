@@ -38,6 +38,7 @@ import { AccountService } from '../../core/auth/account.service';
 import { User } from '../../core/user/user.model';
 import { EmpresaService } from '../../entities/empresa/empresa.service';
 import Swal from 'sweetalert2';
+import { CONNREFUSED } from 'dns';
 
 const { exportPDF } = pdf;
 declare let alertify: any;
@@ -110,6 +111,38 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   usuario!: User | null;
   filtrosOn = false;
   showBtnArriba = false;
+
+  
+  Crear_Oferta = commonMessages.CREAR_OFERTA;
+  Editar_perfil = commonMessages.EDITAR_PERFIL;
+  Controla_ofertas = commonMessages.CONTROLA_TUS_OFERTAS;
+  Oferta = commonMessages.OFERTA;
+  Titulo = commonMessages.TITULO_LABEL;
+  Tipo_Contrato = commonMessages.TIPO_CONTRATO;
+  Publicado = commonMessages.PUBLICADO;
+  Experiencia = commonMessages.EXPERIENCIA;
+  Ciudad = commonMessages.CIUDAD_LABEL;
+  Salario = commonMessages.SALARIO;
+  Perfiles_Aspirantes = commonMessages.PERFILES_ASPIRANTES;
+  Perfiles = commonMessages.PERFILES;
+  Edad = commonMessages.EDAD;
+  Genero = commonMessages.GENERO;
+  Masculino = commonMessages.MASCULINO_LABEL;
+  Femenino = commonMessages.FEMENINO_LABEL;
+  Ocultar_filtros = commonMessages.OCULTAR_FILTROS;
+  Ver_filtros = commonMessages.VER_FILTROS;
+  Fecha_Postulacion = commonMessages.FECHA_POSTULACION;
+  VER_HV = commonMessages.VER_HV;
+  Seleccionado = commonMessages.SELECCIONADO;
+  Descartado = commonMessages.DESCARTADO;
+  Descargar_HV = commonMessages.DESCARGAR_HV;
+  Enviar_Mail = commonMessages.ENVIAR_MAIL;
+  SOBRE_MI = commonMessages.SOBRE_MI;
+  CONTACTO = commonMessages.CONTACTO;
+  EXPERIENCIA_PROFESIONAL = commonMessages.EXPERIENCIA_PROFESIONAL;
+  Actualidad = commonMessages.ACTUALIDAD;
+  Formacion = commonMessages.FORMACION;
+  
 
   constructor(
     private router: Router,

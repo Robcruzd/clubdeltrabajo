@@ -1,7 +1,7 @@
 <div class="estilo_home" *ngIf="initialized && key && !success">
     <img class="logo" src="../../../content/images/logo_cdt_fondo2.png">
     <div class="div_centro">
-        <h3 class="titulo1">Cambiar contraseña</h3>
+        <h3 class="titulo1">{{Cambiar_Contrasenia}}</h3>
         <div class="inputs">
             <div class="row_documento" style="margin-top: 0.520vw;">
                 <input class="input-answer" maxlength="30" [type]="inputPrimero" name="nombre" [(ngModel)]="password"
@@ -25,6 +25,6 @@
             </div>
         </div>
         <br/>
-        <button class="button_cambiar_contrasenia" (click)="confirmarPassword()">Cambiar</button>
+        <button class="button_cambiar_contrasenia" (click)="confirmarPassword()">{{Cambiar}}</button>
     </div>
 </div>

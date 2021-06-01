@@ -19,6 +19,11 @@ export class RestaurarContrasenaComponent implements OnInit {
   mensajeCorreoNoExiste = commonMessages.CORREO_NO_EXISTE_LABEL;
   respuesta: any;
 
+  Recupera = commonMessages.RECUPERA_CONTRASENIA;
+  Email = commonMessages.CORREO_ELECTRONICO_LABEL;
+  Recuperar = commonMessages.RECUPERAR;
+  Recordar = commonMessages.ME_ACORDE;
+
   constructor(private passwordResetInitService: PasswordResetInitService, private router: Router) {}
 
   ngOnInit(): void {}

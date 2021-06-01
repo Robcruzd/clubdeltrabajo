@@ -45,6 +45,16 @@ export class OfertaPublicaComponent implements OnInit {
   urlImageDefault = '../../../content/images/Image 28_M.png';
   imagen!: Archivo;
 
+  Titulo = commonMessages.TITULO_LABEL;
+  Tipo_Contrato = commonMessages.TITULO_LABEL;
+  Publicado = commonMessages.PUBLICADO;
+  Exp = commonMessages.EXPERIENCIA;
+  Ciudad = commonMessages.CIUDAD_LABEL;
+  Salario = commonMessages.SALARIO;
+  Volver = commonMessages.VOLVER;
+  Aplicar = commonMessages.APLICAR;
+  Aplicada = commonMessages.APLICADA;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,

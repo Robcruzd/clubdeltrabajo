@@ -172,7 +172,7 @@
                             <small *ngIf="formPersonal.get('telefono')?.errors?.required"
                                 class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             <small *ngIf="formPersonal.get('telefono')?.errors?.pattern"
-                                class="form-text text-danger">*El teléfono solo puede contener de 7 a 10 números</small>
+                                class="form-text text-danger">{{Danger_telefono}}</small>
                         </div>
                     </div>
                     <div class="column">
@@ -183,7 +183,7 @@
                             <small *ngIf="formPersonal.get('email')?.errors?.required"
                                 class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             <small *ngIf="formPersonal.get('email')?.errors?.email"
-                                class="form-text text-danger">*El correo es inválido.</small>
+                                class="form-text text-danger">{{Danger_mail}}</small>
                         </div>
                     </div>
                 </div>
@@ -295,7 +295,7 @@
                             <small *ngIf="formPersonal.get('profesion')?.errors?.required"
                                 class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             <small *ngIf="!profesionState"
-                                class="form-text text-danger">Debe seleccionar una profesión</small>
+                                class="form-text text-danger">{{Danger_profesion}}</small>
                         </div>
                     </div>
                 </div>
@@ -503,7 +503,7 @@
                     <div class="row">
                         <div class="column">
                             <button type="button" (click)="removeItemInformacionAcademica(indexAcademica)"
-                            class="btn boton_quitar text-white float-right">Quitar Estudio</button>
+                            class="btn boton_quitar text-white float-right">{{Quitar_Estudio}}</button>
                         </div>
                         <div class="column"></div>
                     </div>
@@ -555,7 +555,7 @@
                     <div class="row">
                         <div class="column">
                             <button type="button" (click)="removeItemIdioma(indexIdioma)"
-                            class="btn boton_quitar text-white float-right">Quitar Idioma</button>
+                            class="btn boton_quitar text-white float-right">{{Quitar_idioma}}</button>
                         </div>
                         <div class="column"></div>
                     </div>
@@ -588,7 +588,7 @@
 
         <ng-container *ngIf="step === 2">
             <div class="ngnum0">
-            <p class="estilo_titulo">Perfil Profesional</p>
+            <p class="estilo_titulo">{{Perfil_Profesional}}</p>
             <form [formGroup]="formPerfil">
                 <div class="row">
                         <div class="form-group-perfil">
@@ -604,7 +604,7 @@
                 <div class="row">
                     <div class="column">
                         <div class="form-group">
-                            <p class="estilo_label">¿Cuántos años de experiencia laboral tienes? <span
+                            <p class="estilo_label">{{EXP_ANIOS}} <span
                                     class="estilo_campo_requerido">*</span></p>
                                 <div class='input_group'>
                                     <select formControlName="anioExperiencia" class="anioExperiencia">
@@ -622,7 +622,7 @@
                                             {{ mes.nombre }}
                                         </option>
                                     </select>
-                                    <p class="mesesTexto">Meses</p>
+                                    <p class="mesesTexto">{{Meses}}</p>
                                 </div>
                                 <small *ngIf="formPerfil.get('mesExperiencia')?.errors?.required || formPerfil.get('anioExperiencia')?.errors?.required"
                                         class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
@@ -630,10 +630,10 @@
                     </div>
                     <div class="column">
                         <div class="form-group">
-                            <p class="estilo_label">¿Aspiración salarial? (en millones de pesos) <span
+                            <p class="estilo_label">{{Asp_Salarial}} <span
                                 class="estilo_campo_requerido">*</span></p>
                             <select formControlName="aspiracionSalarial" class="estilo_inputs">
-                                <option [ngValue]="null" disabled>Seleccione una opción</option>
+                                <option [ngValue]="null" disabled>{{Selec_Option}}</option>
                                 <option *ngFor="let aspiracion of aspiracionesSalariales" 
                                 [ngValue]="aspiracion.codigo === formPerfil.get('aspiracionSalarial')!.value? formPerfil.get('aspiracionSalarial')!.value: aspiracion.codigo">
                                     {{ aspiracion.nombre }}
@@ -647,7 +647,7 @@
                 <div class="row">
                     <div class="column">
                         <div class="form-group">
-                            <p class="estilo_label">Movilidad Laboral (Opcional)</p>
+                            <p class="estilo_label">{{Movilidad_laboral}}</p>
                                 <div class="input_group">
                                     <div class='estilo_inputs'>
                                         <button id="buttonMudarse" class="mudarse" (click)="clickMudarse()" [ngStyle]="{'background-color' : banderaColorMudarse ? '#A3AAAF' : '#FFFFFF'}">Puedo mudarme a otra ciudad o pais</button>
@@ -658,7 +658,7 @@
                     </div>
                     <div class="column">
                         <div class="form-group">
-                            <p class="estilo_label">¿En cuales paises tiene permisos de trabajo?</p>
+                            <p class="estilo_label">{{Permiso_trabajo}}</p>
                             <mat-form-field appearance="fill" class="estilo_inputs">
                                 <mat-select formControlName="paisPermisoTrabajo" multiple>
                                     <mat-option *ngFor="let pais of paises" style="padding-bottom: 0rem;"
@@ -849,7 +849,7 @@
                                 <small *ngIf="experienciaLaboral.at(indexLaboral).get('telefonoEmpresa')?.errors?.required"
                                     class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                                 <small *ngIf="experienciaLaboral.at(indexLaboral).get('telefonoEmpresa')?.errors?.pattern"
-                                    class="form-text text-danger">*El teléfono debe contener de 7 a 10 números</small>
+                                    class="form-text text-danger">{{Danger_Long_Telefono}}</small>
                             </div>
                         </div>
                     </div>
@@ -923,7 +923,7 @@
                         </div>
                         <div class="column">
                             <div class="form-group">
-                                <p class="estilo_label">Nivel del Cargo <span
+                                <p class="estilo_label">{{Nivel_cargo}}<span
                                         class="estilo_campo_requerido">*</span></p>
                                 <select formControlName="nivelCargo" class="estilo_inputs">
                                     <option [ngValue]="null">{{labels.SELECCIONE_LABEL}}</option>
@@ -941,12 +941,12 @@
                     <div class="row">
                         <div class="column">
                             <div class="form-group">
-                                <p class="estilo_label">Estado del empleo</p>
+                                <p class="estilo_label">{{Estado_Empleo}}</p>
                                 <div class="genero">
                                     <div class="div-checkbox">
                                         <input class="checkbox-estado" style='margin-top: 0.195vw;' type="checkbox" formControlName="trabajoActual" (change)="onChangeTrabajoActual(indexLaboral, $event.target.checked)" [checked]="trabajoActual">
                                     </div>
-                                    <label class="estilo_label">Trabajo actualmente en esta empresa</label>
+                                    <label class="estilo_label">{{Empresa_Actual}}</label>
                                 </div>
                             </div>
                         </div>
@@ -955,7 +955,7 @@
                     <div class="row" >
                         <div class="column">
                             <button type="button" (click)="removeItemExperienciaLaboral(indexLaboral)"
-                            class="btn boton_quitar text-white float-right">Quitar Experiencia</button>
+                            class="btn boton_quitar text-white float-right">{{Quitar_experiencia}}</button>
                         </div>
                         <div class="column"></div>
                     </div>

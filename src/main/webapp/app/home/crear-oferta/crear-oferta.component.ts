@@ -85,6 +85,31 @@ export class CrearOfertaComponent implements OnInit {
   subnivelesLaborales: IOpcionVo[] = commonMessages.ARRAY_NIVEL_LABORAL[0].subniveles;
   mostrarSalario = false;
 
+  Crear_oferta = commonMessages.CREAR_OFERTA;
+  Editar_Perfil = commonMessages.EDITAR_PERFIL;
+  Club_Empresas = commonMessages.CLUB_DE_EMPRESAS;
+  Controla_ofertas = commonMessages.CONTROLA_TUS_OFERTAS;
+  Creando_Oferta = commonMessages.CREANDO_OFERTA;
+  Seleccione_Opcion = commonMessages.SELECCIONE_OPCION_LABEL;
+  Desc_Requi = commonMessages.DESCRIPCION_REQUISITOS;
+  No_Salario = commonMessages.NO_PUBLICAR_SALARIO;
+  Nivel_Idioma = commonMessages.NIVEL_IDIOMA_LABEL;
+  M_Label = commonMessages.MASCULINO_LABEL;
+  F_Label = commonMessages.FEMENINO_LABEL;
+  No_Aplica = commonMessages.NO_APLICA;
+  Volver = commonMessages.VOLVER;
+  Continuar = commonMessages.CONTINUAR;
+  Asi_Quedara_Oferta = commonMessages.ASI_QUEDARA_OFERTA;
+  Oferta = commonMessages.OFERTA;
+  Titulo = commonMessages.TITULO_LABEL;
+  Experiencia = commonMessages.EXPERIENCIA;
+  Tipo_Contrato = commonMessages.TIPO_CONTRATO;
+  Ciudad = commonMessages.CIUDAD_LABEL;
+  Publicado = commonMessages.PUBLICADO;
+  Salario = commonMessages.SALARIO;
+  Publicar = commonMessages.PUBLICAR;
+  
+
   constructor(
     private cargoService: CargoService,
     private idiomaService: IdiomaService,

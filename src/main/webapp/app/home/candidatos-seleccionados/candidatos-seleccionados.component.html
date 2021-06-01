@@ -5,14 +5,14 @@
                 <fa-icon [icon]="faCommentDots" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Crear oferta</p>
+                    <p class="titulo-boton">{{Crear_Oferta}}</p>
                 </div>
             </button>
             <button class="btn boton-no-clicked" (click)="editarPerfil()">
                 <fa-icon [icon]="faEllipsisH" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Editar perfil</p>
+                    <p class="titulo-boton">{{Editar_perfil}}</p>
                 </div>
             </button>
             <!-- <button class="btn boton-no-clicked" (click)="clubEmpresas()">
@@ -26,7 +26,7 @@
                 <fa-icon icon="eye" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Controla tus ofertas</p>
+                    <p class="titulo-boton">{{Controla_ofertas}}</p>
                 </div>
             </button>
             <!-- <button class="btn boton-no-clicked" (click)="membresia()">
@@ -42,7 +42,7 @@
     <div class="contenedor2">
         <div class="div-center2">
             <ng-container>
-                <p class="estilo_titulo2">Oferta</p>
+                <p class="estilo_titulo2">{{Oferta}}</p>
                 <div class="ngnum1">
                     <ng-container>
                         <p class="titulo_oferta">{{listaResultadoOfertas[0].titulo}}</p>
@@ -50,9 +50,9 @@
                         <p class="descripcion_profesion">{{listaResultadoOfertas[0].descripcion}}</p>
                         <table class="tabla_oferta">
                             <tr>
-                              <th class="titulo_oferta_previsualizacion">Titulo:</th>
-                              <th class="titulo_oferta_previsualizacion">Tipo de contrato:</th>
-                              <th class="titulo_oferta_previsualizacion">Publicado:</th>
+                              <th class="titulo_oferta_previsualizacion">{{Titulo}}:</th>
+                              <th class="titulo_oferta_previsualizacion">{{Tipo_contrato}}:</th>
+                              <th class="titulo_oferta_previsualizacion">{{Publicado}}:</th>
                             </tr>
                             <tr>
                               <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].titulo}}</td>
@@ -62,9 +62,9 @@
                         </table>
                         <table class="tabla_oferta">
                             <tr>
-                              <th class="titulo_oferta_previsualizacion">Experiencia:</th>
-                              <th class="titulo_oferta_previsualizacion">Ciudad:</th>
-                              <th class="titulo_oferta_previsualizacion">Salario:</th>
+                              <th class="titulo_oferta_previsualizacion">{{Experiencia}}:</th>
+                              <th class="titulo_oferta_previsualizacion">{{Ciudad}}:</th>
+                              <th class="titulo_oferta_previsualizacion">{{Salario}}:</th>
                             </tr>
                             <tr>
                               <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].experiencia}}</td>
@@ -79,7 +79,7 @@
     </div>
     <div class="contenedor3">
         <div class="div-center3">
-            <p class="titulo_aspirantes">Perfiles aspirantes</p>
+            <p class="titulo_aspirantes">{{Perfiles_Aspirantes}}</p>
             <div class="cuerpo">
                 <div class="div-buscador">
                     <div class="buscador">
@@ -92,12 +92,12 @@
                             <input matInput class="form-control" [(ngModel)]="valorBusqueda">
                         </div>
                         <div class="empresas">
-                            <p class="titulo">Perfiles</p>
+                            <p class="titulo">{{Perfiles}}</p>
                             <p class="resultado">{{totalAspirantes}} resultados</p>
                         </div>
                         <div class="filtros" *ngIf = "!filtrosOn">
                         <div class="Sector">
-                            <p class="titulo">Edad</p>
+                            <p class="titulo">{{Edad}}</p>
                             <select class="resultado" [(ngModel)]="edadValue" (change)="cargarAspirantes()">
                                 <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
                                 <option *ngFor="let edad of edades" 
@@ -107,7 +107,7 @@
                             </select>
                         </div>
                         <div class="Sector">
-                            <p class="titulo">Ciudad</p>
+                            <p class="titulo">{{Ciudad}}</p>
                             <select class="resultado" [(ngModel)]="municipioValue" (change)="cargarAspirantes()">
                                 <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
                                 <option
@@ -118,15 +118,15 @@
                             </select>
                         </div>
                         <div class="Sector">
-                            <p class="titulo">Género</p>
+                            <p class="titulo">{{Genero}}</p>
                             <select class="resultado" [(ngModel)]="generoValue" (change)="cargarAspirantes()">
                                 <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
-                                <option value="M" >Masculino</option>
-                                <option value="F" >Femenino</option>
+                                <option value="M" >{{Masculino}}</option>
+                                <option value="F" >{{Femenino}}</option>
                             </select>
                         </div>
                         <div class="Sector">
-                            <p class="titulo">Experiencia</p>
+                            <p class="titulo">{{Experiencia}}</p>
                             <select class="resultado" [(ngModel)]="experienciaValue" (change)="cargarAspirantes()">
                                 <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
                                 <option *ngFor="let experiencia of experienciasLaborales" 
@@ -136,7 +136,7 @@
                             </select>
                         </div>
                         <div class="Sector">
-                            <p class="titulo">Salario</p>
+                            <p class="titulo">{{Salario}}</p>
                             <select class="resultado" [(ngModel)]="salarioValue" (change)="cargarAspirantes()">
                                 <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
                                 <option *ngFor="let aspiracion of aspiracionesSalariales" 
@@ -148,8 +148,8 @@
                         </div>                        
                         
                         <div *ngIf= "showBtnArriba" class="btnVerOcultar">
-                            <button *ngIf= "!filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ocultar Filtros</button>
-                            <button *ngIf= "filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">Ver Filtros</button>
+                            <button *ngIf= "!filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">{{Ocultar_filtros}}</button>
+                            <button *ngIf= "filtrosOn" class="btn shadow-nonte button-filtros" (click)="filtrosOn = !filtrosOn">{{Ver_filtros}}</button>
                         </div>
                     </div> 
                 </div>
@@ -169,34 +169,34 @@
                             </div>
                             <div class="mitad2">
                                 <div>
-                                    <p class="resumen">Edad: {{item.edad}}</p>
-                                    <p class="resumen">Ciudad: {{item.ciudad}}</p>
-                                    <p class="resumen">Experiencia: {{item.experiencia}}</p>
-                                    <p class="resumen">Titulo: {{item.titulo}}</p>
+                                    <p class="resumen">{{Edad}}: {{item.edad}}</p>
+                                    <p class="resumen">{{Ciudad}}: {{item.ciudad}}</p>
+                                    <p class="resumen">{{Experiencia}}: {{item.experiencia}}</p>
+                                    <p class="resumen">{{Titulo}}: {{item.titulo}}</p>
                                 </div>
                             </div>
                             <div class="parte3">
-                                <p class="textp4">Fecha de postulación</p>
+                                <p class="textp4">{{Fecha_Postulacion}}</p>
                                 <p class="textp4">{{item.fechaPostulacion}}</p>
                             </div>
                             <div class="parte4" style="justify-content: center;" *ngIf="item.verh">
                                 <fa-icon [icon]="faUserCircle" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon>
-                                <p class="verhv">Ver H.V.</p>
+                                <p class="verhv">{{VER_HV}}</p>
                             </div>
                             <div class="parte4" style="justify-content: center; background: #BAFFE3;" *ngIf="item.verche">
                                 <fa-icon [icon]="faCheck" class="border-icon" style="color: #151D5C; margin-top: 20px;"></fa-icon>
-                                <p class="verhv" style="color: #151D5C;">Seleccionado</p>
+                                <p class="verhv" style="color: #151D5C;">{{Seleccionado}}</p>
                             </div>
                             <div class="parte4" style="justify-content: center; background: #FFC1C1;" *ngIf="item.verno">
                                 <fa-icon [icon]="faTimes" class="border-icon" style="color: #151D5C; margin-top: 20px;"></fa-icon>
-                                <p class="verhv" style="color: #151D5C;"> Descartado</p>
+                                <p class="verhv" style="color: #151D5C;">{{Descartado}}</p>
                             </div>
                         </a>
                         <div class="btn-seleccionado" *ngIf="item.btnestado">
                             <input class="mensajeEmail" #searchInput id="mensaje" type="text" placeholder="Ingrese cuerpo de email">
                             <div class="botones-enviar-des">
-                                <button class="btn1" (click)="enviarEmail(item)"> <fa-icon [icon]="faPaperPlane" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> Enviar Mail</button>
-                                <button class="btn2" (click)="getHojaVida(item)"> <fa-icon [icon]="faArrowDown" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> Descargar H.V</button>
+                                <button class="btn1" (click)="enviarEmail(item)"> <fa-icon [icon]="faPaperPlane" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> {{Enviar_Mail}}</button>
+                                <button class="btn2" (click)="getHojaVida(item)"> <fa-icon [icon]="faArrowDown" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon>{{Descargar_HV}}</button>
                             </div>
                         </div>
                         </div>
@@ -232,10 +232,10 @@
         <div class="container-pdf">
             <div class="box-left">
                 <img class="foto-perfilVH" [src]="imagen?.archivo || urlImageDefault">
-                <h4 class="title">SOBRE MI</h4>
+                <h4 class="title">{{SOBRE_MI}}</h4>
                 <div class='linea-base'></div>
                 <p class="text" style="margin-top: 0.325vw;">{{hojaVidaVo?.informacionPersonal?.perfilProfesional}}</p>
-                <h4 class="title">CONTACTO</h4>
+                <h4 class="title">{{CONTACTO}}</h4>
                 <div class='linea-base'></div>
                 <div class="contacto-icons">
                     <img class="icono" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAABJ0lEQVRIidXVLUsEURTG8Z+OICgYNBq0GQSjwaLB7bYtJpufwuQnEBYMgmhQq80iBi2CBhGLQRG2GBRsirqGuwt3x9mF2ZlFfODCnbmH5885577w3zUQzStYwVAqZgeXZcDe0MgYe0VMB6P5a4eYmSKAWGeyM/jERK+mcQZXHWISoT+FAd0audQrINY4Pvwu0TsWywDAccr8C6tlmcNyCrBZpjnh4F1EgFuMlA2ZF0rTguwXMUsy/tUxhoXm95zQ/PMioLSGca29Hxva7y7CNl8Tss6tSTylIAcYba4n2I3WnnGCLTnOzaxQshjyiCqOZF8tDdznyWQKd13MskY9D4DQ9G189wvQUgU3/QQQdk4Vpzpn9FAEEGsa6zgUGvsivB+1sgB/rx/ir3ZmFWUVPQAAAABJRU5ErkJggg=="/>
@@ -263,20 +263,20 @@
                         </div>
                     </div> -->
                 </div>
-                <h4>EXPERIENCIA PROFESIONAL</h4>
+                <h4>{{EXPERIENCIA_PROFESIONAL}}</h4>
                 <div class='linea-base'></div>
                 <div class="experiencias" *ngFor="let item of hojaVidaVo?.experienciaLaboral">
                     <h5>{{item?.cargo?.cargo}}</h5>
                     <p>{{item?.nombreEmpresa}}</p>
                     <div *ngIf="item.trabajoActual==true">
-                        <p>{{item?.fechaInicio}} / Actualidad</p>
+                        <p>{{item?.fechaInicio}} / {{Actualidad}}</p>
                     </div>
                     <div *ngIf="item.trabajoActual!=true">
                         <p>{{item?.fechaInicio}} / {{item?.fechaFin}}</p>
                     </div>
                     <p>{{item.ciudad ? this.getCiudad('' + item.ciudad) : item.ciudadExtranjera}}</p>
                 </div>
-                <h4>FORMACIÓN</h4>
+                <h4>{{Formacion}}</h4>
                 <div class='linea-base'></div>
                 <div class="experiencias" *ngFor="let item of hojaVidaVo?.informacionAcademica">
                     <h5>{{item?.tituloOtorgado}}</h5>

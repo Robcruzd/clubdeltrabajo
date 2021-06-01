@@ -27,6 +27,8 @@ import { RegionesService } from 'app/entities/regiones/regiones.service';
 export class VerHojaVidaComponent implements OnInit {
   lblDescargar = commonMessages.DESCARGAR_HOJAVIDA_LABEL;
 
+  Loading = commonMessages.LOADING;
+
   hojaVidaVo!: HojaVidaVo | null;
   account!: Account | null;
   persona!: number;

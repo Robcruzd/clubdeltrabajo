@@ -42,6 +42,28 @@ export class EditarEmpresaComponent implements OnInit {
   archivosaws: any = [];
   // ciudad: Array<IOpcionVoMunicipio> = [];
 
+  Crear_Oferta = commonMessages.CREAR_OFERTA;
+  Editar_Perfil = commonMessages.EDITAR_PERFIL;
+  Club_Empresas = commonMessages.CLUB_DE_EMPRESAS;
+  Controla_Ofertas = commonMessages.CONTROLA_TUS_OFERTAS;
+  Membresia = commonMessages.MEMBRESIA;
+  Razon_Social = commonMessages.RAZON_SOCIAL;
+  Nombre_Comercial = commonMessages.NOMBRE_COMERCIAL_EMPRESA;
+  Nit = commonMessages.NIT;
+  Telefono = commonMessages.TELEFONO;
+  Sector_Empresa = commonMessages.SECTOR_EMPRESA;
+  Subsector_Empresa = commonMessages.SUBSECTOR_EMPRESA;
+  Web = commonMessages.PAGINA_WEB;
+  Cantidad_Empleados = commonMessages.CANTIDAD_EMPLEADOS;
+  Descrip_Empresa = commonMessages.DESCRIPCION_EMPRESA;
+  Nombre_Representante = commonMessages.NOMBRE_REPRESENTANTE_LEGAL;
+  Apellidos_Representante = commonMessages.APELLIDOS_REPRESENTANTE_LEGAL;
+  Mail = commonMessages.CORREO_ELECTRONICO;
+  Telefono_Representante = commonMessages.TELEFONO_REPRESENTANTE_LEGAL;
+  Direccion = commonMessages.DIRECCION_LABEL;
+  Finalizar = commonMessages.FINALIZAR;
+  
+
   constructor(
     private _location: Location,
     private fb: FormBuilder,

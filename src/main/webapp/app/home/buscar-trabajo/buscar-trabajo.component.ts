@@ -36,6 +36,11 @@ export class BuscarTrabajoComponent implements OnInit {
   filteredOptionsProfesiones = new Observable<IProfesion[]>();
   // IProfesion[]
 
+  Busca_Trabajo = commonMessages.BUSCA_TRABAJO;
+  Buscar = commonMessages.BUSCAR;
+  Registra_Hoja_Vida = commonMessages.REGISTRA_HOJA_VIDA;
+  Soluciones_Empresa = commonMessages.SOLUCIONES_EMPRESA;
+
   constructor(
     private ciudadServices: ApiService,
     private dataService: DataService,

@@ -28,6 +28,10 @@ export class NuevoCorreoComponent implements OnInit, AfterViewInit {
   inputPrimero = "password";
   inputSegundo = "password";
 
+  Cambiar_Contrasenia = commonMessages.CAMBIAR_CONTRASENIA;
+  Cambiar = commonMessages.CAMBIAR;
+  
+
   constructor(private route: ActivatedRoute, private router: Router, private passwordResetFinishService: PasswordResetFinishService) {}
 
   ngOnInit(): void {
