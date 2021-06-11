@@ -479,6 +479,33 @@ export const commonMessages = {
     'proporcionar información que pueda resultar de interés al Usuario y ofrecer contenidos ' +
     'publicitarios de su preferencia.',
 
+  POLITICAS_COOKIES:
+    'AWSALB: El balanceador de carga clásico de AWS primero recibe una solicitud de un cliente, ' +
+    'enruta la solicitud a un objetivo, genera una cookie llamada AWSALB que codifica información ' +
+    'sobre el objetivo seleccionado, cifra la cookie e incluye la cookie en la respuesta al ' +
+    'cliente. Esta cookie es esencial para el funcionamiento de la web. Nota: Las cookies AWSALB ' +
+    'y AWSALBCORS son funcionalmente las mismas cookies. Tiene una duración de una semana.\n' +
+    'AWSALBCORS: El balanceador de carga clásico de AWS primero recibe una solicitud de un ' +
+    'cliente, enruta la solicitud a un objetivo, genera una cookie llamada AWSALB que codifica ' +
+    'información sobre el objetivo seleccionado, cifra la cookie e incluye la cookie en la ' +
+    'respuesta al cliente. Esta cookie es esencial para el funcionamiento de la web. Nota: ' +
+    'Las cookies AWSALB y AWSALBCORS son funcionalmente las mismas cookies. Tiene una duración ' +
+    'de una semana.\n' +
+    '_gid: Esta cookie es usada por Google Analytics. La cookie se utiliza para almacenar ' +
+    'información sobre cómo los visitantes usan un sitio web y ayuda a crear un informe analítico ' +
+    'de cómo está funcionando el sitio web. Los datos recopilados, incluido el número de visitantes, ' +
+    'la fuente de donde provienen y las páginas, se muestran de forma anónima. Tiene una duración ' +
+    'de 24 horas.\n' +
+    '_ga: Esta cookie es usada por Google Analytics. La cookie se utiliza para calcular los datos ' +
+    'de visitantes, sesiones, campañas y realizar un seguimiento del uso del sitio para el informe ' +
+    'de análisis del sitio. Las cookies almacenan información de forma anónima y asignan un número ' +
+    'generado aleatorio para identificar visitantes únicos. Tiene una duración de 2 años.\n' +
+    '_gat_UA-nnnnnnn-nn: Esta es una cookie de tipo patrón establecida por Google Analytics, ' +
+    'donde el elemento de patrón en el nombre contiene el número de identidad único de la cuenta ' +
+    'o sitio web con el que se relaciona. Parece ser una variación de la cookie _gat que se ' +
+    'utiliza para limitar la cantidad de datos registrados por Google en sitios web de alto ' +
+    'volumen de tráfico. Esta dura hasta que se cierra la sesión del navegador.',
+
   INGRESA_DATOS_BASICOS: 'Ingresa los datos básicos',
   NOMBRE_OFERTA: 'Nombre de la oferta',
   EXPERIENCIA_MINIMA: 'Experíencia mínima',

@@ -10,6 +10,7 @@ import { ArchivoService } from '../../entities/archivo/archivo.service';
 import { Archivo } from '../../shared/model/archivo.model';
 import { LoginService } from './../../core/login/login.service';
 import { NavbarService } from 'app/shared/services/navbar.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'jhi-navbar-ct',
@@ -23,6 +24,7 @@ export class NavbarCtComponent implements OnInit {
   showNavbar = false;
   showElement = false;
   logged = false;
+  entendido = false;
   account!: Account | null;
   imagen!: Archivo;
   persona!: number;
@@ -32,6 +34,10 @@ export class NavbarCtComponent implements OnInit {
   public navbarState = true;
   perfil = '/perfil';
   tipoArchivo = TipoArchivo;
+  Politicas_cookies = commonMessages.POLITICAS_COOKIES;
+  TCP = commonMessages.TERMINOS_CONDICIONES_POLITICAS;
+  isOpen = false;
+  Aceptar = commonMessages.ACEPTAR;
 
   lstOpcionesMenu: any = [
     { id: 1, etiqueta: 'Inicio', ruta: '/' },
@@ -49,7 +55,8 @@ export class NavbarCtComponent implements OnInit {
     private archivoService: ArchivoService,
     private hojaVidaService: HojaVidaService,
     private navbarService: NavbarService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private modalService: NgbModal
   ) {
     this.navbarService.cast.subscribe(status => {
       if (status !== null) {
@@ -66,7 +73,15 @@ export class NavbarCtComponent implements OnInit {
     } else {
       this.hideNavbar = false;
     }
+    if (sessionStorage.getItem('entendidoCookie') === 'true') {
+      this.entendido = true;
+    }
     // this.cd.detectChanges();
+  }
+
+  openScrollableContent(longContent: any): void {
+    const modalRef: NgbModalRef = this.modalService.open(longContent, { scrollable: true });
+    modalRef.result.finally(() => (this.isOpen = false));
   }
 
   subscribeToEvents(): void {
@@ -180,5 +195,10 @@ export class NavbarCtComponent implements OnInit {
         this.imagen = response.body;
       }
     });
+  }
+
+  entendidoCookie(): void {
+    sessionStorage.setItem('entendidoCookie', 'true');
+    this.entendido = true;
   }
 }

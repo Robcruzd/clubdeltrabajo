@@ -78,3 +78,26 @@
         </nav>
     <!-- </div> -->
 </div>
+<div *ngIf="entendido!==true" class="divCookies">
+    <p class="label-terminos">
+        Utilizamos cookies de terceros para el funcionamiento de la página y para generar estadísticas de audiencia. Si sigues navegando estarás aceptando su uso. 
+            <a class="mas-info" (click)="openScrollableContent(longContent)">Más información</a>
+    </p>
+    <button class="btn shadow-none boton-ingresar"
+                        (click)="entendidoCookie()">Entendido</button>
+</div>
+
+<ng-template #longContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" style="color: #1FB9FD;">Políticas de uso de Cookies</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <pre style="white-space: pre-wrap; text-align: justify;">{{Politicas_cookies}}</pre>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">{{Aceptar}}</button>
+    </div>
+</ng-template>
