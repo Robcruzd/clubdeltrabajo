@@ -47,7 +47,7 @@ public class Empresa implements Serializable {
     @NotNull
     @JsonIgnoreProperties("empresas")
     private TipoUsuario tipoUsuario;
-
+	
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("empresas")
@@ -88,6 +88,13 @@ public class Empresa implements Serializable {
     
     @Column(name = "descargas_hv", nullable = true)
     private Long descargasHv;
+    
+    @Column(name = "publicaciones_oferta", nullable = true)
+    private Long publicacionesOferta;
+    
+    //@Transient
+    @Column(name = "numero", nullable = true)
+    private Long numero;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -272,6 +279,22 @@ public class Empresa implements Serializable {
 
 	public void setDescargasHv(Long descargasHv) {
 		this.descargasHv = descargasHv;
+	}
+
+	public Long getPublicacionesOferta() {
+		return publicacionesOferta;
+	}
+
+	public void setPublicacionesOferta(Long publicacionesOferta) {
+		this.publicacionesOferta = publicacionesOferta;
+	}
+
+	public Long getNumero() {
+		return numero;
+	}
+
+	public void setNumero(Long numero) {
+		this.numero = numero;
 	}
 
 	@Override

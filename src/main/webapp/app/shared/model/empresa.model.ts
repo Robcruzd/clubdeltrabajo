@@ -21,6 +21,8 @@ export interface IEmpresa {
   apellidosRepresentanteLegal?: string;
   telefonoEmpresa?: number;
   descargasHv?: number;
+  publicacionesOferta?: number;
+  numero?: number;
 }
 
 export class Empresa implements IEmpresa {
@@ -43,6 +45,8 @@ export class Empresa implements IEmpresa {
     public nombreRepresentanteLegal?: string,
     public apellidosRepresentanteLegal?: string,
     public telefonoEmpresa?: number,
-    public descargasHv?: number
+    public descargasHv?: number,
+    public publicacionesOferta?: number,
+    public numero?:number
   ) {}
 }

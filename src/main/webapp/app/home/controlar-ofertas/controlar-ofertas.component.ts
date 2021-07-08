@@ -197,7 +197,9 @@ export class ControlarOfertasComponent implements OnInit {
         } else {
           this.cambiarEstadoO.estado = 'D';
         }
-        this.ofertaService.update(this.cambiarEstadoO).subscribe(() => {});
+        this.ofertaService.update(this.cambiarEstadoO).subscribe(() => {
+          window.location.reload();
+        });
       }
     });
   }

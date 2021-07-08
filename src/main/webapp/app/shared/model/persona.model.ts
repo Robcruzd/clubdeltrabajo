@@ -11,6 +11,7 @@ export interface IPersona {
   tipoUsuario?: ITipoUsuario;
   tipoDocumento?: ITipoDocumento;
   fechaRecordatorio?: Moment;
+  estadohv?: boolean;
 }
 
 export class Persona implements IPersona {
@@ -22,6 +23,7 @@ export class Persona implements IPersona {
     public numeroDocumento?: string,
     public tipoUsuario?: ITipoUsuario,
     public tipoDocumento?: ITipoDocumento,
-    public fechaRecordatorio?: Moment
+    public fechaRecordatorio?: Moment,
+    public estadohv?: boolean
   ) {}
 }

@@ -14,6 +14,9 @@ import { commonMessages } from 'app/shared/constants/commonMessages';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { HttpResponse } from '@angular/common/http';
 import { IRegiones } from 'app/shared/model/regiones.model';
+import { PersonaService } from 'app/entities/persona/persona.service';
+import { Persona } from 'app/shared/model/persona.model';
+import { ArchivoService } from 'app/entities/archivo/archivo.service';
 
 const { exportPDF } = pdf;
 
@@ -26,6 +29,7 @@ export class VisualizarHojaVidaComponent implements OnInit {
   @ViewChild('pdf') pdfExport: any;
 
   imagen!: Archivo;
+  archivoHv! : Archivo;
   urlImageDefault = '';
   lblDescargar = commonMessages.DESCARGAR_HOJAVIDA_LABEL;
   estadoNivelEstudio: IOpcionVo[] = commonMessages.ARRAY_ESTADO_NIVEL_ESTUDIO;
@@ -43,10 +47,12 @@ export class VisualizarHojaVidaComponent implements OnInit {
   pdfHojaVida64: any;
   pdfHojaVida64Render: any;
   pdfHojaVida64RenderDescarga: any;
+  archivoBase64: any;
   pdfGeneradoHojaVida: Archivo = new Archivo();
   cargado = false;
   showElement = true;
   qrCard: any;
+  personaDatos!: Persona | null; 
 
   Loading = commonMessages.LOADING;
   SOBRE_MI = commonMessages.SOBRE_MI;
@@ -54,14 +60,15 @@ export class VisualizarHojaVidaComponent implements OnInit {
   Exp_Profesional = commonMessages.EXPERIENCIA_PROFESIONAL;
   Actualidad = commonMessages.ACTUALIDAD;
   FORMACION = commonMessages.FORMACION;
-  
 
   constructor(
     private router: Router,
     private accountService: AccountService,
     private hojaVidaService: HojaVidaService,
     private apiService: ApiService,
-    private regionService: RegionesService
+    private regionService: RegionesService,
+    private personaService: PersonaService,
+    private archivoService: ArchivoService
   ) {}
 
   ngOnInit(): void {
@@ -101,7 +108,14 @@ export class VisualizarHojaVidaComponent implements OnInit {
   }
 
   descargarPDF(): void {
-    saveAs(this.pdfHojaVida64RenderDescarga, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.pdf');
+    this.archivoService.get(this.persona,TipoArchivo.ARCHIVO_HV).subscribe(response =>{
+      if(response === null || response === undefined){
+        saveAs(this.pdfHojaVida64RenderDescarga, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.pdf');
+      }else{
+        this.archivoBase64 = response.body?.archivo;
+        saveAs(this.archivoBase64, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.pdf');
+      }
+    });
   }
 
   base64ToUint8Array(base64: any): any {
@@ -128,6 +142,7 @@ export class VisualizarHojaVidaComponent implements OnInit {
       this.pdfHojaVida64RenderDescarga = archivo.archivo;
       this.pdfHojaVida64Render = this.base64ToUint8Array(archivo64);
       this.cargado = true;
+      this.generarHvComoArchivo(archivo.archivo, data64, this.pdfGeneradoHojaVida.nombre);
     });
   }
 
@@ -142,6 +157,39 @@ export class VisualizarHojaVidaComponent implements OnInit {
           resolve(this.pdfHojaVida64);
         });
     });
+  }
+
+  generarHvComoArchivo(archivo:any, data:any, nombre:any): void{
+    this.personaService.find(this.persona).subscribe(response =>{
+      this.personaDatos = response.body;
+      if(this.personaDatos?.estadohv === true){
+        if(this.personaDatos !== null){
+          this.personaDatos.estadohv = false;
+          this.personaService.update(this.personaDatos).subscribe(()=>{
+            this.cargarArchivoHv(archivo,this.personaDatos, nombre);
+          });
+        }
+      }
+    })
+  }
+
+  cargarArchivoHv(archivo:any, persona:any, nombre:any): void {
+    this.archivoHv = this.archivoHv || new Archivo();
+    this.archivoHv.tipo = TipoArchivo.ARCHIVO_HV;
+    this.archivoHv.nombre = nombre;
+    this.archivoHv.extension = "pdf";
+    this.archivoHv.usuario = persona;
+    this.archivoHv.archivo = archivo;
+    if (this.archivoHv.id !== undefined) {
+      this.archivoService.update(this.archivoHv).subscribe(()=>{});
+    } else {
+      this.archivoService.create(this.archivoHv).subscribe(()=>{});
+    }
+
+  }
+
+  subirArchivoHv(): void {
+    
   }
 
   consultarInformacionGeografica(): void {
