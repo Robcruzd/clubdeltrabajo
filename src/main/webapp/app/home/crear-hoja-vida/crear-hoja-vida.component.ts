@@ -37,6 +37,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { IRegiones } from 'app/shared/model/regiones.model';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
+import { PersonaService } from 'app/entities/persona/persona.service';
 
 declare let alertify: any;
 
@@ -80,6 +81,7 @@ export class CrearHojaVidaComponent implements OnInit {
   tipoArchivo = TipoArchivo;
   mostrar!: boolean;
   hojaVidaVo!: HojaVidaVo | null;
+  hojaVidaTemp!: HojaVidaVo | null;
   instituciones: Array<IInstitucion> = [];
   cargos: Array<ICargo> = [];
   profesiones: Array<IProfesion> = [];
@@ -136,7 +138,7 @@ export class CrearHojaVidaComponent implements OnInit {
   Estado_Empleo = commonMessages.ESTADO_EMPLEO;
   Empresa_Actual = commonMessages.EMPRESA_ACTUAL;
   Quitar_experiencia = commonMessages.QUITAR_EXPERIENCIA;
-  
+  personaDatos!: Persona | null; 
 
   constructor(
     private fb: FormBuilder,
@@ -150,7 +152,8 @@ export class CrearHojaVidaComponent implements OnInit {
     private accountService: AccountService,
     private router: Router,
     private archivo: ArchivoService,
-    private regionService: RegionesService
+    private regionService: RegionesService,
+    private personaService: PersonaService
   ) {}
 
   ngOnInit(): void {
@@ -214,6 +217,7 @@ export class CrearHojaVidaComponent implements OnInit {
   getHojaVida(): void {
     this.service.find(this.persona).subscribe(response => {
       this.hojaVidaVo = response.body;
+      this.hojaVidaTemp = this.hojaVidaVo;
       this.updateForm(response.body);
     });
   }
@@ -578,6 +582,15 @@ export class CrearHojaVidaComponent implements OnInit {
 
     // cargar informacion personal
     this.hojaVidaVo.informacionPersonal = this.procesarInformacionPersonal();
+    if(this.hojaVidaTemp?.informacionPersonal !== this.hojaVidaVo.informacionPersonal){
+      this.personaService.find(this.persona).subscribe(response =>{
+        this.personaDatos = response.body;
+        if(this.personaDatos !== null){
+          this.personaDatos.estadohv = true;
+          this.personaService.update(this.personaDatos).subscribe(()=>{});
+        }
+      })
+    }
     this.hojaVidaVo.persona = this.procesarPersona();
     this.cargarArchivos(this.hojaVidaVo);
   }
@@ -589,7 +602,15 @@ export class CrearHojaVidaComponent implements OnInit {
       academica.push(this.procesarInformacionAcademica(this.informacionAcademica.at(index).value, index));
     }
     this.hojaVidaVo.informacionAcademica = academica;
-
+    if(this.hojaVidaTemp?.informacionAcademica !== this.hojaVidaVo.informacionAcademica){
+      this.personaService.find(this.persona).subscribe(response =>{
+        this.personaDatos = response.body;
+        if(this.personaDatos !== null){
+          this.personaDatos.estadohv = true;
+          this.personaService.update(this.personaDatos).subscribe(()=>{});
+        }
+      })
+    }
     // cargar idiomas
     const idioma: IPersona[] = [];
     for (let index = 0; index < this.idioma.length; index++) {
@@ -663,6 +684,15 @@ export class CrearHojaVidaComponent implements OnInit {
         laboral.push(this.procesarExperienciaLaboral(this.experienciaLaboral.at(index).value, index));
       }
       this.hojaVidaVo.experienciaLaboral = laboral;
+      if(this.hojaVidaTemp?.experienciaLaboral !== this.hojaVidaVo.experienciaLaboral){
+        this.personaService.find(this.persona).subscribe(response =>{
+          this.personaDatos = response.body;
+          if(this.personaDatos !== null){
+            this.personaDatos.estadohv = true;
+            this.personaService.update(this.personaDatos).subscribe(()=>{});
+          }
+        })
+      }
       // Cargar archivos
       if (this.archivos.length !== 0) {
         this.hojaVidaVo.archivos = this.archivos;

@@ -25,6 +25,8 @@ import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/
 import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { IRegiones } from 'app/shared/model/regiones.model';
 import { Location } from '@angular/common';
+import { Empresa } from '../../shared/model/empresa.model';
+import { Account } from 'app/core/user/account.model';
 
 declare let alertify: any;
 
@@ -84,6 +86,7 @@ export class CrearOfertaComponent implements OnInit {
   idOferta = 0;
   subnivelesLaborales: IOpcionVo[] = commonMessages.ARRAY_NIVEL_LABORAL[0].subniveles;
   mostrarSalario = false;
+datosEmpresa!: Empresa | null;
 
   Crear_oferta = commonMessages.CREAR_OFERTA;
   Editar_Perfil = commonMessages.EDITAR_PERFIL;
@@ -269,6 +272,7 @@ export class CrearOfertaComponent implements OnInit {
 
   onSubmit(): void {
     this.oferta = new Oferta();
+    this.oferta.estado = 'A';
     this.oferta.titulo = this.formDatosBasicos.controls['nombre'].value;
     this.oferta.descripcion = this.formDatosBasicos.controls['requisitos'].value;
     this.oferta.salario = this.formDatosBasicos.controls['rangoSalarial'].value;
@@ -288,34 +292,22 @@ export class CrearOfertaComponent implements OnInit {
     this.oferta.genero = this.formDatosBasicos.controls['genero'].value;
     this.oferta.mostrarSalario = this.formDatosBasicos.controls['mostrarSalario'].value;
     if (this.usuario?.userEmpresa) {
-      this.ofertaService.getOfertasEmpresa(this.usuario.userEmpresa).subscribe(ofertaResponse => {
+      // this.ofertaService.getOfertasEmpresa(this.usuario.userEmpresa).subscribe(ofertaResponse => {
         if (this.usuario?.userEmpresa) {
           this.empresaService.find(this.usuario.userEmpresa).subscribe(RESPONSE => {
             this.oferta.usuario = RESPONSE.body;
+            this.datosEmpresa = RESPONSE.body;
             if (this.idOferta === 0) {
-              if (ofertaResponse.length < 1) {
-                this.oferta.estado = 'A';
+              if (this.datosEmpresa?.publicacionesOferta !== 0) {
                 this.oferta.activado = true;
                 this.ofertaService.create(this.oferta).subscribe(
                   response => {
-                    if (response.body !== null) {
-                      alertify.set('notifier', 'position', 'top-right');
-                      alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
-                      this.router.navigate(['/controlar-ofertas']);
-                    }
-                  },
-                  () => {
-                    alertify.set('notifier', 'position', 'top-right');
-                    alertify.error(commonMessages.HTTP_ERROR_LABEL);
-                    // this.router.navigate(['/controlar-ofertas']);
-                  }
-                );
-              } else if (ofertaResponse.length < 10 && this.oferta.usuario?.id === 63951) {
-                this.oferta.estado = 'A';
-                this.oferta.activado = true;
-                this.ofertaService.create(this.oferta).subscribe(
-                  response => {
-                    if (response.body !== null) {
+                    if (response.body !== null && this.datosEmpresa !== null) {
+                      const valor = this.datosEmpresa?.publicacionesOferta;
+                      if(valor !== undefined){
+                        this.datosEmpresa.publicacionesOferta = valor - 1;
+                        this.empresaService.update(this.datosEmpresa).subscribe(()=>{});
+                      }
                       alertify.set('notifier', 'position', 'top-right');
                       alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
                       this.router.navigate(['/controlar-ofertas']);
@@ -351,7 +343,7 @@ export class CrearOfertaComponent implements OnInit {
             }
           });
         }
-      });
+      // });
     }
 
     this.visualizarOferta = false;

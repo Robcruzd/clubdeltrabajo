@@ -141,6 +141,10 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   EXPERIENCIA_PROFESIONAL = commonMessages.EXPERIENCIA_PROFESIONAL;
   Actualidad = commonMessages.ACTUALIDAD;
   Formacion = commonMessages.FORMACION;
+  archivoBase64: any;
+  persona!: number;
+  personaDatos!: Persona | null; 
+  archivoHv! : Archivo;
 
   constructor(
     private router: Router,
@@ -176,6 +180,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     }
     this.accountService.getAuthenticationState().subscribe(account => {
       this.usuario = account;
+      this.persona = this.usuario?.user || 0;
     });
   }
 
@@ -678,7 +683,37 @@ export class CandidatosSeleccionadosComponent implements OnInit {
       const archivo = response.body;
       this.pdfHojaVida64RenderDescarga = archivo.archivo;
       this.descargarPDF();
+      this.generarHvComoArchivo(archivo.archivo, data64, this.pdfGeneradoHojaVida.nombre);
     });
+  }
+
+  generarHvComoArchivo(archivo:any, data:any, nombre:any): void{
+    this.personaService.find(this.persona).subscribe(response =>{
+      this.personaDatos = response.body;
+      if(this.personaDatos?.estadohv === true){
+        if(this.personaDatos !== null){
+          this.personaDatos.estadohv = false;
+          this.personaService.update(this.personaDatos).subscribe(()=>{
+            this.cargarArchivoHv(archivo,this.personaDatos, nombre);
+          });
+        }
+      }
+    })
+  }
+
+  cargarArchivoHv(archivo:any, persona:any, nombre:any): void {
+    this.archivoHv = this.archivoHv || new Archivo();
+    this.archivoHv.tipo = TipoArchivo.ARCHIVO_HV;
+    this.archivoHv.nombre = nombre;
+    this.archivoHv.extension = "pdf";
+    this.archivoHv.usuario = persona;
+    this.archivoHv.archivo = archivo;
+    if (this.archivoHv.id !== undefined) {
+      this.archivoService.update(this.archivoHv).subscribe(()=>{});
+    } else {
+      this.archivoService.create(this.archivoHv).subscribe(()=>{});
+    }
+
   }
 
   generarPdf(): Promise<any> {
@@ -698,13 +733,21 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     this.showElement = true;
     this.hojaVidaService.find(persona.idPersona).subscribe(response => {
       this.hojaVidaVo = response.body;
-      this.urlImageDefault =
-        this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
-          ? '../../../content/images/Image 28_F.png'
-          : '../../../content/images/Image 28_M.png';
-      this.archivos = this.hojaVidaVo?.archivos;
-      this.imagen = this.archivos?.find(item => item.tipo === TipoArchivo.IMAGEN_PERFIL) || new Archivo();
-      this.visualizarArchivoPDF();
+      this.archivoService.get(persona.idPersona, TipoArchivo.ARCHIVO_HV).subscribe(responseArchivo=>{
+        if(responseArchivo !== undefined && responseArchivo !== null){
+          this.archivoBase64 = responseArchivo.body?.archivo;
+          saveAs(this.archivoBase64, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.pdf');
+          this.showElement = false;
+        }else{
+          this.urlImageDefault =
+          this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
+            ? '../../../content/images/Image 28_F.png'
+            : '../../../content/images/Image 28_M.png';
+          this.archivos = this.hojaVidaVo?.archivos;
+          this.imagen = this.archivos?.find(item => item.tipo === TipoArchivo.IMAGEN_PERFIL) || new Archivo();
+          this.visualizarArchivoPDF();
+        }
+      })
     });
   }
 

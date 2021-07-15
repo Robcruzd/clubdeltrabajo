@@ -1,13 +1,19 @@
 package com.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import java.io.Serializable;
-import java.util.Objects;
 import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * A Persona.
@@ -51,6 +57,9 @@ public class Persona implements Serializable {
 
     @Column(name = "fecha_recordatorio")
     private LocalDate fechaRecordatorio;
+    
+    @Column(name = "estadohv", nullable = false)
+    private Boolean estadohv;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -153,7 +162,15 @@ public class Persona implements Serializable {
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    @Override
+	public Boolean getEstadohv() {
+		return estadohv;
+	}
+
+	public void setEstadohv(Boolean estadohv) {
+		this.estadohv = estadohv;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
