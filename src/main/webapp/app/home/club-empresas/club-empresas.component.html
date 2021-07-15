@@ -41,58 +41,81 @@
 
         <div *ngIf="!mostrar" class="club-empresa">
             <div class="titulo-agrega">
-            <div>
-                <p class="titulo-club">
-                    Club de empresas
-                </p>
-            </div> 
-            <div>
-                <a class="agrega-empresa" (click)="mostrar=!mostrar">
-                   Agrega tu empresa 
-                   <fa-icon icon="plus" class="border-icon" style="
-                    background:#f1f1f1 0% 0% no-repeat padding-box;"></fa-icon>
-                </a>
-            </div>        
+                <div>
+                    <p class="titulo-club">
+                        Club de empresas
+                    </p>
+                </div> 
+                <div>
+                    <a class="agrega-empresa" (click)="mostrar=!mostrar">
+                    Agrega tu empresa 
+                    <fa-icon icon="plus" class="border-icon" style="
+                        background:#f1f1f1 0% 0% no-repeat padding-box;"></fa-icon>
+                    </a>
+                </div>        
             </div>
             <div class="cuerpo">
-                <div class="buscador">
-                <div class="input-buscador">
-                    <input matInput placeholder="Busqueda" class="form-control">
+                <div class="div-buscador">
+                    <div class="buscador">
+                        <!-- <div class="input-buscador">
+                            <input matInput placeholder="Busqueda" class="form-control">
+                        </div> -->
+                        <div class="input-buscador">
+                            <input matInput placeholder="Busqueda" class="form-control"
+                            (keyup.enter)="cargarEmpresas()" [(ngModel)]="valorBusqueda">
+                            <button class="btnBuscar" (click)="cargarEmpresas()">
+                                <fa-icon [icon]="faSearch" class="border-icon2" style="
+                                background: transparent; color: #0a0a0a;">
+                                </fa-icon>
+                            </button>
+                        </div>
+                        <!-- <div class="input-buscador">
+                            <button class="btnBuscar" (click)="cargarEmpresas()">
+                                <fa-icon [icon]="faSearch" class="border-icon2" style="
+                                background: transparent; color: #0a0a0a;">
+                                </fa-icon>
+                            </button>
+                            <input matInput class="form-control" [(ngModel)]="valorBusqueda">
+                        </div> -->
+                        <div class="empresas">
+                            <p class="titulo">Empresas</p>
+                            <p class="resultado">{{totalEmpresas}} {{Resultados}}</p>
+                        </div>
+                        <!-- <div class="Sector">
+                            <p class="titulo">Sector</p> -->
+                            <!-- <p class="resultado">Seleccionar</p> -->
+                            <!-- <select class="resultado">
+                            <option>Seleccionar</option>
+                            </select>
+                        </div> -->
+                    </div> 
                 </div>
-                <div class="empresas">
-                    <p class="titulo">Empresas</p>
-                    <p class="resultado">2000 resultados</p>
-                </div>
-                <div class="Sector">
-                    <p class="titulo">Sector</p>
-                    <!-- <p class="resultado">Seleccionar</p> -->
-                    <select class="resultado">
-                    <option>Seleccionar</option>
-                    </select>
-                </div>
-        
-                </div> 
                 <div class="perfil">
-                    <a class="perfiles" (click)="verOferta()" 
+                    <div class="perfiles"
                      *ngFor="let item of ListaEmpresas | paginate: { itemsPerPage: 6, currentPage: page }">
                         <div class="mitad1">
-                             <div class="imagen">
-                                <!-- <img src="{{item.imagen}}"> -->
-                            </div>
+                            <img class="logo-empresa rounded-circle" [src]="item.imagen || urlImgDefault">
+                             <!-- <div class="imagen">
+                                <img [src]="item.imagen || urlImgDefault">
+                            </div> -->
                             <div>
                             <!-- <p class="nombre">Bavaria</p> -->
                             <p class="nombre">{{item.razonSocial}}</p>
                             </div>
                         </div>
                         <div class="mitad2">
-                            <div>
-                            <p class="separador"></p>
+                            <div class="div-separador">
+                                <div class="separador"></div>
                             </div>
-                             <div>
-                             <p class="resumen">{{item.email}}</p>
+                             <div class="info">
+                                <p *ngIf="item.email" class="resumen">Correo electrónico: {{item.email}}</p>
+                                <p *ngIf="item.paginaWeb" class="resumen">Página web: {{item.paginaWeb}}</p>
+                                <p *ngIf="item.direccion" class="resumen">Dirección: {{item.direccion}}</p>
+                                <p *ngIf="item.telefonoEmpresa" class="resumen">Teléfono: {{item.telefonoEmpresa}}</p>
+                                <p *ngIf="item.descripcionEmpresa" class="resumen">Descripción: {{item.descripcionEmpresa}}</p>
                             </div>
                             </div>
-                    </a>
+                        </div>
                     <pagination-controls (pageChange)="page = $event" class="controls" 
                     previousLabel=""
                     nextLabel=""
@@ -155,7 +178,7 @@
                         <p class="estilo_label">Agrega productos</p>
                         <p class="estilo_label">Escribe un sólo producto por línea (y solo el nombre del producto, máximo 500 productos)</p>
                         <!--<textarea type="text" class="estilo_inputs"></textarea>-->
-                        <textarea name="" id="" cols="100" rows="10"></textarea>
+                        <textarea class="textarea-input" name="" id="" cols="100" rows="10"></textarea>
                     </div>
                 </div>
                 <div class="botones">

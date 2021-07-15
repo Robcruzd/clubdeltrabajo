@@ -20,6 +20,9 @@ import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { MercadoPagoService } from 'app/entities/mercado-pago/mercado-pago.service';
+
+declare const MercadoPago: any;
 
 declare let gtag: Function;
 
@@ -51,6 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   imagen: any;
   urlImgDefault = '../../../content/images/Image 28.png';
   showButtons = null;
+  checkout: any;
 
   Haz_Parte = commonMessages.HAZ_PARTE;
   D_VIDEO = commonMessages.DANGER_VIDEO;
@@ -68,7 +72,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   Nuevas_Ofertas = commonMessages.NUEVAS_OFERTAS;
   Ofertas_Email = commonMessages.OFERTAS_EMAIL;
   Emp_B_Candidatos = commonMessages.EMPRESA_BUSCA_CANDIDATOS;
-      
+  preferenceId = '';
 
   @ViewChild('panel', { read: ElementRef }) public panel!: ElementRef<any>;
 
@@ -80,7 +84,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private regionService: RegionesService,
     private dataService: DataService,
     private ofertaService: OfertaService,
-    private archivoService: ArchivoService
+    private archivoService: ArchivoService,
+    private mercadoPagoService: MercadoPagoService
   ) {
     // this.router.events.subscribe(event => {
     //   if (event instanceof NavigationEnd) {
@@ -106,7 +111,29 @@ export class HomeComponent implements OnInit, OnDestroy {
     vid?.play();
     this.traerProfesiones();
     this.traerCiudad();
+    this.goToMercadoPago();
     // this.cargarProfesiones();
+  }
+
+  goToMercadoPago(): void {
+    this.mercadoPagoService.goToPayment('probando').subscribe((result: any) => {
+      console.log(result);
+      this.preferenceId = result.id;
+
+      const mp = new MercadoPago('APP_USR-da329173-c59a-4362-a441-b16efc3dc9bc', {
+        locale: 'es-CO'
+      });
+      this.checkout = mp.checkout({
+        preference: {
+          id: this.preferenceId
+        }
+      });
+      // checkout.open();
+    });
+  }
+
+  checkoutOpen(): void {
+    this.checkout.open();
   }
 
   isAuthenticated(): boolean {

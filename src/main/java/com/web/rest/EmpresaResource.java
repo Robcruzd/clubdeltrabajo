@@ -41,6 +41,7 @@ import com.domain.vo.UsuarioVo;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * REST controller for managing {@link com.domain.Empresa}.
@@ -206,5 +207,10 @@ public class EmpresaResource {
         return ResponseEntity.created(new URI("/api/empresas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }
+
+    @GetMapping("/empresas/getByRazon")
+    public List<Empresa> getByRazonFiltro(@RequestParam("empresa") String empresa) {
+        return empresaService.getByRazonFiltro(empresa);
     }
 }

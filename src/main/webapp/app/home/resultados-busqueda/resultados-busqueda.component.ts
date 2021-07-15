@@ -19,6 +19,7 @@ import { IAplicacionOferta } from 'app/shared/model/aplicacion-oferta.model';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
+import { Account } from 'app/core/user/account.model';
 
 @Component({
   selector: 'jhi-resultados-busqueda',

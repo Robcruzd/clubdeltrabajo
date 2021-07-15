@@ -26,7 +26,13 @@
         }
       },
       "prefix": "jhi",
-      "architect": {}
+      "architect": {
+        "build": {
+          "options": {
+            "scripts": ["./src/main/webapp/app/shared/services/mercadoPago.js"]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ct-project",

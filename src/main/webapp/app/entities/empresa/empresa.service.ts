@@ -6,6 +6,7 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaVo } from '../../shared/vo/empresa-vo';
+import { PathUtil } from '../profesion/profesion.service';
 
 type EntityResponseType = HttpResponse<IEmpresa>;
 type EntityArrayResponseType = HttpResponse<IEmpresa[]>;
@@ -13,6 +14,7 @@ type EntityArrayResponseType = HttpResponse<IEmpresa[]>;
 @Injectable({ providedIn: 'root' })
 export class EmpresaService {
   public resourceUrl = SERVER_API_URL + 'api/empresas';
+  public resourceUrlByRazon = SERVER_API_URL + 'api/empresas/getByRazon';
 
   constructor(protected http: HttpClient) {}
 
@@ -39,5 +41,11 @@ export class EmpresaService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  getByRazon(valor: string): Observable<any> {
+    const params = PathUtil.getPathParams({ empresa: valor });
+    const url = this.resourceUrlByRazon + params;
+    return this.http.get<any>(url);
   }
 }

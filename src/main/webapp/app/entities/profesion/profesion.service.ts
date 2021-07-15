@@ -37,6 +37,10 @@ export class ProfesionService {
     return this.http.post<IProfesion>(this.resourceUrl, profesion, { observe: 'response' });
   }
 
+  mercado(): any {
+    return this.http.post<any>(SERVER_API_URL + 'api/mercadoPago', 'prueba', { observe: 'response' });
+  }
+
   update(profesion: IProfesion): Observable<EntityResponseType> {
     return this.http.put<IProfesion>(this.resourceUrl, profesion, { observe: 'response' });
   }

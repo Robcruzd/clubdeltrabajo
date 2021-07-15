@@ -8,6 +8,7 @@ import { AccountService } from 'app/core/auth/account.service';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 import { commonMessages } from 'app/shared/constants/commonMessages';
+import { Account } from 'app/core/user/account.model';
 
 @Component({
   selector: 'jhi-perfil-empresa',
@@ -31,7 +32,7 @@ export class PerfilEmpresaComponent implements OnInit {
   Controla_Todas_Ofertas = commonMessages.CONTROLA_TODAS_OFERTAS;
   Editar_Perfil = commonMessages.EDITAR_PERFIL;
   Correo_Electronico = commonMessages.CORREO_ELECTRONICO;
-  
+  Club_Empresas = commonMessages.CLUB_DE_EMPRESAS;
 
   constructor(
     private router: Router,
@@ -93,6 +94,6 @@ export class PerfilEmpresaComponent implements OnInit {
   }
 
   clubEmpresas(): void {
-    this.router.navigate(['editar-empresa']);
+    this.router.navigate(['club-empresas']);
   }
 }
