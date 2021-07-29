@@ -3,6 +3,8 @@ import { Location } from '@angular/common';
 import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { MercadoPagoService } from 'app/entities/mercado-pago/mercado-pago.service';
+import { commonMessages } from 'app/shared/constants/commonMessages';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 declare const MercadoPago: any;
 
@@ -18,18 +20,30 @@ export class MembresiasComponent implements OnInit {
   faCommentDots = faCommentDots;
   checkout: any;
   preferenceId = '';
+  initPoint = '';
+  isOpen = false;
+  Politicas = commonMessages.POLITICAS;
+  TCP = commonMessages.TERMINOS_CONDICIONES_POLITICAS;
+  Aceptar = commonMessages.ACEPTAR;
+  modalRef!: NgbModalRef;
 
-  constructor(private _location: Location, private router: Router, private mercadoPagoService: MercadoPagoService) {}
+  constructor(
+    private _location: Location,
+    private router: Router,
+    private mercadoPagoService: MercadoPagoService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
-    this.goToMercadoPago();
+    // this.goToMercadoPago('');
   }
 
-  goToMercadoPago(): void {
-    this.mercadoPagoService.goToPayment('probando').subscribe((result: any) => {
+  goToMercadoPago(membresia: String): void {
+    this.mercadoPagoService.goToPayment(membresia).subscribe((result: any) => {
       // eslint-disable-next-line no-console
-      console.log(result);
+      console.log('preference: ', result);
       this.preferenceId = result.id;
+      this.initPoint = result.initPoint;
 
       const mp = new MercadoPago('APP_USR-da329173-c59a-4362-a441-b16efc3dc9bc', {
         locale: 'es-CO'
@@ -45,6 +59,43 @@ export class MembresiasComponent implements OnInit {
 
   checkoutOpen(): void {
     this.checkout.open();
+  }
+
+  navigationUrl(): void {
+    this.modalRef.close('Close click');
+    window.open(this.initPoint, '_blank'); // in new tab
+  }
+
+  pagoBronce(longContent: any): void {
+    this.goToMercadoPago('bronce');
+    this.openScrollableContent(longContent);
+  }
+
+  pagoPlata(longContent: any): void {
+    this.goToMercadoPago('plata');
+    this.openScrollableContent(longContent);
+  }
+
+  pagoOro(longContent: any): void {
+    this.goToMercadoPago('oro');
+    this.openScrollableContent(longContent);
+  }
+
+  pagoDiamante(longContent: any): void {
+    this.goToMercadoPago('diamante');
+    this.openScrollableContent(longContent);
+  }
+
+  openScrollableContent(longContent: any): void {
+    this.modalRef = this.modalService.open(longContent, { scrollable: true });
+    this.modalRef.result.finally(() => (this.isOpen = false));
+  }
+
+  getNoti(): void {
+    this.mercadoPagoService.getNoti().subscribe((result: any) => {
+      // eslint-disable-next-line no-console
+      console.log(result);
+    });
   }
 
   backClicked(): void {

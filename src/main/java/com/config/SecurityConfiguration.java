@@ -64,7 +64,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .and()
             .headers()
             .contentSecurityPolicy("default-src 'self' https://www.datos.gov.co https://restcountries.eu https://www.clubdeltrabajo.com https://www.google-analytics.com;"+
-                "frame-src 'self' https: data:;"+
+                "frame-src 'self' https://www.mercadopago.com.co/ https: data:;"+
                 "worker-src 'self' https://www.clubdeltrabajo.com;"+
                 "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com http://cdn.jsdelivr.net https://storage.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com https://http2.mlstatic.com/storage/event-metrics-sdk/js https://sdk.mercadopago.com/js/v2;"+
                 "style-src 'self' 'unsafe-inline' http://cdn.jsdelivr.net  https://fonts.googleapis.com;"+
@@ -101,6 +101,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/archivos/tipo/5/empPerfil/**").permitAll()
             .antMatchers("/api/hoja-vida/0").permitAll()
             .antMatchers("/api/mercado-pago").permitAll()
+            .antMatchers("/api/notiMercadoPago").permitAll()
             .antMatchers("/api/ofertas/filtroOfertas").permitAll()
             .antMatchers("/api/usuarios/validar-captcha").permitAll()
             .antMatchers("/api/**").authenticated()

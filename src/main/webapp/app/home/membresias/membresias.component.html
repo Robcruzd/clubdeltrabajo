@@ -15,7 +15,7 @@
                     <p class="titulo-boton">Editar perfil</p>
                 </div>
             </button>
-            <!-- <button class="btn boton-no-clicked" (click)="clubEmpresas()">
+            <button class="btn boton-no-clicked" (click)="clubEmpresas()">
                 <fa-icon icon="suitcase" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
@@ -35,7 +35,7 @@
                 <div class="div-info-boton">
                     <p class="titulo-boton">Membresía</p>
                 </div>
-            </button> -->
+            </button>
         </div>
         <div class="ovalo-arriba">
             <div class="circulo-ovalo">
@@ -54,16 +54,16 @@
             </div>
         </div>
         <div class="botones-comprar">
-            <button class="btn boton-comprar">
+            <button class="btn boton-comprar" (click)="pagoBronce(longContent)">
                 <p class="texto-boton-comprar">Comprar</p>
             </button>
-            <button class="btn boton-comprar">
+            <button class="btn boton-comprar" (click)="pagoPlata(longContent)">
                 <p class="texto-boton-comprar">Comprar</p>
             </button>
-            <button class="btn boton-comprar">
+            <button class="btn boton-comprar" (click)="pagoOro(longContent)">
                 <p class="texto-boton-comprar">Comprar</p>
             </button>
-            <button class="btn boton-comprar">
+            <button class="btn boton-comprar" (click)="pagoDiamante(longContent)">
                 <p class="texto-boton-comprar">Comprar</p>
             </button>
         </div>
@@ -187,3 +187,60 @@
     <a href="https://www.facebook.com/Club-del-Trabajo-100955765079986/" target="_blank" style="margin-right: 1.52vw;">
         <img class="icono" src="../../../content/images/facebook.png"></a>
 </div>
+
+<ng-template #longContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" style="color: #1FB9FD;">Por favor Completa los siguientes datos</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="cuerpo">
+            <div class="row">
+                <div class="form-group">
+                    <p class="estilo_label">Nombres</p>
+                    <input type="text" class="estilo_inputs" formControlName="nombre">
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <p class="estilo_label">Apellidos</p>
+                    <input type="text" class="estilo_inputs" formControlName="nombre">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <p class="estilo_label">Correo</p>
+                    <input type="text" class="estilo_inputs" formControlName="nombre">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <p class="estilo_label">Teléfono</p>
+                    <input type="text" class="estilo_inputs" formControlName="nombre">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <p class="estilo_label">Tipo e identificación</p>
+                    <input type="text" class="estilo_inputs" formControlName="nombre">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <p class="estilo_label">Dirección</p>
+                    <input type="text" class="estilo_inputs" formControlName="nombre">
+                </div>
+            </div>
+            <!-- <div class="botones">
+                <button (click)="mostrar=!mostrar" class="btn boton-volver"><p class="titulo-boton">Volver</p></button>
+                <button (click)="mostrar=!mostrar" type="submit" class="btn boton-finalizar"><p class="titulo-boton">Finalizar</p></button>
+            </div> -->
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="navigationUrl()">{{Aceptar}}</button>
+    </div>
+</ng-template>

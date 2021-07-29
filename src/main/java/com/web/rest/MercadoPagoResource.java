@@ -31,7 +31,9 @@ import com.service.MercadoPagoService;
 import com.web.rest.errors.BadRequestAlertException;
 
 import com.mercadopago.resources.Preference;
-
+import com.mercadopago.resources.Payment;
+import com.mercadopago.resources.MerchantOrder;
+import com.mercadopago.resources.datastructures.merchantorder.MerchantOrderPayment;
 /**
  * REST controller for managing {@link com.domain.Profesion}.
  */
@@ -58,27 +60,99 @@ public class MercadoPagoResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/mercadoPago")
-    public String createMercadoPago(@Valid @RequestBody String prueba) throws URISyntaxException, MPException, MPConfException {
-        System.out.println("---probandito---------------------");
-        log.debug("Prooooooooobando");
+    public String createMercadoPago(@Valid @RequestBody String id, @Valid @RequestBody String topic) throws URISyntaxException, MPException, MPConfException {
+        System.out.println("---probandito-----"+id);
+        System.out.println("---probandito-----"+topic);
+        log.debug("Prooooooooobando"+id);
+        log.debug("Prooooooooobando"+topic);
         // Preference result = mercadoPagoService.mercadoPagoCdT();
         
         return "resuuult";
-        // if (profesion.getId() != null) {
-        //     throw new BadRequestAlertException("A new profesion cannot already have an ID", ENTITY_NAME, "idexists");
-        // }
-        // Profesion result = profesionService.save(profesion);
-        // return ResponseEntity.created(new URI("/api/profesions/" + result.getId()))
-        //     .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-        //     .body(result);
     }
 
-
-    @GetMapping("/mercado-pago")
-    public String getMercado() throws URISyntaxException, MPException, MPConfException {
+    @PostMapping("/mercado-pago")
+    public Object getMercado(@Valid @RequestBody String body) throws URISyntaxException, MPException, MPConfException {
         System.out.println("---probandito---------------------");
-        String result = mercadoPagoService.mercadoPagoCdT();
-        return "{\"id\": \""+result+"\"}";
+        Object result = null;
+        if(body.equals("bronce")){
+            result = mercadoPagoService.mercadoPagoCdT("123","Bronce","Membresía Bronce",1500);
+        }
+        if(body.equals("plata")){
+            result = mercadoPagoService.mercadoPagoCdT("124","Plata","Membresía Plata",5000);
+        }
+        if(body.equals("oro")){
+            result = mercadoPagoService.mercadoPagoCdT("125","Oro","Membresía Oro",10000);
+        }
+        if(body.equals("diamante")){
+            result = mercadoPagoService.mercadoPagoCdT("126","Oro","Membresía Diamante",20000);
+        }
+        return result;
+        // return "{\"id\": \""+result+"\"}";
     }
     
+    /**
+     * {@code POST  /profesions} : Create a new profesion.
+     *
+     * @param profesion the profesion to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new profesion, or with status {@code 400 (Bad Request)} if the profesion has already an ID.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping("/notiMercadoPago")
+    public String notiMercadoPago(@RequestParam(value = "topic") String topic, @RequestParam(value = "id") String id) throws URISyntaxException, MPException, MPConfException {
+        // log.debug("REST request to delete User: {}", topic);
+        // log.debug("REST request to delete User: {}", id);
+        // System.out.println("---probandito---------------------"+topic);
+        Payment payment = null;
+        MerchantOrder merchant = null;
+        // if(topic.equals("payment")){
+        //     log.debug("topic dentro de payment: {}", topic); 
+        //     result = mercadoPagoService.mercadoPagoGetPayment(id);
+        //     log.debug("result payment: {}", result.toString());
+        // }else if(topic.equals("merchant_order")){
+        //     result = mercadoPagoService.mercadoPagoGetMerchant(id);
+        // }
+
+        // $merchant_order = null;
+
+        switch(topic) { 
+            case "payment":
+                log.debug("REST request to delete User: {}", topic);
+                payment = (Payment) mercadoPagoService.mercadoPagoGetPayment(id);
+                // Get the payment and the corresponding merchant_order reported by the IPN.
+                merchant = (MerchantOrder) mercadoPagoService.mercadoPagoGetMerchant(payment.getOrder().getId().toString());
+                break;
+            case "merchant_order":
+                log.debug("REST request to delete User: {}", topic);
+                merchant = (MerchantOrder) mercadoPagoService.mercadoPagoGetMerchant(id);
+                break;
+        }
+
+        float paid_amount = 0;
+        for(MerchantOrderPayment paymentf : merchant.getPayments()){
+            if(paymentf.getStatus().equals("approved")){
+                log.debug("Approooooooved");
+                paid_amount += paymentf.getTransactionAmount();
+            }
+        }
+
+
+        log.debug("paid_amount: {}", paid_amount);
+        log.debug("getTotalAmount: {}", merchant.getTotalAmount());
+        // If the payment's transaction amount is equal (or bigger) than the merchant_order's amount you can release your items
+        if(paid_amount >= merchant.getTotalAmount()){
+            log.debug("Totally paid");
+            if (merchant.getShipments().size()>0) { // The merchant_order has shipments
+                if(merchant.getShipments().get(0).getStatus().equals("ready_to_ship")) {
+                    System.out.println("Totally paid. Print the label and release your item.");
+                }
+            } else { // The merchant_order don't has any shipments
+                System.out.println("Totally paid. Release your item.");
+            }
+        } else {
+            System.out.println("Not paid yet. Do not release your item.");
+        }
+        // Preference result = mercadoPagoService.mercadoPagoCdT();
+        
+        return "resuuuult";
+    }
 }
