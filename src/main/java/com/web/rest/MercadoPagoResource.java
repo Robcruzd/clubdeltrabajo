@@ -34,6 +34,9 @@ import com.mercadopago.resources.Preference;
 import com.mercadopago.resources.Payment;
 import com.mercadopago.resources.MerchantOrder;
 import com.mercadopago.resources.datastructures.merchantorder.MerchantOrderPayment;
+
+// import com.mercadopago.resources.datastructures.preference.Payer;
+import com.domain.PayerMer;
 /**
  * REST controller for managing {@link com.domain.Profesion}.
  */
@@ -71,20 +74,23 @@ public class MercadoPagoResource {
     }
 
     @PostMapping("/mercado-pago")
-    public Object getMercado(@Valid @RequestBody String body) throws URISyntaxException, MPException, MPConfException {
-        System.out.println("---probandito---------------------");
+    public Object getMercado(@Valid @RequestBody PayerMer body) throws URISyntaxException, MPException, MPConfException {
+        System.out.println("---probandito---------------------"+body.getNombre());
+        System.out.println("---probandito---------------------"+body.getApellidos());
         Object result = null;
-        if(body.equals("bronce")){
-            result = mercadoPagoService.mercadoPagoCdT("123","Bronce","Membresía Bronce",1500);
+        PayerMer payerMer = new PayerMer();
+        // payer.setName(body.payer["nombre"]);
+        if(body.getPago().equals("bronce")){
+            result = mercadoPagoService.mercadoPagoCdT("123","Bronce","Membresía Bronce",1500, payerMer);
         }
-        if(body.equals("plata")){
-            result = mercadoPagoService.mercadoPagoCdT("124","Plata","Membresía Plata",5000);
+        if(body.getPago().equals("plata")){
+            result = mercadoPagoService.mercadoPagoCdT("124","Plata","Membresía Plata",5000, payerMer);
         }
-        if(body.equals("oro")){
-            result = mercadoPagoService.mercadoPagoCdT("125","Oro","Membresía Oro",10000);
+        if(body.getPago().equals("oro")){
+            result = mercadoPagoService.mercadoPagoCdT("125","Oro","Membresía Oro",10000, payerMer);
         }
-        if(body.equals("diamante")){
-            result = mercadoPagoService.mercadoPagoCdT("126","Oro","Membresía Diamante",20000);
+        if(body.getPago().equals("diamante")){
+            result = mercadoPagoService.mercadoPagoCdT("126","Oro","Membresía Diamante",20000, payerMer);
         }
         return result;
         // return "{\"id\": \""+result+"\"}";
@@ -99,9 +105,6 @@ public class MercadoPagoResource {
      */
     @PostMapping("/notiMercadoPago")
     public String notiMercadoPago(@RequestParam(value = "topic") String topic, @RequestParam(value = "id") String id) throws URISyntaxException, MPException, MPConfException {
-        // log.debug("REST request to delete User: {}", topic);
-        // log.debug("REST request to delete User: {}", id);
-        // System.out.println("---probandito---------------------"+topic);
         Payment payment = null;
         MerchantOrder merchant = null;
         // if(topic.equals("payment")){

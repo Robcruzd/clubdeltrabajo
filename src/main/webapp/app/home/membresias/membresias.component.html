@@ -79,8 +79,8 @@
                     <p class="texto-info">Hojas de vida ilimitadas</p>
                     <fa-icon [icon]="faAddressCard" class="icon" transform="grow-14"></fa-icon>
                 </div>
-                <button class="btn boton-ver-mas">
-                    Ver más
+                <button class="btn boton-ver-mas" (click)="pagoBronce(longContent)">
+                    $ 1.500 COP
                 </button>
             </div>
             <div class="div-bronce">
@@ -102,8 +102,8 @@
                     <p class="texto-info">Hojas de vida ilimitadas</p>
                     <fa-icon [icon]="faAddressCard" class="icon" transform="grow-14"></fa-icon>
                 </div>
-                <button class="btn boton-ver-mas">
-                    Ver más
+                <button class="btn boton-ver-mas" (click)="pagoPlata(longContent)">
+                    $ 5.000 COP
                 </button>
             </div>
             <div class="div-bronce">
@@ -133,8 +133,8 @@
                     <p class="texto-info">Hojas de vida ilimitadas</p>
                     <fa-icon [icon]="faAddressCard" class="icon" transform="grow-14"></fa-icon>
                 </div>
-                <button class="btn boton-ver-mas">
-                    Ver más
+                <button class="btn boton-ver-mas" (click)="pagoOro(longContent)">
+                    $ 10.000 COP
                 </button>
             </div>
             <div class="div-bronce">
@@ -168,8 +168,8 @@
                     <p class="texto-info">Hojas de vida ilimitadas</p>
                     <fa-icon [icon]="faAddressCard" class="icon" transform="grow-14"></fa-icon>
                 </div>
-                <button class="btn boton-ver-mas">
-                    Ver más
+                <button class="btn boton-ver-mas" (click)="pagoDiamante(longContent)">
+                    $ 20.000 COP
                 </button>
             </div>
         </div>
@@ -190,12 +190,13 @@
 
 <ng-template #longContent let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" style="color: #1FB9FD;">Por favor Completa los siguientes datos</h4>
+      <h4 class="modal-title" style="color: #1FB9FD;">Por favor completa los siguientes datos para aumentar tu probabilidad de pago</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
+        <form [formGroup]="formPayer" (ngSubmit)="onSubmit()">
         <div class="cuerpo">
             <div class="row">
                 <div class="form-group">
@@ -207,31 +208,39 @@
             <div class="row">
                 <div class="form-group">
                     <p class="estilo_label">Apellidos</p>
-                    <input type="text" class="estilo_inputs" formControlName="nombre">
+                    <input type="text" class="estilo_inputs" formControlName="apellidos">
                 </div>
             </div>
             <div class="row">
                 <div class="form-group">
                     <p class="estilo_label">Correo</p>
-                    <input type="text" class="estilo_inputs" formControlName="nombre">
+                    <input type="text" class="estilo_inputs" formControlName="correo">
                 </div>
             </div>
             <div class="row">
                 <div class="form-group">
                     <p class="estilo_label">Teléfono</p>
-                    <input type="text" class="estilo_inputs" formControlName="nombre">
+                    <input type="text" class="estilo_inputs" formControlName="telefono">
                 </div>
             </div>
             <div class="row">
                 <div class="form-group">
-                    <p class="estilo_label">Tipo e identificación</p>
-                    <input type="text" class="estilo_inputs" formControlName="nombre">
+                    <p class="estilo_label">Tipo de documento</p>
+                    <select class='estilo_inputs' formControlName="tipoIdentificacion">
+                        <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                        <option
+                            [ngValue]="documento"
+                            *ngFor="let documento of documentos">
+                            {{ documento.nombreTipo }}
+                        </option>
+                    </select>
+                    <!-- <input type="text" class="estilo_inputs" formControlName="identificacion"> -->
                 </div>
             </div>
             <div class="row">
                 <div class="form-group">
-                    <p class="estilo_label">Dirección</p>
-                    <input type="text" class="estilo_inputs" formControlName="nombre">
+                    <p class="estilo_label">Identificación</p>
+                    <input type="text" class="estilo_inputs" formControlName="identificacion">
                 </div>
             </div>
             <!-- <div class="botones">
@@ -239,6 +248,7 @@
                 <button (click)="mostrar=!mostrar" type="submit" class="btn boton-finalizar"><p class="titulo-boton">Finalizar</p></button>
             </div> -->
         </div>
+        </form>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-light" (click)="navigationUrl()">{{Aceptar}}</button>

@@ -84,8 +84,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private regionService: RegionesService,
     private dataService: DataService,
     private ofertaService: OfertaService,
-    private archivoService: ArchivoService,
-    private mercadoPagoService: MercadoPagoService
+    private archivoService: ArchivoService
   ) {
     // this.router.events.subscribe(event => {
     //   if (event instanceof NavigationEnd) {
@@ -111,29 +110,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     vid?.play();
     this.traerProfesiones();
     this.traerCiudad();
-    this.goToMercadoPago();
     // this.cargarProfesiones();
-  }
-
-  goToMercadoPago(): void {
-    this.mercadoPagoService.goToPayment('probando').subscribe((result: any) => {
-      console.log(result);
-      this.preferenceId = result.id;
-
-      const mp = new MercadoPago('APP_USR-da329173-c59a-4362-a441-b16efc3dc9bc', {
-        locale: 'es-CO'
-      });
-      this.checkout = mp.checkout({
-        preference: {
-          id: this.preferenceId
-        }
-      });
-      // checkout.open();
-    });
-  }
-
-  checkoutOpen(): void {
-    this.checkout.open();
   }
 
   isAuthenticated(): boolean {

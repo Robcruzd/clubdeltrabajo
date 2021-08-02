@@ -5,6 +5,10 @@ import { Router } from '@angular/router';
 import { MercadoPagoService } from 'app/entities/mercado-pago/mercado-pago.service';
 import { commonMessages } from 'app/shared/constants/commonMessages';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TipoDocumentoService } from '../../entities/tipo-documento/tipo-documento.service';
+import { ITipoDocumento } from 'app/shared/model/tipo-documento.model';
+import { HttpResponse } from '@angular/common/http';
 
 declare const MercadoPago: any;
 
@@ -14,6 +18,7 @@ declare const MercadoPago: any;
   styleUrls: ['./membresias.component.scss']
 })
 export class MembresiasComponent implements OnInit {
+  labels = commonMessages;
   faStar = faStar;
   faAddressCard = faAddressCard;
   faEllipsisH = faEllipsisH;
@@ -25,23 +30,43 @@ export class MembresiasComponent implements OnInit {
   Politicas = commonMessages.POLITICAS;
   TCP = commonMessages.TERMINOS_CONDICIONES_POLITICAS;
   Aceptar = commonMessages.ACEPTAR;
+  documentos: Array<ITipoDocumento> = [];
   modalRef!: NgbModalRef;
+  formPayer!: FormGroup;
+  nombre = '';
+  apellidos = '';
+  correo = '';
+  telefono = '';
+  identificacion = '';
+  tipoIdentificacion = null;
+  pago = 'bronce';
 
   constructor(
     private _location: Location,
     private router: Router,
+    private fb: FormBuilder,
     private mercadoPagoService: MercadoPagoService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private tipoDocumentoService: TipoDocumentoService
   ) {}
 
   ngOnInit(): void {
+    this.crearFormularioEmpresa();
+    this.cargarTipoDocumento();
     // this.goToMercadoPago('');
   }
 
-  goToMercadoPago(membresia: String): void {
-    this.mercadoPagoService.goToPayment(membresia).subscribe((result: any) => {
-      // eslint-disable-next-line no-console
-      console.log('preference: ', result);
+  goToMercadoPago(): void {
+    const payer = {
+      nombre: this.formPayer.controls['nombre'].value,
+      apellidos: this.formPayer.controls['apellidos'].value,
+      correo: this.formPayer.controls['correo'].value,
+      telefono: this.formPayer.controls['telefono'].value,
+      tipoIdentificacion: this.formPayer.controls['tipoIdentificacion'].value.nombreTipo,
+      identificacion: this.formPayer.controls['identificacion'].value,
+      pago: this.pago
+    };
+    this.mercadoPagoService.goToPayment(payer).subscribe((result: any) => {
       this.preferenceId = result.id;
       this.initPoint = result.initPoint;
 
@@ -54,6 +79,7 @@ export class MembresiasComponent implements OnInit {
         }
       });
       // checkout.open();
+      window.open(this.initPoint, '_blank');
     });
   }
 
@@ -62,27 +88,29 @@ export class MembresiasComponent implements OnInit {
   }
 
   navigationUrl(): void {
+    this.goToMercadoPago();
     this.modalRef.close('Close click');
-    window.open(this.initPoint, '_blank'); // in new tab
   }
 
+  onSubmit(): void {}
+
   pagoBronce(longContent: any): void {
-    this.goToMercadoPago('bronce');
+    this.pago = 'bronce';
     this.openScrollableContent(longContent);
   }
 
   pagoPlata(longContent: any): void {
-    this.goToMercadoPago('plata');
+    this.pago = 'plata';
     this.openScrollableContent(longContent);
   }
 
   pagoOro(longContent: any): void {
-    this.goToMercadoPago('oro');
+    this.pago = 'oro';
     this.openScrollableContent(longContent);
   }
 
   pagoDiamante(longContent: any): void {
-    this.goToMercadoPago('diamante');
+    this.pago = 'diamante';
     this.openScrollableContent(longContent);
   }
 
@@ -96,6 +124,37 @@ export class MembresiasComponent implements OnInit {
       // eslint-disable-next-line no-console
       console.log(result);
     });
+  }
+
+  crearFormularioEmpresa(): void {
+    this.formPayer = this.fb.group({
+      nombre: [''],
+      apellidos: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚñáéíóú0-9 ]{1,}$')]],
+      identificacion: ['', [Validators.required]],
+      tipoIdentificacion: [null, [Validators.required]],
+      telefono: ['', [Validators.required, Validators.pattern('^[0-9]{7,10}$')]],
+      correo: ['', [Validators.required, Validators.email]]
+    });
+  }
+
+  cargarTipoDocumento(): void {
+    this.tipoDocumentoService
+      .query({
+        page: 0,
+        size: 20
+      })
+      .subscribe((res: HttpResponse<ITipoDocumento[]>) => {
+        if (res.body !== null) {
+          this.documentos = res.body
+            .map(item => {
+              return {
+                id: item.id,
+                nombreTipo: item.nombreTipo
+              };
+            })
+            .sort((a: ITipoDocumento, b: ITipoDocumento) => (a.nombreTipo! > b.nombreTipo! ? 1 : b.nombreTipo! > a.nombreTipo! ? -1 : 0));
+        }
+      });
   }
 
   backClicked(): void {

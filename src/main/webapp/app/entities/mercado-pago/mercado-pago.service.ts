@@ -13,10 +13,9 @@ export class MercadoPagoService {
 
   constructor(protected http: HttpClient) {}
 
-  goToPayment(body: String): any {
-    // eslint-disable-next-line no-console
-    console.log('probando2', body);
-    return this.http.post<any>(this.resourceUrl, body);
+  goToPayment(payer: any): any {
+    // const body = {"nombre": "ro", "apellidos": "cr", "correo": "rb"}
+    return this.http.post<any>(this.resourceUrl, payer);
   }
 
   getNoti(): any {
