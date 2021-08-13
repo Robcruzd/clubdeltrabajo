@@ -12,16 +12,41 @@ import com.mercadopago.resources.datastructures.preference.Identification;
 import com.mercadopago.resources.datastructures.preference.Phone;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.domain.PayerMer;
+import com.domain.Empresa;
 import java.time.LocalDate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+// import com.service.MercadoPagoService;
+import com.service.PagosService;
+import com.domain.Membresia;
+import com.domain.Pagos;
+import java.util.Optional;
+
+// import com.service.MembresiaService;
 
   @Service
   @Transactional
   public class MercadoPagoService {
 
-      public String mercadoPagoCdT(String id, String title, String description, float price, PayerMer payerMer) throws MPException, MPConfException {
+    private final Logger log = LoggerFactory.getLogger(MercadoPagoService.class);
+
+    @Autowired
+    private PagosService pagosService;
+    // private final MembresiaService membresiaService;
+
+      public String mercadoPagoCdT(Membresia membresia, PayerMer payerMer, Empresa empresa) throws MPException, MPConfException {
           MercadoPago.SDK.setAccessToken("APP_USR-3628026467305338-063004-167ccac86e1254cf0dc3eb8adc7cc191-783442985");
-          Preference preference = new Preference();  
+          Preference preference = new Preference();
+          // Membresia membresia = new Membresia();
+          // long lg = id;
+          // Optional<Membresia> membresiaOptional = membresiaService.findOne(lg);
+          // if(membresiaOptional.isPresent()){
+          //     membresia = membresiaOptional.get();
+          // }else{
+          //     return "La Membresía no existe";
+          // }
           // Se configuran las url para retornar al comercio
           BackUrls backUrls = new BackUrls(
                     "http://190.248.224.11:9000/club-empresas",
@@ -31,13 +56,13 @@ import java.time.LocalDate;
             preference.setBackUrls(backUrls);
         //   Crea un ítem en la preferencia
             Item item = new Item();
-            item.setId(id)
-                .setTitle(title)
-                .setDescription(description)
+            item.setId(membresia.getId().toString())
+                .setTitle(membresia.getNombreMembresia())
+                .setDescription(membresia.getNombreMembresia())
                 .setCategoryId("services")
                 .setQuantity(1)
                 .setCurrencyId("COP")
-                .setUnitPrice((float) price);
+                .setUnitPrice((float) membresia.getPrecioMembresia());
             Payer payer = new Payer();
             payer.setName(payerMer.getNombre())
                 .setSurname(payerMer.getApellidos())
@@ -53,6 +78,11 @@ import java.time.LocalDate;
             preference.appendItem(item);
             preference.setNotificationUrl("http://190.248.224.11:8080/api/notiMercadoPago");
             Preference save = preference.save();
+            Pagos pagos = new Pagos();
+            pagos.setPreferenciaMerc(save.getId());
+            pagos.setMembresia(membresia);
+            pagos.setEmpresa(empresa);
+            Pagos pagoSaved = pagosService.save(pagos);
             System.out.println("---saveMer---------------------"+save.getId());
             return "{\"id\": \""+String.valueOf(save.getId())+"\", \"initPoint\": \""+String.valueOf(save.getInitPoint())+"\"}";
       }

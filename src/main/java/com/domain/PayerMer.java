@@ -11,6 +11,7 @@ public class PayerMer {
     private String tipoIdentificacion;
     private String identificacion;
     private String pago;
+    private Empresa empresa;
 
     public PayerMer() {
 
@@ -70,5 +71,13 @@ public class PayerMer {
 
     public void setPago(String pago) {
         this.pago = pago;
+    }
+
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 }

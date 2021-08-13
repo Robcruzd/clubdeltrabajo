@@ -9,6 +9,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TipoDocumentoService } from '../../entities/tipo-documento/tipo-documento.service';
 import { ITipoDocumento } from 'app/shared/model/tipo-documento.model';
 import { HttpResponse } from '@angular/common/http';
+import { EmpresaService } from 'app/entities/empresa/empresa.service';
+import { IEmpresa } from 'app/shared/model/empresa.model';
+import { AccountService } from 'app/core/auth/account.service';
+import { Account } from 'app/core/user/account.model';
 
 declare const MercadoPago: any;
 
@@ -40,6 +44,8 @@ export class MembresiasComponent implements OnInit {
   identificacion = '';
   tipoIdentificacion = null;
   pago = 'bronce';
+  empresaEnSesion!: IEmpresa | any;
+  account!: Account | any;
 
   constructor(
     private _location: Location,
@@ -47,13 +53,25 @@ export class MembresiasComponent implements OnInit {
     private fb: FormBuilder,
     private mercadoPagoService: MercadoPagoService,
     private modalService: NgbModal,
-    private tipoDocumentoService: TipoDocumentoService
+    private tipoDocumentoService: TipoDocumentoService,
+    private empresaService: EmpresaService,
+    private accountService: AccountService
   ) {}
 
   ngOnInit(): void {
-    this.crearFormularioEmpresa();
+    this.crearFormularioPayer();
     this.cargarTipoDocumento();
+    this.cargarCuentaUsuario();
     // this.goToMercadoPago('');
+  }
+
+  cargarCuentaUsuario(): void {
+    this.accountService.getAuthenticationState().subscribe(account => {
+      this.account = account;
+      this.empresaService.find(this.account.userEmpresa).subscribe(response => {
+        this.empresaEnSesion = response.body;
+      });
+    });
   }
 
   goToMercadoPago(): void {
@@ -64,7 +82,8 @@ export class MembresiasComponent implements OnInit {
       telefono: this.formPayer.controls['telefono'].value,
       tipoIdentificacion: this.formPayer.controls['tipoIdentificacion'].value.nombreTipo,
       identificacion: this.formPayer.controls['identificacion'].value,
-      pago: this.pago
+      pago: this.pago,
+      empresa: this.empresaEnSesion
     };
     this.mercadoPagoService.goToPayment(payer).subscribe((result: any) => {
       this.preferenceId = result.id;
@@ -126,7 +145,7 @@ export class MembresiasComponent implements OnInit {
     });
   }
 
-  crearFormularioEmpresa(): void {
+  crearFormularioPayer(): void {
     this.formPayer = this.fb.group({
       nombre: [''],
       apellidos: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚñáéíóú0-9 ]{1,}$')]],

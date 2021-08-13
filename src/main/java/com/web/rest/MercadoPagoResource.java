@@ -28,6 +28,7 @@ import com.mercadopago.exceptions.MPConfException;
 import com.mercadopago.exceptions.MPException;
 
 import com.service.MercadoPagoService;
+import com.service.MembresiaService;
 import com.web.rest.errors.BadRequestAlertException;
 
 import com.mercadopago.resources.Preference;
@@ -37,6 +38,8 @@ import com.mercadopago.resources.datastructures.merchantorder.MerchantOrderPayme
 
 // import com.mercadopago.resources.datastructures.preference.Payer;
 import com.domain.PayerMer;
+import com.domain.Membresia;
+import com.service.MembresiaService;
 /**
  * REST controller for managing {@link com.domain.Profesion}.
  */
@@ -50,9 +53,13 @@ public class MercadoPagoResource {
     private String applicationName;
 
     private final MercadoPagoService mercadoPagoService;
+    private final MembresiaService membresiaService;
 
-    public MercadoPagoResource(MercadoPagoService mercadoPagoService) {
+    public MercadoPagoResource(
+        MercadoPagoService mercadoPagoService,
+        MembresiaService membresiaService) {
         this.mercadoPagoService = mercadoPagoService;
+        this.membresiaService = membresiaService;
     }
 
     /**
@@ -77,20 +84,49 @@ public class MercadoPagoResource {
     public Object getMercado(@Valid @RequestBody PayerMer body) throws URISyntaxException, MPException, MPConfException {
         System.out.println("---probandito---------------------"+body.getNombre());
         System.out.println("---probandito---------------------"+body.getApellidos());
+        Membresia membresia = new Membresia();
         Object result = null;
         PayerMer payerMer = new PayerMer();
         // payer.setName(body.payer["nombre"]);
         if(body.getPago().equals("bronce")){
-            result = mercadoPagoService.mercadoPagoCdT("123","Bronce","Membresía Bronce",1500, payerMer);
+            long lg = 1;
+            Optional<Membresia> membresiaOptional = membresiaService.findOne(lg);
+            if(membresiaOptional.isPresent()){
+                membresia = membresiaOptional.get();
+            }else{
+                return "La Membresía no existe";
+            }
+            result = mercadoPagoService.mercadoPagoCdT(membresia, payerMer, body.getEmpresa());
         }
         if(body.getPago().equals("plata")){
-            result = mercadoPagoService.mercadoPagoCdT("124","Plata","Membresía Plata",5000, payerMer);
+            long lg = 2;
+            Optional<Membresia> membresiaOptional = membresiaService.findOne(lg);
+            if(membresiaOptional.isPresent()){
+                membresia = membresiaOptional.get();
+            }else{
+                return "La Membresía no existe";
+            }
+            result = mercadoPagoService.mercadoPagoCdT(membresia, payerMer, body.getEmpresa());
         }
         if(body.getPago().equals("oro")){
-            result = mercadoPagoService.mercadoPagoCdT("125","Oro","Membresía Oro",10000, payerMer);
+            long lg = 3;
+            Optional<Membresia> membresiaOptional = membresiaService.findOne(lg);
+            if(membresiaOptional.isPresent()){
+                membresia = membresiaOptional.get();
+            }else{
+                return "La Membresía no existe";
+            }
+            result = mercadoPagoService.mercadoPagoCdT(membresia, payerMer, body.getEmpresa());
         }
         if(body.getPago().equals("diamante")){
-            result = mercadoPagoService.mercadoPagoCdT("126","Oro","Membresía Diamante",20000, payerMer);
+            long lg = 4;
+            Optional<Membresia> membresiaOptional = membresiaService.findOne(lg);
+            if(membresiaOptional.isPresent()){
+                membresia = membresiaOptional.get();
+            }else{
+                return "La Membresía no existe";
+            }
+            result = mercadoPagoService.mercadoPagoCdT(membresia, payerMer, body.getEmpresa());
         }
         return result;
         // return "{\"id\": \""+result+"\"}";
@@ -123,10 +159,12 @@ public class MercadoPagoResource {
                 payment = (Payment) mercadoPagoService.mercadoPagoGetPayment(id);
                 // Get the payment and the corresponding merchant_order reported by the IPN.
                 merchant = (MerchantOrder) mercadoPagoService.mercadoPagoGetMerchant(payment.getOrder().getId().toString());
+                log.debug("merchant id in pay {}", merchant.getId());
                 break;
             case "merchant_order":
                 log.debug("REST request to delete User: {}", topic);
                 merchant = (MerchantOrder) mercadoPagoService.mercadoPagoGetMerchant(id);
+                log.debug("merchant id {}", merchant.getId());
                 break;
         }
 
