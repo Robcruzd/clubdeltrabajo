@@ -35,11 +35,15 @@ import com.mercadopago.resources.Preference;
 import com.mercadopago.resources.Payment;
 import com.mercadopago.resources.MerchantOrder;
 import com.mercadopago.resources.datastructures.merchantorder.MerchantOrderPayment;
-
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 // import com.mercadopago.resources.datastructures.preference.Payer;
 import com.domain.PayerMer;
 import com.domain.Membresia;
+import com.domain.Pagos;
 import com.service.MembresiaService;
+import com.service.PagosService;
 /**
  * REST controller for managing {@link com.domain.Profesion}.
  */
@@ -48,6 +52,9 @@ import com.service.MembresiaService;
 public class MercadoPagoResource {
 
     private final Logger log = LoggerFactory.getLogger(MercadoPagoResource.class);
+
+    @Autowired
+    private PagosService pagosService;
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -143,15 +150,7 @@ public class MercadoPagoResource {
     public String notiMercadoPago(@RequestParam(value = "topic") String topic, @RequestParam(value = "id") String id) throws URISyntaxException, MPException, MPConfException {
         Payment payment = null;
         MerchantOrder merchant = null;
-        // if(topic.equals("payment")){
-        //     log.debug("topic dentro de payment: {}", topic); 
-        //     result = mercadoPagoService.mercadoPagoGetPayment(id);
-        //     log.debug("result payment: {}", result.toString());
-        // }else if(topic.equals("merchant_order")){
-        //     result = mercadoPagoService.mercadoPagoGetMerchant(id);
-        // }
-
-        // $merchant_order = null;
+        Pagos pago = new Pagos();
 
         switch(topic) { 
             case "payment":
@@ -159,36 +158,41 @@ public class MercadoPagoResource {
                 payment = (Payment) mercadoPagoService.mercadoPagoGetPayment(id);
                 // Get the payment and the corresponding merchant_order reported by the IPN.
                 merchant = (MerchantOrder) mercadoPagoService.mercadoPagoGetMerchant(payment.getOrder().getId().toString());
+                pago = pagosService.findPagoByPreference(merchant.getPreferenceId());
+                pago.setFechaUltimaActuali(ZonedDateTime.ofInstant(merchant.getLastUpdate().toInstant(), ZoneId.of("America/Bogota")).toLocalDateTime());
                 log.debug("merchant id in pay {}", merchant.getId());
                 break;
             case "merchant_order":
                 log.debug("REST request to delete User: {}", topic);
                 merchant = (MerchantOrder) mercadoPagoService.mercadoPagoGetMerchant(id);
+                pago = pagosService.findPagoByPreference(merchant.getPreferenceId());
+                pago.setFechaUltimaActuali(ZonedDateTime.ofInstant(merchant.getLastUpdate().toInstant(), ZoneId.of("America/Bogota")).toLocalDateTime());
                 log.debug("merchant id {}", merchant.getId());
                 break;
         }
 
         float paid_amount = 0;
         for(MerchantOrderPayment paymentf : merchant.getPayments()){
+            pago.setEstado(paymentf.getStatus());
+            pagosService.save(pago);
+            if(!pago.getId().equals(null)){
+            }
             if(paymentf.getStatus().equals("approved")){
                 log.debug("Approooooooved");
                 paid_amount += paymentf.getTransactionAmount();
             }
         }
 
-
-        log.debug("paid_amount: {}", paid_amount);
-        log.debug("getTotalAmount: {}", merchant.getTotalAmount());
         // If the payment's transaction amount is equal (or bigger) than the merchant_order's amount you can release your items
         if(paid_amount >= merchant.getTotalAmount()){
             log.debug("Totally paid");
-            if (merchant.getShipments().size()>0) { // The merchant_order has shipments
-                if(merchant.getShipments().get(0).getStatus().equals("ready_to_ship")) {
-                    System.out.println("Totally paid. Print the label and release your item.");
-                }
-            } else { // The merchant_order don't has any shipments
-                System.out.println("Totally paid. Release your item.");
-            }
+            // if (merchant.getShipments().size()>0) { // The merchant_order has shipments
+            //     if(merchant.getShipments().get(0).getStatus().equals("ready_to_ship")) {
+            //         System.out.println("Totally paid. Print the label and release your item.");
+            //     }
+            // } else { // The merchant_order don't has any shipments
+            //     System.out.println("Totally paid. Release your item.");
+            // }
         } else {
             System.out.println("Not paid yet. Do not release your item.");
         }

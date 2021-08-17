@@ -71,4 +71,15 @@ public class PagosService {
         log.debug("Request to delete Pagos : {}", id);
         pagosRepository.deleteById(id);
     }
+
+    /**
+     * Get one pagos by preference.
+     *
+     * @param preference the id of the entity.
+     * @return the entity.
+     */
+    public Pagos findPagoByPreference(String preference) {
+        log.debug("Request to get Pagos : {}", preference);
+        return pagosRepository.findByPreferenceQuery(preference);
+    }
 }

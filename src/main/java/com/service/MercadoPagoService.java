@@ -15,7 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.domain.PayerMer;
 import com.domain.Empresa;
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 // import com.service.MercadoPagoService;
@@ -39,14 +42,7 @@ import java.util.Optional;
       public String mercadoPagoCdT(Membresia membresia, PayerMer payerMer, Empresa empresa) throws MPException, MPConfException {
           MercadoPago.SDK.setAccessToken("APP_USR-3628026467305338-063004-167ccac86e1254cf0dc3eb8adc7cc191-783442985");
           Preference preference = new Preference();
-          // Membresia membresia = new Membresia();
-          // long lg = id;
-          // Optional<Membresia> membresiaOptional = membresiaService.findOne(lg);
-          // if(membresiaOptional.isPresent()){
-          //     membresia = membresiaOptional.get();
-          // }else{
-          //     return "La Membresía no existe";
-          // }
+          Date date = new Date();
           // Se configuran las url para retornar al comercio
           BackUrls backUrls = new BackUrls(
                     "http://190.248.224.11:9000/club-empresas",
@@ -54,6 +50,7 @@ import java.util.Optional;
                     "http://190.248.224.11:9000/");
 
             preference.setBackUrls(backUrls);
+            LocalDateTime date = ZonedDateTime.now(ZoneId.of("America/Bogota")).toLocalDateTime();
         //   Crea un ítem en la preferencia
             Item item = new Item();
             item.setId(membresia.getId().toString())
@@ -67,7 +64,7 @@ import java.util.Optional;
             payer.setName(payerMer.getNombre())
                 .setSurname(payerMer.getApellidos())
                 .setEmail(payerMer.getCorreo())
-                .setDateCreated(LocalDate.now().toString())
+                .setDateCreated(date.toString())
                 .setPhone(new Phone()
                     .setAreaCode("57")
                     .setNumber(payerMer.getTelefono()))
@@ -82,7 +79,11 @@ import java.util.Optional;
             pagos.setPreferenciaMerc(save.getId());
             pagos.setMembresia(membresia);
             pagos.setEmpresa(empresa);
+            pagos.setEstado("Waiting");
+            pagos.setFechaCreacion(date);
+            pagos.setFechaUltimaActuali(date);
             Pagos pagoSaved = pagosService.save(pagos);
+            System.out.println("---date---------------------"+ZonedDateTime.now(ZoneId.of("America/Bogota")).toLocalDateTime());
             System.out.println("---saveMer---------------------"+save.getId());
             return "{\"id\": \""+String.valueOf(save.getId())+"\", \"initPoint\": \""+String.valueOf(save.getInitPoint())+"\"}";
       }

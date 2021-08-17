@@ -6,6 +6,7 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.time.LocalDateTime;
 
 /**
  * A Pagos.
@@ -21,9 +22,9 @@ public class Pagos implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotNull
-    @Column(name = "pg_empresa_id", nullable = false)
-    private Long pgEmpresaId;
+    // @NotNull
+    // @Column(name = "pg_empresa_id", nullable = false)
+    // private Long pgEmpresaId;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -38,6 +39,18 @@ public class Pagos implements Serializable {
     @NotNull
     @Column(name = "pg_preferenciamerc", nullable = false)
     private String preferenciaMerc;
+
+    @NotNull
+    @Column(name = "estado", nullable = false)
+    private String estado;
+
+    @NotNull
+    @Column(name = "fecha_creacion", nullable = false)
+    private LocalDateTime fechaCreacion;
+
+    @NotNull
+    @Column(name = "fecha_ultima_actuali", nullable = false)
+    private LocalDateTime fechaUltimaActuali;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -86,6 +99,31 @@ public class Pagos implements Serializable {
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public LocalDateTime getFechaUltimaActuali() {
+        return fechaUltimaActuali;
+    }
+
+    public void setFechaUltimaActuali(LocalDateTime fechaUltimaActuali) {
+        this.fechaUltimaActuali = fechaUltimaActuali;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
