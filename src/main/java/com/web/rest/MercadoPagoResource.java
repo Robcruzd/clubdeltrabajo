@@ -37,6 +37,7 @@ import com.mercadopago.resources.MerchantOrder;
 import com.mercadopago.resources.datastructures.merchantorder.MerchantOrderPayment;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 // import com.mercadopago.resources.datastructures.preference.Payer;
 import com.domain.PayerMer;
@@ -151,7 +152,7 @@ public class MercadoPagoResource {
         Payment payment = null;
         MerchantOrder merchant = null;
         Pagos pago = new Pagos();
-
+        LocalDateTime date = ZonedDateTime.now(ZoneId.of("America/Bogota")).toLocalDateTime();
         switch(topic) { 
             case "payment":
                 log.debug("REST request to delete User: {}", topic);
@@ -159,21 +160,25 @@ public class MercadoPagoResource {
                 // Get the payment and the corresponding merchant_order reported by the IPN.
                 merchant = (MerchantOrder) mercadoPagoService.mercadoPagoGetMerchant(payment.getOrder().getId().toString());
                 pago = pagosService.findPagoByPreference(merchant.getPreferenceId());
-                pago.setFechaUltimaActuali(ZonedDateTime.ofInstant(merchant.getLastUpdate().toInstant(), ZoneId.of("America/Bogota")).toLocalDateTime());
+                log.debug("paaaaaaaaaaaaaaaaaaaaaaaaaaagos: {}", pago);
+                pago.setFechaUltimaActuali(date);
                 log.debug("merchant id in pay {}", merchant.getId());
                 break;
             case "merchant_order":
                 log.debug("REST request to delete User: {}", topic);
                 merchant = (MerchantOrder) mercadoPagoService.mercadoPagoGetMerchant(id);
                 pago = pagosService.findPagoByPreference(merchant.getPreferenceId());
-                pago.setFechaUltimaActuali(ZonedDateTime.ofInstant(merchant.getLastUpdate().toInstant(), ZoneId.of("America/Bogota")).toLocalDateTime());
+                pago.setFechaUltimaActuali(date);
                 log.debug("merchant id {}", merchant.getId());
                 break;
         }
 
+        
+        log.debug("paaaaaaaaaaaaaaaaaaaaaaaaaaagos2: {}", pago);
         float paid_amount = 0;
         for(MerchantOrderPayment paymentf : merchant.getPayments()){
             pago.setEstado(paymentf.getStatus());
+            log.debug("paaaaaaaaaaaaaaaaaaaaaaaaaaagos: {}", pago);
             pagosService.save(pago);
             if(!pago.getId().equals(null)){
             }

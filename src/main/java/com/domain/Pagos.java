@@ -147,6 +147,11 @@ public class Pagos implements Serializable {
         return "Pagos{" +
             "id=" + getId() +
             ", preference='" + getPreferenciaMerc() + "'" +
+            "id=" + getMembresia() +
+            "id=" + getEmpresa() +
+            "id=" + getEstado() +
+            "id=" + getFechaCreacion() +
+            "id=" + getFechaUltimaActuali() +
             "}";
     }
 }
