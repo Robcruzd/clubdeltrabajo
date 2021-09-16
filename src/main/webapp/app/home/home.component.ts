@@ -20,7 +20,6 @@ import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { MercadoPagoService } from 'app/entities/mercado-pago/mercado-pago.service';
 
 declare const MercadoPago: any;
 

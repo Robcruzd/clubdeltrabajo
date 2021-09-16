@@ -95,6 +95,12 @@ public class Empresa implements Serializable {
     //@Transient
     @Column(name = "numero", nullable = true)
     private Long numero;
+    
+    @Column(name = "pais", nullable = true)
+    private String pais;
+    
+    @Column(name = "codigoPostal", nullable = true)
+    private String codigoPostal;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -295,6 +301,22 @@ public class Empresa implements Serializable {
 
 	public void setNumero(Long numero) {
 		this.numero = numero;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public void setCodigoPostal(String codigoPostal) {
+		this.codigoPostal = codigoPostal;
 	}
 
 	@Override

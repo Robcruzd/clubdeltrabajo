@@ -47,7 +47,7 @@
                     </p>
                 </div> 
                 <div>
-                    <a class="agrega-empresa" (click)="mostrar=!mostrar">
+                    <a class="agrega-empresa" (click)="agregarEmpresa()">
                     Agrega tu empresa 
                     <fa-icon icon="plus" class="border-icon" style="
                         background:#f1f1f1 0% 0% no-repeat padding-box;"></fa-icon>
@@ -136,55 +136,59 @@
             </div>
             
             <div class="cuerpo">
-                <div class="row">
-                    <div class="form-group">
-                        <p class="estilo_label">Nombre</p>
-                        <input type="text" class="estilo_inputs" formControlName="nombre">
-                        
+                <form [formGroup]="agregarEmpresaForm">
+                    <div class="row">
+                        <div class="form-group">
+                            <p class="estilo_label">Nombre</p>
+                            <input type="text" class="estilo_inputs" formControlName="nombre" disabled>
+                            
+                        </div>
                     </div>
-                </div>
-                <div class="row-group">
-                    <div class="form-group">
-                        <p class="estilo_label">País</p>
-                        <input type="text" class="estilo_inputs" formControlName="nombre">
+                    <div class="row-group">
+                        <div class="form-group">
+                            <p class="estilo_label">País</p>
+                            <input type="text" class="estilo_inputs" formControlName="pais">
+                        </div>
+                        <div class="form-group">
+                            <p class="estilo_label">Ciudad</p>
+                            <input type="text" class="estilo_inputs" formControlName="ciudad" disabled>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <p class="estilo_label">Ciudad</p>
-                        <input type="text" class="estilo_inputs" formControlName="nombre">
+                    <div class="row-group">
+                        <div class="form-group">
+                            <p class="estilo_label">Dirección</p>
+                            <input type="text" class="estilo_inputs" formControlName="direccion" disabled>
+                        </div>
+                        <div class="form-group">
+                            <p class="estilo_label">Código Postal</p>
+                            <input type="text" class="estilo_inputs" formControlName="codigoPostal">
+                        </div>
                     </div>
-                </div>
-                <div class="row-group">
-                    <div class="form-group">
-                        <p class="estilo_label">Dirección</p>
-                        <input type="text" class="estilo_inputs" formControlName="nombre">
+                    <div class="row-group">
+                        <div class="form-group">
+                            <p class="estilo_label">Teléfono</p>
+                            <input type="text" class="estilo_inputs" formControlName="telefono" disabled>
+                        </div>
+                        <div class="form-group">
+                            <p class="estilo_label">Correo electrónico</p>
+                            <input type="text" class="estilo_inputs" formControlName="correoElectronico" disabled>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <p class="estilo_label">Código Postal</p>
-                        <input type="text" class="estilo_inputs" formControlName="nombre">
+                    <div class="row">
+                        <div class="form-group">
+                            <p class="estilo_label">Agrega productos</p>
+                            <p class="estilo_label">Escribe el link del catalogo de productos</p>
+                            <!--<textarea type="text" class="estilo_inputs"></textarea>-->
+                            <!-- <textarea class="textarea-input" name="" id="" cols="100" rows="10"></textarea> -->
+                            <input type="text" class="estilo_inputs" formControlName="urlProducto">
+                            <button ngbPopover="Texto Copiado!" [openDelay]="100" [closeDelay]="500" triggers="click:blur" id="linkProducto" (click)="copiarLink()" class="btn boton-finalizar"><p class="titulo-boton">Copiar link</p></button>
+                        </div>
                     </div>
-                </div>
-                <div class="row-group">
-                    <div class="form-group">
-                        <p class="estilo_label">Teléfono</p>
-                        <input type="text" class="estilo_inputs" formControlName="nombre">
+                    <div class="botones">
+                        <button (click)="volver()" class="btn boton-volver"><p class="titulo-boton">Volver</p></button>
+                        <button (click)="finalizar()" type="submit" class="btn boton-finalizar"><p class="titulo-boton">Finalizar</p></button>
                     </div>
-                    <div class="form-group">
-                        <p class="estilo_label">Correo electrónico</p>
-                        <input type="text" class="estilo_inputs" formControlName="nombre">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <p class="estilo_label">Agrega productos</p>
-                        <p class="estilo_label">Escribe un sólo producto por línea (y solo el nombre del producto, máximo 500 productos)</p>
-                        <!--<textarea type="text" class="estilo_inputs"></textarea>-->
-                        <textarea class="textarea-input" name="" id="" cols="100" rows="10"></textarea>
-                    </div>
-                </div>
-                <div class="botones">
-                    <button (click)="mostrar=!mostrar" class="btn boton-volver"><p class="titulo-boton">Volver</p></button>
-                    <button (click)="mostrar=!mostrar" type="submit" class="btn boton-finalizar"><p class="titulo-boton">Finalizar</p></button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
