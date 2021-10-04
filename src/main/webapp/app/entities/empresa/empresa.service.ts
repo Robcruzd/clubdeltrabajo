@@ -48,4 +48,8 @@ export class EmpresaService {
     const url = this.resourceUrlByRazon + params;
     return this.http.get<any>(url);
   }
+
+  count(): Observable<EntityResponseType> {
+    return this.http.get<IEmpresa>(`${this.resourceUrl}/count`, { observe: 'response' });
+  }
 }

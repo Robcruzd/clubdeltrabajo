@@ -186,4 +186,16 @@ public class UserResource {
         userService.deleteUser(login);
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName,  "userManagement.deleted", login)).build();
     }
+
+    @GetMapping("/users/countPer")
+    public Long countPersonas() {
+        log.debug("REST request to count Personas");
+        return userService.contarPersonas();
+    }
+
+    @GetMapping("/users/countEmp")
+    public Long countEmpresas() {
+        log.debug("REST request to count Empresas");
+        return userService.contarEmpresas();
+    }
 }

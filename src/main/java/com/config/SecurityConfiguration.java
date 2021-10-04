@@ -63,11 +63,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(problemSupport)
         .and()
             .headers()
-            .contentSecurityPolicy("default-src 'self' https://www.datos.gov.co https://restcountries.eu https://www.clubdeltrabajo.com https://www.google-analytics.com;"+
+            .contentSecurityPolicy("default-src 'self' 'unsafe-inline' https://www.datos.gov.co https://restcountries.eu https://www.clubdeltrabajo.com https://www.google-analytics.com http://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css;"+
                 "frame-src 'self' https://www.mercadopago.com.co/ https: data:;"+
                 "worker-src 'self' https://www.clubdeltrabajo.com;"+
-                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com http://cdn.jsdelivr.net https://storage.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com https://http2.mlstatic.com/storage/event-metrics-sdk/js https://sdk.mercadopago.com/js/v2;"+
-                "style-src 'self' 'unsafe-inline' http://cdn.jsdelivr.net  https://fonts.googleapis.com;"+
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com http://cdn.jsdelivr.net https://storage.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com https://http2.mlstatic.com/storage/event-metrics-sdk/js https://sdk.mercadopago.com/js/v2; https://apis.google.com/js"+
+                "style-src 'self' 'unsafe-inline' http://cdn.jsdelivr.net  https://fonts.googleapis.com https://apis.google.com;"+
                 "img-src 'self' https://www.google-analytics.com data:;"+
                 "font-src 'self' https://fonts.gstatic.com data:;")
         .and()
@@ -103,6 +103,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/mercado-pago").permitAll()
             .antMatchers("/api/notiMercadoPago").permitAll()
             .antMatchers("/api/ofertas/filtroOfertas").permitAll()
+            .antMatchers("/api/users/countPer").permitAll()
+            .antMatchers("/api/users/countEmp").permitAll()
+            .antMatchers("/api/users/analytics").permitAll()
             .antMatchers("/api/usuarios/validar-captcha").permitAll()
             .antMatchers("/api/**").authenticated()
             .antMatchers("/management/health").permitAll()

@@ -20,10 +20,12 @@ import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { UserService } from 'app/core/user/user.service';
 
 declare const MercadoPago: any;
 
 declare let gtag: Function;
+declare const gapi: any;
 
 @Component({
   selector: 'jhi-home',
@@ -54,6 +56,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   urlImgDefault = '../../../content/images/Image 28.png';
   showButtons = null;
   checkout: any;
+  countPersonas = 0;
+  countEmpresas = 0;
+  analytics: any;
+  // Replace with your view ID.
+  VIEW_ID = '232161926';
 
   Haz_Parte = commonMessages.HAZ_PARTE;
   D_VIDEO = commonMessages.DANGER_VIDEO;
@@ -83,7 +90,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private regionService: RegionesService,
     private dataService: DataService,
     private ofertaService: OfertaService,
-    private archivoService: ArchivoService
+    private archivoService: ArchivoService,
+    private userService: UserService
   ) {
     // this.router.events.subscribe(event => {
     //   if (event instanceof NavigationEnd) {
@@ -103,13 +111,21 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
     /* eslint-disable no-console */
     console.log(this.account);
+    this.userService.contarEmpresas().subscribe(count => {
+      this.countEmpresas = count;
+    });
+    this.userService.analytics().subscribe((count: any) => {
+      this.analytics = count;
+    });
+    this.userService.contarPersonas().subscribe(count => {
+      this.countPersonas = count;
+    });
     const vid = document.getElementById('vid') as HTMLVideoElement;
     vid.muted = true;
     vid.loop = true;
     vid?.play();
     this.traerProfesiones();
     this.traerCiudad();
-    // this.cargarProfesiones();
   }
 
   isAuthenticated(): boolean {

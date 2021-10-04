@@ -101,4 +101,8 @@ export class PersonaService {
     const url = this.resourceUrlEnviarEmailAspirante + params;
     return this.http.get<any>(url);
   }
+
+  count(): Observable<EntityResponseType> {
+    return this.http.get<IPersona>(`${this.resourceUrl}/count`, { observe: 'response' });
+  }
 }
