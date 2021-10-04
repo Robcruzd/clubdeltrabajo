@@ -787,7 +787,7 @@
                                 <select formControlName="pais" class="estilo_inputs" (change)="onChangePais(indexLaboral)">
                                     <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                                     <option
-                                        [ngValue]="pais.codigo == experienciaLaboral.at(indexLaboral).get('pais')!.value ? experienciaLaboral.at(indexLaboral).get('pais')!.value : pais.codigo"
+                                        [ngValue]="pais.iso2 == experienciaLaboral.at(indexLaboral).get('pais')!.value ? experienciaLaboral.at(indexLaboral).get('pais')!.value : pais.iso2"
                                         *ngFor="let pais of paises">
                                         {{ pais.nombre }}
                                     </option>

@@ -86,7 +86,7 @@ export class CrearOfertaComponent implements OnInit {
   idOferta = 0;
   subnivelesLaborales: IOpcionVo[] = commonMessages.ARRAY_NIVEL_LABORAL[0].subniveles;
   mostrarSalario = false;
-datosEmpresa!: Empresa | null;
+  datosEmpresa!: Empresa | null;
 
   Crear_oferta = commonMessages.CREAR_OFERTA;
   Editar_Perfil = commonMessages.EDITAR_PERFIL;
@@ -111,7 +111,6 @@ datosEmpresa!: Empresa | null;
   Publicado = commonMessages.PUBLICADO;
   Salario = commonMessages.SALARIO;
   Publicar = commonMessages.PUBLICAR;
-  
 
   constructor(
     private cargoService: CargoService,
@@ -273,6 +272,7 @@ datosEmpresa!: Empresa | null;
   onSubmit(): void {
     this.oferta = new Oferta();
     this.oferta.estado = 'A';
+    this.oferta.activado = true;
     this.oferta.titulo = this.formDatosBasicos.controls['nombre'].value;
     this.oferta.descripcion = this.formDatosBasicos.controls['requisitos'].value;
     this.oferta.salario = this.formDatosBasicos.controls['rangoSalarial'].value;
@@ -293,42 +293,21 @@ datosEmpresa!: Empresa | null;
     this.oferta.mostrarSalario = this.formDatosBasicos.controls['mostrarSalario'].value;
     if (this.usuario?.userEmpresa) {
       // this.ofertaService.getOfertasEmpresa(this.usuario.userEmpresa).subscribe(ofertaResponse => {
-        if (this.usuario?.userEmpresa) {
-          this.empresaService.find(this.usuario.userEmpresa).subscribe(RESPONSE => {
-            this.oferta.usuario = RESPONSE.body;
-            this.datosEmpresa = RESPONSE.body;
-            if (this.idOferta === 0) {
-              if (this.datosEmpresa?.publicacionesOferta !== 0) {
-                this.oferta.activado = true;
-                this.ofertaService.create(this.oferta).subscribe(
-                  response => {
-                    if (response.body !== null && this.datosEmpresa !== null) {
-                      const valor = this.datosEmpresa?.publicacionesOferta;
-                      if(valor !== undefined){
-                        this.datosEmpresa.publicacionesOferta = valor - 1;
-                        this.empresaService.update(this.datosEmpresa).subscribe(()=>{});
-                      }
-                      alertify.set('notifier', 'position', 'top-right');
-                      alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
-                      this.router.navigate(['/controlar-ofertas']);
-                    }
-                  },
-                  () => {
-                    alertify.set('notifier', 'position', 'top-right');
-                    alertify.error(commonMessages.HTTP_ERROR_LABEL);
-                    // this.router.navigate(['/controlar-ofertas']);
-                  }
-                );
-              } else {
-                alertify.set('notifier', 'position', 'top-right');
-                alertify.error('No es posible publicar más ofertas, debe adquirir un plan!');
-                this.router.navigate(['/controlar-ofertas']);
-              }
-            } else {
-              this.oferta.id = this.idOferta;
-              this.ofertaService.update(this.oferta).subscribe(
+      if (this.usuario?.userEmpresa) {
+        this.empresaService.find(this.usuario.userEmpresa).subscribe(RESPONSE => {
+          this.oferta.usuario = RESPONSE.body;
+          this.datosEmpresa = RESPONSE.body;
+          if (this.idOferta === 0) {
+            if (this.datosEmpresa?.publicacionesOferta !== 0) {
+              this.oferta.activado = true;
+              this.ofertaService.create(this.oferta).subscribe(
                 response => {
-                  if (response.body !== null) {
+                  if (response.body !== null && this.datosEmpresa !== null) {
+                    const valor = this.datosEmpresa?.publicacionesOferta;
+                    if (valor !== undefined) {
+                      this.datosEmpresa.publicacionesOferta = valor - 1;
+                      this.empresaService.update(this.datosEmpresa).subscribe(() => {});
+                    }
                     alertify.set('notifier', 'position', 'top-right');
                     alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
                     this.router.navigate(['/controlar-ofertas']);
@@ -340,9 +319,30 @@ datosEmpresa!: Empresa | null;
                   // this.router.navigate(['/controlar-ofertas']);
                 }
               );
+            } else {
+              alertify.set('notifier', 'position', 'top-right');
+              alertify.error('No es posible publicar más ofertas, debe adquirir un plan!');
+              this.router.navigate(['/controlar-ofertas']);
             }
-          });
-        }
+          } else {
+            this.oferta.id = this.idOferta;
+            this.ofertaService.update(this.oferta).subscribe(
+              response => {
+                if (response.body !== null) {
+                  alertify.set('notifier', 'position', 'top-right');
+                  alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                  this.router.navigate(['/controlar-ofertas']);
+                }
+              },
+              () => {
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.error(commonMessages.HTTP_ERROR_LABEL);
+                // this.router.navigate(['/controlar-ofertas']);
+              }
+            );
+          }
+        });
+      }
       // });
     }
 
