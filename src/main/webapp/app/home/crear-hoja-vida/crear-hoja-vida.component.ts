@@ -27,7 +27,7 @@ import { ITipoDocumento } from '../../shared/model/tipo-documento.model';
 import { TipoUsuario } from '../../shared/model/tipo-usuario.model';
 import { ApiService } from '../../shared/services/api.service';
 import { HojaVidaService } from '../../shared/services/hoja-vida.service';
-import { GeografiaVo } from '../../shared/vo/geografia-vo';
+import { GeografiaVo, PaisesVo } from '../../shared/vo/geografia-vo';
 import { HojaVidaVo } from '../../shared/vo/hoja-vida-vo';
 import { IOpcionVo, IOpcionVoDescripcion } from '../../shared/vo/opcion-vo';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
@@ -38,6 +38,8 @@ import { map, startWith } from 'rxjs/operators';
 import { IRegiones } from 'app/shared/model/regiones.model';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { PersonaService } from 'app/entities/persona/persona.service';
+import { PaisesService } from 'app/entities/paises/paises.service';
+import { IPaises } from 'app/shared/model/paises.model';
 
 declare let alertify: any;
 
@@ -58,7 +60,7 @@ export class CrearHojaVidaComponent implements OnInit {
   trabajoActual!: FormControlName;
   step!: number;
   geografia: Array<GeografiaVo> = [];
-  paises: Array<IOpcionVo> = [];
+  paises: Array<PaisesVo> = [];
   departamentos: Array<IOpcionVo> | undefined = [];
   municipios: Array<IOpcionVo> = [];
   municipiosPersonal: Array<IOpcionVo> = [];
@@ -128,7 +130,7 @@ export class CrearHojaVidaComponent implements OnInit {
   Quitar_idioma = commonMessages.QUITAR_IDIOMA;
   Perfil_Profesional = commonMessages.PERFIL_PROFESIONAL;
   EXP_ANIOS = commonMessages.EXPERIENCIA_ANIOS;
-  Meses = commonMessages.MESES
+  Meses = commonMessages.MESES;
   Asp_Salarial = commonMessages.ASPIRACION_SALARIAL;
   Selec_Option = commonMessages.SELECCIONE_OPCION_LABEL;
   Movilidad_laboral = commonMessages.MOVILIDAD_LABORAL;
@@ -138,7 +140,7 @@ export class CrearHojaVidaComponent implements OnInit {
   Estado_Empleo = commonMessages.ESTADO_EMPLEO;
   Empresa_Actual = commonMessages.EMPRESA_ACTUAL;
   Quitar_experiencia = commonMessages.QUITAR_EXPERIENCIA;
-  personaDatos!: Persona | null; 
+  personaDatos!: Persona | null;
 
   constructor(
     private fb: FormBuilder,
@@ -153,6 +155,7 @@ export class CrearHojaVidaComponent implements OnInit {
     private router: Router,
     private archivo: ArchivoService,
     private regionService: RegionesService,
+    private paisesService: PaisesService,
     private personaService: PersonaService
   ) {}
 
@@ -582,14 +585,14 @@ export class CrearHojaVidaComponent implements OnInit {
 
     // cargar informacion personal
     this.hojaVidaVo.informacionPersonal = this.procesarInformacionPersonal();
-    if(this.hojaVidaTemp?.informacionPersonal !== this.hojaVidaVo.informacionPersonal){
-      this.personaService.find(this.persona).subscribe(response =>{
+    if (this.hojaVidaTemp?.informacionPersonal !== this.hojaVidaVo.informacionPersonal) {
+      this.personaService.find(this.persona).subscribe(response => {
         this.personaDatos = response.body;
-        if(this.personaDatos !== null){
+        if (this.personaDatos !== null) {
           this.personaDatos.estadohv = true;
-          this.personaService.update(this.personaDatos).subscribe(()=>{});
+          this.personaService.update(this.personaDatos).subscribe(() => {});
         }
-      })
+      });
     }
     this.hojaVidaVo.persona = this.procesarPersona();
     this.cargarArchivos(this.hojaVidaVo);
@@ -602,14 +605,14 @@ export class CrearHojaVidaComponent implements OnInit {
       academica.push(this.procesarInformacionAcademica(this.informacionAcademica.at(index).value, index));
     }
     this.hojaVidaVo.informacionAcademica = academica;
-    if(this.hojaVidaTemp?.informacionAcademica !== this.hojaVidaVo.informacionAcademica){
-      this.personaService.find(this.persona).subscribe(response =>{
+    if (this.hojaVidaTemp?.informacionAcademica !== this.hojaVidaVo.informacionAcademica) {
+      this.personaService.find(this.persona).subscribe(response => {
         this.personaDatos = response.body;
-        if(this.personaDatos !== null){
+        if (this.personaDatos !== null) {
           this.personaDatos.estadohv = true;
-          this.personaService.update(this.personaDatos).subscribe(()=>{});
+          this.personaService.update(this.personaDatos).subscribe(() => {});
         }
-      })
+      });
     }
     // cargar idiomas
     const idioma: IPersona[] = [];
@@ -684,14 +687,14 @@ export class CrearHojaVidaComponent implements OnInit {
         laboral.push(this.procesarExperienciaLaboral(this.experienciaLaboral.at(index).value, index));
       }
       this.hojaVidaVo.experienciaLaboral = laboral;
-      if(this.hojaVidaTemp?.experienciaLaboral !== this.hojaVidaVo.experienciaLaboral){
-        this.personaService.find(this.persona).subscribe(response =>{
+      if (this.hojaVidaTemp?.experienciaLaboral !== this.hojaVidaVo.experienciaLaboral) {
+        this.personaService.find(this.persona).subscribe(response => {
           this.personaDatos = response.body;
-          if(this.personaDatos !== null){
+          if (this.personaDatos !== null) {
             this.personaDatos.estadohv = true;
-            this.personaService.update(this.personaDatos).subscribe(()=>{});
+            this.personaService.update(this.personaDatos).subscribe(() => {});
           }
-        })
+        });
       }
       // Cargar archivos
       if (this.archivos.length !== 0) {
@@ -909,27 +912,42 @@ export class CrearHojaVidaComponent implements OnInit {
     }
   }
 
+  // cargarPaises(): void {
+  //   this.apiService.getPaises().subscribe(response => (this.paises = response));
+  // }
+
   cargarPaises(): void {
-    this.apiService.getPaises().subscribe(response => (this.paises = response));
+    this.paisesService
+      .query({
+        page: 0,
+        size: 250
+      })
+      .subscribe((res: HttpResponse<IPaises[]>) => {
+        this.paises = res.body!.map(item => new PaisesVo(item.iso2!, item.nombre!));
+      });
   }
+  // getPaises(): Observable<IOpcionVo[]> {
+  //   return this.http.get<any[]>(URL_PAISES).pipe(
+  //     map(element =>
+  //       element
+  //         .map(item => {
+  //           return {
+  //             codigo: item.alpha2Code,
+  //             nombre: item.translations.es ? item.translations.es : item.name
+  //           };
+  //         })
+  //         .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0))
+  //     )
+  //   );
+  // }
 
   consultarInformacionGeografica(): void {
-    // this.http
-    //   .get<any[]>(URL_UBICACIONES)
-    //   .pipe(
-    //     map(element =>
-    //       element.map(
-    //         item => new GeografiaVo(item.c_digo_dane_del_departamento, item.departamento, item.c_digo_dane_del_municipio, item.municipio)
-    //       )
-    //     )
-    //   );
     this.regionService
       .query({
         page: 0,
         size: 1150
       })
       .subscribe((res: HttpResponse<IRegiones[]>) => {
-        // this.region = res.body || [];
         this.geografia = res.body!.map(
           item =>
             new GeografiaVo(
@@ -939,19 +957,11 @@ export class CrearHojaVidaComponent implements OnInit {
               item.municipio!
             )
         );
-
         this.cargarDepartamentos();
         this.cargarMunicipios(0);
         this.cargarMunicipiosPersonal(0);
         this.cargarMunicipiosAcademica();
       });
-    // this.apiService.getInformacionGeografica().subscribe(geografia => {
-    //   this.geografia = geografia;
-    //   this.cargarDepartamentos();
-    //   this.cargarMunicipios(0);
-    //   this.cargarMunicipiosPersonal(0);
-    //   this.cargarMunicipiosAcademica();
-    // });
   }
 
   cargarDepartamentos(): void {
