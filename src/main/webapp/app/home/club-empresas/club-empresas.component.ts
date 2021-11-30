@@ -117,6 +117,7 @@ export class ClubEmpresasComponent implements OnInit {
   finalizar(): void {
     this.empresaEnSesion.pais = this.agregarEmpresaForm.get(['pais'])!.value;
     this.empresaEnSesion.codigoPostal = this.agregarEmpresaForm.get(['codigoPostal'])!.value;
+    this.empresaEnSesion.link = this.agregarEmpresaForm.get(['urlProducto'])!.value;
     this.empresaService.update(this.empresaEnSesion).subscribe(() => {});
     this.mostrar = false;
   }
@@ -180,7 +181,7 @@ export class ClubEmpresasComponent implements OnInit {
 
   listarEmpresas(valor: string): Promise<any> {
     return new Promise(resolve => {
-      this.empresaService.getByRazon(valor).subscribe(empresaResponse => {
+      this.empresaService.getBySector(valor).subscribe(empresaResponse => {
         resolve(empresaResponse);
       });
     });

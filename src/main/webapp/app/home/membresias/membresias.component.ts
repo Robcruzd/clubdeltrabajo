@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import {
+  faStar,
+  faAddressCard,
+  faEllipsisH,
+  faCommentDots,
+  faAddressBook,
+  faShareAlt,
+  faServer,
+  faBook
+} from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { MercadoPagoService } from 'app/entities/mercado-pago/mercado-pago.service';
 import { commonMessages } from 'app/shared/constants/commonMessages';
@@ -10,11 +19,12 @@ import { TipoDocumentoService } from '../../entities/tipo-documento/tipo-documen
 import { ITipoDocumento } from 'app/shared/model/tipo-documento.model';
 import { HttpResponse } from '@angular/common/http';
 import { EmpresaService } from 'app/entities/empresa/empresa.service';
-import { IEmpresa } from 'app/shared/model/empresa.model';
+import { Empresa, IEmpresa } from 'app/shared/model/empresa.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
 
 declare const MercadoPago: any;
+declare let alertify: any;
 
 @Component({
   selector: 'jhi-membresias',
@@ -27,6 +37,10 @@ export class MembresiasComponent implements OnInit {
   faAddressCard = faAddressCard;
   faEllipsisH = faEllipsisH;
   faCommentDots = faCommentDots;
+  faAddressBook = faAddressBook;
+  faShareAlt = faShareAlt;
+  faServer = faServer;
+  faBook = faBook;
   checkout: any;
   preferenceId = '';
   initPoint = '';
@@ -46,6 +60,7 @@ export class MembresiasComponent implements OnInit {
   pago = 'bronce';
   empresaEnSesion!: IEmpresa | any;
   account!: Account | any;
+  empresaUpdate!: Empresa | null;
 
   constructor(
     private _location: Location,
@@ -176,6 +191,26 @@ export class MembresiasComponent implements OnInit {
       });
   }
 
+  pagoUnaOferta(longContent: any): void {
+    this.pago = 'unaOferta';
+    this.openScrollableContent(longContent);
+  }
+
+  pagoDosOferta(longContent: any): void {
+    this.pago = 'dosOferta';
+    this.openScrollableContent(longContent);
+  }
+
+  pagoTresOferta(longContent: any): void {
+    this.pago = 'tresOferta';
+    this.openScrollableContent(longContent);
+  }
+
+  pagoFlexi(longContent: any): void {
+    this.pago = 'flexi';
+    this.openScrollableContent(longContent);
+  }
+
   backClicked(): void {
     this._location.back();
   }
@@ -197,7 +232,20 @@ export class MembresiasComponent implements OnInit {
   }
 
   clubEmpresas(): void {
-    this.router.navigate(['club-empresas']);
+    this.empresaService.find(this.account.userEmpresa).subscribe(empresa => {
+      this.empresaUpdate = empresa.body;
+      if (
+        empresa !== undefined &&
+        empresa !== null &&
+        this.empresaUpdate?.membresia === true &&
+        this.empresaUpdate?.membresia !== undefined
+      ) {
+        this.router.navigate(['club-empresas']);
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error('No cuenta la membresia para club de empresas!. Debe contratar un plan!');
+      }
+    });
   }
 
   controlaOferta(): void {

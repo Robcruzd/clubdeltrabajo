@@ -38,6 +38,7 @@ import { AccountService } from '../../core/auth/account.service';
 import { User } from '../../core/user/user.model';
 import { EmpresaService } from '../../entities/empresa/empresa.service';
 import Swal from 'sweetalert2';
+import { Empresa } from 'app/shared/model/empresa.model';
 // import { CONNREFUSED } from 'dns';
 
 const { exportPDF } = pdf;
@@ -143,8 +144,9 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   Formacion = commonMessages.FORMACION;
   archivoBase64: any;
   persona!: number;
-  personaDatos!: Persona | null; 
-  archivoHv! : Archivo;
+  personaDatos!: Persona | null;
+  archivoHv!: Archivo;
+  empresaUpdate!: Empresa | null;
 
   constructor(
     private router: Router,
@@ -614,7 +616,20 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   }
 
   clubEmpresas(): void {
-    this.router.navigate(['club-empresas']);
+    this.empresaService.find(this.usuario?.userEmpresa).subscribe(empresa => {
+      this.empresaUpdate = empresa.body;
+      if (
+        empresa !== undefined &&
+        empresa !== null &&
+        this.empresaUpdate?.membresia === true &&
+        this.empresaUpdate?.membresia !== undefined
+      ) {
+        this.router.navigate(['club-empresas']);
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error('No cuenta la membresia para club de empresas!. Debe contratar un plan!');
+      }
+    });
   }
 
   controlaOferta(): void {
@@ -622,7 +637,25 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   }
 
   verAspirante(item: any): void {
-    this.router.navigate(['hoja-candidato'], { queryParams: { usuario: item.idPersona, oferta: this.idOferta } });
+    this.empresaService.find(this.usuario?.userEmpresa).subscribe(empresa => {
+      this.empresaUpdate = empresa.body;
+      if (
+        empresa !== undefined &&
+        empresa !== null &&
+        this.empresaUpdate?.visualizacionesHv !== 0 &&
+        this.empresaUpdate?.visualizacionesHv !== null
+      ) {
+        const valor = this.empresaUpdate?.visualizacionesHv;
+        if (valor !== undefined && this.empresaUpdate !== null && this.empresaUpdate.visualizacionesHv !== 999) {
+          this.empresaUpdate.visualizacionesHv = valor - 1;
+          this.empresaService.update(this.empresaUpdate).subscribe(() => {});
+        }
+        this.router.navigate(['hoja-candidato'], { queryParams: { usuario: item.idPersona, oferta: this.idOferta } });
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error('No cuenta con visualizaciones disponibles!. Debe contratar un plan!');
+      }
+    });
   }
 
   backColor(estado?: any): string {
@@ -687,33 +720,32 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     });
   }
 
-  generarHvComoArchivo(archivo:any, data:any, nombre:any): void{
-    this.personaService.find(this.persona).subscribe(response =>{
+  generarHvComoArchivo(archivo: any, data: any, nombre: any): void {
+    this.personaService.find(this.persona).subscribe(response => {
       this.personaDatos = response.body;
-      if(this.personaDatos?.estadohv === true){
-        if(this.personaDatos !== null){
+      if (this.personaDatos?.estadohv === true) {
+        if (this.personaDatos !== null) {
           this.personaDatos.estadohv = false;
-          this.personaService.update(this.personaDatos).subscribe(()=>{
-            this.cargarArchivoHv(archivo,this.personaDatos, nombre);
+          this.personaService.update(this.personaDatos).subscribe(() => {
+            this.cargarArchivoHv(archivo, this.personaDatos, nombre);
           });
         }
       }
-    })
+    });
   }
 
-  cargarArchivoHv(archivo:any, persona:any, nombre:any): void {
+  cargarArchivoHv(archivo: any, persona: any, nombre: any): void {
     this.archivoHv = this.archivoHv || new Archivo();
     this.archivoHv.tipo = TipoArchivo.ARCHIVO_HV;
     this.archivoHv.nombre = nombre;
-    this.archivoHv.extension = "pdf";
+    this.archivoHv.extension = 'pdf';
     this.archivoHv.usuario = persona;
     this.archivoHv.archivo = archivo;
     if (this.archivoHv.id !== undefined) {
-      this.archivoService.update(this.archivoHv).subscribe(()=>{});
+      this.archivoService.update(this.archivoHv).subscribe(() => {});
     } else {
-      this.archivoService.create(this.archivoHv).subscribe(()=>{});
+      this.archivoService.create(this.archivoHv).subscribe(() => {});
     }
-
   }
 
   generarPdf(): Promise<any> {
@@ -733,21 +765,36 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     this.showElement = true;
     this.hojaVidaService.find(persona.idPersona).subscribe(response => {
       this.hojaVidaVo = response.body;
-      this.archivoService.get(persona.idPersona, TipoArchivo.ARCHIVO_HV).subscribe(responseArchivo=>{
-        if(responseArchivo !== undefined && responseArchivo !== null){
-          this.archivoBase64 = responseArchivo.body?.archivo;
-          saveAs(this.archivoBase64, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.pdf');
-          this.showElement = false;
-        }else{
+      this.archivoService.get(persona.idPersona, TipoArchivo.ARCHIVO_HV).subscribe(responseArchivo => {
+        if (responseArchivo !== undefined && responseArchivo !== null) {
+          this.empresaService.find(this.usuario?.userEmpresa).subscribe(empresaResponse => {
+            if (empresaResponse.body !== null) {
+              const empresaValidada = empresaResponse.body;
+              if (empresaValidada?.descargasHv !== 0) {
+                this.archivoBase64 = responseArchivo.body?.archivo;
+                saveAs(this.archivoBase64, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.pdf');
+                this.showElement = false;
+                const numero = empresaValidada.descargasHv;
+                if (numero !== undefined) {
+                  empresaValidada.descargasHv = numero - 1;
+                  this.empresaService.update(empresaValidada).subscribe(() => {});
+                }
+              } else {
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.error('No cuenta con descargas disponibles!. Debe contratar un plan!');
+              }
+            }
+          });
+        } else {
           this.urlImageDefault =
-          this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
-            ? '../../../content/images/Image 28_F.png'
-            : '../../../content/images/Image 28_M.png';
+            this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
+              ? '../../../content/images/Image 28_F.png'
+              : '../../../content/images/Image 28_M.png';
           this.archivos = this.hojaVidaVo?.archivos;
           this.imagen = this.archivos?.find(item => item.tipo === TipoArchivo.IMAGEN_PERFIL) || new Archivo();
           this.visualizarArchivoPDF();
         }
-      })
+      });
     });
   }
 

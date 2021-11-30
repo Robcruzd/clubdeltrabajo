@@ -3,12 +3,14 @@ import { Archivo } from 'app/shared/model/archivo.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faStar, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import { EmpresaService } from 'app/entities/empresa/empresa.service';
-import { IEmpresa } from 'app/shared/model/empresa.model';
+import { Empresa, IEmpresa } from 'app/shared/model/empresa.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 import { commonMessages } from 'app/shared/constants/commonMessages';
 import { Account } from 'app/core/user/account.model';
+
+declare let alertify: any;
 
 @Component({
   selector: 'jhi-perfil-empresa',
@@ -33,6 +35,7 @@ export class PerfilEmpresaComponent implements OnInit {
   Editar_Perfil = commonMessages.EDITAR_PERFIL;
   Correo_Electronico = commonMessages.CORREO_ELECTRONICO;
   Club_Empresas = commonMessages.CLUB_DE_EMPRESAS;
+  empresaUpdate!: Empresa | null;
 
   constructor(
     private router: Router,
@@ -94,6 +97,19 @@ export class PerfilEmpresaComponent implements OnInit {
   }
 
   clubEmpresas(): void {
-    this.router.navigate(['club-empresas']);
+    this.empresaService.find(this.account.userEmpresa).subscribe(empresa => {
+      this.empresaUpdate = empresa.body;
+      if (
+        empresa !== undefined &&
+        empresa !== null &&
+        this.empresaUpdate?.membresia === true &&
+        this.empresaUpdate?.membresia !== undefined
+      ) {
+        this.router.navigate(['club-empresas']);
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error('No cuenta la membresia para club de empresas!. Debe contratar un plan!');
+      }
+    });
   }
 }

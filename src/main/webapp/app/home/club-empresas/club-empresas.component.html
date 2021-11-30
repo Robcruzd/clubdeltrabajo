@@ -113,6 +113,7 @@
                                 <p *ngIf="item.direccion" class="resumen">Dirección: {{item.direccion}}</p>
                                 <p *ngIf="item.telefonoEmpresa" class="resumen">Teléfono: {{item.telefonoEmpresa}}</p>
                                 <p *ngIf="item.descripcionEmpresa" class="resumen">Descripción: {{item.descripcionEmpresa}}</p>
+                                <p *ngIf="item.link" class="resumen">Pagina de servicios: {{item.link}}</p>
                             </div>
                             </div>
                         </div>
@@ -177,7 +178,7 @@
                     <div class="row">
                         <div class="form-group">
                             <p class="estilo_label">Agrega productos</p>
-                            <p class="estilo_label">Escribe el link del catálogo de productos</p>
+                            <p class="estilo_label">Escribe el link para conocer tus servicios</p>
                             <!--<textarea type="text" class="estilo_inputs"></textarea>-->
                             <!-- <textarea class="textarea-input" name="" id="" cols="100" rows="10"></textarea> -->
                             <input type="text" class="estilo_inputs" formControlName="urlProducto">

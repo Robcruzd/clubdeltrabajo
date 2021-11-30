@@ -277,7 +277,7 @@ dependencies {
     testRuntimeOnly "com.tngtech.archunit:archunit-junit5-engine:${archunit_junit5_version}"
     testImplementation "com.h2database:h2"
     compile group: 'javax.mail', name: 'mail', version: '1.4.1'
-    
+    implementation group: 'com.restfb', name: 'restfb', version: '3.2.0'
     //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
 }
 

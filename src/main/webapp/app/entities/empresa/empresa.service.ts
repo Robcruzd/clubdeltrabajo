@@ -15,6 +15,7 @@ type EntityArrayResponseType = HttpResponse<IEmpresa[]>;
 export class EmpresaService {
   public resourceUrl = SERVER_API_URL + 'api/empresas';
   public resourceUrlByRazon = SERVER_API_URL + 'api/empresas/getByRazon';
+  public resourceUrlBySector = SERVER_API_URL + 'api/empresas/getBySector';
 
   constructor(protected http: HttpClient) {}
 
@@ -46,6 +47,12 @@ export class EmpresaService {
   getByRazon(valor: string): Observable<any> {
     const params = PathUtil.getPathParams({ empresa: valor });
     const url = this.resourceUrlByRazon + params;
+    return this.http.get<any>(url);
+  }
+
+  getBySector(valor: string): Observable<any> {
+    const params = PathUtil.getPathParams({ sector: valor });
+    const url = this.resourceUrlBySector + params;
     return this.http.get<any>(url);
   }
 }

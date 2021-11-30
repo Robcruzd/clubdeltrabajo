@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -31,17 +32,15 @@ import com.domain.User;
 import com.domain.vo.EmpresaVo;
 import com.service.EmpresaQueryService;
 import com.service.EmpresaService;
+import com.service.MailService;
 import com.service.UserService;
 import com.service.dto.EmpresaCriteria;
 import com.service.dto.UserDTO;
 import com.web.rest.errors.BadRequestAlertException;
-import com.service.MailService;
-import com.domain.vo.UsuarioVo;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * REST controller for managing {@link com.domain.Empresa}.
@@ -212,5 +211,10 @@ public class EmpresaResource {
     @GetMapping("/empresas/getByRazon")
     public List<Empresa> getByRazonFiltro(@RequestParam("empresa") String empresa) {
         return empresaService.getByRazonFiltro(empresa);
+    }
+    
+    @GetMapping("/empresas/getBySector")
+    public List<Empresa> getBySectorFiltro(@RequestParam("sector") String sector) {
+        return empresaService.getBySectorFiltro(sector);
     }
 }

@@ -13,6 +13,9 @@ import { ApiService } from 'app/shared/services/api.service';
 
 import Swal from 'sweetalert2';
 import { IAplicacionOferta } from 'app/shared/model/aplicacion-oferta.model';
+import { EmpresaService } from 'app/entities/empresa/empresa.service';
+import { Empresa } from 'app/shared/model/empresa.model';
+import { FacebookService } from 'app/shared/services/facebook.service';
 
 declare let alertify: any;
 
@@ -53,6 +56,8 @@ export class ControlarOfertasComponent implements OnInit {
   D_oferta = commonMessages.DETENER_OFERTA;
   Entrar = commonMessages.ENTRAR;
   Volver_Perfil = commonMessages.VOLVER_A_PERFIL;
+  empresaUpdate!: Empresa | null;
+  codigoEmpresa: any;
 
   constructor(
     private accountService: AccountService,
@@ -60,7 +65,9 @@ export class ControlarOfertasComponent implements OnInit {
     private aplicacionOfertaService: AplicacionOfertaService,
     private router: Router,
     private profesionService: ProfesionService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private empresaService: EmpresaService,
+    private facebookService: FacebookService
   ) {}
 
   ngOnInit(): void {
@@ -74,6 +81,19 @@ export class ControlarOfertasComponent implements OnInit {
     if (window.screen.width >= 900) {
       this.showBtnArriba = true;
     }
+  }
+
+  signInWithFB(oferta: any): void {
+    this.facebookService.publicarPost(oferta.id, this.codigoEmpresa).subscribe(
+      response => {
+        // eslint-disable-next-line no-console
+        console.log('response:     ', response);
+      },
+      error => {
+        // eslint-disable-next-line no-console
+        console.log(error);
+      }
+    );
   }
 
   consultarInformacionGeografica(): void {
@@ -97,6 +117,7 @@ export class ControlarOfertasComponent implements OnInit {
 
   async cargarInformacionCuenta(): Promise<any> {
     const cuenta = await this.obtenerIdUsuario();
+    this.codigoEmpresa = cuenta.userEmpresa;
     this.listaOfertas = await this.obtenerOfertasEmpresa(cuenta.userEmpresa);
     for (let i = 0; i < this.listaOfertas.length; i++) {
       await this.getAspirantes(this.listaOfertas[i]);
@@ -152,7 +173,20 @@ export class ControlarOfertasComponent implements OnInit {
   }
 
   clubEmpresas(): void {
-    this.router.navigate(['club-empresas']);
+    this.empresaService.find(this.codigoEmpresa).subscribe(empresa => {
+      this.empresaUpdate = empresa.body;
+      if (
+        empresa !== undefined &&
+        empresa !== null &&
+        this.empresaUpdate?.membresia === true &&
+        this.empresaUpdate?.membresia !== undefined
+      ) {
+        this.router.navigate(['club-empresas']);
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error('No cuenta la membresia para club de empresas!. Debe contratar un plan!');
+      }
+    });
   }
 
   editarOferta(id: any): void {
@@ -233,4 +267,6 @@ export class ControlarOfertasComponent implements OnInit {
       );
     });
   }
+
+  // redes sociales
 }

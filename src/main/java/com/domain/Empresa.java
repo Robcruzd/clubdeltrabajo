@@ -101,6 +101,18 @@ public class Empresa implements Serializable {
     
     @Column(name = "codigoPostal", nullable = true)
     private String codigoPostal;
+    
+    @Column(name = "link", nullable = true)
+    private String link;
+    
+    @Column(name = "visualizaciones_hv", nullable = true)
+    private Long visualizacionesHv;
+    
+    @Column(name = "membresia", nullable = true)
+    private Boolean membresia;
+    
+    @Column(name = "replicas_oferta", nullable = true)
+    private Long replicasOferta;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -317,6 +329,38 @@ public class Empresa implements Serializable {
 
 	public void setCodigoPostal(String codigoPostal) {
 		this.codigoPostal = codigoPostal;
+	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+	public Long getVisualizacionesHv() {
+		return visualizacionesHv;
+	}
+
+	public void setVisualizacionesHv(Long visualizacionesHv) {
+		this.visualizacionesHv = visualizacionesHv;
+	}
+
+	public Boolean getMembresia() {
+		return membresia;
+	}
+
+	public void setMembresia(Boolean membresia) {
+		this.membresia = membresia;
+	}
+
+	public Long getReplicasOferta() {
+		return replicasOferta;
+	}
+
+	public void setReplicasOferta(Long replicasOferta) {
+		this.replicasOferta = replicasOferta;
 	}
 
 	@Override

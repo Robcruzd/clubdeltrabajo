@@ -40,6 +40,7 @@ export class EditarEmpresaComponent implements OnInit {
   cargadoNit = false;
   archivoNit = new Archivo();
   archivosaws: any = [];
+  empresaUpdate!: Empresa | null;
   // ciudad: Array<IOpcionVoMunicipio> = [];
 
   Crear_Oferta = commonMessages.CREAR_OFERTA;
@@ -62,7 +63,7 @@ export class EditarEmpresaComponent implements OnInit {
   Telefono_Representante = commonMessages.TELEFONO_REPRESENTANTE_LEGAL;
   Direccion = commonMessages.DIRECCION_LABEL;
   Finalizar = commonMessages.FINALIZAR;
-  
+  codigoEmpresa: any;
 
   constructor(
     private _location: Location,
@@ -97,6 +98,7 @@ export class EditarEmpresaComponent implements OnInit {
 
   async cargarInformacionCuenta(): Promise<any> {
     const cuenta = await this.obtenerIdUsuario();
+    this.codigoEmpresa = cuenta.userEmpresa;
     const idEmpresa = cuenta.userEmpresa;
     this.empresaService.find(idEmpresa).subscribe(
       response => {
@@ -279,7 +281,20 @@ export class EditarEmpresaComponent implements OnInit {
   }
 
   clubEmpresas(): void {
-    this.router.navigate(['club-empresas']);
+    this.empresaService.find(this.codigoEmpresa).subscribe(empresa => {
+      this.empresaUpdate = empresa.body;
+      if (
+        empresa !== undefined &&
+        empresa !== null &&
+        this.empresaUpdate?.membresia === true &&
+        this.empresaUpdate?.membresia !== undefined
+      ) {
+        this.router.navigate(['club-empresas']);
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error('No cuenta la membresia para club de empresas!. Debe contratar un plan!');
+      }
+    });
   }
 
   addCiudad(): void {}

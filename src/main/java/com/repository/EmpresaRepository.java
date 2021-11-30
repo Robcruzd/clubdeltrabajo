@@ -18,4 +18,9 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Long>, JpaSpec
 		"select * from ct_empresa_tb ctp where unaccent(lower(ctp.razon_social)) like unaccent(lower(concat('%', ?1,'%')))",
 		nativeQuery = true)
 	List<Empresa> findByRazonSocialLikeUsingQueryAnnotation(@Param("empresa") String empresa);
+    
+    @Query(value = "\r\n" + 
+    		"select * from ct_empresa_tb ctp where unaccent(lower(ctp.sector)) like unaccent(lower(concat('%', ?1,'%')))",
+    		nativeQuery = true)
+    List<Empresa> findBySectorLikeUsingQueryAnnotation(@Param("sector") String sector);
 }

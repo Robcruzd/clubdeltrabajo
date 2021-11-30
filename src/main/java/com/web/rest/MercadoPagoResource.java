@@ -1,49 +1,37 @@
 package com.web.rest;
 
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import com.mercadopago.exceptions.MPConfException;
-import com.mercadopago.exceptions.MPException;
 
-import com.service.MercadoPagoService;
-import com.service.MembresiaService;
-import com.web.rest.errors.BadRequestAlertException;
-
-import com.mercadopago.resources.Preference;
-import com.mercadopago.resources.Payment;
-import com.mercadopago.resources.MerchantOrder;
-import com.mercadopago.resources.datastructures.merchantorder.MerchantOrderPayment;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.LocalDateTime;
-import org.springframework.beans.factory.annotation.Autowired;
-// import com.mercadopago.resources.datastructures.preference.Payer;
-import com.domain.PayerMer;
+import com.domain.Empresa;
 import com.domain.Membresia;
 import com.domain.Pagos;
+// import com.mercadopago.resources.datastructures.preference.Payer;
+import com.domain.PayerMer;
+import com.mercadopago.exceptions.MPConfException;
+import com.mercadopago.exceptions.MPException;
+import com.mercadopago.resources.MerchantOrder;
+import com.mercadopago.resources.Payment;
+import com.mercadopago.resources.datastructures.merchantorder.MerchantOrderPayment;
+import com.service.EmpresaService;
 import com.service.MembresiaService;
+import com.service.MercadoPagoService;
 import com.service.PagosService;
 /**
  * REST controller for managing {@link com.domain.Profesion}.
@@ -56,6 +44,10 @@ public class MercadoPagoResource {
 
     @Autowired
     private PagosService pagosService;
+    
+    @Autowired
+    private EmpresaService empresaService;
+	
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -96,7 +88,7 @@ public class MercadoPagoResource {
         Object result = null;
         PayerMer payerMer = new PayerMer();
         // payer.setName(body.payer["nombre"]);
-        if(body.getPago().equals("bronce")){
+        if(body.getPago().equals("unaOferta")){
             long lg = 1;
             Optional<Membresia> membresiaOptional = membresiaService.findOne(lg);
             if(membresiaOptional.isPresent()){
@@ -106,7 +98,7 @@ public class MercadoPagoResource {
             }
             result = mercadoPagoService.mercadoPagoCdT(membresia, payerMer, body.getEmpresa());
         }
-        if(body.getPago().equals("plata")){
+        else if(body.getPago().equals("dosOferta")){
             long lg = 2;
             Optional<Membresia> membresiaOptional = membresiaService.findOne(lg);
             if(membresiaOptional.isPresent()){
@@ -116,7 +108,7 @@ public class MercadoPagoResource {
             }
             result = mercadoPagoService.mercadoPagoCdT(membresia, payerMer, body.getEmpresa());
         }
-        if(body.getPago().equals("oro")){
+        else if(body.getPago().equals("tresOferta")){
             long lg = 3;
             Optional<Membresia> membresiaOptional = membresiaService.findOne(lg);
             if(membresiaOptional.isPresent()){
@@ -126,8 +118,48 @@ public class MercadoPagoResource {
             }
             result = mercadoPagoService.mercadoPagoCdT(membresia, payerMer, body.getEmpresa());
         }
-        if(body.getPago().equals("diamante")){
+        else if(body.getPago().equals("flexi")){
             long lg = 4;
+            Optional<Membresia> membresiaOptional = membresiaService.findOne(lg);
+            if(membresiaOptional.isPresent()){
+                membresia = membresiaOptional.get();
+            }else{
+                return "La Membresía no existe";
+            }
+            result = mercadoPagoService.mercadoPagoCdT(membresia, payerMer, body.getEmpresa());
+        }
+        else if(body.getPago().equals("bronce")){
+            long lg = 5;
+            Optional<Membresia> membresiaOptional = membresiaService.findOne(lg);
+            if(membresiaOptional.isPresent()){
+                membresia = membresiaOptional.get();
+            }else{
+                return "La Membresía no existe";
+            }
+            result = mercadoPagoService.mercadoPagoCdT(membresia, payerMer, body.getEmpresa());
+        }
+        else if(body.getPago().equals("plata")){
+            long lg = 6;
+            Optional<Membresia> membresiaOptional = membresiaService.findOne(lg);
+            if(membresiaOptional.isPresent()){
+                membresia = membresiaOptional.get();
+            }else{
+                return "La Membresía no existe";
+            }
+            result = mercadoPagoService.mercadoPagoCdT(membresia, payerMer, body.getEmpresa());
+        }
+        else if(body.getPago().equals("oro")){
+            long lg = 7;
+            Optional<Membresia> membresiaOptional = membresiaService.findOne(lg);
+            if(membresiaOptional.isPresent()){
+                membresia = membresiaOptional.get();
+            }else{
+                return "La Membresía no existe";
+            }
+            result = mercadoPagoService.mercadoPagoCdT(membresia, payerMer, body.getEmpresa());
+        }
+        else if(body.getPago().equals("diamante")){
+            long lg = 8;
             Optional<Membresia> membresiaOptional = membresiaService.findOne(lg);
             if(membresiaOptional.isPresent()){
                 membresia = membresiaOptional.get();
@@ -191,6 +223,7 @@ public class MercadoPagoResource {
         // If the payment's transaction amount is equal (or bigger) than the merchant_order's amount you can release your items
         if(paid_amount >= merchant.getTotalAmount()){
             log.debug("Totally paid");
+            configuracionMembresia(pago);
             // if (merchant.getShipments().size()>0) { // The merchant_order has shipments
             //     if(merchant.getShipments().get(0).getStatus().equals("ready_to_ship")) {
             //         System.out.println("Totally paid. Print the label and release your item.");
@@ -204,5 +237,77 @@ public class MercadoPagoResource {
         // Preference result = mercadoPagoService.mercadoPagoCdT();
         
         return "resuuuult";
+    }
+    
+    public void configuracionMembresia(Pagos pagoSaved) {
+    	if(pagoSaved.getMembresia().getNombreMembresia().equals("unaOferta")) {
+    		Empresa empresaSaved = new Empresa();
+    		empresaSaved = pagoSaved.getEmpresa();
+    		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + 1);
+    		empresaSaved.setVisualizacionesHv(empresaSaved.getVisualizacionesHv() + 20);
+    		empresaService.save(empresaSaved);
+    	}
+    	else if(pagoSaved.getMembresia().getNombreMembresia().equals("dosOferta")) {
+    		Empresa empresaSaved = new Empresa();
+    		empresaSaved = pagoSaved.getEmpresa();
+    		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + 2);
+    		empresaSaved.setVisualizacionesHv(Long.valueOf(999));
+    		empresaService.save(empresaSaved);
+    		
+    	}
+		else if(pagoSaved.getMembresia().getNombreMembresia().equals("tresOferta")) {
+			Empresa empresaSaved = new Empresa();
+    		empresaSaved = pagoSaved.getEmpresa();
+    		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + 3);
+    		empresaSaved.setVisualizacionesHv(Long.valueOf(999));
+    		empresaService.save(empresaSaved);
+		}
+		else if(pagoSaved.getMembresia().getNombreMembresia().equals("flexi")) {
+			Empresa empresaSaved = new Empresa();
+    		empresaSaved = pagoSaved.getEmpresa();
+    		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + 18);
+    		empresaSaved.setVisualizacionesHv(Long.valueOf(999));
+    		empresaSaved.setDescargasHv(empresaSaved.getDescargasHv() + 50);
+    		empresaSaved.setMembresia(true);
+    		empresaService.save(empresaSaved);
+		}
+		else if(pagoSaved.getMembresia().getNombreMembresia().equals("bronce")) {
+			Empresa empresaSaved = new Empresa();
+    		empresaSaved = pagoSaved.getEmpresa();
+    		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + 25);
+    		empresaSaved.setVisualizacionesHv(Long.valueOf(999));
+    		empresaSaved.setDescargasHv(empresaSaved.getDescargasHv() + 120);
+    		empresaSaved.setMembresia(true);
+    		empresaService.save(empresaSaved);
+		}
+		else if(pagoSaved.getMembresia().getNombreMembresia().equals("plata")) {
+			Empresa empresaSaved = new Empresa();
+    		empresaSaved = pagoSaved.getEmpresa();
+    		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + 25);
+    		empresaSaved.setVisualizacionesHv(Long.valueOf(999));
+    		empresaSaved.setDescargasHv(empresaSaved.getDescargasHv() + 120);
+    		empresaSaved.setMembresia(true);
+    		empresaSaved.setReplicasOferta(empresaSaved.getReplicasOferta() + 2);
+    		empresaService.save(empresaSaved);
+		}
+		else if(pagoSaved.getMembresia().getNombreMembresia().equals("oro")) {
+			Empresa empresaSaved = new Empresa();
+    		empresaSaved = pagoSaved.getEmpresa();
+    		empresaSaved.setPublicacionesOferta(Long.valueOf(999));
+    		empresaSaved.setVisualizacionesHv(Long.valueOf(999));
+    		empresaSaved.setDescargasHv(empresaSaved.getDescargasHv() + 200);
+    		empresaSaved.setMembresia(true);
+    		empresaSaved.setReplicasOferta(empresaSaved.getReplicasOferta() + 4);
+    		empresaService.save(empresaSaved);
+		}
+		else if(pagoSaved.getMembresia().getNombreMembresia().equals("diamante")) {
+			Empresa empresaSaved = new Empresa();
+    		empresaSaved = pagoSaved.getEmpresa();
+    		empresaSaved.setPublicacionesOferta(Long.valueOf(999));
+    		empresaSaved.setVisualizacionesHv(Long.valueOf(999));
+    		empresaSaved.setDescargasHv(Long.valueOf(999));
+    		empresaSaved.setMembresia(true);
+    		empresaService.save(empresaSaved);
+		}
     }
 }
