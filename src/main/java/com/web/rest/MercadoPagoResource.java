@@ -82,8 +82,6 @@ public class MercadoPagoResource {
 
     @PostMapping("/mercado-pago")
     public Object getMercado(@Valid @RequestBody PayerMer body) throws URISyntaxException, MPException, MPConfException {
-        System.out.println("---probandito---------------------"+body.getNombre());
-        System.out.println("---probandito---------------------"+body.getApellidos());
         Membresia membresia = new Membresia();
         Object result = null;
         PayerMer payerMer = new PayerMer();
@@ -187,35 +185,26 @@ public class MercadoPagoResource {
         LocalDateTime date = ZonedDateTime.now(ZoneId.of("America/Bogota")).toLocalDateTime();
         switch(topic) { 
             case "payment":
-                log.debug("REST request to delete User: {}", topic);
                 payment = (Payment) mercadoPagoService.mercadoPagoGetPayment(id);
                 // Get the payment and the corresponding merchant_order reported by the IPN.
                 merchant = (MerchantOrder) mercadoPagoService.mercadoPagoGetMerchant(payment.getOrder().getId().toString());
                 pago = pagosService.findPagoByPreference(merchant.getPreferenceId());
-                log.debug("paaaaaaaaaaaaaaaaaaaaaaaaaaagos: {}", pago);
                 pago.setFechaUltimaActuali(date);
-                log.debug("merchant id in pay {}", merchant.getId());
                 break;
             case "merchant_order":
-                log.debug("REST request to delete User: {}", topic);
                 merchant = (MerchantOrder) mercadoPagoService.mercadoPagoGetMerchant(id);
                 pago = pagosService.findPagoByPreference(merchant.getPreferenceId());
                 pago.setFechaUltimaActuali(date);
-                log.debug("merchant id {}", merchant.getId());
                 break;
         }
 
-        
-        log.debug("paaaaaaaaaaaaaaaaaaaaaaaaaaagos2: {}", pago);
         float paid_amount = 0;
         for(MerchantOrderPayment paymentf : merchant.getPayments()){
             pago.setEstado(paymentf.getStatus());
-            log.debug("paaaaaaaaaaaaaaaaaaaaaaaaaaagos: {}", pago);
             pagosService.save(pago);
             if(!pago.getId().equals(null)){
             }
             if(paymentf.getStatus().equals("approved")){
-                log.debug("Approooooooved");
                 paid_amount += paymentf.getTransactionAmount();
             }
         }
@@ -224,22 +213,24 @@ public class MercadoPagoResource {
         if(paid_amount >= merchant.getTotalAmount()){
             log.debug("Totally paid");
             configuracionMembresia(pago);
-            // if (merchant.getShipments().size()>0) { // The merchant_order has shipments
-            //     if(merchant.getShipments().get(0).getStatus().equals("ready_to_ship")) {
-            //         System.out.println("Totally paid. Print the label and release your item.");
-            //     }
-            // } else { // The merchant_order don't has any shipments
-            //     System.out.println("Totally paid. Release your item.");
-            // }
         } else {
             System.out.println("Not paid yet. Do not release your item.");
         }
-        // Preference result = mercadoPagoService.mercadoPagoCdT();
         
         return "resuuuult";
     }
     
     public void configuracionMembresia(Pagos pagoSaved) {
+        // Membresia membresia = pagoSaved.getMembresia();
+        // Empresa empresaSaved = new Empresa();
+        // empresaSaved = pagoSaved.getEmpresa();
+        // empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + Long.valueOf(membresia.getOfertas()));
+        // empresaSaved.setVisualizacionesHv(empresaSaved.getVisualizacionesHv() + Long.valueOf(membresia.getVisualizaciones()));
+        // empresaSaved.setDescargasHv(empresaSaved.getDescargasHv() + Long.valueOf(membresia.getDescargas()));
+        // empresaSaved.setMembresia(membresia.getMembresiaClub());
+        // empresaSaved.setJuridica(membresia.getJuridica());
+        // empresaSaved.setReplicasOferta(empresaSaved.getReplicasOferta() + Long.valueOf(membresia.getReplicasOferta()));
+        // empresaService.save(empresaSaved);
     	if(pagoSaved.getMembresia().getNombreMembresia().equals("unaOferta")) {
     		Empresa empresaSaved = new Empresa();
     		empresaSaved = pagoSaved.getEmpresa();
@@ -250,7 +241,7 @@ public class MercadoPagoResource {
     	else if(pagoSaved.getMembresia().getNombreMembresia().equals("dosOferta")) {
     		Empresa empresaSaved = new Empresa();
     		empresaSaved = pagoSaved.getEmpresa();
-    		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + 2);
+    		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + Long.valueOf(2));
     		empresaSaved.setVisualizacionesHv(Long.valueOf(999));
     		empresaService.save(empresaSaved);
     		
@@ -297,6 +288,7 @@ public class MercadoPagoResource {
     		empresaSaved.setVisualizacionesHv(Long.valueOf(999));
     		empresaSaved.setDescargasHv(empresaSaved.getDescargasHv() + 200);
     		empresaSaved.setMembresia(true);
+            empresaSaved.setJuridica(true);
     		empresaSaved.setReplicasOferta(empresaSaved.getReplicasOferta() + 4);
     		empresaService.save(empresaSaved);
 		}
@@ -307,6 +299,7 @@ public class MercadoPagoResource {
     		empresaSaved.setVisualizacionesHv(Long.valueOf(999));
     		empresaSaved.setDescargasHv(Long.valueOf(999));
     		empresaSaved.setMembresia(true);
+            empresaSaved.setJuridica(true);
     		empresaService.save(empresaSaved);
 		}
     }

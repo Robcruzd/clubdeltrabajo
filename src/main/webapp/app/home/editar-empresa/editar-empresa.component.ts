@@ -292,7 +292,24 @@ export class EditarEmpresaComponent implements OnInit {
         this.router.navigate(['club-empresas']);
       } else {
         alertify.set('notifier', 'position', 'top-right');
-        alertify.error('No cuenta la membresia para club de empresas!. Debe contratar un plan!');
+        alertify.error('No cuenta con la membresia para acceder al club de empresas!. Debe contratar un plan!');
+      }
+    });
+  }
+
+  juridica(): void {
+    this.empresaService.find(this.codigoEmpresa).subscribe(empresa => {
+      this.empresaUpdate = empresa.body;
+      if (
+        empresa !== undefined &&
+        empresa !== null &&
+        this.empresaUpdate?.juridica === true &&
+        this.empresaUpdate?.juridica !== undefined
+      ) {
+        this.router.navigate(['asesoria-juridica']);
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error('No cuenta con la membresia para asesoría jurídica!. Debe contratar un plan!');
       }
     });
   }

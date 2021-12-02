@@ -43,9 +43,9 @@ import com.mercadopago.resources.datastructures.preference.Phone;
           // Date date = new Date();
           // Se configuran las url para retornar al comercio
           BackUrls backUrls = new BackUrls(
-                    "http://190.248.224.11:9000/club-empresas",
-                    "http://190.248.224.11:9000/perfil-empresa",
-                    "http://190.248.224.11:9000/");
+                    "http://190.248.240.219:9000/club-empresas",
+                    "http://190.248.240.219:9000/perfil-empresa",
+                    "http://190.248.240.219:9000/");
 
             preference.setBackUrls(backUrls);
             LocalDateTime date = ZonedDateTime.now(ZoneId.of("America/Bogota")).toLocalDateTime();
@@ -72,7 +72,7 @@ import com.mercadopago.resources.datastructures.preference.Phone;
                 .setNumber(payerMer.getIdentificacion()));
             preference.setPayer(payer);
             preference.appendItem(item);
-            preference.setNotificationUrl("http://190.248.224.11:8080/api/notiMercadoPago");
+            preference.setNotificationUrl("http://190.248.240.219:8080/api/notiMercadoPago");
             Preference save = preference.save();
             Pagos pagos = new Pagos();
             pagos.setPreferenciaMerc(save.getId());

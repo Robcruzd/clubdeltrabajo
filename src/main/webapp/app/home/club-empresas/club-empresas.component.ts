@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
-import { IEmpresa } from 'app/shared/model/empresa.model';
+import { Empresa, IEmpresa } from 'app/shared/model/empresa.model';
 import { EmpresaService } from 'app/entities/empresa/empresa.service';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
@@ -14,6 +14,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'app/shared/services/api.service';
 import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { IOpcionVo } from 'app/shared/vo/opcion-vo';
+
+declare let alertify: any;
 
 @Component({
   selector: 'jhi-club-empresas',
@@ -37,6 +39,7 @@ export class ClubEmpresasComponent implements OnInit {
   account!: Account | any;
   empresaEnSesion!: IEmpresa | any;
   agregarEmpresaForm!: FormGroup;
+  empresaUpdate!: Empresa | null;
 
   ListaEmpresas: Array<IEmpresa> | any = [];
   geografia: Array<GeografiaVo> = [];
@@ -148,6 +151,23 @@ export class ClubEmpresasComponent implements OnInit {
 
   controlaOferta(): void {
     this.router.navigate(['controlar-ofertas']);
+  }
+
+  juridica(): void {
+    this.empresaService.find(this.account.userEmpresa).subscribe(empresa => {
+      this.empresaUpdate = empresa.body;
+      if (
+        empresa !== undefined &&
+        empresa !== null &&
+        this.empresaUpdate?.juridica === true &&
+        this.empresaUpdate?.juridica !== undefined
+      ) {
+        this.router.navigate(['asesoria-juridica']);
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error('No cuenta con la membresia para asesoría jurídica!. Debe contratar un plan!');
+      }
+    });
   }
 
   getEmpresas(): void {

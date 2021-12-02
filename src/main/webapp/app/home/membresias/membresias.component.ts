@@ -128,6 +128,26 @@ export class MembresiasComponent implements OnInit {
 
   onSubmit(): void {}
 
+  pagoUnaOferta(longContent: any): void {
+    this.pago = 'unaOferta';
+    this.openScrollableContent(longContent);
+  }
+
+  pagoDosOferta(longContent: any): void {
+    this.pago = 'dosOferta';
+    this.openScrollableContent(longContent);
+  }
+
+  pagoTresOferta(longContent: any): void {
+    this.pago = 'tresOferta';
+    this.openScrollableContent(longContent);
+  }
+
+  pagoFlexi(longContent: any): void {
+    this.pago = 'flexi';
+    this.openScrollableContent(longContent);
+  }
+
   pagoBronce(longContent: any): void {
     this.pago = 'bronce';
     this.openScrollableContent(longContent);
@@ -191,26 +211,6 @@ export class MembresiasComponent implements OnInit {
       });
   }
 
-  pagoUnaOferta(longContent: any): void {
-    this.pago = 'unaOferta';
-    this.openScrollableContent(longContent);
-  }
-
-  pagoDosOferta(longContent: any): void {
-    this.pago = 'dosOferta';
-    this.openScrollableContent(longContent);
-  }
-
-  pagoTresOferta(longContent: any): void {
-    this.pago = 'tresOferta';
-    this.openScrollableContent(longContent);
-  }
-
-  pagoFlexi(longContent: any): void {
-    this.pago = 'flexi';
-    this.openScrollableContent(longContent);
-  }
-
   backClicked(): void {
     this._location.back();
   }
@@ -244,6 +244,23 @@ export class MembresiasComponent implements OnInit {
       } else {
         alertify.set('notifier', 'position', 'top-right');
         alertify.error('No cuenta la membresia para club de empresas!. Debe contratar un plan!');
+      }
+    });
+  }
+
+  juridica(): void {
+    this.empresaService.find(this.account.userEmpresa).subscribe(empresa => {
+      this.empresaUpdate = empresa.body;
+      if (
+        empresa !== undefined &&
+        empresa !== null &&
+        this.empresaUpdate?.juridica === true &&
+        this.empresaUpdate?.juridica !== undefined
+      ) {
+        this.router.navigate(['asesoria-juridica']);
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error('No cuenta con la membresia para asesoría jurídica!. Debe contratar un plan!');
       }
     });
   }

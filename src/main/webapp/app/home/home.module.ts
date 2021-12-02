@@ -41,6 +41,7 @@ import { OfertaPublicaComponent } from './oferta-publica/oferta-publica.componen
 import { CandidatosSeleccionadosComponent } from './candidatos-seleccionados/candidatos-seleccionados.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { NosotrosComponent } from './nosotros/nosotros.component';
+import { AsesoriaJuridicaComponent } from './asesoria-juridica/asesoria-juridica.component';
 
 // import { BusquedaCandidatosComponent } from './busqueda-candidatos/busqueda-candidatos.component';
 
@@ -90,7 +91,8 @@ import { NosotrosComponent } from './nosotros/nosotros.component';
     CandidatosSeleccionadosComponent,
     ControlarOfertasComponent,
     OfertaPublicaComponent,
-    NosotrosComponent
+    NosotrosComponent,
+    AsesoriaJuridicaComponent
     // BusquedaCandidatosComponent
   ]
 })

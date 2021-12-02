@@ -1,0 +1,84 @@
+<div class="contenedor">
+<div class="estilo_fondo">
+    <div class="div_centro">
+        <h2 class="estilo_titulo" style="padding-left: 2.081vw;">Te asesoramos jurídicamente en lo que necesites, escríbenos</h2>
+        <div class="div_interno">
+            <div class="column" style="padding-left: 2.081vw;">
+                <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+                    <div class="inputs">
+                        <label class="estilo_label" style="color: white;">{{Nombre}} <span
+                            class="estilo_campo_requerido">*</span></label>
+                        <input type="text" class="estilo_inputs" formControlName="nombre">
+                        <div *ngIf="formulario.get('nombre')!.invalid && (formulario.get('nombre')!.dirty || formulario.get('nombre')!.touched)">
+                            <small class="form-text text-danger" *ngIf="formulario.get('nombre')?.errors?.required">
+                                {{Danger_Campo_Obligatorio}}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="inputs">
+                        <label class="estilo_label" style="color: white;">{{Apellidos}} <span
+                            class="estilo_campo_requerido">*</span></label>
+                        <input type="text" class="estilo_inputs" formControlName="apellidos">
+                        <div *ngIf="formulario.get('apellidos')!.invalid && (formulario.get('apellidos')!.dirty || formulario.get('apellidos')!.touched)">
+                            <small class="form-text text-danger" *ngIf="formulario.get('apellidos')?.errors?.required">
+                                {{Danger_Campo_Obligatorio}}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="inputs">
+                        <label class="estilo_label" style="color: white;">{{Email}} <span
+                            class="estilo_campo_requerido">*</span></label>
+                        <input type="text" class="estilo_inputs" formControlName="email">
+                        <div *ngIf="formulario.get('email')!.invalid && (formulario.get('email')!.dirty || formulario.get('email')!.touched)">
+                            <small class="form-text text-danger" *ngIf="formulario.get('email')?.errors?.required">
+                                {{Danger_Campo_Obligatorio}}
+                            </small>
+                            <small class="form-text text-danger" *ngIf="formulario.get('email')?.errors?.email">
+                                {{Danger_Correo}}
+                            </small>
+                        </div>
+                    </div>
+                    <div class="inputs">
+                        <label class="estilo_label" style="color: white;">{{Tel}}</label>
+                        <input type="text" class="estilo_inputs" formControlName="telefono">
+                    </div>
+                    <div class="inputs">
+                        <label class="estilo_label" style="color: white;">{{Mensaje}} <span
+                            class="estilo_campo_requerido">*</span></label>
+                        <textarea class="text_area" rows="5" formControlName="mensaje"></textarea>
+                        <div *ngIf="formulario.get('mensaje')!.invalid && (formulario.get('mensaje')!.dirty || formulario.get('mensaje')!.touched)">
+                            <small class="form-text text-danger" *ngIf="formulario.get('mensaje')?.errors?.required">
+                                {{Danger_Campo_Obligatorio}}
+                            </small>
+                        </div>
+                    </div>
+                    <button class="btn boton_enviar shadow-none" [disabled]="formulario.invalid" style="color:white; ">{{Enviar}}</button>
+                </form>
+            </div>
+            <div class="column" style="justify-content: space-between;">
+                <div class="textos">
+                    <h2 class="estilo_titulo">{{Telefonos}}:</h2>
+                    <p class="estilo_text">{{Tel_Club}}</p>
+                    <h2 class="estilo_titulo">{{Email}}:</h2>
+                    <p class="estilo_text">{{Correo_Info}}</p>
+                    <div class="iconos">
+                        <a href="https://www.facebook.com/Club-del-Trabajo-100955765079986/" target="_blank"><img class="icono" src="../../../content/images/facebook.png"></a>
+                        <a href="https://instagram.com/clubdeltrabajo?igshid=1m37k1eb9p16a" target="_blank"><img class="icono" path="fill: currentColor !important;" src="../../../content/images/instagram.png"></a>
+                        <a href="https://twitter.com/ClubdelTrabajo" target="_blank"><img class="icono" src="../../../content/images/twitter.png"></a>
+                    </div>
+                </div>
+                <img class="estilo_imagen" src="../../../content/images/persona_contact.png">
+            </div>
+        </div>
+        <!-- <img class="estilo_imagen" src="../../../content/images/persona_contact.png"> -->
+    </div>
+</div>
+<div class="footer">
+    <a href="https://www.facebook.com/Club-del-Trabajo-100955765079986/" target="_blank" style="margin-right: 1.52vw;">
+        <img class="icono" src="../../../content/images/facebook.png"></a>
+    <a href="https://instagram.com/clubdeltrabajo?igshid=1m37k1eb9p16a" target="_blank" style="margin-right: 1.52vw;">
+        <img class="icono" path="fill: currentColor !important;" src="../../../content/images/instagram.png"></a>
+    <a href="https://twitter.com/ClubdelTrabajo" target="_blank" style="margin-right: 1.52vw;">
+        <img class="icono" src="../../../content/images/twitter.png"></a>
+</div>
+</div>

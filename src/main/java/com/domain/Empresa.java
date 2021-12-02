@@ -114,6 +114,9 @@ public class Empresa implements Serializable {
     @Column(name = "replicas_oferta", nullable = true)
     private Long replicasOferta;
 
+     @Column(name = "juridica", nullable = true)
+    private Boolean juridica;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -361,6 +364,14 @@ public class Empresa implements Serializable {
 
 	public void setReplicasOferta(Long replicasOferta) {
 		this.replicasOferta = replicasOferta;
+	}
+
+    public Boolean getJuridica() {
+		return juridica;
+	}
+
+	public void setJuridica(Boolean juridica) {
+		this.juridica = juridica;
 	}
 
 	@Override

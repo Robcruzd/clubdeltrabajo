@@ -29,6 +29,7 @@ export interface IEmpresa {
   visualizacionesHv?: number;
   membresia?: boolean;
   replicasOferta?: number;
+  juridica?: boolean;
 }
 
 export class Empresa implements IEmpresa {
@@ -59,6 +60,7 @@ export class Empresa implements IEmpresa {
     public link?: string,
     public visualizacionesHv?: number,
     public membresia?: boolean,
-    public replicasOferta?: number
+    public replicasOferta?: number,
+    public juridica?: boolean
   ) {}
 }

@@ -189,6 +189,23 @@ export class ControlarOfertasComponent implements OnInit {
     });
   }
 
+  juridica(): void {
+    this.empresaService.find(this.codigoEmpresa).subscribe(empresa => {
+      this.empresaUpdate = empresa.body;
+      if (
+        empresa !== undefined &&
+        empresa !== null &&
+        this.empresaUpdate?.juridica === true &&
+        this.empresaUpdate?.juridica !== undefined
+      ) {
+        this.router.navigate(['asesoria-juridica']);
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error('No cuenta con la membresia para asesoría jurídica!. Debe contratar un plan!');
+      }
+    });
+  }
+
   editarOferta(id: any): void {
     this.router.navigate(['/crear-oferta'], { queryParams: { oferta: id } });
   }
