@@ -3,7 +3,7 @@ import { AccountService } from 'app/core/auth/account.service';
 import { OfertaService } from 'app/entities/oferta/oferta.service';
 import { AplicacionOfertaService } from 'app/entities/aplicacion-oferta/aplicacion-oferta.service';
 import { IlistarOfertas, IOpcionVo } from 'app/shared/vo/opcion-vo';
-import { faStar, faAddressCard, faEllipsisH, faCommentDots, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faAddressCard, faEllipsisH, faCommentDots, faTimes, faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { commonMessages } from 'app/shared/constants/commonMessages';
 import { GeografiaVo } from 'app/shared/vo/geografia-vo';
@@ -31,6 +31,7 @@ export class ControlarOfertasComponent implements OnInit {
   faEllipsisH = faEllipsisH;
   faCommentDots = faCommentDots;
   faTimes = faTimes;
+  faShareAlt = faShareAlt;
   aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
   municipiosPersonal: Array<IOpcionVo> = [];
   geografia: Array<GeografiaVo> = [];
@@ -84,16 +85,36 @@ export class ControlarOfertasComponent implements OnInit {
   }
 
   signInWithFB(oferta: any): void {
-    this.facebookService.publicarPost(oferta.id, this.codigoEmpresa).subscribe(
-      response => {
-        // eslint-disable-next-line no-console
-        console.log('response:     ', response);
-      },
-      error => {
-        // eslint-disable-next-line no-console
-        console.log(error);
+    Swal.fire({
+      title: '¿Está seguro de que desea publicar la oferta en la pagina de facebook de club del trabajo?',
+      icon: 'success',
+      showCancelButton: true,
+      showCloseButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#2699FB',
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar'
+    }).then(result => {
+      if (result.value) {
+        this.facebookService.publicarPost(oferta.id, this.codigoEmpresa).subscribe(
+          response => {
+            // eslint-disable-next-line no-console
+            console.log('response:     ', response);
+            if (response[0].startsWith('no')) {
+              alertify.set('notifier', 'position', 'top-right');
+              alertify.error('No cuenta con replicas para compartir su oferta en las redes sociales!. Debe contratar un plan!');
+            } else {
+              alertify.set('notifier', 'position', 'top-right');
+              alertify.success('Oferta compartida correctamente en la pagina de facebook club del trabajo!');
+            }
+          },
+          error => {
+            // eslint-disable-next-line no-console
+            console.log(error);
+          }
+        );
       }
-    );
+    });
   }
 
   consultarInformacionGeografica(): void {
@@ -284,6 +305,4 @@ export class ControlarOfertasComponent implements OnInit {
       );
     });
   }
-
-  // redes sociales
 }

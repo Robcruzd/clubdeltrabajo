@@ -16,6 +16,7 @@ export class EmpresaService {
   public resourceUrl = SERVER_API_URL + 'api/empresas';
   public resourceUrlByRazon = SERVER_API_URL + 'api/empresas/getByRazon';
   public resourceUrlBySector = SERVER_API_URL + 'api/empresas/getBySector';
+  public resourceUrlByClubEmpresa = SERVER_API_URL + 'api/empresas/getByClubEmpresa';
 
   constructor(protected http: HttpClient) {}
 
@@ -53,6 +54,12 @@ export class EmpresaService {
   getBySector(valor: string): Observable<any> {
     const params = PathUtil.getPathParams({ sector: valor });
     const url = this.resourceUrlBySector + params;
+    return this.http.get<any>(url);
+  }
+
+  getByClubEmpresa(): Observable<any> {
+    const params = PathUtil.getPathParams({});
+    const url = this.resourceUrlByClubEmpresa + params;
     return this.http.get<any>(url);
   }
 }

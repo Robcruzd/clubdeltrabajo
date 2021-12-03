@@ -80,4 +80,8 @@ public class EmpresaService {
     public List<Empresa> getBySectorFiltro(String sector) {
     	return empresaRepository.findBySectorLikeUsingQueryAnnotation(sector);
     }
+    
+    public List<Empresa> getByClubEmpresa() {
+    	return empresaRepository.getByClubEmpresa();
+    }
 }

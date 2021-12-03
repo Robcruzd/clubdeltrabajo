@@ -114,8 +114,11 @@ public class Empresa implements Serializable {
     @Column(name = "replicas_oferta", nullable = true)
     private Long replicasOferta;
 
-     @Column(name = "juridica", nullable = true)
+    @Column(name = "juridica", nullable = true)
     private Boolean juridica;
+     
+    @Column(name = "club_empresa", nullable = true)
+    private Boolean clubEmpresa;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -372,6 +375,14 @@ public class Empresa implements Serializable {
 
 	public void setJuridica(Boolean juridica) {
 		this.juridica = juridica;
+	}
+	
+	public Boolean getClubEmpresa() {
+		return clubEmpresa;
+	}
+
+	public void setClubEmpresa(Boolean clubEmpresa) {
+		this.clubEmpresa = clubEmpresa;
 	}
 
 	@Override

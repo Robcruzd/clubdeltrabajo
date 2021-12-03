@@ -57,7 +57,10 @@
                                     <p class="titulo_div1">{{Oferta}} {{inde+1}}</p>
                                     <fa-icon icon="eye" class="border-icon" style="
                                     background: transparent;" *ngIf="oferta.activado"></fa-icon>
-                                    <button type="button" (click)="signInWithFB(oferta)" >Sign</button>
+                                    <button placement="top" ngbTooltip="compartir" class="boton-eliminar" (click)="signInWithFB(oferta)" >
+                                        <fa-icon [icon]="faShareAlt" class="border-icon2" style="
+                                        background: transparent 0% 0% no-repeat padding-box;"></fa-icon>
+                                    </button>
                                     <button class="boton-eliminar" (click)='eliminarOfertaid(oferta.id)'>
                                         <fa-icon [icon]="faTimes" class="border-icon2" style="
                                         background: transparent 0% 0% no-repeat padding-box;"></fa-icon>
@@ -113,6 +116,3 @@
             <img class="icono" src="../../../content/images/twitter.png"></a>
     </div>
 </div>
-
-
-
