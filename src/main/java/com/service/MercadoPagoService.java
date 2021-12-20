@@ -1,31 +1,29 @@
 package com.service;
-import com.mercadopago.*;
-import com.mercadopago.exceptions.MPConfException;
-import com.mercadopago.exceptions.MPException;
-import com.mercadopago.resources.Payment;
-import com.mercadopago.resources.MerchantOrder;
-import com.mercadopago.resources.datastructures.preference.Item;
-import com.mercadopago.resources.datastructures.preference.BackUrls;
-import com.mercadopago.resources.Preference;
-import com.mercadopago.resources.datastructures.preference.Payer;
-import com.mercadopago.resources.datastructures.preference.Identification;
-import com.mercadopago.resources.datastructures.preference.Phone;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.domain.PayerMer;
-import com.domain.Empresa;
-import java.time.ZonedDateTime;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
+import java.time.ZonedDateTime;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-// import com.service.MercadoPagoService;
-import com.service.PagosService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.domain.Empresa;
 import com.domain.Membresia;
 import com.domain.Pagos;
-import java.util.Optional;
+import com.domain.PayerMer;
+import com.mercadopago.MercadoPago;
+import com.mercadopago.exceptions.MPConfException;
+import com.mercadopago.exceptions.MPException;
+import com.mercadopago.resources.MerchantOrder;
+import com.mercadopago.resources.Payment;
+import com.mercadopago.resources.Preference;
+import com.mercadopago.resources.datastructures.preference.BackUrls;
+import com.mercadopago.resources.datastructures.preference.Identification;
+import com.mercadopago.resources.datastructures.preference.Item;
+import com.mercadopago.resources.datastructures.preference.Payer;
+import com.mercadopago.resources.datastructures.preference.Phone;
 
 // import com.service.MembresiaService;
 
@@ -34,7 +32,7 @@ import java.util.Optional;
   public class MercadoPagoService {
 
     private final Logger log = LoggerFactory.getLogger(MercadoPagoService.class);
-
+    	
     @Autowired
     private PagosService pagosService;
     // private final MembresiaService membresiaService;
@@ -45,9 +43,9 @@ import java.util.Optional;
           // Date date = new Date();
           // Se configuran las url para retornar al comercio
           BackUrls backUrls = new BackUrls(
-                    "http://190.248.224.11:9000/club-empresas",
-                    "http://190.248.224.11:9000/perfil-empresa",
-                    "http://190.248.224.11:9000/");
+                    "http://190.248.240.219:9000/club-empresas",
+                    "http://190.248.240.219:9000/perfil-empresa",
+                    "http://190.248.240.219:9000/");
 
             preference.setBackUrls(backUrls);
             LocalDateTime date = ZonedDateTime.now(ZoneId.of("America/Bogota")).toLocalDateTime();
@@ -74,7 +72,7 @@ import java.util.Optional;
                 .setNumber(payerMer.getIdentificacion()));
             preference.setPayer(payer);
             preference.appendItem(item);
-            preference.setNotificationUrl("http://190.248.224.11:8080/api/notiMercadoPago");
+            preference.setNotificationUrl("http://190.248.240.219:8080/api/notiMercadoPago");
             Preference save = preference.save();
             Pagos pagos = new Pagos();
             pagos.setPreferenciaMerc(save.getId());
@@ -100,4 +98,5 @@ import java.util.Optional;
         MerchantOrder merchant = new MerchantOrder();
         return merchant.findById(id);
     }
-  }
+        
+ }

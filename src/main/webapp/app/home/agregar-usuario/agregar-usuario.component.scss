@@ -319,6 +319,17 @@
             outline: none;
           }
 
+          .select_sector {
+            width: 100%;
+            height: auto;
+            padding: 0.8rem 0rem;
+            border-radius: 50rem 50rem 50rem 50rem;
+          }
+
+          .select_sector:focus {
+            outline: none;
+          }
+
           .input_documento {
             width: 100%;
             height: auto;

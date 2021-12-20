@@ -27,6 +27,7 @@ import { ControlarOfertasComponent } from './controlar-ofertas/controlar-ofertas
 import { OfertaPublicaComponent } from './oferta-publica/oferta-publica.component';
 import { CandidatosSeleccionadosComponent } from './candidatos-seleccionados/candidatos-seleccionados.component';
 import { NosotrosComponent } from './nosotros/nosotros.component';
+import { AsesoriaJuridicaComponent } from './asesoria-juridica/asesoria-juridica.component';
 
 export const HOME_ROUTE: Routes = [
   {
@@ -224,6 +225,13 @@ export const HOME_ROUTE: Routes = [
     component: NosotrosComponent,
     data: {
       pageTitle: 'home.title'
+    }
+  },
+  {
+    path: 'asesoria-juridica',
+    component: AsesoriaJuridicaComponent,
+    data: {
+      pageTitle: 'Asesoría Jurídica'
     }
   }
 

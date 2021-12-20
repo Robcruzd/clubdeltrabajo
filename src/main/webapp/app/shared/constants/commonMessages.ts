@@ -535,6 +535,7 @@ export const commonMessages = {
   APELLIDOS: 'Apellidos', // linea 32
   RAZON_SOCIAL: 'Razón Social', // linea 39
   SELECCIONE_TIPO: 'Seleccione un tipo', // LINEA 51
+  SELECCIONE_SECTOR: 'Seleccione un sector',
   NIT: 'NIT', // LINEA 71
   CORREO_ELECTRONICO: 'Correo Electrónico', // LINEA 78-85
   PASSWORD: 'Contraseña', // linea 92

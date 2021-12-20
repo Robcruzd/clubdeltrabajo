@@ -15,13 +15,13 @@
                     <p class="titulo-boton">{{Editar_perfil}}</p>
                 </div>
             </button>
-            <!-- <button class="btn boton-no-clicked" (click)="clubEmpresas()">
+            <button class="btn boton-no-clicked" (click)="clubEmpresas()">
                 <fa-icon icon="suitcase" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
                     <p class="titulo-boton">Club de empresas</p>
                 </div>
-            </button> -->
+            </button>
             <button class="btn boton-clicked" (click)="verOferta()">
                 <fa-icon icon="eye" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
@@ -29,13 +29,20 @@
                     <p class="titulo-boton">{{Controla_ofertas}}</p>
                 </div>
             </button>
-            <!-- <button class="btn boton-no-clicked" (click)="membresia()">
+            <button class="btn boton-no-clicked" (click)="membresia()">
                 <fa-icon [icon]="faStar" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
                     <p class="titulo-boton">Membresía</p>
                 </div>
-            </button> -->
+            </button>
+            <button class="btn boton-no-clicked" (click)="juridica()">
+                <fa-icon [icon]="faStar" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Asesoría jurídica</p>
+                </div>
+            </button>
         </div>
         <div class="contenedor3">
             <div class="div-center3">
@@ -50,6 +57,10 @@
                                     <p class="titulo_div1">{{Oferta}} {{inde+1}}</p>
                                     <fa-icon icon="eye" class="border-icon" style="
                                     background: transparent;" *ngIf="oferta.activado"></fa-icon>
+                                    <button placement="top" ngbTooltip="compartir" class="boton-eliminar" (click)="signInWithFB(oferta)" >
+                                        <fa-icon [icon]="faShareAlt" class="border-icon2" style="
+                                        background: transparent 0% 0% no-repeat padding-box;"></fa-icon>
+                                    </button>
                                     <button class="boton-eliminar" (click)='eliminarOfertaid(oferta.id)'>
                                         <fa-icon [icon]="faTimes" class="border-icon2" style="
                                         background: transparent 0% 0% no-repeat padding-box;"></fa-icon>
@@ -105,6 +116,3 @@
             <img class="icono" src="../../../content/images/twitter.png"></a>
     </div>
 </div>
-
-
-

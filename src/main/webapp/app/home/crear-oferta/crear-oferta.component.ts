@@ -58,7 +58,7 @@ export class CrearOfertaComponent implements OnInit {
   filteredOptionsProfesiones = new Observable<IProfesion[]>();
   profesiones: Array<IProfesion> = [];
   profesionState: Boolean = false;
-  usuario!: User | null;
+  usuario!: Account | null;
   lblSeleccioneProfesion = commonMessages.SELECCIONE_PROFESION_LABEL;
   nivelesLaborales: ISubnivelVo[] = commonMessages.ARRAY_NIVEL_LABORAL;
   experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
@@ -111,6 +111,7 @@ export class CrearOfertaComponent implements OnInit {
   Publicado = commonMessages.PUBLICADO;
   Salario = commonMessages.SALARIO;
   Publicar = commonMessages.PUBLICAR;
+  empresaUpdate!: Empresa | null;
 
   constructor(
     private cargoService: CargoService,
@@ -451,7 +452,37 @@ export class CrearOfertaComponent implements OnInit {
   }
 
   clubEmpresas(): void {
-    this.router.navigate(['club-empresas']);
+    this.empresaService.find(this.usuario?.userEmpresa).subscribe(empresa => {
+      this.empresaUpdate = empresa.body;
+      if (
+        empresa !== undefined &&
+        empresa !== null &&
+        this.empresaUpdate?.membresia === true &&
+        this.empresaUpdate?.membresia !== undefined
+      ) {
+        this.router.navigate(['club-empresas']);
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error('No cuenta la membresia para club de empresas!. Debe contratar un plan!');
+      }
+    });
+  }
+
+  juridica(): void {
+    this.empresaService.find(this.usuario?.userEmpresa).subscribe(empresa => {
+      this.empresaUpdate = empresa.body;
+      if (
+        empresa !== undefined &&
+        empresa !== null &&
+        this.empresaUpdate?.juridica === true &&
+        this.empresaUpdate?.juridica !== undefined
+      ) {
+        this.router.navigate(['asesoria-juridica']);
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error('No cuenta con la membresia para asesoría jurídica!. Debe contratar un plan!');
+      }
+    });
   }
 
   vistaPreliminarOferta(): void {

@@ -43,6 +43,22 @@ public class Membresia implements Serializable {
     @Column(name = "ofertas", nullable = false)
     private Integer ofertas;
 
+    @NotNull
+    @Column(name = "visualizaciones", nullable = false)
+    private Integer visualizaciones;
+
+    @NotNull
+    @Column(name = "membresiaclub", nullable = false)
+    private boolean membresiaClub;
+
+    @NotNull
+    @Column(name = "juridica", nullable = false)
+    private boolean juridica;
+
+    @NotNull
+    @Column(name = "replicasoferta", nullable = false)
+    private Integer replicasOferta;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -102,6 +118,38 @@ public class Membresia implements Serializable {
 
     public void setOfertas(Integer ofertas) {
         this.ofertas = ofertas;
+    }
+
+    public Integer getVisualizaciones() {
+        return visualizaciones;
+    }
+
+    public void setVisualizaciones(Integer visualizaciones) {
+        this.visualizaciones = visualizaciones;
+    }
+
+    public boolean getMembresiaClub() {
+        return membresiaClub;
+    }
+
+    public void setMembresiaClub(boolean membresiaClub) {
+        this.membresiaClub = membresiaClub;
+    }
+
+    public boolean getJuridica() {
+        return juridica;
+    }
+
+    public void setJuridica(boolean juridica) {
+        this.juridica = juridica;
+    }
+
+    public Integer getReplicasOferta() {
+        return replicasOferta;
+    }
+
+    public void setReplicasOferta(Integer replicasOferta) {
+        this.replicasOferta = replicasOferta;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

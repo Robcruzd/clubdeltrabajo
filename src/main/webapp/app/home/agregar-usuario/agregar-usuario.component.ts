@@ -16,6 +16,8 @@ import { DatosCaptcha } from '../../shared/vo/datos-captcha';
 import { Empresa } from '../../shared/model/empresa.model';
 import { EmpresaVo } from '../../shared/vo/empresa-vo';
 import { EmpresaService } from '../../entities/empresa/empresa.service';
+import { ISector, Sector } from 'app/shared/model/sector.model';
+import { SectorService } from 'app/shared/services/sector.service';
 declare let alertify: any;
 
 @Component({
@@ -31,6 +33,7 @@ export class AgregarUsuarioComponent implements OnInit {
   natural: Boolean = true;
   juridico: Boolean = false;
   tipoDocumento = new TipoDocumento();
+  sector = new Sector();
   usuarioVo = new UsuarioVo();
   empresaVo = new EmpresaVo();
   datosCaptcha = new DatosCaptcha();
@@ -54,6 +57,7 @@ export class AgregarUsuarioComponent implements OnInit {
   document = new Document();
   isOpen = false;
   documentos: Array<ITipoDocumento> = [];
+  sectores: Array<ISector> = [];
   criterioCaptcha = '';
   textoCaptcha = '';
   var1 = 0;
@@ -72,9 +76,10 @@ export class AgregarUsuarioComponent implements OnInit {
   email = commonMessages.CORREO_ELECTRONICO;
   nit = commonMessages.NIT;
   SelecTipo = commonMessages.SELECCIONE_TIPO;
+  SelectSector = commonMessages.SELECCIONE_SECTOR;
   NumDoc = commonMessages.NUMERO_DOCUMENTO_LABEL;
-  RazonSocial= commonMessages.RAZON_SOCIAL;
-  Apellidos= commonMessages.APELLIDOS;
+  RazonSocial = commonMessages.RAZON_SOCIAL;
+  Apellidos = commonMessages.APELLIDOS;
   Sector = commonMessages.SECTOR;
   Nombres = commonMessages.NOMBRES;
   PersonaNatural = commonMessages.TIPO_USUARIO_1;
@@ -82,8 +87,6 @@ export class AgregarUsuarioComponent implements OnInit {
   YaRegistrado = commonMessages.YA_REGISTRADO;
   Aceptar = commonMessages.ACEPTAR;
   RegistroEntra = commonMessages.REGISTRATE;
-  
-
 
   eyePrimero = '../../../content/images/eye.svg';
   eyeSegundo = '../../../content/images/eye.svg';
@@ -97,6 +100,7 @@ export class AgregarUsuarioComponent implements OnInit {
     private languageService: JhiLanguageService,
     private router: Router,
     private tipoDocumentoService: TipoDocumentoService,
+    private sectorService: SectorService,
     private usuarioService: UsuarioService,
     private route: ActivatedRoute
   ) {}
@@ -117,6 +121,7 @@ export class AgregarUsuarioComponent implements OnInit {
     console.log(this.tipoUsuario.id);
     this.user.password = '';
     this.cargarTipoDocumento();
+    this.cargarSector();
     this.crearCaptcha();
   }
 
@@ -151,6 +156,7 @@ export class AgregarUsuarioComponent implements OnInit {
   }
 
   onCrearUsuario(): void {
+    this.empresa.sector = this.sector.sector;
     const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const NOMBRE_REGEX = /^[a-zA-ZÑÁÉÍÓÚñáéíóú ]{1,}$/;
     const NOMBRE2_REGEX = /^[a-zA-ZÑÁÉÍÓÚñáéíóú0-9 ]{1,}$/;
@@ -247,11 +253,7 @@ export class AgregarUsuarioComponent implements OnInit {
         this.mensajeRazon = commonMessages.CAMPO_REQUERIDO;
         this.validacionIncorrecta = true;
       }
-      if (!this.empresa.sector?.match(NOMBRE2_REGEX)) {
-        this.mensajeSector = 'El sector contiene carácteres no permitidos';
-        this.validacionIncorrecta = true;
-      }
-      if (!this.empresa.sector) {
+      if (this.sector.sector === undefined) {
         this.mensajeSector = commonMessages.CAMPO_REQUERIDO;
         this.validacionIncorrecta = true;
       }
@@ -341,6 +343,12 @@ export class AgregarUsuarioComponent implements OnInit {
           );
         }
       } else {
+        this.empresa.descargasHv = 0;
+        this.empresa.publicacionesOferta = 1;
+        this.empresa.membresia = false;
+        this.empresa.replicasOferta = 0;
+        this.empresa.visualizacionesHv = 0;
+        this.empresa.clubEmpresa = false;
         const tipodoc = { id: 5, nombreTipo: 'NIT' };
         this.empresa.tipoUsuario = this.tipoUsuario;
         this.empresa.tipoDocumento = tipodoc;
@@ -426,6 +434,14 @@ export class AgregarUsuarioComponent implements OnInit {
             .sort((a: ITipoDocumento, b: ITipoDocumento) => (a.nombreTipo! > b.nombreTipo! ? 1 : b.nombreTipo! > a.nombreTipo! ? -1 : 0));
         }
       });
+  }
+
+  cargarSector(): void {
+    this.sectorService.getSector().subscribe(res => {
+      if (res !== null) {
+        this.sectores = res;
+      }
+    });
   }
 
   crearCaptcha(): any {

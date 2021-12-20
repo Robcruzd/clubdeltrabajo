@@ -15,13 +15,13 @@
                     <p class="titulo-boton">{{Editar_Perfil}}</p>
                 </div>
             </button>
-            <!-- <button class="btn boton-no-clicked" (click)="clubEmpresas()">
+            <button class="btn boton-no-clicked" (click)="clubEmpresas()">
                 <fa-icon icon="suitcase" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
                     <p class="titulo-boton">{{Club_Empresas}}</p>
                 </div>
-            </button> -->
+            </button>
             <button class="btn boton-no-clicked" (click)="verOferta()">
                 <fa-icon icon="eye" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
@@ -29,13 +29,20 @@
                     <p class="titulo-boton">{{Controla_ofertas}}</p>
                 </div>
             </button>
-            <!-- <button class="btn boton-no-clicked" (click)="membresia()">
+            <button class="btn boton-no-clicked" (click)="membresia()">
                 <fa-icon [icon]="faStar" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
                     <p class="titulo-boton">Membresía</p>
                 </div>
-            </button> -->
+            </button>
+            <button class="btn boton-no-clicked" (click)="juridica()">
+                <fa-icon [icon]="faStar" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">Asesoría jurídica</p>
+                </div>
+            </button>
         </div>
         <form [formGroup]="formDatosBasicos" *ngIf = "!visualizarOferta && !visualizarOfertasCreadas" (ngSubmit)="vistaPreliminarOferta()">
             <ng-container>

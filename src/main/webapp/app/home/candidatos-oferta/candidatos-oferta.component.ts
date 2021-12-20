@@ -2,16 +2,22 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faStar, faAddressCard, faEllipsisH, faCommentDots, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { AccountService } from 'app/core/auth/account.service';
+import { User } from 'app/core/user/user.model';
+import { EmpresaService } from 'app/entities/empresa/empresa.service';
 import { InformacionPersonalService } from 'app/entities/informacion-personal/informacion-personal.service';
 import { OfertaService } from 'app/entities/oferta/oferta.service';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { commonMessages } from 'app/shared/constants/commonMessages';
 import { Archivo } from 'app/shared/model/archivo.model';
+import { Empresa } from 'app/shared/model/empresa.model';
 import { IInformacionPersonal, InformacionPersonal } from 'app/shared/model/informacion-personal.model';
 import { IOferta } from 'app/shared/model/oferta.model';
 import { IRegiones } from 'app/shared/model/regiones.model';
 import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { IOpcionVo, IResultadoBusquedaAspirantes, IResultadoOfertas } from 'app/shared/vo/opcion-vo';
+
+declare let alertify: any;
 
 @Component({
   selector: 'jhi-candidatos-oferta',
@@ -71,15 +77,17 @@ export class CandidatosOfertaComponent implements OnInit {
   VerHV = commonMessages.VER_HV;
   Buscar_Mas_Perfiles = commonMessages.BUSCAR_MAS_PERFILES;
   Buscar = commonMessages.BUSCAR;
-  
-
+  empresaUpdate!: Empresa | null;
+  usuario!: User | null;
 
   constructor(
     private router: Router,
     private informacionPersonalService: InformacionPersonalService,
     private regionService: RegionesService,
     private route: ActivatedRoute,
-    private ofertaService: OfertaService
+    private ofertaService: OfertaService,
+    private empresaService: EmpresaService,
+    private accountService: AccountService
   ) {
     this.traerCiudad();
   }
@@ -88,6 +96,9 @@ export class CandidatosOfertaComponent implements OnInit {
     const param = this.route.snapshot.paramMap.get('oferta')!;
     this.idOferta = parseInt(param, 10);
     this.getOFerta(this.idOferta);
+    this.accountService.getAuthenticationState().subscribe(account => {
+      this.usuario = account;
+    });
   }
 
   getOFerta(id: number): void {
@@ -344,6 +355,19 @@ export class CandidatosOfertaComponent implements OnInit {
   }
 
   clubEmpresas(): void {
-    this.router.navigate(['club-empresas']);
+    this.empresaService.find(this.usuario?.userEmpresa).subscribe(empresa => {
+      this.empresaUpdate = empresa.body;
+      if (
+        empresa !== undefined &&
+        empresa !== null &&
+        this.empresaUpdate?.membresia === true &&
+        this.empresaUpdate?.membresia !== undefined
+      ) {
+        this.router.navigate(['club-empresas']);
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error('No cuenta la membresia para club de empresas!. Debe contratar un plan!');
+      }
+    });
   }
 }
