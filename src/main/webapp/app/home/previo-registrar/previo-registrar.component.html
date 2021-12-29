@@ -1,4 +1,12 @@
-<div class="estilo_home">
+<div class="app-loading" *ngIf="cmPrevioRegistrar === null">
+    <div class="lds-css ng-scope">
+        <div class="lds-pacman">
+            <div><div></div><div></div><div></div></div>
+            <div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>
+<div class="estilo_home" *ngIf="cmPrevioRegistrar !== null">
     <img class="estilo_imagen" src="../../../content/images/img8.png">
     <div class="div_centro">
         <p class="titulo1">{{Hola}}</p>

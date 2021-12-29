@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Archivo } from 'app/shared/model/archivo.model';
 import { Group, pdf } from '@progress/kendo-drawing';
@@ -17,6 +18,7 @@ import { IRegiones } from 'app/shared/model/regiones.model';
 import { PersonaService } from 'app/entities/persona/persona.service';
 import { Persona } from 'app/shared/model/persona.model';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 const { exportPDF } = pdf;
 
@@ -28,12 +30,10 @@ const { exportPDF } = pdf;
 export class VisualizarHojaVidaComponent implements OnInit {
   @ViewChild('pdf') pdfExport: any;
 
+  cmVisualizarHV: any = null;
   imagen!: Archivo;
-  archivoHv! : Archivo;
+  archivoHv!: Archivo;
   urlImageDefault = '';
-  lblDescargar = commonMessages.DESCARGAR_HOJAVIDA_LABEL;
-  estadoNivelEstudio: IOpcionVo[] = commonMessages.ARRAY_ESTADO_NIVEL_ESTUDIO;
-  nivelIdioma: Array<IOpcionVo> = commonMessages.ARRAY_NIVEL_IDIOMA;
   hojaVidaVo!: HojaVidaVo | null;
   account!: Account | null;
   persona!: number;
@@ -52,7 +52,7 @@ export class VisualizarHojaVidaComponent implements OnInit {
   cargado = false;
   showElement = true;
   qrCard: any;
-  personaDatos!: Persona | null; 
+  personaDatos!: Persona | null;
 
   Loading = commonMessages.LOADING;
   SOBRE_MI = commonMessages.SOBRE_MI;
@@ -60,6 +60,9 @@ export class VisualizarHojaVidaComponent implements OnInit {
   Exp_Profesional = commonMessages.EXPERIENCIA_PROFESIONAL;
   Actualidad = commonMessages.ACTUALIDAD;
   FORMACION = commonMessages.FORMACION;
+  lblDescargar = commonMessages.DESCARGAR_HOJAVIDA_LABEL;
+  estadoNivelEstudio: IOpcionVo[] = commonMessages.ARRAY_ESTADO_NIVEL_ESTUDIO;
+  nivelIdioma: Array<IOpcionVo> = commonMessages.ARRAY_NIVEL_IDIOMA;
 
   constructor(
     private router: Router,
@@ -68,7 +71,8 @@ export class VisualizarHojaVidaComponent implements OnInit {
     private apiService: ApiService,
     private regionService: RegionesService,
     private personaService: PersonaService,
-    private archivoService: ArchivoService
+    private archivoService: ArchivoService,
+    private commonMessagesService: CommonMessagesService
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +80,38 @@ export class VisualizarHojaVidaComponent implements OnInit {
       this.router.navigate(['/']);
       return;
     }
-    this.consultarInformacionGeografica();
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmVisualizarHV'
+      })
+      .subscribe(
+        res => {
+          const body: any = res.body;
+          const mensajes = JSON.parse(body[0].mensajes);
+          this.cmVisualizarHV = mensajes;
+          this.updateVariables();
+          this.consultarInformacionGeografica();
+        },
+        err => {
+          /* eslint-disable no-console */
+          console.log(err);
+          this.cmVisualizarHV = 0;
+          this.consultarInformacionGeografica();
+        }
+      );
+  }
+
+  updateVariables(): void {
+    const commonData: any = JSON.parse(sessionStorage.getItem('commonData')!);
+    this.Loading = this.cmVisualizarHV.LOADING;
+    this.SOBRE_MI = this.cmVisualizarHV.SOBRE_MI;
+    this.CONTACTO = this.cmVisualizarHV.CONTACTO;
+    this.Exp_Profesional = this.cmVisualizarHV.EXPERIENCIA_PROFESIONAL;
+    this.Actualidad = this.cmVisualizarHV.ACTUALIDAD;
+    this.FORMACION = this.cmVisualizarHV.FORMACION;
+    this.lblDescargar = this.cmVisualizarHV.DESCARGAR_HOJAVIDA_LABEL;
+    this.estadoNivelEstudio = commonData.ARRAY_ESTADO_NIVEL_ESTUDIO;
+    this.nivelIdioma = commonData.ARRAY_NIVEL_IDIOMA;
   }
 
   regresarPerfil(): void {
@@ -108,10 +143,10 @@ export class VisualizarHojaVidaComponent implements OnInit {
   }
 
   descargarPDF(): void {
-    this.archivoService.get(this.persona,TipoArchivo.ARCHIVO_HV).subscribe(response =>{
-      if(response === null || response === undefined){
+    this.archivoService.get(this.persona, TipoArchivo.ARCHIVO_HV).subscribe(response => {
+      if (response === null || response === undefined) {
         saveAs(this.pdfHojaVida64RenderDescarga, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.pdf');
-      }else{
+      } else {
         this.archivoBase64 = response.body?.archivo;
         saveAs(this.archivoBase64, this.hojaVidaVo?.persona.nombre + '' + this.hojaVidaVo?.persona.apellido + '.pdf');
       }
@@ -159,38 +194,35 @@ export class VisualizarHojaVidaComponent implements OnInit {
     });
   }
 
-  generarHvComoArchivo(archivo:any, data:any, nombre:any): void{
-    this.personaService.find(this.persona).subscribe(response =>{
+  generarHvComoArchivo(archivo: any, data: any, nombre: any): void {
+    this.personaService.find(this.persona).subscribe(response => {
       this.personaDatos = response.body;
-      if(this.personaDatos?.estadohv === true){
-        if(this.personaDatos !== null){
+      if (this.personaDatos?.estadohv === true) {
+        if (this.personaDatos !== null) {
           this.personaDatos.estadohv = false;
-          this.personaService.update(this.personaDatos).subscribe(()=>{
-            this.cargarArchivoHv(archivo,this.personaDatos, nombre);
+          this.personaService.update(this.personaDatos).subscribe(() => {
+            this.cargarArchivoHv(archivo, this.personaDatos, nombre);
           });
         }
       }
-    })
+    });
   }
 
-  cargarArchivoHv(archivo:any, persona:any, nombre:any): void {
+  cargarArchivoHv(archivo: any, persona: any, nombre: any): void {
     this.archivoHv = this.archivoHv || new Archivo();
     this.archivoHv.tipo = TipoArchivo.ARCHIVO_HV;
     this.archivoHv.nombre = nombre;
-    this.archivoHv.extension = "pdf";
+    this.archivoHv.extension = 'pdf';
     this.archivoHv.usuario = persona;
     this.archivoHv.archivo = archivo;
     if (this.archivoHv.id !== undefined) {
-      this.archivoService.update(this.archivoHv).subscribe(()=>{});
+      this.archivoService.update(this.archivoHv).subscribe(() => {});
     } else {
-      this.archivoService.create(this.archivoHv).subscribe(()=>{});
+      this.archivoService.create(this.archivoHv).subscribe(() => {});
     }
-
   }
 
-  subirArchivoHv(): void {
-    
-  }
+  subirArchivoHv(): void {}
 
   consultarInformacionGeografica(): void {
     this.regionService

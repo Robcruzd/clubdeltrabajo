@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { commonMessages } from '../../shared/constants/commonMessages';
@@ -14,6 +15,7 @@ import { Account } from 'app/core/user/account.model';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { HttpResponse } from '@angular/common/http';
 import { IRegiones } from 'app/shared/model/regiones.model';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 declare let alertify: any;
 
@@ -23,11 +25,7 @@ declare let alertify: any;
   styleUrls: ['./perfil.component.scss']
 })
 export class PerfilComponent implements OnInit {
-  lblVerHojaVida = commonMessages.VER_HOJA_VIDA_LABEL;
-  lblBuscaEmpleo = commonMessages.VER_BUSCA_EMPLEO_LABEL;
-  lblVerOfertas = commonMessages.VER_OFERTAS_LABEL;
-  lblEditarHojaVida = commonMessages.EDITAR_HOJA_VIDA_LABEL;
-  lblImagenPerfil = commonMessages.IMAGEN_LABEL;
+  cmPerfil: any = null;
   qrCard: any;
   persona: any;
   tipoArchivo = TipoArchivo;
@@ -40,12 +38,16 @@ export class PerfilComponent implements OnInit {
   personaInicial!: number;
   archivos!: Array<Archivo> | undefined;
 
+  lblVerHojaVida = commonMessages.VER_HOJA_VIDA_LABEL;
+  lblBuscaEmpleo = commonMessages.VER_BUSCA_EMPLEO_LABEL;
+  lblVerOfertas = commonMessages.VER_OFERTAS_LABEL;
+  lblEditarHojaVida = commonMessages.EDITAR_HOJA_VIDA_LABEL;
+  lblImagenPerfil = commonMessages.IMAGEN_LABEL;
   Profesion = commonMessages.PROFESION_LABEL;
   Celular = commonMessages.CELULAR;
   Email = commonMessages.CORREO_ELECTRONICO_LABEL;
   Exp_Laboral = commonMessages.EXPERIENCIA_LABORAL_LABEL;
   Actualidad = commonMessages.ACTUALIDAD;
-  
 
   constructor(
     private router: Router,
@@ -54,14 +56,48 @@ export class PerfilComponent implements OnInit {
     private service: HojaVidaService,
     private archivoService: ArchivoService,
     private hojaVidaService: HojaVidaService,
-    private regionService: RegionesService
+    private regionService: RegionesService,
+    private commonMessagesService: CommonMessagesService
   ) {}
 
   ngOnInit(): void {
     this.cargarInformacionCuenta();
-    this.cargarHojaVida();
-    this.consultarInformacionGeografica();
-    this.cargarCuentaUsuario();
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmPerfil'
+      })
+      .subscribe(
+        res => {
+          const body: any = res.body;
+          const mensajes = JSON.parse(body[0].mensajes);
+          this.cmPerfil = mensajes;
+          this.updateVariables();
+          this.cargarHojaVida();
+          this.consultarInformacionGeografica();
+          this.cargarCuentaUsuario();
+        },
+        err => {
+          /* eslint-disable no-console */
+          console.log(err);
+          this.cargarHojaVida();
+          this.consultarInformacionGeografica();
+          this.cargarCuentaUsuario();
+          this.cmPerfil = 0;
+        }
+      );
+  }
+
+  updateVariables(): void {
+    this.lblVerHojaVida = this.cmPerfil.VER_HOJA_VIDA_LABEL;
+    this.lblBuscaEmpleo = this.cmPerfil.VER_BUSCA_EMPLEO_LABEL;
+    this.lblVerOfertas = this.cmPerfil.VER_OFERTAS_LABEL;
+    this.lblEditarHojaVida = this.cmPerfil.EDITAR_HOJA_VIDA_LABEL;
+    this.lblImagenPerfil = this.cmPerfil.IMAGEN_LABEL;
+    this.Profesion = this.cmPerfil.PROFESION_LABEL;
+    this.Celular = this.cmPerfil.CELULAR;
+    this.Email = this.cmPerfil.CORREO_ELECTRONICO_LABEL;
+    this.Exp_Laboral = this.cmPerfil.EXPERIENCIA_LABORAL_LABEL;
+    this.Actualidad = this.cmPerfil.ACTUALIDAD;
   }
 
   cargarCuentaUsuario(): void {

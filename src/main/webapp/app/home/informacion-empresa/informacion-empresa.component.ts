@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { AccountService } from './../../core/auth/account.service';
 import { Router } from '@angular/router';
 import { commonMessages } from './../../shared/constants/commonMessages';
@@ -5,6 +6,7 @@ import { InformacionEmpresaService } from './../../shared/services/informacion-e
 import { InformacionEmpresaVo } from './../../shared/vo/informacion-empresa';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 declare let alertify: any;
 
@@ -14,6 +16,7 @@ declare let alertify: any;
   styleUrls: ['./informacion-empresa.component.scss']
 })
 export class InformacionEmpresaComponent implements OnInit {
+  cmInformacionEmpresa: any = null;
   formulario!: FormGroup;
   informacionEmpresaVo!: InformacionEmpresaVo | null;
 
@@ -29,17 +32,49 @@ export class InformacionEmpresaComponent implements OnInit {
   Telefonos = commonMessages.TELEFONOS;
   Correo_Info = commonMessages.CORREO_INFO;
   Tel_Club = commonMessages.TEL_CLUB;
-  
 
   constructor(
     private fb: FormBuilder,
     private informacionEmpresaService: InformacionEmpresaService,
     private router: Router,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private commonMessagesService: CommonMessagesService
   ) {}
 
   ngOnInit(): void {
     this.crearFormulario();
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmInformacionEmpresa'
+      })
+      .subscribe(
+        res => {
+          const body: any = res.body;
+          const mensajes = JSON.parse(body[0].mensajes);
+          this.cmInformacionEmpresa = mensajes;
+          this.updateVariables();
+        },
+        err => {
+          /* eslint-disable no-console */
+          console.log(err);
+          this.cmInformacionEmpresa = 0;
+        }
+      );
+  }
+
+  updateVariables(): void {
+    this.Hablemos = this.cmInformacionEmpresa.HABLEMOS;
+    this.Nombre = this.cmInformacionEmpresa.NOMBRE_LABEL;
+    this.Danger_Campo_Obligatorio = this.cmInformacionEmpresa.DANGER_CAMPO_OBLIGATORIO;
+    this.Apellidos = this.cmInformacionEmpresa.APELLIDOS;
+    this.Email = this.cmInformacionEmpresa.CORREO_ELECTRONICO_LABEL;
+    this.Danger_Correo = this.cmInformacionEmpresa.DANGER_CORREO;
+    this.Tel = this.cmInformacionEmpresa.TELEFONO;
+    this.Mensaje = this.cmInformacionEmpresa.MENSAJE;
+    this.Enviar = this.cmInformacionEmpresa.ENVIAR;
+    this.Telefonos = this.cmInformacionEmpresa.TELEFONOS;
+    this.Correo_Info = this.cmInformacionEmpresa.CORREO_INFO;
+    this.Tel_Club = this.cmInformacionEmpresa.TEL_CLUB;
   }
 
   crearFormulario(): void {

@@ -60,6 +60,8 @@ export const commonMessages = {
   CARGO_LABEL: 'Cargo',
   DEPENDENCIA_LABEL: 'Dependencia',
   ADJUNTE_CERTIFICADO_LABORAL_LABEL: 'Adjunte certificado laboral',
+  MUDAR_OTRO_LUGAR: 'Puedo mudarme a otra ciudad o pais',
+  VIAJAR_OTRO_LUGAR: 'Puedo viajar a otra ciudad o pais',
   ARRAY_DISCAPACIDADES: [
     { codigo: 1, nombre: 'Ninguna' },
     { codigo: 2, nombre: 'Discapacidad física' },
@@ -559,6 +561,7 @@ export const commonMessages = {
   CLUB_DE_EMPRESAS: 'Club de empresas',
   CONTROLA_TUS_OFERTAS: 'Controla tus ofertas',
   MEMBRESIA: 'Membresía',
+  ASESORIA_JURIDICA: 'Asesoría Jurídica',
 
   // Candidatos-oferta.component.html
   // TITULO: 'Titulo:', TITULO_LABEL
@@ -710,5 +713,81 @@ export const commonMessages = {
   CLIC_ACA: '¡Haz clic acá!',
   NUEVAS_OFERTAS: 'NUEVAS OFERTAS DIARIAS',
   OFERTAS_EMAIL: 'OFERTAS EN TU EMAIL',
-  EMPRESA_BUSCA_CANDIDATOS: 'Si eres EMPRESA y buscas candidatos'
+  EMPRESA_BUSCA_CANDIDATOS: 'Si eres EMPRESA y buscas candidatos',
+
+  // Club de empresas
+  CLUB_EMPRESAS_TITULO: 'Club de empresas',
+  AGREGA_TU_EMPRESA: 'Agrega tu empresa',
+  EMPRESAS_TITULO: 'Empresas',
+  EMAIL_LABEL: 'Correo electrónico',
+  PAGINA_WEB_LABEL: 'Página web',
+  DESCRIPCION_LABEL: 'Descripción',
+  PAGINA_SERVICIOS_LABEL: 'Página de servicios',
+  AGREGA_EMPRESA_DIRECTORIO: 'Agrega tu empresa al directorio',
+  DIRECCION_LABEL2: 'Dirección',
+  CODIGO_POSTAL_LABEL: 'Código Postal',
+  TELEFONO2: 'Teléfono',
+  EMAIL_LABEL2: 'Correo electrónico',
+  AGREGA_PRODUCTOS_LABEL: 'Agrega productos label',
+  ESCRIBE_LINK_TEXTO: 'Escribe el link para conocer tus servicios',
+  COPIAR_LINK: 'Copiar link',
+
+  // Controlar Ofertas
+  ASPIRANTES: 'aspirantes',
+  SELECCIONADOS: 'seleccionados',
+  POR_VER: 'por ver',
+
+  // CREAR HOJA DE VIDA
+  CIUDAD_ESTUDIO: 'Ciudad estudio',
+  ANIOS: 'Años',
+
+  // Editar empresa
+  ID_LABEL: 'ID',
+  SUBSECTOR: 'Subsector',
+
+  // Membresias
+  UNA_OFERTA: '1 oferta',
+  DOS_OFERTAS: '2 ofertas',
+  TRES_OFERTAS: '3 ofertas',
+  FLEXI: 'Flexi',
+  COMPRAR: 'Comprar',
+  BRONCE_TITULO: 'Bronce',
+  BRONCE_DESCRIP1: 'Permite la publicaciónde 18 ofertas con visualización de todos sus aplicantes',
+  BRONCE_DESCRIP2: '50 descargas de hojas de vida',
+  BRONCE_DESCRIP3: 'Membresía para club empresas',
+  BRONCE_DESCRIP4: '',
+  BRONCE_DESCRIP5: '',
+  BRONCE_DESCRIP6: '',
+  BRONCE_VALOR: 'Valor anual',
+  PLATA_TITULO: 'Plata',
+  PLATA_DESCRIP1: 'Permite la publicación de 25 ofertas laborales con visualización de todos sus aplicantes',
+  PLATA_DESCRIP2: '120 descargas de hojas de vida',
+  PLATA_DESCRIP3: 'Membresía para club empresas',
+  PLATA_DESCRIP4: '',
+  PLATA_DESCRIP5: 'Replica de 2 ofertas en nuestras redes sociales',
+  PLATA_DESCRIP6: '',
+  PLATA_VALOR: 'Valor anual',
+  ORO_TITULO: 'Oro',
+  ORO_DESCRIP1: 'Permite publicaciones ilimitadas de ofertas laborales',
+  ORO_DESCRIP2: '200 descargas de hojas de vida',
+  ORO_DESCRIP3: 'Membresía club de empresas',
+  ORO_DESCRIP4: 'Base de datos',
+  ORO_DESCRIP5: 'Replica de 4 ofertas en nuestras redes sociales',
+  ORO_DESCRIP6: 'Asesoría jurídica en contratación',
+  ORO_VALOR: 'valor anual',
+  DIAMANTE_TITULO: 'Diamante',
+  DIAMANTE_DESCRIP1: 'Publicación de ofertas laborales ilimitadas',
+  DIAMANTE_DESCRIP2: '',
+  DIAMANTE_DESCRIP3: 'Membresía club de empresas',
+  DIAMANTE_DESCRIP4: 'Base de datos',
+  DIAMANTE_DESCRIP5: '',
+  DIAMANTE_DESCRIP6: 'Asesoría jurídica en contratación',
+  DIAMANTE_VALOR: 'valor anual',
+  INFO_COMPRADOR: 'Por favor completa los siguientes datos para aumentar tu probabilidad de pago',
+  TIPO_DOCUMENTO: 'Tipo de documento',
+  IDENTIFICACION: 'Identificación',
+
+  // home
+  VISITAS: 'Visitas',
+  PERSONAS: 'Personas'
 };

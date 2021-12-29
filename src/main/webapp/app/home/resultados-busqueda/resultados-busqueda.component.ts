@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { FormBuilder } from '@angular/forms';
 import { DataService } from './../../shared/services/data.service';
 import { Component, OnInit } from '@angular/core';
@@ -20,6 +21,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 import { Account } from 'app/core/user/account.model';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 @Component({
   selector: 'jhi-resultados-busqueda',
@@ -27,26 +29,18 @@ import { Account } from 'app/core/user/account.model';
   styleUrls: ['./resultados-busqueda.component.scss']
 })
 export class ResultadosBusquedaComponent implements OnInit {
-  lblResultados = commonMessages.RESULTADO_BUSQUEDA_LABEL;
-  lblSalario = commonMessages.SALARIO_LABEL;
-  lblCiudad = commonMessages.CIUDAD_LABEL;
-  lblFechaPublicacion = commonMessages.FECHA_PUBLICACION_LABEL;
-  lblAreaTrabajo = commonMessages.AREA_TRABAJO_LABEL;
-  lblEmpresas = commonMessages.EMPRESAS_LABEL;
+  cmResultadosBus: any = null;
   // formBusqueda!: FormGroup;
   profesion: any;
   ubicacion: any;
   ofertaFiltro!: Oferta;
   geografia: Array<GeografiaVo> = [];
   municipiosPersonal: Array<IOpcionVo> = [];
-  labels = commonMessages;
-  aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
   municipioValue: any = null;
   salarioValue: any = null;
   fechaValue: any = null;
   listaResultadoBusquedaOfertas: any = [];
   profesiones: Array<IProfesion> = [];
-  fechaFiltro: IOpcionVo[] = commonMessages.ARRAY_FECHA_FILTRO;
   resultadoBusqueda: Array<IOferta> | null = [];
   totalEmpresas = 0;
   general = 'true';
@@ -59,11 +53,9 @@ export class ResultadosBusquedaComponent implements OnInit {
   profesionesFiltro: Array<IProfesion> | null = [];
   urlImgDefault = '../../../content/images/Image 28.png';
   imagen: any;
-  edades: IOpcionVo[] = commonMessages.ARRAY_EDAD;
   edadValue: any = null;
   generoValue: any = null;
   experienciaValue: any = null;
-  experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
   archivoEmpresa: any;
   ofertaBuscaAll = new Oferta();
   filtrosOn = false;
@@ -82,6 +74,17 @@ export class ResultadosBusquedaComponent implements OnInit {
   Ver = commonMessages.VER_FILTROS;
   Ocultar = commonMessages.OCULTAR_FILTROS;
   Ver1 = commonMessages.VER;
+  lblResultados = commonMessages.RESULTADO_BUSQUEDA_LABEL;
+  lblSalario = commonMessages.SALARIO_LABEL;
+  lblCiudad = commonMessages.CIUDAD_LABEL;
+  lblFechaPublicacion = commonMessages.FECHA_PUBLICACION_LABEL;
+  lblAreaTrabajo = commonMessages.AREA_TRABAJO_LABEL;
+  lblEmpresas = commonMessages.EMPRESAS_LABEL;
+  labels = commonMessages;
+  aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
+  fechaFiltro: IOpcionVo[] = commonMessages.ARRAY_FECHA_FILTRO;
+  edades: IOpcionVo[] = commonMessages.ARRAY_EDAD;
+  experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
 
   public page = 1;
   constructor(
@@ -95,7 +98,8 @@ export class ResultadosBusquedaComponent implements OnInit {
     private personaService: PersonaService,
     private route: ActivatedRoute,
     private aplicacionOfertaService: AplicacionOfertaService,
-    private archivoService: ArchivoService
+    private archivoService: ArchivoService,
+    private commonMessagesService: CommonMessagesService
   ) {
     this.traerCiudad();
     this.cargarProfesiones();
@@ -118,6 +122,51 @@ export class ResultadosBusquedaComponent implements OnInit {
     if (window.screen.width >= 900) {
       this.filtrosOn = true;
     }
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmResultadosBus'
+      })
+      .subscribe(
+        res => {
+          const body: any = res.body;
+          const mensajes = JSON.parse(body[0].mensajes);
+          this.cmResultadosBus = mensajes;
+          this.updateVariables();
+        },
+        err => {
+          /* eslint-disable no-console */
+          console.log(err);
+          this.cmResultadosBus = 0;
+        }
+      );
+  }
+
+  updateVariables(): void {
+    const commonData: any = JSON.parse(sessionStorage.getItem('commonData')!);
+    this.Explora_Ofertas = this.cmResultadosBus.EXPLORA_CIENTOS_OFERTAS;
+    this.Profesion = this.cmResultadosBus.PROFESION_LABEL;
+    this.Empresas = this.cmResultadosBus.EMPRESAS;
+    this.Resultados = this.cmResultadosBus.RESULTADOS;
+    this.Ciudad = this.cmResultadosBus.CIUDAD_LABEL;
+    this.Genero = this.cmResultadosBus.GENERO_LABEL;
+    this.Masculino = this.cmResultadosBus.MASCULINO_LABEL;
+    this.Femenino = this.cmResultadosBus.FEMENINO_LABEL;
+    this.Experiencia = this.cmResultadosBus.EXPERIENCIA;
+    this.Salario = this.cmResultadosBus.SALARIO;
+    this.Ver = this.cmResultadosBus.VER_FILTROS;
+    this.Ocultar = this.cmResultadosBus.OCULTAR_FILTROS;
+    this.Ver1 = this.cmResultadosBus.VER;
+    this.lblResultados = this.cmResultadosBus.RESULTADO_BUSQUEDA_LABEL;
+    this.lblSalario = this.cmResultadosBus.SALARIO_LABEL;
+    this.lblCiudad = this.cmResultadosBus.CIUDAD_LABEL;
+    this.lblFechaPublicacion = this.cmResultadosBus.FECHA_PUBLICACION_LABEL;
+    this.lblAreaTrabajo = this.cmResultadosBus.AREA_TRABAJO_LABEL;
+    this.lblEmpresas = this.cmResultadosBus.EMPRESAS_LABEL;
+    this.labels = this.cmResultadosBus;
+    this.aspiracionesSalariales = commonData.ARRAY_ASPIRACION_SALARIAL;
+    this.fechaFiltro = commonData.ARRAY_FECHA_FILTRO;
+    this.edades = commonData.ARRAY_EDAD;
+    this.experienciasLaborales = commonData.ARRAY_EXPERIENCIA_LABORAL;
   }
 
   cargarCuentaUsuario(): void {

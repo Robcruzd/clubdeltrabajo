@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,6 +19,7 @@ import { AplicacionOfertaService } from 'app/entities/aplicacion-oferta/aplicaci
 import { Archivo } from 'app/shared/model/archivo.model';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 declare let alertify: any;
 
@@ -27,12 +29,10 @@ declare let alertify: any;
   styleUrls: ['./oferta-publica.component.scss']
 })
 export class OfertaPublicaComponent implements OnInit {
+  cmOfertaPublica: any = null;
   idOferta = 0;
   listaResultadoOfertas: Array<IResultadoOfertas> = [];
   oferta!: IOferta | null;
-  aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
-  experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
-  tiposContrato: IOpcionVo[] = commonMessages.ARRAY_TIPO_CONTRATO;
   municipiosPersonal: Array<IOpcionVo> = [];
   geografia: Array<GeografiaVo> = [];
   aplicacionOferta = new AplicacionOferta();
@@ -54,6 +54,9 @@ export class OfertaPublicaComponent implements OnInit {
   Volver = commonMessages.VOLVER;
   Aplicar = commonMessages.APLICAR;
   Aplicada = commonMessages.APLICADA;
+  aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
+  experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
+  tiposContrato: IOpcionVo[] = commonMessages.ARRAY_TIPO_CONTRATO;
 
   constructor(
     private router: Router,
@@ -63,7 +66,8 @@ export class OfertaPublicaComponent implements OnInit {
     private regionService: RegionesService,
     private personaService: PersonaService,
     private aplicacionOfertaService: AplicacionOfertaService,
-    private archivoService: ArchivoService
+    private archivoService: ArchivoService,
+    private commonMessagesService: CommonMessagesService
   ) {
     this.traerCiudad();
   }
@@ -73,6 +77,39 @@ export class OfertaPublicaComponent implements OnInit {
     this.idOferta = parseInt(param, 10);
     this.general = this.route.snapshot.queryParamMap.get('general')!;
     this.cargarCuentaUsuario();
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmOfertaPublica'
+      })
+      .subscribe(
+        res => {
+          const body: any = res.body;
+          const mensajes = JSON.parse(body[0].mensajes);
+          this.cmOfertaPublica = mensajes;
+          this.updateVariables();
+        },
+        err => {
+          /* eslint-disable no-console */
+          console.log(err);
+          this.cmOfertaPublica = 0;
+        }
+      );
+  }
+
+  updateVariables(): void {
+    const commonData: any = JSON.parse(sessionStorage.getItem('commonData')!);
+    this.Titulo = this.cmOfertaPublica.TITULO_LABEL;
+    this.Tipo_Contrato = this.cmOfertaPublica.TITULO_LABEL;
+    this.Publicado = this.cmOfertaPublica.PUBLICADO;
+    this.Exp = this.cmOfertaPublica.EXPERIENCIA;
+    this.Ciudad = this.cmOfertaPublica.CIUDAD_LABEL;
+    this.Salario = this.cmOfertaPublica.SALARIO;
+    this.Volver = this.cmOfertaPublica.VOLVER;
+    this.Aplicar = this.cmOfertaPublica.APLICAR;
+    this.Aplicada = this.cmOfertaPublica.APLICADA;
+    this.aspiracionesSalariales = commonData.ARRAY_ASPIRACION_SALARIAL;
+    this.experienciasLaborales = commonData.ARRAY_EXPERIENCIA_LABORAL;
+    this.tiposContrato = commonData.ARRAY_TIPO_CONTRATO;
   }
 
   cargarCuentaUsuario(): void {

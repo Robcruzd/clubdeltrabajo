@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../../core/login/login.service';
@@ -5,6 +6,7 @@ import { Login } from '../../core/login/login.model';
 import { flatMap } from 'rxjs/operators';
 import { ActivateService } from 'app/account/activate/activate.service';
 import { commonMessages } from 'app/shared/constants/commonMessages';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 declare let alertify: any;
 
@@ -14,6 +16,7 @@ declare let alertify: any;
   styleUrls: ['./inicio-sesion.component.scss']
 })
 export class InicioSesionComponent implements OnInit {
+  cmInicioSesion: any = null;
   username = '';
   password = '';
   usernameInvalid = false;
@@ -29,13 +32,13 @@ export class InicioSesionComponent implements OnInit {
   Olvidaste_Contra = commonMessages.OLVIDASTE_CONTRASENIA;
   No_Registrado = commonMessages.NO_REGISTRADO;
   Hazlo_Aqui = commonMessages.HAZLO_AQUI;
-  
 
   constructor(
     private route: ActivatedRoute,
     private activateService: ActivateService,
     private router: Router,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private commonMessagesService: CommonMessagesService
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +48,33 @@ export class InicioSesionComponent implements OnInit {
       // eslint-disable-next-line no-console
       () => console.log('error')
     );
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmInicioSesion'
+      })
+      .subscribe(
+        res => {
+          const body: any = res.body;
+          const mensajes = JSON.parse(body[0].mensajes);
+          this.cmInicioSesion = mensajes;
+          this.updateVariables();
+        },
+        err => {
+          /* eslint-disable no-console */
+          console.log(err);
+          this.cmInicioSesion = 0;
+        }
+      );
+  }
+
+  updateVariables(): void {
+    this.Mensaje_Bienvenido = this.cmInicioSesion.MENSAJE_BIENVENIDO;
+    this.Inicio_Registrado = this.cmInicioSesion.INICIA_REGISTRADO;
+    this.Danger_Campo = this.cmInicioSesion.DANGER_CAMPO_OBLIGATORIO;
+    this.Inicio_Sesion = this.cmInicioSesion.INICIO_SESION;
+    this.Olvidaste_Contra = this.cmInicioSesion.OLVIDASTE_CONTRASENIA;
+    this.No_Registrado = this.cmInicioSesion.NO_REGISTRADO;
+    this.Hazlo_Aqui = this.cmInicioSesion.HAZLO_AQUI;
   }
 
   deleteSpace(variable: string): void {

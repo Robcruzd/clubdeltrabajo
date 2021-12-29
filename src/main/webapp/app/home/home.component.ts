@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/camelcase */
+
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { LoginModalService } from 'app/core/login/login-modal.service';
@@ -20,6 +22,7 @@ import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 declare const MercadoPago: any;
 
@@ -31,6 +34,7 @@ declare let gtag: Function;
   styleUrls: ['home.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  cmHome: any = null;
   faArrowRight = faArrowRight;
   account: Account | null = null;
   authSubscription?: Subscription;
@@ -44,9 +48,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   ciudades: string[] = [];
   profesiones: string[] = [];
   dataProf: Array<IProfesion> = [];
-  lblSeleccioneProfesion = commonMessages.SELECCIONE_PROFESION_LABEL;
-  lblSeleccioneCiudad = commonMessages.SELECCIONE_CIUDAD_LABEL;
-  aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
   geografia: Array<GeografiaVo> = [];
   municipiosPersonal: Array<IOpcionVo> = [];
   listaOfertas: any = [];
@@ -54,6 +55,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   urlImgDefault = '../../../content/images/Image 28.png';
   showButtons = null;
   checkout: any;
+  preferenceId = '';
 
   Haz_Parte = commonMessages.HAZ_PARTE;
   D_VIDEO = commonMessages.DANGER_VIDEO;
@@ -71,7 +73,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   Nuevas_Ofertas = commonMessages.NUEVAS_OFERTAS;
   Ofertas_Email = commonMessages.OFERTAS_EMAIL;
   Emp_B_Candidatos = commonMessages.EMPRESA_BUSCA_CANDIDATOS;
-  preferenceId = '';
+  lblSeleccioneProfesion = commonMessages.SELECCIONE_PROFESION_LABEL;
+  lblSeleccioneCiudad = commonMessages.SELECCIONE_CIUDAD_LABEL;
+  aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
+  Visitas = commonMessages.VISITAS;
+  Personas = commonMessages.PERSONAS;
+  Empresas = commonMessages.EMPRESAS;
 
   @ViewChild('panel', { read: ElementRef }) public panel!: ElementRef<any>;
 
@@ -83,7 +90,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private regionService: RegionesService,
     private dataService: DataService,
     private ofertaService: OfertaService,
-    private archivoService: ArchivoService
+    private archivoService: ArchivoService,
+    private commonMessagesService: CommonMessagesService
   ) {
     // this.router.events.subscribe(event => {
     //   if (event instanceof NavigationEnd) {
@@ -98,18 +106,61 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => {
       this.account = account;
-      /* eslint-disable no-console */
-      console.log(account);
     });
-    /* eslint-disable no-console */
-    console.log(this.account);
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmHome'
+      })
+      .subscribe(
+        res => {
+          const body: any = res.body;
+          const mensajes = JSON.parse(body[0].mensajes);
+          this.cmHome = mensajes;
+          this.updateVariables();
+          this.traerProfesiones();
+          this.traerCiudad();
+        },
+        err => {
+          /* eslint-disable no-console */
+          console.log(err);
+          this.cmHome = 0;
+          this.traerProfesiones();
+          this.traerCiudad();
+        }
+      );
+  }
+
+  updateVariables(): void {
+    const commonData: any = JSON.parse(sessionStorage.getItem('commonData')!);
+    this.Haz_Parte = this.cmHome.HAZ_PARTE;
+    this.D_VIDEO = this.cmHome.DANGER_VIDEO;
+    this.Registra_HV = this.cmHome.REGISTRA_YA_HV;
+    this.ES_GRATIS = this.cmHome.ES_GRATIS;
+    this.Ya_Registrado = this.cmHome.YA_ESTAS_REGISTRADO;
+    this.Entra = this.cmHome.ENTRA;
+    this.Ofertas_Destacadas = this.cmHome.OFERTAS_DESTACADAS;
+    this.Ver = this.cmHome.VER;
+    this.Explora_ofertas = this.cmHome.EXPLORA_CIENTOS_OFERTAS;
+    this.Registra_Hoja = this.cmHome.REGISTRA_HOJA_VIDA;
+    this.Buscar = this.cmHome.BUSCAR;
+    this.Clic_Aca = this.cmHome.CLIC_ACA;
+    this.Es_Gratis_M = this.cmHome.ES_GRATIS_M;
+    this.Nuevas_Ofertas = this.cmHome.NUEVAS_OFERTAS;
+    this.Ofertas_Email = this.cmHome.OFERTAS_EMAIL;
+    this.Emp_B_Candidatos = this.cmHome.EMPRESA_BUSCA_CANDIDATOS;
+    this.lblSeleccioneProfesion = this.cmHome.SELECCIONE_PROFESION_LABEL;
+    this.lblSeleccioneCiudad = this.cmHome.SELECCIONE_CIUDAD_LABEL;
+    this.aspiracionesSalariales = commonData.ARRAY_ASPIRACION_SALARIAL;
+    this.Visitas = this.cmHome.VISITAS;
+    this.Personas = this.cmHome.PERSONAS;
+    this.Empresas = this.cmHome.EMPRESAS;
+  }
+
+  video(): void {
     const vid = document.getElementById('vid') as HTMLVideoElement;
     vid.muted = true;
     vid.loop = true;
     vid?.play();
-    this.traerProfesiones();
-    this.traerCiudad();
-    // this.cargarProfesiones();
   }
 
   isAuthenticated(): boolean {
@@ -180,6 +231,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             )
         );
         this.cargarMunicipiosPersonal();
+        this.video();
       });
   }
 
@@ -220,6 +272,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         'estado.equals': 'A'
       })
       .subscribe((res: HttpResponse<IOferta[]>) => {
+        // eslint-disable-next-line no-console
+        console.log('response:     ', res);
         this.ofertas = res.body!;
         // eslint-disable-next-line no-console
         console.log('lista ofertas: ', this.ofertas);

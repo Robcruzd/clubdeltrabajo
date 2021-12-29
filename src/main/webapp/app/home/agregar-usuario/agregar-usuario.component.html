@@ -1,4 +1,12 @@
-<div class="estilo_body">
+<div class="app-loading" *ngIf="cMAgregarUsuario === null">
+    <div class="lds-css ng-scope">
+        <div class="lds-pacman">
+            <div><div></div><div></div><div></div></div>
+            <div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>
+<div class="estilo_body" *ngIf="cMAgregarUsuario !== null">
     <!-- <img class="estilo_logo" src="../../../content/images/logo_cdt_fondo2.png"> -->
     <!-- #EDEFF2 -->
     <div class="div_centro" [ngStyle]="{ 'background': tipoUsuario.id==1 ? 'transparent linear-gradient(180deg, #2d427d 0%, #1a2152 100%) 0% 0% no-repeat padding-box' : '#EDEFF2' }"> 

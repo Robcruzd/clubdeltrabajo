@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators, FormControlName } from '@angular/forms';
@@ -38,6 +39,7 @@ import { map, startWith } from 'rxjs/operators';
 import { IRegiones } from 'app/shared/model/regiones.model';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { PersonaService } from 'app/entities/persona/persona.service';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 declare let alertify: any;
 
@@ -49,7 +51,7 @@ declare let alertify: any;
   styleUrls: ['./crear-hoja-vida.component.scss']
 })
 export class CrearHojaVidaComponent implements OnInit {
-  labels = commonMessages;
+  cmCrearHojaVida: any = null;
   globalForm!: FormGroup;
   formPersonal!: FormGroup;
   formPerfil!: FormGroup;
@@ -63,20 +65,11 @@ export class CrearHojaVidaComponent implements OnInit {
   municipios: Array<IOpcionVo> = [];
   municipiosPersonal: Array<IOpcionVo> = [];
   municipiosAcademica: Array<IOpcionVo> = [];
-  discapacidades: Array<IOpcionVo> = commonMessages.ARRAY_DISCAPACIDADES;
-  estadosCiviles: Array<IOpcionVo> = commonMessages.ARRAY_ESTADOS_CIVILES;
   documentos: Array<ITipoDocumento> = [];
   dias: number[] = this.apiService.getDias();
   meses: number[] = this.apiService.getMeses();
   anios: number[] = this.apiService.getAnios();
-  aniosExperiencia: IOpcionVo[] = commonMessages.ARRAY_ANIOS_EXPERIENCIA;
-  mesesExperiencia: IOpcionVo[] = commonMessages.ARRAY_MESES_EXPERIENCIA;
-  nivelEstudio: IOpcionVo[] = commonMessages.ARRAY_NIVEL_ESTUDIOS;
-  nivelEducativoProfesion: IOpcionVo[] = commonMessages.ARRAY_NIVEL_EDUCATIVO_PROFESION;
-  estadoNivelEstudio: IOpcionVo[] = commonMessages.ARRAY_ESTADO_NIVEL_ESTUDIO;
   idiomas: Array<IIdioma> = [];
-  nivelIdioma: Array<IOpcionVo> = commonMessages.ARRAY_NIVEL_IDIOMA;
-  tipoLicenciaConduccion: Array<IOpcionVoDescripcion> = commonMessages.ARRAY_TIPOS_LICENCIA_CONDUCCION;
   archivos: Array<IArchivo> = [];
   tipoArchivo = TipoArchivo;
   mostrar!: boolean;
@@ -87,7 +80,6 @@ export class CrearHojaVidaComponent implements OnInit {
   profesiones: Array<IProfesion> = [];
   account!: Account | null;
   persona!: number;
-  redesSociales: Array<IOpcionVo> = commonMessages.ARRAY_REDES_SOCIALES;
   redSocial = ' ';
   cargando = true;
   CEDULA_REGEX = '^[0-9]{6,18}$';
@@ -96,8 +88,6 @@ export class CrearHojaVidaComponent implements OnInit {
   mensajeArchivoTitulo: any = '';
   cargandoDeshabilitado: any = false;
 
-  nivelCargo: IOpcionVo[] = commonMessages.ARRAY_NIVEL_CARGO;
-  aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
   colorMudarse: any | null;
   colorViajar: any | null;
   valorMudarme = false;
@@ -118,9 +108,23 @@ export class CrearHojaVidaComponent implements OnInit {
   //profesiones: string[] = ['Diseño grafico', 'Ingenieria de sistemas', 'Ingenieria electronica', 'Nutricion'];
   myControlProfesiones = new FormControl();
   filteredOptionsProfesiones = new Observable<IProfesion[]>();
-  lblSeleccioneProfesion = commonMessages.SELECCIONE_PROFESION_LABEL;
   profesionState: Boolean = false;
+  personaDatos!: Persona | null;
 
+  labels = commonMessages;
+  lblSeleccioneProfesion = commonMessages.SELECCIONE_PROFESION_LABEL;
+  nivelCargo: IOpcionVo[] = commonMessages.ARRAY_NIVEL_CARGO;
+  aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
+  redesSociales: Array<IOpcionVo> = commonMessages.ARRAY_REDES_SOCIALES;
+  nivelIdioma: Array<IOpcionVo> = commonMessages.ARRAY_NIVEL_IDIOMA;
+  tipoLicenciaConduccion: Array<IOpcionVoDescripcion> = commonMessages.ARRAY_TIPOS_LICENCIA_CONDUCCION;
+  aniosExperiencia: IOpcionVo[] = commonMessages.ARRAY_ANIOS_EXPERIENCIA;
+  mesesExperiencia: IOpcionVo[] = commonMessages.ARRAY_MESES_EXPERIENCIA;
+  nivelEstudio: IOpcionVo[] = commonMessages.ARRAY_NIVEL_ESTUDIOS;
+  nivelEducativoProfesion: IOpcionVo[] = commonMessages.ARRAY_NIVEL_EDUCATIVO_PROFESION;
+  estadoNivelEstudio: IOpcionVo[] = commonMessages.ARRAY_ESTADO_NIVEL_ESTUDIO;
+  discapacidades: Array<IOpcionVo> = commonMessages.ARRAY_DISCAPACIDADES;
+  estadosCiviles: Array<IOpcionVo> = commonMessages.ARRAY_ESTADOS_CIVILES;
   Danger_telefono = commonMessages.DANGER_TELEFONO;
   Danger_mail = commonMessages.DANGER_CORREO;
   Danger_profesion = commonMessages.DANGER_PROFESION;
@@ -128,7 +132,7 @@ export class CrearHojaVidaComponent implements OnInit {
   Quitar_idioma = commonMessages.QUITAR_IDIOMA;
   Perfil_Profesional = commonMessages.PERFIL_PROFESIONAL;
   EXP_ANIOS = commonMessages.EXPERIENCIA_ANIOS;
-  Meses = commonMessages.MESES
+  Meses = commonMessages.MESES;
   Asp_Salarial = commonMessages.ASPIRACION_SALARIAL;
   Selec_Option = commonMessages.SELECCIONE_OPCION_LABEL;
   Movilidad_laboral = commonMessages.MOVILIDAD_LABORAL;
@@ -138,7 +142,8 @@ export class CrearHojaVidaComponent implements OnInit {
   Estado_Empleo = commonMessages.ESTADO_EMPLEO;
   Empresa_Actual = commonMessages.EMPRESA_ACTUAL;
   Quitar_experiencia = commonMessages.QUITAR_EXPERIENCIA;
-  personaDatos!: Persona | null; 
+  Ciudad_estudio = commonMessages.CIUDAD_ESTUDIO;
+  Anios = commonMessages.ANIOS;
 
   constructor(
     private fb: FormBuilder,
@@ -153,7 +158,8 @@ export class CrearHojaVidaComponent implements OnInit {
     private router: Router,
     private archivo: ArchivoService,
     private regionService: RegionesService,
-    private personaService: PersonaService
+    private personaService: PersonaService,
+    private commonMessagesService: CommonMessagesService
   ) {}
 
   ngOnInit(): void {
@@ -162,6 +168,28 @@ export class CrearHojaVidaComponent implements OnInit {
       return;
     }
 
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmCrearHojaVida'
+      })
+      .subscribe(
+        res => {
+          const body: any = res.body;
+          const mensajes = JSON.parse(body[0].mensajes);
+          this.cmCrearHojaVida = mensajes;
+          this.updateVariables();
+          this.cargarInformacion();
+        },
+        err => {
+          /* eslint-disable no-console */
+          console.log(err);
+          this.cmCrearHojaVida = 0;
+          this.cargarInformacion();
+        }
+      );
+  }
+
+  cargarInformacion(): void {
     this.documentos;
     this.step = 0;
     this.mostrar = false;
@@ -182,6 +210,41 @@ export class CrearHojaVidaComponent implements OnInit {
     this.cargarAniosFin(0, 0);
     this.crearFormularioInformacionPersonal();
     this.crearFormularioPerfil();
+  }
+
+  updateVariables(): void {
+    const commonData: any = JSON.parse(sessionStorage.getItem('commonData')!);
+    this.labels = this.cmCrearHojaVida;
+    this.lblSeleccioneProfesion = commonData.SELECCIONE_PROFESION_LABEL;
+    this.nivelCargo = commonData.ARRAY_NIVEL_CARGO;
+    this.aspiracionesSalariales = commonData.ARRAY_ASPIRACION_SALARIAL;
+    this.redesSociales = commonData.ARRAY_REDES_SOCIALES;
+    this.nivelIdioma = commonData.ARRAY_NIVEL_IDIOMA;
+    this.tipoLicenciaConduccion = commonData.ARRAY_TIPOS_LICENCIA_CONDUCCION;
+    this.aniosExperiencia = commonData.ARRAY_ANIOS_EXPERIENCIA;
+    this.mesesExperiencia = commonData.ARRAY_MESES_EXPERIENCIA;
+    this.nivelEstudio = commonData.ARRAY_NIVEL_ESTUDIOS;
+    this.nivelEducativoProfesion = commonData.ARRAY_NIVEL_EDUCATIVO_PROFESION;
+    this.estadoNivelEstudio = commonData.ARRAY_ESTADO_NIVEL_ESTUDIO;
+    this.discapacidades = commonData.ARRAY_DISCAPACIDADES;
+    this.estadosCiviles = commonData.ARRAY_ESTADOS_CIVILES;
+    this.Danger_telefono = this.cmCrearHojaVida.DANGER_TELEFONO;
+    this.Danger_mail = this.cmCrearHojaVida.DANGER_CORREO;
+    this.Danger_profesion = this.cmCrearHojaVida.DANGER_PROFESION;
+    this.Quitar_Estudio = this.cmCrearHojaVida.QUITAR_ESTUDIO;
+    this.Quitar_idioma = this.cmCrearHojaVida.QUITAR_IDIOMA;
+    this.Perfil_Profesional = this.cmCrearHojaVida.PERFIL_PROFESIONAL;
+    this.EXP_ANIOS = this.cmCrearHojaVida.EXPERIENCIA_ANIOS;
+    this.Meses = this.cmCrearHojaVida.MESES;
+    this.Asp_Salarial = this.cmCrearHojaVida.ASPIRACION_SALARIAL;
+    this.Selec_Option = this.cmCrearHojaVida.SELECCIONE_OPCION_LABEL;
+    this.Movilidad_laboral = this.cmCrearHojaVida.MOVILIDAD_LABORAL;
+    this.Permiso_trabajo = this.cmCrearHojaVida.PERMISO_TRABAJO_PAISES;
+    this.Danger_Long_Telefono = this.cmCrearHojaVida.DANGER_LONG_TELEFONO;
+    this.Nivel_cargo = this.cmCrearHojaVida.NIVEL_CARGO;
+    this.Estado_Empleo = this.cmCrearHojaVida.ESTADO_EMPLEO;
+    this.Empresa_Actual = this.cmCrearHojaVida.EMPRESA_ACTUAL;
+    this.Quitar_experiencia = this.cmCrearHojaVida.QUITAR_EXPERIENCIA;
   }
 
   private _filterProfesiones(value: string): IProfesion[] {
@@ -582,14 +645,14 @@ export class CrearHojaVidaComponent implements OnInit {
 
     // cargar informacion personal
     this.hojaVidaVo.informacionPersonal = this.procesarInformacionPersonal();
-    if(this.hojaVidaTemp?.informacionPersonal !== this.hojaVidaVo.informacionPersonal){
-      this.personaService.find(this.persona).subscribe(response =>{
+    if (this.hojaVidaTemp?.informacionPersonal !== this.hojaVidaVo.informacionPersonal) {
+      this.personaService.find(this.persona).subscribe(response => {
         this.personaDatos = response.body;
-        if(this.personaDatos !== null){
+        if (this.personaDatos !== null) {
           this.personaDatos.estadohv = true;
-          this.personaService.update(this.personaDatos).subscribe(()=>{});
+          this.personaService.update(this.personaDatos).subscribe(() => {});
         }
-      })
+      });
     }
     this.hojaVidaVo.persona = this.procesarPersona();
     this.cargarArchivos(this.hojaVidaVo);
@@ -602,14 +665,14 @@ export class CrearHojaVidaComponent implements OnInit {
       academica.push(this.procesarInformacionAcademica(this.informacionAcademica.at(index).value, index));
     }
     this.hojaVidaVo.informacionAcademica = academica;
-    if(this.hojaVidaTemp?.informacionAcademica !== this.hojaVidaVo.informacionAcademica){
-      this.personaService.find(this.persona).subscribe(response =>{
+    if (this.hojaVidaTemp?.informacionAcademica !== this.hojaVidaVo.informacionAcademica) {
+      this.personaService.find(this.persona).subscribe(response => {
         this.personaDatos = response.body;
-        if(this.personaDatos !== null){
+        if (this.personaDatos !== null) {
           this.personaDatos.estadohv = true;
-          this.personaService.update(this.personaDatos).subscribe(()=>{});
+          this.personaService.update(this.personaDatos).subscribe(() => {});
         }
-      })
+      });
     }
     // cargar idiomas
     const idioma: IPersona[] = [];
@@ -684,14 +747,14 @@ export class CrearHojaVidaComponent implements OnInit {
         laboral.push(this.procesarExperienciaLaboral(this.experienciaLaboral.at(index).value, index));
       }
       this.hojaVidaVo.experienciaLaboral = laboral;
-      if(this.hojaVidaTemp?.experienciaLaboral !== this.hojaVidaVo.experienciaLaboral){
-        this.personaService.find(this.persona).subscribe(response =>{
+      if (this.hojaVidaTemp?.experienciaLaboral !== this.hojaVidaVo.experienciaLaboral) {
+        this.personaService.find(this.persona).subscribe(response => {
           this.personaDatos = response.body;
-          if(this.personaDatos !== null){
+          if (this.personaDatos !== null) {
             this.personaDatos.estadohv = true;
-            this.personaService.update(this.personaDatos).subscribe(()=>{});
+            this.personaService.update(this.personaDatos).subscribe(() => {});
           }
-        })
+        });
       }
       // Cargar archivos
       if (this.archivos.length !== 0) {

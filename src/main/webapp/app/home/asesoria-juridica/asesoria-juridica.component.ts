@@ -13,6 +13,8 @@
 //   }
 
 // }
+/* eslint-disable @typescript-eslint/camelcase */
+
 import { AccountService } from './../../core/auth/account.service';
 import { Router } from '@angular/router';
 import { commonMessages } from './../../shared/constants/commonMessages';

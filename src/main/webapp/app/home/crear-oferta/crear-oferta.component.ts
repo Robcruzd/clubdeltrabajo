@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CargoService } from '../../entities/cargo/cargo.service';
@@ -18,7 +19,7 @@ import { GeografiaVo } from '../../shared/vo/geografia-vo';
 import { IProfesion } from '../../shared/model/profesion.model';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { User } from '../../core/user/user.model';
+// import { User } from '../../core/user/user.model';
 import { ProfesionService } from '../../entities/profesion/profesion.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
@@ -27,6 +28,7 @@ import { IRegiones } from 'app/shared/model/regiones.model';
 import { Location } from '@angular/common';
 import { Empresa } from '../../shared/model/empresa.model';
 import { Account } from 'app/core/user/account.model';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 declare let alertify: any;
 
@@ -36,20 +38,15 @@ declare let alertify: any;
   styleUrls: ['./crear-oferta.component.scss']
 })
 export class CrearOfertaComponent implements OnInit {
+  cmCrearOferta: any = null;
   myControlCiudades = new FormControl();
   faStar = faStar;
   faAddressCard = faAddressCard;
   faEllipsisH = faEllipsisH;
   faCommentDots = faCommentDots;
   formDatosBasicos!: FormGroup;
-  labels = commonMessages;
   cargos: Array<ICargo> = [];
-  aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
   idiomas: Array<IIdioma> = [];
-  nivelIdioma: IOpcionVo[] = commonMessages.ARRAY_NIVEL_IDIOMA;
-  tiposContrato: IOpcionVo[] = commonMessages.ARRAY_TIPO_CONTRATO;
-  modalidadesLaborales: IOpcionVo[] = commonMessages.ARRAY_MODALIDAD_LABORAL;
-  nivelEducativoProfesion: IOpcionVo[] = commonMessages.ARRAY_NIVEL_EDUCATIVO_PROFESION;
   oferta!: Oferta;
   account!: Account | null;
   municipiosAcademica: Array<IOpcionVo> = [];
@@ -59,9 +56,6 @@ export class CrearOfertaComponent implements OnInit {
   profesiones: Array<IProfesion> = [];
   profesionState: Boolean = false;
   usuario!: Account | null;
-  lblSeleccioneProfesion = commonMessages.SELECCIONE_PROFESION_LABEL;
-  nivelesLaborales: ISubnivelVo[] = commonMessages.ARRAY_NIVEL_LABORAL;
-  experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
   no_publicar: any;
   genero: any;
   visualizarOferta = false;
@@ -77,21 +71,30 @@ export class CrearOfertaComponent implements OnInit {
   dataCiudades: Array<IRegiones> = [];
   filteredOptionsCiudades = new Observable<string[]>();
   ciudades: string[] = [];
-  lblSeleccioneCiudad = commonMessages.SELECCIONE_CIUDAD_LABEL;
   ciudadOferta: any;
   municipiosPersonal: Array<IOpcionVo> = [];
   listaOfertas: Array<Oferta> = [];
   listaOFertasCreadas: Array<IlistarOfertas> = [];
   datosOferta!: Oferta | null;
   idOferta = 0;
-  subnivelesLaborales: IOpcionVo[] = commonMessages.ARRAY_NIVEL_LABORAL[0].subniveles;
   mostrarSalario = false;
   datosEmpresa!: Empresa | null;
 
+  subnivelesLaborales: IOpcionVo[] = commonMessages.ARRAY_NIVEL_LABORAL[0].subniveles;
+  nivelesLaborales: ISubnivelVo[] = commonMessages.ARRAY_NIVEL_LABORAL;
+  experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
+  labels = commonMessages;
+  aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
+  nivelIdioma: IOpcionVo[] = commonMessages.ARRAY_NIVEL_IDIOMA;
+  tiposContrato: IOpcionVo[] = commonMessages.ARRAY_TIPO_CONTRATO;
+  modalidadesLaborales: IOpcionVo[] = commonMessages.ARRAY_MODALIDAD_LABORAL;
+  nivelEducativoProfesion: IOpcionVo[] = commonMessages.ARRAY_NIVEL_EDUCATIVO_PROFESION;
   Crear_oferta = commonMessages.CREAR_OFERTA;
   Editar_Perfil = commonMessages.EDITAR_PERFIL;
   Club_Empresas = commonMessages.CLUB_DE_EMPRESAS;
   Controla_ofertas = commonMessages.CONTROLA_TUS_OFERTAS;
+  MembresiaLabel = commonMessages.MEMBRESIA;
+  AsesoriaJuridicaLabel = commonMessages.ASESORIA_JURIDICA;
   Creando_Oferta = commonMessages.CREANDO_OFERTA;
   Seleccione_Opcion = commonMessages.SELECCIONE_OPCION_LABEL;
   Desc_Requi = commonMessages.DESCRIPCION_REQUISITOS;
@@ -111,6 +114,8 @@ export class CrearOfertaComponent implements OnInit {
   Publicado = commonMessages.PUBLICADO;
   Salario = commonMessages.SALARIO;
   Publicar = commonMessages.PUBLICAR;
+  lblSeleccioneCiudad = commonMessages.SELECCIONE_CIUDAD_LABEL;
+  lblSeleccioneProfesion = commonMessages.SELECCIONE_PROFESION_LABEL;
   empresaUpdate!: Empresa | null;
 
   constructor(
@@ -125,7 +130,8 @@ export class CrearOfertaComponent implements OnInit {
     private router: Router,
     private regionService: RegionesService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private commonMessagesService: CommonMessagesService
   ) {
     this.traerCiudad();
   }
@@ -137,6 +143,31 @@ export class CrearOfertaComponent implements OnInit {
     if (param !== null) {
       this.idOferta = parseInt(param, 10);
     }
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmCrearOferta'
+      })
+      .subscribe(
+        res => {
+          const body: any = res.body;
+          const mensajes = JSON.parse(body[0].mensajes);
+          this.cmCrearOferta = mensajes;
+          this.updateVariables();
+          this.cargarInformacion();
+        },
+        err => {
+          /* eslint-disable no-console */
+          console.log(err);
+          this.cmCrearOferta = 0;
+          this.cargarInformacion();
+        }
+      );
+    this.accountService.getAuthenticationState().subscribe(account => {
+      this.usuario = account;
+    });
+  }
+
+  cargarInformacion(): void {
     this.crearFormularioOferta();
     this.cargarCargos();
     this.cargarIdiomas();
@@ -146,9 +177,46 @@ export class CrearOfertaComponent implements OnInit {
     if (this.idOferta !== 0) {
       this.cargarFormularioOferta();
     }
-    this.accountService.getAuthenticationState().subscribe(account => {
-      this.usuario = account;
-    });
+  }
+
+  updateVariables(): void {
+    const commonData: any = JSON.parse(sessionStorage.getItem('commonData')!);
+    this.subnivelesLaborales = commonData.ARRAY_NIVEL_LABORAL[0].subniveles;
+    this.lblSeleccioneCiudad = this.cmCrearOferta.SELECCIONE_CIUDAD_LABEL;
+    this.lblSeleccioneProfesion = this.cmCrearOferta.SELECCIONE_PROFESION_LABEL;
+    this.nivelesLaborales = commonData.ARRAY_NIVEL_LABORAL;
+    this.experienciasLaborales = commonData.ARRAY_EXPERIENCIA_LABORAL;
+    this.labels = this.cmCrearOferta;
+    this.aspiracionesSalariales = commonData.ARRAY_ASPIRACION_SALARIAL;
+    this.nivelIdioma = commonData.ARRAY_NIVEL_IDIOMA;
+    this.tiposContrato = commonData.ARRAY_TIPO_CONTRATO;
+    this.modalidadesLaborales = commonData.ARRAY_MODALIDAD_LABORAL;
+    this.nivelEducativoProfesion = commonData.ARRAY_NIVEL_EDUCATIVO_PROFESION;
+    this.Crear_oferta = this.cmCrearOferta.CREAR_OFERTA;
+    this.Editar_Perfil = this.cmCrearOferta.EDITAR_PERFIL;
+    this.Club_Empresas = this.cmCrearOferta.CLUB_DE_EMPRESAS;
+    this.Controla_ofertas = this.cmCrearOferta.CONTROLA_TUS_OFERTAS;
+    this.MembresiaLabel = this.cmCrearOferta.MEMBRESIA;
+    this.AsesoriaJuridicaLabel = this.cmCrearOferta.ASESORIA_JURIDICA;
+    this.Creando_Oferta = this.cmCrearOferta.CREANDO_OFERTA;
+    this.Seleccione_Opcion = this.cmCrearOferta.SELECCIONE_OPCION_LABEL;
+    this.Desc_Requi = this.cmCrearOferta.DESCRIPCION_REQUISITOS;
+    this.No_Salario = this.cmCrearOferta.NO_PUBLICAR_SALARIO;
+    this.Nivel_Idioma = this.cmCrearOferta.NIVEL_IDIOMA_LABEL;
+    this.M_Label = this.cmCrearOferta.MASCULINO_LABEL;
+    this.F_Label = this.cmCrearOferta.FEMENINO_LABEL;
+    this.No_Aplica = this.cmCrearOferta.NO_APLICA;
+    this.Volver = this.cmCrearOferta.VOLVER;
+    this.Continuar = this.cmCrearOferta.CONTINUAR;
+    this.Asi_Quedara_Oferta = this.cmCrearOferta.ASI_QUEDARA_OFERTA;
+    this.Oferta = this.cmCrearOferta.OFERTA;
+    this.Titulo = this.cmCrearOferta.TITULO_LABEL;
+    this.Experiencia = this.cmCrearOferta.EXPERIENCIA;
+    this.Tipo_Contrato = this.cmCrearOferta.TIPO_CONTRATO;
+    this.Ciudad = this.cmCrearOferta.CIUDAD_LABEL;
+    this.Publicado = this.cmCrearOferta.PUBLICADO;
+    this.Salario = this.cmCrearOferta.SALARIO;
+    this.Publicar = this.cmCrearOferta.PUBLICAR;
   }
 
   traerCiudad(): void {

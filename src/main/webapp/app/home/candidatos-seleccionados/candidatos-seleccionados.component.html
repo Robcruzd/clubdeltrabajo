@@ -1,4 +1,12 @@
-<div class="contenedor">
+<div class="app-loading" *ngIf="cmCandidatosSel === null">
+    <div class="lds-css ng-scope">
+        <div class="lds-pacman">
+            <div><div></div><div></div><div></div></div>
+            <div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>
+<div class="contenedor" *ngIf="cmCandidatosSel !== null">
     <div class="div-center">
         <div class="botones-arriba">
             <button class="btn boton-no-clicked" (click)="crearOferta()">
@@ -15,31 +23,38 @@
                     <p class="titulo-boton">{{Editar_perfil}}</p>
                 </div>
             </button>
-            <!-- <button class="btn boton-no-clicked" (click)="clubEmpresas()">
+            <button class="btn boton-no-clicked" (click)="clubEmpresas()">
                 <fa-icon icon="suitcase" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Club de empresas</p>
+                    <p class="titulo-boton">{{Club_empresas}}</p>
                 </div>
-            </button> -->
-            <button class="btn boton-clicked" (click)="verOferta()">
+            </button>
+            <button class="btn boton-no-clicked" (click)="controlaOferta()">
                 <fa-icon icon="eye" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
                     <p class="titulo-boton">{{Controla_ofertas}}</p>
                 </div>
             </button>
-            <!-- <button class="btn boton-no-clicked" (click)="membresia()">
+            <button class="btn boton-no-clicked" (click)="membresia()">
                 <fa-icon [icon]="faStar" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Membresía</p>
+                    <p class="titulo-boton">{{Membresia}}</p>
                 </div>
-            </button> -->
+            </button>
+            <button class="btn boton-no-clicked" (click)="juridica()">
+                <fa-icon [icon]="faStar" class="border-icon" style="
+                background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
+                <div class="div-info-boton">
+                    <p class="titulo-boton">{{AsesoriaJuridicaLabel}}</p>
+                </div>
+            </button>
         </div>
     </div>
 </div>
-    <div class="contenedor2">
+    <div class="contenedor2" *ngIf="cmCandidatosSel !== null">
         <div class="div-center2">
             <ng-container>
                 <p class="estilo_titulo2">{{Oferta}}</p>
@@ -77,7 +92,7 @@
             </ng-container>
         </div>
     </div>
-    <div class="contenedor3">
+    <div class="contenedor3" *ngIf="cmCandidatosSel !== null">
         <div class="div-center3">
             <p class="titulo_aspirantes">{{Perfiles_Aspirantes}}</p>
             <div class="cuerpo">
@@ -211,13 +226,8 @@
             </div>
         </div>
     </div>
-    <div class="footer">
-        <a href="https://www.facebook.com/Club-del-Trabajo-100955765079986/" target="_blank" style="margin-right: 1.52vw;">
-            <img class="icono" src="../../../content/images/facebook.png"></a>
-        <a href="https://instagram.com/clubdeltrabajo?igshid=1m37k1eb9p16a" target="_blank" style="margin-right: 1.52vw;">
-            <img class="icono" path="fill: currentColor !important;" src="../../../content/images/instagram.png"></a>
-        <a href="https://twitter.com/ClubdelTrabajo" target="_blank" style="margin-right: 1.52vw;">
-            <img class="icono" src="../../../content/images/twitter.png"></a>
+    <div *ngIf="cmCandidatosSel !== null">
+        <router-outlet name="footer"></router-outlet>
     </div>
     <kendo-pdf-export *ngIf="showElement" #pdf>
         <div class="container-pdf">

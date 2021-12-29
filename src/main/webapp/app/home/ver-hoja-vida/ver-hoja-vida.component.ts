@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Account } from 'app/core/user/account.model';
@@ -18,6 +19,7 @@ import { saveAs } from 'file-saver';
 import { HttpResponse } from '@angular/common/http';
 import { IRegiones } from 'app/shared/model/regiones.model';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 @Component({
   selector: 'jhi-ver-hoja-vida',
@@ -25,10 +27,7 @@ import { RegionesService } from 'app/entities/regiones/regiones.service';
   styleUrls: ['./ver-hoja-vida.component.scss']
 })
 export class VerHojaVidaComponent implements OnInit {
-  lblDescargar = commonMessages.DESCARGAR_HOJAVIDA_LABEL;
-
-  Loading = commonMessages.LOADING;
-
+  cmVerHojaVida: any = null;
   hojaVidaVo!: HojaVidaVo | null;
   account!: Account | null;
   persona!: number;
@@ -48,12 +47,16 @@ export class VerHojaVidaComponent implements OnInit {
   cargado = false;
   qrCard: any;
 
+  lblDescargar = commonMessages.DESCARGAR_HOJAVIDA_LABEL;
+  Loading = commonMessages.LOADING;
+
   constructor(
     private router: Router,
     private accountService: AccountService,
     private hojaVidaService: HojaVidaService,
     private apiService: ApiService,
-    private regionService: RegionesService
+    private regionService: RegionesService,
+    private commonMessagesService: CommonMessagesService
   ) {}
 
   ngOnInit(): void {
@@ -62,7 +65,27 @@ export class VerHojaVidaComponent implements OnInit {
       return;
     }
     this.cargarCuentaUsuario();
-    this.consultarInformacionGeografica();
+    this.commonMessagesService.find(1).subscribe(
+      res => {
+        /* eslint-disable no-console */
+        console.log(JSON.parse(res.body?.mensajes!));
+        this.cmVerHojaVida = JSON.parse(res.body?.mensajes!);
+        // this.sessionStorage.store('commonMessages', JSON.parse(res.body?.mensajes!));
+        this.updateVariables();
+        this.consultarInformacionGeografica();
+      },
+      err => {
+        /* eslint-disable no-console */
+        console.log(err);
+        this.cmVerHojaVida = 0;
+        this.consultarInformacionGeografica();
+      }
+    );
+  }
+
+  updateVariables(): void {
+    this.lblDescargar = this.cmVerHojaVida.DESCARGAR_HOJAVIDA_LABEL;
+    this.Loading = this.cmVerHojaVida.LOADING;
   }
 
   regresarPerfil(): void {

@@ -1,4 +1,12 @@
-<div class="estilo_fondo">
+<div class="app-loading" *ngIf="cmInformacionEmpresa === null">
+    <div class="lds-css ng-scope">
+        <div class="lds-pacman">
+            <div><div></div><div></div><div></div></div>
+            <div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>
+<div class="estilo_fondo" *ngIf="cmInformacionEmpresa !== null">
     <div class="div_centro">
         <h2 class="estilo_titulo" style="padding-left: 2.081vw;">{{Hablemos}}</h2>
         <div class="div_interno">

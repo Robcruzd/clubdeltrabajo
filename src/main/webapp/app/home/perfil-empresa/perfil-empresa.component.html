@@ -1,4 +1,12 @@
-<div class="contenedor">
+<div class="app-loading" *ngIf="cmPerfilEmpresa === null">
+    <div class="lds-css ng-scope">
+        <div class="lds-pacman">
+            <div><div></div><div></div><div></div></div>
+            <div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>
+<div class="contenedor" *ngIf="cmPerfilEmpresa !== null">
     <div class="estilo_body">
         <div class="left" *ngIf="showButton; else usuario">
             <img class="foto-perfil rounded-circle" [src]="imagen?.archivo || urlImgDefault">
@@ -22,8 +30,8 @@
                 <fa-icon [icon]="faStar" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Membresia Club del Trabajo</p>
-                    <p class="texto-boton">Activa tu membresía</p>
+                    <p class="titulo-boton">{{MembresiaLabel}}</p>
+                    <!-- <p class="texto-boton">Activa tu membresía</p> -->
                 </div>
             </button>
             <button (click)="editarPerfil()" class="btn boton-base">
@@ -44,7 +52,7 @@
                 <fa-icon icon="suitcase" class="border-icon" style="
                 background: #D5D0E8 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Asesoría Jurídica</p>
+                    <p class="titulo-boton">{{AsesoriaJuridicaLabel}}</p>
                 </div>
             </button>
         </div>
@@ -62,12 +70,7 @@
             <p class="texto">{{empresaEnSesion.descripcionEmpresa}}</p>
         </div>
     </div>
-    <div class="footer">
-        <a href="https://www.facebook.com/Club-del-Trabajo-100955765079986/" target="_blank" style="margin-right: 1.52vw;">
-            <img class="icono" src="../../../content/images/facebook.png"></a>
-        <a href="https://instagram.com/clubdeltrabajo?igshid=1m37k1eb9p16a" target="_blank" style="margin-right: 1.52vw;">
-            <img class="icono" path="fill: currentColor !important;" src="../../../content/images/instagram.png"></a>
-        <a href="https://twitter.com/ClubdelTrabajo" target="_blank" style="margin-right: 1.52vw;">
-            <img class="icono" src="../../../content/images/twitter.png"></a>
+    <div>
+        <router-outlet name="footer"></router-outlet>
     </div>
 </div>

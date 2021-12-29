@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import {
@@ -22,6 +23,7 @@ import { EmpresaService } from 'app/entities/empresa/empresa.service';
 import { Empresa, IEmpresa } from 'app/shared/model/empresa.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 declare const MercadoPago: any;
 declare let alertify: any;
@@ -32,7 +34,7 @@ declare let alertify: any;
   styleUrls: ['./membresias.component.scss']
 })
 export class MembresiasComponent implements OnInit {
-  labels = commonMessages;
+  cmMembresias: any = null;
   faStar = faStar;
   faAddressCard = faAddressCard;
   faEllipsisH = faEllipsisH;
@@ -45,9 +47,6 @@ export class MembresiasComponent implements OnInit {
   preferenceId = '';
   initPoint = '';
   isOpen = false;
-  Politicas = commonMessages.POLITICAS;
-  TCP = commonMessages.TERMINOS_CONDICIONES_POLITICAS;
-  Aceptar = commonMessages.ACEPTAR;
   documentos: Array<ITipoDocumento> = [];
   modalRef!: NgbModalRef;
   formPayer!: FormGroup;
@@ -62,6 +61,60 @@ export class MembresiasComponent implements OnInit {
   account!: Account | any;
   empresaUpdate!: Empresa | null;
 
+  labels = commonMessages;
+  Aceptar = commonMessages.ACEPTAR;
+  CrearOfertaLabel = commonMessages.CREAR_OFERTA;
+  EditarPerfilLabel = commonMessages.EDITAR_PERFIL;
+  ClubEmpresasLabel = commonMessages.CLUB_DE_EMPRESAS;
+  ControlaOfertasLabel = commonMessages.CONTROLA_TUS_OFERTAS;
+  MembresiaLabel = commonMessages.MEMBRESIA;
+  AsesoriaJuridicaLabel = commonMessages.ASESORIA_JURIDICA;
+  UnaOferta = commonMessages.UNA_OFERTA;
+  DosOfertas = commonMessages.DOS_OFERTAS;
+  TresOfertas = commonMessages.TRES_OFERTAS;
+  Flexi = commonMessages.FLEXI;
+  Comprar = commonMessages.COMPRAR;
+  BronceTitulo = commonMessages.BRONCE_TITULO;
+  BronceDescrip1 = commonMessages.BRONCE_DESCRIP1;
+  BronceDescrip2 = commonMessages.BRONCE_DESCRIP2;
+  BronceDescrip3 = commonMessages.BRONCE_DESCRIP3;
+  BronceDescrip4 = commonMessages.BRONCE_DESCRIP4;
+  BronceDescrip5 = commonMessages.BRONCE_DESCRIP5;
+  BronceDescrip6 = commonMessages.BRONCE_DESCRIP6;
+  BronceValorLabel = commonMessages.BRONCE_VALOR;
+  PlataTitulo = commonMessages.PLATA_TITULO;
+  PlataDescrip1 = commonMessages.PLATA_DESCRIP1;
+  PlataDescrip2 = commonMessages.PLATA_DESCRIP2;
+  PlataDescrip3 = commonMessages.PLATA_DESCRIP3;
+  PlataDescrip4 = commonMessages.PLATA_DESCRIP4;
+  PlataDescrip5 = commonMessages.PLATA_DESCRIP5;
+  PlataDescrip6 = commonMessages.PLATA_DESCRIP6;
+  PlataValorLabel = commonMessages.PLATA_VALOR;
+  OroTitulo = commonMessages.ORO_TITULO;
+  OroDescrip1 = commonMessages.ORO_DESCRIP1;
+  OroDescrip2 = commonMessages.ORO_DESCRIP2;
+  OroDescrip3 = commonMessages.ORO_DESCRIP3;
+  OroDescrip4 = commonMessages.ORO_DESCRIP4;
+  OroDescrip5 = commonMessages.ORO_DESCRIP5;
+  OroDescrip6 = commonMessages.ORO_DESCRIP6;
+  OroValorLabel = commonMessages.ORO_VALOR;
+  DiamanteTitulo = commonMessages.DIAMANTE_TITULO;
+  DiamanteDescrip1 = commonMessages.DIAMANTE_DESCRIP1;
+  DiamanteDescrip2 = commonMessages.DIAMANTE_DESCRIP2;
+  DiamanteDescrip3 = commonMessages.DIAMANTE_DESCRIP3;
+  DiamanteDescrip4 = commonMessages.DIAMANTE_DESCRIP4;
+  DiamanteDescrip5 = commonMessages.DIAMANTE_DESCRIP5;
+  DiamanteDescrip6 = commonMessages.DIAMANTE_DESCRIP6;
+  DiamanteValorLabel = commonMessages.DIAMANTE_VALOR;
+  Volver = commonMessages.VOLVER;
+  InfoComprador = commonMessages.INFO_COMPRADOR;
+  Nombres = commonMessages.NOMBRES;
+  Apellidos = commonMessages.APELLIDOS;
+  EmailLabel = commonMessages.EMAIL_LABEL;
+  Telefono = commonMessages.TELEFONO;
+  TipoDocumento = commonMessages.TIPO_DOCUMENTO;
+  Identificacion = commonMessages.IDENTIFICACION;
+
   constructor(
     private _location: Location,
     private router: Router,
@@ -70,12 +123,31 @@ export class MembresiasComponent implements OnInit {
     private modalService: NgbModal,
     private tipoDocumentoService: TipoDocumentoService,
     private empresaService: EmpresaService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private commonMessagesService: CommonMessagesService
   ) {}
 
   ngOnInit(): void {
     this.crearFormularioPayer();
-    this.cargarTipoDocumento();
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmMembresias'
+      })
+      .subscribe(
+        res => {
+          const body: any = res.body;
+          const mensajes = JSON.parse(body[0].mensajes);
+          this.cmMembresias = mensajes;
+          this.updateVariables();
+          this.cargarTipoDocumento();
+        },
+        err => {
+          /* eslint-disable no-console */
+          console.log(err);
+          this.cmMembresias = 0;
+          this.cargarTipoDocumento();
+        }
+      );
     this.cargarCuentaUsuario();
     // this.goToMercadoPago('');
   }
@@ -87,6 +159,11 @@ export class MembresiasComponent implements OnInit {
         this.empresaEnSesion = response.body;
       });
     });
+  }
+
+  updateVariables(): void {
+    this.labels = this.cmMembresias;
+    this.Aceptar = this.cmMembresias.ACEPTAR;
   }
 
   goToMercadoPago(): void {

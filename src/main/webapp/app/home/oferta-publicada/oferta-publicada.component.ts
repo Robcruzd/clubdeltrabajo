@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Component, OnInit } from '@angular/core';
 import { Archivo } from 'app/shared/model/archivo.model';
 import { Router } from '@angular/router';
@@ -7,6 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./oferta-publicada.component.scss']
 })
 export class OfertaPublicadaComponent implements OnInit {
+  cmOfertaPublicada: any = null;
   imagen!: Archivo;
   urlImgDefault = '../../../content/images/Image 28_M.png';
 

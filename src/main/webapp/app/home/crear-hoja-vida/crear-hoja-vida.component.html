@@ -1,5 +1,12 @@
-
-<div class="container estilo_body">
+<div class="app-loading" *ngIf="cmCrearHojaVida === null">
+    <div class="lds-css ng-scope">
+        <div class="lds-pacman">
+            <div><div></div><div></div><div></div></div>
+            <div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>
+<div class="container estilo_body" *ngIf="cmCrearHojaVida !== null">
     <form [formGroup]="globalForm" (ngSubmit)="onSubmit()">
         <ng-container *ngIf="step === 0" >
             <div class="ngnum0">
@@ -413,7 +420,7 @@
                     <div class="row">
                         <div class="column">
                             <div class="form-group">
-                                <p class="estilo_label">Ciudad estudio <span
+                                <p class="estilo_label">{{Ciudad_estudio}} <span
                                     class="estilo_campo_requerido">*</span></p>
                                 <select formControlName="ciudadAcademica" class="estilo_inputs" >
                                     <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
@@ -614,7 +621,7 @@
                                             {{ anio.nombre }}
                                         </option>
                                     </select>
-                                    <p class="aniosTexto">Años</p>
+                                    <p class="aniosTexto">{{Anios}}</p>
                                     <select formControlName="mesExperiencia" class="mesExperiencia">
                                         <option [ngValue]="null" disabled>{{labels.PLACEHOLDER_MES}}</option>
                                         <option *ngFor="let mes of mesesExperiencia" 
@@ -650,8 +657,8 @@
                             <p class="estilo_label">{{Movilidad_laboral}}</p>
                                 <div class="input_group">
                                     <div class='estilo_inputs'>
-                                        <button id="buttonMudarse" class="mudarse" (click)="clickMudarse()" [ngStyle]="{'background-color' : banderaColorMudarse ? '#A3AAAF' : '#FFFFFF'}">Puedo mudarme a otra ciudad o pais</button>
-                                        <button id="buttonViajar" class="viajar" (click)="clickViajar()" [ngStyle]="{'background-color' : banderaColorViajar ? '#A3AAAF' : '#FFFFFF'}">Puedo viajar a otra ciudad o pais</button>
+                                        <button id="buttonMudarse" class="mudarse" (click)="clickMudarse()" [ngStyle]="{'background-color' : banderaColorMudarse ? '#A3AAAF' : '#FFFFFF'}">{{labels.MUDAR_OTRO_LUGAR}}</button>
+                                        <button id="buttonViajar" class="viajar" (click)="clickViajar()" [ngStyle]="{'background-color' : banderaColorViajar ? '#A3AAAF' : '#FFFFFF'}">{{labels.VIAJAR_OTRO_LUGAR}}</button>
                                     </div>
                                 </div>    
                             </div>

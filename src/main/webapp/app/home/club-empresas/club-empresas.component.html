@@ -1,47 +1,54 @@
-<div class="contenedor">
-    
+<div class="app-loading" *ngIf="cmClubEmpresas === null">
+    <div class="lds-css ng-scope">
+        <div class="lds-pacman">
+            <div><div></div><div></div><div></div></div>
+            <div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>
+<div class="contenedor" *ngIf="cmClubEmpresas !== null">
     <div class="div-center">
         <div class="botones-arriba">
             <button class="btn boton-no-clicked" (click)="crearOferta()">
                 <fa-icon [icon]="faCommentDots" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Crear oferta</p>
+                    <p class="titulo-boton">{{CrearOfertaLabel}}</p>
                 </div>
             </button>
             <button class="btn boton-no-clicked" (click)="editarPerfil()">
                 <fa-icon [icon]="faEllipsisH" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Editar perfil</p>
+                    <p class="titulo-boton">{{EditarPerfilLabel}}</p>
                 </div>
             </button>
             <button class="btn boton-clicked" (click)="clubEmpresas()">
                 <fa-icon icon="suitcase" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Club de empresas</p>
+                    <p class="titulo-boton">{{ClubEmpresasLabel}}</p>
                 </div>
             </button>
             <button class="btn boton-no-clicked" (click)="controlaOferta()">
                 <fa-icon icon="eye" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Controla tus ofertas</p>
+                    <p class="titulo-boton">{{ControlaOfertasLabel}}</p>
                 </div>
             </button>
             <button class="btn boton-no-clicked" (click)="membresia()">
                 <fa-icon [icon]="faStar" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Membresía</p>
+                    <p class="titulo-boton">{{MembresiaLabel}}</p>
                 </div>
             </button>
             <button class="btn boton-no-clicked" (click)="juridica()">
                 <fa-icon [icon]="faStar" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Asesoría jurídica</p>
+                    <p class="titulo-boton">{{AsesoriaJuridicaLabel}}</p>
                 </div>
             </button>
         </div>
@@ -50,12 +57,12 @@
             <div class="titulo-agrega">
                 <div>
                     <p class="titulo-club">
-                        Club de empresas
+                        {{ClubEmpresasTitulo}}
                     </p>
                 </div> 
                 <div>
                     <a class="agrega-empresa" (click)="agregarEmpresa()">
-                    Agrega tu empresa 
+                    {{AgregaTuEmpresa}}
                     <fa-icon icon="plus" class="border-icon" style="
                         background:#f1f1f1 0% 0% no-repeat padding-box;"></fa-icon>
                     </a>
@@ -85,7 +92,7 @@
                             <input matInput class="form-control" [(ngModel)]="valorBusqueda">
                         </div> -->
                         <div class="empresas">
-                            <p class="titulo">Empresas</p>
+                            <p class="titulo">{{EmpresasTitulo}}</p>
                             <p class="resultado">{{totalEmpresas}} {{Resultados}}</p>
                         </div>
                         <!-- <div class="Sector">
@@ -102,11 +109,7 @@
                      *ngFor="let item of ListaEmpresas | paginate: { itemsPerPage: 6, currentPage: page }">
                         <div class="mitad1">
                             <img class="logo-empresa rounded-circle" [src]="item.imagen || urlImgDefault">
-                             <!-- <div class="imagen">
-                                <img [src]="item.imagen || urlImgDefault">
-                            </div> -->
                             <div>
-                            <!-- <p class="nombre">Bavaria</p> -->
                             <p class="nombre">{{item.razonSocial}}</p>
                             </div>
                         </div>
@@ -115,12 +118,12 @@
                                 <div class="separador"></div>
                             </div>
                              <div class="info">
-                                <p *ngIf="item.email" class="resumen">Correo electrónico: {{item.email}}</p>
-                                <p *ngIf="item.paginaWeb" class="resumen">Página web: {{item.paginaWeb}}</p>
-                                <p *ngIf="item.direccion" class="resumen">Dirección: {{item.direccion}}</p>
-                                <p *ngIf="item.telefonoEmpresa" class="resumen">Teléfono: {{item.telefonoEmpresa}}</p>
-                                <p *ngIf="item.descripcionEmpresa" class="resumen">Descripción: {{item.descripcionEmpresa}}</p>
-                                <p *ngIf="item.link" class="resumen">Pagina de servicios: {{item.link}}</p>
+                                <p *ngIf="item.email" class="resumen">{{EmailLabel}}: {{item.email}}</p>
+                                <p *ngIf="item.paginaWeb" class="resumen">{{PaginaWeb}}: {{item.paginaWeb}}</p>
+                                <p *ngIf="item.direccion" class="resumen">{{Direccion}}: {{item.direccion}}</p>
+                                <p *ngIf="item.telefonoEmpresa" class="resumen">{{Telefono}}: {{item.telefonoEmpresa}}</p>
+                                <p *ngIf="item.descripcionEmpresa" class="resumen">{{Descripcion}}: {{item.descripcionEmpresa}}</p>
+                                <p *ngIf="item.link" class="resumen">{{PaginaServicios}}: {{item.link}}</p>
                             </div>
                             </div>
                         </div>
@@ -139,7 +142,7 @@
 
             <div class="titulo-agrega">
                     <p class="titulo-club">
-                        Agrega tu empresa al directorio
+                        {{AgregaEmpresaDirectorio}}
                     </p>
             </div>
             
@@ -147,54 +150,54 @@
                 <form [formGroup]="agregarEmpresaForm">
                     <div class="row">
                         <div class="form-group">
-                            <p class="estilo_label">Nombre</p>
+                            <p class="estilo_label">{{Nombre}}</p>
                             <input type="text" class="estilo_inputs" formControlName="nombre" disabled>
                             
                         </div>
                     </div>
                     <div class="row-group">
                         <div class="form-group">
-                            <p class="estilo_label">País</p>
+                            <p class="estilo_label">{{Pais}}</p>
                             <input type="text" class="estilo_inputs" formControlName="pais">
                         </div>
                         <div class="form-group">
-                            <p class="estilo_label">Ciudad</p>
+                            <p class="estilo_label">{{Ciudad}}</p>
                             <input type="text" class="estilo_inputs" formControlName="ciudad" disabled>
                         </div>
                     </div>
                     <div class="row-group">
                         <div class="form-group">
-                            <p class="estilo_label">Dirección</p>
+                            <p class="estilo_label">{{Direccion2}}</p>
                             <input type="text" class="estilo_inputs" formControlName="direccion" disabled>
                         </div>
                         <div class="form-group">
-                            <p class="estilo_label">Código Postal</p>
+                            <p class="estilo_label">{{CodigoPostal}}</p>
                             <input type="text" class="estilo_inputs" formControlName="codigoPostal">
                         </div>
                     </div>
                     <div class="row-group">
                         <div class="form-group">
-                            <p class="estilo_label">Teléfono</p>
+                            <p class="estilo_label">{{Telefono2}}</p>
                             <input type="text" class="estilo_inputs" formControlName="telefono" disabled>
                         </div>
                         <div class="form-group">
-                            <p class="estilo_label">Correo electrónico</p>
+                            <p class="estilo_label">{{Email2}}</p>
                             <input type="text" class="estilo_inputs" formControlName="correoElectronico" disabled>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
-                            <p class="estilo_label">Agrega productos</p>
-                            <p class="estilo_label">Escribe el link para conocer tus servicios</p>
+                            <p class="estilo_label">{{AgregaProductos}}</p>
+                            <p class="estilo_label">{{EscribeLink}}</p>
                             <!--<textarea type="text" class="estilo_inputs"></textarea>-->
                             <!-- <textarea class="textarea-input" name="" id="" cols="100" rows="10"></textarea> -->
                             <input type="text" class="estilo_inputs" formControlName="urlProducto">
-                            <button ngbPopover="Texto Copiado!" [openDelay]="100" [closeDelay]="500" triggers="click:blur" id="linkProducto" (click)="copiarLink()" class="btn boton-finalizar"><p class="titulo-boton">Copiar link</p></button>
+                            <button ngbPopover="Texto Copiado!" [openDelay]="100" [closeDelay]="500" triggers="click:blur" id="linkProducto" (click)="copiarLink()" class="btn boton-finalizar"><p class="titulo-boton">{{CopiarLink}}</p></button>
                         </div>
                     </div>
                     <div class="botones">
-                        <button (click)="volver()" class="btn boton-volver"><p class="titulo-boton">Volver</p></button>
-                        <button (click)="finalizar()" type="submit" class="btn boton-finalizar"><p class="titulo-boton">Finalizar</p></button>
+                        <button (click)="volver()" class="btn boton-volver"><p class="titulo-boton">{{Volver}}</p></button>
+                        <button (click)="finalizar()" type="submit" class="btn boton-finalizar"><p class="titulo-boton">{{Finalizar}}</p></button>
                     </div>
                 </form>
             </div>

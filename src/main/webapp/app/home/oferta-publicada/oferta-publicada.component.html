@@ -1,4 +1,12 @@
-<div class="contenedor">
+<div class="app-loading" *ngIf="cmOfertaPublicada === null">
+    <div class="lds-css ng-scope">
+        <div class="lds-pacman">
+            <div><div></div><div></div><div></div></div>
+            <div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>
+<div class="contenedor" *ngIf="cmOfertaPublicada !== null">
     <div class="div_titulo" style="width: 90%;">
         <p class="titulo">Oferta publicada</p>
         <p class="subtitulo">Se ha descontado una (1) unidad de tu producto, te quedan cero (0)</p>

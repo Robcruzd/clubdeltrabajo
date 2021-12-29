@@ -1,4 +1,12 @@
-<div class="container_perfil">
+<div class="app-loading" *ngIf="cmPerfil === null">
+    <div class="lds-css ng-scope">
+        <div class="lds-pacman">
+            <div><div></div><div></div><div></div></div>
+            <div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>
+<div class="container_perfil" *ngIf="cmPerfil !== null">
     <div class="box_perfil">
         <div class="column">
             <div class="card-presentacion">

@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { commonMessages } from 'app/shared/constants/commonMessages';
 import { PasswordResetFinishService } from 'app/account/password-reset/finish/password-reset-finish.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 declare let alertify: any;
 
@@ -11,6 +13,7 @@ declare let alertify: any;
   styleUrls: ['./nuevo-correo.component.scss']
 })
 export class NuevoCorreoComponent implements OnInit, AfterViewInit {
+  cmNuevoCorreo: any = null;
   nombre = '';
   password = '';
   confirmPassword = '';
@@ -20,19 +23,23 @@ export class NuevoCorreoComponent implements OnInit, AfterViewInit {
   error = false;
   success = false;
   validacionIncorrecta = true;
-  claveNoEnviada = commonMessages.FALTA_CLAVE_REINICIO_LABEL;
   mensajeConfClave: any;
   mensajeClave: any;
-  eyePrimero = "../../../content/images/eye.svg";
-  eyeSegundo = "../../../content/images/eye.svg";
-  inputPrimero = "password";
-  inputSegundo = "password";
+  eyePrimero = '../../../content/images/eye.svg';
+  eyeSegundo = '../../../content/images/eye.svg';
+  inputPrimero = 'password';
+  inputSegundo = 'password';
 
+  claveNoEnviada = commonMessages.FALTA_CLAVE_REINICIO_LABEL;
   Cambiar_Contrasenia = commonMessages.CAMBIAR_CONTRASENIA;
   Cambiar = commonMessages.CAMBIAR;
-  
 
-  constructor(private route: ActivatedRoute, private router: Router, private passwordResetFinishService: PasswordResetFinishService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private passwordResetFinishService: PasswordResetFinishService,
+    private commonMessagesService: CommonMessagesService
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -41,6 +48,29 @@ export class NuevoCorreoComponent implements OnInit, AfterViewInit {
       }
       this.initialized = true;
     });
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmNuevoCorreo'
+      })
+      .subscribe(
+        res => {
+          const body: any = res.body;
+          const mensajes = JSON.parse(body[0].mensajes);
+          this.cmNuevoCorreo = mensajes;
+          this.updateVariables();
+        },
+        err => {
+          /* eslint-disable no-console */
+          console.log(err);
+          this.cmNuevoCorreo = 0;
+        }
+      );
+  }
+
+  updateVariables(): void {
+    this.claveNoEnviada = this.cmNuevoCorreo.FALTA_CLAVE_REINICIO_LABEL;
+    this.Cambiar_Contrasenia = this.cmNuevoCorreo.CAMBIAR_CONTRASENIA;
+    this.Cambiar = this.cmNuevoCorreo.CAMBIAR;
   }
 
   ngAfterViewInit(): void {
@@ -94,25 +124,23 @@ export class NuevoCorreoComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/inicio-sesion']);
   }
 
-  clicPrimerInput():void{
-    if(this.eyePrimero === "../../../content/images/eye.svg"){
-      this.eyePrimero = "../../../content/images/eye-slash.svg";
-      this.inputPrimero = "text";
-    }
-    else{
-      this.eyePrimero = "../../../content/images/eye.svg";
-      this.inputPrimero = "password";
+  clicPrimerInput(): void {
+    if (this.eyePrimero === '../../../content/images/eye.svg') {
+      this.eyePrimero = '../../../content/images/eye-slash.svg';
+      this.inputPrimero = 'text';
+    } else {
+      this.eyePrimero = '../../../content/images/eye.svg';
+      this.inputPrimero = 'password';
     }
   }
 
-  clicSegundoInput():void{
-    if(this.eyeSegundo === "../../../content/images/eye.svg"){
-      this.eyeSegundo = "../../../content/images/eye-slash.svg";
-      this.inputSegundo = "text";
-    }
-    else{
-      this.eyeSegundo = "../../../content/images/eye.svg";
-      this.inputSegundo = "password";
+  clicSegundoInput(): void {
+    if (this.eyeSegundo === '../../../content/images/eye.svg') {
+      this.eyeSegundo = '../../../content/images/eye-slash.svg';
+      this.inputSegundo = 'text';
+    } else {
+      this.eyeSegundo = '../../../content/images/eye.svg';
+      this.inputSegundo = 'password';
     }
   }
 }

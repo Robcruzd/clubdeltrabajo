@@ -1,4 +1,12 @@
-<div class="estilo_home">
+<div class="app-loading" *ngIf="cmPrimerOferta === null">
+    <div class="lds-css ng-scope">
+        <div class="lds-pacman">
+            <div><div></div><div></div><div></div></div>
+            <div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>
+<div class="estilo_home" *ngIf="cmPrimerOferta !== null">
     <img class="estilo_imagen" src="../../../content/images/persona_contact3.png">
     <div class="div_centro">
         <p class="titulo1">{{Bienvenido}}</p>
@@ -15,12 +23,7 @@
         </button>
     </div>
 </div>
-<div class="footer">
-    <a href="https://instagram.com/clubdeltrabajo?igshid=1m37k1eb9p16a" target="_blank" style="margin-right: 1.52vw;">
-        <img class="icono" path="fill: currentColor !important;" src="../../../content/images/instagram.png"></a>
-    <a href="https://twitter.com/ClubdelTrabajo" target="_blank" style="margin-right: 1.52vw;">
-        <img class="icono" src="../../../content/images/twitter.png"></a>
-    <a href="https://www.facebook.com/Club-del-Trabajo-100955765079986/" target="_blank" style="margin-right: 1.52vw;">
-        <img class="icono" src="../../../content/images/facebook.png"></a>
+<div *ngIf="cmPrimerOferta !== null">
+    <router-outlet name="footer"></router-outlet>
 </div>
 

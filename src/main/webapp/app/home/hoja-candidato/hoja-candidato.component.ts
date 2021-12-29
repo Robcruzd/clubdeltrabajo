@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AplicacionOfertaService } from 'app/entities/aplicacion-oferta/aplicacion-oferta.service';
@@ -22,6 +23,7 @@ import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { HttpResponse } from '@angular/common/http';
 import { IRegiones } from 'app/shared/model/regiones.model';
 import { commonMessages } from 'app/shared/constants/commonMessages';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 @Component({
   selector: 'jhi-hoja-candidato',
@@ -29,6 +31,7 @@ import { commonMessages } from 'app/shared/constants/commonMessages';
   styleUrls: ['./hoja-candidato.component.scss']
 })
 export class HojaCandidatoComponent implements OnInit {
+  cmHojaCandidato: any = null;
   myValue1 = false;
   persona: any;
 
@@ -67,7 +70,7 @@ export class HojaCandidatoComponent implements OnInit {
   Estado = commonMessages.ESTADO_LABEL;
   Volver = commonMessages.VOLVER;
   Finalizar = commonMessages.FINALIZAR;
-  
+
   constructor(
     private personaService: PersonaService,
     private ofertaService: OfertaService,
@@ -79,7 +82,8 @@ export class HojaCandidatoComponent implements OnInit {
     private aplicacionOfertaService: AplicacionOfertaService,
     private router: Router,
     private archivoService: ArchivoService,
-    private regionService: RegionesService
+    private regionService: RegionesService,
+    private commonMessagesService: CommonMessagesService
   ) {}
 
   ngOnInit(): void {
@@ -87,7 +91,37 @@ export class HojaCandidatoComponent implements OnInit {
     this.idUsuario = parseInt(param, 10);
     const param2 = this.route.snapshot.queryParamMap.get('oferta')!;
     this.idOFerta = parseInt(param2, 10);
-    this.consultarInformacionGeografica();
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmHojaCandidata'
+      })
+      .subscribe(
+        res => {
+          const body: any = res.body;
+          const mensajes = JSON.parse(body[0].mensajes);
+          this.cmHojaCandidato = mensajes;
+          this.updateVariables();
+          this.consultarInformacionGeografica();
+        },
+        err => {
+          /* eslint-disable no-console */
+          console.log(err);
+          this.cmHojaCandidato = 0;
+          this.consultarInformacionGeografica();
+        }
+      );
+  }
+
+  updateVariables(): void {
+    this.Titulo = this.cmHojaCandidato.TITULO_LABEL;
+    this.Estudios = this.cmHojaCandidato.ESTUDIOS;
+    this.Idiomas = this.cmHojaCandidato.IDIOMAS_LABEL;
+    this.Exp = this.cmHojaCandidato.EXPERIENCIA;
+    this.Actualidad = this.cmHojaCandidato.ACTUALIDAD;
+    this.Web_Club = this.cmHojaCandidato.WEB_CLUBDELTRABAJO;
+    this.Estado = this.cmHojaCandidato.ESTADO_LABEL;
+    this.Volver = this.cmHojaCandidato.VOLVER;
+    this.Finalizar = this.cmHojaCandidato.FINALIZAR;
   }
 
   // consultarImagen(): void {

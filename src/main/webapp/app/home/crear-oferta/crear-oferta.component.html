@@ -1,4 +1,12 @@
-<div class="contenedor">
+<div class="app-loading" *ngIf="cmCrearOferta === null">
+    <div class="lds-css ng-scope">
+        <div class="lds-pacman">
+            <div><div></div><div></div><div></div></div>
+            <div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>
+<div class="contenedor" *ngIf="cmCrearOferta !== null">
     <div class="div-center">
         <div class="botones-arriba">
             <button class="btn boton-clicked" (click)="crearOferta()">
@@ -33,14 +41,14 @@
                 <fa-icon [icon]="faStar" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Membresía</p>
+                    <p class="titulo-boton">{{MembresiaLabel}}</p>
                 </div>
             </button>
             <button class="btn boton-no-clicked" (click)="juridica()">
                 <fa-icon [icon]="faStar" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Asesoría jurídica</p>
+                    <p class="titulo-boton">{{AsesoriaJuridicaLabel}}</p>
                 </div>
             </button>
         </div>
@@ -273,7 +281,7 @@
                                 <p class="estilo_label">{{labels.MODALIDAD_LABORAL}} <span
                                     class="estilo_campo_requerido">*</span></p>
                                 <select formControlName="modalidadLaboral" class="estilo_inputs">
-                                    <option [ngValue]="null" disabled>Seleccione una opción</option>
+                                    <option [ngValue]="null" disabled>{{Seleccione_Opcion}}</option>
                                     <option *ngFor="let modalidad of modalidadesLaborales" 
                                     [ngValue]="modalidad.codigo">
                                         {{ modalidad.nombre }}
@@ -334,7 +342,7 @@
 </div>
 <!-- [disabled]="formDatosBasicos.invalid" -->
 
-<div class="contenedor2" *ngIf = "visualizarOferta">
+<div class="contenedor2" *ngIf = "cmCrearOferta !== null && visualizarOferta">
     <div class="div-center2">
         <ng-container>
         <br>

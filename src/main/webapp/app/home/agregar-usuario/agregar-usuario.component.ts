@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { JhiLanguageService } from 'ng-jhipster';
 import { Component, OnInit } from '@angular/core';
 import { Persona } from '../../shared/model/persona.model';
@@ -16,6 +17,7 @@ import { DatosCaptcha } from '../../shared/vo/datos-captcha';
 import { Empresa } from '../../shared/model/empresa.model';
 import { EmpresaVo } from '../../shared/vo/empresa-vo';
 import { EmpresaService } from '../../entities/empresa/empresa.service';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 declare let alertify: any;
 
 @Component({
@@ -24,6 +26,7 @@ declare let alertify: any;
   styleUrls: ['./agregar-usuario.component.scss']
 })
 export class AgregarUsuarioComponent implements OnInit {
+  cMAgregarUsuario: any = null;
   persona = new Persona();
   empresa = new Empresa();
   user = new User();
@@ -73,8 +76,8 @@ export class AgregarUsuarioComponent implements OnInit {
   nit = commonMessages.NIT;
   SelecTipo = commonMessages.SELECCIONE_TIPO;
   NumDoc = commonMessages.NUMERO_DOCUMENTO_LABEL;
-  RazonSocial= commonMessages.RAZON_SOCIAL;
-  Apellidos= commonMessages.APELLIDOS;
+  RazonSocial = commonMessages.RAZON_SOCIAL;
+  Apellidos = commonMessages.APELLIDOS;
   Sector = commonMessages.SECTOR;
   Nombres = commonMessages.NOMBRES;
   PersonaNatural = commonMessages.TIPO_USUARIO_1;
@@ -82,8 +85,6 @@ export class AgregarUsuarioComponent implements OnInit {
   YaRegistrado = commonMessages.YA_REGISTRADO;
   Aceptar = commonMessages.ACEPTAR;
   RegistroEntra = commonMessages.REGISTRATE;
-  
-
 
   eyePrimero = '../../../content/images/eye.svg';
   eyeSegundo = '../../../content/images/eye.svg';
@@ -98,7 +99,8 @@ export class AgregarUsuarioComponent implements OnInit {
     private router: Router,
     private tipoDocumentoService: TipoDocumentoService,
     private usuarioService: UsuarioService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private commonMessagesService: CommonMessagesService
   ) {}
 
   ngOnInit(): void {
@@ -113,11 +115,55 @@ export class AgregarUsuarioComponent implements OnInit {
       this.natural = true;
       this.juridico = false;
     }
-    // eslint-disable-next-line no-console
-    console.log(this.tipoUsuario.id);
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmAgregarUsuario'
+      })
+      .subscribe(
+        res => {
+          if (res !== null && res.body !== null) {
+            const body: any = res.body;
+            const mensajes = JSON.parse(body[0].mensajes);
+            this.cMAgregarUsuario = mensajes;
+          }
+          this.updateVariables();
+          this.cargarTipoDocumento();
+          this.crearCaptcha();
+        },
+        err => {
+          /* eslint-disable no-console */
+          console.log(err);
+          this.cMAgregarUsuario = 0;
+          this.cargarTipoDocumento();
+          this.crearCaptcha();
+        }
+      );
     this.user.password = '';
-    this.cargarTipoDocumento();
-    this.crearCaptcha();
+  }
+
+  updateVariables(): void {
+    this.mensajeActivacionCuenta = this.cMAgregarUsuario.ACTIVACION_CUENTA_LABEL;
+    this.Politicas = this.cMAgregarUsuario.POLITICAS;
+    this.TCP = this.cMAgregarUsuario.TERMINOS_CONDICIONES_POLITICAS;
+    this.Aceptolos = this.cMAgregarUsuario.ACEPTO_LOS;
+    this.Registrarme = this.cMAgregarUsuario.REGISTRARME;
+    this.resol = this.cMAgregarUsuario.RESOLVER;
+    this.captchaCuanto = this.cMAgregarUsuario.CAPTCHA_CUANTO_ES;
+    this.ConfirContra = this.cMAgregarUsuario.CONFIRMAR_PASSWORD;
+    this.Contra = this.cMAgregarUsuario.PASSWORD;
+    this.email = this.cMAgregarUsuario.CORREO_ELECTRONICO;
+    this.nit = this.cMAgregarUsuario.NIT;
+    this.SelecTipo = this.cMAgregarUsuario.SELECCIONE_TIPO;
+    this.NumDoc = this.cMAgregarUsuario.NUMERO_DOCUMENTO_LABEL;
+    this.RazonSocial = this.cMAgregarUsuario.RAZON_SOCIAL;
+    this.Apellidos = this.cMAgregarUsuario.APELLIDOS;
+    this.Sector = this.cMAgregarUsuario.SECTOR;
+    this.Nombres = this.cMAgregarUsuario.NOMBRES;
+    this.PersonaNatural = this.cMAgregarUsuario.TIPO_USUARIO_1;
+    this.PersonaJuridica = this.cMAgregarUsuario.TIPO_USUARIO_2;
+    this.YaRegistrado = this.cMAgregarUsuario.YA_REGISTRADO;
+    this.Aceptar = this.cMAgregarUsuario.ACEPTAR;
+    this.RegistroEntra = this.cMAgregarUsuario.REGISTRATE;
   }
 
   deleteSpace(variable: string): void {

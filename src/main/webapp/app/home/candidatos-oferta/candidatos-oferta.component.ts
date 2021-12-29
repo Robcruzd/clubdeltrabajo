@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,6 +17,7 @@ import { IOferta } from 'app/shared/model/oferta.model';
 import { IRegiones } from 'app/shared/model/regiones.model';
 import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { IOpcionVo, IResultadoBusquedaAspirantes, IResultadoOfertas } from 'app/shared/vo/opcion-vo';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 declare let alertify: any;
 
@@ -26,6 +28,7 @@ declare let alertify: any;
 })
 export class CandidatosOfertaComponent implements OnInit {
   public page = 1;
+  cmCandidatos: any = null;
   faStar = faStar;
   faAddressCard = faAddressCard;
   faEllipsisH = faEllipsisH;
@@ -38,13 +41,8 @@ export class CandidatosOfertaComponent implements OnInit {
   experienciaValue: any = null;
   municipioValue: any = null;
   edadValue: any = null;
-  labels = commonMessages;
   listaResultadoBusquedaAspirantes: Array<IResultadoBusquedaAspirantes> = [];
   listaResultadoOfertas: Array<IResultadoOfertas> = [];
-  aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
-  experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
-  tiposContrato: IOpcionVo[] = commonMessages.ARRAY_TIPO_CONTRATO;
-  edades: IOpcionVo[] = commonMessages.ARRAY_EDAD;
   municipiosPersonal: Array<IOpcionVo> = [];
   geografia: Array<GeografiaVo> = [];
   resultadoBusqueda: Array<IInformacionPersonal> | null = [];
@@ -52,12 +50,16 @@ export class CandidatosOfertaComponent implements OnInit {
   idOferta = 0;
   oferta!: IOferta | null;
   mostrar = true;
+  empresaUpdate!: Empresa | null;
+  usuario!: User | null;
 
+  labels = commonMessages;
   Crear_Oferta = commonMessages.CREAR_OFERTA;
   Editar_perfil = commonMessages.EDITAR_PERFIL;
   Club_empresas = commonMessages.CLUB_DE_EMPRESAS;
   Controla_ofertas = commonMessages.CONTROLA_TUS_OFERTAS;
   Membresia = commonMessages.MEMBRESIA;
+  AsesoriaJuridicaLabel = commonMessages.ASESORIA_JURIDICA;
   Titulo = commonMessages.TITULO_LABEL;
   Tipo_Contrato = commonMessages.TIPO_CONTRATO;
   Publicado = commonMessages.PUBLICADO;
@@ -77,8 +79,16 @@ export class CandidatosOfertaComponent implements OnInit {
   VerHV = commonMessages.VER_HV;
   Buscar_Mas_Perfiles = commonMessages.BUSCAR_MAS_PERFILES;
   Buscar = commonMessages.BUSCAR;
-  empresaUpdate!: Empresa | null;
-  usuario!: User | null;
+  aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
+  experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
+  tiposContrato: IOpcionVo[] = commonMessages.ARRAY_TIPO_CONTRATO;
+  edades: IOpcionVo[] = commonMessages.ARRAY_EDAD;
+  resultados = commonMessages.RESULTADOS;
+  Edad2 = commonMessages.EDAD;
+  Ciudad2 = commonMessages.CIUDAD_LABEL;
+  Experiencia2 = commonMessages.EXPERIENCIA;
+  Titulo2 = commonMessages.TITULO_LABEL;
+  FechaPostulacion = commonMessages.FECHA_POSTULACION;
 
   constructor(
     private router: Router,
@@ -87,7 +97,8 @@ export class CandidatosOfertaComponent implements OnInit {
     private route: ActivatedRoute,
     private ofertaService: OfertaService,
     private empresaService: EmpresaService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private commonMessagesService: CommonMessagesService
   ) {
     this.traerCiudad();
   }
@@ -95,9 +106,78 @@ export class CandidatosOfertaComponent implements OnInit {
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get('oferta')!;
     this.idOferta = parseInt(param, 10);
-    this.getOFerta(this.idOferta);
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmCandidatosOferta'
+      })
+      .subscribe(
+        res => {
+          const body: any = res.body;
+          const mensajes = JSON.parse(body[0].mensajes);
+          this.cmCandidatos = mensajes;
+          this.updateVariables();
+          this.getOFerta(this.idOferta);
+        },
+        err => {
+          /* eslint-disable no-console */
+          console.log(err);
+          this.getOFerta(this.idOferta);
+          this.cmCandidatos = 0;
+        }
+      );
     this.accountService.getAuthenticationState().subscribe(account => {
       this.usuario = account;
+    });
+  }
+
+  updateVariables(): void {
+    const commonData: any = JSON.parse(sessionStorage.getItem('commonData')!);
+    this.labels = this.cmCandidatos;
+    this.Crear_Oferta = this.cmCandidatos.CREAR_OFERTA;
+    this.Editar_perfil = this.cmCandidatos.EDITAR_PERFIL;
+    this.Club_empresas = this.cmCandidatos.CLUB_DE_EMPRESAS;
+    this.Controla_ofertas = this.cmCandidatos.CONTROLA_TUS_OFERTAS;
+    this.Membresia = this.cmCandidatos.MEMBRESIA;
+    this.Titulo = this.cmCandidatos.TITULO_LABEL;
+    this.Tipo_Contrato = this.cmCandidatos.TIPO_CONTRATO;
+    this.Publicado = this.cmCandidatos.PUBLICADO;
+    this.Experiencia = this.cmCandidatos.EXPERIENCIA;
+    this.Ciudad = this.cmCandidatos.CIUDAD_LABEL;
+    this.Salario = this.cmCandidatos.SALARIO;
+    this.Perfiles_Aspirantes = this.cmCandidatos.PERFILES_ASPIRANTES;
+    this.Resultados_Para = this.cmCandidatos.RESULTADOS_PARA;
+    this.Perfiles = this.cmCandidatos.PERFILES;
+    this.Ordenar_Perfiles = this.cmCandidatos.ORDENAR_PERFILES;
+    this.Seleccionar = this.cmCandidatos.SELECCIONAR;
+    this.Edad = this.cmCandidatos.EDAD;
+    this.Cargo = this.cmCandidatos.CARGO_LABEL;
+    this.Genero = this.cmCandidatos.GENERO;
+    this.Masculino = this.cmCandidatos.MASCULINO_LABEL;
+    this.Femenino = this.cmCandidatos.FEMENINO_LABEL;
+    this.VerHV = this.cmCandidatos.VER_HV;
+    this.Buscar_Mas_Perfiles = this.cmCandidatos.BUSCAR_MAS_PERFILES;
+    this.Buscar = this.cmCandidatos.BUSCAR;
+    this.aspiracionesSalariales = commonData.ARRAY_ASPIRACION_SALARIAL;
+    this.experienciasLaborales = commonData.ARRAY_EXPERIENCIA_LABORAL;
+    this.tiposContrato = commonData.ARRAY_TIPO_CONTRATO;
+    this.edades = commonData.ARRAY_EDAD;
+    this.resultados = this.cmCandidatos.RESULTADOS;
+  }
+
+  juridica(): void {
+    this.empresaService.find(this.usuario?.userEmpresa).subscribe(empresa => {
+      this.empresaUpdate = empresa.body;
+      if (
+        empresa !== undefined &&
+        empresa !== null &&
+        this.empresaUpdate?.juridica === true &&
+        this.empresaUpdate?.juridica !== undefined
+      ) {
+        this.router.navigate(['asesoria-juridica']);
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error('No cuenta con la membresia para asesoría jurídica!. Debe contratar un plan!');
+      }
     });
   }
 

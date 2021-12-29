@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { commonMessages } from '../../shared/constants/commonMessages';
@@ -14,6 +15,7 @@ import { Router } from '@angular/router';
 import { Archivo } from 'app/shared/model/archivo.model';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 declare let alertify: any;
 
@@ -23,7 +25,7 @@ declare let alertify: any;
   styleUrls: ['./editar-empresa.component.scss']
 })
 export class EditarEmpresaComponent implements OnInit {
-  labels = commonMessages;
+  cmEditarEmpresa: any = null;
   faStar = faStar;
   faAddressCard = faAddressCard;
   faEllipsisH = faEllipsisH;
@@ -43,11 +45,13 @@ export class EditarEmpresaComponent implements OnInit {
   empresaUpdate!: Empresa | null;
   // ciudad: Array<IOpcionVoMunicipio> = [];
 
+  labels = commonMessages;
   Crear_Oferta = commonMessages.CREAR_OFERTA;
   Editar_Perfil = commonMessages.EDITAR_PERFIL;
   Club_Empresas = commonMessages.CLUB_DE_EMPRESAS;
   Controla_Ofertas = commonMessages.CONTROLA_TUS_OFERTAS;
   Membresia = commonMessages.MEMBRESIA;
+  AsesoriaJuridica = commonMessages.ASESORIA_JURIDICA;
   Razon_Social = commonMessages.RAZON_SOCIAL;
   Nombre_Comercial = commonMessages.NOMBRE_COMERCIAL_EMPRESA;
   Nit = commonMessages.NIT;
@@ -63,6 +67,10 @@ export class EditarEmpresaComponent implements OnInit {
   Telefono_Representante = commonMessages.TELEFONO_REPRESENTANTE_LEGAL;
   Direccion = commonMessages.DIRECCION_LABEL;
   Finalizar = commonMessages.FINALIZAR;
+  Id_Label = commonMessages.ID_LABEL;
+  NIT = commonMessages.NIT;
+  Sector = commonMessages.SECTOR;
+  Subsector = commonMessages.SUBSECTOR;
   codigoEmpresa: any;
 
   constructor(
@@ -72,17 +80,66 @@ export class EditarEmpresaComponent implements OnInit {
     private empresaService: EmpresaService,
     private apiService: ApiService,
     private router: Router,
-    private archivoService: ArchivoService
+    private archivoService: ArchivoService,
+    private commonMessagesService: CommonMessagesService
   ) {}
 
   ngOnInit(): void {
     this.cargarInformacionCuenta();
-    this.crearFormularioEmpresa();
-    this.accountService.getAuthenticationState().subscribe(account => {
-      this.usuario = account;
-      this.cargarFormularioEmpresa();
-    });
-    this.consultarInformacionGeografica();
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmEditarEmpresa'
+      })
+      .subscribe(
+        res => {
+          const body: any = res.body;
+          const mensajes = JSON.parse(body[0].mensajes);
+          this.cmEditarEmpresa = mensajes;
+          this.updateVariables();
+          this.crearFormularioEmpresa();
+          this.accountService.getAuthenticationState().subscribe(account => {
+            this.usuario = account;
+            this.cargarFormularioEmpresa();
+          });
+          this.consultarInformacionGeografica();
+        },
+        err => {
+          /* eslint-disable no-console */
+          console.log(err);
+          this.cmEditarEmpresa = 0;
+          this.crearFormularioEmpresa();
+          this.accountService.getAuthenticationState().subscribe(account => {
+            this.usuario = account;
+            this.cargarFormularioEmpresa();
+          });
+          this.consultarInformacionGeografica();
+        }
+      );
+  }
+
+  updateVariables(): void {
+    this.labels = this.cmEditarEmpresa;
+    this.Crear_Oferta = this.cmEditarEmpresa.CREAR_OFERTA;
+    this.Editar_Perfil = this.cmEditarEmpresa.EDITAR_PERFIL;
+    this.Club_Empresas = this.cmEditarEmpresa.CLUB_DE_EMPRESAS;
+    this.Controla_Ofertas = this.cmEditarEmpresa.CONTROLA_TUS_OFERTAS;
+    this.Membresia = this.cmEditarEmpresa.MEMBRESIA;
+    this.AsesoriaJuridica = this.cmEditarEmpresa.ASESORIA_JURIDICA;
+    this.Razon_Social = this.cmEditarEmpresa.RAZON_SOCIAL;
+    this.Nombre_Comercial = this.cmEditarEmpresa.NOMBRE_COMERCIAL_EMPRESA;
+    this.Nit = this.cmEditarEmpresa.NIT;
+    this.Telefono = this.cmEditarEmpresa.TELEFONO;
+    this.Sector_Empresa = this.cmEditarEmpresa.SECTOR_EMPRESA;
+    this.Subsector_Empresa = this.cmEditarEmpresa.SUBSECTOR_EMPRESA;
+    this.Web = this.cmEditarEmpresa.PAGINA_WEB;
+    this.Cantidad_Empleados = this.cmEditarEmpresa.CANTIDAD_EMPLEADOS;
+    this.Descrip_Empresa = this.cmEditarEmpresa.DESCRIPCION_EMPRESA;
+    this.Nombre_Representante = this.cmEditarEmpresa.NOMBRE_REPRESENTANTE_LEGAL;
+    this.Apellidos_Representante = this.cmEditarEmpresa.APELLIDOS_REPRESENTANTE_LEGAL;
+    this.Mail = this.cmEditarEmpresa.CORREO_ELECTRONICO;
+    this.Telefono_Representante = this.cmEditarEmpresa.TELEFONO_REPRESENTANTE_LEGAL;
+    this.Direccion = this.cmEditarEmpresa.DIRECCION_LABEL;
+    this.Finalizar = this.cmEditarEmpresa.FINALIZAR;
   }
 
   obtenerIdUsuario(): Promise<any> {

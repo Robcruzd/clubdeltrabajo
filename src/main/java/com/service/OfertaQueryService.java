@@ -110,6 +110,8 @@ public class OfertaQueryService extends QueryService<Oferta> {
                 specification = specification.and(buildRangeSpecification(criteria.getFechaPublicacion(), Oferta_.fechaPublicacion));
             }
             if (criteria.getEstado() != null) {
+                log.debug("find by criteria0031 {}",criteria.getEstado());
+                log.debug("find by criteria0032 {}",Oferta_.estado);
                 specification = specification.and(buildStringSpecification(criteria.getEstado(), Oferta_.estado));
             }
             if (criteria.getUsuarioId() != null) {

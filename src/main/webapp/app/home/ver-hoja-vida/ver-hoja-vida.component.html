@@ -1,4 +1,12 @@
-<div class="container" style="margin: 40px 0 40px 0">
+<div class="app-loading" *ngIf="cmVerHojaVida === null">
+    <div class="lds-css ng-scope">
+        <div class="lds-pacman">
+            <div><div></div><div></div><div></div></div>
+            <div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>
+<div class="container" style="margin: 40px 0 40px 0" *ngIf="cmVerHojaVida !== null">
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-2 text-center">

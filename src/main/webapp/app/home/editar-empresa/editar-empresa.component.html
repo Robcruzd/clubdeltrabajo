@@ -1,4 +1,12 @@
-<div class="contenedor">
+<div class="app-loading" *ngIf="cmEditarEmpresa === null">
+    <div class="lds-css ng-scope">
+        <div class="lds-pacman">
+            <div><div></div><div></div><div></div></div>
+            <div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>
+<div class="contenedor" *ngIf="cmEditarEmpresa !== null">
     <div class="div-center">
         <div class="botones-arriba">
             <button class="btn boton-no-clicked" (click)="crearOferta()">
@@ -40,7 +48,7 @@
                 <fa-icon [icon]="faStar" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Asesoría jurídica</p>
+                    <p class="titulo-boton">{{AsesoriaJuridica}}</p>
                 </div>
             </button>
         </div>
@@ -60,15 +68,15 @@
                                 (change)="cargarImagen($event, tipoArchivo.IMAGEN_PERFIL)" />
                 <div class="info-arriba">
                     <p class="data">{{formEmpresa.get('id')?.value}}</p>
-                    <p class="label">ID</p>
+                    <p class="label">{{Id_Label}}</p>
                     <p class="data">{{formEmpresa.get('numeroDocumento')?.value}}</p>
-                    <p class="label">NIT</p>
+                    <p class="label">{{NIT}}</p>
                 </div>
                 <div class="info-arriba">
                     <p class="data">{{formEmpresa.get('sector')?.value}}</p>
-                    <p class="label">Sector</p>
+                    <p class="label">{{Sector}}</p>
                     <p class="data">{{formEmpresa.get('subsector')?.value}}</p>
-                    <p class="label">Subsector</p>
+                    <p class="label">{{Subsector}}</p>
                 </div>
             </div>
             <div class="row">
@@ -305,11 +313,6 @@
         </button> -->
     </div>
 </div>
-<div class="footer">
-    <a href="https://instagram.com/clubdeltrabajo?igshid=1m37k1eb9p16a" target="_blank" style="margin-right: 1.52vw;">
-        <img class="icono" path="fill: currentColor !important;" src="../../../content/images/instagram.png"></a>
-    <a href="https://twitter.com/ClubdelTrabajo" target="_blank" style="margin-right: 1.52vw;">
-        <img class="icono" src="../../../content/images/twitter.png"></a>
-    <a href="https://www.facebook.com/Club-del-Trabajo-100955765079986/" target="_blank" style="margin-right: 1.52vw;">
-        <img class="icono" src="../../../content/images/facebook.png"></a>
+<div *ngIf="cmEditarEmpresa !== null">
+    <router-outlet name="footer"></router-outlet>
 </div>

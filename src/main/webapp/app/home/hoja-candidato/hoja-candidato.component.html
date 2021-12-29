@@ -1,4 +1,12 @@
-<div class = "container">
+<div class="app-loading" *ngIf="cmHojaCandidato === null">
+    <div class="lds-css ng-scope">
+        <div class="lds-pacman">
+            <div><div></div><div></div><div></div></div>
+            <div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>
+<div class = "container" *ngIf="cmHojaCandidato !== null">
     <div class="info">
         <div class="img0">
             <img [src]="urlImageDefault" alt="" class="img">

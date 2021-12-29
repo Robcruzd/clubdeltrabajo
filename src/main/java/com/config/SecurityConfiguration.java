@@ -97,6 +97,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/tipo-documentos").permitAll()
             .antMatchers("/api/regiones").permitAll()
             .antMatchers("/api/profesions").permitAll()
+            .antMatchers("/api/commonMessages").permitAll()
             .antMatchers("/api/ofertas/**").permitAll()
             .antMatchers("/api/archivos/tipo/5/empPerfil/**").permitAll()
             .antMatchers("/api/hoja-vida/0").permitAll()

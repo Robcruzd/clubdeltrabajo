@@ -1,64 +1,72 @@
-<div class="contenedor">
+<div class="app-loading" *ngIf="cmMembresias === null">
+    <div class="lds-css ng-scope">
+        <div class="lds-pacman">
+            <div><div></div><div></div><div></div></div>
+            <div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>
+<div class="contenedor" *ngIf="cmMembresias !== null">
     <div class="div-center">
         <div class="botones-arriba">
             <button class="btn boton-no-clicked" (click)="crearOferta()">
                 <fa-icon [icon]="faCommentDots" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Crear oferta</p>
+                    <p class="titulo-boton">{{CrearOfertaLabel}}</p>
                 </div>
             </button>
             <button class="btn boton-no-clicked" (click)="editarPerfil()">
                 <fa-icon [icon]="faEllipsisH" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Editar perfil</p>
+                    <p class="titulo-boton">{{EditarPerfilLabel}}</p>
                 </div>
             </button>
             <button class="btn boton-no-clicked" (click)="clubEmpresas()">
                 <fa-icon icon="suitcase" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Club de empresas</p>
+                    <p class="titulo-boton">{{ClubEmpresasLabel}}</p>
                 </div>
             </button>
             <button class="btn boton-no-clicked" (click)="controlaOferta()">
                 <fa-icon icon="eye" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Controla tus ofertas</p>
+                    <p class="titulo-boton">{{ControlaOfertasLabel}}</p>
                 </div>
             </button>
             <button class="btn boton-clicked" (click)="membresia()">
                 <fa-icon [icon]="faStar" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Membresía</p>
+                    <p class="titulo-boton">{{MembresiaLabel}}</p>
                 </div>
             </button>
             <button class="btn boton-no-clicked" (click)="juridica()">
                 <fa-icon [icon]="faStar" class="border-icon" style="
                 background: #BCD4FA 0% 0% no-repeat padding-box;"></fa-icon>
                 <div class="div-info-boton">
-                    <p class="titulo-boton">Asesoría jurídica</p>
+                    <p class="titulo-boton">{{AsesoriaJuridicaLabel}}</p>
                 </div>
             </button>
         </div>
         <div class="ovalo-arriba">
             <div class="circulo-ovalo">
-                <p class="texto-circulo">1 oferta</p>
+                <p class="texto-circulo">{{UnaOferta}}</p>
                 <p class="texto-flexi">$50.000 COP</p>
             </div>
             <div class="circulo-ovalo">
-                <p class="texto-circulo">2 ofertas</p>
+                <p class="texto-circulo">{{DosOfertas}}</p>
                 <p class="texto-flexi">$140.000 COP</p>
             </div>
             <div class="circulo-ovalo">
-                <p class="texto-circulo">3 ofertas</p>
+                <p class="texto-circulo">{{TresOfertas}}</p>
                 <p class="texto-flexi">$240.000 COP</p>
             </div>
             <div class="circulo-ovalo">
-                <p class="texto-circulo">Flexi</p>
+                <p class="texto-circulo">{{Flexi}}</p>
                 <p class="texto-flexi">10 ofertas</p>
                 <p class="texto-flexi">20 hojas de vida</p>
                 <p class="texto-flexi">$640.000 COP</p>
@@ -66,163 +74,170 @@
         </div>
         <div class="botones-comprar">
             <button class="btn boton-comprar" (click)="pagoUnaOferta(longContent)">
-                <p class="texto-boton-comprar">Comprar</p>
+                <p class="texto-boton-comprar">{{Comprar}}</p>
             </button>
             <button class="btn boton-comprar" (click)="pagoDosOferta(longContent)">
-                <p class="texto-boton-comprar">Comprar</p>
+                <p class="texto-boton-comprar">{{Comprar}}</p>
             </button>
             <button class="btn boton-comprar" (click)="pagoTresOferta(longContent)">
-                <p class="texto-boton-comprar">Comprar</p>
+                <p class="texto-boton-comprar">{{Comprar}}</p>
             </button>
             <button class="btn boton-comprar" (click)="pagoFlexi(longContent)">
-                <p class="texto-boton-comprar">Comprar</p>
+                <p class="texto-boton-comprar">{{Comprar}}</p>
             </button>
         </div>
         <div class="div-infos">
             <div class="div-bronce">
                 <div class="logo-bronce"></div>
-                <p class="titulo">Bronce</p>
+                <p class="titulo">{{BronceTitulo}}</p>
                 <div class="info info-border">
-                    <p class="texto-info">Permite la publicación
-                        de 18 ofertas con
-                        visualización de
-                        todos sus aplicantes</p>
+                    <p class="texto-info">{{BronceDescrip1}}</p>
                     <fa-icon icon="suitcase" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <div class="info">
-                    <p class="texto-info">50 descargas de hojas de vida</p>
+                    <p class="texto-info">{{BronceDescrip2}}</p>
                     <fa-icon [icon]="faAddressBook" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <div class="info">
-                    <p class="texto-info">Membresía para club empresas</p>
+                    <p class="texto-info">{{BronceDescrip3}}</p>
                     <fa-icon [icon]="faAddressCard" class="icon" transform="grow-14"></fa-icon>
                 </div>
+                <div class="info info-border">
+                    <p class="texto-info">{{BronceDescrip4}}</p>
+                    <fa-icon [icon]="faServer" class="icon" transform="grow-14"></fa-icon>
+                </div>
+                <div class="info info-border">
+                    <p class="texto-info">{{BronceDescrip5}}
+                    </p>
+                    <fa-icon [icon]="faShareAlt" class="icon" transform="grow-14"></fa-icon>
+                </div>
+                <div class="info">
+                    <p class="texto-info">{{BronceDescrip6}}
+                    </p>
+                    <fa-icon [icon]="faBook" class="icon" transform="grow-14"></fa-icon>
+                </div>
                 <button class="btn boton-ver-mas" (click)="pagoBronce(longContent)">
-                    Valor anual $ 880.000 COP
+                    {{BronceValorLabel}} $ 880.000 COP
                 </button>
             </div>
             <div class="div-bronce">
                 <div class="logo-plata"></div>
-                <p class="titulo">Plata</p>
+                <p class="titulo">{{PlataTitulo}}</p>
                 <div class="info info-border">
-                    <p class="texto-info">Permite la publicación de 25
-                        ofertas laborales con
-                        visualización de todos sus
-                        aplicantes                        
+                    <p class="texto-info">{{PlataDescrip1}}                        
                     </p>
                     <fa-icon icon="suitcase" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <div class="info info-border">
-                    <p class="texto-info">120 descargas de hojas de
-                        vida
+                    <p class="texto-info">{{PlataDescrip2}}
                     </p>
                     <fa-icon [icon]="faAddressBook" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <div class="info info-border">
-                    <p class="texto-info">Membresía para club
-                        empresas
+                    <p class="texto-info">{{PlataDescrip3}}
                     </p>
                     <fa-icon [icon]="faAddressCard" class="icon" transform="grow-14"></fa-icon>
                 </div>
+                <div class="info info-border">
+                    <p class="texto-info">{{PlataDescrip4}}</p>
+                    <fa-icon [icon]="faServer" class="icon" transform="grow-14"></fa-icon>
+                </div>
                 <div class="info">
-                    <p class="texto-info">Replica de 2 ofertas en
-                        nuestras redes sociales
+                    <p class="texto-info">{{PlataDescrip5}}
                     </p>
                     <fa-icon [icon]="faShareAlt" class="icon" transform="grow-14"></fa-icon>
                 </div>
+                <div class="info">
+                    <p class="texto-info">{{PlataDescrip6}}
+                    </p>
+                    <fa-icon [icon]="faBook" class="icon" transform="grow-14"></fa-icon>
+                </div>
                 <button class="btn boton-ver-mas" (click)="pagoPlata(longContent)">
-                    Valor anual $ 1.600.000 COP
+                    {{PlataValorLabel}} $ 1.600.000 COP
                 </button>
             </div>
             <div class="div-bronce">
                 <div class="logo-oro"></div>
-                <p class="titulo">Oro</p>
+                <p class="titulo">{{OroTitulo}}</p>
                 <div class="info info-border">
-                    <p class="texto-info">Permite publicaciones ilimitadas
-                        de ofertas laborales
+                    <p class="texto-info">{{OroDescrip1}}
                     </p>
                     <fa-icon icon="suitcase" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <div class="info info-border">
-                    <p class="texto-info">200 descargas de hojas de vida</p>
+                    <p class="texto-info">{{OroDescrip2}}</p>
                     <fa-icon [icon]="faAddressBook" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <div class="info info-border">
-                    <p class="texto-info">Membresía club de empresas</p>
+                    <p class="texto-info">{{OroDescrip3}}</p>
                     <fa-icon [icon]="faAddressCard" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <div class="info info-border">
-                    <p class="texto-info">Base de datos</p>
+                    <p class="texto-info">{{OroDescrip4}}</p>
                     <fa-icon [icon]="faServer" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <div class="info info-border">
-                    <p class="texto-info">Replica de 4 ofertas en
-                        nuestras redes sociales
+                    <p class="texto-info">{{OroDescrip5}}
                     </p>
                     <fa-icon [icon]="faShareAlt" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <div class="info">
-                    <p class="texto-info">Asesoría jurídica en
-                        contratación
+                    <p class="texto-info">{{OroDescrip6}}
                     </p>
                     <fa-icon [icon]="faBook" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <button class="btn boton-ver-mas" (click)="pagoOro(longContent)">
-                    valor anual $ 3.300.000 COP
+                    {{OroValorLabel}} $ 3.300.000 COP
                 </button>
             </div>
             <div class="div-bronce">
                 <div class="logo-diamante"></div>
-                <p class="titulo">Diamante</p>
+                <p class="titulo">{{DiamanteTitulo}}</p>
                 <div class="info info-border">
-                    <p class="texto-info">Publicación de ofertas
-                        laborales ilimitadas
+                    <p class="texto-info">{{DiamanteDescrip1}}
                     </p>
                     <fa-icon icon="suitcase" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <div class="info info-border">
-                    <p class="texto-info">Descarga ilimitada de
-                        hojas de vida
+                    <p class="texto-info">{{DiamanteDescrip2}}</p>
+                    <fa-icon [icon]="faAddressBook" class="icon" transform="grow-14"></fa-icon>
+                </div>
+                <div class="info info-border">
+                    <p class="texto-info">{{DiamanteDescrip3}}
                     </p>
                     <fa-icon [icon]="faAddressBook" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <div class="info info-border">
-                    <p class="texto-info">Membresía club empresas</p>
+                    <p class="texto-info">{{DiamanteDescrip4}}</p>
                     <fa-icon [icon]="faAddressCard" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <div class="info info-border">
-                    <p class="texto-info">Base de datos</p>
+                    <p class="texto-info">{{DiamanteDescrip5}}</p>
                     <fa-icon [icon]="faServer" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <div class="info info-border">
-                    <p class="texto-info">Asesoría jurídica en
-                        contratación
+                    <p class="texto-info">{{DiamanteDescrip6}}
                     </p>
                     <fa-icon [icon]="faBook" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <button class="btn boton-ver-mas" (click)="pagoDiamante(longContent)">
-                    valor anual $ 7.000.000 COP
+                    {{DiamanteValorLabel}} $ 7.000.000 COP
                 </button>
             </div>
         </div>
         <button class="btn boton-volver" (click)="backClicked()">
             <fa-icon icon="chevron-left" class="border-icon" ></fa-icon>
-            <p class="titulo-boton">Volver</p>
+            <p class="titulo-boton">{{Volver}}</p>
         </button>
     </div>
 </div>
-<div class="footer">
-    <a href="https://instagram.com/clubdeltrabajo?igshid=1m37k1eb9p16a" target="_blank" style="margin-right: 1.52vw;">
-        <img class="icono" path="fill: currentColor !important;" src="../../../content/images/instagram.png"></a>
-    <a href="https://twitter.com/ClubdelTrabajo" target="_blank" style="margin-right: 1.52vw;">
-        <img class="icono" src="../../../content/images/twitter.png"></a>
-    <a href="https://www.facebook.com/Club-del-Trabajo-100955765079986/" target="_blank" style="margin-right: 1.52vw;">
-        <img class="icono" src="../../../content/images/facebook.png"></a>
+<div *ngIf="cmMembresias !== null">
+    <router-outlet name="footer"></router-outlet>
 </div>
 
 <ng-template #longContent let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" style="color: #1FB9FD;">Por favor completa los siguientes datos para aumentar tu probabilidad de pago</h4>
+      <h4 class="modal-title" style="color: #1FB9FD;">{{InfoComprador}}</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -232,32 +247,32 @@
         <div class="cuerpo">
             <div class="row">
                 <div class="form-group">
-                    <p class="estilo_label">Nombres</p>
+                    <p class="estilo_label">{{Nombres}}</p>
                     <input type="text" class="estilo_inputs" formControlName="nombre">
                     
                 </div>
             </div>
             <div class="row">
                 <div class="form-group">
-                    <p class="estilo_label">Apellidos</p>
+                    <p class="estilo_label">{{Apellidos}}</p>
                     <input type="text" class="estilo_inputs" formControlName="apellidos">
                 </div>
             </div>
             <div class="row">
                 <div class="form-group">
-                    <p class="estilo_label">Correo</p>
+                    <p class="estilo_label">{{EmailLabel}}</p>
                     <input type="text" class="estilo_inputs" formControlName="correo">
                 </div>
             </div>
             <div class="row">
                 <div class="form-group">
-                    <p class="estilo_label">Teléfono</p>
+                    <p class="estilo_label">{{Telefono}}</p>
                     <input type="text" class="estilo_inputs" formControlName="telefono">
                 </div>
             </div>
             <div class="row">
                 <div class="form-group">
-                    <p class="estilo_label">Tipo de documento</p>
+                    <p class="estilo_label">{{TipoDocumento}}</p>
                     <select class='estilo_inputs' formControlName="tipoIdentificacion">
                         <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
                         <option
@@ -271,7 +286,7 @@
             </div>
             <div class="row">
                 <div class="form-group">
-                    <p class="estilo_label">Identificación</p>
+                    <p class="estilo_label">{{Identificacion}}</p>
                     <input type="text" class="estilo_inputs" formControlName="identificacion">
                 </div>
             </div>

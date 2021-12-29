@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'app/core/auth/account.service';
 import { OfertaService } from 'app/entities/oferta/oferta.service';
@@ -16,6 +17,7 @@ import { IAplicacionOferta } from 'app/shared/model/aplicacion-oferta.model';
 import { EmpresaService } from 'app/entities/empresa/empresa.service';
 import { Empresa } from 'app/shared/model/empresa.model';
 import { FacebookService } from 'app/shared/services/facebook.service';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 declare let alertify: any;
 
@@ -25,13 +27,13 @@ declare let alertify: any;
   styleUrls: ['./controlar-ofertas.component.scss']
 })
 export class ControlarOfertasComponent implements OnInit {
+  cmControlarOfertas: any = null;
   listaOFertasCreadas: Array<IlistarOfertas> = [];
   faStar = faStar;
   faAddressCard = faAddressCard;
   faEllipsisH = faEllipsisH;
   faCommentDots = faCommentDots;
   faTimes = faTimes;
-  aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
   municipiosPersonal: Array<IOpcionVo> = [];
   geografia: Array<GeografiaVo> = [];
   listaOfertas: Array<Oferta> = [];
@@ -46,9 +48,13 @@ export class ControlarOfertasComponent implements OnInit {
   totalNinguno = 0;
   showBtnArriba = false;
 
-  Crear_oferta = commonMessages.CREAR_OFERTA;
-  Editar_perfil = commonMessages.EDITAR_PERFIL;
-  Controla_ofertas = commonMessages.CONTROLA_TUS_OFERTAS;
+  aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
+  CrearOfertaLabel = commonMessages.CREAR_OFERTA;
+  EditarPerfilLabel = commonMessages.EDITAR_PERFIL;
+  ClubEmpresasLabel = commonMessages.CLUB_DE_EMPRESAS;
+  ControlaOfertasLabel = commonMessages.CONTROLA_TUS_OFERTAS;
+  MembresiaLabel = commonMessages.MEMBRESIA;
+  AsesoriaJuridicaLabel = commonMessages.ASESORIA_JURIDICA;
   Tus_Ofertas = commonMessages.TUS_OFERTAS;
   Oferta = commonMessages.OFERTA;
   Editar = commonMessages.EDITAR;
@@ -56,6 +62,10 @@ export class ControlarOfertasComponent implements OnInit {
   D_oferta = commonMessages.DETENER_OFERTA;
   Entrar = commonMessages.ENTRAR;
   Volver_Perfil = commonMessages.VOLVER_A_PERFIL;
+  Aspirantes = commonMessages.ASPIRANTES;
+  Seleccionados = commonMessages.SELECCIONADOS;
+  PorVer = commonMessages.POR_VER;
+
   empresaUpdate!: Empresa | null;
   codigoEmpresa: any;
 
@@ -67,12 +77,30 @@ export class ControlarOfertasComponent implements OnInit {
     private profesionService: ProfesionService,
     private apiService: ApiService,
     private empresaService: EmpresaService,
-    private facebookService: FacebookService
+    private facebookService: FacebookService,
+    private commonMessagesService: CommonMessagesService
   ) {}
 
   ngOnInit(): void {
     this.cargarInformacionCuenta();
-    this.consultarInformacionGeografica();
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmControlarOfertas'
+      })
+      .subscribe(
+        res => {
+          const body: any = res.body;
+          const mensajes = JSON.parse(body[0].mensajes);
+          this.cmControlarOfertas = mensajes;
+          this.cmControlarOfertas !== null ? this.updateVariables() : null;
+          this.consultarInformacionGeografica();
+        },
+        err => {
+          console.log(err);
+          this.cmControlarOfertas = 0;
+          this.consultarInformacionGeografica();
+        }
+      );
 
     if (window.screen.width <= 900) {
       this.showBtnArriba = false;
@@ -81,6 +109,24 @@ export class ControlarOfertasComponent implements OnInit {
     if (window.screen.width >= 900) {
       this.showBtnArriba = true;
     }
+  }
+
+  updateVariables(): void {
+    const commonData: any = JSON.parse(sessionStorage.getItem('commonData')!);
+    this.aspiracionesSalariales = commonData.ARRAY_ASPIRACION_SALARIAL;
+    this.CrearOfertaLabel = this.cmControlarOfertas.CREAR_OFERTA;
+    this.EditarPerfilLabel = this.cmControlarOfertas.EDITAR_PERFIL;
+    this.ClubEmpresasLabel = this.cmControlarOfertas.CLUB_DE_EMPRESAS;
+    this.ControlaOfertasLabel = this.cmControlarOfertas.CONTROLA_TUS_OFERTAS;
+    this.MembresiaLabel = this.cmControlarOfertas.MEMBRESIA;
+    this.AsesoriaJuridicaLabel = this.cmControlarOfertas.ASESORIA_JURIDICA;
+    this.Tus_Ofertas = this.cmControlarOfertas.TUS_OFERTAS;
+    this.Oferta = this.cmControlarOfertas.OFERTA;
+    this.Editar = this.cmControlarOfertas.EDITAR;
+    this.A_oferta = this.cmControlarOfertas.ACTIVAR_OFERTA;
+    this.D_oferta = this.cmControlarOfertas.DETENER_OFERTA;
+    this.Entrar = this.cmControlarOfertas.ENTRAR;
+    this.Volver_Perfil = this.cmControlarOfertas.VOLVER_A_PERFIL;
   }
 
   signInWithFB(oferta: any): void {

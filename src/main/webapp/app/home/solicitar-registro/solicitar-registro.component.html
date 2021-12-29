@@ -1,4 +1,12 @@
-<div class="estilo_body">
+<div class="app-loading" *ngIf="cmSolicitarRegistro === null">
+    <div class="lds-css ng-scope">
+        <div class="lds-pacman">
+            <div><div></div><div></div><div></div></div>
+            <div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+</div>
+<div class="estilo_body" *ngIf="cmSolicitarRegistro !== null">
     <p class="titulo">{{Para_Ofrecer}}<br/>{{Empresa_Registrada}}</p>
     </br>
     <div>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
@@ -14,6 +15,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'app/shared/services/api.service';
 import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { IOpcionVo } from 'app/shared/vo/opcion-vo';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 declare let alertify: any;
 
@@ -25,6 +27,7 @@ declare let alertify: any;
 export class ClubEmpresasComponent implements OnInit {
   public page = 1;
 
+  cmClubEmpresas: any = null;
   mostrar = false;
 
   faStar = faStar;
@@ -34,7 +37,6 @@ export class ClubEmpresasComponent implements OnInit {
   faSearch = faSearch;
   urlImgDefault = '../../../content/images/Image 28.png';
   totalEmpresas = 0;
-  Resultados = commonMessages.RESULTADOS;
   valorBusqueda = '';
   account!: Account | any;
   empresaEnSesion!: IEmpresa | any;
@@ -45,6 +47,36 @@ export class ClubEmpresasComponent implements OnInit {
   geografia: Array<GeografiaVo> = [];
   municipiosAcademica: Array<IOpcionVo> = [];
 
+  Resultados = commonMessages.RESULTADOS;
+  CrearOfertaLabel = commonMessages.CREAR_OFERTA;
+  EditarPerfilLabel = commonMessages.EDITAR_PERFIL;
+  ClubEmpresasLabel = commonMessages.CLUB_DE_EMPRESAS;
+  ControlaOfertasLabel = commonMessages.CONTROLA_TUS_OFERTAS;
+  MembresiaLabel = commonMessages.MEMBRESIA;
+  AsesoriaJuridicaLabel = commonMessages.ASESORIA_JURIDICA;
+  ClubEmpresasTitulo = commonMessages.CLUB_EMPRESAS_TITULO;
+  AgregaTuEmpresa = commonMessages.AGREGA_TU_EMPRESA;
+  EmpresasTitulo = commonMessages.EMPRESAS_TITULO;
+  EmailLabel = commonMessages.EMAIL_LABEL;
+  PaginaWeb = commonMessages.PAGINA_WEB_LABEL;
+  Direccion = commonMessages.DIRECCION_LABEL;
+  Telefono = commonMessages.TELEFONO;
+  Descripcion = commonMessages.DESCRIPCION_LABEL;
+  PaginaServicios = commonMessages.PAGINA_SERVICIOS_LABEL;
+  AgregaEmpresaDirectorio = commonMessages.AGREGA_EMPRESA_DIRECTORIO;
+  Nombre = commonMessages.NOMBRE_LABEL;
+  Pais = commonMessages.PAIS_LABEL;
+  Ciudad = commonMessages.CIUDAD_LABEL;
+  Direccion2 = commonMessages.DIRECCION_LABEL2;
+  CodigoPostal = commonMessages.CODIGO_POSTAL_LABEL;
+  Telefono2 = commonMessages.TELEFONO2;
+  Email2 = commonMessages.EMAIL_LABEL2;
+  AgregaProductos = commonMessages.AGREGA_PRODUCTOS_LABEL;
+  EscribeLink = commonMessages.ESCRIBE_LINK_TEXTO;
+  CopiarLink = commonMessages.COPIAR_LINK;
+  Volver = commonMessages.VOLVER;
+  Finalizar = commonMessages.FINALIZAR;
+
   constructor(
     private _location: Location,
     private router: Router,
@@ -52,7 +84,8 @@ export class ClubEmpresasComponent implements OnInit {
     private archivoService: ArchivoService,
     private accountService: AccountService,
     private fb: FormBuilder,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private commonMessagesService: CommonMessagesService
   ) {
     this.agregarEmpresaForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
@@ -68,9 +101,29 @@ export class ClubEmpresasComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarCuentaUsuario();
-    this.getEmpresas();
-    this.consultarInformacionGeografica();
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmClubEmpresas'
+      })
+      .subscribe(
+        res => {
+          const body: any = res.body;
+          const mensajes = JSON.parse(body[0].mensajes);
+          this.cmClubEmpresas = mensajes;
+          this.updateVariables();
+          this.getEmpresas();
+          this.consultarInformacionGeografica();
+        },
+        err => {
+          console.log(err);
+          this.cmClubEmpresas = 0;
+          this.getEmpresas();
+          this.consultarInformacionGeografica();
+        }
+      );
   }
+
+  updateVariables(): void {}
 
   consultarInformacionGeografica(): void {
     this.apiService.getInformacionGeografica().subscribe(geografia => {

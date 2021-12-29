@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Router } from '@angular/router';
 import { commonMessages } from 'app/shared/constants/commonMessages';
 import { PasswordResetInitService } from './../../account/password-reset/init/password-reset-init.service';
 import { Component, OnInit } from '@angular/core';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 declare let alertify: any;
 
@@ -11,33 +13,69 @@ declare let alertify: any;
   styleUrls: ['./restaurar-contrasena.component.scss']
 })
 export class RestaurarContrasenaComponent implements OnInit {
+  cmRestaurarContra: any = null;
   nombre = '';
   mensajeNombre = '';
   success = false;
   validacionIncorrecta = false;
-  mensajeRecuperacionContrasena = commonMessages.RECUPERACION_PASSWORD_LABEL;
-  mensajeCorreoNoExiste = commonMessages.CORREO_NO_EXISTE_LABEL;
   respuesta: any;
 
   Recupera = commonMessages.RECUPERA_CONTRASENIA;
   Email = commonMessages.CORREO_ELECTRONICO_LABEL;
   Recuperar = commonMessages.RECUPERAR;
   Recordar = commonMessages.ME_ACORDE;
+  mensajeRecuperacionContrasena = commonMessages.RECUPERACION_PASSWORD_LABEL;
+  mensajeCorreoNoExiste = commonMessages.CORREO_NO_EXISTE_LABEL;
+  formatoEmailInvalido = commonMessages.FORMATO_EMAIL_INVALIDO;
+  campoRequerido = commonMessages.CAMPO_REQUERIDO;
 
-  constructor(private passwordResetInitService: PasswordResetInitService, private router: Router) {}
+  constructor(
+    private passwordResetInitService: PasswordResetInitService,
+    private router: Router,
+    private commonMessagesService: CommonMessagesService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmRestaurarContra'
+      })
+      .subscribe(
+        res => {
+          const body: any = res.body;
+          const mensajes = JSON.parse(body[0].mensajes);
+          this.cmRestaurarContra = mensajes;
+          this.updateVariables();
+        },
+        err => {
+          /* eslint-disable no-console */
+          console.log(err);
+          this.cmRestaurarContra = 0;
+        }
+      );
+  }
+
+  updateVariables(): void {
+    this.Recupera = this.cmRestaurarContra.RECUPERA_CONTRASENIA;
+    this.Email = this.cmRestaurarContra.CORREO_ELECTRONICO_LABEL;
+    this.Recuperar = this.cmRestaurarContra.RECUPERAR;
+    this.Recordar = this.cmRestaurarContra.ME_ACORDE;
+    this.mensajeRecuperacionContrasena = this.cmRestaurarContra.RECUPERACION_PASSWORD_LABEL;
+    this.mensajeCorreoNoExiste = this.cmRestaurarContra.CORREO_NO_EXISTE_LABEL;
+    this.formatoEmailInvalido = this.cmRestaurarContra.FORMATO_EMAIL_INVALIDO;
+    this.campoRequerido = this.cmRestaurarContra.CAMPO_REQUERIDO;
+  }
 
   resetPassword(): void {
     this.validacionIncorrecta = false;
     const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     if (!EMAIL_REGEX.test(String(this.nombre).toLowerCase())) {
-      this.mensajeNombre = commonMessages.FORMATO_EMAIL_INVALIDO;
+      this.mensajeNombre = this.formatoEmailInvalido;
       this.validacionIncorrecta = true;
     }
 
     if (!this.nombre) {
-      this.mensajeNombre = commonMessages.CAMPO_REQUERIDO;
+      this.mensajeNombre = this.campoRequerido;
       this.validacionIncorrecta = true;
     }
 

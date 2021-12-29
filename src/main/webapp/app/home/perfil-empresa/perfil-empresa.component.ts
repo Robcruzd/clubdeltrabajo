@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Component, OnInit } from '@angular/core';
 import { Archivo } from 'app/shared/model/archivo.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,6 +10,7 @@ import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 import { commonMessages } from 'app/shared/constants/commonMessages';
 import { Account } from 'app/core/user/account.model';
+import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 
 declare let alertify: any;
 
@@ -18,6 +20,7 @@ declare let alertify: any;
   styleUrls: ['./perfil-empresa.component.scss']
 })
 export class PerfilEmpresaComponent implements OnInit {
+  cmPerfilEmpresa: any = null;
   imagen!: Archivo;
   urlImgDefault = '../../../content/images/Image 28_M.png';
   faStar = faStar;
@@ -35,6 +38,9 @@ export class PerfilEmpresaComponent implements OnInit {
   Editar_Perfil = commonMessages.EDITAR_PERFIL;
   Correo_Electronico = commonMessages.CORREO_ELECTRONICO;
   Club_Empresas = commonMessages.CLUB_DE_EMPRESAS;
+  MembresiaLabel = commonMessages.MEMBRESIA;
+  AsesoriaJuridicaLabel = commonMessages.ASESORIA_JURIDICA;
+
   empresaUpdate!: Empresa | null;
 
   constructor(
@@ -42,7 +48,8 @@ export class PerfilEmpresaComponent implements OnInit {
     private empresaService: EmpresaService,
     private accountService: AccountService,
     private archivoService: ArchivoService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private commonMessagesService: CommonMessagesService
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +60,33 @@ export class PerfilEmpresaComponent implements OnInit {
     } else {
       this.cargarCuentaUsuario();
     }
+    this.commonMessagesService
+      .query({
+        'tipoMensaje.equals': 'cmPerfilEmpresa'
+      })
+      .subscribe(
+        res => {
+          const body: any = res.body;
+          const mensajes = JSON.parse(body[0].mensajes);
+          this.cmPerfilEmpresa = mensajes;
+          this.updateVariables();
+        },
+        err => {
+          /* eslint-disable no-console */
+          console.log(err);
+          this.cmPerfilEmpresa = 0;
+        }
+      );
+  }
+
+  updateVariables(): void {
+    this.Crear_Oferta = this.cmPerfilEmpresa.CREAR_OFERTA;
+    this.Requisitos_Oferta = this.cmPerfilEmpresa.DETALLES_REQUISITOS_OFERTA;
+    this.Controla_Ofertas = this.cmPerfilEmpresa.CONTROLA_TUS_OFERTAS;
+    this.Controla_Todas_Ofertas = this.cmPerfilEmpresa.CONTROLA_TODAS_OFERTAS;
+    this.Editar_Perfil = this.cmPerfilEmpresa.EDITAR_PERFIL;
+    this.Correo_Electronico = this.cmPerfilEmpresa.CORREO_ELECTRONICO;
+    this.Club_Empresas = this.cmPerfilEmpresa.CLUB_DE_EMPRESAS;
   }
 
   cargarCuentaUsuario(): void {
