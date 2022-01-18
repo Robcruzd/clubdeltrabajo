@@ -56,4 +56,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
         "group by 1 limit 300",
         nativeQuery = true)
 	List<Long> findEmailByQuery();
+
+    @Query(value = "select count(*) from jhi_user ju where usuario_id is not null",
+        nativeQuery = true)
+	Long contarPersonasByQuery();
+
+    @Query(value = "select count(*) from jhi_user ju where empresa_id is not null",
+        nativeQuery = true)
+	Long contarEmpresasByQuery();
 }

@@ -28,7 +28,7 @@ import { ITipoDocumento } from '../../shared/model/tipo-documento.model';
 import { TipoUsuario } from '../../shared/model/tipo-usuario.model';
 import { ApiService } from '../../shared/services/api.service';
 import { HojaVidaService } from '../../shared/services/hoja-vida.service';
-import { GeografiaVo } from '../../shared/vo/geografia-vo';
+import { GeografiaVo, PaisesVo } from '../../shared/vo/geografia-vo';
 import { HojaVidaVo } from '../../shared/vo/hoja-vida-vo';
 import { IOpcionVo, IOpcionVoDescripcion } from '../../shared/vo/opcion-vo';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
@@ -40,6 +40,8 @@ import { IRegiones } from 'app/shared/model/regiones.model';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { PersonaService } from 'app/entities/persona/persona.service';
 import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
+import { PaisesService } from 'app/entities/paises/paises.service';
+import { IPaises } from 'app/shared/model/paises.model';
 
 declare let alertify: any;
 
@@ -60,7 +62,7 @@ export class CrearHojaVidaComponent implements OnInit {
   trabajoActual!: FormControlName;
   step!: number;
   geografia: Array<GeografiaVo> = [];
-  paises: Array<IOpcionVo> = [];
+  paises: Array<PaisesVo> = [];
   departamentos: Array<IOpcionVo> | undefined = [];
   municipios: Array<IOpcionVo> = [];
   municipiosPersonal: Array<IOpcionVo> = [];
@@ -159,7 +161,8 @@ export class CrearHojaVidaComponent implements OnInit {
     private archivo: ArchivoService,
     private regionService: RegionesService,
     private personaService: PersonaService,
-    private commonMessagesService: CommonMessagesService
+    private commonMessagesService: CommonMessagesService,
+    private paisesService: PaisesService
   ) {}
 
   ngOnInit(): void {
@@ -972,27 +975,42 @@ export class CrearHojaVidaComponent implements OnInit {
     }
   }
 
+  // cargarPaises(): void {
+  //   this.apiService.getPaises().subscribe(response => (this.paises = response));
+  // }
+
   cargarPaises(): void {
-    this.apiService.getPaises().subscribe(response => (this.paises = response));
+    this.paisesService
+      .query({
+        page: 0,
+        size: 250
+      })
+      .subscribe((res: HttpResponse<IPaises[]>) => {
+        this.paises = res.body!.map(item => new PaisesVo(item.iso2!, item.nombre!));
+      });
   }
+  // getPaises(): Observable<IOpcionVo[]> {
+  //   return this.http.get<any[]>(URL_PAISES).pipe(
+  //     map(element =>
+  //       element
+  //         .map(item => {
+  //           return {
+  //             codigo: item.alpha2Code,
+  //             nombre: item.translations.es ? item.translations.es : item.name
+  //           };
+  //         })
+  //         .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0))
+  //     )
+  //   );
+  // }
 
   consultarInformacionGeografica(): void {
-    // this.http
-    //   .get<any[]>(URL_UBICACIONES)
-    //   .pipe(
-    //     map(element =>
-    //       element.map(
-    //         item => new GeografiaVo(item.c_digo_dane_del_departamento, item.departamento, item.c_digo_dane_del_municipio, item.municipio)
-    //       )
-    //     )
-    //   );
     this.regionService
       .query({
         page: 0,
         size: 1150
       })
       .subscribe((res: HttpResponse<IRegiones[]>) => {
-        // this.region = res.body || [];
         this.geografia = res.body!.map(
           item =>
             new GeografiaVo(
@@ -1002,19 +1020,11 @@ export class CrearHojaVidaComponent implements OnInit {
               item.municipio!
             )
         );
-
         this.cargarDepartamentos();
         this.cargarMunicipios(0);
         this.cargarMunicipiosPersonal(0);
         this.cargarMunicipiosAcademica();
       });
-    // this.apiService.getInformacionGeografica().subscribe(geografia => {
-    //   this.geografia = geografia;
-    //   this.cargarDepartamentos();
-    //   this.cargarMunicipios(0);
-    //   this.cargarMunicipiosPersonal(0);
-    //   this.cargarMunicipiosAcademica();
-    // });
   }
 
   cargarDepartamentos(): void {

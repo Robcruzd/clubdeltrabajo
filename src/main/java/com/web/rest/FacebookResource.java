@@ -1,13 +1,10 @@
 package com.web.rest;
 
-import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,10 +34,11 @@ public class FacebookResource {
 	}    
     
     @GetMapping("/facebookPost")
-    public String publicarPost(@RequestParam("codigoOferta") String codigoOferta, @RequestParam("codigoEmpresa") String codigoEmpresa) {
+    public List<String> publicarPost(@RequestParam("codigoOferta") String codigoOferta, @RequestParam("codigoEmpresa") String codigoEmpresa) {
     	Optional<Empresa> empresaData = empresaService.findOne(Long.parseLong(codigoEmpresa));
     	Optional<Oferta> ofertaData = ofertaService.findOne(Long.parseLong(codigoOferta));
     	Empresa empresaActualizar = empresaData.get();
+    	List<String> lista = new ArrayList<String>();
     	if(empresaData.get().getReplicasOferta() != 0 && empresaData.get().getReplicasOferta() != null) {
     		Long valor = empresaActualizar.getReplicasOferta() - 1;
     		FacebookClient facebookClient= new DefaultFacebookClient(this.pageAccessToken, Version.VERSION_6_0);
@@ -51,10 +49,11 @@ public class FacebookResource {
             
             empresaActualizar.setReplicasOferta(valor);
             empresaService.save(empresaActualizar);
-            
-            return "si";
+            lista.add("si");
+            return lista;
     	}
-    	return "no";
+    	lista.add("no");
+    	return lista;
     }
 
 }

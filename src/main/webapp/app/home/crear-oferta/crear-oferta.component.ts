@@ -341,6 +341,7 @@ export class CrearOfertaComponent implements OnInit {
   onSubmit(): void {
     this.oferta = new Oferta();
     this.oferta.estado = 'A';
+    this.oferta.activado = true;
     this.oferta.titulo = this.formDatosBasicos.controls['nombre'].value;
     this.oferta.descripcion = this.formDatosBasicos.controls['requisitos'].value;
     this.oferta.salario = this.formDatosBasicos.controls['rangoSalarial'].value;

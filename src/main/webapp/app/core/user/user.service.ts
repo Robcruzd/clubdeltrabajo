@@ -36,4 +36,16 @@ export class UserService {
   authorities(): Observable<string[]> {
     return this.http.get<string[]>(SERVER_API_URL + 'api/users/authorities');
   }
+
+  contarPersonas(): Observable<number> {
+    return this.http.get<number>(`${this.resourceUrl}/countPer`);
+  }
+
+  contarEmpresas(): Observable<number> {
+    return this.http.get<number>(`${this.resourceUrl}/countEmp`);
+  }
+
+  analytics(): any {
+    return this.http.get<any>(`${this.resourceUrl}/analytics`);
+  }
 }

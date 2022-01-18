@@ -217,4 +217,9 @@ public class EmpresaResource {
     public List<Empresa> getBySectorFiltro(@RequestParam("sector") String sector) {
         return empresaService.getBySectorFiltro(sector);
     }
+    
+    @GetMapping("/empresas/getByClubEmpresa")
+    public List<Empresa> getByClubEmpresa() {
+        return empresaService.getByClubEmpresa();
+    }
 }

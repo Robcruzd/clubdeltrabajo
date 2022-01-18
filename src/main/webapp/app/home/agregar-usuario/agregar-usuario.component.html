@@ -30,8 +30,15 @@
             </small>
         </div>
         <div class="inputs" *ngIf="tipoUsuario.id==2">
-            <label style="color:#202A5D;">{{Sector}}</label>
-            <input type="text" class="estilo_inputs" [(ngModel)]="empresa.sector"  (ngModelChange)="empresa.sector = $event.toUpperCase()" (blur)="deleteSpace2('sector')">
+            <select class="estilo_inputs" [(ngModel)]="sector">
+                <option [ngValue]="null" class="option_docu" disabled>{{SelectSector}}</option>
+                <option
+                    class="option_docu"
+                    [ngValue]="sector"
+                    *ngFor="let sector of sectores">
+                    {{ sector.sector }}
+                </option>
+            </select>
             <small *ngIf="mensajeSector" class="text-danger">
                 {{mensajeNombre}}
             </small>

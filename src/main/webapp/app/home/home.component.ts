@@ -23,10 +23,12 @@ import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
+import { UserService } from 'app/core/user/user.service';
 
 declare const MercadoPago: any;
 
 declare let gtag: Function;
+declare const gapi: any;
 
 @Component({
   selector: 'jhi-home',
@@ -56,6 +58,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   showButtons = null;
   checkout: any;
   preferenceId = '';
+  countPersonas = 0;
+  countEmpresas = 0;
+  analytics: any;
+  // Replace with your view ID.
+  VIEW_ID = '232161926';
 
   Haz_Parte = commonMessages.HAZ_PARTE;
   D_VIDEO = commonMessages.DANGER_VIDEO;
@@ -91,7 +98,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private dataService: DataService,
     private ofertaService: OfertaService,
     private archivoService: ArchivoService,
-    private commonMessagesService: CommonMessagesService
+    private commonMessagesService: CommonMessagesService,
+    private userService: UserService
   ) {
     // this.router.events.subscribe(event => {
     //   if (event instanceof NavigationEnd) {
@@ -157,10 +165,23 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   video(): void {
+    /* eslint-disable no-console */
+    console.log(this.account);
+    this.userService.contarEmpresas().subscribe(count => {
+      this.countEmpresas = count;
+    });
+    this.userService.analytics().subscribe((count: any) => {
+      this.analytics = count;
+    });
+    this.userService.contarPersonas().subscribe(count => {
+      this.countPersonas = count;
+    });
     const vid = document.getElementById('vid') as HTMLVideoElement;
     vid.muted = true;
     vid.loop = true;
     vid?.play();
+    this.traerProfesiones();
+    this.traerCiudad();
   }
 
   isAuthenticated(): boolean {

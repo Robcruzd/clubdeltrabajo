@@ -302,4 +302,12 @@ public class UserService {
         // Persona persona = new Persona(obj);
     	return  userRepository.findEmailByQuery();
     }
+
+    public Long contarPersonas() {
+        return userRepository.contarPersonasByQuery();
+    }
+
+    public Long contarEmpresas() {
+        return userRepository.contarEmpresasByQuery();
+    }
 }

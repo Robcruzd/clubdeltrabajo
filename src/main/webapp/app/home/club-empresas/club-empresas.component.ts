@@ -165,6 +165,7 @@ export class ClubEmpresasComponent implements OnInit {
       ?.setValue(this.municipiosAcademica.find(ciudad => ciudad.codigo === this.empresaEnSesion.ciudad.toString())?.nombre);
     this.agregarEmpresaForm.get('pais')?.setValue(this.empresaEnSesion.pais);
     this.agregarEmpresaForm.get('codigoPostal')?.setValue(this.empresaEnSesion.codigoPostal);
+    this.agregarEmpresaForm.get('urlProducto')?.setValue(this.empresaEnSesion.link);
   }
 
   volver(): void {
@@ -175,6 +176,7 @@ export class ClubEmpresasComponent implements OnInit {
     this.empresaEnSesion.pais = this.agregarEmpresaForm.get(['pais'])!.value;
     this.empresaEnSesion.codigoPostal = this.agregarEmpresaForm.get(['codigoPostal'])!.value;
     this.empresaEnSesion.link = this.agregarEmpresaForm.get(['urlProducto'])!.value;
+    this.empresaEnSesion.clubEmpresa = true;
     this.empresaService.update(this.empresaEnSesion).subscribe(() => {});
     this.mostrar = false;
   }
@@ -225,8 +227,8 @@ export class ClubEmpresasComponent implements OnInit {
   }
 
   getEmpresas(): void {
-    this.empresaService.query().subscribe(listEmpresa => {
-      this.ListaEmpresas = listEmpresa.body;
+    this.empresaService.getByClubEmpresa().subscribe(listEmpresa => {
+      this.ListaEmpresas = listEmpresa;
       this.totalEmpresas = this.ListaEmpresas.length;
       this.ListaEmpresas.forEach((element: any) => {
         this.obtenerImagen(element);

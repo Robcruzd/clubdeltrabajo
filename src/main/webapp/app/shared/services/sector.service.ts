@@ -23,14 +23,21 @@ export class PathUtil {
 @Injectable({
   providedIn: 'root'
 })
-export class FacebookService {
-  public resourceUrl = SERVER_API_URL + 'api/facebookPost';
+export class SectorService {
+  public resourceUrl = SERVER_API_URL + 'api/sector';
+  public resourceUrlById = SERVER_API_URL + 'api/sector/id';
 
   constructor(protected http: HttpClient) {}
 
-  publicarPost(oferta: String, empresa: String): Observable<string> {
-    const params = PathUtil.getPathParams({ codigoOferta: oferta, codigoEmpresa: empresa });
+  getSector(): Observable<any> {
+    const params = PathUtil.getPathParams({});
     const url = this.resourceUrl + params;
-    return this.http.get<string>(url);
+    return this.http.get<any>(url);
+  }
+
+  getSectorById(ide: string): Observable<any> {
+    const params = PathUtil.getPathParams({ id: ide });
+    const url = this.resourceUrlById + params;
+    return this.http.get<any>(url);
   }
 }
