@@ -64,7 +64,7 @@ export class NavbarCtComponent implements OnInit {
         this.cd.detectChanges();
       }
     });
-    // this.subscribeToEvents();
+    this.subscribeToEvents();
   }
 
   ngOnInit(): void {

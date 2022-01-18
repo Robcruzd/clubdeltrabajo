@@ -96,6 +96,7 @@ export class ControlarOfertasComponent implements OnInit {
           this.consultarInformacionGeografica();
         },
         err => {
+          // eslint-disable-next-line no-console
           console.log(err);
           this.cmControlarOfertas = 0;
           this.consultarInformacionGeografica();

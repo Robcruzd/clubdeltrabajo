@@ -37,6 +37,7 @@ export class PrimerOfertaComponent implements OnInit {
           this.updateVariables();
         },
         err => {
+          // eslint-disable-next-line no-console
           console.log(err);
           this.cmPrimerOferta = 0;
         }

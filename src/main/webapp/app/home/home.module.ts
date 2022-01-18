@@ -42,6 +42,7 @@ import { CandidatosSeleccionadosComponent } from './candidatos-seleccionados/can
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { NosotrosComponent } from './nosotros/nosotros.component';
 import { AsesoriaJuridicaComponent } from './asesoria-juridica/asesoria-juridica.component';
+import { GestionInfoClubComponent } from './gestion-info-club/gestion-info-club.component';
 
 // import { BusquedaCandidatosComponent } from './busqueda-candidatos/busqueda-candidatos.component';
 
@@ -92,7 +93,8 @@ import { AsesoriaJuridicaComponent } from './asesoria-juridica/asesoria-juridica
     ControlarOfertasComponent,
     OfertaPublicaComponent,
     NosotrosComponent,
-    AsesoriaJuridicaComponent
+    AsesoriaJuridicaComponent,
+    GestionInfoClubComponent
     // BusquedaCandidatosComponent
   ]
 })

@@ -115,6 +115,7 @@ export class ClubEmpresasComponent implements OnInit {
           this.consultarInformacionGeografica();
         },
         err => {
+          // eslint-disable-next-line no-console
           console.log(err);
           this.cmClubEmpresas = 0;
           this.getEmpresas();

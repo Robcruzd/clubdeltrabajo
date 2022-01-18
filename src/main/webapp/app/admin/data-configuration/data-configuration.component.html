@@ -1,0 +1,67 @@
+<div *ngIf="allBeans">
+    <h2 id="configuration-page-heading" jhiTranslate="configuration.title">Configuration</h2>
+    <button (click)="save()" class="btn btn-primary">
+        <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+    </button>
+    <!-- <span jhiTranslate="configuration.filter">Filter (by prefix)</span> <input type="text" [(ngModel)]="beansFilter" (ngModelChange)="filterAndSortBeans()" class="form-control"> -->
+
+    <table class="table table-striped table-bordered table-responsive d-table" aria-describedby="spring-configuration">
+        <thead>
+            <tr jhiSort predicate="prefix" [(ascending)]="beansAscending" [callback]="filterAndSortBeans.bind(this)">
+                <th jhiSortBy="prefix" scope="col" class="w-40"><span jhiTranslate="configuration.table.prefix">Prefix</span> <fa-icon icon="sort"></fa-icon></th>
+                <th scope="col" class="w-60"><span jhiTranslate="configuration.table.properties">Properties</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let bean of beans">
+                <td><span>{{ bean.tipoMensaje }}</span></td>
+                <td>
+                    <tbody>
+                        <tr class="row" *ngFor="let mensaje of bean.mensajes | keys">
+                            <div class="col-md-4">{{ mensaje.key }}</div>
+                            <div class="col-md-8">
+                                <span 
+                                    *ngIf="bean.tipoMensaje !== 'commonData'" 
+                                    contenteditable="true" 
+                                    class="float-right badge-secondary break"
+                                    (input)="onNameChange(bean, mensaje.key, $event.target.innerHTML)">{{ mensaje.value | json }}
+                                </span>
+                                <div *ngIf="bean.tipoMensaje === 'commonData'">
+                                    <div class="row" *ngFor="let arreglo of mensaje.value | keys">
+                                        <!-- <div class="col-md-4">{{ arreglo.value.key }}</div> -->
+                                        <div class="col-md-8">
+                                            <span contenteditable="true" class="float-right badge-secondary break">{{ arreglo.value | json }}</span>
+                                            <!-- <input type="text" class="estilo_inputs" [(ngModel)]="mensaje.value"> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <input type="text" class="estilo_inputs" [(ngModel)]="mensaje.value"> -->
+                            </div>
+                        </tr>
+                    </tbody>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- <div *ngFor="let propertySource of propertySources; let i = index">
+        <h4 [id]="'property-source-' + i"><span>{{ propertySource.name }}</span></h4>
+
+        <table class="table table-sm table-striped table-bordered table-responsive d-table" [attr.aria-describedby]="'property-source-' + i">
+            <thead>
+                <tr>
+                    <th scope="col" class="w-40">Property</th>
+                    <th scope="col" class="w-60">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let property of propertySource.properties | keys">
+                    <td class="break">{{ property.key }}</td>
+                    <td class="break">
+                        <span class="float-right badge-secondary break">{{ property.value.value }}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div> -->
+</div>
