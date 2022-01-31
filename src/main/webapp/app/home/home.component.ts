@@ -180,8 +180,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     vid.muted = true;
     vid.loop = true;
     vid?.play();
-    this.traerProfesiones();
-    this.traerCiudad();
+    // this.traerProfesiones();
+    // this.traerCiudad();
   }
 
   isAuthenticated(): boolean {
