@@ -48,9 +48,9 @@ export interface IResultadoBusquedaAspirantes {
   profesion: string | undefined | null;
   edad: number | undefined | null;
   ciudad: string | undefined | null;
-  experiencia: string | undefined | null;
-  titulo: string | undefined | null;
-  fechaPostulacion: string | undefined | null;
+  experiencia?: string | undefined | null;
+  titulo?: string | undefined | null;
+  fechaPostulacion?: string | undefined | null;
   idPersona?: number | undefined | null;
   idOferta?: number | undefined | null;
   color?: string | undefined | null;

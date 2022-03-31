@@ -119,6 +119,19 @@ public class Empresa implements Serializable {
      
     @Column(name = "club_empresa", nullable = true)
     private Boolean clubEmpresa;
+    
+    @Column(name = "url_facebook", nullable = true)
+    private String urlFacebook;
+    
+    @Column(name = "url_instagram", nullable = true)
+    private String urlInstagram;
+    
+    @Column(name = "url_linkedin", nullable = true)
+    private String urlLinkedIn;
+    
+    @Column(name = "bd_empresa", nullable = true)
+    private Boolean bdEmpresa;
+    
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -383,6 +396,38 @@ public class Empresa implements Serializable {
 
 	public void setClubEmpresa(Boolean clubEmpresa) {
 		this.clubEmpresa = clubEmpresa;
+	}
+
+	public String getUrlFacebook() {
+		return urlFacebook;
+	}
+
+	public void setUrlFacebook(String urlFacebook) {
+		this.urlFacebook = urlFacebook;
+	}
+
+	public String getUrlInstagram() {
+		return urlInstagram;
+	}
+
+	public void setUrlInstagram(String urlInstagram) {
+		this.urlInstagram = urlInstagram;
+	}
+
+	public String getUrlLinkedIn() {
+		return urlLinkedIn;
+	}
+
+	public void setUrlLinkedIn(String urlLinkedIn) {
+		this.urlLinkedIn = urlLinkedIn;
+	}
+
+	public Boolean getBdEmpresa() {
+		return bdEmpresa;
+	}
+
+	public void setBdEmpresa(Boolean bdEmpresa) {
+		this.bdEmpresa = bdEmpresa;
 	}
 
 	@Override

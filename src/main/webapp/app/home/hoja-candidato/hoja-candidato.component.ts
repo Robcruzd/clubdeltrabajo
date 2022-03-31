@@ -24,6 +24,14 @@ import { HttpResponse } from '@angular/common/http';
 import { IRegiones } from 'app/shared/model/regiones.model';
 import { commonMessages } from 'app/shared/constants/commonMessages';
 import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
+import { BdEmpresaService } from 'app/shared/services/bd-empresa.service';
+import { BdEmpresa } from 'app/shared/model/bd-empresa.model';
+import { AccountService } from 'app/core/auth/account.service';
+import { User } from 'app/core/user/user.model';
+import { EmpresaService } from 'app/entities/empresa/empresa.service';
+import { IEmpresa } from 'app/shared/model/empresa.model';
+
+declare let alertify: any;
 
 @Component({
   selector: 'jhi-hoja-candidato',
@@ -35,13 +43,13 @@ export class HojaCandidatoComponent implements OnInit {
   myValue1 = false;
   persona: any;
 
-  model = 'Ninguno';
+  model = 'Archivar';
   modelBandera = '';
   idUsuario = 0;
   idOFerta = 0;
   informacionPersonal = new InformacionPersonal();
   informacionAcademica = new InformacionAcademica();
-  personaInfo!: IPersona | null;
+  personaInfo!: IPersona | null | undefined;
   listaResultadoHojaCandidato: Array<IResultadoHojaCandidato> = [];
   listaInformacionAcademica: Array<IInformacionAcademica> = [];
   listaIdiomas: Array<any> = [];
@@ -60,6 +68,9 @@ export class HojaCandidatoComponent implements OnInit {
   tipoArchivo = TipoArchivo;
   geografia: Array<GeografiaVo> = [];
   municipios: Array<IOpcionVo> = [];
+  bdEmpresa = new BdEmpresa();
+  usuario!: User | null;
+  empresaInfo!: IEmpresa | null | undefined;
 
   Titulo = commonMessages.TITULO_LABEL;
   Estudios = commonMessages.ESTUDIOS;
@@ -83,7 +94,10 @@ export class HojaCandidatoComponent implements OnInit {
     private router: Router,
     private archivoService: ArchivoService,
     private regionService: RegionesService,
-    private commonMessagesService: CommonMessagesService
+    private commonMessagesService: CommonMessagesService,
+    private bdEmpresaService: BdEmpresaService,
+    private accountService: AccountService,
+    private empresaService: EmpresaService
   ) {}
 
   ngOnInit(): void {
@@ -91,6 +105,10 @@ export class HojaCandidatoComponent implements OnInit {
     this.idUsuario = parseInt(param, 10);
     const param2 = this.route.snapshot.queryParamMap.get('oferta')!;
     this.idOFerta = parseInt(param2, 10);
+    this.accountService.getAuthenticationState().subscribe(account => {
+      this.usuario = account;
+    });
+
     this.commonMessagesService
       .query({
         'tipoMensaje.equals': 'cmHojaCandidata'
@@ -137,6 +155,9 @@ export class HojaCandidatoComponent implements OnInit {
     this.ofertaService.find(this.idOFerta).subscribe(oferta => {
       this.ofertaInfo = oferta.body;
     });
+    this.empresaService.find(this.usuario?.userEmpresa).subscribe(empresa => {
+      this.empresaInfo = empresa.body;
+    });
     this.personaService.find(this.idUsuario).subscribe(persona => {
       this.personaInfo = persona.body;
       if (this.personaInfo) {
@@ -156,7 +177,11 @@ export class HojaCandidatoComponent implements OnInit {
               .getByOfertaAndPersonaFiltro(this.ofertaInfo, this.informacionPersonal.usuario)
               .subscribe(aplicacionOferta => {
                 this.idAplicacionOferta = aplicacionOferta[0].id;
-                this.model = aplicacionOferta[0].estado;
+                if (!aplicacionOferta[0].estado || aplicacionOferta[0].estado === 'Ninguno') {
+                  this.model = 'Archivar';
+                } else {
+                  this.model = aplicacionOferta[0].estado;
+                }
                 this.modelBandera = aplicacionOferta[0].estado;
                 this.idUsuarioAplicacionOferta = aplicacionOferta[0].usuario;
                 this.idOfertaAplicacionOferta = aplicacionOferta[0].oferta;
@@ -198,9 +223,39 @@ export class HojaCandidatoComponent implements OnInit {
     }
     if (this.modelBandera !== this.model) {
       if (this.model === 'Seleccionado') {
+        const mensaje =
+          'club del trabajo le informa que ha Sido seleccionado y está en verificacion del cargo al cual aplicaste o eres apto';
         this.aplicacionOfertaService
           .getByOfertaAndPersonaFiltro(this.idOfertaAplicacionOferta, this.idUsuarioAplicacionOferta)
           .subscribe(apliOferResponse => {
+            if (this.usuario?.userEmpresa)
+              // this.bdEmpresaService.getBdEmpresaByIdUsuarioAndEmpresa(this.idUsuario,this.usuario?.userEmpresa).subscribe(aspirante => {
+              //   /* eslint-disable no-console */
+              //   console.log('aspirante:', aspirante);
+              //   if(aspirante.size === 1){
+              //     /* eslint-disable no-console */
+              //     console.log('entroooo');
+              //   }
+              // });
+              this.personaService.enviarEmailAspirante(this.idUsuario, mensaje).subscribe(() => {
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.success('Email enviado correctamente!');
+              });
+            if (this.idAplicacionOferta) {
+              this.aplicacionOFertaActualizar.estado = this.model;
+              this.aplicacionOFertaActualizar.id = this.idAplicacionOferta;
+              this.aplicacionOFertaActualizar.usuario = this.idUsuarioAplicacionOferta;
+              this.aplicacionOFertaActualizar.oferta = this.idOfertaAplicacionOferta;
+              this.aplicacionOFertaActualizar.fechaPostulacion = this.fechaPostulacionAplicacionOferta;
+              this.actualizarAplicacionOferta(this.aplicacionOFertaActualizar);
+            } else {
+              this.aplicacionOFertaActualizar.estado = this.model;
+              this.aplicacionOFertaActualizar.id = this.idAplicacionOferta;
+              this.aplicacionOFertaActualizar.usuario = this.personaInfo!;
+              this.aplicacionOFertaActualizar.oferta = this.ofertaInfo!;
+              this.aplicacionOFertaActualizar.fechaPostulacion = moment(new Date(), 'YYYY-MMM-DD').subtract(5, 'hours');
+              this.guardarAplicacionOferta(this.aplicacionOFertaActualizar);
+            }
             this.apliOferResponseFiltro = apliOferResponse;
             if (this.apliOferResponseFiltro.length === 0) {
               this.aplicacionOferta.estado = this.model;
@@ -211,6 +266,20 @@ export class HojaCandidatoComponent implements OnInit {
             this.aspiranteSeleccionado.id = this.idUsuarioAplicacionOferta.id;
             this.personaService.seleccionadoAspirante(this.aspiranteSeleccionado).subscribe(() => {});
           });
+      } else if (this.model === 'Archivar') {
+        if (this.empresaInfo?.bdEmpresa === true) {
+          if (this.personaInfo) this.bdEmpresa.usuario = this.personaInfo;
+          if (this.empresaInfo) this.bdEmpresa.empresa = this.empresaInfo;
+          this.bdEmpresaService.create(this.bdEmpresa).subscribe(() => {
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.success('Aspirante archivado correctamente!');
+          });
+        } else {
+          this.cargando = false;
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.error('No cuenta con la membresia para tener su base de datos!. Debe contratar un plan!');
+          return;
+        }
       }
     }
     setTimeout(() => {

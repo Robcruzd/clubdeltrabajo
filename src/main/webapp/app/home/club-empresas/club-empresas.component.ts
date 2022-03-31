@@ -76,6 +76,9 @@ export class ClubEmpresasComponent implements OnInit {
   CopiarLink = commonMessages.COPIAR_LINK;
   Volver = commonMessages.VOLVER;
   Finalizar = commonMessages.FINALIZAR;
+  Facebook = commonMessages.FACEBOOK;
+  Instagram = commonMessages.INSTAGRAM;
+  LinkedIn = commonMessages.LINKEDIN;
 
   constructor(
     private _location: Location,
@@ -95,12 +98,16 @@ export class ClubEmpresasComponent implements OnInit {
       pais: [''],
       ciudad: [''],
       codigoPostal: [''],
-      urlProducto: ['']
+      urlProducto: [''],
+      urlFacebook: [''],
+      urlInstagram: [''],
+      urlLinkedIn: ['']
     });
   }
 
   ngOnInit(): void {
     this.cargarCuentaUsuario();
+    this.getEmpresas();
     this.commonMessagesService
       .query({
         'tipoMensaje.equals': 'cmClubEmpresas'
@@ -166,6 +173,9 @@ export class ClubEmpresasComponent implements OnInit {
     this.agregarEmpresaForm.get('pais')?.setValue(this.empresaEnSesion.pais);
     this.agregarEmpresaForm.get('codigoPostal')?.setValue(this.empresaEnSesion.codigoPostal);
     this.agregarEmpresaForm.get('urlProducto')?.setValue(this.empresaEnSesion.link);
+    this.agregarEmpresaForm.get('urlFacebook')?.setValue(this.empresaEnSesion.urlFacebook);
+    this.agregarEmpresaForm.get('urlInstagram')?.setValue(this.empresaEnSesion.urlInstagram);
+    this.agregarEmpresaForm.get('urlLinkedIn')?.setValue(this.empresaEnSesion.urlLinkedIn);
   }
 
   volver(): void {
@@ -176,6 +186,9 @@ export class ClubEmpresasComponent implements OnInit {
     this.empresaEnSesion.pais = this.agregarEmpresaForm.get(['pais'])!.value;
     this.empresaEnSesion.codigoPostal = this.agregarEmpresaForm.get(['codigoPostal'])!.value;
     this.empresaEnSesion.link = this.agregarEmpresaForm.get(['urlProducto'])!.value;
+    this.empresaEnSesion.urlFacebook = this.agregarEmpresaForm.get(['urlFacebook'])!.value;
+    this.empresaEnSesion.urlInstagram = this.agregarEmpresaForm.get(['urlInstagram'])!.value;
+    this.empresaEnSesion.urlLinkedIn = this.agregarEmpresaForm.get(['urlLinkedIn'])!.value;
     this.empresaEnSesion.clubEmpresa = true;
     this.empresaService.update(this.empresaEnSesion).subscribe(() => {});
     this.mostrar = false;
@@ -278,25 +291,5 @@ export class ClubEmpresasComponent implements OnInit {
         this.obtenerImagen(element);
       });
     }
-  }
-
-  copiarLink(): void {
-    // Crea un campo de texto "oculto"
-    const aux = document.createElement('input');
-
-    // Asigna el contenido del elemento especificado al valor del campo
-    aux.setAttribute('value', this.agregarEmpresaForm.get(['urlProducto'])!.value);
-
-    // Añade el campo a la página
-    document.body.appendChild(aux);
-
-    // Selecciona el contenido del campo
-    aux.select();
-
-    // Copia el texto seleccionado
-    document.execCommand('copy');
-
-    // Elimina el campo de la página
-    document.body.removeChild(aux);
   }
 }

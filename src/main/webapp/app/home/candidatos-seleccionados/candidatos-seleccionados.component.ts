@@ -12,7 +12,8 @@ import {
   faTimes,
   faPaperPlane,
   faArrowDown,
-  faSearch
+  faSearch,
+  faFileArchive
 } from '@fortawesome/free-solid-svg-icons';
 import { Group, pdf } from '@progress/kendo-drawing';
 import { AplicacionOfertaService } from 'app/entities/aplicacion-oferta/aplicacion-oferta.service';
@@ -41,6 +42,9 @@ import { EmpresaService } from '../../entities/empresa/empresa.service';
 import Swal from 'sweetalert2';
 import { Empresa } from 'app/shared/model/empresa.model';
 import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { BdEmpresaService } from 'app/shared/services/bd-empresa.service';
+import { BdEmpresa } from 'app/shared/model/bd-empresa.model';
 // import { CONNREFUSED } from 'dns';
 
 const { exportPDF } = pdf;
@@ -65,6 +69,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   faTimes = faTimes;
   faPaperPlane = faPaperPlane;
   faArrowDown = faArrowDown;
+  faFileArchive = faFileArchive;
   faSearch = faSearch;
   imagen!: Archivo;
   urlImgDefault = '';
@@ -83,8 +88,14 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   experienciaValue: any = null;
   municipioValue: any = null;
   edadValue: any = null;
+  labels = commonMessages;
   listaResultadoBusquedaAspirantes: Array<IResultadoBusquedaAspirantes> = [];
+  listaResultadoArchivado: Array<IResultadoBusquedaAspirantes> = [];
   listaResultadoOfertas: Array<IResultadoOfertas> = [];
+  aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
+  experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
+  tiposContrato: IOpcionVo[] = commonMessages.ARRAY_TIPO_CONTRATO;
+  edades: IOpcionVo[] = commonMessages.ARRAY_EDAD;
   municipiosPersonal: Array<IOpcionVo> = [];
   geografia: Array<GeografiaVo> = [];
   resultadoBusqueda: Array<IInformacionPersonal> = [];
@@ -99,6 +110,8 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   showElement = false;
   urlImageDefault = '../../../content/images/Image 28_M.png';
   archivos!: Array<Archivo> | undefined;
+  nivelIdioma: Array<IOpcionVo> = commonMessages.ARRAY_NIVEL_IDIOMA;
+  estadoNivelEstudio: IOpcionVo[] = commonMessages.ARRAY_ESTADO_NIVEL_ESTUDIO;
   listaAplicacionOferta: Array<IAplicacionOferta> | null = [];
   aspiranteSeleccionado = new Persona();
   valorBusqueda = '';
@@ -108,14 +121,6 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   usuario!: User | null;
   filtrosOn = false;
   showBtnArriba = false;
-
-  labels = commonMessages;
-  nivelIdioma: Array<IOpcionVo> = commonMessages.ARRAY_NIVEL_IDIOMA;
-  estadoNivelEstudio: IOpcionVo[] = commonMessages.ARRAY_ESTADO_NIVEL_ESTUDIO;
-  aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
-  experienciasLaborales: IOpcionVo[] = commonMessages.ARRAY_EXPERIENCIA_LABORAL;
-  tiposContrato: IOpcionVo[] = commonMessages.ARRAY_TIPO_CONTRATO;
-  edades: IOpcionVo[] = commonMessages.ARRAY_EDAD;
   Crear_Oferta = commonMessages.CREAR_OFERTA;
   Editar_perfil = commonMessages.EDITAR_PERFIL;
   Club_empresas = commonMessages.CLUB_DE_EMPRESAS;
@@ -143,17 +148,20 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   Descartado = commonMessages.DESCARTADO;
   Descargar_HV = commonMessages.DESCARGAR_HV;
   Enviar_Mail = commonMessages.ENVIAR_MAIL;
+  Archivado = commonMessages.ARCHIVADO;
   SOBRE_MI = commonMessages.SOBRE_MI;
   CONTACTO = commonMessages.CONTACTO;
   EXPERIENCIA_PROFESIONAL = commonMessages.EXPERIENCIA_PROFESIONAL;
   Actualidad = commonMessages.ACTUALIDAD;
   Formacion = commonMessages.FORMACION;
-
+  Listado_Apirantes_Archivados = commonMessages.LISTADO_ASPIRANTES_ARCHIVADOS;
   archivoBase64: any;
   persona!: number;
   personaDatos!: Persona | null;
   archivoHv!: Archivo;
   empresaUpdate!: Empresa | null;
+  isOpen = false;
+  listadoAspirantesArchivados!: Array<BdEmpresa>;
 
   constructor(
     private router: Router,
@@ -168,7 +176,9 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     private archivoService: ArchivoService,
     private accountService: AccountService,
     private empresaService: EmpresaService,
-    private commonMessagesService: CommonMessagesService
+    private commonMessagesService: CommonMessagesService,
+    private modalService: NgbModal,
+    private bdEmpresaService: BdEmpresaService
   ) {
     this.traerCiudad();
   }
@@ -177,6 +187,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     this.backColor();
     const param = this.route.snapshot.queryParamMap.get('oferta')!;
     this.idOferta = parseInt(param, 10);
+    this.getOFerta(this.idOferta);
     this.commonMessagesService
       .query({
         'tipoMensaje.equals': 'cmCandidatosSeleccionados'
@@ -919,5 +930,45 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   public getCiudad(codigo: string): string {
     const ciudad = this.municipiosPersonal.find(item => item.codigo === codigo);
     return ciudad?.nombre || '';
+  }
+
+  openScrollableContent(longContent: any): void {
+    this.empresaService.find(this.usuario?.userEmpresa).subscribe(empresa => {
+      /* eslint-disable no-console */
+      console.log('empresaaaaaaaaaaaaaaaaa', empresa);
+      if (empresa.body?.bdEmpresa === true) {
+        const idEmpresa = this.usuario?.userEmpresa;
+        if (idEmpresa)
+          this.bdEmpresaService.getBdEmpresaByIdEmpresa(idEmpresa).subscribe(listado => {
+            /* eslint-disable no-console */
+            console.log('listadooooooooo', listado);
+            this.listadoAspirantesArchivados = listado;
+            for (const aspirante of this.listadoAspirantesArchivados) {
+              this.informacionPersonalService.getPersonaFiltro(aspirante.usuario?.id).subscribe(info => {
+                const edadBD = this.obtenerEdad(info);
+                const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === info.ciudad?.toString());
+                this.listaResultadoArchivado.push({
+                  nombre: aspirante.usuario?.nombre,
+                  apellido: aspirante.usuario?.apellido,
+                  profesion: info.profesion?.profesion,
+                  edad: edadBD,
+                  ciudad: ciudadBD?.nombre,
+                  idPersona: aspirante.usuario?.id
+                });
+              });
+            }
+          });
+        const modalRef: NgbModalRef = this.modalService.open(longContent, { scrollable: true });
+        modalRef.result.finally(() => (this.isOpen = false));
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error('No cuenta con la membresia para tener su base de datos!. Debe contratar un plan!');
+      }
+    });
+  }
+
+  verHojaVidaArchivado(item: any): any {
+    this.modalService.dismissAll();
+    this.router.navigate(['hoja-candidato'], { queryParams: { usuario: item.idPersona, oferta: this.idOferta } });
   }
 }

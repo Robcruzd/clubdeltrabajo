@@ -16,6 +16,8 @@ import { Archivo } from 'app/shared/model/archivo.model';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
 import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
+import { ISector } from 'app/shared/model/sector.model';
+import { SectorService } from 'app/shared/services/sector.service';
 
 declare let alertify: any;
 
@@ -35,6 +37,7 @@ export class EditarEmpresaComponent implements OnInit {
   datosEmpresa!: Empresa | null;
   municipiosAcademica: Array<IOpcionVo> = [];
   geografia: Array<GeografiaVo> = [];
+  sectores: Array<ISector> = [];
   empresa: any;
   imagen!: Archivo;
   persona: any;
@@ -81,11 +84,13 @@ export class EditarEmpresaComponent implements OnInit {
     private apiService: ApiService,
     private router: Router,
     private archivoService: ArchivoService,
-    private commonMessagesService: CommonMessagesService
+    private commonMessagesService: CommonMessagesService,
+    private sectorService: SectorService
   ) {}
 
   ngOnInit(): void {
     this.cargarInformacionCuenta();
+    this.cargarSector();
     this.commonMessagesService
       .query({
         'tipoMensaje.equals': 'cmEditarEmpresa'
@@ -189,7 +194,7 @@ export class EditarEmpresaComponent implements OnInit {
       telefono: ['', [Validators.required, Validators.pattern('^[0-9]{7,10}$')]],
       ciudad: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      sector: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú ]{1,}$')]],
+      sector: ['', [Validators.required]],
       subsector: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú ]{1,}$')]],
       webPage: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú.:/ ]{1,}$')]],
       cantidadEmpleados: ['', [Validators.required, Validators.pattern('^[0-9]{0,}$')]],
@@ -473,6 +478,14 @@ export class EditarEmpresaComponent implements OnInit {
           this.archivoNit = response[0];
           this.cargadoNit = true;
         }
+      }
+    });
+  }
+
+  cargarSector(): void {
+    this.sectorService.getSector().subscribe(res => {
+      if (res !== null) {
+        this.sectores = res;
       }
     });
   }

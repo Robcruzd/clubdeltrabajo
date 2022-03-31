@@ -590,6 +590,7 @@ export const commonMessages = {
   SELECCIONADO: 'Seleccionado',
   DESCARTADO: 'Descartado',
   ENVIAR_MAIL: 'Enviar Mail',
+  ARCHIVADO: 'Archivado',
   SOBRE_MI: 'SOBRE MI',
   CONTACTO: 'CONTACTO',
   EXPERIENCIA_PROFESIONAL: 'EXPERIENCIA PROFESIONAL',
@@ -790,5 +791,9 @@ export const commonMessages = {
 
   // home
   VISITAS: 'Visitas',
-  PERSONAS: 'Personas'
+  PERSONAS: 'Personas',
+  LISTADO_ASPIRANTES_ARCHIVADOS: 'Listado de aspirantes archivados',
+  FACEBOOK: 'Facebook',
+  INSTAGRAM: 'Instagram',
+  LINKEDIN: 'LinkedIn'
 };

@@ -139,11 +139,17 @@
                     <div class="form-group">
                         <p class="estilo_label">{{Sector_Empresa}} <span
                                 class="estilo_campo_requerido">*</span></p>
-                        <input type="text" class="estilo_inputs" formControlName="sector">
+                        <select formControlName="sector" class="estilo_inputs">
+                            <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
+                            <option
+                            [ngValue]="sector.sector === formEmpresa.get('sector')!.value ? formEmpresa.get('sector')!.value : sector.sector"
+                                *ngFor="let sector of sectores">
+                                {{ sector.sector }}
+                            </option>
+                        </select>
                         <small *ngIf="formEmpresa.get('sector')?.errors?.required"
                             class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                        <small *ngIf="formEmpresa.get('sector')?.errors?.pattern"
-                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
+
                     </div>
                 </div>
                 <div class="column">
@@ -243,35 +249,7 @@
             </div>
             <div class="row">
                 <div class="column">
-                    <!-- <p class="estilo_label">Ubicación y/o sucursales <span
-                        class="estilo_campo_requerido">*</span> <a (click)="addCiudad()"><fa-icon icon="upload" class="border-icon"></fa-icon></a></p>
-                    <div class="form-group" >
-                        <select formControlName="ciudad" class="estilo_inputs" >
-                            <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
-                            <option
-                                [ngValue]="municipio.codigo == formEmpresa.get('ciudad')!.value ? formEmpresa.get('ciudad')!.value: municipio.codigo"
-                                *ngFor="let municipio of municipiosAcademica">
-                                {{ municipio.nombre }}
-                            </option>
-                        </select>
-                        <small *ngIf="formEmpresa.get('ciudad')?.errors?.required"
-                            class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
-                        <small *ngIf="formEmpresa.get('ciudad')?.errors?.pattern"
-                            class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
-                    </div> -->
-                    <!-- <div class="form-group">
-                        <p class="estilo_label">Ubicación y/o sucursales</p>
-                        <div class="file_upload_licence">
-                            <mat-form-field appearance="fill" class="multiSelect">
-                                <mat-select formControlName="ciudad" multiple>
-                                    <mat-option *ngFor="let municipio of municipiosAcademica" 
-                                    [value]="municipio.codigo === formEmpresa.get('ciudad')!.value ? formEmpresa.get('ciudad')!.value : municipio.codigo">
-                                    {{ municipio.nombre }}
-                                </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div> -->
+
                     <div class="form-group">
                         <p class="estilo_label">{{labels.CIUDAD_LABEL}} <span
                                 class="estilo_campo_requerido">*</span></p>
