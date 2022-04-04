@@ -113,8 +113,8 @@ export class PerfilComponent implements OnInit {
       this.hojaVidaVo = response.body;
       this.urlImgDefault =
         this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
-          ? '../../../content/images/Image 28_F.png'
-          : '../../../content/images/Image 28_M.png';
+          ? 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_F.png'
+          : 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_M.png';
       this.qrCard = 'Perfil de presentación ' + this.account?.firstName + ' ' + this.account?.lastName;
       this.archivos = this.hojaVidaVo?.archivos;
       this.imagen = this.archivos?.find(item => item.tipo === TipoArchivo.IMAGEN_PERFIL) || new Archivo();

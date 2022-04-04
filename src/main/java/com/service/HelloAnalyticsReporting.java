@@ -85,7 +85,7 @@ public class HelloAnalyticsReporting {
     dataStoreFactory = new FileDataStoreFactory(DATA_STORE_DIR);
     System.out.println("---saveMer13---------------------");
     // Load client secrets.
-    FileInputStream in=new FileInputStream(new File("src\\main\\java\\com\\service\\client_secret.json"));
+    FileInputStream in=new FileInputStream(new File("src/main/java/com/service/client_secret.json"));
         System.out.println("---saveMer14---------------------"+in);
     GoogleClientSecrets clientSecrets =
             GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));

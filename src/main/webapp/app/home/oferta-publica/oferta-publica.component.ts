@@ -42,7 +42,7 @@ export class OfertaPublicaComponent implements OnInit {
   personaAplicar!: IPersona | null;
   aplicacionOfertaFiltro: Array<IAplicacionOferta> = [];
   general = '';
-  urlImageDefault = '../../../content/images/Image 28_M.png';
+  urlImageDefault = 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_M.png';
   imagen!: Archivo;
 
   Titulo = commonMessages.TITULO_LABEL;

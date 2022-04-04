@@ -4,6 +4,9 @@ import com.domain.Archivo;
 import com.domain.Persona;
 import com.domain.Empresa;
 import com.repository.ArchivoRepository;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,29 +15,35 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.ListObjectsRequest;
+import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -210,6 +219,34 @@ public class ArchivoService {
         } catch (Exception e) {
             return e.getMessage();
         }
+    }
+
+    public ArrayList<String> getFile(String[] keyNames) {
+
+        Region usEast2 = Region.getRegion(Regions.US_EAST_2);
+        s3client.setRegion(usEast2);
+        S3Object fullObject = null;
+        ArrayList<String> objectList = new ArrayList<String>();
+        for (String keyName : keyNames) {
+            log.debug("Downloading an object : {}", keyName);
+            try{
+                log.debug("Downloading an object");
+                fullObject = s3client.getObject(new GetObjectRequest(bucketName, keyName));
+                // listObjects = s3client.listObjects(bucketName, "home");
+                InputStream inputStreamItemaws = fullObject.getObjectContent();
+                byte[] bytes = IOUtils.toByteArray(inputStreamItemaws);
+                String imageStr = "{\""+keyName+"\": \""+Base64.encodeBase64String(bytes)+"\"}";
+                log.debug("Downloading an object: {}", keyName);
+                objectList.add(imageStr);
+            } catch (AmazonServiceException ase) {
+                System.out.println("Error Message:    " + ase.getMessage());
+            } catch (AmazonClientException ace) {
+                System.out.println("Error Message:    " + ace.getMessage());
+            } catch (Exception e) {
+                System.out.println("Error Message:    " + e.getMessage());
+            }
+        }
+        return objectList;
     }
 
     public String deleteFile(String keyName) {

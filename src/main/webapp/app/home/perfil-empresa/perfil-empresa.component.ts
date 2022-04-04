@@ -22,7 +22,7 @@ declare let alertify: any;
 export class PerfilEmpresaComponent implements OnInit {
   cmPerfilEmpresa: any = null;
   imagen!: Archivo;
-  urlImgDefault = '../../../content/images/Image 28_M.png';
+  urlImgDefault = 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_M.png';
   faStar = faStar;
   faEllipsisH = faEllipsisH;
   faCommentDots = faCommentDots;

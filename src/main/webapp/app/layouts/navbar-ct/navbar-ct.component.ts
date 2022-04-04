@@ -28,7 +28,7 @@ export class NavbarCtComponent implements OnInit {
   account!: Account | null;
   imagen!: Archivo;
   persona!: number;
-  urlImageDefault = '../../../content/images/Image 28_M.png';
+  urlImageDefault = 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_M.png';
   hojaVidaVo!: HojaVidaVo | null;
   hideNavbar = false;
   public navbarState = true;
@@ -112,13 +112,13 @@ export class NavbarCtComponent implements OnInit {
               this.hojaVidaVo = response.body;
               this.urlImageDefault =
                 this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
-                  ? '../../../content/images/Image 28_F.png'
-                  : '../../../content/images/Image 28_M.png';
+                  ? 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_F.png'
+                  : 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_M.png';
             });
             this.perfil = '/perfil';
           } else if (this.account?.userEmpresa) {
             this.perfil = '/perfil-empresa';
-            this.urlImageDefault = '../../../content/images/Image 28_M.png';
+            this.urlImageDefault = 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_M.png';
           }
           if (this.showNavbar) {
             if (this.account?.user) {

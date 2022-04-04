@@ -54,13 +54,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   municipiosPersonal: Array<IOpcionVo> = [];
   listaOfertas: any = [];
   imagen: any;
-  urlImgDefault = '../../../content/images/Image 28.png';
+  urlImgDefault = 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28.png';
   showButtons = null;
   checkout: any;
   preferenceId = '';
   countPersonas = 0;
   countEmpresas = 0;
   analytics: any;
+  testing = '';
+
   // Replace with your view ID.
   VIEW_ID = '232161926';
 
@@ -136,6 +138,11 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.traerCiudad();
         }
       );
+    // this.archivoService.getS3('img1.png').subscribe((res: any) => {
+    //   console.log(res);
+    //   this.testing = res.base64;
+    //   document.getElementById("aqifue")?.setAttribute("src", 'data:image/png;base64, '+this.testing)
+    // });
   }
 
   updateVariables(): void {
@@ -370,7 +377,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   registrarHojaVidaEmpresa(): void {
-    this.router.navigate(['/previo-registrar-emp']);
+    this.archivoService.getS3('img1.png,img2.png').subscribe((res: any) => {
+      console.log(res);
+      this.testing = res.base64;
+      document.getElementById('aqifue')?.setAttribute('src', 'data:image/png;base64, ' + this.testing);
+    });
+    // this.router.navigate(['/previo-registrar-emp']);
+  }
+
+  encode(data: any[]): String {
+    const str = data.reduce(function(a, b): any {
+      return a + String.fromCharCode(b);
+    }, '');
+    return btoa(str).replace(/.{76}(?=.)/g, '$&\n');
   }
 
   ventanaInicioSesion(): void {

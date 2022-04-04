@@ -110,6 +110,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/users/countEmp").permitAll()
             .antMatchers("/api/users/analytics").permitAll()
             .antMatchers("/api/usuarios/validar-captcha").permitAll()
+            .antMatchers("/api/getFileS3/**").permitAll()
             .antMatchers("/api/**").authenticated()
             .antMatchers("/api/commonMessages").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/management/health").permitAll()

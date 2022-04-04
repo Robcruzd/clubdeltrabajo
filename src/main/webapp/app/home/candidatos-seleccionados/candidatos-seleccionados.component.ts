@@ -97,7 +97,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   hojaVidaVo!: HojaVidaVo | null;
   pdfHojaVida64: any;
   showElement = false;
-  urlImageDefault = '../../../content/images/Image 28_M.png';
+  urlImageDefault = 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_M.png';
   archivos!: Array<Archivo> | undefined;
   listaAplicacionOferta: Array<IAplicacionOferta> | null = [];
   aspiranteSeleccionado = new Persona();
@@ -871,8 +871,8 @@ export class CandidatosSeleccionadosComponent implements OnInit {
         } else {
           this.urlImageDefault =
             this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
-              ? '../../../content/images/Image 28_F.png'
-              : '../../../content/images/Image 28_M.png';
+              ? 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_F.png'
+              : 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_M.png';
           this.archivos = this.hojaVidaVo?.archivos;
           this.imagen = this.archivos?.find(item => item.tipo === TipoArchivo.IMAGEN_PERFIL) || new Archivo();
           this.visualizarArchivoPDF();

@@ -56,7 +56,7 @@ export class HojaCandidatoComponent implements OnInit {
   aplicacionOferta = new AplicacionOferta();
   ofertaInfo!: IOferta | null;
   cargando = false;
-  urlImageDefault?: string | ArrayBuffer | null | undefined = '../../../content/images/Image 28_M.png';
+  urlImageDefault?: string | ArrayBuffer | null | undefined = 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_M.png';
   tipoArchivo = TipoArchivo;
   geografia: Array<GeografiaVo> = [];
   municipios: Array<IOpcionVo> = [];

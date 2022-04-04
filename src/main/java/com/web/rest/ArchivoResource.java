@@ -10,6 +10,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -185,6 +186,12 @@ public class ArchivoResource {
     @PostMapping("/uploadFileS3")
     public String createFile(@RequestParam MultipartFile file) throws IOException {
         return archivoService.uploadFile(file);
+    }
+
+    @GetMapping("/getFileS3/{name}")
+    public ArrayList<String> getFile(@PathVariable String[] name) throws IOException {
+        log.debug("REST request to get Archivo : {}{}", name);
+        return archivoService.getFile(name);
     }
 
     @PostMapping("/deleteFileS3")

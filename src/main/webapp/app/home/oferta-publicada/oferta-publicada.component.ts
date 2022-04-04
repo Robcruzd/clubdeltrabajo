@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class OfertaPublicadaComponent implements OnInit {
   cmOfertaPublicada: any = null;
   imagen!: Archivo;
-  urlImgDefault = '../../../content/images/Image 28_M.png';
+  urlImgDefault = 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_M.png';
 
   constructor(private router: Router) {}
 

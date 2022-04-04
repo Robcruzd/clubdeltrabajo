@@ -51,7 +51,7 @@ export class ResultadosBusquedaComponent implements OnInit {
   faSearch = faSearch;
   valorBusqueda = '';
   profesionesFiltro: Array<IProfesion> | null = [];
-  urlImgDefault = '../../../content/images/Image 28.png';
+  urlImgDefault = 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28.png';
   imagen: any;
   edadValue: any = null;
   generoValue: any = null;

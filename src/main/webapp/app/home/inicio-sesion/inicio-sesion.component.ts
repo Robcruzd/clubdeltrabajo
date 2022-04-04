@@ -22,7 +22,7 @@ export class InicioSesionComponent implements OnInit {
   usernameInvalid = false;
   passwordInvalid = false;
   login = new Login(this.username, this.password, false);
-  eyePrimero = '../../../content/images/eye.svg';
+  eyePrimero = 'https://d1jbv8ig3bmrxx.cloudfront.net/eye.svg';
   inputPrimero = 'password';
 
   Mensaje_Bienvenido = commonMessages.MENSAJE_BIENVENIDO;
@@ -125,11 +125,11 @@ export class InicioSesionComponent implements OnInit {
   }
 
   clicPrimerInput(): void {
-    if (this.eyePrimero === '../../../content/images/eye.svg') {
-      this.eyePrimero = '../../../content/images/eye-slash.svg';
+    if (this.eyePrimero === 'https://d1jbv8ig3bmrxx.cloudfront.net/eye.svg') {
+      this.eyePrimero = 'https://d1jbv8ig3bmrxx.cloudfront.net/eye-slash.svg';
       this.inputPrimero = 'text';
     } else {
-      this.eyePrimero = '../../../content/images/eye.svg';
+      this.eyePrimero = 'https://d1jbv8ig3bmrxx.cloudfront.net/eye.svg';
       this.inputPrimero = 'password';
     }
   }

@@ -38,7 +38,7 @@ export class VerHojaVidaComponent implements OnInit {
   informacionLaboral: any[] = [];
   geografia: Array<GeografiaVo> = [];
   municipios: Array<IOpcionVo> = [];
-  urlImageDefault = '../../../content/images/Image 28.png';
+  urlImageDefault = 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28.png';
   imagen!: Archivo;
   pdfHojaVida64: any;
   pdfHojaVida64Render: any;
@@ -105,8 +105,8 @@ export class VerHojaVidaComponent implements OnInit {
       this.hojaVidaVo = response.body;
       this.urlImageDefault =
         this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
-          ? '../../../content/images/Image 28_F.png'
-          : '../../../content/images/Image 28_M.png';
+          ? 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_F.png'
+          : 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_M.png';
       this.qrCard = 'Perfil de presentación ' + this.account?.firstName + ' ' + this.account?.lastName;
       this.archivos = this.hojaVidaVo?.archivos;
       this.qrCard = 'Perfil de presentación ' + this.account?.firstName + ' ' + this.account?.lastName;

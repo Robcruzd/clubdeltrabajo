@@ -35,7 +35,7 @@ export class ClubEmpresasComponent implements OnInit {
   faEllipsisH = faEllipsisH;
   faCommentDots = faCommentDots;
   faSearch = faSearch;
-  urlImgDefault = '../../../content/images/Image 28.png';
+  urlImgDefault = 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28.png';
   totalEmpresas = 0;
   valorBusqueda = '';
   account!: Account | any;

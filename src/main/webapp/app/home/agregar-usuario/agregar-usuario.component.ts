@@ -91,8 +91,8 @@ export class AgregarUsuarioComponent implements OnInit {
   Aceptar = commonMessages.ACEPTAR;
   RegistroEntra = commonMessages.REGISTRATE;
 
-  eyePrimero = '../../../content/images/eye.svg';
-  eyeSegundo = '../../../content/images/eye.svg';
+  eyePrimero = 'https://d1jbv8ig3bmrxx.cloudfront.net/eye.svg';
+  eyeSegundo = 'https://d1jbv8ig3bmrxx.cloudfront.net/eye.svg';
   inputPrimero = 'password';
   inputSegundo = 'password';
 
@@ -517,21 +517,21 @@ export class AgregarUsuarioComponent implements OnInit {
   }
 
   clicPrimerInput(): void {
-    if (this.eyePrimero === '../../../content/images/eye.svg') {
-      this.eyePrimero = '../../../content/images/eye-slash.svg';
+    if (this.eyePrimero === 'https://d1jbv8ig3bmrxx.cloudfront.net/eye.svg') {
+      this.eyePrimero = 'https://d1jbv8ig3bmrxx.cloudfront.net/eye-slash.svg';
       this.inputPrimero = 'text';
     } else {
-      this.eyePrimero = '../../../content/images/eye.svg';
+      this.eyePrimero = 'https://d1jbv8ig3bmrxx.cloudfront.net/eye.svg';
       this.inputPrimero = 'password';
     }
   }
 
   clicSegundoInput(): void {
-    if (this.eyeSegundo === '../../../content/images/eye.svg') {
-      this.eyeSegundo = '../../../content/images/eye-slash.svg';
+    if (this.eyeSegundo === 'https://d1jbv8ig3bmrxx.cloudfront.net/eye.svg') {
+      this.eyeSegundo = 'https://d1jbv8ig3bmrxx.cloudfront.net/eye-slash.svg';
       this.inputSegundo = 'text';
     } else {
-      this.eyeSegundo = '../../../content/images/eye.svg';
+      this.eyeSegundo = 'https://d1jbv8ig3bmrxx.cloudfront.net/eye.svg';
       this.inputSegundo = 'password';
     }
   }

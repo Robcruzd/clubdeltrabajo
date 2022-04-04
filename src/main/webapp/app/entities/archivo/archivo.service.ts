@@ -30,6 +30,7 @@ export class ArchivoService {
   public resourceUrl = SERVER_API_URL + 'api/archivos';
   public uploads3Service = SERVER_API_URL + 'api/uploadFileS3';
   public deletes3Service = SERVER_API_URL + 'api/deleteFileS3';
+  public gets3Service = SERVER_API_URL + 'api/getFileS3';
   public resourceUrlFiltroByTipoAndEmpresa = SERVER_API_URL + 'api/archivos/filtroByTipoAndEmpresa';
 
   constructor(protected http: HttpClient) {}
@@ -69,6 +70,10 @@ export class ArchivoService {
 
   deleteS3(name: string): any {
     return this.http.post(this.deletes3Service, name, { responseType: 'text' });
+  }
+
+  getS3(name: string): any {
+    return this.http.get<any>(`${this.gets3Service}/${name}`);
   }
 
   public getArchivoByTipoAndEmpresa(tipoId?: any, empresa?: any): Observable<any> {
