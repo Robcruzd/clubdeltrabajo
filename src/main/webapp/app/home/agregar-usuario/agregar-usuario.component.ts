@@ -209,7 +209,7 @@ export class AgregarUsuarioComponent implements OnInit {
     const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const NOMBRE_REGEX = /^[a-zA-ZÑÁÉÍÓÚñáéíóú ]{1,}$/;
     const NOMBRE2_REGEX = /^[a-zA-ZÑÁÉÍÓÚñáéíóú0-9 ]{1,}$/;
-    const CONTRASENA_REGEX = /.*(?=.{8,20})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*/;
+    const CONTRASENA_REGEX = /.*(?=.{8,20})(?=..*[0-9]).*/;
     const PASAPORTE_REGEX = /^[0-9A-Za-z]{6,18}$/;
     const CEDULA_REGEX = /^[0-9]{5,18}$/;
     const NIT_REGEX = /^[0-9-]{5,18}$/;

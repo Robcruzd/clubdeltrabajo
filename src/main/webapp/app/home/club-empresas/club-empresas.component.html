@@ -111,6 +111,7 @@
                             <img class="logo-empresa rounded-circle" [src]="item.imagen || urlImgDefault">
                             <div>
                             <p class="nombre">{{item.razonSocial}}</p>
+                            <p class="resumen">{{item.sector}}</p>
                             </div>
                         </div>
                         <div class="mitad2">
@@ -120,6 +121,9 @@
                              <div class="info">
                                 <p *ngIf="item.email" class="resumen">{{EmailLabel}}: {{item.email}}</p>
                                 <p *ngIf="item.paginaWeb" class="resumen">{{PaginaWeb}}: {{item.paginaWeb}}</p>
+                                <p *ngIf="item.urlFacebook" class="resumen">{{Facebook}}: <a href="{{item.urlFacebook}}" target="_blank">{{item.urlFacebook}}</a></p>
+                                <p *ngIf="item.urlInstagram" class="resumen">{{Instagram}}: <a href="{{item.urlInstagram}}" target="_blank">{{item.urlInstagram}}</a></p>
+                                <p *ngIf="item.urlLinkedIn" class="resumen">{{LinkedIn}}: <a href="{{item.urlLinkedIn}}" target="_blank">{{item.urlLinkedIn}}</a></p>
                                 <p *ngIf="item.direccion" class="resumen">{{Direccion}}: {{item.direccion}}</p>
                                 <p *ngIf="item.telefonoEmpresa" class="resumen">{{Telefono}}: {{item.telefonoEmpresa}}</p>
                                 <p *ngIf="item.descripcionEmpresa" class="resumen">{{Descripcion}}: {{item.descripcionEmpresa}}</p>
@@ -187,12 +191,16 @@
                     </div>
                     <div class="row">
                         <div class="form-group">
-                            <p class="estilo_label">{{AgregaProductos}}</p>
-                            <p class="estilo_label">{{EscribeLink}}</p>
-                            <!--<textarea type="text" class="estilo_inputs"></textarea>-->
-                            <!-- <textarea class="textarea-input" name="" id="" cols="100" rows="10"></textarea> -->
+                            <p class="estilo_label">Pública tu pagina web o tu blog</p>
                             <input type="text" class="estilo_inputs" formControlName="urlProducto">
-                            <button ngbPopover="Texto Copiado!" [openDelay]="100" [closeDelay]="500" triggers="click:blur" id="linkProducto" (click)="copiarLink()" class="btn boton-finalizar"><p class="titulo-boton">{{CopiarLink}}</p></button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <p class="estilo_label">Ingresa tus redes sociales</p>
+                            <input type="text" class="estilo_inputs" formControlName="urlFacebook" placeholder="Ingresa tu facebook">
+                            <input type="text" class="estilo_inputs" formControlName="urlInstagram" placeholder="Ingresa tu instagram">
+                            <input type="text" class="estilo_inputs" formControlName="urlLinkedIn" placeholder="Ingresa tu linkedin">
                         </div>
                     </div>
                     <div class="botones">

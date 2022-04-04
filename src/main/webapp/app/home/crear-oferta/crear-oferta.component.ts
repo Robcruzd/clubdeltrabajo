@@ -19,7 +19,6 @@ import { GeografiaVo } from '../../shared/vo/geografia-vo';
 import { IProfesion } from '../../shared/model/profesion.model';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-// import { User } from '../../core/user/user.model';
 import { ProfesionService } from '../../entities/profesion/profesion.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';

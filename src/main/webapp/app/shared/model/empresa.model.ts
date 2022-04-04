@@ -31,6 +31,10 @@ export interface IEmpresa {
   replicasOferta?: number;
   juridica?: boolean;
   clubEmpresa?: boolean;
+  urlFacebook?: string;
+  urlInstagram?: string;
+  urlLinkedIn?: string;
+  bdEmpresa?: boolean;
 }
 
 export class Empresa implements IEmpresa {
@@ -63,6 +67,10 @@ export class Empresa implements IEmpresa {
     public membresia?: boolean,
     public replicasOferta?: number,
     public juridica?: boolean,
-    public clubEmpresa?: boolean
+    public clubEmpresa?: boolean,
+    public urlFacebook?: string,
+    public urlInstagram?: string,
+    public urlLinkedIn?: string,
+    public bdEmpresa?: boolean
   ) {}
 }

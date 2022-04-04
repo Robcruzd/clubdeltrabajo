@@ -170,6 +170,7 @@
                 </div>
                 <div >
                     <div class="perfil">
+                        <button class="btn1 float-right" (click)="openScrollableContent(longContent)"> <fa-icon [icon]="faFileArchive" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> {{Archivado}}</button>
                         <div *ngFor="let item of listaResultadoBusquedaAspirantes | paginate: { itemsPerPage: 6, currentPage: page }" class="contngfor">
                         <a class="perfiles" (click)="verAspirante(item)" [style.background]="item.color">
                             <div class="mitad1">
@@ -208,9 +209,9 @@
                             </div>
                         </a>
                         <div class="btn-seleccionado" *ngIf="item.btnestado">
-                            <input class="mensajeEmail" #searchInput id="mensaje" type="text" placeholder="Ingrese cuerpo de email">
+                            <!-- <input class="mensajeEmail" #searchInput id="mensaje" type="text" placeholder="Ingrese cuerpo de email"> -->
                             <div class="botones-enviar-des">
-                                <button class="btn1" (click)="enviarEmail(item)"> <fa-icon [icon]="faPaperPlane" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> {{Enviar_Mail}}</button>
+                                <!-- <button class="btn1" (click)="enviarEmail(item)"> <fa-icon [icon]="faPaperPlane" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> {{Enviar_Mail}}</button> -->
                                 <button class="btn2" (click)="getHojaVida(item)"> <fa-icon [icon]="faArrowDown" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon>{{Descargar_HV}}</button>
                             </div>
                         </div>
@@ -297,3 +298,39 @@
             </div>
         </div>
     </kendo-pdf-export>
+
+    <ng-template #longContent let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" style="color: #1FB9FD;">{{Listado_Apirantes_Archivados}}</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Profesion</th>
+                    <th scope="col">Edad</th>
+                    <th scope="col">Ciudad</th>
+                    <th scope="col">Ver Hoja de vida</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of listaResultadoArchivado">
+                    <td>{{item.nombre}} {{ item.apellido}}</td>
+                    <td>{{item.profesion}}</td>
+                    <td>{{item.edad}}</td>
+                    <td>{{item.ciudad}}</td>
+                    <td>
+                        <fa-icon data-toggle="tooltip" title="Ver Hoja de Vida" [icon]="faUserCircle" (click)="verHojaVidaArchivado(item)" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Aceptar</button>
+        </div>
+    </ng-template>
