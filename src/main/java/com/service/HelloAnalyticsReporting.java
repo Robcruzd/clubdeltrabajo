@@ -5,7 +5,9 @@ import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInsta
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
@@ -22,6 +24,7 @@ import java.util.List;
 
 
 import com.google.api.services.analyticsreporting.v4.AnalyticsReportingScopes;
+import com.google.api.services.analytics.AnalyticsScopes;
 import com.google.api.services.analyticsreporting.v4.AnalyticsReporting;
 
 import com.google.api.services.analyticsreporting.v4.model.ColumnHeader;
@@ -35,6 +38,7 @@ import com.google.api.services.analyticsreporting.v4.model.MetricHeaderEntry;
 import com.google.api.services.analyticsreporting.v4.model.Report;
 import com.google.api.services.analyticsreporting.v4.model.ReportRequest;
 import com.google.api.services.analyticsreporting.v4.model.ReportRow;
+import com.google.auth.oauth2.GoogleCredentials;
 
 /**
  * A simple example of how to access the Google Analytics API.
@@ -80,38 +84,42 @@ public class HelloAnalyticsReporting {
    */
   private static AnalyticsReporting initializeAnalyticsReporting() throws GeneralSecurityException, IOException {
     System.out.println("---saveMer11---------------------");
-    httpTransport = GoogleNetHttpTransport.newTrustedTransport();
-    System.out.println("---saveMer12---------------------");
-    dataStoreFactory = new FileDataStoreFactory(DATA_STORE_DIR);
-    System.out.println("---saveMer13---------------------");
-    // Load client secrets.
-    FileInputStream in=new FileInputStream(new File("src/main/java/com/service/client_secret.json"));
-        System.out.println("---saveMer14---------------------"+in);
-    GoogleClientSecrets clientSecrets =
-            GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
-    System.out.println("---saveMer15---------------------"+clientSecrets);
-    // GoogleClientSecrets.Details det = new GoogleClientSecrets.Details();
-    // det.setClientId("my id");
-    // det.setClientSecret("my secret");
-    // det.setRedirectUris(Arrays.asList("urn:ietf:wg:oauth:2.0:oob"));
-    // clientSecrets.setInstalled(det);
-    // GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY,
-    //     new InputStreamReader(HelloAnalyticsReporting.class
-    //         .getResourceAsStream("src\\main\\java\\com\\service\\client_secret.json")));
-    // System.out.println("---saveMer14---------------------");
+    // httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+    // System.out.println("---saveMer12---------------------");
+    // dataStoreFactory = new FileDataStoreFactory(DATA_STORE_DIR);
+    // System.out.println("---saveMer13---------------------");
+    // // Load client secrets.
+    // FileInputStream in=new FileInputStream(new File("src/main/java/com/service/client_secret.json"));
+    //     System.out.println("---saveMer14---------------------"+in);
+    // GoogleClientSecrets clientSecrets =
+    //         GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+    // System.out.println("---saveMer15---------------------"+clientSecrets);
+    // // GoogleClientSecrets.Details det = new GoogleClientSecrets.Details();
+    // // det.setClientId("my id");
+    // // det.setClientSecret("my secret");
+    // // det.setRedirectUris(Arrays.asList("urn:ietf:wg:oauth:2.0:oob"));
+    // // clientSecrets.setInstalled(det);
+    // // GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY,
+    // //     new InputStreamReader(HelloAnalyticsReporting.class
+    // //         .getResourceAsStream("src\\main\\java\\com\\service\\client_secret.json")));
+    // // System.out.println("---saveMer14---------------------");
 
-    // Set up authorization code flow for all authorization scopes.
-    System.out.println("---saveMer16---------------------"+httpTransport);
-    GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow
-        .Builder(httpTransport, JSON_FACTORY, clientSecrets,
-            AnalyticsReportingScopes.all()).setDataStoreFactory(dataStoreFactory)
-            // .setAccessType("offline")
-            // .setApprovalPrompt("auto")
-        .build();
-    System.out.println("---saveMer17---------------------"+flow);
+    // // Set up authorization code flow for all authorization scopes.
+    // System.out.println("---saveMer16---------------------"+httpTransport);
+    // GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow
+    //     .Builder(httpTransport, JSON_FACTORY, clientSecrets,
+    //         AnalyticsReportingScopes.all()).setDataStoreFactory(dataStoreFactory)
+    //         // .setAccessType("offline")
+    //         // .setApprovalPrompt("auto")
+    //     .build();
+    HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+    GoogleCredential credential = GoogleCredential
+        .fromStream(new FileInputStream(new File("src/main/java/com/service/client_secret2.json")))
+        .createScoped(AnalyticsScopes.all());
+    // System.out.println("---saveMer17---------------------"+flow);
     // Authorize.
-    Credential credential = new AuthorizationCodeInstalledApp(flow,
-        new LocalServerReceiver.Builder().setPort(1047).build()).authorize("user");
+    // Credential credential = new AuthorizationCodeInstalledApp(flow,
+    //     new LocalServerReceiver.Builder().setPort(10047).build()).authorize("clubdeltrabajo2020@gmail.com");
         System.out.println("---saveMer18---------------------");
     // Construct the Analytics Reporting service object.
     return new AnalyticsReporting.Builder(httpTransport, JSON_FACTORY, credential)

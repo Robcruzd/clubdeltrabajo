@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.domain.Empresa;
 import com.domain.Membresia;
@@ -31,6 +32,9 @@ import com.mercadopago.resources.datastructures.preference.Phone;
   @Transactional
   public class MercadoPagoService {
 
+    @Value("${mercadoPagoProps.accessToken}")
+    private String accessToken;
+
     private final Logger log = LoggerFactory.getLogger(MercadoPagoService.class);
     	
     @Autowired
@@ -38,14 +42,14 @@ import com.mercadopago.resources.datastructures.preference.Phone;
     // private final MembresiaService membresiaService;
 
       public String mercadoPagoCdT(Membresia membresia, PayerMer payerMer, Empresa empresa) throws MPException, MPConfException {
-          MercadoPago.SDK.setAccessToken("APP_USR-3628026467305338-063004-167ccac86e1254cf0dc3eb8adc7cc191-783442985");
+          MercadoPago.SDK.setAccessToken(this.accessToken);
           Preference preference = new Preference();
           // Date date = new Date();
           // Se configuran las url para retornar al comercio
           BackUrls backUrls = new BackUrls(
-                    "http://190.248.240.219:9000/club-empresas",
-                    "http://190.248.240.219:9000/perfil-empresa",
-                    "http://190.248.240.219:9000/");
+                    "https://www.clubdeltrabajo.com/perfil-empresa",
+                    "https://www.clubdeltrabajo.com/membresias",
+                    "https://www.clubdeltrabajo.com/");
 
             preference.setBackUrls(backUrls);
             LocalDateTime date = ZonedDateTime.now(ZoneId.of("America/Bogota")).toLocalDateTime();
@@ -72,7 +76,7 @@ import com.mercadopago.resources.datastructures.preference.Phone;
                 .setNumber(payerMer.getIdentificacion()));
             preference.setPayer(payer);
             preference.appendItem(item);
-            preference.setNotificationUrl("http://190.248.240.219:8080/api/notiMercadoPago");
+            preference.setNotificationUrl("https://www.clubdeltrabajo.com/api/notiMercadoPago");
             Preference save = preference.save();
             Pagos pagos = new Pagos();
             pagos.setPreferenciaMerc(save.getId());
@@ -88,13 +92,13 @@ import com.mercadopago.resources.datastructures.preference.Phone;
       }
 
       public Object mercadoPagoGetPayment(String id) throws MPException, MPConfException {
-        MercadoPago.SDK.setAccessToken("APP_USR-3628026467305338-063004-167ccac86e1254cf0dc3eb8adc7cc191-783442985");
+        MercadoPago.SDK.setAccessToken(this.accessToken);
         Payment payment = new Payment();
         return payment.findById(id);
         }
 
         public Object mercadoPagoGetMerchant(String id) throws MPException, MPConfException {
-        MercadoPago.SDK.setAccessToken("APP_USR-3628026467305338-063004-167ccac86e1254cf0dc3eb8adc7cc191-783442985");
+        MercadoPago.SDK.setAccessToken(this.accessToken);
         MerchantOrder merchant = new MerchantOrder();
         return merchant.findById(id);
     }

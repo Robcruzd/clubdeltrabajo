@@ -292,6 +292,7 @@ p {
         -o-transform: skew(20deg);
         transform: skew(20deg);
         font-size: 1vw;
+        font-weight: bold;
       }
     }
 
@@ -302,6 +303,16 @@ p {
       align-items: center;
       color: white;
       font-size: 1vw;
+
+      .txtdiag {
+        // -webkit-transform: skew(20deg);
+        // -moz-transform: skew(20deg);
+        // -ms-transform: skew(20deg);
+        // -o-transform: skew(20deg);
+        // transform: skew(20deg);
+        font-size: 1vw;
+        font-weight: bold;
+      }
     }
   }
 
@@ -668,6 +679,7 @@ p {
           -o-transform: skew(20deg);
           transform: skew(20deg);
           font-size: 100%;
+          font-weight: bold;
         }
       }
 
@@ -678,6 +690,16 @@ p {
         align-items: center;
         color: white;
         font-size: 50%;
+
+        .txtdiag {
+          // -webkit-transform: skew(20deg);
+          // -moz-transform: skew(20deg);
+          // -ms-transform: skew(20deg);
+          // -o-transform: skew(20deg);
+          // transform: skew(20deg);
+          font-size: 100%;
+          font-weight: bold;
+        }
       }
     }
 

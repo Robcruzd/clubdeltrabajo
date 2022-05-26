@@ -59,6 +59,7 @@ export interface IResultadoBusquedaAspirantes {
   verno?: boolean | undefined | null;
   btnestado?: boolean | undefined | null;
   imagen?: string | ArrayBuffer | null | undefined;
+  correo?: string | undefined;
 }
 
 export interface IResultadoOfertas {

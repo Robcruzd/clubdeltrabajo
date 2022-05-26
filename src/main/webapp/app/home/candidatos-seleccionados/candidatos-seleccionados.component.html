@@ -170,7 +170,7 @@
                 </div>
                 <div >
                     <div class="perfil">
-                        <button class="btn1 float-right" (click)="openScrollableContent(longContent)"> <fa-icon [icon]="faFileArchive" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> {{Archivado}}</button>
+                        <button class="btn1 float-right btn-archivado" (click)="openScrollableContent(longContent)"> <fa-icon [icon]="faFileArchive" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> {{Archivado}}</button>
                         <div *ngFor="let item of listaResultadoBusquedaAspirantes | paginate: { itemsPerPage: 6, currentPage: page }" class="contngfor">
                         <a class="perfiles" (click)="verAspirante(item)" [style.background]="item.color">
                             <div class="mitad1">
@@ -187,6 +187,7 @@
                                 <div>
                                     <p class="resumen">{{Edad}}: {{item.edad}}</p>
                                     <p class="resumen">{{Ciudad}}: {{item.ciudad}}</p>
+                                    <p class="resumen">Correo: {{item.correo}}</p>
                                     <p class="resumen">{{Experiencia}}: {{item.experiencia}}</p>
                                     <p class="resumen">{{Titulo}}: {{item.titulo}}</p>
                                 </div>

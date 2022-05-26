@@ -378,7 +378,8 @@ export class CandidatosSeleccionadosComponent implements OnInit {
                     verche: this.verche,
                     verh: this.verh,
                     verno: this.verno,
-                    btnestado: this.btnestado
+                    btnestado: this.btnestado,
+                    correo: element.usuario?.email
                   });
                   this.totalAspirantes = this.listaResultadoBusquedaAspirantes.length;
                 }, 200);
@@ -435,7 +436,8 @@ export class CandidatosSeleccionadosComponent implements OnInit {
                   verche: this.verche,
                   verh: this.verh,
                   verno: this.verno,
-                  btnestado: this.btnestado
+                  btnestado: this.btnestado,
+                  correo: this.resultadoBusqueda[j].usuario?.email
                 });
                 this.totalAspirantes = this.listaResultadoBusquedaAspirantes.length;
               }
@@ -548,7 +550,8 @@ export class CandidatosSeleccionadosComponent implements OnInit {
               verh: this.verh,
               verno: this.verno,
               btnestado: this.btnestado,
-              imagen: imagenn
+              imagen: imagenn,
+              correo: response.content[0].usuario?.email
             });
             this.totalAspirantes = this.listaResultadoBusquedaAspirantes.length;
             resolve(true);
@@ -953,7 +956,8 @@ export class CandidatosSeleccionadosComponent implements OnInit {
                   profesion: info.profesion?.profesion,
                   edad: edadBD,
                   ciudad: ciudadBD?.nombre,
-                  idPersona: aspirante.usuario?.id
+                  idPersona: aspirante.usuario?.id,
+                  correo: aspirante.usuario?.email
                 });
               });
             }

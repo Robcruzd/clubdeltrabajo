@@ -107,6 +107,9 @@ amazonProperties:
   accessKey: AKIAQUADP2ZJGCD6WNP7
   secretKey: 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
   bucketName: cdt-bucket-12650f52-428c-446a-9290-5931a2cd3958
+
+mercadoPagoProps:
+  accessToken: APP_USR-2897952222653941-052319-014d2e87534b44c7d134c88155bfefc5-1127645459
 # ===================================================================
 # JHipster specific properties
 #

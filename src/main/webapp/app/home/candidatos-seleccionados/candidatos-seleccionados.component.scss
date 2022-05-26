@@ -819,6 +819,15 @@ kendo-pdf-export {
   .perfil {
     // height: 46.164vw;
     margin-bottom: 1.3vw;
+
+    .btn-archivado {
+      background: #1a9fef;
+      color: #fbfbfb;
+      font-family: 'Arial';
+      text-align: center;
+      border: none;
+      margin-bottom: 1rem;
+    }
     .contngfor {
       min-height: 7.932vw;
       height: max-content;
