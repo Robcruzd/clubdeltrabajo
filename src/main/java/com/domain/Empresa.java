@@ -132,6 +132,9 @@ public class Empresa implements Serializable {
     @Column(name = "bd_empresa", nullable = true)
     private Boolean bdEmpresa;
     
+    @Column(name = "oferta_vip", nullable = true)
+    private Long ofertaVip;
+    
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -428,6 +431,14 @@ public class Empresa implements Serializable {
 
 	public void setBdEmpresa(Boolean bdEmpresa) {
 		this.bdEmpresa = bdEmpresa;
+	}
+
+	public Long getOfertaVip() {
+		return ofertaVip;
+	}
+
+	public void setOfertaVip(Long ofertaVip) {
+		this.ofertaVip = ofertaVip;
 	}
 
 	@Override

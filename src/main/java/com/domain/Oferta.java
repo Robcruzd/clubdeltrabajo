@@ -106,6 +106,13 @@ public class Oferta implements Serializable {
 
     @Column(name = "mostrar_salario", nullable = true)
     private Boolean mostrarSalario;
+    
+    @NotNull
+    @Column(name = "fecha_publicacion_vip", nullable = false)
+    private LocalDate fechaPublicacionVip;
+    
+    @Column(name = "fecha_oferta_caducacion")
+    private LocalDate fechaOfertaCaducacion;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -342,6 +349,22 @@ public class Oferta implements Serializable {
 
 	public void setMostrarSalario(Boolean mostrarSalario) {
 		this.mostrarSalario = mostrarSalario;
+	}
+
+	public LocalDate getFechaPublicacionVip() {
+		return fechaPublicacionVip;
+	}
+
+	public void setFechaPublicacionVip(LocalDate fechaPublicacionVip) {
+		this.fechaPublicacionVip = fechaPublicacionVip;
+	}
+
+	public LocalDate getFechaOfertaCaducacion() {
+		return fechaOfertaCaducacion;
+	}
+
+	public void setFechaOfertaCaducacion(LocalDate fechaOfertaCaducacion) {
+		this.fechaOfertaCaducacion = fechaOfertaCaducacion;
 	}
 
 	@Override

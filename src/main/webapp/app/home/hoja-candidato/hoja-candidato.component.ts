@@ -223,6 +223,7 @@ export class HojaCandidatoComponent implements OnInit {
     }
     if (this.modelBandera !== this.model) {
       if (this.model === 'Seleccionado') {
+        if (this.personaInfo?.id) this.bdEmpresaService.delete(this.personaInfo.id).subscribe(() => {});
         const mensaje =
           'club del trabajo le informa que ha Sido seleccionado y está en verificacion del cargo al cual aplicaste o eres apto';
         this.aplicacionOfertaService
@@ -275,6 +276,7 @@ export class HojaCandidatoComponent implements OnInit {
             alertify.success('Aspirante archivado correctamente!');
           });
         } else {
+          if (this.personaInfo?.id) this.bdEmpresaService.delete(this.personaInfo.id).subscribe(() => {});
           this.cargando = false;
           alertify.set('notifier', 'position', 'top-right');
           alertify.error('No cuenta con la membresia para tener su base de datos!. Debe contratar un plan!');

@@ -291,6 +291,7 @@ public class MercadoPagoResource {
             empresaSaved.setJuridica(true);
     		empresaSaved.setReplicasOferta(empresaSaved.getReplicasOferta() + 4);
     		empresaSaved.setBdEmpresa(true);
+    		empresaSaved.setOfertaVip(Long.valueOf(1));
     		empresaService.save(empresaSaved);
 		}
 		else if(pagoSaved.getMembresia().getNombreMembresia().equals("diamante")) {
@@ -302,6 +303,7 @@ public class MercadoPagoResource {
     		empresaSaved.setMembresia(true);
             empresaSaved.setJuridica(true);
             empresaSaved.setBdEmpresa(true);
+            empresaSaved.setOfertaVip(Long.valueOf(3));
     		empresaService.save(empresaSaved);
 		}
     }

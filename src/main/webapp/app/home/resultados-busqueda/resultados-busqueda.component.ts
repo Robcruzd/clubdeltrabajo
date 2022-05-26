@@ -22,6 +22,7 @@ import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 import { Account } from 'app/core/user/account.model';
 import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'jhi-resultados-busqueda',
@@ -240,44 +241,85 @@ export class ResultadosBusquedaComponent implements OnInit {
         this.resultadoBusqueda = response.content;
         if (this.resultadoBusqueda) {
           this.resultadoBusqueda.forEach(element => {
-            const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
-            const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
-            const profesionBD = this.profesiones.find(profesion => profesion.id === element.profesion);
-            this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
-              archivos => {
-                if (archivos.body !== null) {
-                  this.imagen = archivos.body;
+            if (element.fechaOfertaCaducacion !== undefined && moment(element.fechaOfertaCaducacion) >= moment(new Date(), 'YYYY-MMM-DD')) {
+              const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
+              const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
+              const profesionBD = this.profesiones.find(profesion => profesion.id === element.profesion);
+              this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
+                archivos => {
+                  if (archivos.body !== null) {
+                    this.imagen = archivos.body;
+                  }
+                  this.listaResultadoBusquedaOfertas.push({
+                    profesion: profesionBD?.profesion,
+                    salario: salarioBD?.nombre,
+                    ciudad: ciudadBD?.nombre,
+                    fecha: element.fechaPublicacion?.toString(),
+                    empresa: element.usuario?.razonSocial,
+                    idEmpresa: element.usuario?.id,
+                    idOferta: element.id,
+                    imagen: archivos.body?.archivo,
+                    mostrarSalario: element.mostrarSalario
+                  });
+                  this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+                },
+                error => {
+                  // eslint-disable-next-line no-console
+                  console.log('eeeeeeeeeeeeeeeee', error);
+                  this.listaResultadoBusquedaOfertas.push({
+                    profesion: profesionBD?.profesion,
+                    salario: salarioBD?.nombre,
+                    ciudad: ciudadBD?.nombre,
+                    fecha: element.fechaPublicacion?.toString(),
+                    empresa: element.usuario?.razonSocial,
+                    idEmpresa: element.usuario?.id,
+                    idOferta: element.id,
+                    imagen: this.urlImgDefault,
+                    mostrarSalario: element.mostrarSalario
+                  });
+                  this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
                 }
-                this.listaResultadoBusquedaOfertas.push({
-                  profesion: profesionBD?.profesion,
-                  salario: salarioBD?.nombre,
-                  ciudad: ciudadBD?.nombre,
-                  fecha: element.fechaPublicacion?.toString(),
-                  empresa: element.usuario?.razonSocial,
-                  idEmpresa: element.usuario?.id,
-                  idOferta: element.id,
-                  imagen: archivos.body?.archivo,
-                  mostrarSalario: element.mostrarSalario
-                });
-                this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
-              },
-              error => {
-                // eslint-disable-next-line no-console
-                console.log('eeeeeeeeeeeeeeeee', error);
-                this.listaResultadoBusquedaOfertas.push({
-                  profesion: profesionBD?.profesion,
-                  salario: salarioBD?.nombre,
-                  ciudad: ciudadBD?.nombre,
-                  fecha: element.fechaPublicacion?.toString(),
-                  empresa: element.usuario?.razonSocial,
-                  idEmpresa: element.usuario?.id,
-                  idOferta: element.id,
-                  imagen: this.urlImgDefault,
-                  mostrarSalario: element.mostrarSalario
-                });
-                this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
-              }
-            );
+              );
+            } else if (element.fechaOfertaCaducacion === undefined || element.fechaOfertaCaducacion === null) {
+              const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
+              const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
+              const profesionBD = this.profesiones.find(profesion => profesion.id === element.profesion);
+              this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
+                archivos => {
+                  if (archivos.body !== null) {
+                    this.imagen = archivos.body;
+                  }
+                  this.listaResultadoBusquedaOfertas.push({
+                    profesion: profesionBD?.profesion,
+                    salario: salarioBD?.nombre,
+                    ciudad: ciudadBD?.nombre,
+                    fecha: element.fechaPublicacion?.toString(),
+                    empresa: element.usuario?.razonSocial,
+                    idEmpresa: element.usuario?.id,
+                    idOferta: element.id,
+                    imagen: archivos.body?.archivo,
+                    mostrarSalario: element.mostrarSalario
+                  });
+                  this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+                },
+                error => {
+                  // eslint-disable-next-line no-console
+                  console.log('eeeeeeeeeeeeeeeee', error);
+                  this.listaResultadoBusquedaOfertas.push({
+                    profesion: profesionBD?.profesion,
+                    salario: salarioBD?.nombre,
+                    ciudad: ciudadBD?.nombre,
+                    fecha: element.fechaPublicacion?.toString(),
+                    empresa: element.usuario?.razonSocial,
+                    idEmpresa: element.usuario?.id,
+                    idOferta: element.id,
+                    imagen: this.urlImgDefault,
+                    mostrarSalario: element.mostrarSalario
+                  });
+                  this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+                }
+              );
+            }
           });
         }
       });
@@ -384,48 +426,96 @@ export class ResultadosBusquedaComponent implements OnInit {
           this.resultadoBusqueda = response.content;
           if (this.resultadoBusqueda) {
             this.resultadoBusqueda.forEach(element => {
-              const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
-              const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
-              const profesionBD = this.profesiones.find(profesion => profesion.id === element.profesion);
-              this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
-                archivos => {
-                  // eslint-disable-next-line no-console
-                  console.log('aaaaaaaaaaaaaaaaaaa', archivos);
-                  if (archivos.body !== null) {
-                    this.imagen = archivos.body;
-                  } else {
-                    this.imagen = this.urlImgDefault;
+              if (
+                element.fechaOfertaCaducacion !== undefined &&
+                moment(element.fechaOfertaCaducacion) >= moment(new Date(), 'YYYY-MMM-DD')
+              ) {
+                const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
+                const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
+                const profesionBD = this.profesiones.find(profesion => profesion.id === element.profesion);
+                this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
+                  archivos => {
+                    // eslint-disable-next-line no-console
+                    console.log('aaaaaaaaaaaaaaaaaaa', archivos);
+                    if (archivos.body !== null) {
+                      this.imagen = archivos.body;
+                    } else {
+                      this.imagen = this.urlImgDefault;
+                    }
+                    this.listaResultadoBusquedaOfertas.push({
+                      profesion: profesionBD?.profesion,
+                      salario: salarioBD?.nombre,
+                      ciudad: ciudadBD?.nombre,
+                      fechaPublicacion: element.fechaPublicacion?.toString(),
+                      empresa: element.usuario?.razonSocial,
+                      idEmpresa: element.usuario?.id,
+                      idOferta: element.id,
+                      imagen: archivos.body?.archivo,
+                      mostrarSalario: element.mostrarSalario
+                    });
+                    this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+                  },
+                  error => {
+                    // eslint-disable-next-line no-console
+                    console.log('eeeeeeeeeeeeeeeee', error);
+                    this.listaResultadoBusquedaOfertas.push({
+                      profesion: profesionBD?.profesion,
+                      salario: salarioBD?.nombre,
+                      ciudad: ciudadBD?.nombre,
+                      fecha: element.fechaPublicacion?.toString(),
+                      empresa: element.usuario?.razonSocial,
+                      idEmpresa: element.usuario?.id,
+                      idOferta: element.id,
+                      imagen: this.urlImgDefault,
+                      mostrarSalario: element.mostrarSalario
+                    });
+                    this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
                   }
-                  this.listaResultadoBusquedaOfertas.push({
-                    profesion: profesionBD?.profesion,
-                    salario: salarioBD?.nombre,
-                    ciudad: ciudadBD?.nombre,
-                    fechaPublicacion: element.fechaPublicacion?.toString(),
-                    empresa: element.usuario?.razonSocial,
-                    idEmpresa: element.usuario?.id,
-                    idOferta: element.id,
-                    imagen: archivos.body?.archivo,
-                    mostrarSalario: element.mostrarSalario
-                  });
-                  this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
-                },
-                error => {
-                  // eslint-disable-next-line no-console
-                  console.log('eeeeeeeeeeeeeeeee', error);
-                  this.listaResultadoBusquedaOfertas.push({
-                    profesion: profesionBD?.profesion,
-                    salario: salarioBD?.nombre,
-                    ciudad: ciudadBD?.nombre,
-                    fecha: element.fechaPublicacion?.toString(),
-                    empresa: element.usuario?.razonSocial,
-                    idEmpresa: element.usuario?.id,
-                    idOferta: element.id,
-                    imagen: this.urlImgDefault,
-                    mostrarSalario: element.mostrarSalario
-                  });
-                  this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
-                }
-              );
+                );
+              } else if (element.fechaOfertaCaducacion === undefined || element.fechaOfertaCaducacion === null) {
+                const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
+                const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
+                const profesionBD = this.profesiones.find(profesion => profesion.id === element.profesion);
+                this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
+                  archivos => {
+                    // eslint-disable-next-line no-console
+                    console.log('aaaaaaaaaaaaaaaaaaa', archivos);
+                    if (archivos.body !== null) {
+                      this.imagen = archivos.body;
+                    } else {
+                      this.imagen = this.urlImgDefault;
+                    }
+                    this.listaResultadoBusquedaOfertas.push({
+                      profesion: profesionBD?.profesion,
+                      salario: salarioBD?.nombre,
+                      ciudad: ciudadBD?.nombre,
+                      fechaPublicacion: element.fechaPublicacion?.toString(),
+                      empresa: element.usuario?.razonSocial,
+                      idEmpresa: element.usuario?.id,
+                      idOferta: element.id,
+                      imagen: archivos.body?.archivo,
+                      mostrarSalario: element.mostrarSalario
+                    });
+                    this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+                  },
+                  error => {
+                    // eslint-disable-next-line no-console
+                    console.log('eeeeeeeeeeeeeeeee', error);
+                    this.listaResultadoBusquedaOfertas.push({
+                      profesion: profesionBD?.profesion,
+                      salario: salarioBD?.nombre,
+                      ciudad: ciudadBD?.nombre,
+                      fecha: element.fechaPublicacion?.toString(),
+                      empresa: element.usuario?.razonSocial,
+                      idEmpresa: element.usuario?.id,
+                      idOferta: element.id,
+                      imagen: this.urlImgDefault,
+                      mostrarSalario: element.mostrarSalario
+                    });
+                    this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+                  }
+                );
+              }
             });
           }
         });
@@ -447,44 +537,89 @@ export class ResultadosBusquedaComponent implements OnInit {
           this.resultadoBusqueda = response;
           if (this.resultadoBusqueda) {
             this.resultadoBusqueda.forEach(element => {
-              const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
-              const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
-              const profesionBD = this.profesiones.find(profesion => profesion.id === element.profesion);
-              this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
-                archivos => {
-                  if (archivos.body !== null) {
-                    this.imagen = archivos.body;
+              if (
+                element.fechaOfertaCaducacion !== undefined &&
+                moment(element.fechaOfertaCaducacion) >= moment(new Date(), 'YYYY-MMM-DD')
+              ) {
+                const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
+                const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
+                const profesionBD = this.profesiones.find(profesion => profesion.id === element.profesion);
+                this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
+                  archivos => {
+                    if (archivos.body !== null) {
+                      this.imagen = archivos.body;
+                    }
+                    this.listaResultadoBusquedaOfertas.push({
+                      profesion: profesionBD?.profesion,
+                      salario: salarioBD?.nombre,
+                      ciudad: ciudadBD?.nombre,
+                      fechaPublicacion: element.fechaPublicacion?.toString(),
+                      empresa: element.usuario?.razonSocial,
+                      idEmpresa: element.usuario?.id,
+                      idOferta: element.id,
+                      imagen: archivos.body?.archivo,
+                      mostrarSalario: element.mostrarSalario
+                    });
+                    this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+                  },
+                  error => {
+                    // eslint-disable-next-line no-console
+                    console.log('eeeeeeeeeeeeeeeee', error);
+                    this.listaResultadoBusquedaOfertas.push({
+                      profesion: profesionBD?.profesion,
+                      salario: salarioBD?.nombre,
+                      ciudad: ciudadBD?.nombre,
+                      fecha: element.fechaPublicacion?.toString(),
+                      empresa: element.usuario?.razonSocial,
+                      idEmpresa: element.usuario?.id,
+                      idOferta: element.id,
+                      imagen: this.urlImgDefault,
+                      mostrarSalario: element.mostrarSalario
+                    });
+                    this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
                   }
-                  this.listaResultadoBusquedaOfertas.push({
-                    profesion: profesionBD?.profesion,
-                    salario: salarioBD?.nombre,
-                    ciudad: ciudadBD?.nombre,
-                    fechaPublicacion: element.fechaPublicacion?.toString(),
-                    empresa: element.usuario?.razonSocial,
-                    idEmpresa: element.usuario?.id,
-                    idOferta: element.id,
-                    imagen: archivos.body?.archivo,
-                    mostrarSalario: element.mostrarSalario
-                  });
-                  this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
-                },
-                error => {
-                  // eslint-disable-next-line no-console
-                  console.log('eeeeeeeeeeeeeeeee', error);
-                  this.listaResultadoBusquedaOfertas.push({
-                    profesion: profesionBD?.profesion,
-                    salario: salarioBD?.nombre,
-                    ciudad: ciudadBD?.nombre,
-                    fecha: element.fechaPublicacion?.toString(),
-                    empresa: element.usuario?.razonSocial,
-                    idEmpresa: element.usuario?.id,
-                    idOferta: element.id,
-                    imagen: this.urlImgDefault,
-                    mostrarSalario: element.mostrarSalario
-                  });
-                  this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
-                }
-              );
+                );
+              }
+              if (element.fechaOfertaCaducacion === undefined || element.fechaOfertaCaducacion === null) {
+                const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
+                const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
+                const profesionBD = this.profesiones.find(profesion => profesion.id === element.profesion);
+                this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
+                  archivos => {
+                    if (archivos.body !== null) {
+                      this.imagen = archivos.body;
+                    }
+                    this.listaResultadoBusquedaOfertas.push({
+                      profesion: profesionBD?.profesion,
+                      salario: salarioBD?.nombre,
+                      ciudad: ciudadBD?.nombre,
+                      fechaPublicacion: element.fechaPublicacion?.toString(),
+                      empresa: element.usuario?.razonSocial,
+                      idEmpresa: element.usuario?.id,
+                      idOferta: element.id,
+                      imagen: archivos.body?.archivo,
+                      mostrarSalario: element.mostrarSalario
+                    });
+                    this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+                  },
+                  error => {
+                    // eslint-disable-next-line no-console
+                    console.log('eeeeeeeeeeeeeeeee', error);
+                    this.listaResultadoBusquedaOfertas.push({
+                      profesion: profesionBD?.profesion,
+                      salario: salarioBD?.nombre,
+                      ciudad: ciudadBD?.nombre,
+                      fecha: element.fechaPublicacion?.toString(),
+                      empresa: element.usuario?.razonSocial,
+                      idEmpresa: element.usuario?.id,
+                      idOferta: element.id,
+                      imagen: this.urlImgDefault,
+                      mostrarSalario: element.mostrarSalario
+                    });
+                    this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+                  }
+                );
+              }
             });
           }
         });
@@ -515,46 +650,92 @@ export class ResultadosBusquedaComponent implements OnInit {
             this.resultadoBusqueda = await this.listarOfertas(params);
             if (this.resultadoBusqueda) {
               this.resultadoBusqueda.forEach(element => {
-                const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
-                const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
-                const profesionBD = this.profesiones.find(profesion => profesion.id === element.profesion);
-                setTimeout(() => {
-                  this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
-                    archivos => {
-                      if (archivos.body !== null) {
-                        this.imagen = archivos.body;
+                if (
+                  element.fechaOfertaCaducacion !== undefined &&
+                  moment(element.fechaOfertaCaducacion) >= moment(new Date(), 'YYYY-MMM-DD')
+                ) {
+                  const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
+                  const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
+                  const profesionBD = this.profesiones.find(profesion => profesion.id === element.profesion);
+                  setTimeout(() => {
+                    this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
+                      archivos => {
+                        if (archivos.body !== null) {
+                          this.imagen = archivos.body;
+                        }
+                        this.listaResultadoBusquedaOfertas.push({
+                          profesion: profesionBD?.profesion,
+                          salario: salarioBD?.nombre,
+                          ciudad: ciudadBD?.nombre,
+                          fechaPublicacion: element.fechaPublicacion?.toString(),
+                          empresa: element.usuario?.razonSocial,
+                          idEmpresa: element.usuario?.id,
+                          idOferta: element.id,
+                          imagen: archivos.body?.archivo,
+                          mostrarSalario: element.mostrarSalario
+                        });
+                        this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+                      },
+                      error => {
+                        // eslint-disable-next-line no-console
+                        console.log('eeeeeeeeeeeeeeeee', error);
+                        this.listaResultadoBusquedaOfertas.push({
+                          profesion: profesionBD?.profesion,
+                          salario: salarioBD?.nombre,
+                          ciudad: ciudadBD?.nombre,
+                          fecha: element.fechaPublicacion?.toString(),
+                          empresa: element.usuario?.razonSocial,
+                          idEmpresa: element.usuario?.id,
+                          idOferta: element.id,
+                          imagen: this.urlImgDefault,
+                          mostrarSalario: element.mostrarSalario
+                        });
+                        this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
                       }
-                      this.listaResultadoBusquedaOfertas.push({
-                        profesion: profesionBD?.profesion,
-                        salario: salarioBD?.nombre,
-                        ciudad: ciudadBD?.nombre,
-                        fechaPublicacion: element.fechaPublicacion?.toString(),
-                        empresa: element.usuario?.razonSocial,
-                        idEmpresa: element.usuario?.id,
-                        idOferta: element.id,
-                        imagen: archivos.body?.archivo,
-                        mostrarSalario: element.mostrarSalario
-                      });
-                      this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
-                    },
-                    error => {
-                      // eslint-disable-next-line no-console
-                      console.log('eeeeeeeeeeeeeeeee', error);
-                      this.listaResultadoBusquedaOfertas.push({
-                        profesion: profesionBD?.profesion,
-                        salario: salarioBD?.nombre,
-                        ciudad: ciudadBD?.nombre,
-                        fecha: element.fechaPublicacion?.toString(),
-                        empresa: element.usuario?.razonSocial,
-                        idEmpresa: element.usuario?.id,
-                        idOferta: element.id,
-                        imagen: this.urlImgDefault,
-                        mostrarSalario: element.mostrarSalario
-                      });
-                      this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
-                    }
-                  );
-                }, 200);
+                    );
+                  }, 200);
+                } else if (element.fechaOfertaCaducacion === undefined || element.fechaOfertaCaducacion === null) {
+                  const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
+                  const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
+                  const profesionBD = this.profesiones.find(profesion => profesion.id === element.profesion);
+                  setTimeout(() => {
+                    this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
+                      archivos => {
+                        if (archivos.body !== null) {
+                          this.imagen = archivos.body;
+                        }
+                        this.listaResultadoBusquedaOfertas.push({
+                          profesion: profesionBD?.profesion,
+                          salario: salarioBD?.nombre,
+                          ciudad: ciudadBD?.nombre,
+                          fechaPublicacion: element.fechaPublicacion?.toString(),
+                          empresa: element.usuario?.razonSocial,
+                          idEmpresa: element.usuario?.id,
+                          idOferta: element.id,
+                          imagen: archivos.body?.archivo,
+                          mostrarSalario: element.mostrarSalario
+                        });
+                        this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+                      },
+                      error => {
+                        // eslint-disable-next-line no-console
+                        console.log('eeeeeeeeeeeeeeeee', error);
+                        this.listaResultadoBusquedaOfertas.push({
+                          profesion: profesionBD?.profesion,
+                          salario: salarioBD?.nombre,
+                          ciudad: ciudadBD?.nombre,
+                          fecha: element.fechaPublicacion?.toString(),
+                          empresa: element.usuario?.razonSocial,
+                          idEmpresa: element.usuario?.id,
+                          idOferta: element.id,
+                          imagen: this.urlImgDefault,
+                          mostrarSalario: element.mostrarSalario
+                        });
+                        this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+                      }
+                    );
+                  }, 200);
+                }
               });
             }
           } else {
@@ -576,44 +757,88 @@ export class ResultadosBusquedaComponent implements OnInit {
               this.resultadoBusqueda = response;
               if (this.resultadoBusqueda) {
                 this.resultadoBusqueda.forEach(element => {
-                  const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
-                  const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
-                  const profesionBD = this.profesiones.find(profesion => profesion.id === element.profesion);
-                  this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
-                    archivos => {
-                      if (archivos.body !== null) {
-                        this.imagen = archivos.body;
+                  if (
+                    element.fechaOfertaCaducacion !== undefined &&
+                    moment(element.fechaOfertaCaducacion) >= moment(new Date(), 'YYYY-MMM-DD')
+                  ) {
+                    const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
+                    const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
+                    const profesionBD = this.profesiones.find(profesion => profesion.id === element.profesion);
+                    this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
+                      archivos => {
+                        if (archivos.body !== null) {
+                          this.imagen = archivos.body;
+                        }
+                        this.listaResultadoBusquedaOfertas.push({
+                          profesion: profesionBD?.profesion,
+                          salario: salarioBD?.nombre,
+                          ciudad: ciudadBD?.nombre,
+                          fechaPublicacion: element.fechaPublicacion?.toString(),
+                          empresa: element.usuario?.razonSocial,
+                          idEmpresa: element.usuario?.id,
+                          idOferta: element.id,
+                          imagen: archivos.body?.archivo,
+                          mostrarSalario: element.mostrarSalario
+                        });
+                        this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+                      },
+                      error => {
+                        // eslint-disable-next-line no-console
+                        console.log('eeeeeeeeeeeeeeeee', error);
+                        this.listaResultadoBusquedaOfertas.push({
+                          profesion: profesionBD?.profesion,
+                          salario: salarioBD?.nombre,
+                          ciudad: ciudadBD?.nombre,
+                          fecha: element.fechaPublicacion?.toString(),
+                          empresa: element.usuario?.razonSocial,
+                          idEmpresa: element.usuario?.id,
+                          idOferta: element.id,
+                          imagen: this.urlImgDefault,
+                          mostrarSalario: element.mostrarSalario
+                        });
+                        this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
                       }
-                      this.listaResultadoBusquedaOfertas.push({
-                        profesion: profesionBD?.profesion,
-                        salario: salarioBD?.nombre,
-                        ciudad: ciudadBD?.nombre,
-                        fechaPublicacion: element.fechaPublicacion?.toString(),
-                        empresa: element.usuario?.razonSocial,
-                        idEmpresa: element.usuario?.id,
-                        idOferta: element.id,
-                        imagen: archivos.body?.archivo,
-                        mostrarSalario: element.mostrarSalario
-                      });
-                      this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
-                    },
-                    error => {
-                      // eslint-disable-next-line no-console
-                      console.log('eeeeeeeeeeeeeeeee', error);
-                      this.listaResultadoBusquedaOfertas.push({
-                        profesion: profesionBD?.profesion,
-                        salario: salarioBD?.nombre,
-                        ciudad: ciudadBD?.nombre,
-                        fecha: element.fechaPublicacion?.toString(),
-                        empresa: element.usuario?.razonSocial,
-                        idEmpresa: element.usuario?.id,
-                        idOferta: element.id,
-                        imagen: this.urlImgDefault,
-                        mostrarSalario: element.mostrarSalario
-                      });
-                      this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
-                    }
-                  );
+                    );
+                  } else if (element.fechaOfertaCaducacion === undefined || element.fechaOfertaCaducacion === null) {
+                    const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
+                    const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
+                    const profesionBD = this.profesiones.find(profesion => profesion.id === element.profesion);
+                    this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
+                      archivos => {
+                        if (archivos.body !== null) {
+                          this.imagen = archivos.body;
+                        }
+                        this.listaResultadoBusquedaOfertas.push({
+                          profesion: profesionBD?.profesion,
+                          salario: salarioBD?.nombre,
+                          ciudad: ciudadBD?.nombre,
+                          fechaPublicacion: element.fechaPublicacion?.toString(),
+                          empresa: element.usuario?.razonSocial,
+                          idEmpresa: element.usuario?.id,
+                          idOferta: element.id,
+                          imagen: archivos.body?.archivo,
+                          mostrarSalario: element.mostrarSalario
+                        });
+                        this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+                      },
+                      error => {
+                        // eslint-disable-next-line no-console
+                        console.log('eeeeeeeeeeeeeeeee', error);
+                        this.listaResultadoBusquedaOfertas.push({
+                          profesion: profesionBD?.profesion,
+                          salario: salarioBD?.nombre,
+                          ciudad: ciudadBD?.nombre,
+                          fecha: element.fechaPublicacion?.toString(),
+                          empresa: element.usuario?.razonSocial,
+                          idEmpresa: element.usuario?.id,
+                          idOferta: element.id,
+                          imagen: this.urlImgDefault,
+                          mostrarSalario: element.mostrarSalario
+                        });
+                        this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
+                      }
+                    );
+                  }
                 });
               }
             });
