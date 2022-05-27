@@ -35,6 +35,7 @@ export interface IEmpresa {
   urlInstagram?: string;
   urlLinkedIn?: string;
   bdEmpresa?: boolean;
+  ofertaVip?: number;
 }
 
 export class Empresa implements IEmpresa {
@@ -71,6 +72,7 @@ export class Empresa implements IEmpresa {
     public urlFacebook?: string,
     public urlInstagram?: string,
     public urlLinkedIn?: string,
-    public bdEmpresa?: boolean
+    public bdEmpresa?: boolean,
+    public ofertaVip?: number
   ) {}
 }

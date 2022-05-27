@@ -83,4 +83,8 @@ public class BdEmpresaService {
     public List<BdEmpresa> getBdEmpresaByIdEmpresaAndUsuario(Persona idUsuario,Empresa idEmpresa) {
     	return bdEmpresaRepository.findByEmpresaAndUsuario(idUsuario,idEmpresa);
     }
+    
+    public List<BdEmpresa> getBdEmpresaByIdPersona(Persona idPersona) {
+    	return bdEmpresaRepository.findByUsuario(idPersona);
+    }
 }

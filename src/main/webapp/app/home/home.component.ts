@@ -296,7 +296,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .query({
         page: 0,
         size: 5,
-        sort: ['fechaPublicacion,desc'],
+        sort: ['fechaPublicacionVip,desc'],
         'estado.equals': 'A'
       })
       .subscribe((res: HttpResponse<IOferta[]>) => {

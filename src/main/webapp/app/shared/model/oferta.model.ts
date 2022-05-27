@@ -25,6 +25,8 @@ export interface IOferta {
   fecha?: number;
   mostrarSalario?: boolean;
   genero?: string;
+  fechaPublicacionVip?: Moment;
+  fechaOfertaCaducacion?: Moment;
 }
 
 export class Oferta implements IOferta {
@@ -52,6 +54,8 @@ export class Oferta implements IOferta {
     public genero?: string,
     public activado?: boolean,
     public fecha?: number,
-    public mostrarSalario?: boolean
+    public mostrarSalario?: boolean,
+    public fechaPublicacionVip?: Moment,
+    public fechaOfertaCaducacion?: Moment
   ) {}
 }

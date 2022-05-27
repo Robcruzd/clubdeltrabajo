@@ -18,6 +18,7 @@ import { EmpresaService } from 'app/entities/empresa/empresa.service';
 import { Empresa } from 'app/shared/model/empresa.model';
 import { FacebookService } from 'app/shared/services/facebook.service';
 import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
+import * as moment from 'moment';
 
 declare let alertify: any;
 
@@ -48,6 +49,7 @@ export class ControlarOfertasComponent implements OnInit {
   totalTodo = 0;
   totalNinguno = 0;
   showBtnArriba = false;
+  ofertaVip = false;
 
   aspiracionesSalariales: IOpcionVo[] = commonMessages.ARRAY_ASPIRACION_SALARIAL;
   CrearOfertaLabel = commonMessages.CREAR_OFERTA;
@@ -68,6 +70,7 @@ export class ControlarOfertasComponent implements OnInit {
   PorVer = commonMessages.POR_VER;
 
   empresaUpdate!: Empresa | null;
+  ofertaUpdate!: Oferta | null;
   codigoEmpresa: any;
 
   constructor(
@@ -164,6 +167,34 @@ export class ControlarOfertasComponent implements OnInit {
     });
   }
 
+  crearOfertaVip(oferta: any): void {
+    Swal.fire({
+      title: '¿Está seguro de que desea mostrar la oferta como destacada en el home de la página?',
+      icon: 'success',
+      showCancelButton: true,
+      showCloseButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#2699FB',
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar'
+    }).then(result => {
+      if (result.value) {
+        this.ofertaService.find(oferta.id).subscribe(ofertaResponse => {
+          this.ofertaUpdate = ofertaResponse.body;
+          if (this.ofertaUpdate) {
+            this.ofertaUpdate.fechaPublicacionVip = moment(new Date(), 'YYYY-MMM-DD').subtract(5, 'hours');
+            this.ofertaService.update(this.ofertaUpdate).subscribe(() => {
+              if (this.empresaUpdate?.ofertaVip) this.empresaUpdate.ofertaVip = this.empresaUpdate?.ofertaVip - 1;
+              this.empresaService.update(this.empresaUpdate).subscribe(() => {
+                alertify.set('notifier', 'position', 'top-right'), alertify.success('Se aplico correctamente!');
+              });
+            });
+          }
+        });
+      }
+    });
+  }
+
   consultarInformacionGeografica(): void {
     this.apiService.getInformacionGeografica().subscribe(geografia => {
       this.geografia = geografia;
@@ -207,6 +238,13 @@ export class ControlarOfertasComponent implements OnInit {
         this.totalTodo = 0;
       });
     }
+
+    this.empresaService.find(this.codigoEmpresa).subscribe(empresa => {
+      this.empresaUpdate = empresa.body;
+      if (this.empresaUpdate?.ofertaVip !== undefined && this.empresaUpdate?.ofertaVip > 0) {
+        this.ofertaVip = true;
+      }
+    });
   }
 
   obtenerIdUsuario(): Promise<any> {

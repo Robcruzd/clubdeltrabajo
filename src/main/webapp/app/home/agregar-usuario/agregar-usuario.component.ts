@@ -401,6 +401,7 @@ export class AgregarUsuarioComponent implements OnInit {
         const tipodoc = { id: 5, nombreTipo: 'NIT' };
         this.empresa.tipoUsuario = this.tipoUsuario;
         this.empresa.tipoDocumento = tipodoc;
+        this.empresa.ofertaVip = 0;
         this.user.login = this.empresa.email;
         this.user.email = this.empresa.email;
         this.user.firstName = this.empresa.razonSocial;

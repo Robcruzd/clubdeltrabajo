@@ -233,7 +233,7 @@ public class OfertaResource {
     	Pageable paging = PageRequest.of(0, 9999, Sort.by("id"));
     	return ofertaQueryService.findByCriteria(ofertaBuilder, paging);
 	}
-	 
+	 	
 	@GetMapping("/ofertas/eliminarOFertas")
 	public void eliminarOferta(@RequestParam("oferta") Long oferta) {
 		List<AplicacionOferta> listaAplicacionOferta = aplicacionOfertaservice.getByOferta(oferta);

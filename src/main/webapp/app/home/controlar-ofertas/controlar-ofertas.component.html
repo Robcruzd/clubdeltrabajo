@@ -69,6 +69,10 @@
                                         <fa-icon [icon]="faShareAlt" class="border-icon2" style="
                                         background: transparent 0% 0% no-repeat padding-box;"></fa-icon>
                                     </button>
+                                    <button *ngIf = "ofertaVip" placement="top" ngbTooltip="vip" class="boton-eliminar" (click)="crearOfertaVip(oferta)" >
+                                        <fa-icon [icon]="faStar" class="border-icon2" style="
+                                        background: transparent 0% 0% no-repeat padding-box;"></fa-icon>
+                                    </button>
                                     <button class="boton-eliminar" (click)='eliminarOfertaid(oferta.id)'>
                                         <fa-icon [icon]="faTimes" class="border-icon2" style="
                                         background: transparent 0% 0% no-repeat padding-box;"></fa-icon>

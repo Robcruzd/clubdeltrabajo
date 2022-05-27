@@ -49,4 +49,8 @@ export class BdEmpresaService {
     const url = this.resourceUrlByIdUsuarioAndEmpresa + params;
     return this.http.get<any>(url);
   }
+
+  delete(id: number): Observable<HttpResponse<{}>> {
+    return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
 }

@@ -359,6 +359,7 @@ export class CrearOfertaComponent implements OnInit {
     this.oferta.nivelIdioma = this.formDatosBasicos.controls['nivelIdioma'].value;
     this.oferta.genero = this.formDatosBasicos.controls['genero'].value;
     this.oferta.mostrarSalario = this.formDatosBasicos.controls['mostrarSalario'].value;
+    this.oferta.fechaPublicacionVip = moment(new Date(), 'YYYY-MMM-DD').subtract(5, 'hours');
     if (this.usuario?.userEmpresa) {
       // this.ofertaService.getOfertasEmpresa(this.usuario.userEmpresa).subscribe(ofertaResponse => {
       if (this.usuario?.userEmpresa) {
@@ -367,26 +368,52 @@ export class CrearOfertaComponent implements OnInit {
           this.datosEmpresa = RESPONSE.body;
           if (this.idOferta === 0) {
             if (this.datosEmpresa?.publicacionesOferta !== 0) {
-              this.oferta.activado = true;
-              this.ofertaService.create(this.oferta).subscribe(
-                response => {
-                  if (response.body !== null && this.datosEmpresa !== null) {
-                    const valor = this.datosEmpresa?.publicacionesOferta;
-                    if (valor !== undefined) {
-                      this.datosEmpresa.publicacionesOferta = valor - 1;
-                      this.empresaService.update(this.datosEmpresa).subscribe(() => {});
+              this.ofertaService.getOfertasEmpresa(this.usuario?.userEmpresa).subscribe(ofertaresponse => {
+                if (ofertaresponse.length !== 0 && ofertaresponse.length !== undefined) {
+                  this.oferta.activado = true;
+                  this.ofertaService.create(this.oferta).subscribe(
+                    response => {
+                      if (response.body !== null && this.datosEmpresa !== null) {
+                        const valor = this.datosEmpresa?.publicacionesOferta;
+                        if (valor !== undefined) {
+                          this.datosEmpresa.publicacionesOferta = valor - 1;
+                          this.empresaService.update(this.datosEmpresa).subscribe(() => {});
+                        }
+                        alertify.set('notifier', 'position', 'top-right');
+                        alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                        this.router.navigate(['/controlar-ofertas']);
+                      }
+                    },
+                    () => {
+                      alertify.set('notifier', 'position', 'top-right');
+                      alertify.error(commonMessages.HTTP_ERROR_LABEL);
                     }
-                    alertify.set('notifier', 'position', 'top-right');
-                    alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
-                    this.router.navigate(['/controlar-ofertas']);
-                  }
-                },
-                () => {
-                  alertify.set('notifier', 'position', 'top-right');
-                  alertify.error(commonMessages.HTTP_ERROR_LABEL);
-                  // this.router.navigate(['/controlar-ofertas']);
+                  );
+                } else {
+                  this.oferta.fechaOfertaCaducacion = moment(new Date(), 'YYYY-MMM-DD')
+                    .subtract(5, 'hours')
+                    .add(15, 'd');
+                  this.oferta.activado = true;
+                  this.ofertaService.create(this.oferta).subscribe(
+                    response => {
+                      if (response.body !== null && this.datosEmpresa !== null) {
+                        const valor = this.datosEmpresa?.publicacionesOferta;
+                        if (valor !== undefined) {
+                          this.datosEmpresa.publicacionesOferta = valor - 1;
+                          this.empresaService.update(this.datosEmpresa).subscribe(() => {});
+                        }
+                        alertify.set('notifier', 'position', 'top-right');
+                        alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                        this.router.navigate(['/controlar-ofertas']);
+                      }
+                    },
+                    () => {
+                      alertify.set('notifier', 'position', 'top-right');
+                      alertify.error(commonMessages.HTTP_ERROR_LABEL);
+                    }
+                  );
                 }
-              );
+              });
             } else {
               alertify.set('notifier', 'position', 'top-right');
               alertify.error('No es posible publicar más ofertas, debe adquirir un plan!');

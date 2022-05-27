@@ -24,5 +24,6 @@ public interface BdEmpresaRepository extends JpaRepository<BdEmpresa, Long>, Jpa
 	
 	List<BdEmpresa> findByEmpresa(Empresa empresa);
 	List<BdEmpresa> findByEmpresaAndUsuario(Persona usuario,Empresa empresa);
+	List<BdEmpresa> findByUsuario(Persona persona);
 
 }
