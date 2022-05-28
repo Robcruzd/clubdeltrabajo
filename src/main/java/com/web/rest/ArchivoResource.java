@@ -190,7 +190,6 @@ public class ArchivoResource {
 
     @GetMapping("/getFileS3/{name}")
     public ArrayList<String> getFile(@PathVariable String[] name) throws IOException {
-        log.debug("REST request to get Archivo : {}{}", name);
         return archivoService.getFile(name);
     }
 

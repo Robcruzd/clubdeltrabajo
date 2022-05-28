@@ -342,6 +342,10 @@ p {
       font-size: 2.991vw;
       font-family: Roboto;
       color: white;
+
+      .eresEmpresa {
+        font-weight: bold;
+      }
     }
   }
 
@@ -732,6 +736,7 @@ p {
 
         .eresEmpresa {
           font-size: 14px;
+          font-weight: bold;
         }
       }
     }

@@ -38,7 +38,6 @@ import com.google.api.services.analyticsreporting.v4.model.MetricHeaderEntry;
 import com.google.api.services.analyticsreporting.v4.model.Report;
 import com.google.api.services.analyticsreporting.v4.model.ReportRequest;
 import com.google.api.services.analyticsreporting.v4.model.ReportRow;
-import com.google.auth.oauth2.GoogleCredentials;
 
 /**
  * A simple example of how to access the Google Analytics API.
