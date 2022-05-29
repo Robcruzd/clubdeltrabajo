@@ -201,4 +201,18 @@ export class NavbarCtComponent implements OnInit {
     sessionStorage.setItem('entendidoCookie', 'true');
     this.entendido = true;
   }
+
+  accederRuta(elemento: any): void {
+    if (elemento === 'persona') {
+      this.router.navigate(['/previo-registrar']);
+    } else if (elemento === 'empresa') {
+      this.router.navigate(['/previo-registrar-emp']);
+    } else if (elemento === 'publicacion') {
+      this.router.navigate(['/resultados-busqueda']);
+    } else if (elemento === 'nosotros') {
+      this.router.navigate(['/nosotros']);
+    } else {
+      this.router.navigate(['/']);
+    }
+  }
 }
