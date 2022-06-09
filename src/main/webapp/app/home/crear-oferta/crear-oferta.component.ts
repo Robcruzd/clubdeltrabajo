@@ -138,7 +138,7 @@ export class CrearOfertaComponent implements OnInit {
   ngOnInit(): void {
     const param = this.route.snapshot.queryParamMap.get('oferta')!;
     // eslint-disable-next-line no-console
-    console.log('paaaaaaaaram: ', param);
+    // console.log('paaaaaaaaram: ', param);
     if (param !== null) {
       this.idOferta = parseInt(param, 10);
     }
@@ -265,10 +265,10 @@ export class CrearOfertaComponent implements OnInit {
       this.subnivelesLaborales = this.nivelesLaborales;
     } else {
       // eslint-disable-next-line no-console
-      console.log('vaaaalue: ', value);
+      // console.log('vaaaalue: ', value);
       if (value && Object.entries(value).length > 0) {
         // eslint-disable-next-line no-console
-        console.log('vaaaalue2: ', value['nivelLaboral']);
+        // console.log('vaaaalue2: ', value['nivelLaboral']);
         const subniveles = this.nivelesLaborales
           .filter(item => item.codigo === value['nivelLaboral'])
           .map(item => {
@@ -280,7 +280,7 @@ export class CrearOfertaComponent implements OnInit {
           });
         this.subnivelesLaborales = subniveles[0].subniveles;
         // eslint-disable-next-line no-console
-        console.log(this.subnivelesLaborales);
+        // console.log(this.subnivelesLaborales);
       }
     }
   }
@@ -581,7 +581,7 @@ export class CrearOfertaComponent implements OnInit {
 
   vistaPreliminarOferta(): void {
     // eslint-disable-next-line no-console
-    console.log(this.formDatosBasicos);
+    // console.log(this.formDatosBasicos);
     this.visualizarOferta = true;
     this.descripcionOferta = this.formDatosBasicos.controls['requisitos'].value;
     this.profesionOferta = this.formDatosBasicos.controls['profesion'].value.profesion;
@@ -611,7 +611,7 @@ export class CrearOfertaComponent implements OnInit {
 
     const f = new Date();
     // eslint-disable-next-line no-console
-    console.log(f);
+    // console.log(f);
     const mes = f.getMonth() + 1;
     this.publicadoOFerta = f.getDate() + '-' + mes + '-' + f.getFullYear();
   }

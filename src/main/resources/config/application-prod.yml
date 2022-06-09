@@ -62,7 +62,6 @@ spring:
     tls: true
     properties.mail.smtp:
       auth: true
-      starttls.enable: true
       ssl.trust: smtpout.secureserver.net
   messages:
     cache-duration: PT1S
@@ -111,6 +110,9 @@ amazonProperties:
   accessKey:
   secretKey:
   bucketName:
+
+mercadoPagoProps:
+  accessToken:
 # ===================================================================
 # JHipster specific properties
 #

@@ -149,7 +149,7 @@ export class ControlarOfertasComponent implements OnInit {
         this.facebookService.publicarPost(oferta.id, this.codigoEmpresa).subscribe(
           response => {
             // eslint-disable-next-line no-console
-            console.log('response:     ', response);
+            // console.log('response:     ', response);
             if (response[0].startsWith('no')) {
               alertify.set('notifier', 'position', 'top-right');
               alertify.error('No cuenta con replicas para compartir su oferta en las redes sociales!. Debe contratar un plan!');

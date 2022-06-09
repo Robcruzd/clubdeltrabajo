@@ -70,8 +70,13 @@
       }
     }
 
+    .elemento {
+      color: black;
+    }
+
     .elemento:hover {
       background: aliceblue !important;
+      color: black;
     }
 
     .boton-ingresar,
@@ -208,8 +213,13 @@
         }
       }
 
+      .elemento {
+        color: black;
+      }
+
       .elemento:hover {
         background: aliceblue !important;
+        color: black;
       }
 
       .dropdownPhoto {

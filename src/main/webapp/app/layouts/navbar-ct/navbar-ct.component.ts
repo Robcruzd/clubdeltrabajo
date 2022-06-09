@@ -68,7 +68,7 @@ export class NavbarCtComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.router.url === '/' || this.router.url === '/inicio-sesion') {
+    if (this.router.url === '/inicio-sesion') {
       this.hideNavbar = true;
     } else {
       this.hideNavbar = false;
@@ -76,6 +76,7 @@ export class NavbarCtComponent implements OnInit {
     if (sessionStorage.getItem('entendidoCookie') === 'true') {
       this.entendido = true;
     }
+    this.getAuthentication();
     // this.cd.detectChanges();
   }
 
@@ -87,61 +88,65 @@ export class NavbarCtComponent implements OnInit {
   subscribeToEvents(): void {
     this.router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
-        this.accountService.getAuthenticationState().subscribe(account => {
-          this.account = account;
-          // eslint-disable-next-line no-console
-          console.log('acount---------------', this.account);
-          this.persona = account?.user || 0;
-          this.showNavbar = this.accountService.isAuthenticated() ? true : false;
-          this.showElement = this.accountService.isAuthenticated() ? true : false;
-          this.logged = this.accountService.isAuthenticated() ? true : false;
-          if (this.router.url === '/inicio-sesion') {
-            this.hideNavbar = true;
-            if (this.logged) {
-              if (this.account?.user) {
-                this.router.navigate(['/perfil']);
-              } else if (this.account?.userEmpresa) {
-                this.router.navigate(['/perfil-empresa']);
-              }
-            }
-          } else {
-            this.hideNavbar = false;
-          }
+        this.getAuthentication();
+      }
+    });
+  }
+
+  getAuthentication(): void {
+    this.accountService.getAuthenticationState().subscribe(account => {
+      this.account = account;
+      // eslint-disable-next-line no-console
+      // console.log('acount---------------', this.account);
+      this.persona = account?.user || 0;
+      this.showNavbar = this.accountService.isAuthenticated() ? true : false;
+      this.showElement = this.accountService.isAuthenticated() ? true : false;
+      this.logged = this.accountService.isAuthenticated() ? true : false;
+      if (this.router.url === '/inicio-sesion') {
+        this.hideNavbar = true;
+        if (this.logged) {
           if (this.account?.user) {
-            this.hojaVidaService.find(this.persona).subscribe(response => {
-              this.hojaVidaVo = response.body;
-              this.urlImageDefault =
-                this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
-                  ? 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_F.png'
-                  : 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_M.png';
-            });
-            this.perfil = '/perfil';
+            this.router.navigate(['/perfil']);
           } else if (this.account?.userEmpresa) {
-            this.perfil = '/perfil-empresa';
-            this.urlImageDefault = 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_M.png';
+            this.router.navigate(['/perfil-empresa']);
           }
-          if (this.showNavbar) {
-            if (this.account?.user) {
-              this.lstOpcionesMenu = [
-                { id: 1, etiqueta: 'Inicio', ruta: '/' },
-                { id: 2, etiqueta: 'Personas', ruta: '/perfil' },
-                { id: 4, etiqueta: 'Publicaciones', ruta: '/resultados-busqueda' },
-                { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
-                { id: 6, etiqueta: 'Contacto', ruta: '/informacion-empresa' }
-              ];
-              this.consultarImagen();
-            } else if (this.account?.userEmpresa) {
-              this.lstOpcionesMenu = [
-                { id: 1, etiqueta: 'Inicio', ruta: '/' },
-                { id: 3, etiqueta: 'Empresas', ruta: '/perfil-empresa' },
-                { id: 4, etiqueta: 'Publicaciones', ruta: '/resultados-busqueda' },
-                { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
-                { id: 6, etiqueta: 'Contacto', ruta: '/informacion-empresa' }
-              ];
-              this.consultarImagenEmp();
-            }
-          }
+        }
+      } else {
+        this.hideNavbar = false;
+      }
+      if (this.account?.user) {
+        this.hojaVidaService.find(this.persona).subscribe(response => {
+          this.hojaVidaVo = response.body;
+          this.urlImageDefault =
+            this.hojaVidaVo?.informacionPersonal && this.hojaVidaVo?.informacionPersonal.genero === 'F'
+              ? 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_F.png'
+              : 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_M.png';
         });
+        this.perfil = '/perfil';
+      } else if (this.account?.userEmpresa) {
+        this.perfil = '/perfil-empresa';
+        this.urlImageDefault = 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_M.png';
+      }
+      if (this.showNavbar) {
+        if (this.account?.user) {
+          this.lstOpcionesMenu = [
+            { id: 1, etiqueta: 'Inicio', ruta: '/' },
+            { id: 2, etiqueta: 'Personas', ruta: '/perfil' },
+            { id: 4, etiqueta: 'Publicaciones', ruta: '/resultados-busqueda' },
+            { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
+            { id: 6, etiqueta: 'Contacto', ruta: '/informacion-empresa' }
+          ];
+          this.consultarImagen();
+        } else if (this.account?.userEmpresa) {
+          this.lstOpcionesMenu = [
+            { id: 1, etiqueta: 'Inicio', ruta: '/' },
+            { id: 3, etiqueta: 'Empresas', ruta: '/perfil-empresa' },
+            { id: 4, etiqueta: 'Publicaciones', ruta: '/resultados-busqueda' },
+            { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
+            { id: 6, etiqueta: 'Contacto', ruta: '/informacion-empresa' }
+          ];
+          this.consultarImagenEmp();
+        }
       }
     });
   }

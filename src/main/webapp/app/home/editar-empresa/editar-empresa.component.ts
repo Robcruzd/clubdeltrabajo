@@ -174,10 +174,10 @@ export class EditarEmpresaComponent implements OnInit {
 
   consultarImagen(): void {
     // eslint-disable-next-line no-console
-    console.log('consultar imagennnnnnn ', this.empresa);
+    // console.log('consultar imagennnnnnn ', this.empresa);
     this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, this.empresa.id).subscribe(response => {
       // eslint-disable-next-line no-console
-      console.log('response:     ', response);
+      // console.log('response:     ', response);
       if (response.body !== null) {
         this.imagen = response.body;
       }
@@ -272,11 +272,11 @@ export class EditarEmpresaComponent implements OnInit {
     this.datosEmpresa!.apellidosRepresentanteLegal = this.formEmpresa.controls['apellidosRepresentante'].value;
     this.datosEmpresa!.telefono = this.formEmpresa.controls['telefonoRep'].value;
     // eslint-disable-next-line no-console
-    console.log('probandoooooo', this.datosEmpresa);
+    // console.log('probandoooooo', this.datosEmpresa);
     this.empresaService.update(this.datosEmpresa).subscribe(
       response => {
         // eslint-disable-next-line no-console
-        console.log(response);
+        // console.log(response);
         if (response.body !== null) {
           if (this.archivoNit.id !== undefined) {
             this.archivoService.update(this.archivoNit).subscribe(

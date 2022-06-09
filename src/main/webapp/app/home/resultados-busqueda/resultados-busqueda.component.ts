@@ -108,7 +108,7 @@ export class ResultadosBusquedaComponent implements OnInit {
 
   ngOnInit(): void {
     // eslint-disable-next-line no-console
-    console.log(this.general);
+    // console.log(this.general);
     const param = this.route.snapshot.queryParamMap.get('general')!;
 
     if (param !== null) {
@@ -265,7 +265,7 @@ export class ResultadosBusquedaComponent implements OnInit {
                 },
                 error => {
                   // eslint-disable-next-line no-console
-                  console.log('eeeeeeeeeeeeeeeee', error);
+                  console.log(error);
                   this.listaResultadoBusquedaOfertas.push({
                     profesion: profesionBD?.profesion,
                     salario: salarioBD?.nombre,
@@ -304,7 +304,7 @@ export class ResultadosBusquedaComponent implements OnInit {
                 },
                 error => {
                   // eslint-disable-next-line no-console
-                  console.log('eeeeeeeeeeeeeeeee', error);
+                  console.log(error);
                   this.listaResultadoBusquedaOfertas.push({
                     profesion: profesionBD?.profesion,
                     salario: salarioBD?.nombre,
@@ -354,7 +354,7 @@ export class ResultadosBusquedaComponent implements OnInit {
             },
             error => {
               // eslint-disable-next-line no-console
-              console.log('eeeeeeeeeeeeeeeee', error);
+              console.log(error);
               this.listaResultadoBusquedaOfertas.push({
                 profesion: profesionBD?.profesion,
                 salario: salarioBD?.nombre,
@@ -436,7 +436,7 @@ export class ResultadosBusquedaComponent implements OnInit {
                 this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
                   archivos => {
                     // eslint-disable-next-line no-console
-                    console.log('aaaaaaaaaaaaaaaaaaa', archivos);
+                    // console.log('aaaaaaaaaaaaaaaaaaa', archivos);
                     if (archivos.body !== null) {
                       this.imagen = archivos.body;
                     } else {
@@ -457,7 +457,7 @@ export class ResultadosBusquedaComponent implements OnInit {
                   },
                   error => {
                     // eslint-disable-next-line no-console
-                    console.log('eeeeeeeeeeeeeeeee', error);
+                    console.log(error);
                     this.listaResultadoBusquedaOfertas.push({
                       profesion: profesionBD?.profesion,
                       salario: salarioBD?.nombre,
@@ -479,7 +479,7 @@ export class ResultadosBusquedaComponent implements OnInit {
                 this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
                   archivos => {
                     // eslint-disable-next-line no-console
-                    console.log('aaaaaaaaaaaaaaaaaaa', archivos);
+                    // console.log('aaaaaaaaaaaaaaaaaaa', archivos);
                     if (archivos.body !== null) {
                       this.imagen = archivos.body;
                     } else {
@@ -500,7 +500,7 @@ export class ResultadosBusquedaComponent implements OnInit {
                   },
                   error => {
                     // eslint-disable-next-line no-console
-                    console.log('eeeeeeeeeeeeeeeee', error);
+                    console.log(error);
                     this.listaResultadoBusquedaOfertas.push({
                       profesion: profesionBD?.profesion,
                       salario: salarioBD?.nombre,
@@ -564,7 +564,7 @@ export class ResultadosBusquedaComponent implements OnInit {
                   },
                   error => {
                     // eslint-disable-next-line no-console
-                    console.log('eeeeeeeeeeeeeeeee', error);
+                    console.log(error);
                     this.listaResultadoBusquedaOfertas.push({
                       profesion: profesionBD?.profesion,
                       salario: salarioBD?.nombre,
@@ -604,7 +604,7 @@ export class ResultadosBusquedaComponent implements OnInit {
                   },
                   error => {
                     // eslint-disable-next-line no-console
-                    console.log('eeeeeeeeeeeeeeeee', error);
+                    console.log(error);
                     this.listaResultadoBusquedaOfertas.push({
                       profesion: profesionBD?.profesion,
                       salario: salarioBD?.nombre,
@@ -678,7 +678,7 @@ export class ResultadosBusquedaComponent implements OnInit {
                       },
                       error => {
                         // eslint-disable-next-line no-console
-                        console.log('eeeeeeeeeeeeeeeee', error);
+                        console.log(error);
                         this.listaResultadoBusquedaOfertas.push({
                           profesion: profesionBD?.profesion,
                           salario: salarioBD?.nombre,
@@ -719,7 +719,7 @@ export class ResultadosBusquedaComponent implements OnInit {
                       },
                       error => {
                         // eslint-disable-next-line no-console
-                        console.log('eeeeeeeeeeeeeeeee', error);
+                        console.log(error);
                         this.listaResultadoBusquedaOfertas.push({
                           profesion: profesionBD?.profesion,
                           salario: salarioBD?.nombre,
@@ -784,7 +784,7 @@ export class ResultadosBusquedaComponent implements OnInit {
                       },
                       error => {
                         // eslint-disable-next-line no-console
-                        console.log('eeeeeeeeeeeeeeeee', error);
+                        console.log(error);
                         this.listaResultadoBusquedaOfertas.push({
                           profesion: profesionBD?.profesion,
                           salario: salarioBD?.nombre,
@@ -823,7 +823,7 @@ export class ResultadosBusquedaComponent implements OnInit {
                       },
                       error => {
                         // eslint-disable-next-line no-console
-                        console.log('eeeeeeeeeeeeeeeee', error);
+                        console.log(error);
                         this.listaResultadoBusquedaOfertas.push({
                           profesion: profesionBD?.profesion,
                           salario: salarioBD?.nombre,

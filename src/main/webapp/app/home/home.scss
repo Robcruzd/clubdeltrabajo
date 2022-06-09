@@ -382,15 +382,14 @@ p {
     background: #fff;
 
     .logo {
-      width: 62%;
-      margin-top: 3rem;
-      margin-bottom: 2rem;
+      display: none;
     }
 
     .titulo {
       // font-size: 25px;
       color: #151d5c;
       font: normal normal 300 100% Roboto;
+      margin-top: 1rem;
     }
 
     .video {

@@ -42,12 +42,14 @@ export class InicioSesionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.pipe(flatMap(params => this.activateService.get(params.key))).subscribe(
+    this.route.queryParams
+      .pipe(flatMap(params => this.activateService.get(params.key)))
+      .subscribe
       // eslint-disable-next-line no-console
-      () => console.log('success'),
+      // () => console.log('success'),
       // eslint-disable-next-line no-console
-      () => console.log('error')
-    );
+      // () => console.log('error')
+      ();
     this.commonMessagesService
       .query({
         'tipoMensaje.equals': 'cmInicioSesion'

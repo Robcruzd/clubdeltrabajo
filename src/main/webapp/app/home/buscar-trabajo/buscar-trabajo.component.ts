@@ -56,7 +56,7 @@ export class BuscarTrabajoComponent implements OnInit {
   ngOnInit(): void {
     this.commonMessagesService.find(1).subscribe(res => {
       /* eslint-disable no-console */
-      console.log(JSON.parse(res.body?.mensajes!));
+      // console.log(JSON.parse(res.body?.mensajes!));
       this.cmBuscarTrabajo = JSON.parse(res.body?.mensajes!);
       // this.sessionStorage.store('commonMessages', JSON.parse(res.body?.mensajes!));
       this.updateVariables();

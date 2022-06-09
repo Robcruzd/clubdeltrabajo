@@ -173,7 +173,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   video(): void {
     /* eslint-disable no-console */
-    console.log(this.account);
+    // console.log(this.account);
     this.userService.contarEmpresas().subscribe(count => {
       this.countEmpresas = count;
     });
@@ -301,10 +301,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       })
       .subscribe((res: HttpResponse<IOferta[]>) => {
         // eslint-disable-next-line no-console
-        console.log('response:     ', res);
+        // console.log('response:     ', res);
         this.ofertas = res.body!;
         // eslint-disable-next-line no-console
-        console.log('lista ofertas: ', this.ofertas);
+        // console.log('lista ofertas: ', this.ofertas);
         this.ofertas.forEach(element => {
           const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
           const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
@@ -312,7 +312,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
             response => {
               // eslint-disable-next-line no-console
-              console.log('response:     ', element);
+              // console.log('response:     ', element);
               // if (response.body !== null) {
               //   this.imagen = response.body;
               // }
@@ -347,7 +347,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           );
         });
         // eslint-disable-next-line no-console
-        console.log('lista ofertas: ', this.listaOfertas);
+        // console.log('lista ofertas: ', this.listaOfertas);
       });
   }
 
@@ -377,12 +377,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   registrarHojaVidaEmpresa(): void {
-    this.archivoService.getS3('img1.png,img2.png').subscribe((res: any) => {
-      console.log(res);
-      this.testing = res.base64;
-      document.getElementById('aqifue')?.setAttribute('src', 'data:image/png;base64, ' + this.testing);
-    });
-    // this.router.navigate(['/previo-registrar-emp']);
+    this.router.navigate(['/previo-registrar-emp']);
   }
 
   encode(data: any[]): String {

@@ -176,7 +176,7 @@ export class AgregarUsuarioComponent implements OnInit {
 
   deleteSpace(variable: string): void {
     // eslint-disable-next-line no-console
-    console.log(this.persona[variable]);
+    // console.log(this.persona[variable]);
     if (this.persona[variable] !== undefined) {
       this.persona[variable] = this.persona[variable]!.trim();
     }
@@ -184,7 +184,7 @@ export class AgregarUsuarioComponent implements OnInit {
 
   deleteSpace2(variable: string): void {
     // eslint-disable-next-line no-console
-    console.log(this.empresa[variable]);
+    // console.log(this.empresa[variable]);
     if (this.persona[variable] !== undefined) {
       this.empresa[variable] = this.empresa[variable]!.trim();
     }
@@ -266,12 +266,12 @@ export class AgregarUsuarioComponent implements OnInit {
         this.validacionIncorrecta = true;
       }
       // eslint-disable-next-line no-console
-      console.log(
-        'tipo:---',
-        this.tipoDocumento.nombreTipo === 'NIT',
-        this.persona.numeroDocumento,
-        !this.persona.numeroDocumento?.toString()?.match(NIT_REGEX)
-      );
+      // console.log(
+      //   'tipo:---',
+      //   this.tipoDocumento.nombreTipo === 'NIT',
+      //   this.persona.numeroDocumento,
+      //   !this.persona.numeroDocumento?.toString()?.match(NIT_REGEX)
+      // );
       if (
         this.tipoDocumento.nombreTipo === 'NIT' &&
         this.persona.numeroDocumento &&

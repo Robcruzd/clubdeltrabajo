@@ -642,7 +642,7 @@ export class CrearHojaVidaComponent implements OnInit {
 
   onSubmit1(): void {
     // eslint-disable-next-line no-console
-    console.log('submit1');
+    // console.log('submit1');
     // this.cargando = false;
     this.hojaVidaVo = new HojaVidaVo();
 
@@ -690,20 +690,20 @@ export class CrearHojaVidaComponent implements OnInit {
   cargarArchivos(hojavo: HojaVidaVo): void {
     this.hojaVidaVo = hojavo;
     // eslint-disable-next-line no-console
-    console.log('archivos: ', this.archivos);
+    // console.log('archivos: ', this.archivos);
     if (this.archivos.length > 0) {
       this.hojaVidaVo.archivos = this.archivos;
     }
     // eslint-disable-next-line no-console
-    console.log('gfgfgfgfgfgfgfgf');
+    // console.log('gfgfgfgfgfgfgfgf');
     this.service.create(this.hojaVidaVo).subscribe(
       response => {
         // eslint-disable-next-line no-console
-        console.log('response save: ', response);
+        // console.log('response save: ', response);
         // eslint-disable-next-line no-console
-        console.log('archivos aws: ', this.archivosaws);
+        // console.log('archivos aws: ', this.archivosaws);
         // eslint-disable-next-line no-console
-        console.log('archivos: ', this.archivos);
+        // console.log('archivos: ', this.archivos);
         if (response.body !== null) {
           if (response.body.informacionPersonal !== null) {
             this.formPersonal.get('id')?.setValue(response.body.informacionPersonal.id);
@@ -767,11 +767,11 @@ export class CrearHojaVidaComponent implements OnInit {
       this.service.create(this.hojaVidaVo).subscribe(
         response => {
           // eslint-disable-next-line no-console
-          console.log('response save: ', response);
+          // console.log('response save: ', response);
           // eslint-disable-next-line no-console
-          console.log('archivos aws: ', this.archivosaws);
+          // console.log('archivos aws: ', this.archivosaws);
           // eslint-disable-next-line no-console
-          console.log('archivos: ', this.archivos);
+          // console.log('archivos: ', this.archivos);
           if (response.body !== null) {
             this.archivosaws.forEach((element: { file: File; name: string }) => {
               const formData = new FormData();
@@ -807,7 +807,7 @@ export class CrearHojaVidaComponent implements OnInit {
 
   procesarInformacionPersonal(): IInformacionPersonal {
     // eslint-disable-next-line no-console
-    console.log('iiiiiiiiiiiiiiiiid: ', this.formPersonal.get(['id'])!.value);
+    // console.log('iiiiiiiiiiiiiiiiid: ', this.formPersonal.get(['id'])!.value);
     return {
       ...new InformacionPersonal(),
       id: this.formPersonal.get(['id'])!.value,
@@ -1240,11 +1240,11 @@ export class CrearHojaVidaComponent implements OnInit {
               this.archivos.forEach(element => {
                 if (element.tipo === TipoArchivo.LICENCIA_CONDUCCION) {
                   this.archivo.deleteS3(element.archivo?.toString()!).subscribe((res: any) => {
-                    console.log(res);
+                    // console.log(res);
                   });
                   if (element.id !== undefined) {
                     this.archivo.delete(element.id!).subscribe((res: any) => {
-                      console.log(res);
+                      // console.log(res);
                     });
                   }
                 } else {
@@ -1255,7 +1255,7 @@ export class CrearHojaVidaComponent implements OnInit {
               this.cargarArchivo(file, tipoDocumento, extension, indice);
             },
             () => {
-              console.log('confirm no licencia');
+              // console.log('confirm no licencia');
               return;
             }
           )
@@ -1284,11 +1284,11 @@ export class CrearHojaVidaComponent implements OnInit {
                     element.informacionAcademica?.id === this.informacionAcademica.at(indice).get('id')!.value
                   ) {
                     this.archivo.deleteS3(element.archivo?.toString()!).subscribe((res: any) => {
-                      console.log(res);
+                      // console.log(res);
                     });
                     if (element.id !== undefined) {
                       this.archivo.delete(element.id!).subscribe((res: any) => {
-                        console.log(res);
+                        // console.log(res);
                       });
                     }
                   } else {
@@ -1334,11 +1334,11 @@ export class CrearHojaVidaComponent implements OnInit {
                     element.informacionLaboral?.id === this.experienciaLaboral.at(indice).get('id')!.value
                   ) {
                     this.archivo.deleteS3(element.archivo?.toString()!).subscribe((res: any) => {
-                      console.log(res);
+                      // console.log(res);
                     });
                     if (element.id !== undefined) {
                       this.archivo.delete(element.id!).subscribe((res: any) => {
-                        console.log(res);
+                        // console.log(res);
                       });
                     }
                   } else {
@@ -1370,7 +1370,7 @@ export class CrearHojaVidaComponent implements OnInit {
   cargarArchivo(file: File, tipoDocumento: number, extension: string, indice?: number) {
     const reader = new FileReader();
 
-    console.log('creando archivo init');
+    // console.log('creando archivo init');
     const archivo = new Archivo();
     archivo.tipo = tipoDocumento;
     archivo.nombre = file.name;
@@ -1412,7 +1412,7 @@ export class CrearHojaVidaComponent implements OnInit {
     fileaws['name'] = archivo.archivo;
     this.archivosaws.push(fileaws);
     this.archivos.push(archivo);
-    console.log('adicionando archivo fin');
+    // console.log('adicionando archivo fin');
 
     // if (tipoDocumento === TipoArchivo.DOCUMENTO_IDENTIDAD) {
     //   this.cargadoDocumento = true;
@@ -1614,7 +1614,7 @@ export class CrearHojaVidaComponent implements OnInit {
 
   onChangeIncompAcademic(index: any, event: any): void {
     // eslint-disable-next-line no-console
-    console.log(event.target.selectedOptions[0].label);
+    // console.log(event.target.selectedOptions[0].label);
     if (event.target.selectedOptions[0].label !== 'Completo') {
       this.informacionAcademica
         .at(index)

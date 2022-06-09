@@ -26,18 +26,18 @@ export class ConfigurationComponent implements OnInit {
       })
       .subscribe(beans => {
         // eslint-disable-next-line no-console
-        console.log('beasns: ', beans.body);
+        // console.log('beasns: ', beans.body);
         this.allBeans = beans.body;
         this.filterAndSortBeans();
         // eslint-disable-next-line no-console
-        console.log('beasns2: ', beans.body);
+        // console.log('beasns2: ', beans.body);
       });
   }
 
   filterAndSortBeans(): void {
     this.beans = this.allBeans.map((bean: { mensajes: string }) => {
       // eslint-disable-next-line no-console
-      console.log('beasns2: ', bean);
+      // console.log('beasns2: ', bean);
       bean.mensajes = JSON.parse(bean.mensajes);
       return bean;
     });
@@ -47,12 +47,12 @@ export class ConfigurationComponent implements OnInit {
 
   save(): void {
     // eslint-disable-next-line no-console
-    console.log('beannnnnns: ', this.dataForChange);
+    // console.log('beannnnnns: ', this.dataForChange);
     this.dataForChange.forEach((data: ICommonMessages) => {
       const dataToSave = data;
       dataToSave.mensajes = JSON.stringify(data.mensajes);
       // eslint-disable-next-line no-console
-      console.log('beannnnnns: ', data);
+      // console.log('beannnnnns: ', data);
       this.configurationService.update(dataToSave).subscribe(result => {
         // eslint-disable-next-line no-console
         console.log(result);
@@ -60,12 +60,12 @@ export class ConfigurationComponent implements OnInit {
       dataToSave.mensajes = JSON.parse(data.mensajes!);
     });
     // eslint-disable-next-line no-console
-    console.log('beansend', this.beans);
+    // console.log('beansend', this.beans);
   }
 
   onNameChange(bean: any, key: string, text: any): void {
     // eslint-disable-next-line no-console
-    console.log('beannnnnns: ', bean);
+    // console.log('beannnnnns: ', bean);
     bean.mensajes[key] = JSON.parse(text);
     if (this.dataForChange.length > 0) {
       this.dataForChange.map((data: { id: any }, index: string | number) => {
@@ -80,8 +80,8 @@ export class ConfigurationComponent implements OnInit {
     }
 
     // eslint-disable-next-line no-console
-    console.log('beannnnnnsn: ', this.dataForChange);
+    // console.log('beannnnnnsn: ', this.dataForChange);
     // eslint-disable-next-line no-console
-    console.log('beannnnnnst: ', text);
+    // console.log('beannnnnnst: ', text);
   }
 }

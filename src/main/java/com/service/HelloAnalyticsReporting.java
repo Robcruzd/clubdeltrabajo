@@ -1,10 +1,5 @@
 package com.service;
 
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
-import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
@@ -15,7 +10,6 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.FileInputStream;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
@@ -23,21 +17,15 @@ import java.util.Arrays;
 import java.util.List;
 
 
-import com.google.api.services.analyticsreporting.v4.AnalyticsReportingScopes;
-import com.google.api.services.analytics.AnalyticsScopes;
 import com.google.api.services.analyticsreporting.v4.AnalyticsReporting;
-
-import com.google.api.services.analyticsreporting.v4.model.ColumnHeader;
+import com.google.api.services.analyticsreporting.v4.AnalyticsReportingScopes;
 import com.google.api.services.analyticsreporting.v4.model.DateRange;
 import com.google.api.services.analyticsreporting.v4.model.DateRangeValues;
 import com.google.api.services.analyticsreporting.v4.model.GetReportsRequest;
 import com.google.api.services.analyticsreporting.v4.model.GetReportsResponse;
 import com.google.api.services.analyticsreporting.v4.model.Metric;
 import com.google.api.services.analyticsreporting.v4.model.Dimension;
-import com.google.api.services.analyticsreporting.v4.model.MetricHeaderEntry;
-import com.google.api.services.analyticsreporting.v4.model.Report;
 import com.google.api.services.analyticsreporting.v4.model.ReportRequest;
-import com.google.api.services.analyticsreporting.v4.model.ReportRow;
 
 /**
  * A simple example of how to access the Google Analytics API.
@@ -61,11 +49,8 @@ public class HelloAnalyticsReporting {
 
   public static String main() {
     try {
-      System.out.println("---saveMer1---------------------");
       AnalyticsReporting service = initializeAnalyticsReporting();
-      System.out.println("---saveMer2---------------------");
       GetReportsResponse response = getReport(service);
-      System.out.println("---saveMer3---------------------");
       return printResponse(response);
     } catch (Exception e) {
       e.printStackTrace();
@@ -82,7 +67,6 @@ public class HelloAnalyticsReporting {
    * @throws GeneralSecurityException
    */
   private static AnalyticsReporting initializeAnalyticsReporting() throws GeneralSecurityException, IOException {
-    System.out.println("---saveMer11---------------------");
     // httpTransport = GoogleNetHttpTransport.newTrustedTransport();
     // System.out.println("---saveMer12---------------------");
     // dataStoreFactory = new FileDataStoreFactory(DATA_STORE_DIR);
@@ -112,9 +96,12 @@ public class HelloAnalyticsReporting {
     //         // .setApprovalPrompt("auto")
     //     .build();
     HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+    // GoogleCredential credential = GoogleCredential
+    //     .fromStream(new FileInputStream(new File("/Users/robcruzd/Documents/club/clubdeltrabajo/src/main/java/com/service/client_secret2.json")))
+    //     .createScoped(AnalyticsReportingScopes.all());
     GoogleCredential credential = GoogleCredential
-        .fromStream(new FileInputStream(new File("src/main/java/com/service/client_secret2.json")))
-        .createScoped(AnalyticsScopes.all());
+        .fromStream(new FileInputStream(new File("/var/lib/tomcat8/webapps/ROOT/WEB-INF/classes/client_secret2.json")))
+        .createScoped(AnalyticsReportingScopes.all());
     // System.out.println("---saveMer17---------------------"+flow);
     // Authorize.
     // Credential credential = new AuthorizationCodeInstalledApp(flow,

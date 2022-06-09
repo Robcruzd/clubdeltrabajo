@@ -17,10 +17,15 @@ const sass = require('sass');
 module.exports = webpackMerge(commonConfig({ env: ENV }), {
     // Enable source maps. Please note that this will slow down the build.
     // You have to enable it in Terser config below and in tsconfig.json as well
-    // devtool: 'source-map',
+    devtool: false,
     entry: {
         global: './src/main/webapp/content/scss/global.scss',
         main: './src/main/webapp/app/app.main'
+    },
+    performance: {
+        hints: false,
+        maxEntrypointSize: 512000,
+        maxAssetSize: 512000
     },
     output: {
         path: utils.root('build/resources/main/static/'),

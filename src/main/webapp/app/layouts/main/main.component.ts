@@ -53,7 +53,7 @@ export class MainComponent implements OnInit {
           if (res !== null && res.body !== null) {
             const body: any = res.body;
             const commonData = body[0].mensajes;
-            console.log('reeeeeeeescommon: ', commonData);
+            // console.log('reeeeeeeescommon: ', commonData);
             sessionStorage.setItem('commonData', commonData);
           }
           this.commonMessages = 0;

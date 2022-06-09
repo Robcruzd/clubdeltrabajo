@@ -62,7 +62,7 @@ export class ConfigurationService {
 
   update(commonMessages: ICommonMessages): Observable<EntityResponseType> {
     // eslint-disable-next-line no-console
-    console.log('commonMUpd: ', commonMessages);
+    // console.log('commonMUpd: ', commonMessages);
     return this.http.put<ICommonMessages>(SERVER_API_URL + 'api/commonMessages', commonMessages, { observe: 'response' });
   }
 }

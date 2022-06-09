@@ -163,7 +163,7 @@ export class MembresiasComponent implements OnInit {
 
   updateVariables(): void {
     this.labels = this.cmMembresias;
-    this.Aceptar = this.cmMembresias.ACEPTAR;
+    // this.Aceptar = this.cmMembresias.ACEPTAR;
   }
 
   goToMercadoPago(): void {
@@ -181,7 +181,7 @@ export class MembresiasComponent implements OnInit {
       this.preferenceId = result.id;
       this.initPoint = result.initPoint;
 
-      const mp = new MercadoPago('APP_USR-da329173-c59a-4362-a441-b16efc3dc9bc', {
+      const mp = new MercadoPago('APP_USR-85a7a00d-9e64-4775-985e-9d3eea930cd1', {
         locale: 'es-CO'
       });
       this.checkout = mp.checkout({

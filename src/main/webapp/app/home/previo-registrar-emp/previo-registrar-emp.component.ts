@@ -21,7 +21,7 @@ export class PrevioRegistrarEmpComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // eslint-disable-next-line no-console
-    console.log('ngonit');
+    // console.log('ngonit');
     this.navbarService.setNavbarState(false);
     this.commonMessagesService
       .query({
@@ -51,7 +51,7 @@ export class PrevioRegistrarEmpComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     // eslint-disable-next-line no-console
-    console.log('onDestroy');
+    // console.log('onDestroy');
     this.navbarService.setNavbarState(true);
   }
 

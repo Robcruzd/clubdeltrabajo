@@ -72,7 +72,6 @@ spring:
     tls: true
     properties.mail.smtp:
       auth: true
-      starttls.enable: true
       ssl.trust: smtpout.secureserver.net
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
@@ -110,6 +109,9 @@ amazonProperties:
 
 mercadoPagoProps:
   accessToken: APP_USR-2897952222653941-052319-014d2e87534b44c7d134c88155bfefc5-1127645459
+
+analytics:
+  credentialsPath: /src/main/java/com/service/client_secret2.json
 # ===================================================================
 # JHipster specific properties
 #

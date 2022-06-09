@@ -248,14 +248,14 @@ export class ClubEmpresasComponent implements OnInit {
       });
     });
     // eslint-disable-next-line no-console
-    console.log(this.ListaEmpresas);
+    // console.log(this.ListaEmpresas);
   }
 
   obtenerImagen(element: any): void {
     this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.id!).subscribe(
       response => {
         // eslint-disable-next-line no-console
-        console.log('response:     ', element);
+        // console.log('response:     ', element);
         if (response.body !== null) {
           element['imagen'] = response.body?.archivo;
         }
@@ -285,7 +285,7 @@ export class ClubEmpresasComponent implements OnInit {
 
       this.ListaEmpresas = await this.listarEmpresas(this.valorBusqueda);
       // eslint-disable-next-line no-console
-      console.log(this.listarEmpresas);
+      // console.log(this.listarEmpresas);
       this.totalEmpresas = this.ListaEmpresas.length;
       this.ListaEmpresas.forEach((element: any) => {
         this.obtenerImagen(element);
