@@ -111,7 +111,7 @@ export class HojaCandidatoComponent implements OnInit {
 
     this.commonMessagesService
       .query({
-        'tipoMensaje.equals': 'cmHojaCandidata'
+        'tipoMensaje.equals': 'cmHojaCandidato'
       })
       .subscribe(
         res => {

@@ -187,7 +187,6 @@ export class CandidatosSeleccionadosComponent implements OnInit {
     this.backColor();
     const param = this.route.snapshot.queryParamMap.get('oferta')!;
     this.idOferta = parseInt(param, 10);
-    this.getOFerta(this.idOferta);
     this.commonMessagesService
       .query({
         'tipoMensaje.equals': 'cmCandidatosSeleccionados'
