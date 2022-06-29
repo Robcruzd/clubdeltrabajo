@@ -144,6 +144,10 @@ public class OfertaService {
     public List<Oferta> getOfertasFiltroFechaProfesion( Long fecha, Long profesion) {
     	return ofertaRepository.getOfertasFiltroFechaProfesion(getFechaHora(fecha),profesion);
     }
+
+    public List<Oferta> getOfertasDestacadas() {
+    	return ofertaRepository.getOfertasDestacadas();
+    }
     
     public Date getFechaHora(Long fecha) {
     	Calendar calendar = Calendar.getInstance();

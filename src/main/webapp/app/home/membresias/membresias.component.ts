@@ -24,6 +24,8 @@ import { Empresa, IEmpresa } from 'app/shared/model/empresa.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
 import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
+import { MembresiasService } from 'app/entities/membresias/membresias.service';
+import { IMembresias } from 'app/shared/model/membresias.model';
 
 declare const MercadoPago: any;
 declare let alertify: any;
@@ -60,6 +62,7 @@ export class MembresiasComponent implements OnInit {
   empresaEnSesion!: IEmpresa | any;
   account!: Account | any;
   empresaUpdate!: Empresa | null;
+  dataMembre: Array<IMembresias> = [];
 
   labels = commonMessages;
   Aceptar = commonMessages.ACEPTAR;
@@ -124,7 +127,8 @@ export class MembresiasComponent implements OnInit {
     private tipoDocumentoService: TipoDocumentoService,
     private empresaService: EmpresaService,
     private accountService: AccountService,
-    private commonMessagesService: CommonMessagesService
+    private commonMessagesService: CommonMessagesService,
+    private membresiaService: MembresiasService
   ) {}
 
   ngOnInit(): void {
@@ -139,6 +143,7 @@ export class MembresiasComponent implements OnInit {
           const mensajes = JSON.parse(body[0].mensajes);
           this.cmMembresias = mensajes;
           this.updateVariables();
+          this.traerMembresias();
           this.cargarTipoDocumento();
         },
         err => {
@@ -164,6 +169,19 @@ export class MembresiasComponent implements OnInit {
   updateVariables(): void {
     this.labels = this.cmMembresias;
     // this.Aceptar = this.cmMembresias.ACEPTAR;
+  }
+
+  traerMembresias(): void {
+    this.membresiaService
+      .query({
+        page: 0,
+        size: 550
+      })
+      .subscribe((res: HttpResponse<IMembresias[]>) => {
+        this.dataMembre = res.body!;
+        console.log(this.dataMembre);
+        console.log(this.dataMembre[0].precioMembresia);
+      });
   }
 
   goToMercadoPago(): void {

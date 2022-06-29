@@ -205,6 +205,8 @@ dependencies {
 
     // Use ", version: jhipster_dependencies_version, changing: true" if you want
     // to use a SNAPSHOT release instead of a stable release
+    implementation 'org.hamcrest:hamcrest:2.2'
+    implementation 'tangrammer:java-net-http-client:0.1.2'
     implementation group: "io.github.jhipster", name: "jhipster-framework"
     implementation 'com.mercadopago:sdk-java:1.9.1'
     implementation 'com.google.apis:google-api-services-analyticsreporting:v4-rev20210106-1.32.1'

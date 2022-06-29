@@ -112,7 +112,7 @@
                                 <label class='label_file' for="file">
                                     <fa-icon icon="images" class="float-right" (click)="tipodocumento.click()"></fa-icon>
                                 </label>
-                                <input type="file" #tipodocumento class='file' accept=".pdf"
+                                <input type="file" #tipodocumento class='file' accept=".pdf, .png, .jpeg, .jpg"
                                 (change)="addArchivo($event, tipoArchivo.RUT)" />
                                 <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="cargadoNit" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
                             </div>

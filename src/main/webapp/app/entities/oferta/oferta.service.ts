@@ -121,7 +121,12 @@ export class OfertaService {
   }
 
   public getOfertasFiltroProfesion(oferta: Oferta): Observable<any> {
-    const params = PathUtil.getPathParams({ ciudad: oferta.ciudad, salario: oferta.salario, fecha: oferta.fecha, profesion: oferta.profesion });
+    const params = PathUtil.getPathParams({
+      ciudad: oferta.ciudad,
+      salario: oferta.salario,
+      fecha: oferta.fecha,
+      profesion: oferta.profesion
+    });
     const url = this.resourceUrlFiltroProfesion + params;
     return this.http.get<any>(url);
   }
@@ -145,6 +150,12 @@ export class OfertaService {
   public eliminarOferta(id: any): Observable<any> {
     const params = PathUtil.getPathParams({ oferta: id });
     const url = this.resourceUrlEliminarOferta + params;
+    return this.http.get<any>(url);
+  }
+
+  public getOfertasDestacadas(): Observable<any> {
+    // const params = PathUtil.getPathParams({usuario:oferta.usuario?.id})
+    const url = this.resourceUrl + '/getOfertasDestacadas';
     return this.http.get<any>(url);
   }
 }

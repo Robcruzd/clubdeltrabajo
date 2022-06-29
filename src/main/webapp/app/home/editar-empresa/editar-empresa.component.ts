@@ -256,74 +256,77 @@ export class EditarEmpresaComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.datosEmpresa!.razonSocial = this.formEmpresa.controls['razonSocial'].value;
-    this.datosEmpresa!.razonComercial = this.formEmpresa.controls['razonComercial'].value;
-    this.datosEmpresa!.numeroDocumento = this.formEmpresa.controls['numeroDocumento'].value;
-    this.datosEmpresa!.direccion = this.formEmpresa.controls['direccion'].value;
-    this.datosEmpresa!.telefonoEmpresa = this.formEmpresa.controls['telefono'].value;
-    this.datosEmpresa!.ciudad = parseInt(this.formEmpresa.controls['ciudad'].value, 10);
-    this.datosEmpresa!.email = this.formEmpresa.controls['email'].value;
-    this.datosEmpresa!.sector = this.formEmpresa.controls['sector'].value;
-    this.datosEmpresa!.subsector = this.formEmpresa.controls['subsector'].value;
-    this.datosEmpresa!.paginaWeb = this.formEmpresa.controls['webPage'].value;
-    this.datosEmpresa!.cantidadEmpleados = this.formEmpresa.controls['cantidadEmpleados'].value;
-    this.datosEmpresa!.descripcionEmpresa = this.formEmpresa.controls['descripcion'].value;
-    this.datosEmpresa!.nombreRepresentanteLegal = this.formEmpresa.controls['nombreRepresentante'].value;
-    this.datosEmpresa!.apellidosRepresentanteLegal = this.formEmpresa.controls['apellidosRepresentante'].value;
-    this.datosEmpresa!.telefono = this.formEmpresa.controls['telefonoRep'].value;
-    // eslint-disable-next-line no-console
-    // console.log('probandoooooo', this.datosEmpresa);
-    this.empresaService.update(this.datosEmpresa).subscribe(
-      response => {
-        // eslint-disable-next-line no-console
-        // console.log(response);
-        if (response.body !== null) {
-          if (this.archivoNit.id !== undefined) {
-            this.archivoService.update(this.archivoNit).subscribe(
-              archivoResponse => {
-                if (archivoResponse.body !== null) {
+    if (this.archivoNit.archivo === undefined) {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error('Debe adjuntar un documento del NIT');
+    } else {
+      this.datosEmpresa!.razonSocial = this.formEmpresa.controls['razonSocial'].value;
+      this.datosEmpresa!.razonComercial = this.formEmpresa.controls['razonComercial'].value;
+      this.datosEmpresa!.numeroDocumento = this.formEmpresa.controls['numeroDocumento'].value;
+      this.datosEmpresa!.direccion = this.formEmpresa.controls['direccion'].value;
+      this.datosEmpresa!.telefonoEmpresa = this.formEmpresa.controls['telefono'].value;
+      this.datosEmpresa!.ciudad = parseInt(this.formEmpresa.controls['ciudad'].value, 10);
+      this.datosEmpresa!.email = this.formEmpresa.controls['email'].value;
+      this.datosEmpresa!.sector = this.formEmpresa.controls['sector'].value;
+      this.datosEmpresa!.subsector = this.formEmpresa.controls['subsector'].value;
+      this.datosEmpresa!.paginaWeb = this.formEmpresa.controls['webPage'].value;
+      this.datosEmpresa!.cantidadEmpleados = this.formEmpresa.controls['cantidadEmpleados'].value;
+      this.datosEmpresa!.descripcionEmpresa = this.formEmpresa.controls['descripcion'].value;
+      this.datosEmpresa!.nombreRepresentanteLegal = this.formEmpresa.controls['nombreRepresentante'].value;
+      this.datosEmpresa!.apellidosRepresentanteLegal = this.formEmpresa.controls['apellidosRepresentante'].value;
+      this.datosEmpresa!.telefono = this.formEmpresa.controls['telefonoRep'].value;
+      this.empresaService.update(this.datosEmpresa).subscribe(
+        response => {
+          // eslint-disable-next-line no-console
+          // console.log(response);
+          if (response.body !== null) {
+            if (this.archivoNit.id !== undefined) {
+              this.archivoService.update(this.archivoNit).subscribe(
+                archivoResponse => {
+                  if (archivoResponse.body !== null) {
+                    this.archivosaws.forEach((element: { file: File; name: string }) => {
+                      const formData = new FormData();
+                      formData.append('file', element.file, element.name);
+                      this.archivoService.uploadS3(formData).subscribe(() => {});
+                    });
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                    this.router.navigate(['/perfil-empresa']);
+                  }
+                },
+                () => {
+                  alertify.set('notifier', 'position', 'top-right');
+                  alertify.error(commonMessages.HTTP_ERROR_LABEL);
+                }
+              );
+            } else {
+              this.archivoService.create(this.archivoNit).subscribe(
+                archivoResponse => {
                   this.archivosaws.forEach((element: { file: File; name: string }) => {
                     const formData = new FormData();
                     formData.append('file', element.file, element.name);
                     this.archivoService.uploadS3(formData).subscribe(() => {});
                   });
+                  if (archivoResponse.body !== null) {
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                    this.router.navigate(['/perfil-empresa']);
+                  }
+                },
+                () => {
                   alertify.set('notifier', 'position', 'top-right');
-                  alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
-                  this.router.navigate(['/perfil-empresa']);
+                  alertify.error(commonMessages.HTTP_ERROR_LABEL);
                 }
-              },
-              () => {
-                alertify.set('notifier', 'position', 'top-right');
-                alertify.error(commonMessages.HTTP_ERROR_LABEL);
-              }
-            );
-          } else {
-            this.archivoService.create(this.archivoNit).subscribe(
-              archivoResponse => {
-                this.archivosaws.forEach((element: { file: File; name: string }) => {
-                  const formData = new FormData();
-                  formData.append('file', element.file, element.name);
-                  this.archivoService.uploadS3(formData).subscribe(() => {});
-                });
-                if (archivoResponse.body !== null) {
-                  alertify.set('notifier', 'position', 'top-right');
-                  alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
-                  this.router.navigate(['/perfil-empresa']);
-                }
-              },
-              () => {
-                alertify.set('notifier', 'position', 'top-right');
-                alertify.error(commonMessages.HTTP_ERROR_LABEL);
-              }
-            );
+              );
+            }
           }
+        },
+        () => {
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.error(commonMessages.HTTP_ERROR_LABEL);
         }
-      },
-      () => {
-        alertify.set('notifier', 'position', 'top-right');
-        alertify.error(commonMessages.HTTP_ERROR_LABEL);
-      }
-    );
+      );
+    }
   }
 
   crearOferta(): void {
@@ -446,7 +449,7 @@ export class EditarEmpresaComponent implements OnInit {
       return;
     }
     const extension = file.name.split('.').pop() || '';
-    if (!commonMessages.ARCHIVOS_PERMITIDOS.includes(extension)) {
+    if (!commonMessages.ARCHIVOS_PERMITIDOS.includes(extension) && !commonMessages.IMAGENES_SOPORTADAS.includes(extension)) {
       alertify.set('notifier', 'position', 'top-right');
       alertify.error(commonMessages.ERROR_ARCHIVO_NO_SOPORTADO);
       return;

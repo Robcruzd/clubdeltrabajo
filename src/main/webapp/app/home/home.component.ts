@@ -16,7 +16,7 @@ import { map, startWith } from 'rxjs/operators';
 import { commonMessages } from 'app/shared/constants/commonMessages';
 import { DataService } from 'app/shared/services/data.service';
 import { OfertaService } from 'app/entities/oferta/oferta.service';
-import { IOferta, Oferta } from 'app/shared/model/oferta.model';
+import { Oferta } from 'app/shared/model/oferta.model';
 import { IOpcionVo } from 'app/shared/vo/opcion-vo';
 import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
@@ -90,7 +90,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   Empresas = commonMessages.EMPRESAS;
 
   @ViewChild('panel', { read: ElementRef }) public panel!: ElementRef<any>;
-
   constructor(
     private accountService: AccountService,
     private loginModalService: LoginModalService,
@@ -292,63 +291,63 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   cargarInformacionCuenta(): void {
-    this.ofertaService
-      .query({
-        page: 0,
-        size: 5,
-        sort: ['fechaPublicacionVip,desc'],
-        'estado.equals': 'A'
-      })
-      .subscribe((res: HttpResponse<IOferta[]>) => {
-        // eslint-disable-next-line no-console
-        // console.log('response:     ', res);
-        this.ofertas = res.body!;
-        // eslint-disable-next-line no-console
-        // console.log('lista ofertas: ', this.ofertas);
-        this.ofertas.forEach(element => {
-          const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
-          const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
-          const profBD = this.dataProf.find(profesion => profesion.id === element.profesion);
-          this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
-            response => {
-              // eslint-disable-next-line no-console
-              // console.log('response:     ', element);
-              // if (response.body !== null) {
-              //   this.imagen = response.body;
-              // }
+    // this.ofertaService
+    //   .query({
+    //     page: 0,
+    //     size: 5,
+    //     sort: ['fechaPublicacionVip,desc'],
+    //     'estado.equals': 'A'
+    //   })
+    this.ofertaService.getOfertasDestacadas().subscribe(res => {
+      // eslint-disable-next-line no-console
+      // console.log('response:     ', res);
+      this.ofertas = res;
+      // eslint-disable-next-line no-console
+      // console.log('lista ofertas: ', this.ofertas);
+      this.ofertas.forEach(element => {
+        const salarioBD = this.aspiracionesSalariales.find(salario => salario.codigo === element.salario);
+        const ciudadBD = this.municipiosPersonal.find(ciudad => ciudad.codigo === element.ciudad?.toString());
+        const profBD = this.dataProf.find(profesion => profesion.id === element.profesion);
+        this.archivoService.getEmp(TipoArchivo.IMAGEN_PERFIL, element.usuario?.id!).subscribe(
+          response => {
+            // eslint-disable-next-line no-console
+            // console.log('response:     ', element);
+            // if (response.body !== null) {
+            //   this.imagen = response.body;
+            // }
 
-              this.listaOfertas.push({
-                id: element.id?.toString(),
-                profesion: profBD?.profesion,
-                salario: salarioBD?.nombre,
-                ciudad: ciudadBD?.nombre,
-                activado: element?.activado,
-                empresa: element?.usuario?.razonSocial,
-                fecha: element.fechaPublicacion?.format('DD/MM/YYYY'),
-                imagen: response.body?.archivo,
-                mostrarSalario: element?.mostrarSalario
-              });
-            },
-            error => {
-              // eslint-disable-next-line no-console
-              console.log(error);
-              this.listaOfertas.push({
-                id: element.id?.toString(),
-                profesion: profBD?.profesion,
-                salario: salarioBD?.nombre,
-                ciudad: ciudadBD?.nombre,
-                activado: element?.activado,
-                empresa: element?.usuario?.razonSocial,
-                fecha: element.fechaPublicacion?.format('DD/MM/YYYY'),
-                imagen: this.urlImgDefault,
-                mostrarSalario: element?.mostrarSalario
-              });
-            }
-          );
-        });
-        // eslint-disable-next-line no-console
-        // console.log('lista ofertas: ', this.listaOfertas);
+            this.listaOfertas.push({
+              id: element.id?.toString(),
+              profesion: profBD?.profesion,
+              salario: salarioBD?.nombre,
+              ciudad: ciudadBD?.nombre,
+              activado: element?.activado,
+              empresa: element?.usuario?.razonSocial,
+              fecha: element.fechaPublicacion,
+              imagen: response.body?.archivo,
+              mostrarSalario: element?.mostrarSalario
+            });
+          },
+          error => {
+            // eslint-disable-next-line no-console
+            console.log(error);
+            this.listaOfertas.push({
+              id: element.id?.toString(),
+              profesion: profBD?.profesion,
+              salario: salarioBD?.nombre,
+              ciudad: ciudadBD?.nombre,
+              activado: element?.activado,
+              empresa: element?.usuario?.razonSocial,
+              fecha: element.fechaPublicacion,
+              imagen: this.urlImgDefault,
+              mostrarSalario: element?.mostrarSalario
+            });
+          }
+        );
       });
+      // eslint-disable-next-line no-console
+      // console.log('lista ofertas: ', this.listaOfertas);
+    });
   }
 
   // consultarImagen(): void {

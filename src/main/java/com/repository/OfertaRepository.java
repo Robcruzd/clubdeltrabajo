@@ -82,4 +82,11 @@ public interface OfertaRepository extends JpaRepository<Oferta, Long>, JpaSpecif
 			"where profesion = :profesion and fecha_publicacion BETWEEN :fecha and CURRENT_DATE order by id desc\r\n", 
 			nativeQuery = true)
 	List<Oferta> getOfertasFiltroFechaProfesion(@Param("fecha") Date fecha,@Param("profesion") Long profesion);
+
+	@Query(value = "select * from ct_oferta_tb cot2\r\n" +
+			"where cot2.estado = 'A'\r\n" +
+			"order by fecha_publicacion_vip desc nulls last, fecha_publicacion desc, profesion nulls last\r\n" +
+			"limit 5", 
+			nativeQuery = true)
+	List<Oferta> getOfertasDestacadas();
 }

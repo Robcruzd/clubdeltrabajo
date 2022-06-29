@@ -227,6 +227,16 @@ public class OfertaResource {
 		empresa.setId(usuario);
 		return ofertaService.getOfertasEmpresa(empresa);
 	}
+
+    /**
+     * {@code GET  /getOfertasDestacadas} : get 5 ofertas destacadas.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of ofertas in body.
+     */
+    @GetMapping("/ofertas/getOfertasDestacadas")
+	public List<Oferta> getOfertasDestacadas() {
+		return ofertaService.getOfertasDestacadas();
+	}
 	
 	 @GetMapping("/ofertas/obtenerOfertas")
 	public Page<Oferta> listar(OfertaCriteria ofertaBuilder) {

@@ -55,21 +55,21 @@
         <div class="ovalo-arriba">
             <div class="circulo-ovalo">
                 <p class="texto-circulo">{{UnaOferta}}</p>
-                <p class="texto-flexi">$50.000 COP</p>
+                <p class="texto-flexi">${{dataMembre[0]?.precioMembresia}} COP</p>
             </div>
             <div class="circulo-ovalo">
                 <p class="texto-circulo">{{DosOfertas}}</p>
-                <p class="texto-flexi">$140.000 COP</p>
+                <p class="texto-flexi">${{dataMembre[1]?.precioMembresia}} COP</p>
             </div>
             <div class="circulo-ovalo">
                 <p class="texto-circulo">{{TresOfertas}}</p>
-                <p class="texto-flexi">$240.000 COP</p>
+                <p class="texto-flexi">${{dataMembre[2]?.precioMembresia}} COP</p>
             </div>
             <div class="circulo-ovalo">
                 <p class="texto-circulo">{{Flexi}}</p>
-                <p class="texto-flexi">10 ofertas</p>
-                <p class="texto-flexi">20 hojas de vida</p>
-                <p class="texto-flexi">$640.000 COP</p>
+                <p class="texto-flexi">{{dataMembre[3]?.ofertas}} ofertas</p>
+                <p class="texto-flexi">{{dataMembre[3]?.descargas}} hojas de vida</p>
+                <p class="texto-flexi">${{dataMembre[3]?.precioMembresia}} COP</p>
             </div>
         </div>
         <div class="botones-comprar">
@@ -117,7 +117,7 @@
                     <fa-icon [icon]="faBook" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <button class="btn boton-ver-mas" (click)="pagoBronce(longContent)">
-                    {{BronceValorLabel}} $ 880.000 COP
+                    {{BronceValorLabel}} $ {{dataMembre[4]?.precioMembresia}} COP
                 </button>
             </div>
             <div class="div-bronce">
@@ -153,7 +153,7 @@
                     <fa-icon [icon]="faBook" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <button class="btn boton-ver-mas" (click)="pagoPlata(longContent)">
-                    {{PlataValorLabel}} $ 1.600.000 COP
+                    {{PlataValorLabel}} $ {{dataMembre[5]?.precioMembresia}} COP
                 </button>
             </div>
             <div class="div-bronce">
@@ -187,7 +187,7 @@
                     <fa-icon [icon]="faBook" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <button class="btn boton-ver-mas" (click)="pagoOro(longContent)">
-                    {{OroValorLabel}} $ 3.300.000 COP
+                    {{OroValorLabel}} $ {{dataMembre[6]?.precioMembresia}} COP
                 </button>
             </div>
             <div class="div-bronce">
@@ -221,7 +221,7 @@
                     <fa-icon [icon]="faBook" class="icon" transform="grow-14"></fa-icon>
                 </div>
                 <button class="btn boton-ver-mas" (click)="pagoDiamante(longContent)">
-                    {{DiamanteValorLabel}} $ 7.000.000 COP
+                    {{DiamanteValorLabel}} $ {{dataMembre[7]?.precioMembresia}} COP
                 </button>
             </div>
         </div>

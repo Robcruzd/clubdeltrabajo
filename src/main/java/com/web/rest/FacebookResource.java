@@ -19,11 +19,23 @@ import com.restfb.types.FacebookType;
 import com.service.EmpresaService;
 import com.service.OfertaService;
 
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.client.methods.HttpPost;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
 @RestController
 @RequestMapping("/api")
 public class FacebookResource {	
 	
-	private String pageAccessToken = "EAADMjZAo3RvQBACLZBvynzfolZB2wz8aONDE7t8fx5ZC8ZCplZBTxIMPb7ZC648UePZCwzcfAISOA75CZApFpUVZC38vZCMJwObIHhKPs6NGLthgGgu73VBiOorzfSl9pa523roGJAJSIT1ZBZBMVkrRngs0kbM17AcrgJ9ZBAAQoXPUpyc33kS1khbnGp";
+	private String pageAccessToken = "EAAHZCw1DFFKoBACREo8LGxSyLcTLqzHlZC6aPIi58iovUr0CKBaKBZBD1J4KgOIYu7n8AQ6gb6MkB3iROuy5g6GvctbhvPYbIyrALhUHei57Cejn8gfHiwtRNtWdQPRh3OfN4uKClaO3CtROwanQxYQT2bZAM0icxaEanTMgwdy61bhMQZCKL";
     
 	private final EmpresaService empresaService;
 	private final OfertaService ofertaService;
@@ -34,19 +46,31 @@ public class FacebookResource {
 	}    
     
     @GetMapping("/facebookPost")
-    public List<String> publicarPost(@RequestParam("codigoOferta") String codigoOferta, @RequestParam("codigoEmpresa") String codigoEmpresa) {
+    public List<String> publicarPost(@RequestParam("codigoOferta") String codigoOferta, @RequestParam("codigoEmpresa") String codigoEmpresa) throws Exception {
     	Optional<Empresa> empresaData = empresaService.findOne(Long.parseLong(codigoEmpresa));
     	Optional<Oferta> ofertaData = ofertaService.findOne(Long.parseLong(codigoOferta));
     	Empresa empresaActualizar = empresaData.get();
     	List<String> lista = new ArrayList<String>();
     	if(empresaData.get().getReplicasOferta() != 0 && empresaData.get().getReplicasOferta() != null) {
     		Long valor = empresaActualizar.getReplicasOferta() - 1;
-    		FacebookClient facebookClient= new DefaultFacebookClient(this.pageAccessToken, Version.VERSION_6_0);
+    		// FacebookClient facebookClient= new DefaultFacebookClient(this.pageAccessToken, Version.VERSION_6_0);
             
-            facebookClient.publish("clubdeltrabajo/feed", //
-            		FacebookType.class, //
-            		Parameter.with("message", ofertaData.get().getDescripcion()));
-            
+            // facebookClient.publish("clubdeltrabajo/feed", //
+            // 		FacebookType.class, //
+            // 		Parameter.with("message", ofertaData.get().getDescripcion()));
+
+            CloseableHttpClient client = HttpClients.createDefault();
+			HttpPost httpPost = new HttpPost("https://graph.facebook.com/100955765079986/feed");
+
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("message", ofertaData.get().getDescripcion()));
+			params.add(new BasicNameValuePair("access_token", this.pageAccessToken));
+			httpPost.setEntity(new UrlEncodedFormEntity(params));
+
+			CloseableHttpResponse response = client.execute(httpPost);
+			assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
+			client.close();
+
             empresaActualizar.setReplicasOferta(valor);
             empresaService.save(empresaActualizar);
             lista.add("si");
