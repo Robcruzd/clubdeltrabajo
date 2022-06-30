@@ -16,6 +16,9 @@ import { ApiService } from 'app/shared/services/api.service';
 import { GeografiaVo } from 'app/shared/vo/geografia-vo';
 import { IOpcionVo } from 'app/shared/vo/opcion-vo';
 import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
+import { IRegiones } from 'app/shared/model/regiones.model';
+import { HttpResponse } from '@angular/common/http';
+import { RegionesService } from 'app/entities/regiones/regiones.service';
 
 declare let alertify: any;
 
@@ -44,6 +47,7 @@ export class ClubEmpresasComponent implements OnInit {
   empresaUpdate!: Empresa | null;
 
   ListaEmpresas: Array<IEmpresa> | any = [];
+  ListaEmpresasFiltro: Array<IEmpresa> | any = [];
   geografia: Array<GeografiaVo> = [];
   municipiosAcademica: Array<IOpcionVo> = [];
 
@@ -79,6 +83,9 @@ export class ClubEmpresasComponent implements OnInit {
   Facebook = commonMessages.FACEBOOK;
   Instagram = commonMessages.INSTAGRAM;
   LinkedIn = commonMessages.LINKEDIN;
+  labels = commonMessages;
+  municipioValue: any = null;
+  municipiosPersonal: Array<IOpcionVo> = [];
 
   constructor(
     private _location: Location,
@@ -88,7 +95,8 @@ export class ClubEmpresasComponent implements OnInit {
     private accountService: AccountService,
     private fb: FormBuilder,
     private apiService: ApiService,
-    private commonMessagesService: CommonMessagesService
+    private commonMessagesService: CommonMessagesService,
+    private regionService: RegionesService
   ) {
     this.agregarEmpresaForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
@@ -129,6 +137,7 @@ export class ClubEmpresasComponent implements OnInit {
           this.consultarInformacionGeografica();
         }
       );
+    this.traerCiudad();
   }
 
   updateVariables(): void {}
@@ -276,20 +285,86 @@ export class ClubEmpresasComponent implements OnInit {
     });
   }
 
+  listarEmpresasCiudad(valor: number): Promise<any> {
+    return new Promise(resolve => {
+      this.empresaService.getByCiudad(valor).subscribe(empresaResponse => {
+        resolve(empresaResponse);
+      });
+    });
+  }
+
+  listarEmpresasCiudadAndSector(valor: number, empresas: Array<IEmpresa>): Promise<any> {
+    return new Promise(resolve => {
+      empresas.forEach(element => {
+        if (Number(element.ciudad) === Number(valor)) {
+          this.ListaEmpresasFiltro.push(element);
+        }
+      });
+      setTimeout(() => {
+        resolve(this.ListaEmpresasFiltro);
+      }, 200);
+    });
+  }
+
   async cargarEmpresas(): Promise<any> {
-    if (this.valorBusqueda === '') {
+    if (this.valorBusqueda === '' && !this.municipioValue) {
       this.ListaEmpresas = [];
       this.getEmpresas();
-    } else {
+    } else if (this.valorBusqueda !== '' && this.municipioValue) {
       this.ListaEmpresas = [];
-
+      this.ListaEmpresasFiltro = [];
       this.ListaEmpresas = await this.listarEmpresas(this.valorBusqueda);
-      // eslint-disable-next-line no-console
-      // console.log(this.listarEmpresas);
+      this.ListaEmpresas = await this.listarEmpresasCiudadAndSector(this.municipioValue, this.ListaEmpresas);
+      this.totalEmpresas = this.ListaEmpresas.length;
+      this.ListaEmpresas.forEach((element: any) => {
+        this.obtenerImagen(element);
+      });
+    } else if (this.valorBusqueda !== '') {
+      this.ListaEmpresas = [];
+      this.ListaEmpresas = await this.listarEmpresas(this.valorBusqueda);
+      this.totalEmpresas = this.ListaEmpresas.length;
+      this.ListaEmpresas.forEach((element: any) => {
+        this.obtenerImagen(element);
+      });
+    } else if (this.municipioValue) {
+      this.ListaEmpresas = [];
+      this.ListaEmpresas = await this.listarEmpresasCiudad(this.municipioValue);
       this.totalEmpresas = this.ListaEmpresas.length;
       this.ListaEmpresas.forEach((element: any) => {
         this.obtenerImagen(element);
       });
     }
+  }
+
+  traerCiudad(): void {
+    this.regionService
+      .query({
+        page: 0,
+        size: 1150
+      })
+      .subscribe((res: HttpResponse<IRegiones[]>) => {
+        this.geografia = res.body!.map(
+          item =>
+            new GeografiaVo(
+              item.codigoDaneDelDepartamento?.toString()!,
+              item.departamento!,
+              item.codigoDaneDelMunicipio?.toString()!,
+              item.municipio!
+            )
+        );
+        this.cargarMunicipiosPersonal();
+      });
+  }
+
+  cargarMunicipiosPersonal(): void {
+    this.municipiosPersonal = [];
+    this.municipiosPersonal = this.geografia
+      .map(item => {
+        return {
+          codigo: item.codigoMpio,
+          nombre: item.nombreMpio
+        };
+      })
+      .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0));
   }
 }

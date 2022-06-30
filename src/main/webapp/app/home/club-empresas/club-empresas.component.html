@@ -95,6 +95,17 @@
                             <p class="titulo">{{EmpresasTitulo}}</p>
                             <p class="resultado">{{totalEmpresas}} {{Resultados}}</p>
                         </div>
+                        <div class="empresas">
+                            <p class="titulo">{{Ciudad}}</p>
+                            <select class="resultado" [(ngModel)]="municipioValue" (change)="cargarEmpresas()">
+                                <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option
+                                [ngValue]="municipio.codigo"
+                                    *ngFor="let municipio of municipiosPersonal">
+                                    {{ municipio.nombre }}
+                                </option>
+                            </select>
+                        </div>
                         <!-- <div class="Sector">
                             <p class="titulo">Sector</p> -->
                             <!-- <p class="resultado">Seleccionar</p> -->

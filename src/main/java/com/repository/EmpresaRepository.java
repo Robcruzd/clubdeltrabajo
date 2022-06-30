@@ -28,4 +28,9 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Long>, JpaSpec
     		"select * from ct_empresa_tb ctp where club_empresa = true",
     		nativeQuery = true)
     List<Empresa> getByClubEmpresa();
+    
+    @Query(value = "\r\n" + 
+    		"select * from ct_empresa_tb ctp where club_empresa = true and ciudad = :ciudad",
+    		nativeQuery = true)
+    List<Empresa> findByCiudad(@Param("ciudad") Integer ciudad);
 }
