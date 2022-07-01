@@ -134,6 +134,7 @@ export const commonMessages = {
   OPCION_PERFIL_LABEL: 'Perfil',
   IMAGEN_LABEL: 'Cambiar foto',
   ERROR_IMAGEN_NO_SOPORTADA: 'Error, solo se permite subir imágenes',
+  ERROR_LLENAR_INFO_PERSONAL: 'Para poder aplicar a una oferta es necesario que complete la información personal en la hoja de vida',
   IMAGENES_SOPORTADAS: ['jpg', 'jpeg', 'png'],
   TAMANO_MAXIMO_PERMITIDO: 3000000, // 3MB
   ERROR_TAMANO_EXCEDIDO: 'Error. Tamaño máximo permitido 3MB',
