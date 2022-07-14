@@ -706,7 +706,7 @@ export const commonMessages = {
   LOADING: 'Loading...',
 
   DANGER_VIDEO: 'Su navegador no soporta la etiqueta de video.',
-  REGISTRA_YA_HV: 'Registrar ya tu hoja de vida',
+  REGISTRA_YA_HV: 'Registra ya tu hoja de vida',
   ES_GRATIS: '¡Es gratis!',
   ES_GRATIS_M: 'ES GRATIS',
   YA_ESTAS_REGISTRADO: 'Ya estás registrado',

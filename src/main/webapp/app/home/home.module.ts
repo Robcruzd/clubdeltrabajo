@@ -43,6 +43,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { NosotrosComponent } from './nosotros/nosotros.component';
 import { AsesoriaJuridicaComponent } from './asesoria-juridica/asesoria-juridica.component';
 import { GestionInfoClubComponent } from './gestion-info-club/gestion-info-club.component';
+import { PreguntasFrecuentesComponent } from './preguntas-frecuentes/preguntas-frecuentes.component';
 
 // import { BusquedaCandidatosComponent } from './busqueda-candidatos/busqueda-candidatos.component';
 
@@ -94,7 +95,8 @@ import { GestionInfoClubComponent } from './gestion-info-club/gestion-info-club.
     OfertaPublicaComponent,
     NosotrosComponent,
     AsesoriaJuridicaComponent,
-    GestionInfoClubComponent
+    GestionInfoClubComponent,
+    PreguntasFrecuentesComponent
     // BusquedaCandidatosComponent
   ]
 })

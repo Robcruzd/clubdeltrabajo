@@ -28,6 +28,7 @@ import { OfertaPublicaComponent } from './oferta-publica/oferta-publica.componen
 import { CandidatosSeleccionadosComponent } from './candidatos-seleccionados/candidatos-seleccionados.component';
 import { NosotrosComponent } from './nosotros/nosotros.component';
 import { AsesoriaJuridicaComponent } from './asesoria-juridica/asesoria-juridica.component';
+import { PreguntasFrecuentesComponent } from './preguntas-frecuentes/preguntas-frecuentes.component';
 
 export const HOME_ROUTE: Routes = [
   {
@@ -232,6 +233,13 @@ export const HOME_ROUTE: Routes = [
     component: AsesoriaJuridicaComponent,
     data: {
       pageTitle: 'Asesoría Jurídica'
+    }
+  },
+  {
+    path: 'preguntas-frecuentes',
+    component: PreguntasFrecuentesComponent,
+    data: {
+      pageTitle: 'Preguntas frecuentes'
     }
   }
 

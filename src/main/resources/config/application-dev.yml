@@ -73,6 +73,8 @@ spring:
     properties.mail.smtp:
       auth: true
       ssl.trust: smtpout.secureserver.net
+  mail2:
+    username: notificaciones@clubdeltrabajo.com
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:

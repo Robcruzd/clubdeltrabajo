@@ -174,13 +174,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     /* eslint-disable no-console */
     // console.log(this.account);
     this.userService.contarEmpresas().subscribe(count => {
-      this.countEmpresas = count;
+      this.countEmpresas = count + 50;
     });
     this.userService.analytics().subscribe((count: any) => {
-      this.analytics = count;
+      this.analytics = count + 5700;
     });
     this.userService.contarPersonas().subscribe(count => {
-      this.countPersonas = count;
+      this.countPersonas = count + 3500;
     });
     const vid = document.getElementById('vid') as HTMLVideoElement;
     vid.muted = true;
@@ -372,7 +372,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   abrirAgregarUsuario(): void {
-    this.router.navigate(['/previo-registrar']);
+    this.router.navigate(['/preguntas-frecuentes']);
   }
 
   registrarHojaVidaEmpresa(): void {
