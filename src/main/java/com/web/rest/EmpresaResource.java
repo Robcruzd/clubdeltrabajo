@@ -222,4 +222,10 @@ public class EmpresaResource {
     public List<Empresa> getByClubEmpresa() {
         return empresaService.getByClubEmpresa();
     }
+    
+    @GetMapping("/empresas/getByCiudad")
+    public List<Empresa> getByCiudadFiltro(@RequestParam("ciudad") Integer ciudad) {
+        return empresaService.getByCiudadFiltro(ciudad);
+    }
+    
 }

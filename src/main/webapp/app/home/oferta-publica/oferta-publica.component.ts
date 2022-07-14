@@ -20,6 +20,7 @@ import { Archivo } from 'app/shared/model/archivo.model';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
+import { InformacionPersonalService } from 'app/entities/informacion-personal/informacion-personal.service';
 
 declare let alertify: any;
 
@@ -67,7 +68,8 @@ export class OfertaPublicaComponent implements OnInit {
     private personaService: PersonaService,
     private aplicacionOfertaService: AplicacionOfertaService,
     private archivoService: ArchivoService,
-    private commonMessagesService: CommonMessagesService
+    private commonMessagesService: CommonMessagesService,
+    private informacionPersonalService: InformacionPersonalService
   ) {
     this.traerCiudad();
   }
@@ -177,27 +179,36 @@ export class OfertaPublicaComponent implements OnInit {
   aplicarOferta(): void {
     if (this.personaInicial !== 0) {
       this.ofertaService.find(this.idOferta).subscribe(ofertaResponse => {
-        this.ofertaAplicar = ofertaResponse.body;
-        if (this.ofertaAplicar) {
-          this.aplicacionOferta.oferta = this.ofertaAplicar;
-        }
-        this.personaService.find(this.personaInicial).subscribe(personaResponse => {
-          this.personaAplicar = personaResponse.body;
-          this.aplicacionOferta.estado = 'Ninguno';
-          this.aplicacionOferta.fechaPostulacion = moment(new Date(), 'YYYY-MMM-DD').subtract(5, 'hours');
-          if (this.personaAplicar) {
-            this.aplicacionOferta.usuario = this.personaAplicar;
-            this.aplicacionOfertaService.getByOfertaAndPersonaFiltro(this.ofertaAplicar, this.personaAplicar).subscribe(ofertaFiltro => {
-              this.aplicacionOfertaFiltro = ofertaFiltro;
-              if (this.aplicacionOfertaFiltro.length === 0) {
-                this.aplicacionOfertaService.create(this.aplicacionOferta).subscribe(() => {
-                  this.router.navigate(['resultados-busqueda'], { queryParams: { general: this.general } });
-                });
-              } else {
-                alertify.set('notifier', 'position', 'top-right');
-                alertify.error('Usted ya aplico a esta oferta!');
+        this.informacionPersonalService.getPersonaFiltro(this.personaInicial).subscribe(info => {
+          if (info) {
+            this.ofertaAplicar = ofertaResponse.body;
+            if (this.ofertaAplicar) {
+              this.aplicacionOferta.oferta = this.ofertaAplicar;
+            }
+            this.personaService.find(this.personaInicial).subscribe(personaResponse => {
+              this.personaAplicar = personaResponse.body;
+              this.aplicacionOferta.estado = 'Ninguno';
+              this.aplicacionOferta.fechaPostulacion = moment(new Date(), 'YYYY-MMM-DD').subtract(5, 'hours');
+              if (this.personaAplicar) {
+                this.aplicacionOferta.usuario = this.personaAplicar;
+                this.aplicacionOfertaService
+                  .getByOfertaAndPersonaFiltro(this.ofertaAplicar, this.personaAplicar)
+                  .subscribe(ofertaFiltro => {
+                    this.aplicacionOfertaFiltro = ofertaFiltro;
+                    if (this.aplicacionOfertaFiltro.length === 0) {
+                      this.aplicacionOfertaService.create(this.aplicacionOferta).subscribe(() => {
+                        this.router.navigate(['resultados-busqueda'], { queryParams: { general: this.general } });
+                      });
+                    } else {
+                      alertify.set('notifier', 'position', 'top-right');
+                      alertify.error('Usted ya aplico a esta oferta!');
+                    }
+                  });
               }
             });
+          } else {
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.error(commonMessages.ERROR_LLENAR_INFO_PERSONAL);
           }
         });
       });

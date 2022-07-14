@@ -84,4 +84,8 @@ public class EmpresaService {
     public List<Empresa> getByClubEmpresa() {
     	return empresaRepository.getByClubEmpresa();
     }
+    
+    public List<Empresa> getByCiudadFiltro(Integer ciudad) {
+    	return empresaRepository.findByCiudad(ciudad);
+    }
 }
