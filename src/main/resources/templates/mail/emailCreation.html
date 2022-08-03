@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+    <head>
+        <title th:text="#{informacionEmpresa.title}">Company Information</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="shortcut icon" th:href="@{|https://www.clubdeltrabajo.com/favicon.ico|}" />
+    </head>
+    <body>
+    	<div style="text-align: center; background: #1a2050; height: 100px;">
+            <img th:src="@{|hhttps://d1jbv8ig3bmrxx.cloudfront.net/logo_empresa.png|}" width="auto" height="100px"/>
+        </div>
+        <h3 style="text-align: center; color:#3f7320;">Nueva oferta de trabajo</h3>
+        <p><strong>revisa nuestra pagina para que apliques a la oferta publicada </strong></p>
+        <p><a href="https://www.clubdeltrabajo.com" target="_blank" rel="noopener"><button>Ingrese ya</button></a></p>
+       	<br/>
+        <p>
+			Att: equipo del Club del Trabajo"
+        </p>
+        <p>
+        	<br/>
+            <em th:text="#{email.signature}">JHipster.</em>
+        </p>
+    </body>
+</html>

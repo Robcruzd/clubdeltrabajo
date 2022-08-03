@@ -392,7 +392,7 @@ export class AgregarUsuarioComponent implements OnInit {
           );
         }
       } else {
-        this.empresa.descargasHv = 0;
+        this.empresa.descargasHv = 5;
         this.empresa.publicacionesOferta = 1;
         this.empresa.membresia = false;
         this.empresa.replicasOferta = 0;

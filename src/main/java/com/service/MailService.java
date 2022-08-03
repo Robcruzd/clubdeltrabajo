@@ -274,4 +274,11 @@ public class MailService {
         }
         sendEmailFromTemplateAspir(email, mensaje, "mail/emailSeleccion", "email.selection.title");
     }
+    
+    @Async
+    public void sendNewOfertEmail(String email) {
+        log.debug("Sending password reset email to '{}'", email);
+        String mensaje = "";
+        sendEmailFromTemplateAspir(email, mensaje, "mail/emailCreation", "email.creation.title");
+    }
 }
