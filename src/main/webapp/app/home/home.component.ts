@@ -372,7 +372,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   abrirAgregarUsuario(): void {
-    this.router.navigate(['/preguntas-frecuentes']);
+    this.router.navigate(['/previo-registrar']);
   }
 
   registrarHojaVidaEmpresa(): void {

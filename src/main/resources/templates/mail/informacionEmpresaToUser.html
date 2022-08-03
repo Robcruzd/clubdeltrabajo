@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+    <head>
+        <title th:text="#{informacionEmpresa.title}">Company Information</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="shortcut icon" th:href="@{|https://www.clubdeltrabajo.com/favicon.ico|}" />
+    </head>
+    <body>
+        <div style="text-align: center; background: #1a2050; height: 100px;">
+            <img th:src="@{|https://d1jbv8ig3bmrxx.cloudfront.net/logo_empresa.png|}" width="auto" height="100%"/>
+        </div>
+        <p>
+            HEMOS RECIBIDO TU SOLICITUD , PRONTO NOS CONTACTAREMOS CONTIGO.
+        </p>
+       	<br/>
+           <p th:text="'Nombre: ' + ${informacion.nombre} + ' ' + ${informacion.apellidos}"></p>
+           <p th:text="'Correo: ' + ${informacion.email}"></p>
+           <p th:text="'Teléfono: ' + ${informacion.telefono}"></p>
+           <p th:text="'Mensaje: ' + ${informacion.mensaje}"></p>
+        <p>
+        	<br/>
+            <em th:text="#{email.signature}">JHipster.</em>
+        </p>
+    </body>
+</html>

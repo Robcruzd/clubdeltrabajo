@@ -54,8 +54,8 @@
         </div>
         <div class="box-right">
             <h1><span style="color: grey;">{{hojaVidaVo?.informacionPersonal?.usuario?.nombre}}</span> {{hojaVidaVo?.informacionPersonal?.usuario?.apellido}}</h1>
-            <div style="padding-left: 3.121vw;" *ngFor="let item of hojaVidaVo?.experienciaLaboral">
-                <h3>{{hojaVidaVo?.informacionPersonal?.profesion?.profesion}}</h3>
+            <h3>{{hojaVidaVo?.informacionPersonal?.profesion?.profesion}}</h3>
+            <!-- <div style="padding-left: 3.121vw;" *ngFor="let item of hojaVidaVo?.experienciaLaboral"> -->
                 <!-- <div *ngIf="item.trabajoActual==true">
                     <div *ngIf="item.cargo?.cargo!=='Otro'">
                         
@@ -64,7 +64,7 @@
                         <h3>{{item?.cargoDiferente}}</h3>
                     </div>
                 </div> -->
-            </div>
+            <!-- </div> -->
             <h4>{{Exp_Profesional}}</h4>
             <div class='linea-base'></div>
             <div class="experiencias" *ngFor="let item of hojaVidaVo?.experienciaLaboral">
@@ -86,7 +86,7 @@
                 <p>{{item?.fechaFin}}</p>
                 <p>{{this.getEstado(item?.estado)}}</p>
             </div>
-            <div *ngIf="hojaVidaVo?.idiomas">
+            <div *ngIf="hojaVidaVo?.idiomas[0].idIdioma != null">
                 <h4>IDIOMAS</h4>
                 <div class='linea-base'></div>
                 <div class="experiencias">

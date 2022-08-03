@@ -131,7 +131,7 @@ export class NavbarCtComponent implements OnInit {
         if (this.account?.user) {
           this.lstOpcionesMenu = [
             { id: 1, etiqueta: 'Inicio', ruta: '/' },
-            { id: 2, etiqueta: 'Personas', ruta: '/perfil' },
+            { id: 2, etiqueta: 'Perfil', ruta: '/perfil' },
             { id: 4, etiqueta: 'Publicaciones', ruta: '/resultados-busqueda' },
             { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
             { id: 6, etiqueta: 'Contacto', ruta: '/informacion-empresa' }
@@ -140,7 +140,7 @@ export class NavbarCtComponent implements OnInit {
         } else if (this.account?.userEmpresa) {
           this.lstOpcionesMenu = [
             { id: 1, etiqueta: 'Inicio', ruta: '/' },
-            { id: 3, etiqueta: 'Empresas', ruta: '/perfil-empresa' },
+            { id: 3, etiqueta: 'Perfil', ruta: '/perfil-empresa' },
             { id: 4, etiqueta: 'Publicaciones', ruta: '/resultados-busqueda' },
             { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
             { id: 6, etiqueta: 'Contacto', ruta: '/informacion-empresa' }

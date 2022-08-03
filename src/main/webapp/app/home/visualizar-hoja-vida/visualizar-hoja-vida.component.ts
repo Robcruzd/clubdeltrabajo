@@ -139,6 +139,7 @@ export class VisualizarHojaVidaComponent implements OnInit {
       this.archivos = this.hojaVidaVo?.archivos;
       this.imagen = this.archivos?.find(item => item.tipo === TipoArchivo.IMAGEN_PERFIL) || new Archivo();
       this.visualizarArchivoPDF();
+      console.log(this.hojaVidaVo?.idiomas);
     });
   }
 

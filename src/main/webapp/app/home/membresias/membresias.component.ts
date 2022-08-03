@@ -175,7 +175,8 @@ export class MembresiasComponent implements OnInit {
     this.membresiaService
       .query({
         page: 0,
-        size: 550
+        size: 550,
+        sort: ['id,asc']
       })
       .subscribe((res: HttpResponse<IMembresias[]>) => {
         this.dataMembre = res.body!;

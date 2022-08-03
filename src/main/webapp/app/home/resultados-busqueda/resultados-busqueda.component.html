@@ -82,6 +82,12 @@
                         <br>
                         <br>
                     </div>
+                    <div *ngIf="listaResultadoBusquedaOfertas.length > 0">
+                        <p class="titulos">OFERTAS APLICADAS</p>
+                    </div>
+                    <div *ngIf="listaResultadoBusquedaOfertas.length == 0">
+                        <h4 class="centrar">No ha aplicado a las ofertas disponibles</h4>
+                    </div>
                     <div class="ofertas" style="margin-left: 0 !important;">
                         <div class="oferta" *ngFor="let oferta of listaResultadoBusquedaOfertas | paginate: { itemsPerPage: 20, currentPage: page }">
                             <div class="oferta-arriba">

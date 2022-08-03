@@ -73,4 +73,9 @@ export class EmpresaService {
     const url = this.resourceUrlByCiudad + params;
     return this.http.get<any>(url);
   }
+
+  verifyNit(nit: string): Observable<any> {
+    const url = 'https://www.einforma.co/servlet/app/portal/ENTP/prod/LISTA_EMPRESAS/razonsocial/' + nit.slice(0, 9);
+    return this.http.get<any>(url);
+  }
 }

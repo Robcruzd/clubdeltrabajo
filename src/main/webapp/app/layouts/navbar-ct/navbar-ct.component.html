@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div ngbDropdown *ngIf="logged" style="display: inline-flex;">
-                        <p class="nombreUsuario">¡Hola {{account?.firstName}}!</p>
+                        <a class="nombreUsuario" [routerLink]="lstOpcionesMenu[1].ruta">¡Hola {{account?.firstName}}!</a>
                         <img class="perfil dropdown-toggle rounded-circle" ngbDropdownToggle href="javascript:void(0);"
                             id="account-menu" [src]="imagen?.archivo || urlImageDefault">
                         <div class="dropdown-menu dropdown-menu-right dropdownPhoto" ngbDropdownMenu aria-labelledby="account-menu">
@@ -68,7 +68,7 @@
                             </a>
                             <a class="dropdown-item elemento" (click)="accederRuta('persona')" id="personas">
                                 <fa-icon icon="user" fixedWidth="true"></fa-icon>
-                                <span>Personas</span>
+                                <span>Perfil</span>
                             </a>
                             <a class="dropdown-item elemento" (click)="accederRuta('empresa')" id="empresas">
                                 <fa-icon icon="user" fixedWidth="true"></fa-icon>

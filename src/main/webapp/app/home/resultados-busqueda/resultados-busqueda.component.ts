@@ -406,6 +406,7 @@ export class ResultadosBusquedaComponent implements OnInit {
   async cargarOfertar(): Promise<any> {
     if (this.valorBusqueda === '') {
       this.listaResultadoBusquedaOfertas = [];
+      this.totalEmpresas = 0;
       const params = new Oferta();
       if (this.fechaValue == null) {
         if (this.municipioValue != null) {
@@ -626,6 +627,7 @@ export class ResultadosBusquedaComponent implements OnInit {
       }
     } else {
       this.listaResultadoBusquedaOfertas = [];
+      this.totalEmpresas = 0;
       this.profesionesFiltro = await this.listarProfesion(this.valorBusqueda);
       if (this.profesionesFiltro) {
         for (let i = 0; i < this.profesionesFiltro.length; i++) {

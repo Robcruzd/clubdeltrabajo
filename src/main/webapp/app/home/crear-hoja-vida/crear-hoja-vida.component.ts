@@ -217,6 +217,7 @@ export class CrearHojaVidaComponent implements OnInit {
 
   updateVariables(): void {
     const commonData: any = JSON.parse(sessionStorage.getItem('commonData')!);
+    console.log('labels: ', this.cmCrearHojaVida);
     this.labels = this.cmCrearHojaVida;
     this.lblSeleccioneProfesion = commonData.SELECCIONE_PROFESION_LABEL;
     this.nivelCargo = commonData.ARRAY_NIVEL_CARGO;
@@ -1083,6 +1084,7 @@ export class CrearHojaVidaComponent implements OnInit {
 
   cargarMunicipios(value: Object): void {
     this.municipios = [];
+    console.log('value: ', value);
     if (value === 0) {
       this.municipios = this.geografia
         .map(item => {
@@ -1105,6 +1107,7 @@ export class CrearHojaVidaComponent implements OnInit {
           .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0));
       }
     }
+    console.log('municipios: ', this.municipios);
   }
 
   cargarTipoDocumento(): void {

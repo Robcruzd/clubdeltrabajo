@@ -178,7 +178,7 @@ public class MailService {
     public void sendEmailFromTemplateCustom(Object object, String templateName, String titleKey) {
         Locale locale = Locale.forLanguageTag("es");
         Context context = new Context(locale);
-        String emailCt = "infoclubdeltrabajo@gmail.com";
+        String emailCt = "info@clubdeltrabajo.com";
         context.setVariable(INFORMACION, object);
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         // jHipsterProperties.getMail().getBaseUrl()
@@ -186,6 +186,21 @@ public class MailService {
         String content = templateEngine.process(templateName, context);
         String subject = messageSource.getMessage(titleKey, null, locale);
         sendEmail(emailCt, subject, content, false, true);
+    }
+
+    @Async
+    public void sendEmailFromTemplateToUser(InformacionEmpresaVo informacion, String templateName, String titleKey) {
+        if (informacion.getEmail() == null) {
+            log.debug("Email doesn't exist for user '{}'", informacion.getEmail());
+            return;
+        }
+        Locale locale = Locale.forLanguageTag("es");
+        Context context = new Context(locale);
+        context.setVariable(INFORMACION, informacion);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process(templateName, context);
+        String subject = messageSource.getMessage(titleKey, null, locale);
+        sendEmail(informacion.getEmail(), subject, content, false, true);
     }
 
     @Async
@@ -216,6 +231,7 @@ public class MailService {
     public void sendInformacionEmpresa(InformacionEmpresaVo informacionEmpresa) {
         log.debug("Sending information company to '{}'", informacionEmpresa.getNombre() + ' ' + informacionEmpresa.getApellidos());
         sendEmailFromTemplateCustom(informacionEmpresa, "mail/informacionEmpresaEmail", "informacionEmpresa.title");
+        sendEmailFromTemplateToUser(informacionEmpresa, "mail/informacionEmpresaToUser", "informacionEmpresa.title");
     }
 
     @Async
@@ -235,7 +251,7 @@ public class MailService {
     }
 
     @Async
-    @Scheduled(cron = "0 0 10 * * *", zone="America/Bogota")
+    @Scheduled(cron = "0 0 10 * * ?", zone="America/Bogota")
     public void emailRemember() {
         log.debug("Sending password reset email to '{}'", userService.findEmailByQuery());
         List<Long> ids = userService.findEmailByQuery();

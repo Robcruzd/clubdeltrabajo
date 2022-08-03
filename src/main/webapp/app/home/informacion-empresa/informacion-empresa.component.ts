@@ -100,7 +100,7 @@ export class InformacionEmpresaComponent implements OnInit {
           alertify.set('notifier', 'position', 'top-right');
           alertify.success(commonMessages.ENVIO_DATOS_CORRECTO);
           this.informacionEmpresaVo = response.body;
-          this.router.navigate(['/perfil']);
+          this.router.navigate(['/']);
         }
       },
       () => {

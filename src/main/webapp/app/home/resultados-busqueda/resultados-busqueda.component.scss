@@ -335,6 +335,17 @@
   margin-bottom: 4.876vw;
 }
 
+.centrar {
+  text-align: center;
+}
+
+.titulos {
+  font-size: 1.43vw !important;
+  font-family: 'Arial';
+  font-weight: bold;
+  color: #072278;
+}
+
 .ofertas {
   justify-content: start;
   .oferta {
@@ -589,6 +600,13 @@
         width: 95px;
       }
     }
+  }
+
+  .titulos {
+    font-size: 22px !important;
+    font-family: 'Arial';
+    font-weight: bold;
+    color: #072278;
   }
 
   .ofertas {
