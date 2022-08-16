@@ -44,6 +44,7 @@ import { NosotrosComponent } from './nosotros/nosotros.component';
 import { AsesoriaJuridicaComponent } from './asesoria-juridica/asesoria-juridica.component';
 import { GestionInfoClubComponent } from './gestion-info-club/gestion-info-club.component';
 import { PreguntasFrecuentesComponent } from './preguntas-frecuentes/preguntas-frecuentes.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // import { BusquedaCandidatosComponent } from './busqueda-candidatos/busqueda-candidatos.component';
 
@@ -62,7 +63,8 @@ import { PreguntasFrecuentesComponent } from './preguntas-frecuentes/preguntas-f
     PdfViewerModule,
     PDFExportModule,
     MatSelectModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule
   ],
   declarations: [
     HomeComponent,

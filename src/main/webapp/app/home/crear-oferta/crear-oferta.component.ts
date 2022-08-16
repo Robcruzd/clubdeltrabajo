@@ -392,7 +392,7 @@ export class CrearOfertaComponent implements OnInit {
                 } else {
                   this.oferta.fechaOfertaCaducacion = moment(new Date(), 'YYYY-MMM-DD')
                     .subtract(5, 'hours')
-                    .add(15, 'd');
+                    .add(60, 'd');
                   this.oferta.activado = true;
                   this.ofertaService.create(this.oferta).subscribe(
                     response => {

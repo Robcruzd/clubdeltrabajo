@@ -32,15 +32,14 @@ import com.domain.AplicacionOferta;
 import com.domain.Empresa;
 import com.domain.InformacionPersonal;
 import com.domain.Oferta;
-import com.service.AplicacionOfertaService;
-import com.domain.Persona;
 import com.domain.Profesion;
+import com.service.AplicacionOfertaService;
 import com.service.InformacionPersonalService;
+import com.service.MailService;
 import com.service.OfertaQueryService;
 import com.service.OfertaService;
 import com.service.ProfesionService;
 import com.service.dto.OfertaCriteria;
-import com.service.dto.PersonaCriteria;
 import com.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -70,13 +69,18 @@ public class OfertaResource {
     private final InformacionPersonalService informacionPersonaService;
     
     private final ProfesionService profesionService;
+    
+    private final MailService mailService;
 
-    public OfertaResource(OfertaService ofertaService, OfertaQueryService ofertaQueryService, AplicacionOfertaService aplicacionOfertaservice, InformacionPersonalService informacionPersonaService, ProfesionService profesionService) {
+    public OfertaResource(OfertaService ofertaService, OfertaQueryService ofertaQueryService, 
+    		AplicacionOfertaService aplicacionOfertaservice, InformacionPersonalService informacionPersonaService, 
+    		ProfesionService profesionService, MailService mailService) {
         this.ofertaService = ofertaService;
         this.ofertaQueryService = ofertaQueryService;
         this.aplicacionOfertaservice = aplicacionOfertaservice;
         this.informacionPersonaService = informacionPersonaService;
         this.profesionService = profesionService;
+        this.mailService = mailService;
     }
     		
 
@@ -98,7 +102,8 @@ public class OfertaResource {
 	    Profesion profesion = profesionService.getById(result.getProfesion());
 		listaInfo = informacionPersonaService.findByProfesion(profesion);
 		for(int i=0; i<listaInfo.size() ; i++) {
-			ofertaService.enviarEmailPersonas(listaInfo.get(i).getUsuario().getEmail());
+			mailService.sendNewOfertEmail(listaInfo.get(i).getUsuario().getEmail());
+			//ofertaService.enviarEmailPersonas(listaInfo.get(i).getUsuario().getEmail());
 		}  
         return ResponseEntity.created(new URI("/api/ofertas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
