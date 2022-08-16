@@ -244,10 +244,25 @@ public class MailService {
 
     @Async
     public void sendEmailEmpresa(AplicacionOferta aplicacionOferta) {
-        log.debug("Sending password reset email to '{}'", aplicacionOferta.getUsuario().getEmail());
+        log.debug("Sending email empresa to '{}'", aplicacionOferta.getUsuario().getEmail());
         User user = userService.findByLogin(aplicacionOferta.getOferta().getUsuario().getEmail());
         Profesion profesion = profesionService.getById(aplicacionOferta.getOferta().getProfesion());
         sendEmailFromTemplateApli(user, profesion, "mail/aplicacionEmpresa", "email.aplicaEmp.title");
+    }
+
+    @Async
+    public void sendEmailOfertas() {
+        log.debug("Sending password reset email to '{}'", userService.findEmailByQuery());
+        List<Long> ids = userService.findEmailProfByQuery();
+        for(Long id : ids) {
+            Optional<Persona> opt = personaService.findOne(id);
+            Persona persona = opt.get();
+            // log.debug("Sending password reset email to '{}'", email);
+            sendEmailFromTemplateRem(persona.getEmail(), "mail/rememberEmail", "email.remember.title");
+            LocalDate date = LocalDate.now();
+            persona.setFechaRecordatorio(date);
+            personaService.save(persona);
+        }
     }
 
     @Async

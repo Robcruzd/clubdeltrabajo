@@ -56,6 +56,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
         nativeQuery = true)
 	List<Long> findEmailByQuery();
 
+    @Query(value = "select per.id \r\n" + 
+        "from ct_persona_tb per\r\n" + 
+        "inner join jhi_user jhi on per.id = jhi.usuario_id\r\n" + 
+        "inner join ct_informacion_personal_tb infper on per.id = infper.usuario_id\r\n" + 
+        "where infper.profesion_id is not null",
+        nativeQuery = true)
+	List<Long> findEmailProfByQuery();
+
     @Query(value = "select count(*) from jhi_user ju where usuario_id is not null",
         nativeQuery = true)
 	Long contarPersonasByQuery();

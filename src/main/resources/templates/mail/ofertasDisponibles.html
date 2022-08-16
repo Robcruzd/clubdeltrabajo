@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+    <head>
+        <title th:text="#{informacionEmpresa.title}">Company Information</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="shortcut icon" th:href="@{|https://www.clubdeltrabajo.com/favicon.ico|}" />
+    </head>
+    <body>
+        <div style="text-align: center; background: #1a2050; height: 100px;">
+            <img th:src="@{|https://d1jbv8ig3bmrxx.cloudfront.net/logo_empresa.png|}" width="auto" height="100%"/>
+        </div>
+        <p>
+            HEMOS RECIBIDO TU SOLICITUD , PRONTO NOS CONTACTAREMOS CONTIGO.
+        </p>
+       	<br/>
+           <p th:text="'Últimas ' + ${informacion.nombre} + ' ofertas publicadas de ' + ${informacion.apellidos} + ' en ' + ${informacion.apellidos}">Robinson</p>
+           <p th:text="'Correo: ' + ${informacion.email}"></p>
+           <p th:text="'Teléfono: ' + ${informacion.telefono}"></p>
+           <p th:text="'Mensaje: ' + ${informacion.mensaje}"></p>
+
+        <div style="width: 184px; min-height: 153px; background: #f8f8f8 0% 0% no-repeat padding-box; display: flex; flex-direction: column; padding: 1rem; justify-content: space-between;">
+            <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                <div style="display: flex; flex-direction: column;">
+                    <p style="text-align: left; font: normal normal bold 12px/17px Roboto; letter-spacing: 0px; color: #645d5d;">club</p>
+                    <p style="text-align: left; font: normal normal bold 12px/17px Roboto; letter-spacing: 0px; color: #645d5d;">inge</p>
+                </div>
+            </div>
+            <p style="text-align: left; font: normal normal normal 12px/17px Roboto; letter-spacing: 0px; color: #645d5d;">Bogota</p>
+            <p style="text-align: left; font: normal normal normal 12px/17px Roboto; letter-spacing: 0px; color: #645d5d;">Publicado: 20-25-2222</p>
+            <button class="width: 64px; height: 23px; background: #2699fb 0% 0% no-repeat padding-box; text-align: center; font: normal normal normal 11px/12px Roboto; letter-spacing: 0px; color: #ffffff; border: none; align-self: flex-end; margin-top: 1rem;" >Ver</button>
+        </div>
+        <p>
+        	<br/>
+            <em th:text="#{email.signature}">JHipster.</em>
+        </p>
+    </body>
+</html>
