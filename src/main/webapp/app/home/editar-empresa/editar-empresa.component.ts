@@ -18,6 +18,7 @@ import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
 import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 import { ISector } from 'app/shared/model/sector.model';
 import { SectorService } from 'app/shared/services/sector.service';
+import Swal from 'sweetalert2';
 
 declare let alertify: any;
 
@@ -277,8 +278,6 @@ export class EditarEmpresaComponent implements OnInit {
       this.datosEmpresa!.telefono = this.formEmpresa.controls['telefonoRep'].value;
       this.empresaService.update(this.datosEmpresa).subscribe(
         response => {
-          // eslint-disable-next-line no-console
-          // console.log(response);
           if (response.body !== null) {
             if (this.archivoNit.id !== undefined) {
               this.archivoService.update(this.archivoNit).subscribe(
@@ -481,6 +480,36 @@ export class EditarEmpresaComponent implements OnInit {
           this.archivoNit = response[0];
           this.cargadoNit = true;
         }
+      }
+    });
+  }
+
+  deleteArchivo(): void {
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar el archivo?',
+      icon: 'question',
+      showCancelButton: true,
+      showCloseButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#2699FB',
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar'
+    }).then(result => {
+      if (result.value) {
+        if (this.archivoNit && this.archivoNit.id)
+          this.archivoService.delete(this.archivoNit.id).subscribe(
+            () => {
+              if (this.archivoNit && this.archivoNit.nombre) this.archivoService.deleteS3(this.archivoNit.nombre).subscribe(() => {});
+              alertify.set('notifier', 'position', 'top-right');
+              alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+              this.archivoNit.archivo = undefined;
+              this.cargadoNit = false;
+            },
+            () => {
+              alertify.set('notifier', 'position', 'top-right');
+              alertify.error(commonMessages.HTTP_ERROR_LABEL);
+            }
+          );
       }
     });
   }

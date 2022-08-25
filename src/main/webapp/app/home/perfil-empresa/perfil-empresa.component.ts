@@ -40,6 +40,14 @@ export class PerfilEmpresaComponent implements OnInit {
   Club_Empresas = commonMessages.CLUB_DE_EMPRESAS;
   MembresiaLabel = commonMessages.MEMBRESIA;
   AsesoriaJuridicaLabel = commonMessages.ASESORIA_JURIDICA;
+  PaginaServicios = commonMessages.PAGINA_SERVICIOS_LABEL;
+  PaginaWeb = commonMessages.PAGINA_WEB_LABEL;
+  Direccion = commonMessages.DIRECCION_LABEL;
+  Telefono = commonMessages.TELEFONO;
+  Descripcion = commonMessages.DESCRIPCION_LABEL;
+  Facebook = commonMessages.FACEBOOK;
+  Instagram = commonMessages.INSTAGRAM;
+  LinkedIn = commonMessages.LINKEDIN;
 
   empresaUpdate!: Empresa | null;
 
@@ -142,7 +150,7 @@ export class PerfilEmpresaComponent implements OnInit {
         this.router.navigate(['club-empresas']);
       } else {
         alertify.set('notifier', 'position', 'top-right');
-        alertify.error('No cuenta la membresia para club de empresas!. Debe contratar un plan!');
+        alertify.error('No cuenta con la membresia para club de empresas!. Debe contratar un plan!');
       }
     });
   }

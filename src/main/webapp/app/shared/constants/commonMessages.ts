@@ -652,7 +652,7 @@ export const commonMessages = {
   MENSAJE: 'Mensaje',
   ENVIAR: 'Enviar',
   CORREO_INFO: 'info@clubdeltrabajo.com',
-  TEL_CLUB: '321 482 23 19',
+  TEL_CLUB: '313 470 44 20',
 
   MENSAJE_BIENVENIDO: 'Bienvenido al club',
   INICIA_REGISTRADO: 'Si ya estás registrado inicia sesión.',
