@@ -115,7 +115,9 @@
                                 <input type="file" #tipodocumento class='file' accept=".pdf, .png, .jpeg, .jpg"
                                 (change)="addArchivo($event, tipoArchivo.RUT)" />
                                 <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="cargadoNit" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
+                                
                             </div>
+                            <input type="button" value="eliminar" (click)="deleteArchivo()" />
                         </div>
                         <small *ngIf="formEmpresa.get('numeroDocumento')?.errors?.required"
                                 class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>

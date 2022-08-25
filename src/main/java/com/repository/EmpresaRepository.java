@@ -25,7 +25,7 @@ public interface EmpresaRepository extends JpaRepository<Empresa, Long>, JpaSpec
     List<Empresa> findBySectorLikeUsingQueryAnnotation(@Param("sector") String sector);
     
     @Query(value = "\r\n" + 
-    		"select * from ct_empresa_tb ctp where club_empresa = true",
+    		"select * from ct_empresa_tb",
     		nativeQuery = true)
     List<Empresa> getByClubEmpresa();
     

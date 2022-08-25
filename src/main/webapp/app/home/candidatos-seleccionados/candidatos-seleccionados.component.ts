@@ -723,7 +723,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
         this.router.navigate(['club-empresas']);
       } else {
         alertify.set('notifier', 'position', 'top-right');
-        alertify.error('No cuenta la membresia para club de empresas!. Debe contratar un plan!');
+        alertify.error('No cuenta con la membresia para club de empresas!. Debe contratar un plan!');
       }
     });
   }
