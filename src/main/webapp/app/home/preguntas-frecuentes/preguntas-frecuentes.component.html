@@ -7,7 +7,7 @@
                     <div *ngFor="let pregunta of listaPreguntas" class="contenedor-preguntas">
                         <div [ngClass]="(pregunta.activa)?'contenedor-pregunta activa':'contenedor-pregunta'" (click)="abrirPregunta(pregunta)">
                             <p class="pregunta">{{pregunta.pregunta}} <img src="../../../content/images/plus.png" alt="Abrir Respuesta" /></p>
-                            <p class="respuesta">{{pregunta.respuesta}}</p>
+                            <p class="respuesta" [innerHTML]="pregunta.respuesta"></p>
                         </div>
                     </div>
                 </div>

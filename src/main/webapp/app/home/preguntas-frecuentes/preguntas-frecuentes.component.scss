@@ -3,6 +3,7 @@
   flex-direction: column;
   min-height: 80vh;
   justify-content: space-between;
+  white-space: pre-wrap;
 
   .estilo_fondo {
     display: flex;
@@ -179,7 +180,10 @@
 
   .contenedor-pregunta {
     background: #fff;
-    padding: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 0px;
     border: 2px solid transparent;
     border-radius: 10px;
     overflow: hidden;
@@ -219,6 +223,13 @@
     max-height: 0;
     opacity: 0;
     transition: 0.3s ease all;
+
+    strong {
+      font-weight: bold !important;
+    }
+    b {
+      font-weight: 700 !important;
+    }
   }
 
   .contenedor-pregunta.activa .respuesta {
@@ -226,6 +237,13 @@
     max-height: fit-content;
     opacity: 1;
     margin-top: 20px;
+
+    strong {
+      font-weight: bold !important;
+    }
+    b {
+      font-weight: 700 !important;
+    }
   }
 
   .contenedor-pregunta.activa img {

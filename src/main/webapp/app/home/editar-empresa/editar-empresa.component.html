@@ -110,14 +110,15 @@
                             <input type="text" class="estilo_inputs" formControlName="numeroDocumento">
                             <div class="file_upload" >
                                 <label class='label_file' for="file">
-                                    <fa-icon icon="images" class="float-right" (click)="tipodocumento.click()"></fa-icon>
+                                    <fa-icon icon="images" class="float-right" (click)="tipodocumento.click()" title="Cargar o actualizar archivo"></fa-icon>
                                 </label>
                                 <input type="file" #tipodocumento class='file' accept=".pdf, .png, .jpeg, .jpg"
                                 (change)="addArchivo($event, tipoArchivo.RUT)" />
                                 <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="cargadoNit" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
-                                
+                                <fa-icon [icon]="faTrash" size="lg" class="float-right" (click)="deleteArchivo()" title="Eliminar archivo"></fa-icon>
                             </div>
-                            <input type="button" value="eliminar" (click)="deleteArchivo()" />
+                            
+                            <!-- <input type="button" value="eliminar" (click)="deleteArchivo()" /> -->
                         </div>
                         <small *ngIf="formEmpresa.get('numeroDocumento')?.errors?.required"
                                 class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>

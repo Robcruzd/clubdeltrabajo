@@ -10,7 +10,7 @@ import { Empresa } from '../../shared/model/empresa.model';
 import { IOpcionVo } from '../../shared/vo/opcion-vo';
 import { GeografiaVo } from '../../shared/vo/geografia-vo';
 import { ApiService } from '../../shared/services/api.service';
-import { faStar, faAddressCard, faEllipsisH, faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faAddressCard, faEllipsisH, faCommentDots, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { Archivo } from 'app/shared/model/archivo.model';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
@@ -33,6 +33,7 @@ export class EditarEmpresaComponent implements OnInit {
   faAddressCard = faAddressCard;
   faEllipsisH = faEllipsisH;
   faCommentDots = faCommentDots;
+  faTrash = faTrash;
   formEmpresa!: FormGroup;
   usuario!: User | null;
   datosEmpresa!: Empresa | null;
