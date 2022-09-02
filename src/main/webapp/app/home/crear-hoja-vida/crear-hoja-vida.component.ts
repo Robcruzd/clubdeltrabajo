@@ -264,13 +264,20 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   onSelectionChanged(event: any) {
+    console.log('event: ', event);
     this.profesionState = false;
+    let bandera = 0;
     this.profesiones.map(option => {
       if (option.profesion === event) {
-        this.profesionState = true;
-        this.formPersonal.get('profesion')?.setValue(option);
+        bandera++;
       }
     });
+    if (bandera > 0) {
+      this.profesionState = true;
+      this.formPersonal.get('profesion')?.setValue(event);
+    } else if (event === '') {
+      this.formPersonal.get('profesion')?.setValue('');
+    }
   }
 
   cargarCuentaUsuario(): void {

@@ -4,13 +4,14 @@ import { commonMessages } from './../../shared/constants/commonMessages';
 import { InformacionEmpresaService } from './../../shared/services/informacion-empresa.service';
 import { InformacionEmpresaVo } from './../../shared/vo/informacion-empresa';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewEncapsulation } from '@angular/core';
 declare let alertify: any;
 
 @Component({
   selector: 'jhi-preguntas-frecuentes',
   templateUrl: './preguntas-frecuentes.component.html',
-  styleUrls: ['./preguntas-frecuentes.component.scss']
+  styleUrls: ['./preguntas-frecuentes.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class PreguntasFrecuentesComponent implements OnInit {
   formulario!: FormGroup;
@@ -33,7 +34,7 @@ export class PreguntasFrecuentesComponent implements OnInit {
   listaPreguntas = [
     {
       id: 1,
-      pregunta: '¿QUÉ TIPOS DE CONTRATOS LABORALES EXISTEN?',
+      pregunta: '¿Qué tipos de contratos laborales existen?',
       respuesta:
         '<b style={font-weight:bold}>1. Contrato de trabajo a término fijo:</b> Se caracteriza por tener una fecha de inicio y de terminación que no puede superar 3 años, es fundamental que sea por escrito. Puede ser prorrogado indefinidamente cuando su vigencia sea superior a un (1) año, o cuando siendo inferior, se haya prorrogado hasta por tres (3) veces.' +
         '\n<strong style={font-weight:bold}>2. Contrato de trabajo a término indefinido:</strong> Este contrato indica la fecha de inicio del trabajador, pero no tiene fecha de finalización determinada, aquí el empleador se compromete a pagar prestaciones sociales, prima de servicio, vacaciones remuneradas e impuestos que correspondan. El contrato se puede finalizar por acuerdo de las partes o por decisión de una sola.' +
@@ -46,7 +47,7 @@ export class PreguntasFrecuentesComponent implements OnInit {
     },
     {
       id: 2,
-      pregunta: '¿QUÉ ES LA ESTABILIDAD REFORZADA?',
+      pregunta: '¿Qué es la estabilidad reforzada?',
       respuesta:
         'El estado de embarazo reviste a la trabajadora de la estabilidad laboral reforzada que la protege de cualquier despido que pudiera tener origen en su condición de embarazada o lactante.' +
         ' La protección especial reforzada cubre el periodo de embarazo y las 18 semanas posteriores al parto, y de forma limitada desde las 18 semanas posteriores al parto, hasta los 6 meses posteriores al parto.' +
@@ -59,7 +60,7 @@ export class PreguntasFrecuentesComponent implements OnInit {
     },
     {
       id: 3,
-      pregunta: '¿CUÁLES SON LAS PRESTACIONES SOCIALES QUE TIENE DERECHO UN TRABAJADOR?',
+      pregunta: '¿Cuáles son las prestaciones sociales que tiene derecho un trabajador?',
       respuesta:
         'La prestación social es una especie de adicional que el trabajador recibe, que no hace parte de su remuneración, y por tanto no constituye salario.' +
         'Las prestaciones sociales están conformadas por los siguientes conceptos:' +
@@ -85,7 +86,7 @@ export class PreguntasFrecuentesComponent implements OnInit {
     },
     {
       id: 4,
-      pregunta: '¿QUÉ DEBO HACER PARA AFILIARME?',
+      pregunta: '¿Qué debo hacer para afiliarme?',
       respuesta:
         '1.	El/la empleador/a es el encargado/a de aﬁliar a sus trabajadores/as a la seguridad social.' +
         '\n2.	Él/ella debe diligenciar los formularios de aﬁliación a pensiones, salud, riesgos laborales y cajas de compensación familiar.' +
@@ -96,13 +97,21 @@ export class PreguntasFrecuentesComponent implements OnInit {
     },
     {
       id: 5,
-      pregunta: '¿CÓMO SON LOS APORTES AL SISTEMA DE SEGURIDAD SOCIAL?',
-      respuesta: '',
+      pregunta: '¿Cómo son los aportes al sistema de seguridad social?',
+      respuesta:
+        '<table>' +
+        '<tr><th></th><th>Empleador/a</th><th>Trabajador/a</th><th>Total</th></tr>' +
+        '<tr><th>Pensiones</th><th>12%</th><th>4%</th><th>16%</th></tr>' +
+        '<tr><th>Salud</th><th>8,5%</th><th>4%</th><th>12,5%</th></tr>' +
+        '<tr><th>Riesgos laborales - Nivel 1</th><th>0,5%</th><th></th><th>0,5%</th></tr>' +
+        '<tr><th>Cajas de Compensación</th><th>4%</th><th></th><th>4%</th></tr>' +
+        '<tr><th>Total</th><th>25%</th><th>8%</th><th>33%</th></tr>' +
+        '</table>',
       activa: false
     },
     {
       id: 6,
-      pregunta: '¿QUÉ ES SALARIO?',
+      pregunta: '¿Qué es salario?',
       respuesta:
         'El salario es el pago que recibe un trabajador por los servicios que presta a su empleador, por los que fue contratado.' +
         '\nEl salario es el nombre que se le da a la remuneración del trabajo desarrollado por una persona en favor del empresario o empleador que lo contrata.' +
@@ -141,7 +150,21 @@ export class PreguntasFrecuentesComponent implements OnInit {
         'La incapacidad laboral de origen común tiene su origen en una enfermado o accidente que no tiene relación con la actividad laboral desempeñada por el trabajador.' +
         '\nLas incapacidades laborales se liquidan sobre el salario cotizado, es decir, se toma como referencia el salario sobre que el empleador utilizó para pagar las cotizaciones a seguridad social, o ingreso base de cotización (IBC).' +
         '\nEl porcentaje de liquidación de las incapacidades laborales depende de la duración de la incapacidad.' +
-        '\nEn primer lugar, hagamos un recuento de quién debe pagar las incapacidades laborales según su duración:',
+        '\nEn primer lugar, hagamos un recuento de quién debe pagar las incapacidades laborales según su duración:' +
+        '\n<table>' +
+        '<tr><th>Periodo de incapacidad</th><th>Obligado a pagar</th></tr>' +
+        '<tr><th>Días 1 a 2</th><th>Empleador</th></tr>' +
+        '<tr><th>Días 3 a 180</th><th>EPS</th></tr>' +
+        '<tr><th>Días 181 a 540</th><th>Fondo de pensiones</th></tr>' +
+        '<tr><th>Días 541 en adelante</th><th>EPS/Fondo de pensiones</th></tr>' +
+        '</table>' +
+        '\n\nEn primer lugar, hagamos un recuento de quién debe pagar las incapacidades laborales según su duración:' +
+        '\n<table>' +
+        '<tr><th>Número de días</th><th>Porcentaje de liquidación</th></tr>' +
+        '<tr><th>Primeros dos días</th><th>66,66%</th></tr>' +
+        '<tr><th>Día 3 hasta el día 90</th><th>66,66%</th></tr>' +
+        '<tr><th>Día 91 hasta el día 540</th><th>50%</th></tr>' +
+        '</table>',
       activa: false
     },
     {

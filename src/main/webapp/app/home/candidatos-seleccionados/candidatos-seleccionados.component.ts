@@ -292,7 +292,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
         this.empresaUpdate?.juridica === true &&
         this.empresaUpdate?.juridica !== undefined
       ) {
-        this.router.navigate(['asesoria-juridica']);
+        this.router.navigate(['preguntas-frecuentes']);
       } else {
         alertify.set('notifier', 'position', 'top-right');
         alertify.error('No cuenta con la membresia para asesoría jurídica!. Debe contratar un plan!');
@@ -935,6 +935,7 @@ export class CandidatosSeleccionadosComponent implements OnInit {
   }
 
   openScrollableContent(longContent: any): void {
+    this.listaResultadoArchivado = [];
     this.empresaService.find(this.usuario?.userEmpresa).subscribe(empresa => {
       /* eslint-disable no-console */
       // console.log('empresaaaaaaaaaaaaaaaaa', empresa);

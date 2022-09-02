@@ -397,11 +397,12 @@ export class AgregarUsuarioComponent implements OnInit {
         this.empresa.membresia = false;
         this.empresa.replicasOferta = 0;
         this.empresa.visualizacionesHv = 0;
-        this.empresa.clubEmpresa = false;
+        this.empresa.clubEmpresa = true;
         const tipodoc = { id: 5, nombreTipo: 'NIT' };
         this.empresa.tipoUsuario = this.tipoUsuario;
         this.empresa.tipoDocumento = tipodoc;
         this.empresa.ofertaVip = 0;
+        this.empresa.juridica = true;
         this.user.login = this.empresa.email;
         this.user.email = this.empresa.email;
         this.user.firstName = this.empresa.razonSocial;

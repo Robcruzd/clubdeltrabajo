@@ -173,7 +173,7 @@ export class CandidatosOfertaComponent implements OnInit {
         this.empresaUpdate?.juridica === true &&
         this.empresaUpdate?.juridica !== undefined
       ) {
-        this.router.navigate(['asesoria-juridica']);
+        this.router.navigate(['preguntas-frecuentes']);
       } else {
         alertify.set('notifier', 'position', 'top-right');
         alertify.error('No cuenta con la membresia para asesoría jurídica!. Debe contratar un plan!');

@@ -255,13 +255,30 @@
     align-items: center;
     //width: min-content;
 
+    .div-titulo-btnArchi {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 1vw;
+    }
+
+    .btn-archivado {
+      background-color: white;
+      border-color: #1a9fef;
+    }
+
+    .border-icon {
+      width: 2vw;
+    }
+
     .titulo_aspirantes {
       font-family: 'Roboto';
       color: #1b2455;
       font-size: 1.3vw;
       margin-bottom: 1.625vw;
       font-weight: bolder;
-      margin-right: 52%;
+      margin-left: 13.192vw;
     }
     .cuerpo {
       //width: 1071px;
@@ -471,14 +488,6 @@
         .ngx-pagination {
           padding: 0;
         }
-      }
-      .btn-archivado {
-        background: #1a9fef;
-        color: #fbfbfb;
-        font-family: 'Arial';
-        text-align: center;
-        border: none;
-        margin-bottom: 1rem;
       }
     }
     .ngnum3 {
@@ -789,6 +798,17 @@ kendo-pdf-export {
   }
 }
 
+.btnArchi {
+  min-height: 1.56vw;
+  width: 7.542vw;
+  background: #1a9fef;
+  color: #fbfbfb;
+  font-family: 'Arial';
+  font-size: 0.78vw;
+  text-align: center;
+  border: none;
+}
+
 @media only screen and (min-width: 900px) {
   .estilo_titulo2 {
     padding-left: 10%;
@@ -834,7 +854,7 @@ kendo-pdf-export {
     .perfiles {
       display: flex;
       background: #f8f8f8;
-      width: 49.87vw;
+      width: auto;
       //padding-bottom: 0.52vw;
       // padding-right: 0.52vw;
       min-height: 5.527vw;
@@ -1006,10 +1026,28 @@ kendo-pdf-export {
 
   .contenedor3 {
     .div-center3 {
+      .div-titulo-btnArchi {
+        width: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-between;
+        margin-bottom: 0rem;
+        align-items: center;
+      }
+
+      .btn-archivado {
+        width: 80%;
+      }
+
+      .border-icon {
+        width: 2rem;
+      }
+
       .titulo_aspirantes {
         font-size: 20px;
         margin-bottom: 25px;
-        margin-right: 52%;
+        margin-top: 1rem;
+        margin-left: 0rem;
       }
       .cuerpo {
         display: flex;
@@ -1091,7 +1129,7 @@ kendo-pdf-export {
               padding: 1% 0% 1% 2%;
               font-size: 11px;
               margin-bottom: 0px;
-              width: max-content;
+              // width: max-content;
             }
           }
           .parte3 {
@@ -1324,5 +1362,16 @@ kendo-pdf-export {
       width: 19px;
       height: 19px;
     }
+  }
+
+  .btnArchi {
+    min-height: 1.56rem;
+    width: 7.542rem;
+    background: #1a9fef;
+    color: #fbfbfb;
+    font-family: 'Arial';
+    font-size: 0.78rem;
+    text-align: center;
+    border: none;
   }
 }

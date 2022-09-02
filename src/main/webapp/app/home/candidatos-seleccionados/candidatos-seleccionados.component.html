@@ -94,7 +94,10 @@
     </div>
     <div class="contenedor3" *ngIf="cmCandidatosSel !== null">
         <div class="div-center3">
-            <p class="titulo_aspirantes">{{Perfiles_Aspirantes}}</p>
+            <div class="div-titulo-btnArchi">
+                <p class="titulo_aspirantes">{{Perfiles_Aspirantes}}</p>
+                <button class="btn1 float-right btn-archivado" (click)="openScrollableContent(longContent)"> <img class="border-icon" src="../../../content/images/carpeta.png"/> {{Archivado}}</button>
+            </div>
             <div class="cuerpo">
                 <div class="div-buscador">
                     <div class="buscador">
@@ -168,9 +171,8 @@
                         </div>
                     </div> 
                 </div>
-                <div>
+                <div style="width: 100%;">
                     <div>
-                        <button class="btn1 float-right btn-archivado" (click)="openScrollableContent(longContent)"> <fa-icon [icon]="faFileArchive" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> {{Archivado}}</button>
                         <div class="perfil">
                             <div *ngFor="let item of listaResultadoBusquedaAspirantes | paginate: { itemsPerPage: 6, currentPage: page }" class="contngfor">
                             <a class="perfiles" (click)="verAspirante(item)" [style.background]="item.color">
@@ -317,7 +319,7 @@
                     <th scope="col">Profesion</th>
                     <th scope="col">Edad</th>
                     <th scope="col">Ciudad</th>
-                    <th scope="col">Ver Hoja de vida</th>
+                    <th scope="col">Hoja de vida</th>
                 </tr>
             </thead>
             <tbody>
@@ -327,13 +329,14 @@
                     <td>{{item.edad}}</td>
                     <td>{{item.ciudad}}</td>
                     <td>
-                        <fa-icon data-toggle="tooltip" title="Ver Hoja de Vida" [icon]="faUserCircle" (click)="verHojaVidaArchivado(item)" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon>
+                        <button class="btnArchi" (click)="verHojaVidaArchivado(item)"> <fa-icon [icon]="faFileArchive" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> Ver</button>
+                        <!-- <fa-icon data-toggle="tooltip" title="Ver Hoja de Vida" [icon]="faUserCircle" (click)="verHojaVidaArchivado(item)" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> -->
                     </td>
                 </tr>
             </tbody>
             </table>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Aceptar</button>
+          <button type="button" class="btn btn-light btnArchi" (click)="modal.close('Close click')">Aceptar</button>
         </div>
     </ng-template>

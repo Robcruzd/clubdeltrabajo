@@ -232,14 +232,14 @@ export const HOME_ROUTE: Routes = [
     path: 'asesoria-juridica',
     component: AsesoriaJuridicaComponent,
     data: {
-      pageTitle: 'Asesoría Jurídica'
+      pageTitle: 'home.title'
     }
   },
   {
     path: 'preguntas-frecuentes',
     component: PreguntasFrecuentesComponent,
     data: {
-      pageTitle: 'Preguntas frecuentes'
+      pageTitle: 'home.title'
     }
   }
 

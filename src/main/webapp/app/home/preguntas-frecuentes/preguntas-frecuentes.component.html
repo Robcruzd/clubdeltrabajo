@@ -1,9 +1,9 @@
 <div class="contenedor">
     <div class="estilo_fondo">
         <div class="div_centro">
-            <h2 class="estilo_titulo" style="padding-left: 2.081vw;">Te asesoramos jurídicamente en lo que necesites, escríbenos</h2>
             <div class="div_interno">
-                <div class="column" style="padding-left: 2.081vw;">
+                <h2 class="estilo_titulo" style="padding-left: 2.081vw;">CONSULTORIO JURIDICO</h2>
+                <div class="column1" style="padding-left: 2.081vw;">
                     <div *ngFor="let pregunta of listaPreguntas" class="contenedor-preguntas">
                         <div [ngClass]="(pregunta.activa)?'contenedor-pregunta activa':'contenedor-pregunta'" (click)="abrirPregunta(pregunta)">
                             <p class="pregunta">{{pregunta.pregunta}} <img src="../../../content/images/plus.png" alt="Abrir Respuesta" /></p>
@@ -11,20 +11,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="column" style="justify-content: space-between;">
-                    <div class="textos">
-                        <h2 class="estilo_titulo">{{Telefonos}}:</h2>
-                        <p class="estilo_text">{{Tel_Club}}</p>
-                        <h2 class="estilo_titulo">{{Email}}:</h2>
-                        <p class="estilo_text">{{Correo_Info}}</p>
-                        <div class="iconos">
-                            <a href="https://www.facebook.com/Club-del-Trabajo-100955765079986/" target="_blank"><img class="icono" src="https://d1jbv8ig3bmrxx.cloudfront.net/facebook.png"></a>
-                            <a href="https://instagram.com/clubdeltrabajo?igshid=1m37k1eb9p16a" target="_blank"><img class="icono" path="fill: currentColor !important;" src="https://d1jbv8ig3bmrxx.cloudfront.net/instagram.png"></a>
-                            <a href="https://twitter.com/ClubdelTrabajo" target="_blank"><img class="icono" src="https://d1jbv8ig3bmrxx.cloudfront.net/twitter.png"></a>
-                        </div>
-                    </div>
-                    <img class="estilo_imagen" src="https://d1jbv8ig3bmrxx.cloudfront.net/persona_contact.png">
-                </div>
+            </div>
+            <div class="column2">
+                <img class="estilo_imagen" src="https://d1jbv8ig3bmrxx.cloudfront.net/nosotros.png">
             </div>
             <!-- <img class="estilo_imagen" src="https://d1jbv8ig3bmrxx.cloudfront.net/persona_contact.png"> -->
         </div>

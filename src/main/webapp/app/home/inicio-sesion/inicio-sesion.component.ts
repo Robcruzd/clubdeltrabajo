@@ -100,6 +100,7 @@ export class InicioSesionComponent implements OnInit {
       this.login.rememberMe = true;
       this.loginService.login(this.login).subscribe(
         res => {
+          console.log('reeees: ', res);
           if (res?.user !== null) {
             this.router.navigate(['/perfil']);
           } else if (res?.userEmpresa !== null) {
