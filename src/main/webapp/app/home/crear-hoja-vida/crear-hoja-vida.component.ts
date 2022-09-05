@@ -42,6 +42,8 @@ import { PersonaService } from 'app/entities/persona/persona.service';
 import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 import { PaisesService } from 'app/entities/paises/paises.service';
 import { IPaises } from 'app/shared/model/paises.model';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 declare let alertify: any;
 
@@ -146,6 +148,7 @@ export class CrearHojaVidaComponent implements OnInit {
   Quitar_experiencia = commonMessages.QUITAR_EXPERIENCIA;
   Ciudad_estudio = commonMessages.CIUDAD_ESTUDIO;
   Anios = commonMessages.ANIOS;
+  faTrash = faTrash;
 
   constructor(
     private fb: FormBuilder,
@@ -162,7 +165,8 @@ export class CrearHojaVidaComponent implements OnInit {
     private regionService: RegionesService,
     private personaService: PersonaService,
     private commonMessagesService: CommonMessagesService,
-    private paisesService: PaisesService
+    private paisesService: PaisesService,
+    private archivoService: ArchivoService
   ) {}
 
   ngOnInit(): void {
@@ -217,7 +221,6 @@ export class CrearHojaVidaComponent implements OnInit {
 
   updateVariables(): void {
     const commonData: any = JSON.parse(sessionStorage.getItem('commonData')!);
-    console.log('labels: ', this.cmCrearHojaVida);
     this.labels = this.cmCrearHojaVida;
     this.lblSeleccioneProfesion = commonData.SELECCIONE_PROFESION_LABEL;
     this.nivelCargo = commonData.ARRAY_NIVEL_CARGO;
@@ -1672,5 +1675,42 @@ export class CrearHojaVidaComponent implements OnInit {
         .get(['cargoDiferente'])
         ?.disable();
     }
+  }
+
+  deleteArchivo(): void {
+    Swal.fire({
+      title: '¿Está seguro que desea eliminar el archivo?',
+      icon: 'question',
+      showCancelButton: true,
+      showCloseButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#2699FB',
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar'
+    }).then(result => {
+      if (result.value) {
+        if (this.archivos.length > 0) {
+          this.archivos.forEach(archivo => {
+            if (archivo.tipo === TipoArchivo.DOCUMENTO_IDENTIDAD) {
+              if (archivo.id)
+                this.archivoService.delete(archivo.id).subscribe(
+                  () => {
+                    if (archivo && archivo.nombre) this.archivoService.deleteS3(archivo.nombre).subscribe(() => {});
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                    archivo.archivo = undefined;
+                    this.cargadoDocumento = false;
+                  },
+                  () => {
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.error(commonMessages.HTTP_ERROR_LABEL);
+                  }
+                );
+              this.cargadoDocumento = false;
+            }
+          });
+        }
+      }
+    });
   }
 }

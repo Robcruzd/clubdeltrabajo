@@ -78,7 +78,7 @@ public class EmpresaService {
     }
     
     public List<Empresa> getBySectorFiltro(String sector) {
-    	return empresaRepository.findBySectorLikeUsingQueryAnnotation(sector);
+    	return empresaRepository.findBySector(sector);
     }
     
     public List<Empresa> getByClubEmpresa() {

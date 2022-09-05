@@ -64,6 +64,7 @@
                                     </label>
                                     <input type="file" #tipodocumento class='file' accept=".pdf"
                                         (change)="addArchivo($event, tipoArchivo.DOCUMENTO_IDENTIDAD)" />
+                                        <fa-icon [icon]="faTrash" size="lg" class="float-right" (click)="deleteArchivo()" title="Eliminar archivo"></fa-icon>
                                     <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="this.cargadoDocumento" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
                                 </div>
                             </div>

@@ -74,15 +74,6 @@
                         <!-- <div class="input-buscador">
                             <input matInput placeholder="Busqueda" class="form-control">
                         </div> -->
-                        <div class="input-buscador">
-                            <input matInput placeholder="Busqueda" class="form-control"
-                            (keyup.enter)="cargarEmpresas()" [(ngModel)]="valorBusqueda">
-                            <button class="btnBuscar" (click)="cargarEmpresas()">
-                                <fa-icon [icon]="faSearch" class="border-icon2" style="
-                                background: transparent; color: #0a0a0a;">
-                                </fa-icon>
-                            </button>
-                        </div>
                         <!-- <div class="input-buscador">
                             <button class="btnBuscar" (click)="cargarEmpresas()">
                                 <fa-icon [icon]="faSearch" class="border-icon2" style="
@@ -103,6 +94,17 @@
                                 [ngValue]="municipio.codigo"
                                     *ngFor="let municipio of municipiosPersonal">
                                     {{ municipio.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="empresas">
+                            <p class="titulo">{{Sector}}</p>
+                            <select class="resultado" [(ngModel)]="sectorValue" (change)="cargarEmpresas()">
+                                <option [ngValue]="null" enabled>{{labels.SELECCIONE_LABEL}}</option>
+                                <option
+                                [ngValue]="sector.sector"
+                                    *ngFor="let sector of listaSectores">
+                                    {{ sector.sector }}
                                 </option>
                             </select>
                         </div>
