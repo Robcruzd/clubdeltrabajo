@@ -9,6 +9,7 @@ import io.github.jhipster.service.filter.StringFilter;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
@@ -89,4 +90,9 @@ public interface OfertaRepository extends JpaRepository<Oferta, Long>, JpaSpecif
 			"limit 5", 
 			nativeQuery = true)
 	List<Oferta> getOfertasDestacadas();
+
+	@Query(value = "\r\n" + 
+			"select * from ct_oferta_tb cot2 where cot2.profesion = :profesion order by fecha_publicacion limit 6", 
+			nativeQuery = true)
+	Optional<List<Oferta>> findOfertasByProfesion(@Param("profesion") Long profesion);
 }

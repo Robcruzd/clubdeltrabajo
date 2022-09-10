@@ -148,6 +148,16 @@ public class OfertaService {
     public List<Oferta> getOfertasDestacadas() {
     	return ofertaRepository.getOfertasDestacadas();
     }
+
+    public Optional<List<Oferta>> findOfertasByProfesion(Long profesion) {
+        // Optional<List<Oferta>> ofertas = ofertaRepository.findOfertasByProfesion(profesion);
+        // if(ofertas.isPresent()){
+        //     return ofertas;
+        // }else {
+        //     return null;
+        // }
+    	return ofertaRepository.findOfertasByProfesion(profesion);
+    }
     
     public Date getFechaHora(Long fecha) {
     	Calendar calendar = Calendar.getInstance();

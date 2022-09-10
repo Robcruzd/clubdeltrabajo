@@ -297,7 +297,7 @@ public class UserService {
     }
 
     public List<Long> findEmailByQuery() {
-        Object obj = userRepository.findEmailByQuery();
+        // Object obj = userRepository.findEmailByQuery();
         // Persona persona = new Persona(obj);
     	return  userRepository.findEmailByQuery();
     }

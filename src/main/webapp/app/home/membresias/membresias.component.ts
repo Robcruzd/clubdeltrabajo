@@ -333,8 +333,8 @@ export class MembresiasComponent implements OnInit {
       if (
         empresa !== undefined &&
         empresa !== null &&
-        this.empresaUpdate?.membresia === true &&
-        this.empresaUpdate?.membresia !== undefined
+        this.empresaUpdate?.clubEmpresa !== undefined &&
+        this.empresaUpdate?.clubEmpresa === true
       ) {
         this.router.navigate(['club-empresas']);
       } else {

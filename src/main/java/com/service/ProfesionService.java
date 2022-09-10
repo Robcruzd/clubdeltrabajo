@@ -84,4 +84,8 @@ public class ProfesionService {
     public List<Profesion> getByProfesionFiltro(String profesion) {
     	return profesionRepository.findByProfesionLikeUsingQueryAnnotation(profesion);
     }
+
+    public List<Profesion> findProfesionesByOfertas() {
+    	return  profesionRepository.findProfesionesByOfertas();
+    }
 }

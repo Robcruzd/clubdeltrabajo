@@ -99,6 +99,10 @@ public class PersonaService {
     	return personaRepository.findAll();
     }
 
+    public Optional<List<Persona>> findPersonasByProfesion(Long profesion) {
+    	return personaRepository.findPersonasByProfesion(profesion);
+    }
+
     @Scheduled(cron = "0 0 0 0/10 * *", zone="America/Bogota")
     public List<Long> updateFechaRem() {
         return personaRepository.updateFechaRem();

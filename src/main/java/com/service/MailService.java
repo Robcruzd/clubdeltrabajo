@@ -20,8 +20,10 @@ import java.util.Optional;
 
 import com.domain.User;
 import com.domain.Profesion;
+import com.domain.Regiones;
 import com.domain.Persona;
 import com.domain.AplicacionOferta;
+import com.domain.Oferta;
 import com.domain.vo.InformacionEmpresaVo;
 
 import io.github.jhipster.config.JHipsterProperties;
@@ -58,6 +60,8 @@ public class MailService {
     private final UserService userService;
     private final ProfesionService profesionService;
     private final PersonaService personaService;
+    private final OfertaService ofertaService;
+    private final RegionesService regionesService;
 
     @Value("${spring.mail2.username}")
     private String email2;
@@ -71,7 +75,9 @@ public class MailService {
         SpringTemplateEngine templateEngine,
         UserService userService,
         ProfesionService profesionService,
-        PersonaService personaService) {
+        PersonaService personaService,
+        OfertaService ofertaService,
+        RegionesService regionesService) {
 
         this.jHipsterProperties = jHipsterProperties;
         this.javaMailSender = javaMailSender;
@@ -80,6 +86,8 @@ public class MailService {
         this.userService = userService;
         this.profesionService = profesionService;
         this.personaService = personaService;
+        this.ofertaService = ofertaService;
+        this.regionesService = regionesService;
     }
 
     @Async
@@ -251,18 +259,38 @@ public class MailService {
     }
 
     @Async
+    @Scheduled(cron = "0 0 14 * * 0,3", zone="America/Bogota")
     public void sendEmailOfertas() {
-        log.debug("Sending password reset email to '{}'", userService.findEmailByQuery());
-        List<Long> ids = userService.findEmailProfByQuery();
-        for(Long id : ids) {
-            Optional<Persona> opt = personaService.findOne(id);
-            Persona persona = opt.get();
-            // log.debug("Sending password reset email to '{}'", email);
-            sendEmailFromTemplateRem(persona.getEmail(), "mail/rememberEmail", "email.remember.title");
-            LocalDate date = LocalDate.now();
-            persona.setFechaRecordatorio(date);
-            personaService.save(persona);
+        // log.debug("Sending password reset email to '{}'", userService.findEmailByQuery());
+        List<Profesion> profesiones = profesionService.findProfesionesByOfertas();
+        for(Profesion profesion : profesiones) {
+            Optional<List<Persona>> optPersonas = personaService.findPersonasByProfesion(profesion.getId());
+            if(optPersonas.isPresent()){
+                Optional<List<Oferta>> optOfertas = ofertaService.findOfertasByProfesion(profesion.getId());
+                List<Oferta> ofertas = optOfertas.get();
+                for(Oferta ofer: ofertas){
+                    Regiones region = regionesService.findByCodigoDaneDelMunicipio(ofer.getCiudad());
+                    ofer.setGenero(region.getMunicipio());
+                }
+                List<Persona> personas = optPersonas.get();
+                for(Persona persona : personas){
+                    sendEmailFromTemplateMulti(persona, ofertas, profesion.getProfesion(), "mail/ofertasDisponibles", "email.ofertas.disponibles");
+                }
+            }
         }
+    }
+
+    @Async
+    public void sendEmailFromTemplateMulti(Persona persona, List<Oferta> ofertas, String profesion, String templateName, String titleKey) {        
+        Locale locale = Locale.forLanguageTag("es");
+        Context context = new Context(locale);
+        context.setVariable("ofertas", ofertas);
+        context.setVariable("persona", persona);
+        context.setVariable("profesion", profesion);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process(templateName, context);
+        String subject = messageSource.getMessage(titleKey, null, locale);
+        sendEmail(persona.getEmail(), subject, content, false, true);
     }
 
     @Async

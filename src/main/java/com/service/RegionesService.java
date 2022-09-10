@@ -71,4 +71,8 @@ public class RegionesService {
         log.debug("Request to delete Regiones : {}", id);
         regionesRepository.deleteById(id);
     }
+
+    public Regiones findByCodigoDaneDelMunicipio(Integer codigoDane) {
+        return regionesRepository.findByCodigoDaneDelMunicipio(codigoDane);
+    }
 }
