@@ -19,6 +19,8 @@ import { CommonMessagesService } from 'app/entities/commonMessages/commonMessage
 import { IRegiones } from 'app/shared/model/regiones.model';
 import { HttpResponse } from '@angular/common/http';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
+import { SectorService } from 'app/shared/services/sector.service';
+import { Sector } from 'app/shared/model/sector.model';
 
 declare let alertify: any;
 
@@ -84,8 +86,11 @@ export class ClubEmpresasComponent implements OnInit {
   Instagram = commonMessages.INSTAGRAM;
   LinkedIn = commonMessages.LINKEDIN;
   labels = commonMessages;
+  Sector = commonMessages.SECTOR;
   municipioValue: any = null;
   municipiosPersonal: Array<IOpcionVo> = [];
+  listaSectores: Array<Sector> = [];
+  sectorValue: any = null;
 
   constructor(
     private _location: Location,
@@ -96,7 +101,8 @@ export class ClubEmpresasComponent implements OnInit {
     private fb: FormBuilder,
     private apiService: ApiService,
     private commonMessagesService: CommonMessagesService,
-    private regionService: RegionesService
+    private regionService: RegionesService,
+    private sectorService: SectorService
   ) {
     this.agregarEmpresaForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚ ]{1,}$')]],
@@ -128,6 +134,7 @@ export class ClubEmpresasComponent implements OnInit {
           this.updateVariables();
           this.getEmpresas();
           this.consultarInformacionGeografica();
+          this.consultarSector();
         },
         err => {
           // eslint-disable-next-line no-console
@@ -135,6 +142,7 @@ export class ClubEmpresasComponent implements OnInit {
           this.cmClubEmpresas = 0;
           this.getEmpresas();
           this.consultarInformacionGeografica();
+          this.consultarSector();
         }
       );
     this.traerCiudad();
@@ -307,21 +315,21 @@ export class ClubEmpresasComponent implements OnInit {
   }
 
   async cargarEmpresas(): Promise<any> {
-    if (this.valorBusqueda === '' && !this.municipioValue) {
+    if (!this.sectorValue && !this.municipioValue) {
       this.ListaEmpresas = [];
       this.getEmpresas();
-    } else if (this.valorBusqueda !== '' && this.municipioValue) {
+    } else if (this.sectorValue && this.municipioValue) {
       this.ListaEmpresas = [];
       this.ListaEmpresasFiltro = [];
-      this.ListaEmpresas = await this.listarEmpresas(this.valorBusqueda);
+      this.ListaEmpresas = await this.listarEmpresas(this.sectorValue);
       this.ListaEmpresas = await this.listarEmpresasCiudadAndSector(this.municipioValue, this.ListaEmpresas);
       this.totalEmpresas = this.ListaEmpresas.length;
       this.ListaEmpresas.forEach((element: any) => {
         this.obtenerImagen(element);
       });
-    } else if (this.valorBusqueda !== '') {
+    } else if (this.sectorValue) {
       this.ListaEmpresas = [];
-      this.ListaEmpresas = await this.listarEmpresas(this.valorBusqueda);
+      this.ListaEmpresas = await this.listarEmpresas(this.sectorValue);
       this.totalEmpresas = this.ListaEmpresas.length;
       this.ListaEmpresas.forEach((element: any) => {
         this.obtenerImagen(element);
@@ -366,5 +374,11 @@ export class ClubEmpresasComponent implements OnInit {
         };
       })
       .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0));
+  }
+
+  consultarSector(): void {
+    this.sectorService.getSector().subscribe(data => {
+      this.listaSectores = data;
+    });
   }
 }
