@@ -60,9 +60,9 @@
                 <p class="estilo_titulo2">{{Oferta}}</p>
                 <div class="ngnum1">
                     <ng-container>
-                        <p class="titulo_oferta">{{listaResultadoOfertas[0].titulo}}</p>
+                        <p class="titulo_oferta">{{listaResultadoOfertas[0]?.titulo}}</p>
                         <!--<p class="profesion_oferta">profesionOferta</p>-->
-                        <p class="descripcion_profesion">{{listaResultadoOfertas[0].descripcion}}</p>
+                        <p class="descripcion_profesion">{{listaResultadoOfertas[0]?.descripcion}}</p>
                         <table class="tabla_oferta">
                             <tr>
                               <th class="titulo_oferta_previsualizacion">{{Titulo}}:</th>
@@ -70,9 +70,9 @@
                               <th class="titulo_oferta_previsualizacion">{{Publicado}}:</th>
                             </tr>
                             <tr>
-                              <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].titulo}}</td>
-                              <td class="des_titulo" style="width: 40%;">{{listaResultadoOfertas[0].tipoContrato}}</td>
-                              <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].publicado}}</td>
+                              <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0]?.titulo}}</td>
+                              <td class="des_titulo" style="width: 40%;">{{listaResultadoOfertas[0]?.tipoContrato}}</td>
+                              <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0]?.publicado}}</td>
                             </tr>
                         </table>
                         <table class="tabla_oferta">
@@ -82,9 +82,9 @@
                               <th class="titulo_oferta_previsualizacion">{{Salario}}:</th>
                             </tr>
                             <tr>
-                              <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].experiencia}}</td>
-                              <td class="des_titulo" style="width: 40%;">{{listaResultadoOfertas[0].ciudad}}</td>
-                              <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0].salario}}</td>
+                              <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0]?.experiencia}}</td>
+                              <td class="des_titulo" style="width: 40%;">{{listaResultadoOfertas[0]?.ciudad}}</td>
+                              <td class="des_titulo" style="width: 30%;">{{listaResultadoOfertas[0]?.salario}}</td>
                             </tr>
                         </table>
                     </ng-container>
@@ -175,50 +175,50 @@
                     <div>
                         <div class="perfil">
                             <div *ngFor="let item of listaResultadoBusquedaAspirantes | paginate: { itemsPerPage: 6, currentPage: page }" class="contngfor">
-                            <a class="perfiles" (click)="verAspirante(item)" [style.background]="item.color">
-                                <div class="mitad1">
-                                    <div class="imagen">
-                                        <img [src]="item?.imagen?  item?.imagen : urlImageDefault" alt="" class="img">
+                                <a class="perfiles" (click)="verAspirante(item)" [style.background]="item.color">
+                                    <div class="mitad1">
+                                        <div class="imagen">
+                                            <img [src]="item?.imagen?  item?.imagen : urlImageDefault" alt="" class="img">
+                                        </div>
+                                        <div class="contenedornc">
+                                        <!-- <p class="nombre">Bavaria</p> -->
+                                        <p class="nombre">{{item.nombre}} {{ item.apellido}}</p>
+                                        <p class="carrera">{{item.profesion}}</p>
+                                        </div>
                                     </div>
-                                    <div class="contenedornc">
-                                    <!-- <p class="nombre">Bavaria</p> -->
-                                    <p class="nombre">{{item.nombre}} {{ item.apellido}}</p>
-                                    <p class="carrera">{{item.profesion}}</p>
+                                    <div class="mitad2">
+                                        <div>
+                                            <p class="resumen">{{Edad}}: {{item.edad}}</p>
+                                            <p class="resumen">{{Ciudad}}: {{item.ciudad}}</p>
+                                            <p class="resumen">Correo: {{item.correo}}</p>
+                                            <p class="resumen">{{Experiencia}}: {{item.experiencia}}</p>
+                                            <p class="resumen">{{Titulo}}: {{item.titulo}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="parte3">
+                                        <p class="textp4">{{Fecha_Postulacion}}</p>
+                                        <p class="textp4">{{item.fechaPostulacion}}</p>
+                                    </div>
+                                    <div class="parte4" style="justify-content: center;" *ngIf="item.verh">
+                                        <fa-icon [icon]="faUserCircle" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon>
+                                        <p class="verhv">{{VER_HV}}</p>
+                                    </div>
+                                    <div class="parte4" style="justify-content: center; background: #BAFFE3;" *ngIf="item.verche">
+                                        <fa-icon [icon]="faCheck" class="border-icon" style="color: #151D5C; margin-top: 20px;"></fa-icon>
+                                        <p class="verhv" style="color: #151D5C;">{{Seleccionado}}</p>
+                                    </div>
+                                    <div class="parte4" style="justify-content: center; background: #FFC1C1;" *ngIf="item.verno">
+                                        <fa-icon [icon]="faTimes" class="border-icon" style="color: #151D5C; margin-top: 20px;"></fa-icon>
+                                        <p class="verhv" style="color: #151D5C;">{{Descartado}}</p>
+                                    </div>
+                                </a>
+                                <div class="btn-seleccionado" *ngIf="item.btnestado">
+                                    <!-- <input class="mensajeEmail" #searchInput id="mensaje" type="text" placeholder="Ingrese cuerpo de email"> -->
+                                    <div class="botones-enviar-des">
+                                        <!-- <button class="btn1" (click)="enviarEmail(item)"> <fa-icon [icon]="faPaperPlane" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> {{Enviar_Mail}}</button> -->
+                                        <button class="btn2" (click)="getHojaVida(item)"> <fa-icon [icon]="faArrowDown" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon>{{Descargar_HV}}</button>
                                     </div>
                                 </div>
-                                <div class="mitad2">
-                                    <div>
-                                        <p class="resumen">{{Edad}}: {{item.edad}}</p>
-                                        <p class="resumen">{{Ciudad}}: {{item.ciudad}}</p>
-                                        <p class="resumen">Correo: {{item.correo}}</p>
-                                        <p class="resumen">{{Experiencia}}: {{item.experiencia}}</p>
-                                        <p class="resumen">{{Titulo}}: {{item.titulo}}</p>
-                                    </div>
-                                </div>
-                                <div class="parte3">
-                                    <p class="textp4">{{Fecha_Postulacion}}</p>
-                                    <p class="textp4">{{item.fechaPostulacion}}</p>
-                                </div>
-                                <div class="parte4" style="justify-content: center;" *ngIf="item.verh">
-                                    <fa-icon [icon]="faUserCircle" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon>
-                                    <p class="verhv">{{VER_HV}}</p>
-                                </div>
-                                <div class="parte4" style="justify-content: center; background: #BAFFE3;" *ngIf="item.verche">
-                                    <fa-icon [icon]="faCheck" class="border-icon" style="color: #151D5C; margin-top: 20px;"></fa-icon>
-                                    <p class="verhv" style="color: #151D5C;">{{Seleccionado}}</p>
-                                </div>
-                                <div class="parte4" style="justify-content: center; background: #FFC1C1;" *ngIf="item.verno">
-                                    <fa-icon [icon]="faTimes" class="border-icon" style="color: #151D5C; margin-top: 20px;"></fa-icon>
-                                    <p class="verhv" style="color: #151D5C;">{{Descartado}}</p>
-                                </div>
-                            </a>
-                            <div class="btn-seleccionado" *ngIf="item.btnestado">
-                                <!-- <input class="mensajeEmail" #searchInput id="mensaje" type="text" placeholder="Ingrese cuerpo de email"> -->
-                                <div class="botones-enviar-des">
-                                    <!-- <button class="btn1" (click)="enviarEmail(item)"> <fa-icon [icon]="faPaperPlane" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon> {{Enviar_Mail}}</button> -->
-                                    <button class="btn2" (click)="getHojaVida(item)"> <fa-icon [icon]="faArrowDown" class="border-icon" style="color: #FFFFFF; margin-top: 20px;"></fa-icon>{{Descargar_HV}}</button>
-                                </div>
-                            </div>
                             </div>
                         </div>
                     </div>

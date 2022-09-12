@@ -211,13 +211,14 @@ export class EditarEmpresaComponent implements OnInit {
     if (this.usuario?.userEmpresa) {
       this.empresaService.find(this.usuario.userEmpresa).subscribe(response => {
         this.datosEmpresa = response.body;
+        console.log('datos: ', this.datosEmpresa);
         this.formEmpresa.patchValue({
           razonSocial: this.datosEmpresa!.razonSocial,
           razonComercial: this.datosEmpresa!.razonComercial,
           numeroDocumento: this.datosEmpresa!.numeroDocumento,
           direccion: this.datosEmpresa!.direccion,
           telefono: this.datosEmpresa!.telefonoEmpresa,
-          ciudad: this.datosEmpresa!.ciudad?.toString(),
+          ciudad: this.datosEmpresa!.ciudad,
           email: this.datosEmpresa!.email,
           sector: this.datosEmpresa!.sector,
           subsector: this.datosEmpresa!.subsector,
@@ -250,6 +251,7 @@ export class EditarEmpresaComponent implements OnInit {
       // const bogota = { codigoDpto: '100', nombreDpto: 'Bogotá D.C.', codigoMpio: '100000', nombreMpio: 'Bogotá D.C.' };
       // this.geografia.push(bogota);
       this.cargarMunicipiosAcademica();
+      console.log('this.municipiosAcademica: ', this.municipiosAcademica);
     });
   }
 
@@ -497,7 +499,7 @@ export class EditarEmpresaComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then(result => {
       if (result.value) {
-        if (this.archivoNit && this.archivoNit.id)
+        if (this.archivoNit && this.archivoNit.id) {
           this.archivoService.delete(this.archivoNit.id).subscribe(
             () => {
               if (this.archivoNit && this.archivoNit.nombre) this.archivoService.deleteS3(this.archivoNit.nombre).subscribe(() => {});
@@ -511,8 +513,18 @@ export class EditarEmpresaComponent implements OnInit {
               alertify.error(commonMessages.HTTP_ERROR_LABEL);
             }
           );
+        }
       }
     });
+  }
+
+  descargarArchivo(): void {
+    if (this.cargadoNit && this.archivoNit.archivo) {
+      const a = document.createElement('a');
+      a.href = this.archivoNit.archivo.toString();
+      a.download = this.archivoNit.nombre!;
+      a.click();
+    }
   }
 
   cargarSector(): void {

@@ -13,28 +13,28 @@
         </div>
         <div class = "informacion_candidato"> 
         <div class="nombre">
-            {{listaResultadoHojaCandidato[0].nombre}} {{listaResultadoHojaCandidato[0].apellido}}
+            {{listaResultadoHojaCandidato[0]?.nombre}} {{listaResultadoHojaCandidato[0]?.apellido}}
         </div>
         
         <div class="titulo">
             <p class="titulo1">{{Titulo}}</p>
-            <p class="titulo2">{{listaResultadoHojaCandidato[0].profesion}}</p>
+            <p class="titulo2">{{listaResultadoHojaCandidato[0]?.profesion}}</p>
         </div>
 
         <div class="perfil">
-            <p class="descripcion_perfil">{{listaResultadoHojaCandidato[0].descripcion}}</p>
+            <p class="descripcion_perfil">{{listaResultadoHojaCandidato[0]?.descripcion}}</p>
         
 
             <div class="estudios">
                 <p class="titulo_estudios">{{Estudios}}</p>
                 <p class="p_estudios" *ngFor="let estudio of listaInformacionAcademica">
-                    {{estudio.tituloOtorgado}}
+                    {{estudio?.tituloOtorgado}}
                 </p>
             </div>
             <div class="idiomas">
                 <p class="titulo_idiomas">{{Idiomas}}</p>
                 <p class="p_idiomas" *ngFor="let idioma of listaIdiomas">
-                    {{idioma.idIdioma.idioma}}    
+                    {{idioma.idIdioma?.idioma}}    
                 </p>
             </div>
             <div class="experiencia">

@@ -108,14 +108,13 @@
                                 class="estilo_campo_requerido">*</span></p>
                         <div class="estilo_nit" >
                             <input type="text" class="estilo_inputs" formControlName="numeroDocumento">
+                            
                             <div class="file_upload" >
-                                <label class='label_file' for="file">
-                                    <fa-icon icon="images" class="float-right" (click)="tipodocumento.click()" title="Cargar o actualizar archivo"></fa-icon>
-                                </label>
+                                <input type="button" class="button_inputs" value="Ver" (click)="descargarArchivo()">
+                                <input type="button" class="button_inputs" value="Cargar" (click)="tipodocumento.click()">
                                 <input type="file" #tipodocumento class='file' accept=".pdf, .png, .jpeg, .jpg"
-                                (change)="addArchivo($event, tipoArchivo.RUT)" />
-                                <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="cargadoNit" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
-                                <fa-icon [icon]="faTrash" size="lg" class="float-right" (click)="deleteArchivo()" title="Eliminar archivo"></fa-icon>
+                                    (change)="addArchivo($event, tipoArchivo.RUT)" />
+                                <input type="button" class="button_inputs" value="Eliminar" (click)="deleteArchivo()" style="border-radius: 0px 1.495vw 1.495vw 0px;">
                             </div>
                             
                             <!-- <input type="button" value="eliminar" (click)="deleteArchivo()" /> -->

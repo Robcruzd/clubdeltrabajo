@@ -224,8 +224,7 @@ export class HojaCandidatoComponent implements OnInit {
     if (this.modelBandera !== this.model) {
       if (this.model === 'Seleccionado') {
         if (this.personaInfo?.id) this.bdEmpresaService.delete(this.personaInfo.id).subscribe(() => {});
-        const mensaje =
-          'club del trabajo le informa que ha Sido seleccionado y está en verificacion del cargo al cual aplicaste o eres apto';
+        const mensaje = 'Club del Trabajo le informa que ha sido seleccionado y está en verificación del cargo al cual aplicó';
         this.aplicacionOfertaService
           .getByOfertaAndPersonaFiltro(this.idOfertaAplicacionOferta, this.idUsuarioAplicacionOferta)
           .subscribe(apliOferResponse => {

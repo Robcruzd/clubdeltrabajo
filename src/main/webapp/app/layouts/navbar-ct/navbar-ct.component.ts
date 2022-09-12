@@ -44,7 +44,7 @@ export class NavbarCtComponent implements OnInit {
     { id: 2, etiqueta: 'Personas', ruta: '/previo-registrar' },
     { id: 3, etiqueta: 'Empresas', ruta: '/previo-registrar-emp' },
     { id: 4, etiqueta: 'Publicaciones', ruta: '/resultados-busqueda' },
-    { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
+    // { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
     { id: 6, etiqueta: 'Contacto', ruta: '/informacion-empresa' }
   ];
 
@@ -142,7 +142,7 @@ export class NavbarCtComponent implements OnInit {
             { id: 1, etiqueta: 'Inicio', ruta: '/' },
             { id: 3, etiqueta: 'Perfil', ruta: '/perfil-empresa' },
             { id: 4, etiqueta: 'Publicaciones', ruta: '/resultados-busqueda' },
-            { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
+            // { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
             { id: 6, etiqueta: 'Contacto', ruta: '/informacion-empresa' }
           ];
           this.consultarImagenEmp();
@@ -173,7 +173,7 @@ export class NavbarCtComponent implements OnInit {
       { id: 2, etiqueta: 'Personas', ruta: '/previo-registrar' },
       { id: 3, etiqueta: 'Empresas', ruta: '/previo-registrar-emp' },
       { id: 4, etiqueta: 'Publicaciones', ruta: '/resultados-busqueda' },
-      { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
+      // { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
       { id: 6, etiqueta: 'Contacto', ruta: '/informacion-empresa' }
     ];
     this.logged = false;
