@@ -19,6 +19,9 @@ import { CommonMessagesService } from 'app/entities/commonMessages/commonMessage
 import { ISector } from 'app/shared/model/sector.model';
 import { SectorService } from 'app/shared/services/sector.service';
 import Swal from 'sweetalert2';
+import { RegionesService } from 'app/entities/regiones/regiones.service';
+import { HttpResponse } from '@angular/common/http';
+import { IRegiones } from 'app/shared/model/regiones.model';
 
 declare let alertify: any;
 
@@ -87,7 +90,8 @@ export class EditarEmpresaComponent implements OnInit {
     private router: Router,
     private archivoService: ArchivoService,
     private commonMessagesService: CommonMessagesService,
-    private sectorService: SectorService
+    private sectorService: SectorService,
+    private regionService: RegionesService
   ) {}
 
   ngOnInit(): void {
@@ -218,7 +222,7 @@ export class EditarEmpresaComponent implements OnInit {
           numeroDocumento: this.datosEmpresa!.numeroDocumento,
           direccion: this.datosEmpresa!.direccion,
           telefono: this.datosEmpresa!.telefonoEmpresa,
-          ciudad: this.datosEmpresa!.ciudad,
+          ciudad: this.datosEmpresa!.ciudad?.toString(),
           email: this.datosEmpresa!.email,
           sector: this.datosEmpresa!.sector,
           subsector: this.datosEmpresa!.subsector,
@@ -229,6 +233,7 @@ export class EditarEmpresaComponent implements OnInit {
           apellidosRepresentante: this.datosEmpresa!.apellidosRepresentanteLegal,
           telefonoRep: this.datosEmpresa!.telefono
         });
+        console.log('empresa: ', this.formEmpresa);
       });
     }
   }
@@ -246,14 +251,33 @@ export class EditarEmpresaComponent implements OnInit {
   }
 
   consultarInformacionGeografica(): void {
-    this.apiService.getInformacionGeografica().subscribe(geografia => {
-      this.geografia = geografia;
-      // const bogota = { codigoDpto: '100', nombreDpto: 'Bogotá D.C.', codigoMpio: '100000', nombreMpio: 'Bogotá D.C.' };
-      // this.geografia.push(bogota);
-      this.cargarMunicipiosAcademica();
-      console.log('this.municipiosAcademica: ', this.municipiosAcademica);
-    });
+    this.regionService
+      .query({
+        page: 0,
+        size: 1150
+      })
+      .subscribe((res: HttpResponse<IRegiones[]>) => {
+        this.geografia = res.body!.map(
+          item =>
+            new GeografiaVo(
+              item.codigoDaneDelDepartamento?.toString()!,
+              item.departamento!,
+              item.codigoDaneDelMunicipio?.toString()!,
+              item.municipio!
+            )
+        );
+        this.cargarMunicipiosAcademica();
+      });
   }
+  // consultarInformacionGeografica(): void {
+  //   this.apiService.getInformacionGeografica().subscribe(geografia => {
+  //     this.geografia = geografia;
+  //     // const bogota = { codigoDpto: '100', nombreDpto: 'Bogotá D.C.', codigoMpio: '100000', nombreMpio: 'Bogotá D.C.' };
+  //     // this.geografia.push(bogota);
+  //     this.cargarMunicipiosAcademica();
+  //     console.log('this.municipiosAcademica: ', this.municipiosAcademica);
+  //   });
+  // }
 
   backClicked(): void {
     this._location.back();
@@ -269,7 +293,7 @@ export class EditarEmpresaComponent implements OnInit {
       this.datosEmpresa!.numeroDocumento = this.formEmpresa.controls['numeroDocumento'].value;
       this.datosEmpresa!.direccion = this.formEmpresa.controls['direccion'].value;
       this.datosEmpresa!.telefonoEmpresa = this.formEmpresa.controls['telefono'].value;
-      this.datosEmpresa!.ciudad = parseInt(this.formEmpresa.controls['ciudad'].value, 10);
+      this.datosEmpresa!.ciudad = this.formEmpresa.controls['ciudad'].value;
       this.datosEmpresa!.email = this.formEmpresa.controls['email'].value;
       this.datosEmpresa!.sector = this.formEmpresa.controls['sector'].value;
       this.datosEmpresa!.subsector = this.formEmpresa.controls['subsector'].value;
@@ -279,6 +303,7 @@ export class EditarEmpresaComponent implements OnInit {
       this.datosEmpresa!.nombreRepresentanteLegal = this.formEmpresa.controls['nombreRepresentante'].value;
       this.datosEmpresa!.apellidosRepresentanteLegal = this.formEmpresa.controls['apellidosRepresentante'].value;
       this.datosEmpresa!.telefono = this.formEmpresa.controls['telefonoRep'].value;
+      console.log('empresa upd: ', this.datosEmpresa);
       this.empresaService.update(this.datosEmpresa).subscribe(
         response => {
           if (response.body !== null) {
@@ -502,7 +527,8 @@ export class EditarEmpresaComponent implements OnInit {
         if (this.archivoNit && this.archivoNit.id) {
           this.archivoService.delete(this.archivoNit.id).subscribe(
             () => {
-              if (this.archivoNit && this.archivoNit.nombre) this.archivoService.deleteS3(this.archivoNit.nombre).subscribe(() => {});
+              if (this.archivoNit && this.archivoNit.archivo)
+                this.archivoService.deleteS3(this.archivoNit.archivo.toString()).subscribe(() => {});
               alertify.set('notifier', 'position', 'top-right');
               alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
               this.archivoNit.archivo = undefined;
@@ -520,10 +546,11 @@ export class EditarEmpresaComponent implements OnInit {
 
   descargarArchivo(): void {
     if (this.cargadoNit && this.archivoNit.archivo) {
-      const a = document.createElement('a');
-      a.href = this.archivoNit.archivo.toString();
-      a.download = this.archivoNit.nombre!;
-      a.click();
+      this.archivoService.getS3(this.archivoNit.archivo.toString(), this.archivoNit.nombre!);
+      // const a = document.createElement('a');
+      // a.href = this.archivoNit.archivo.toString();
+      // a.download = this.archivoNit.nombre!;
+      // a.click();
     }
   }
 

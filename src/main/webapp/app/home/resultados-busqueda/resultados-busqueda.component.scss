@@ -115,13 +115,13 @@
     display: flex;
     margin-left: 0.975vw;
     margin-right: 0.5vw;
-    background: #ffffff 0% 0% no-repeat padding-box;
     opacity: 1;
     height: 1.5vw;
 
     .form-control {
       font-size: 0.9vw;
       height: 1.5vw;
+      margin-right: 0.5vw;
     }
   }
   .empresas {
@@ -226,6 +226,7 @@
       .logo-oferta {
         width: 3.251vw;
         height: 3.251vw;
+        cursor: pointer;
       }
     }
 

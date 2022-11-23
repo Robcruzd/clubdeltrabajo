@@ -30,6 +30,7 @@ import com.repository.InformacionLaboralRepository;
 import com.repository.InformacionPersonalRepository;
 import com.repository.PersonaIdiomaRepository;
 import com.repository.PersonaRepository;
+import com.service.ArchivoService;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
@@ -74,9 +75,10 @@ public class HojaVidaService {
 	private final InformacionAcademicaRepository academicaRepository;
 	private final InformacionLaboralRepository experienciaRepository;
 	private final PersonaIdiomaRepository idiomaRepository;
+	private final ArchivoService archivoService;
 
 	public HojaVidaService(InformacionPersonalRepository personalRepository,
-			InformacionAcademicaRepository academicaRepository, InformacionLaboralRepository experienciaRepository,
+			InformacionAcademicaRepository academicaRepository, InformacionLaboralRepository experienciaRepository, ArchivoService archivoService,
 			PersonaIdiomaRepository idiomaRepository, PersonaRepository personaRepository, ArchivoRepository archivoRepository) {
 		this.archivoRepository = archivoRepository;
 		this.personalRepository = personalRepository;
@@ -84,6 +86,7 @@ public class HojaVidaService {
 		this.experienciaRepository = experienciaRepository;
 		this.idiomaRepository = idiomaRepository;
 		this.personaRepository = personaRepository;
+		this.archivoService = archivoService;
 	}
 
 	/**
@@ -106,6 +109,24 @@ public class HojaVidaService {
 	
 	public void guardarInformacionArchivos(HojaVidaVo hojaVida) {
 		System.out.println("-----------------------probandito---------------------");
+		if (hojaVida.getInformacionPersonal() != null) {
+			List<Archivo> infoPer = this.archivoRepository.findByUsuario(hojaVida.getPersona());
+			for(Archivo archivo: hojaVida.getArchivos()){
+				if(archivo.getTipo().equals(1) || archivo.getTipo().equals(2)){
+					if(archivo.getId() != null){
+						Optional<Archivo> archivoEnBD = this.archivoRepository.findById(archivo.getId());
+						if(archivoEnBD.isPresent()){
+							archivoService.deleteFile(archivoEnBD.get().getArchivo());
+							this.archivoRepository.deleteById(archivoEnBD.get().getId());
+						}
+						this.archivoRepository.save(archivo);
+					}else{
+						this.archivoRepository.save(archivo);
+					}
+				}
+			}
+		}
+		
 		if (hojaVida.getInformacionAcademica() != null && !hojaVida.getInformacionAcademica().isEmpty()) {
 			System.out.println("---probanditopersona---------------------"+hojaVida.getInformacionAcademica().get(0).getUsuario());
 			List<InformacionAcademica> infosAcademicas = this.academicaRepository.findByUsuario(hojaVida.getInformacionAcademica().get(0).getUsuario());
@@ -217,6 +238,7 @@ public class HojaVidaService {
 		}
 		
 		if (hojaVida.getArchivos() != null && !hojaVida.getArchivos().isEmpty()) {
+			System.out.println("-----------------------probandito---------------------ifarchivos");
 			List<Archivo> archivosDiferentes = new ArrayList<Archivo>();
 			for(Archivo dato :  hojaVida.getArchivos()) {
 				if(dato.getTipo() == 3 || dato.getTipo() == 4) {

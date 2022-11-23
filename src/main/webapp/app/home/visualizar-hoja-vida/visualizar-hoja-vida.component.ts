@@ -50,7 +50,7 @@ export class VisualizarHojaVidaComponent implements OnInit {
   archivoBase64: any;
   pdfGeneradoHojaVida: Archivo = new Archivo();
   cargado = false;
-  showElement = true;
+  showElement = false;
   qrCard: any;
   personaDatos!: Persona | null;
 
@@ -122,6 +122,7 @@ export class VisualizarHojaVidaComponent implements OnInit {
     this.accountService.getAuthenticationState().subscribe(account => {
       this.account = account;
       this.persona = this.account?.user || 0;
+      this.showElement = true;
       this.getHojaVida();
     });
   }
@@ -139,6 +140,7 @@ export class VisualizarHojaVidaComponent implements OnInit {
       this.archivos = this.hojaVidaVo?.archivos;
       this.imagen = this.archivos?.find(item => item.tipo === TipoArchivo.IMAGEN_PERFIL) || new Archivo();
       this.visualizarArchivoPDF();
+      /* eslint-disable no-console */
       console.log(this.hojaVidaVo?.idiomas);
     });
   }

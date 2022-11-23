@@ -41,6 +41,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -221,32 +222,53 @@ public class ArchivoService {
         }
     }
 
-    public ArrayList<String> getFile(String[] keyNames) {
+    public ByteArrayOutputStream getFile(String keyName) {
 
         Region usEast2 = Region.getRegion(Regions.US_EAST_2);
         s3client.setRegion(usEast2);
         S3Object fullObject = null;
-        ArrayList<String> objectList = new ArrayList<String>();
-        for (String keyName : keyNames) {
-            log.debug("Downloading an object : {}", keyName);
-            try{
-                log.debug("Downloading an object");
-                fullObject = s3client.getObject(new GetObjectRequest(bucketName, keyName));
-                // listObjects = s3client.listObjects(bucketName, "home");
-                InputStream inputStreamItemaws = fullObject.getObjectContent();
-                byte[] bytes = IOUtils.toByteArray(inputStreamItemaws);
-                String imageStr = "{\""+keyName+"\": \""+Base64.encodeBase64String(bytes)+"\"}";
-                log.debug("Downloading an object: {}", keyName);
-                objectList.add(imageStr);
-            } catch (AmazonServiceException ase) {
-                System.out.println("Error Message:    " + ase.getMessage());
-            } catch (AmazonClientException ace) {
-                System.out.println("Error Message:    " + ace.getMessage());
-            } catch (Exception e) {
-                System.out.println("Error Message:    " + e.getMessage());
+        try{
+            log.debug("Downloading an object");
+            fullObject = s3client.getObject(new GetObjectRequest(bucketName, keyName));
+            // listObjects = s3client.listObjects(bucketName, "home");
+            InputStream inputStreamItemaws = fullObject.getObjectContent();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            // log.debug("outputstream aws : {}", inputStreamItemaws);
+            int len;
+            byte[] buffer = new byte[4096];
+            while ((len = inputStreamItemaws.read(buffer, 0, buffer.length)) != -1) {
+                outputStream.write(buffer, 0, len);
             }
+
+            return outputStream;
+        } catch (AmazonServiceException ase) {
+            System.out.println("Error Message:    " + ase.getMessage());
+        } catch (AmazonClientException ace) {
+            System.out.println("Error Message:    " + ace.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error Message:    " + e.getMessage());
         }
-        return objectList;
+        // ArrayList<String> objectList = new ArrayList<String>();
+        // for (String keyName : keyNames) {
+        //     log.debug("Downloading an object : {}", keyName);
+        //     try{
+        //         log.debug("Downloading an object");
+        //         fullObject = s3client.getObject(new GetObjectRequest(bucketName, keyName));
+        //         // listObjects = s3client.listObjects(bucketName, "home");
+        //         InputStream inputStreamItemaws = fullObject.getObjectContent();
+        //         byte[] bytes = IOUtils.toByteArray(inputStreamItemaws);
+        //         String imageStr = "{\""+keyName+"\": \""+Base64.encodeBase64String(bytes)+"\"}";
+        //         log.debug("Downloading an object: {}", keyName);
+        //         objectList.add(imageStr);
+        //     } catch (AmazonServiceException ase) {
+        //         System.out.println("Error Message:    " + ase.getMessage());
+        //     } catch (AmazonClientException ace) {
+        //         System.out.println("Error Message:    " + ace.getMessage());
+        //     } catch (Exception e) {
+        //         System.out.println("Error Message:    " + e.getMessage());
+        //     }
+        // }
+        return null;
     }
 
     public String deleteFile(String keyName) {
