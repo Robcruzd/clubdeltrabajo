@@ -28,6 +28,7 @@ import { Location } from '@angular/common';
 import { Empresa } from '../../shared/model/empresa.model';
 import { Account } from 'app/core/user/account.model';
 import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
+import { ArchivoService } from 'app/entities/archivo/archivo.service';
 
 declare let alertify: any;
 
@@ -130,7 +131,8 @@ export class CrearOfertaComponent implements OnInit {
     private regionService: RegionesService,
     private route: ActivatedRoute,
     private location: Location,
-    private commonMessagesService: CommonMessagesService
+    private commonMessagesService: CommonMessagesService,
+    private archivoService: ArchivoService
   ) {
     this.traerCiudad();
   }
@@ -366,76 +368,87 @@ export class CrearOfertaComponent implements OnInit {
         this.empresaService.find(this.usuario.userEmpresa).subscribe(RESPONSE => {
           this.oferta.usuario = RESPONSE.body;
           this.datosEmpresa = RESPONSE.body;
-          if (this.idOferta === 0) {
-            if (this.datosEmpresa?.publicacionesOferta !== 0) {
-              this.ofertaService.getOfertasEmpresa(this.usuario?.userEmpresa).subscribe(ofertaresponse => {
-                if (ofertaresponse.length !== 0 && ofertaresponse.length !== undefined) {
-                  this.oferta.activado = true;
-                  this.ofertaService.create(this.oferta).subscribe(
-                    response => {
-                      if (response.body !== null && this.datosEmpresa !== null) {
-                        const valor = this.datosEmpresa?.publicacionesOferta;
-                        if (valor !== undefined) {
-                          this.datosEmpresa.publicacionesOferta = valor - 1;
-                          this.empresaService.update(this.datosEmpresa).subscribe(() => {});
-                        }
-                        alertify.set('notifier', 'position', 'top-right');
-                        alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
-                        this.router.navigate(['/controlar-ofertas']);
-                      }
-                    },
-                    () => {
-                      alertify.set('notifier', 'position', 'top-right');
-                      alertify.error(commonMessages.HTTP_ERROR_LABEL);
-                    }
-                  );
-                } else {
-                  this.oferta.fechaOfertaCaducacion = moment(new Date(), 'YYYY-MMM-DD')
-                    .subtract(5, 'hours')
-                    .add(60, 'd');
-                  this.oferta.activado = true;
-                  this.ofertaService.create(this.oferta).subscribe(
-                    response => {
-                      if (response.body !== null && this.datosEmpresa !== null) {
-                        const valor = this.datosEmpresa?.publicacionesOferta;
-                        if (valor !== undefined) {
-                          this.datosEmpresa.publicacionesOferta = valor - 1;
-                          this.empresaService.update(this.datosEmpresa).subscribe(() => {});
-                        }
-                        alertify.set('notifier', 'position', 'top-right');
-                        alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
-                        this.router.navigate(['/controlar-ofertas']);
-                      }
-                    },
-                    () => {
-                      alertify.set('notifier', 'position', 'top-right');
-                      alertify.error(commonMessages.HTTP_ERROR_LABEL);
-                    }
-                  );
-                }
-              });
-            } else {
+          this.archivoService.getArchivoByTipoAndEmpresa(6, this.datosEmpresa).subscribe(data => {
+            if (data.length === 0) {
               alertify.set('notifier', 'position', 'top-right');
-              alertify.error('No es posible publicar más ofertas, debe adquirir un plan!');
-              this.router.navigate(['/controlar-ofertas']);
-            }
-          } else {
-            this.oferta.id = this.idOferta;
-            this.ofertaService.update(this.oferta).subscribe(
-              response => {
-                if (response.body !== null) {
+              alertify.error('¡No es posible publicar su oferta gratis, debe cargar el documento del nit en editar perfil!');
+              this.router.navigate(['/crear-oferta']);
+            } else {
+              if (this.idOferta === 0) {
+                if (this.datosEmpresa?.publicacionesOferta !== 0) {
+                  this.ofertaService.getOfertasEmpresa(this.usuario?.userEmpresa).subscribe(ofertaresponse => {
+                    if (ofertaresponse.length !== 0 && ofertaresponse.length !== undefined) {
+                      this.oferta.activado = true;
+                      this.oferta.fechaOfertaCaducacion = moment(new Date(), 'YYYY-MMM-DD')
+                        .subtract(5, 'hours')
+                        .add(30, 'd');
+                      this.ofertaService.create(this.oferta).subscribe(
+                        response => {
+                          if (response.body !== null && this.datosEmpresa !== null) {
+                            const valor = this.datosEmpresa?.publicacionesOferta;
+                            if (valor !== undefined) {
+                              this.datosEmpresa.publicacionesOferta = valor - 1;
+                              this.empresaService.update(this.datosEmpresa).subscribe(() => {});
+                            }
+                            alertify.set('notifier', 'position', 'top-right');
+                            alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                            this.router.navigate(['/controlar-ofertas']);
+                          }
+                        },
+                        () => {
+                          alertify.set('notifier', 'position', 'top-right');
+                          alertify.error(commonMessages.HTTP_ERROR_LABEL);
+                        }
+                      );
+                    } else {
+                      this.oferta.fechaOfertaCaducacion = moment(new Date(), 'YYYY-MMM-DD')
+                        .subtract(5, 'hours')
+                        .add(60, 'd');
+                      this.oferta.activado = true;
+                      this.ofertaService.create(this.oferta).subscribe(
+                        response => {
+                          if (response.body !== null && this.datosEmpresa !== null) {
+                            const valor = this.datosEmpresa?.publicacionesOferta;
+                            if (valor !== undefined) {
+                              this.datosEmpresa.publicacionesOferta = valor - 1;
+                              this.empresaService.update(this.datosEmpresa).subscribe(() => {});
+                            }
+                            alertify.set('notifier', 'position', 'top-right');
+                            alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                            this.router.navigate(['/controlar-ofertas']);
+                          }
+                        },
+                        () => {
+                          alertify.set('notifier', 'position', 'top-right');
+                          alertify.error(commonMessages.HTTP_ERROR_LABEL);
+                        }
+                      );
+                    }
+                  });
+                } else {
                   alertify.set('notifier', 'position', 'top-right');
-                  alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                  alertify.error('No es posible publicar más ofertas, debe adquirir un plan!');
                   this.router.navigate(['/controlar-ofertas']);
                 }
-              },
-              () => {
-                alertify.set('notifier', 'position', 'top-right');
-                alertify.error(commonMessages.HTTP_ERROR_LABEL);
-                // this.router.navigate(['/controlar-ofertas']);
+              } else {
+                this.oferta.id = this.idOferta;
+                this.ofertaService.update(this.oferta).subscribe(
+                  response => {
+                    if (response.body !== null) {
+                      alertify.set('notifier', 'position', 'top-right');
+                      alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                      this.router.navigate(['/controlar-ofertas']);
+                    }
+                  },
+                  () => {
+                    alertify.set('notifier', 'position', 'top-right');
+                    alertify.error(commonMessages.HTTP_ERROR_LABEL);
+                    // this.router.navigate(['/controlar-ofertas']);
+                  }
+                );
               }
-            );
-          }
+            }
+          });
         });
       }
       // });
@@ -618,5 +631,17 @@ export class CrearOfertaComponent implements OnInit {
 
   volverCrearOferta(): void {
     this.visualizarOferta = false;
+  }
+
+  keyPress(e: any): any {
+    const tecla = document.all ? e.keyCode : e.which;
+    // Tecla de retroceso para borrar, siempre la permite
+    if (tecla === 8) {
+      return true;
+    }
+    // Patrón de entrada, en este caso solo acepta numeros y letras
+    const patron = /[A-Za-z0-9]/;
+    const tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
   }
 }

@@ -76,7 +76,7 @@
                                 <select formControlName="nivelLaboral" class="estilo_inputs"
                                     (change)="cargarSubnivel(formDatosBasicos.value)">
                                     <option [ngValue]="null" disabled>{{Seleccione_Opcion}}</option>
-                                    <option *ngFor="let nivel of nivelesLaborales" 
+                                    <option *ngFor="let nivel of nivelesLaborales"
                                     [ngValue]="nivel.codigo">
                                         {{ nivel.nombre }}
                                     </option>
@@ -90,7 +90,7 @@
                                 <p class="estilo_label">{{labels.SUB_NIVEL_LABORAL}} </p>
                                 <select formControlName="subNivelLaboral" class="estilo_inputs">
                                     <option [ngValue]="null" disabled>{{Seleccione_Opcion}}</option>
-                                    <option *ngFor="let nivel of subnivelesLaborales" 
+                                    <option *ngFor="let nivel of subnivelesLaborales"
                                     [ngValue]="nivel.codigo">
                                         {{ nivel.nombre }}
                                     </option>
@@ -105,7 +105,7 @@
                                         class="estilo_campo_requerido">*</span></p>
                                 <select formControlName="areaTrabajo" class="estilo_inputs">
                                     <option [ngValue]="null" disabled>{{labels.SELECCIONE_LABEL}}</option>
-                                    <option *ngFor="let cargo of cargos" 
+                                    <option *ngFor="let cargo of cargos"
                                     [ngValue]="cargo.id">
                                         {{ cargo.cargo }}
                                     </option>
@@ -122,7 +122,7 @@
                         <div class="form-group-descripcion">
                             <p class="estilo_label">{{Desc_Requi}} <span class="estilo_campo_requerido">
                                     *</span></p>
-                            <textarea formControlName="requisitos" class="form-control text-area" rows="4"></textarea>
+                            <textarea formControlName="requisitos" (keypress)="keyPress($event)" class="form-control text-area" rows="4"></textarea>
                             <small *ngIf="formDatosBasicos.get('requisitos')?.errors?.required"
                                 class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                             <small *ngIf="formDatosBasicos.get('requisitos')?.errors?.pattern"
@@ -171,7 +171,7 @@
                                 <p class="estilo_label">{{labels.RANGO_SALARIAL}}</p>
                                 <select formControlName="rangoSalarial" class="estilo_inputs">
                                     <option [ngValue]="null" disabled>{{Seleccione_Opcion}}</option>
-                                    <option *ngFor="let aspiracion of aspiracionesSalariales" 
+                                    <option *ngFor="let aspiracion of aspiracionesSalariales"
                                     [ngValue]="aspiracion.codigo">
                                         {{ aspiracion.nombre }}
                                     </option>
@@ -192,7 +192,7 @@
                                         class="estilo_campo_requerido">*</span></p>
                                 <select formControlName="experiencia" class="estilo_inputs">
                                     <option [ngValue]="null" disabled>{{Seleccione_Opcion}}</option>
-                                    <option *ngFor="let experiencia of experienciasLaborales" 
+                                    <option *ngFor="let experiencia of experienciasLaborales"
                                     [ngValue]="experiencia.codigo">
                                         {{ experiencia.nombre }}
                                     </option>
@@ -266,7 +266,7 @@
                                     class="estilo_campo_requerido">*</span></p>
                                 <select formControlName="tipoContrato" class="estilo_inputs">
                                     <option [ngValue]="null" disabled>{{Seleccione_Opcion}}</option>
-                                    <option *ngFor="let tipo of tiposContrato" 
+                                    <option *ngFor="let tipo of tiposContrato"
                                     [ngValue]="tipo.codigo">
                                         {{ tipo.nombre }}
                                     </option>
@@ -281,7 +281,7 @@
                                     class="estilo_campo_requerido">*</span></p>
                                 <select formControlName="modalidadLaboral" class="estilo_inputs">
                                     <option [ngValue]="null" disabled>{{Seleccione_Opcion}}</option>
-                                    <option *ngFor="let modalidad of modalidadesLaborales" 
+                                    <option *ngFor="let modalidad of modalidadesLaborales"
                                     [ngValue]="modalidad.codigo">
                                         {{ modalidad.nombre }}
                                     </option>
@@ -310,13 +310,13 @@
                                 </div>
                             </div>
                         <div class="column">
-                            
+
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="column">
-                            
+
                         </div>
                     </div>
 
@@ -327,11 +327,11 @@
                             </button>
                         </div>
                         <div class="column">
-                            <button  class="btn btn-success" type="submit" 
+                            <button  class="btn btn-success" type="submit"
                             [disabled]="formDatosBasicos.invalid"
                             >
                                 <p class="titulo-boton">{{Continuar}}</p>
-                            </button>   
+                            </button>
                         </div>
                     </div>
                 </div>

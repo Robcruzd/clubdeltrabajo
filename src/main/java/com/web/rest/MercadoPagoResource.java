@@ -44,10 +44,10 @@ public class MercadoPagoResource {
 
     @Autowired
     private PagosService pagosService;
-    
+
     @Autowired
     private EmpresaService empresaService;
-	
+
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -76,7 +76,7 @@ public class MercadoPagoResource {
         log.debug("Prooooooooobando"+id);
         log.debug("Prooooooooobando"+topic);
         // Preference result = mercadoPagoService.mercadoPagoCdT();
-        
+
         return "resuuult";
     }
 
@@ -169,7 +169,7 @@ public class MercadoPagoResource {
         return result;
         // return "{\"id\": \""+result+"\"}";
     }
-    
+
     /**
      * {@code POST  /profesions} : Create a new profesion.
      *
@@ -183,7 +183,7 @@ public class MercadoPagoResource {
         MerchantOrder merchant = null;
         Pagos pago = new Pagos();
         LocalDateTime date = ZonedDateTime.now(ZoneId.of("America/Bogota")).toLocalDateTime();
-        switch(topic) { 
+        switch(topic) {
             case "payment":
                 payment = (Payment) mercadoPagoService.mercadoPagoGetPayment(id);
                 // Get the payment and the corresponding merchant_order reported by the IPN.
@@ -216,10 +216,10 @@ public class MercadoPagoResource {
         } else {
             System.out.println("Not paid yet. Do not release your item.");
         }
-        
+
         return "resuuuult";
     }
-    
+
     public void configuracionMembresia(Pagos pagoSaved) {
         // Membresia membresia = pagoSaved.getMembresia();
         // Empresa empresaSaved = new Empresa();
@@ -236,6 +236,7 @@ public class MercadoPagoResource {
     		empresaSaved = pagoSaved.getEmpresa();
     		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + 1);
     		empresaSaved.setVisualizacionesHv(empresaSaved.getVisualizacionesHv() + 20);
+            empresaSaved.setDescargasHv(empresaSaved.getDescargasHv()+10);
     		empresaService.save(empresaSaved);
     	}
     	else if(pagoSaved.getMembresia().getNombreMembresia().equals("dosOferta")) {
@@ -243,14 +244,16 @@ public class MercadoPagoResource {
     		empresaSaved = pagoSaved.getEmpresa();
     		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + Long.valueOf(2));
     		empresaSaved.setVisualizacionesHv(Long.valueOf(999));
+            empresaSaved.setDescargasHv(empresaSaved.getDescargasHv()+10);
     		empresaService.save(empresaSaved);
-    		
+
     	}
 		else if(pagoSaved.getMembresia().getNombreMembresia().equals("tresOferta")) {
 			Empresa empresaSaved = new Empresa();
     		empresaSaved = pagoSaved.getEmpresa();
     		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + 3);
     		empresaSaved.setVisualizacionesHv(Long.valueOf(999));
+            empresaSaved.setDescargasHv(empresaSaved.getDescargasHv()+15);
     		empresaService.save(empresaSaved);
 		}
 		else if(pagoSaved.getMembresia().getNombreMembresia().equals("flexi")) {
