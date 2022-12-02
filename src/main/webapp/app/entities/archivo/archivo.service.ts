@@ -80,9 +80,17 @@ export class ArchivoService {
     // return this.http.get<any>(`${this.gets3Service}/${name}`);
   }
 
+  getImageS3(keyName: string, name: string): any {
+    /* eslint-disable no-console */
+    console.log('base href: ', this.gets3Service);
+    return `${this.gets3Service}/${keyName}/${name}`;
+  }
+
   public getArchivoByTipoAndEmpresa(tipoId?: any, empresa?: any): Observable<any> {
     const params = PathUtil.getPathParams({ tipo: tipoId, empresa: empresa?.id });
     const url = this.resourceUrlFiltroByTipoAndEmpresa + params;
+    /* eslint-disable no-console */
+    console.log('url: ', url);
     return this.http.get<any>(url);
   }
 }

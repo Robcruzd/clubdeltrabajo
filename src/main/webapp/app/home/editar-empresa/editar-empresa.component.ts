@@ -12,7 +12,7 @@ import { GeografiaVo } from '../../shared/vo/geografia-vo';
 import { ApiService } from '../../shared/services/api.service';
 import { faStar, faAddressCard, faEllipsisH, faCommentDots, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
-import { Archivo } from 'app/shared/model/archivo.model';
+import { Archivo, IArchivo } from 'app/shared/model/archivo.model';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
 import { TipoArchivo } from '../../shared/vo/tipo-archivo.enum';
 import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
@@ -22,6 +22,7 @@ import Swal from 'sweetalert2';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { HttpResponse } from '@angular/common/http';
 import { IRegiones } from 'app/shared/model/regiones.model';
+import { Persona } from 'app/shared/model/persona.model';
 
 declare let alertify: any;
 
@@ -51,6 +52,7 @@ export class EditarEmpresaComponent implements OnInit {
   archivoNit = new Archivo();
   archivosaws: any = [];
   empresaUpdate!: Empresa | null;
+  imagenes_Productos: Array<IArchivo> = [];
   // ciudad: Array<IOpcionVoMunicipio> = [];
 
   labels = commonMessages;
@@ -69,6 +71,10 @@ export class EditarEmpresaComponent implements OnInit {
   Web = commonMessages.PAGINA_WEB;
   Cantidad_Empleados = commonMessages.CANTIDAD_EMPLEADOS;
   Descrip_Empresa = commonMessages.DESCRIPCION_EMPRESA;
+  Mision_Empresa = commonMessages.MISION_EMPRESA;
+  Vision_Empresa = commonMessages.VISION_EMPRESA;
+  Images_Produc = commonMessages.IMAGES_PRODUC;
+  Catalogo = commonMessages.CATALOGO;
   Nombre_Representante = commonMessages.NOMBRE_REPRESENTANTE_LEGAL;
   Apellidos_Representante = commonMessages.APELLIDOS_REPRESENTANTE_LEGAL;
   Mail = commonMessages.CORREO_ELECTRONICO;
@@ -171,8 +177,10 @@ export class EditarEmpresaComponent implements OnInit {
     this.empresaService.find(idEmpresa).subscribe(
       response => {
         this.empresa = response.body;
+        console.log('empresaaa: ', this.empresa);
         this.cargarArchivoNit(this.empresa);
         this.consultarImagen();
+        this.cargarImagenesCatalogo();
       },
       () => (alertify.set('notifier', 'position', 'top-right'), alertify.error(commonMessages.HTTP_ERROR_LABEL))
     );
@@ -190,6 +198,19 @@ export class EditarEmpresaComponent implements OnInit {
     });
   }
 
+  cargarImagenesCatalogo(): void {
+    console.log('email: ', this.empresa.email);
+    this.archivoService.getArchivoByTipoAndEmpresa(TipoArchivo.IMAGENES_PRODUCTOS, this.empresa).subscribe(response => {
+      console.log('respo: ', response);
+      if (response !== null && response !== undefined) {
+        if (response.length !== 0) {
+          this.imagenes_Productos = response;
+          // this.cargadoNit = true;
+        }
+      }
+    });
+  }
+
   crearFormularioEmpresa(): void {
     this.formEmpresa = this.fb.group({
       id: [''],
@@ -203,8 +224,11 @@ export class EditarEmpresaComponent implements OnInit {
       sector: ['', [Validators.required]],
       subsector: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú ]{1,}$')]],
       webPage: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú.:/ ]{1,}$')]],
+      catalogo: ['', [Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú.:/ ]{1,}$')]],
       cantidadEmpleados: ['', [Validators.required, Validators.pattern('^[0-9]{0,}$')]],
       descripcion: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.:\n ]{0,}$')]],
+      mision: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.:\n ]{0,}$')]],
+      vision: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.:\n ]{0,}$')]],
       nombreRepresentante: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚñáéíóú ]{1,}$')]],
       apellidosRepresentante: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚñáéíóú ]{1,}$')]],
       telefonoRep: ['', [Validators.required, Validators.pattern('^[0-9]{7,10}$')]]
@@ -229,6 +253,9 @@ export class EditarEmpresaComponent implements OnInit {
           webPage: this.datosEmpresa!.paginaWeb,
           cantidadEmpleados: this.datosEmpresa!.cantidadEmpleados,
           descripcion: this.datosEmpresa!.descripcionEmpresa,
+          mision: this.datosEmpresa!.misionEmpresa,
+          vision: this.datosEmpresa!.visionEmpresa,
+          catalogo: this.datosEmpresa!.catalogo,
           nombreRepresentante: this.datosEmpresa!.nombreRepresentanteLegal,
           apellidosRepresentante: this.datosEmpresa!.apellidosRepresentanteLegal,
           telefonoRep: this.datosEmpresa!.telefono
@@ -300,6 +327,9 @@ export class EditarEmpresaComponent implements OnInit {
       this.datosEmpresa!.paginaWeb = this.formEmpresa.controls['webPage'].value;
       this.datosEmpresa!.cantidadEmpleados = this.formEmpresa.controls['cantidadEmpleados'].value;
       this.datosEmpresa!.descripcionEmpresa = this.formEmpresa.controls['descripcion'].value;
+      this.datosEmpresa!.misionEmpresa = this.formEmpresa.controls['mision'].value;
+      this.datosEmpresa!.visionEmpresa = this.formEmpresa.controls['vision'].value;
+      this.datosEmpresa!.catalogo = this.formEmpresa.controls['catalogo'].value;
       this.datosEmpresa!.nombreRepresentanteLegal = this.formEmpresa.controls['nombreRepresentante'].value;
       this.datosEmpresa!.apellidosRepresentanteLegal = this.formEmpresa.controls['apellidosRepresentante'].value;
       this.datosEmpresa!.telefono = this.formEmpresa.controls['telefonoRep'].value;
@@ -307,45 +337,43 @@ export class EditarEmpresaComponent implements OnInit {
       this.empresaService.update(this.datosEmpresa).subscribe(
         response => {
           if (response.body !== null) {
-            if (this.archivoNit.id !== undefined) {
-              this.archivoService.update(this.archivoNit).subscribe(
-                archivoResponse => {
-                  if (archivoResponse.body !== null) {
-                    this.archivosaws.forEach((element: { file: File; name: string }) => {
-                      const formData = new FormData();
-                      formData.append('file', element.file, element.name);
-                      this.archivoService.uploadS3(formData).subscribe(() => {});
-                    });
+            this.imagenes_Productos.push(this.archivoNit);
+            this.imagenes_Productos.forEach(archivo => {
+              if (archivo.id !== undefined) {
+                this.archivoService.update(archivo).subscribe(
+                  archivoResponse => {
+                    if (archivoResponse.body !== null) {
+                      alertify.set('notifier', 'position', 'top-right');
+                      alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                      this.router.navigate(['/perfil-empresa']);
+                    }
+                  },
+                  () => {
                     alertify.set('notifier', 'position', 'top-right');
-                    alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
-                    this.router.navigate(['/perfil-empresa']);
+                    alertify.error(commonMessages.HTTP_ERROR_LABEL);
                   }
-                },
-                () => {
-                  alertify.set('notifier', 'position', 'top-right');
-                  alertify.error(commonMessages.HTTP_ERROR_LABEL);
-                }
-              );
-            } else {
-              this.archivoService.create(this.archivoNit).subscribe(
-                archivoResponse => {
-                  this.archivosaws.forEach((element: { file: File; name: string }) => {
-                    const formData = new FormData();
-                    formData.append('file', element.file, element.name);
-                    this.archivoService.uploadS3(formData).subscribe(() => {});
-                  });
-                  if (archivoResponse.body !== null) {
+                );
+              } else {
+                this.archivoService.create(archivo).subscribe(
+                  archivoResponse => {
+                    if (archivoResponse.body !== null) {
+                      alertify.set('notifier', 'position', 'top-right');
+                      alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                      this.router.navigate(['/perfil-empresa']);
+                    }
+                  },
+                  () => {
                     alertify.set('notifier', 'position', 'top-right');
-                    alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
-                    this.router.navigate(['/perfil-empresa']);
+                    alertify.error(commonMessages.HTTP_ERROR_LABEL);
                   }
-                },
-                () => {
-                  alertify.set('notifier', 'position', 'top-right');
-                  alertify.error(commonMessages.HTTP_ERROR_LABEL);
-                }
-              );
-            }
+                );
+              }
+              this.archivosaws.forEach((element: { file: File; name: string }) => {
+                const formData = new FormData();
+                formData.append('file', element.file, element.name);
+                this.archivoService.uploadS3(formData).subscribe(() => {});
+              });
+            });
           }
         },
         () => {
@@ -482,23 +510,60 @@ export class EditarEmpresaComponent implements OnInit {
       return;
     }
 
-    this.archivoNit = this.archivoNit || new Archivo();
-    this.archivoNit.nombre = file.name;
-    this.archivoNit.extension = extension;
-    this.archivoNit.empresa = this.empresa;
-    this.archivoNit.tipo = tipoDocumento;
+    if (tipoDocumento === TipoArchivo.IMAGENES_PRODUCTOS) {
+      // index = this.imagenes_Productos.findIndex(item => item.tipo === tipoDocumento);
+      if (this.imagenes_Productos.length >= 5) {
+        this.imagenes_Productos[5].nombre = file.name;
+        this.imagenes_Productos[5].extension = extension;
+        this.imagenes_Productos[5].empresa = this.empresa;
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      this.archivoNit.archivo = reader.result;
-    };
-    const fileaws = {};
-    fileaws['file'] = file;
-    fileaws['name'] = this.archivoNit.nombre;
+        const fileaws = {};
+        fileaws['file'] = file;
+        fileaws['name'] = this.imagenes_Productos[5].archivo;
 
-    this.archivosaws.push(fileaws);
-    this.cargadoNit = true;
+        this.archivosaws.push(fileaws);
+        this.imagenes_Productos.shift();
+        // this.cargadoDocumento = true;
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success('Archivo cargado, se guardará al continuar al finalizar');
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success('Archivo cargado, se guardará al continuar al finalizar');
+
+        const archivo = new Archivo();
+        archivo.tipo = tipoDocumento;
+        archivo.nombre = file.name;
+        archivo.extension = extension;
+        archivo.empresa = this.empresa;
+        archivo.archivo = '' + this.empresa.email + new Date().getTime();
+        const fileaws = {};
+        fileaws['file'] = file;
+        fileaws['name'] = archivo.archivo;
+        this.archivosaws.push(fileaws);
+        this.imagenes_Productos.push(archivo);
+        console.log(this.imagenes_Productos);
+        // this.cargadoDocumento = true;
+      }
+    } else {
+      this.archivoNit = this.archivoNit || new Archivo();
+      this.archivoNit.nombre = file.name;
+      this.archivoNit.extension = extension;
+      this.archivoNit.empresa = this.empresa;
+      this.archivoNit.tipo = tipoDocumento;
+      this.archivoNit.archivo = '' + this.empresa.email + new Date().getTime();
+
+      // const reader = new FileReader();
+      // reader.readAsDataURL(file);
+      // reader.onload = () => {
+      //   this.archivoNit.archivo = reader.result;
+      // };
+      const fileaws = {};
+      fileaws['file'] = file;
+      fileaws['name'] = this.archivoNit.archivo;
+
+      this.archivosaws.push(fileaws);
+      this.cargadoNit = true;
+    }
   }
 
   cargarArchivoNit(empresa: any): void {
@@ -512,7 +577,7 @@ export class EditarEmpresaComponent implements OnInit {
     });
   }
 
-  deleteArchivo(): void {
+  deleteArchivo(tipoArchivo: number): void {
     Swal.fire({
       title: '¿Está seguro que desea eliminar el archivo?',
       icon: 'question',
@@ -524,33 +589,59 @@ export class EditarEmpresaComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then(result => {
       if (result.value) {
-        if (this.archivoNit && this.archivoNit.id) {
-          this.archivoService.delete(this.archivoNit.id).subscribe(
-            () => {
-              if (this.archivoNit && this.archivoNit.archivo)
-                this.archivoService.deleteS3(this.archivoNit.archivo.toString()).subscribe(() => {});
-              alertify.set('notifier', 'position', 'top-right');
-              alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
-              this.archivoNit.archivo = undefined;
-              this.cargadoNit = false;
-            },
-            () => {
-              alertify.set('notifier', 'position', 'top-right');
-              alertify.error(commonMessages.HTTP_ERROR_LABEL);
+        if (TipoArchivo.RUT === tipoArchivo) {
+          if (this.archivoNit && this.archivoNit.id) {
+            this.archivoService.delete(this.archivoNit.id).subscribe(
+              () => {
+                if (this.archivoNit && this.archivoNit.archivo)
+                  this.archivoService.deleteS3(this.archivoNit.archivo.toString()).subscribe(() => {});
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                this.archivoNit.archivo = undefined;
+                this.cargadoNit = false;
+              },
+              () => {
+                alertify.set('notifier', 'position', 'top-right');
+                alertify.error(commonMessages.HTTP_ERROR_LABEL);
+              }
+            );
+          }
+        } else {
+          this.imagenes_Productos.forEach(archivo => {
+            if (archivo.id !== undefined && archivo.id !== null) {
+              this.archivoService.delete(archivo.id).subscribe(
+                () => {
+                  if (archivo && archivo.archivo) this.archivoService.deleteS3(archivo.archivo.toString()).subscribe(() => {});
+                  alertify.set('notifier', 'position', 'top-right');
+                  alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                  archivo.archivo = undefined;
+                },
+                () => {
+                  alertify.set('notifier', 'position', 'top-right');
+                  alertify.error(commonMessages.HTTP_ERROR_LABEL);
+                }
+              );
             }
-          );
+          });
+          this.imagenes_Productos = [];
         }
       }
     });
   }
 
-  descargarArchivo(): void {
-    if (this.cargadoNit && this.archivoNit.archivo) {
-      this.archivoService.getS3(this.archivoNit.archivo.toString(), this.archivoNit.nombre!);
-      // const a = document.createElement('a');
-      // a.href = this.archivoNit.archivo.toString();
-      // a.download = this.archivoNit.nombre!;
-      // a.click();
+  descargarArchivo(tipoArchivo: number): void {
+    if (TipoArchivo.RUT === tipoArchivo) {
+      if (this.cargadoNit && this.archivoNit.archivo) {
+        this.archivoService.getS3(this.archivoNit.archivo.toString(), this.archivoNit.nombre!);
+        // const a = document.createElement('a');
+        // a.href = this.archivoNit.archivo.toString();
+        // a.download = this.archivoNit.nombre!;
+        // a.click();
+      }
+    } else {
+      this.imagenes_Productos.forEach(archivo => {
+        this.archivoService.getS3(archivo.archivo!.toString(), archivo.nombre!);
+      });
     }
   }
 

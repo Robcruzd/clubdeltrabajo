@@ -322,10 +322,11 @@ export class HomeComponent implements OnInit, OnDestroy {
               salario: salarioBD?.nombre,
               ciudad: ciudadBD?.nombre,
               activado: element?.activado,
-              empresa: element?.usuario?.razonSocial,
+              empresaRazon: element?.usuario?.razonSocial,
               fecha: element.fechaPublicacion,
               imagen: response.body?.archivo,
-              mostrarSalario: element?.mostrarSalario
+              mostrarSalario: element?.mostrarSalario,
+              empresa: element?.usuario
             });
           },
           error => {
@@ -337,10 +338,11 @@ export class HomeComponent implements OnInit, OnDestroy {
               salario: salarioBD?.nombre,
               ciudad: ciudadBD?.nombre,
               activado: element?.activado,
-              empresa: element?.usuario?.razonSocial,
+              empresaRazon: element?.usuario?.razonSocial,
               fecha: element.fechaPublicacion,
               imagen: this.urlImgDefault,
-              mostrarSalario: element?.mostrarSalario
+              mostrarSalario: element?.mostrarSalario,
+              empresa: element?.usuario
             });
           }
         );
@@ -392,5 +394,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   verOferta(oferta: any): void {
     this.router.navigate(['/oferta-publica'], { queryParams: { oferta: oferta.id, general: 'true' } });
+  }
+
+  verEmpresa(empresa: any): void {
+    this.router.navigate(['/perfil-info-empresa'], { queryParams: { empresa: empresa.id } });
   }
 }

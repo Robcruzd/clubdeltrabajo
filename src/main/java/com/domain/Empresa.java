@@ -77,6 +77,15 @@ public class Empresa implements Serializable {
     @Column(name = "descripcion_empresa", nullable = true)
     private String descripcionEmpresa;
 
+    @Column(name = "mision", nullable = true)
+    private String misionEmpresa;
+
+    @Column(name = "vision", nullable = true)
+    private String visionEmpresa;
+
+    @Column(name = "catalogo", nullable = true)
+    private String catalogo;
+
     @Column(name = "nombre_representante_legal", nullable = true)
     private String nombreRepresentanteLegal;
 
@@ -279,6 +288,30 @@ public class Empresa implements Serializable {
 
 	public void setCantidadEmpleados(String cantidadEmpleados) {
 		this.cantidadEmpleados = cantidadEmpleados;
+	}
+
+    public String getMisionEmpresa() {
+		return misionEmpresa;
+	}
+
+	public void setMisionEmpresa(String misionEmpresa) {
+		this.misionEmpresa = misionEmpresa;
+	}
+
+    public String getVisionEmpresa() {
+		return visionEmpresa;
+	}
+
+	public void setVisionEmpresa(String visionEmpresa) {
+		this.visionEmpresa = visionEmpresa;
+	}
+
+    public String getCatalogo() {
+		return catalogo;
+	}
+
+	public void setCatalogo(String catalogo) {
+		this.catalogo = catalogo;
 	}
 
     public String getDescripcionEmpresa() {

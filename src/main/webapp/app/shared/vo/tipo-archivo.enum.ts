@@ -5,5 +5,6 @@ export enum TipoArchivo {
   LICENCIA_CONDUCCION = 2,
   IMAGEN_PERFIL = 5,
   RUT = 6,
-  ARCHIVO_HV = 7
+  ARCHIVO_HV = 7,
+  IMAGENES_PRODUCTOS = 8
 }

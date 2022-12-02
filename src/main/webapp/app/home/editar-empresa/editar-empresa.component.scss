@@ -122,6 +122,15 @@
           }
         }
 
+        .estilo_campo_requerido {
+          text-align: left;
+          margin-bottom: 0.52vw;
+          font: 1.1vw Arial;
+          letter-spacing: 0px;
+          color: #fd2b4c;
+          opacity: 1;
+        }
+
         .column {
           width: 50%;
           display: flex;
@@ -144,20 +153,12 @@
               opacity: 1;
               padding-left: 1.04vw;
               margin-bottom: 0.52vw;
-
-              .estilo_campo_requerido {
-                text-align: left;
-                margin-bottom: 0.52vw;
-                font: 1.1vw Arial;
-                letter-spacing: 0px;
-                color: #fd2b4c;
-                opacity: 1;
-              }
             }
 
             .estilo_inputs {
               width: 100%;
               min-height: 3.121vw;
+              margin-bottom: 0px;
               font-weight: bold;
               background: #ffffff 0% 0% no-repeat padding-box;
               border-radius: 3.251vw;
@@ -231,6 +232,7 @@
               min-height: 3.121vw;
               font-size: 0.91vw;
               width: 100%;
+              height: 100%;
               border: none;
               border-left: solid;
               border-color: #edeff2;
@@ -239,7 +241,7 @@
 
             .estilo_nit {
               width: 100%;
-              height: 3.121vw;
+              min-height: 3.121vw;
               background: #ffffff 0% 0% no-repeat padding-box;
               border-radius: 50rem;
               border-width: 0rem;
@@ -275,6 +277,7 @@
 
           .estilo_inputs {
             min-height: 3.121vw;
+            margin-bottom: 0px;
             padding-right: 1.04vw;
             padding-left: 1.56vw;
             font-size: 0.91vw;
@@ -464,6 +467,13 @@
             }
           }
 
+          .estilo_campo_requerido {
+            text-align: left;
+            margin-bottom: 0.5rem;
+            font: 1.1rem Arial;
+            color: #fd2b4c;
+          }
+
           .column {
             width: 100%;
 
@@ -474,16 +484,11 @@
                 font-size: 0.875rem;
                 padding-left: 1rem;
                 margin-bottom: 0.5rem;
-
-                .estilo_campo_requerido {
-                  text-align: left;
-                  margin-bottom: 0.5rem;
-                  font: 1.1rem Arial;
-                }
               }
 
               .estilo_inputs {
                 min-height: 3rem;
+                margin-bottom: 0px;
                 padding-right: 1rem;
                 padding-left: 1.5rem;
                 font-size: 0.875rem;
@@ -516,7 +521,7 @@
 
               .estilo_nit {
                 width: 100%;
-                height: 3rem;
+                min-height: 3rem;
                 background: #ffffff 0% 0% no-repeat padding-box;
                 border-radius: 50rem;
                 border-width: 0rem;
@@ -555,6 +560,7 @@
                   min-height: 3rem;
                   font-size: 0.975rem;
                   width: 100%;
+                  height: 100%;
                   border: none;
                   border-left: solid;
                   border-color: #edeff2;
@@ -573,6 +579,7 @@
             }
 
             .estilo_inputs {
+              margin-bottom: 0px;
               min-height: 3rem;
               padding-right: 1rem;
               padding-left: 1.5rem;

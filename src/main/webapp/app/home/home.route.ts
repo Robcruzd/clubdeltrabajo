@@ -29,6 +29,7 @@ import { CandidatosSeleccionadosComponent } from './candidatos-seleccionados/can
 import { NosotrosComponent } from './nosotros/nosotros.component';
 import { AsesoriaJuridicaComponent } from './asesoria-juridica/asesoria-juridica.component';
 import { PreguntasFrecuentesComponent } from './preguntas-frecuentes/preguntas-frecuentes.component';
+import { PerfilInfoEmpresaComponent } from './perfil-info-empresa/perfil-info-empresa.component';
 
 export const HOME_ROUTE: Routes = [
   {
@@ -238,6 +239,13 @@ export const HOME_ROUTE: Routes = [
   {
     path: 'preguntas-frecuentes',
     component: PreguntasFrecuentesComponent,
+    data: {
+      pageTitle: 'home.title'
+    }
+  },
+  {
+    path: 'perfil-info-empresa',
+    component: PerfilInfoEmpresaComponent,
     data: {
       pageTitle: 'home.title'
     }

@@ -45,6 +45,7 @@ import { AsesoriaJuridicaComponent } from './asesoria-juridica/asesoria-juridica
 import { GestionInfoClubComponent } from './gestion-info-club/gestion-info-club.component';
 import { PreguntasFrecuentesComponent } from './preguntas-frecuentes/preguntas-frecuentes.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PerfilInfoEmpresaComponent } from './perfil-info-empresa/perfil-info-empresa.component';
 
 // import { BusquedaCandidatosComponent } from './busqueda-candidatos/busqueda-candidatos.component';
 
@@ -98,7 +99,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NosotrosComponent,
     AsesoriaJuridicaComponent,
     GestionInfoClubComponent,
-    PreguntasFrecuentesComponent
+    PreguntasFrecuentesComponent,
+    PerfilInfoEmpresaComponent
     // BusquedaCandidatosComponent
   ]
 })
