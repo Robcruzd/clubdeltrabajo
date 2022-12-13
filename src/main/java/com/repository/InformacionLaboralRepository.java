@@ -15,12 +15,11 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface InformacionLaboralRepository
-extends JpaRepository<InformacionLaboral, Long>, JpaSpecificationExecutor<InformacionLaboral> {
+public interface InformacionLaboralRepository extends JpaRepository<InformacionLaboral, Long>, JpaSpecificationExecutor<InformacionLaboral> {
 
-List<InformacionLaboral> findByUsuario(Persona usuario);
+    List<InformacionLaboral> findByUsuario(Persona usuario);
 
-@Query(value = "select * from ct_informacon_laboral_tb where usuario_id = :persona",
-nativeQuery = true)
-List<InformacionLaboral> getByPersona(@Param("persona") Long persona);
+    @Query(value = "select * from ct_informacon_laboral_tb where usuario_id = :persona",
+            nativeQuery = true)
+    List<InformacionLaboral> getByPersona(@Param("persona") Long persona);
 }
