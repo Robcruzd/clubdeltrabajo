@@ -577,20 +577,13 @@ export class CrearHojaVidaComponent implements OnInit {
           this.cargadoDocumento = true;
         } else if (archivo.tipo === TipoArchivo.LICENCIA_CONDUCCION) {
           this.cargadoLicencia = true;
-        }
-      });
-      this.archivos.forEach(archivo => {
-        if (archivo.tipo === TipoArchivo.CERTIFICADO_ESTUDIO) {
+        } else if (archivo.tipo === TipoArchivo.CERTIFICADO_ESTUDIO) {
           this.hojaVidaVo?.informacionAcademica.forEach((info, index) => {
             if (info.id === archivo.informacionAcademica?.id) {
               this.archivosCargadosIAcademica.push(index);
             }
           });
-        }
-      });
-
-      this.archivos.forEach(archivo => {
-        if (archivo.tipo === TipoArchivo.CERTIFICADO_LABORAL) {
+        } else if (archivo.tipo === TipoArchivo.CERTIFICADO_LABORAL) {
           this.hojaVidaVo?.experienciaLaboral.forEach((info, index) => {
             if (info.id === archivo.informacionLaboral?.id) {
               this.archivosCargadosILaboral.push(index);
@@ -1232,10 +1225,14 @@ export class CrearHojaVidaComponent implements OnInit {
         fileaws['name'] = this.archivos[index].archivo;
 
         this.archivosaws.push(fileaws);
-        this.cargadoDocumento = true;
+        // this.cargadoDocumento = true;
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success('Archivo cargado, se guardará al continuar al siguiente formulario');
       } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success('Archivo cargado, se guardará al continuar al siguiente formulario');
         this.cargarArchivo(file, tipoDocumento, extension, indice);
-        this.cargadoDocumento = true;
+        // this.cargadoDocumento = true;
       }
     } else if (tipoDocumento === TipoArchivo.LICENCIA_CONDUCCION) {
       this.archivos.forEach(archivo => {
@@ -1276,7 +1273,9 @@ export class CrearHojaVidaComponent implements OnInit {
       } else {
         this.cargarArchivo(file, tipoDocumento, extension, indice);
       }
-      this.cargadoLicencia = true;
+      // this.cargadoLicencia = true;
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.success('Archivo cargado, se guardará al continuar al siguiente formulario');
     } else if (tipoDocumento === TipoArchivo.CERTIFICADO_ESTUDIO) {
       if (indice != undefined) {
         this.archivosCargadosIAcademica.forEach(posicion => {
@@ -1327,6 +1326,8 @@ export class CrearHojaVidaComponent implements OnInit {
       if (indice != undefined) {
         this.archivosCargadosIAcademica.push(indice);
       }
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.success('Archivo cargado, se guardará al continuar al siguiente formulario');
     } else if (tipoDocumento === TipoArchivo.CERTIFICADO_LABORAL) {
       if (indice != undefined) {
         this.archivosCargadosILaboral.forEach(posicion => {
@@ -1377,6 +1378,8 @@ export class CrearHojaVidaComponent implements OnInit {
       if (indice != undefined) {
         this.archivosCargadosILaboral.push(indice);
       }
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.success('Archivo cargado, se guardará al enviar el formulario');
     }
   }
 
@@ -1677,7 +1680,78 @@ export class CrearHojaVidaComponent implements OnInit {
     }
   }
 
-  deleteArchivo(): void {
+  descargarArchivo(tipoArchivo: number | undefined, indice?: number): void {
+    console.log('tipoarchivo: ', tipoArchivo);
+    switch (tipoArchivo) {
+      case 1:
+        {
+          if (this.cargadoDocumento) {
+            this.foreachArchivo(tipoArchivo);
+          } else {
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.error('No ha guardado este documento');
+          }
+        }
+        break;
+      case 2:
+        {
+          if (this.cargadoLicencia) {
+            this.foreachArchivo(tipoArchivo);
+          } else {
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.error('No ha guardado este documento');
+          }
+        }
+        break;
+      case 3:
+        {
+          if (this.archivosCargadosIAcademica.length > 0) {
+            let id = this.informacionAcademica.at(indice!).get('id')!.value;
+            if (id != null && id != undefined) this.foreachArchivo(tipoArchivo, id);
+          } else {
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.error('No ha guardado este documento');
+          }
+        }
+        break;
+      case 4:
+        {
+          if (this.archivosCargadosILaboral.length > 0) {
+            let id = this.experienciaLaboral.at(indice!).get('id')!.value;
+            if (id != null && id != undefined) this.foreachArchivo(tipoArchivo, id);
+          } else {
+            alertify.set('notifier', 'position', 'top-right');
+            alertify.error('No ha guardado este documento');
+          }
+        }
+        break;
+    }
+  }
+
+  foreachArchivo(tipoArchivo: number | undefined, id?: number): void {
+    let flag = 0;
+    this.archivos.forEach(archivo => {
+      if (archivo.tipo === tipoArchivo) {
+        if (id != undefined) {
+          if (archivo.informacionAcademica?.id || archivo.informacionLaboral?.id) {
+            if (archivo.informacionAcademica?.id == id || archivo.informacionLaboral?.id == id) {
+              this.archivoService.getS3(archivo.archivo!.toString(), archivo.nombre!);
+              flag++;
+            }
+          }
+        } else {
+          this.archivoService.getS3(archivo.archivo!.toString(), archivo.nombre!);
+          flag++;
+        }
+      }
+    });
+    if (flag == 0) {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error('No ha guardado este documento');
+    }
+  }
+
+  deleteArchivo(tipoArchivo: number | undefined, indice?: number): void {
     Swal.fire({
       title: '¿Está seguro que desea eliminar el archivo?',
       icon: 'question',
@@ -1690,23 +1764,59 @@ export class CrearHojaVidaComponent implements OnInit {
     }).then(result => {
       if (result.value) {
         if (this.archivos.length > 0) {
+          let id: number | undefined = undefined;
+          if (tipoArchivo == 3) {
+            id = this.informacionAcademica.at(indice!).get('id')!.value;
+          } else if (tipoArchivo == 4) {
+            id = this.experienciaLaboral.at(indice!).get('id')!.value;
+          }
           this.archivos.forEach(archivo => {
-            if (archivo.tipo === TipoArchivo.DOCUMENTO_IDENTIDAD) {
-              if (archivo.id)
-                this.archivoService.delete(archivo.id).subscribe(
-                  () => {
-                    if (archivo && archivo.nombre) this.archivoService.deleteS3(archivo.nombre).subscribe(() => {});
+            if (archivo.tipo === tipoArchivo) {
+              if (id != undefined) {
+                if (archivo.informacionAcademica?.id == id || archivo.informacionLaboral?.id == id) {
+                  if (archivo.id) {
+                    if (archivo && archivo.id && archivo.archivo)
+                      this.archivoService.deleteS3(archivo.archivo.toString()).subscribe(
+                        () => {},
+                        () => {
+                          alertify.set('notifier', 'position', 'top-right');
+                          alertify.error(commonMessages.HTTP_ERROR_LABEL);
+                        }
+                      );
+                    this.archivoService.delete(archivo.id!).subscribe(() => {});
                     alertify.set('notifier', 'position', 'top-right');
                     alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
-                    archivo.archivo = undefined;
-                    this.cargadoDocumento = false;
-                  },
-                  () => {
-                    alertify.set('notifier', 'position', 'top-right');
-                    alertify.error(commonMessages.HTTP_ERROR_LABEL);
                   }
-                );
-              this.cargadoDocumento = false;
+                  if (tipoArchivo == 3) {
+                    this.archivosCargadosIAcademica = [];
+                  } else if (tipoArchivo == 4) {
+                    this.archivosCargadosILaboral = [];
+                  }
+                  const index = this.archivos.indexOf(archivo);
+                  this.archivos.splice(index, 1);
+                }
+              } else {
+                if (archivo.id) {
+                  if (archivo && archivo.id && archivo.archivo)
+                    this.archivoService.deleteS3(archivo.archivo.toString()).subscribe(
+                      () => {},
+                      () => {
+                        alertify.set('notifier', 'position', 'top-right');
+                        alertify.error(commonMessages.HTTP_ERROR_LABEL);
+                      }
+                    );
+                  this.archivoService.delete(archivo.id!).subscribe(() => {});
+                  alertify.set('notifier', 'position', 'top-right');
+                  alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                }
+                const index = this.archivos.indexOf(archivo);
+                this.archivos.splice(index, 1);
+                if (tipoArchivo == 1) {
+                  this.cargadoDocumento = false;
+                } else if (tipoArchivo == 2) {
+                  this.cargadoLicencia = false;
+                }
+              }
             }
           });
         }

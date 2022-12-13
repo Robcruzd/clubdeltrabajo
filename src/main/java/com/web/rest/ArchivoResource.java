@@ -1,6 +1,7 @@
 package com.web.rest;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,6 +35,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import org.springframework.http.MediaType;
 
 import com.domain.Archivo;
 import com.service.ArchivoQueryService;
@@ -188,10 +191,37 @@ public class ArchivoResource {
         return archivoService.uploadFile(file);
     }
 
-    @GetMapping("/getFileS3/{name}")
-    public ArrayList<String> getFile(@PathVariable String[] name) throws IOException {
-        return archivoService.getFile(name);
+    @GetMapping("/getFileS3/{filename}/{name}")
+    public ResponseEntity<byte[]> getFile(@PathVariable String filename, @PathVariable String name) throws IOException {
+        ByteArrayOutputStream downloadInputStream = archivoService.getFile(filename);
+        MediaType media;
+        String extension;
+        if(downloadInputStream.toString().contains("PDF")){
+            media = MediaType.APPLICATION_PDF;
+            extension = ".pdf";
+        }else if(downloadInputStream.toString().contains("PNG")){
+            media = MediaType.IMAGE_PNG;
+            extension = ".png";
+        }else if(downloadInputStream.toString().contains("JPG")){
+            media = MediaType.IMAGE_JPEG;
+            extension = ".jpg";
+        }else if(downloadInputStream.toString().contains("JPEG")){
+            media = MediaType.IMAGE_JPEG;
+            extension = ".jpeg";
+        }else {
+            media = MediaType.APPLICATION_OCTET_STREAM;
+            extension = "txt";
+        }
+        return ResponseEntity.ok()
+                .contentType(media)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + name + "\"")
+                .body(downloadInputStream.toByteArray());
     }
+
+    // @GetMapping("/getFileS3/{name}")
+    // public ArrayList<String> getFile(@PathVariable String[] name) throws IOException {
+    //     return archivoService.getFile(name);
+    // }
 
     @PostMapping("/deleteFileS3")
     public String deleteFile(@RequestBody String name) throws IOException {

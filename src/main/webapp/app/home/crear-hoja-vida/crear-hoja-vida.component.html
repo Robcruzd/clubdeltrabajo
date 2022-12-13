@@ -58,14 +58,21 @@
                                 <div *ngIf="formPersonal.get('tipoDocumento')!.value?.id!==4 && formPersonal.get('tipoDocumento')!.value?.id!==5" style="width: 50%;">
                                     <input type="number" class="input_documento" style="width: 100%;" formControlName="numeroDocumento">
                                 </div>
-                                <div class="file_upload" >
+                                <!-- <div class="file_upload" >
                                     <label class='label_file' for="file">
                                         <fa-icon icon="images" class="float-right" (click)="tipodocumento.click()"></fa-icon>
                                     </label>
                                     <input type="file" #tipodocumento class='file' accept=".pdf"
                                         (change)="addArchivo($event, tipoArchivo.DOCUMENTO_IDENTIDAD)" />
-                                        <fa-icon [icon]="faTrash" size="lg" class="float-right" (click)="deleteArchivo()" title="Eliminar archivo"></fa-icon>
+                                    <fa-icon [icon]="faTrash" size="lg" class="float-right" (click)="deleteArchivo(tipoArchivo.DOCUMENTO_IDENTIDAD)" title="Eliminar archivo"></fa-icon>
                                     <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="this.cargadoDocumento" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
+                                </div> -->
+                                <div class="file_upload" >
+                                    <input type="button" class="button_inputs" value="Ver" (click)="descargarArchivo(tipoArchivo.DOCUMENTO_IDENTIDAD)">
+                                    <input type="button" class="button_inputs" value="Cargar" (click)="tipodocumento.click()">
+                                    <input class="file" type="file" #tipodocumento accept=".pdf"
+                                        (change)="addArchivo($event, tipoArchivo.DOCUMENTO_IDENTIDAD)">
+                                    <input type="button" class="button_inputs" value="Eliminar" (click)="deleteArchivo(tipoArchivo.DOCUMENTO_IDENTIDAD)" style="border-radius: 0px 1.495vw 1.495vw 0px;">
                                 </div>
                             </div>
                             <small *ngIf="formPersonal.get('tipoDocumento')?.errors?.required"
@@ -241,13 +248,20 @@
                                             <mat-option *ngFor="let licencia of tipoLicenciaConduccion" [value]="licencia.codigo === formPersonal.get('tipoLicenciaConduccion')!.value ? formPersonal.get('tipoLicenciaConduccion')!.value : licencia.codigo">{{ licencia.codigo }}</mat-option>
                                         </mat-select>
                                     </mat-form-field>
-                                    <div class="file_upload" style="width: 16%;">                                  
+                                    <!-- <div class="file_upload" style="width: 16%;">                                  
                                         <input type="file" #licencia class="file" accept=".pdf"
                                             (change)="addArchivo($event, tipoArchivo.LICENCIA_CONDUCCION)" />
                                         <label for="file" style="padding-left: 0.520vw;">
                                             <fa-icon icon="images" (click)="licencia.click()" class="float-right"></fa-icon>
                                         </label>
                                         <fa-icon icon="check-circle" size="2x" class="archivo_subido" *ngIf="this.cargadoLicencia" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
+                                    </div> -->
+                                    <div class="file_upload" >
+                                        <input type="button" class="button_inputs" value="Ver" (click)="descargarArchivo(tipoArchivo.LICENCIA_CONDUCCION)">
+                                        <input type="button" class="button_inputs" value="Cargar" (click)="licencia.click()">
+                                        <input class="file" type="file" #licencia accept=".pdf"
+                                            (change)="addArchivo($event, tipoArchivo.LICENCIA_CONDUCCION)">
+                                        <input type="button" class="button_inputs" value="Eliminar" (click)="deleteArchivo(tipoArchivo.LICENCIA_CONDUCCION)" style="border-radius: 0px 1.495vw 1.495vw 0px;">
                                     </div>
                                 </div>
                             </div>
@@ -478,7 +492,7 @@
                                         class="estilo_campo_requerido">*</span></p>
                                 <div class="input_group">
                                     <input type="text" class="estilo_titulo_otorgado" formControlName="tituloOtorgado">
-                                    <div class="file_upload"
+                                    <!-- <div class="file_upload"
                                             (click)="certificadoestudio.click()">
                                             <label for="file" class="label_file">
                                                 <fa-icon icon="images" class="float-right"></fa-icon>
@@ -486,6 +500,13 @@
                                             <input class='file' type="file" accept=".pdf" #certificadoestudio
                                                 (change)="addArchivo($event, tipoArchivo.CERTIFICADO_ESTUDIO, indexAcademica)">
                                             <fa-icon [id]="indexAcademica" icon="check-circle" size="2x" class="archivo_subido" style="visibility: hidden;" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
+                                    </div> -->
+                                    <div class="file_upload" >
+                                        <input type="button" class="button_inputs" value="Ver" (click)="descargarArchivo(tipoArchivo.CERTIFICADO_ESTUDIO, indexAcademica)">
+                                        <input type="button" class="button_inputs" value="Cargar" (click)="certificadoestudio.click()">
+                                        <input class="file" type="file" #certificadoestudio accept=".pdf"
+                                            (change)="addArchivo($event, tipoArchivo.CERTIFICADO_ESTUDIO, indexAcademica)">
+                                        <input type="button" class="button_inputs" value="Eliminar" (click)="deleteArchivo(tipoArchivo.CERTIFICADO_ESTUDIO, indexAcademica)" style="border-radius: 0px 1.495vw 1.495vw 0px;">
                                     </div>
                                 </div>
                                 <small *ngIf="informacionAcademica.at(indexAcademica).get('tituloOtorgado')?.errors?.required"
@@ -917,13 +938,20 @@
                                         <ng-template #elseBlock class='name_file'>
                                             <label>{{labels.PLACEHOLDER_CERTIFICADO}}</label>
                                         </ng-template>
-                                        <div class="file_upload">
+                                        <!-- <div class="file_upload">
                                             <input class="file" type="file" #certificadolaboral accept=".pdf"
                                                 (change)="addArchivo($event, tipoArchivo.CERTIFICADO_LABORAL, indexLaboral)">
                                             <label for="file" (click)="certificadolaboral.click()" style="padding-left: 0.52vw;">
                                                 <fa-icon icon="images" class="float-right"></fa-icon>
                                             </label>
                                             <fa-icon [id]="indexLaboral" icon="check-circle" size="2x" class="archivo_subido" style="visibility: hidden;" data-toggle="tooltip" data-placement="top" title="Archivo cargado exitosamente"></fa-icon>
+                                        </div> -->
+                                        <div class="file_upload" >
+                                            <input type="button" class="button_inputs" value="Ver" (click)="descargarArchivo(tipoArchivo.CERTIFICADO_LABORAL, indexLaboral)">
+                                            <input type="button" class="button_inputs" value="Cargar" (click)="certificadolaboral.click()">
+                                            <input class="file" type="file" #certificadolaboral accept=".pdf"
+                                                (change)="addArchivo($event, tipoArchivo.CERTIFICADO_LABORAL, indexLaboral)">
+                                            <input type="button" class="button_inputs" value="Eliminar" (click)="deleteArchivo(tipoArchivo.CERTIFICADO_LABORAL, indexLaboral)" style="border-radius: 0px 1.495vw 1.495vw 0px;">
                                         </div>
                                     </div>
                                 </div>

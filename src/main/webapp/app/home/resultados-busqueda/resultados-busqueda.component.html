@@ -14,7 +14,7 @@
     <div class="row">
         <!--<div class="col-md-8">-->
             <div class="cuerpo">
-                <div *ngIf = "general === 'true'">
+                <div *ngIf = "general === 'true'" style="width: 30%;">
                     <div class="buscador">
                         <p class="titulo-prof">{{Profesion}}</p>
                         <div class="input-buscador">
@@ -82,11 +82,14 @@
                         <br>
                         <br>
                     </div>
-                    <div *ngIf="listaResultadoBusquedaOfertas.length > 0">
+                    <div *ngIf="listaResultadoBusquedaOfertas.length > 0 && general === 'false'">
                         <p class="titulos">OFERTAS APLICADAS</p>
                     </div>
-                    <div *ngIf="listaResultadoBusquedaOfertas.length == 0">
+                    <div *ngIf="listaResultadoBusquedaOfertas.length == 0 && general === 'false'">
                         <h4 class="centrar">No ha aplicado a las ofertas disponibles</h4>
+                    </div>
+                    <div *ngIf="listaResultadoBusquedaOfertas.length == 0 && general === 'true'">
+                        <h4 class="centrar">No hay ofertas disponibles para su búsqueda</h4>
                     </div>
                     <div class="ofertas" style="margin-left: 0 !important;">
                         <div class="oferta" *ngFor="let oferta of listaResultadoBusquedaOfertas | paginate: { itemsPerPage: 20, currentPage: page }">
@@ -98,10 +101,11 @@
                                         <p class="sin-negrita">{{oferta.salario}}</p>
                                     </div>     
                                 </div>
-                                <img class="logo-oferta rounded-circle" [src]="oferta.imagen || urlImgDefault">
+                                <img class="logo-oferta rounded-circle" [src]="oferta.imagen || urlImgDefault" (click)="alertaEmpresa(oferta)">
                             </div>
                             <p class="sin-negrita">{{oferta.ciudad}}</p>
                             <p class="sin-negrita">Publicado: {{oferta.fecha}}</p>
+                            <p class="sin-negrita">Activo: {{oferta.activado}}</p>
                             <!-- </div> -->
                             <button class="btn shadow-none button-ver" (click)="verOferta(oferta)">{{Ver1}}</button>
                         </div>

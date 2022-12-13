@@ -23,6 +23,9 @@ import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 import { Account } from 'app/core/user/account.model';
 import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 import * as moment from 'moment';
+import { EmpresaService } from 'app/entities/empresa/empresa.service';
+
+declare let alertify: any;
 
 @Component({
   selector: 'jhi-resultados-busqueda',
@@ -100,7 +103,8 @@ export class ResultadosBusquedaComponent implements OnInit {
     private route: ActivatedRoute,
     private aplicacionOfertaService: AplicacionOfertaService,
     private archivoService: ArchivoService,
-    private commonMessagesService: CommonMessagesService
+    private commonMessagesService: CommonMessagesService,
+    private empresaService: EmpresaService
   ) {
     this.traerCiudad();
     this.cargarProfesiones();
@@ -259,7 +263,8 @@ export class ResultadosBusquedaComponent implements OnInit {
                     idEmpresa: element.usuario?.id,
                     idOferta: element.id,
                     imagen: archivos.body?.archivo,
-                    mostrarSalario: element.mostrarSalario
+                    mostrarSalario: element.mostrarSalario,
+                    activado: element.activado ? 'Si' : 'No'
                   });
                   this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
                 },
@@ -275,7 +280,8 @@ export class ResultadosBusquedaComponent implements OnInit {
                     idEmpresa: element.usuario?.id,
                     idOferta: element.id,
                     imagen: this.urlImgDefault,
-                    mostrarSalario: element.mostrarSalario
+                    mostrarSalario: element.mostrarSalario,
+                    activado: element.activado ? 'Si' : 'No'
                   });
                   this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
                 }
@@ -298,7 +304,8 @@ export class ResultadosBusquedaComponent implements OnInit {
                     idEmpresa: element.usuario?.id,
                     idOferta: element.id,
                     imagen: archivos.body?.archivo,
-                    mostrarSalario: element.mostrarSalario
+                    mostrarSalario: element.mostrarSalario,
+                    activado: element.activado ? 'Si' : 'No'
                   });
                   this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
                 },
@@ -314,7 +321,8 @@ export class ResultadosBusquedaComponent implements OnInit {
                     idEmpresa: element.usuario?.id,
                     idOferta: element.id,
                     imagen: this.urlImgDefault,
-                    mostrarSalario: element.mostrarSalario
+                    mostrarSalario: element.mostrarSalario,
+                    activado: element.activado ? 'Si' : 'No'
                   });
                   this.totalEmpresas = this.listaResultadoBusquedaOfertas.length;
                 }
@@ -868,5 +876,34 @@ export class ResultadosBusquedaComponent implements OnInit {
 
   verOferta(oferta: any): void {
     this.router.navigate(['/oferta-publica'], { queryParams: { oferta: oferta.idOferta, general: this.general } });
+  }
+
+  alertaEmpresa(oferta: any): void {
+    this.empresaService.find(oferta.idEmpresa).subscribe(res => {
+      if (res.status === 200) {
+        const empre = res.body;
+        console.log('muni: ', empre?.ciudad?.toString());
+        this.municipiosPersonal.find(ciudad => {
+          console.log(ciudad.codigo);
+          if (ciudad.codigo === empre?.ciudad?.toString()) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+        const ciudadEmp = empre?.ciudad
+          ? '<br/>Ciudad: ' + this.municipiosPersonal.find(ciudad => ciudad.codigo === empre?.ciudad?.toString())?.nombre
+          : '';
+        const pagina = empre?.paginaWeb ? '<br/>Página web: ' + empre?.paginaWeb : '';
+        const facebook = empre?.urlFacebook ? '<br/>Facebook: ' + empre?.urlFacebook : '';
+        const instagram = empre?.urlInstagram ? '<br/>Instagram: ' + empre?.urlInstagram : '';
+        const linkedin = empre?.urlLinkedIn ? '<br/>Linkedin: ' + empre?.urlLinkedIn : '';
+        alertify.alert(empre?.razonSocial, 'Sector: ' + empre?.sector + ciudadEmp + pagina + facebook + instagram + linkedin).setting({
+          label: 'Aceptar'
+        });
+      }
+
+      console.log('res:', res);
+    });
   }
 }

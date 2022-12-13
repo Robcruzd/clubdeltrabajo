@@ -103,7 +103,7 @@
           font-size: 0.91vw;
 
           .select_documento {
-            width: 35%;
+            width: 26%;
             height: 3.121vw;
             background: #ffffff 0% 0% no-repeat padding-box;
             border-radius: 50rem 0rem 0rem 50rem;
@@ -153,7 +153,7 @@
           }
 
           .file_upload {
-            width: 15%;
+            // width: 15%;
             height: 100%;
             min-height: 3.121vw;
             background: #ffffff 0% 0% no-repeat padding-box;
@@ -171,6 +171,18 @@
 
             .file {
               display: none;
+            }
+
+            .button_inputs {
+              background: #2699fb 0% 0% no-repeat padding-box;
+              color: white;
+              min-height: 3.121vw;
+              font-size: 0.91vw;
+              width: 100%;
+              border: none;
+              border-left: solid;
+              border-color: #edeff2;
+              border-width: 1px;
             }
           }
 
@@ -570,7 +582,7 @@
 }
 
 .multiSelect {
-  width: 84%;
+  width: 51%;
   height: 3.121vw;
   border-width: 0rem 1px 0rem 0rem;
   border-color: lightgray;
@@ -703,6 +715,18 @@
                 .label_file {
                   width: 1.5rem;
                   height: 1.25rem;
+                }
+
+                .button_inputs {
+                  background: #2699fb 0% 0% no-repeat padding-box;
+                  color: white;
+                  min-height: 3rem;
+                  font-size: 0.91rem;
+                  width: 100%;
+                  border: none;
+                  border-left: solid;
+                  border-color: #edeff2;
+                  border-width: 1px;
                 }
               }
 

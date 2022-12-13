@@ -1,6 +1,7 @@
 package com.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -36,4 +37,8 @@ public interface ArchivoRepository extends JpaRepository<Archivo, Long>, JpaSpec
     @Query(value = "select * from ct_archivo_tb where tipo = :tipo and empresa_id = :empresa",
 			nativeQuery = true)
 	List<Archivo> getArchivoByTipoAndEmpresa(@Param("tipo") Long tipo, @Param("empresa") Long empresa);
+
+    Optional<Archivo> findById(Long id);
+
+    void deleteById(Long id);
 }

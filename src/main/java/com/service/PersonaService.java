@@ -103,7 +103,7 @@ public class PersonaService {
     	return personaRepository.findPersonasByProfesion(profesion);
     }
 
-    @Scheduled(cron = "0 0 0 0/10 * *", zone="America/Bogota")
+    @Scheduled(cron = "0 0 0 0/7 * *", zone="America/Bogota")
     public List<Long> updateFechaRem() {
         return personaRepository.updateFechaRem();
     }

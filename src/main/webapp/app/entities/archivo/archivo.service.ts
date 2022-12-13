@@ -72,8 +72,12 @@ export class ArchivoService {
     return this.http.post(this.deletes3Service, name, { responseType: 'text' });
   }
 
-  getS3(name: string): any {
-    return this.http.get<any>(`${this.gets3Service}/${name}`);
+  getS3(keyName: string, name: string): any {
+    const a = document.createElement('a');
+    a.href = `${this.gets3Service}/${keyName}/${name}`;
+    a.download = name;
+    a.click();
+    // return this.http.get<any>(`${this.gets3Service}/${name}`);
   }
 
   public getArchivoByTipoAndEmpresa(tipoId?: any, empresa?: any): Observable<any> {

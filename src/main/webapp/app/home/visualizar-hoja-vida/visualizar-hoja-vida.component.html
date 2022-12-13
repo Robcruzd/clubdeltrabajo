@@ -6,7 +6,7 @@
         </div>
     </div>
 </div>
-<div class="container" style="margin: 2.601vw 0 2.601vw 0" *ngIf="cmVisualizarHV !== null">
+<div class="container" [ngStyle]="{'margin-bottom':showElement ? '200vw':'20px'}" style="margin: 2.601vw 0 2.601vw 0" *ngIf="cmVisualizarHV !== null">
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-2 text-center">
