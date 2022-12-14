@@ -7,8 +7,9 @@ import { DEBUG_INFO_ENABLED } from 'app/app.constants';
 import { Authority } from 'app/shared/constants/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
+import { footerRoute } from './layouts/footer/footer.route';
 // const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
-const LAYOUT_ROUTES = [navbarCtRoute, ...errorRoute];
+const LAYOUT_ROUTES = [navbarCtRoute, footerRoute, ...errorRoute];
 
 @NgModule({
   imports: [

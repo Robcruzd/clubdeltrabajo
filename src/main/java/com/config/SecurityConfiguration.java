@@ -66,11 +66,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .contentSecurityPolicy("default-src 'self' 'unsafe-inline' https://www.datos.gov.co https://restcountries.eu https://www.clubdeltrabajo.com https://www.google-analytics.com http://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css;"+
                 "frame-src 'self' https://www.mercadopago.com.co/ https: data:;"+
                 "worker-src 'self' https://www.clubdeltrabajo.com;"+
-                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com http://cdn.jsdelivr.net https://storage.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com https://http2.mlstatic.com/storage/event-metrics-sdk/js https://sdk.mercadopago.com/js/v2 https://apis.google.com/js;"+
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com http://cdn.jsdelivr.net https://storage.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com https://http2.mlstatic.com/storage/event-metrics-sdk/js https://sdk.mercadopago.com/js/v2 https://apis.google.com/js https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js;"+
                 "style-src 'self' 'unsafe-inline' http://cdn.jsdelivr.net https://fonts.googleapis.com https://apis.google.com;"+
-                "style-src-elem 'self' 'unsafe-inline' http://cdn.jsdelivr.net https://fonts.googleapis.com/css https://fonts.googleapis.com/css2 data:;"+
-                "img-src 'self' https://www.google-analytics.com https://d1jbv8ig3bmrxx.cloudfront.net data:;"+
-                "font-src 'self' https://fonts.gstatic.com data:;"+
+                "style-src-elem 'self' 'unsafe-inline' http://cdn.jsdelivr.net https://fonts.googleapis.com/css https://fonts.googleapis.com/css2 https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css data:;"+
+                "img-src 'self' https://www.google-analytics.com https://d1jbv8ig3bmrxx.cloudfront.net https://*.tile.openstreetmap.org data:;"+
+                "font-src 'self' https://fonts.gstatic.com https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/fonts/ data:;"+
                 "media-src 'self' https://d1jbv8ig3bmrxx.cloudfront.net data:;")
         .and()
             .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN)

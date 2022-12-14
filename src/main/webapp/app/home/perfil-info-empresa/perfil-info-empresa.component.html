@@ -14,32 +14,33 @@
             <p class="titulo">{{Facebook}}: <a href="{{empresaEnSesion.urlFacebook}}" target="_blank">{{empresaEnSesion.urlFacebook}}</a></p>
             <p class="titulo">{{Instagram}}: <a href="{{empresaEnSesion.urlInstagram}}" target="_blank">{{empresaEnSesion.urlInstagram}}</a></p>
             <p class="titulo">{{LinkedIn}}: <a href="{{empresaEnSesion.urlLinkedIn}}" target="_blank">{{empresaEnSesion.urlLinkedIn}}</a></p>
-            <p class="titulo">{{Direccion}}: {{empresaEnSesion.direccion}}</p>
             <p class="titulo">{{Telefono}}: {{empresaEnSesion.telefonoEmpresa}}</p>
+            <p class="titulo">{{Direccion}}: {{empresaEnSesion.direccion}}</p>
+            <google-map 
+              [center]="center"
+              [zoom]="zoom">
+            </google-map>
+        </div>
+        
+        <div class="right">
             <p class="titulo">{{Descripcion}}: {{empresaEnSesion.descripcionEmpresa}}</p>
             <p class="titulo">{{PaginaServicios}}: {{empresaEnSesion.link}}</p>
             <p class="titulo">Misión: {{empresaEnSesion.misionEmpresa}}</p>
             <p class="titulo">Visión: {{empresaEnSesion.visionEmpresa}}</p>
-            <p class="titulo">Catalogo: {{empresaEnSesion.catalogo}}</p>
-        </div>
-        
-        <div class="right">
-            <div class="container">
-                <h2>Catálogo de productos</h2>  
+            <p class="titulo">Catálogo: {{empresaEnSesion.catalogo}}</p>
+            <div class="container" *ngIf="urls_Images.length > 0">
+                <!-- <h2>Catálogo de productos</h2>   -->
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                  <!-- Indicators -->
                   <ol class="carousel-indicators">
                     <li *ngFor="let url of urls_Images; let i = index" [ngClass]="url === urls_Images[0] ? 'active':''" data-target="#myCarousel" data-slide-to="i"></li>
                   </ol>
               
-                  <!-- Wrapper for slides -->
                   <div class="carousel-inner">
-                    <div *ngFor="let url of urls_Images" class="item" [ngClass]="url === urls_Images[0] ? 'active':'item'" style="width: 50%;">
+                    <div *ngFor="let url of urls_Images" class="item" [ngClass]="url === urls_Images[0] ? 'active':'item'" style="width: 50%; margin-left: 25%;">
                         <img style="width:100%;" [src]="url.url || urlImgDefault">
                     </div>
                 </div>
               
-                  <!-- Left and right controls -->
                   <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                     <span class="sr-only">Previous</span>

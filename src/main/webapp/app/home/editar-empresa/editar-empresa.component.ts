@@ -22,7 +22,7 @@ import Swal from 'sweetalert2';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { HttpResponse } from '@angular/common/http';
 import { IRegiones } from 'app/shared/model/regiones.model';
-import { Persona } from 'app/shared/model/persona.model';
+// import { Persona } from 'app/shared/model/persona.model';
 
 declare let alertify: any;
 

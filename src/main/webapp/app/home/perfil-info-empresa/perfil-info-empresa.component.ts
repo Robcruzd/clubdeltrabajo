@@ -11,6 +11,7 @@ import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 import { commonMessages } from 'app/shared/constants/commonMessages';
 import { Account } from 'app/core/user/account.model';
 import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
+import { MapGeocoder } from '@angular/google-maps';
 
 declare let alertify: any;
 
@@ -20,6 +21,10 @@ declare let alertify: any;
   styleUrls: ['./perfil-info-empresa.component.scss']
 })
 export class PerfilInfoEmpresaComponent implements OnInit {
+  center = { lat: 4.648, lng: -74.099 };
+  zoom = 12;
+  display?: google.maps.LatLngLiteral;
+
   cmPerfilEmpresa: any = null;
   imagen!: Archivo;
   urlImgDefault = 'https://d1jbv8ig3bmrxx.cloudfront.net/Image+28_M.png';
@@ -59,11 +64,19 @@ export class PerfilInfoEmpresaComponent implements OnInit {
     private accountService: AccountService,
     private archivoService: ArchivoService,
     private route: ActivatedRoute,
-    private commonMessagesService: CommonMessagesService
+    private commonMessagesService: CommonMessagesService,
+    private geocoder: MapGeocoder
   ) {
     const empresa = this.route.snapshot.queryParamMap.get('empresa')!;
-    this.empresaEnSesion = empresa;
+    // this.empresaEnSesion = empresa;
     this.cargarCuentaEmpresa(parseInt(empresa, 10));
+    geocoder
+      .geocode({
+        address: 'Calle 28 Sur # 24 80'
+      })
+      .subscribe(({ results }: any) => {
+        console.log('servicio mapas: ', results);
+      });
   }
 
   ngOnInit(): void {
@@ -135,6 +148,7 @@ export class PerfilInfoEmpresaComponent implements OnInit {
   cargarCuentaEmpresa(id: number): void {
     this.empresaService.find(id).subscribe(response => {
       this.empresaEnSesion = response.body;
+      console.log('empresa: ', this.empresaEnSesion);
       this.consultarImagen();
       this.cargarImagenesCatalogo();
     });

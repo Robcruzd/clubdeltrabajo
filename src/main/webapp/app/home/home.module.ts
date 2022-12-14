@@ -46,12 +46,14 @@ import { GestionInfoClubComponent } from './gestion-info-club/gestion-info-club.
 import { PreguntasFrecuentesComponent } from './preguntas-frecuentes/preguntas-frecuentes.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PerfilInfoEmpresaComponent } from './perfil-info-empresa/perfil-info-empresa.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 // import { BusquedaCandidatosComponent } from './busqueda-candidatos/busqueda-candidatos.component';
 
 @NgModule({
   imports: [
     SweetAlert2Module,
+    GoogleMapsModule,
     NgxPaginationModule,
     CtProjectSharedModule,
     RouterModule.forChild(HOME_ROUTE),

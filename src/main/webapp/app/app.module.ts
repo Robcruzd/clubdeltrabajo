@@ -16,6 +16,7 @@ import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { NavbarCtComponent } from './layouts/navbar-ct/navbar-ct.component';
+// import {GoogleMapsModule} from '@angular/google-maps';
 
 @NgModule({
   imports: [
