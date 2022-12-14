@@ -1,6 +1,7 @@
 package com.web.rest;
 
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -8,6 +9,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.domain.*;
+import com.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +22,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.domain.Empresa;
-import com.domain.Membresia;
-import com.domain.Pagos;
 // import com.mercadopago.resources.datastructures.preference.Payer;
-import com.domain.PayerMer;
 import com.mercadopago.exceptions.MPConfException;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.MerchantOrder;
 import com.mercadopago.resources.Payment;
 import com.mercadopago.resources.datastructures.merchantorder.MerchantOrderPayment;
-import com.service.EmpresaService;
-import com.service.MembresiaService;
-import com.service.MercadoPagoService;
-import com.service.PagosService;
+
 /**
  * REST controller for managing {@link com.domain.Profesion}.
  */
@@ -48,6 +44,8 @@ public class MercadoPagoResource {
     @Autowired
     private EmpresaService empresaService;
 
+    @Autowired
+    private MembresiaEmpresaService membresiaEmpresaService;
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -237,7 +235,14 @@ public class MercadoPagoResource {
     		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + 1);
     		empresaSaved.setVisualizacionesHv(empresaSaved.getVisualizacionesHv() + 20);
             empresaSaved.setDescargasHv(empresaSaved.getDescargasHv()+10);
-    		empresaService.save(empresaSaved);
+            Empresa empresa = empresaService.save(empresaSaved);
+            MembresiaEmpresa membresiaEmpresa = new MembresiaEmpresa();
+            membresiaEmpresa.setEmpresa(empresa);
+            membresiaEmpresa.setMembresia(pagoSaved.getMembresia());
+            membresiaEmpresa.setPublicaciones(1);
+            membresiaEmpresa.setFechaVencimiento(LocalDate.now().plusDays(20));
+            membresiaEmpresa.setEstado("A");
+            membresiaEmpresaService.save(membresiaEmpresa);
     	}
     	else if(pagoSaved.getMembresia().getNombreMembresia().equals("dosOferta")) {
     		Empresa empresaSaved = new Empresa();
@@ -245,8 +250,14 @@ public class MercadoPagoResource {
     		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + Long.valueOf(2));
     		empresaSaved.setVisualizacionesHv(Long.valueOf(999));
             empresaSaved.setDescargasHv(empresaSaved.getDescargasHv()+10);
-    		empresaService.save(empresaSaved);
-
+            Empresa empresa = empresaService.save(empresaSaved);
+            MembresiaEmpresa membresiaEmpresa = new MembresiaEmpresa();
+            membresiaEmpresa.setEmpresa(empresa);
+            membresiaEmpresa.setMembresia(pagoSaved.getMembresia());
+            membresiaEmpresa.setPublicaciones(2);
+            membresiaEmpresa.setFechaVencimiento(LocalDate.now().plusDays(45));
+            membresiaEmpresa.setEstado("A");
+            membresiaEmpresaService.save(membresiaEmpresa);
     	}
 		else if(pagoSaved.getMembresia().getNombreMembresia().equals("tresOferta")) {
 			Empresa empresaSaved = new Empresa();
@@ -254,40 +265,68 @@ public class MercadoPagoResource {
     		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + 3);
     		empresaSaved.setVisualizacionesHv(Long.valueOf(999));
             empresaSaved.setDescargasHv(empresaSaved.getDescargasHv()+15);
-    		empresaService.save(empresaSaved);
+            Empresa empresa = empresaService.save(empresaSaved);
+            MembresiaEmpresa membresiaEmpresa = new MembresiaEmpresa();
+            membresiaEmpresa.setEmpresa(empresa);
+            membresiaEmpresa.setMembresia(pagoSaved.getMembresia());
+            membresiaEmpresa.setPublicaciones(3);
+            membresiaEmpresa.setFechaVencimiento(LocalDate.now().plusDays(60));
+            membresiaEmpresa.setEstado("A");
+            membresiaEmpresaService.save(membresiaEmpresa);
 		}
 		else if(pagoSaved.getMembresia().getNombreMembresia().equals("flexi")) {
 			Empresa empresaSaved = new Empresa();
     		empresaSaved = pagoSaved.getEmpresa();
-    		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + 18);
+    		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + 3);
     		empresaSaved.setVisualizacionesHv(Long.valueOf(999));
     		empresaSaved.setDescargasHv(empresaSaved.getDescargasHv() + 50);
     		empresaSaved.setMembresia(true);
-    		empresaService.save(empresaSaved);
+            Empresa empresa = empresaService.save(empresaSaved);
+            MembresiaEmpresa membresiaEmpresa = new MembresiaEmpresa();
+            membresiaEmpresa.setEmpresa(empresa);
+            membresiaEmpresa.setMembresia(pagoSaved.getMembresia());
+            membresiaEmpresa.setPublicaciones(3);
+            membresiaEmpresa.setFechaVencimiento(LocalDate.now().plusDays(90));
+            membresiaEmpresa.setEstado("A");
+            membresiaEmpresaService.save(membresiaEmpresa);
 		}
 		else if(pagoSaved.getMembresia().getNombreMembresia().equals("bronce")) {
 			Empresa empresaSaved = new Empresa();
     		empresaSaved = pagoSaved.getEmpresa();
-    		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + 25);
+    		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + 5);
     		empresaSaved.setVisualizacionesHv(Long.valueOf(999));
     		empresaSaved.setDescargasHv(empresaSaved.getDescargasHv() + 120);
     		empresaSaved.setMembresia(true);
-    		empresaService.save(empresaSaved);
+            Empresa empresa = empresaService.save(empresaSaved);
+            MembresiaEmpresa membresiaEmpresa = new MembresiaEmpresa();
+            membresiaEmpresa.setEmpresa(empresa);
+            membresiaEmpresa.setMembresia(pagoSaved.getMembresia());
+            membresiaEmpresa.setPublicaciones(5);
+            membresiaEmpresa.setFechaVencimiento(LocalDate.now().plusDays(180));
+            membresiaEmpresa.setEstado("A");
+            membresiaEmpresaService.save(membresiaEmpresa);
 		}
 		else if(pagoSaved.getMembresia().getNombreMembresia().equals("plata")) {
 			Empresa empresaSaved = new Empresa();
     		empresaSaved = pagoSaved.getEmpresa();
-    		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + 25);
+    		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + 12);
     		empresaSaved.setVisualizacionesHv(Long.valueOf(999));
     		empresaSaved.setDescargasHv(empresaSaved.getDescargasHv() + 120);
     		empresaSaved.setMembresia(true);
     		empresaSaved.setReplicasOferta(empresaSaved.getReplicasOferta() + 2);
-    		empresaService.save(empresaSaved);
+            Empresa empresa = empresaService.save(empresaSaved);
+            MembresiaEmpresa membresiaEmpresa = new MembresiaEmpresa();
+            membresiaEmpresa.setEmpresa(empresa);
+            membresiaEmpresa.setMembresia(pagoSaved.getMembresia());
+            membresiaEmpresa.setPublicaciones(12);
+            membresiaEmpresa.setFechaVencimiento(LocalDate.now().plusDays(240));
+            membresiaEmpresa.setEstado("A");
+            membresiaEmpresaService.save(membresiaEmpresa);
 		}
 		else if(pagoSaved.getMembresia().getNombreMembresia().equals("oro")) {
 			Empresa empresaSaved = new Empresa();
     		empresaSaved = pagoSaved.getEmpresa();
-    		empresaSaved.setPublicacionesOferta(Long.valueOf(999));
+    		empresaSaved.setPublicacionesOferta(empresaSaved.getPublicacionesOferta() + 20);
     		empresaSaved.setVisualizacionesHv(Long.valueOf(999));
     		empresaSaved.setDescargasHv(empresaSaved.getDescargasHv() + 200);
     		empresaSaved.setMembresia(true);
@@ -295,7 +334,14 @@ public class MercadoPagoResource {
     		empresaSaved.setReplicasOferta(empresaSaved.getReplicasOferta() + 4);
     		empresaSaved.setBdEmpresa(true);
     		empresaSaved.setOfertaVip(Long.valueOf(1));
-    		empresaService.save(empresaSaved);
+            Empresa empresa = empresaService.save(empresaSaved);
+            MembresiaEmpresa membresiaEmpresa = new MembresiaEmpresa();
+            membresiaEmpresa.setEmpresa(empresa);
+            membresiaEmpresa.setMembresia(pagoSaved.getMembresia());
+            membresiaEmpresa.setPublicaciones(20);
+            membresiaEmpresa.setFechaVencimiento(LocalDate.now().plusDays(365));
+            membresiaEmpresa.setEstado("A");
+            membresiaEmpresaService.save(membresiaEmpresa);
 		}
 		else if(pagoSaved.getMembresia().getNombreMembresia().equals("diamante")) {
 			Empresa empresaSaved = new Empresa();
@@ -307,7 +353,14 @@ public class MercadoPagoResource {
             empresaSaved.setJuridica(true);
             empresaSaved.setBdEmpresa(true);
             empresaSaved.setOfertaVip(Long.valueOf(3));
-    		empresaService.save(empresaSaved);
+            Empresa empresa = empresaService.save(empresaSaved);
+            MembresiaEmpresa membresiaEmpresa = new MembresiaEmpresa();
+            membresiaEmpresa.setEmpresa(empresa);
+            membresiaEmpresa.setMembresia(pagoSaved.getMembresia());
+            membresiaEmpresa.setPublicaciones(999);
+            membresiaEmpresa.setFechaVencimiento(LocalDate.now().plusDays(365));
+            membresiaEmpresa.setEstado("A");
+            membresiaEmpresaService.save(membresiaEmpresa);
 		}
     }
 }

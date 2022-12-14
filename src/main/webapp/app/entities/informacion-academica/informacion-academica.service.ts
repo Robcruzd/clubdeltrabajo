@@ -14,22 +14,20 @@ type EntityArrayResponseType = HttpResponse<IInformacionAcademica[]>;
 
 export class PathUtil2 {
   public static getPathParams(parameters: any): string {
-      const fields: string[] = Object.getOwnPropertyNames(parameters);
-      let path = "?";
-      fields.forEach(
-          (field: string, i: number) => {
-            const value: any = Object.values(parameters)[i];
-            if(value !== undefined && value !== null){
-              if (i > 0 && path !== "?" && (value !== null)) {
-                path += "&";
-              }
-              if (value !== null) {
-                  path += (field + ".equals=" + value);
-              }
-            }
-          }
-      );
-      return (path!=="?"?path:"");
+    const fields: string[] = Object.getOwnPropertyNames(parameters);
+    let path = '?';
+    fields.forEach((field: string, i: number) => {
+      const value: any = Object.values(parameters)[i];
+      if (value !== undefined && value !== null) {
+        if (i > 0 && path !== '?' && value !== null) {
+          path += '&';
+        }
+        if (value !== null) {
+          path += field + '.equals=' + value;
+        }
+      }
+    });
+    return path !== '?' ? path : '';
   }
 }
 
@@ -114,14 +112,14 @@ export class InformacionAcademicaService {
     return res;
   }
 
-  public listar(parameters: any): Observable<any>{
-    const path:string = PathUtil2.getPathParams(parameters);
-    const url = this.resourceUrl + "/informacionAcademica"+path;
-    return this.get(url)
+  public listar(parameters: any): Observable<any> {
+    const path: string = PathUtil2.getPathParams(parameters);
+    const url = this.resourceUrl + '/informacionAcademica' + path;
+    return this.get(url);
   }
 
-  public get(url: string, headers?:any):Observable<any>{
-    return this.http.get<any>(url,headers);
+  public get(url: string, headers?: any): Observable<any> {
+    return this.http.get<any>(url, headers);
   }
 
   public getPersonaFiltro(idPersona?: any): Observable<any> {

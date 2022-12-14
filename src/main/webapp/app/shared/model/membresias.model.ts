@@ -10,7 +10,7 @@ export interface IMembresias {
   replicasoferta?: number;
 }
 
-export class Paises implements IMembresias {
+export class Membresia implements IMembresias {
   constructor(
     public id?: number,
     public nombreMembresia?: string,

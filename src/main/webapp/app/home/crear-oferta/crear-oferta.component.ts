@@ -29,6 +29,7 @@ import { Empresa } from '../../shared/model/empresa.model';
 import { Account } from 'app/core/user/account.model';
 import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
 import { ArchivoService } from 'app/entities/archivo/archivo.service';
+import { MembresiaEmpresaService } from 'app/entities/membresia-empresa/membresia-empresa.service';
 
 declare let alertify: any;
 
@@ -132,7 +133,8 @@ export class CrearOfertaComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private commonMessagesService: CommonMessagesService,
-    private archivoService: ArchivoService
+    private archivoService: ArchivoService,
+    private membresiaEmpresaService: MembresiaEmpresaService
   ) {
     this.traerCiudad();
   }
@@ -378,32 +380,43 @@ export class CrearOfertaComponent implements OnInit {
                 if (this.datosEmpresa?.publicacionesOferta !== 0) {
                   this.ofertaService.getOfertasEmpresa(this.usuario?.userEmpresa).subscribe(ofertaresponse => {
                     if (ofertaresponse.length !== 0 && ofertaresponse.length !== undefined) {
-                      this.oferta.activado = true;
-                      this.oferta.fechaOfertaCaducacion = moment(new Date(), 'YYYY-MMM-DD')
-                        .subtract(5, 'hours')
-                        .add(30, 'd');
-                      this.ofertaService.create(this.oferta).subscribe(
-                        response => {
-                          if (response.body !== null && this.datosEmpresa !== null) {
-                            const valor = this.datosEmpresa?.publicacionesOferta;
-                            if (valor !== undefined) {
-                              this.datosEmpresa.publicacionesOferta = valor - 1;
-                              this.empresaService.update(this.datosEmpresa).subscribe(() => {});
+                      this.membresiaEmpresaService.getMembresiaByEmpresa(this.usuario?.userEmpresa).subscribe(membresia => {
+                        this.oferta.fechaOfertaCaducacion = moment(membresia[0].fechaVencimiento);
+                        this.oferta.activado = true;
+                        this.ofertaService.create(this.oferta).subscribe(
+                          response => {
+                            if (response.body !== null && this.datosEmpresa !== null) {
+                              const valor = this.datosEmpresa?.publicacionesOferta;
+                              const valorMembresia = membresia[0].publicaciones;
+                              if (valor !== undefined) {
+                                this.datosEmpresa.publicacionesOferta = valor - 1;
+                                this.empresaService.update(this.datosEmpresa).subscribe(() => {});
+                              }
+                              if (valorMembresia !== undefined) {
+                                if (membresia[0].publicaciones === 1) {
+                                  membresia[0].publicaciones = valorMembresia - 1;
+                                  membresia[0].estado = 'D';
+                                  this.membresiaEmpresaService.update(membresia[0]).subscribe(() => {});
+                                } else {
+                                  membresia[0].publicaciones = valorMembresia - 1;
+                                  this.membresiaEmpresaService.update(membresia[0]).subscribe(() => {});
+                                }
+                              }
+                              alertify.set('notifier', 'position', 'top-right');
+                              alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
+                              this.router.navigate(['/controlar-ofertas']);
                             }
+                          },
+                          () => {
                             alertify.set('notifier', 'position', 'top-right');
-                            alertify.success(commonMessages.HTTP_SUCCESS_LABEL);
-                            this.router.navigate(['/controlar-ofertas']);
+                            alertify.error(commonMessages.HTTP_ERROR_LABEL);
                           }
-                        },
-                        () => {
-                          alertify.set('notifier', 'position', 'top-right');
-                          alertify.error(commonMessages.HTTP_ERROR_LABEL);
-                        }
-                      );
+                        );
+                      });
                     } else {
                       this.oferta.fechaOfertaCaducacion = moment(new Date(), 'YYYY-MMM-DD')
                         .subtract(5, 'hours')
-                        .add(60, 'd');
+                        .add(20, 'd');
                       this.oferta.activado = true;
                       this.ofertaService.create(this.oferta).subscribe(
                         response => {
