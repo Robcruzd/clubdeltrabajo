@@ -67,16 +67,14 @@
                 <input id="file-upload" style="display: none;" #subirdocu type="file" accept=".png, .jpeg, .jpg"
                                 (change)="cargarImagen($event, tipoArchivo.IMAGEN_PERFIL)" />
                 <div class="info-arriba">
-                    <p class="data">{{formEmpresa.get('id')?.value}}</p>
-                    <p class="label">{{Id_Label}}</p>
-                    <p class="data">{{formEmpresa.get('numeroDocumento')?.value}}</p>
                     <p class="label">{{NIT}}</p>
+                    <p class="data">{{formEmpresa.get('numeroDocumento')?.value}}</p>
                 </div>
                 <div class="info-arriba">
-                    <p class="data">{{formEmpresa.get('sector')?.value}}</p>
                     <p class="label">{{Sector}}</p>
-                    <p class="data">{{formEmpresa.get('subsector')?.value}}</p>
+                    <p class="data">{{formEmpresa.get('sector')?.value}}</p>
                     <p class="label">{{Subsector}}</p>
+                    <p class="data">{{formEmpresa.get('subsector')?.value}}</p>
                 </div>
             </div>
             <div class="row">

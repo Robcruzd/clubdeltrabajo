@@ -97,14 +97,19 @@
         .info-arriba {
           width: 30%;
           padding-left: 2.601vw;
+          color: #1b2455;
 
           .data {
-            margin: 0;
+            margin-bottom: 1rem;
             font: normal normal normal 0.91vw Arial;
           }
 
           .label {
+            color: #1b2455;
             font: normal normal bold 0.91vw Arial;
+            margin: 0rem;
+            text-align: left;
+            padding: 0px;
           }
         }
 
@@ -384,7 +389,7 @@
     .info-arriba {
       display: flex;
       flex-direction: column;
-      justify-content: space-around;
+      // justify-content: space-around;
     }
   }
 }

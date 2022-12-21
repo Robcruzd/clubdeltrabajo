@@ -111,16 +111,6 @@
         margin-top: 2rem;
       }
 
-      .titulo {
-        text-align: left;
-        font-size: 1.5vw;
-        font-weight: 600;
-        font-family: 'Open Sans';
-        letter-spacing: 0px;
-        color: #020d52;
-        opacity: 1;
-      }
-
       .texto {
         text-align: left;
         font-size: 0.91vw;
@@ -130,6 +120,16 @@
         opacity: 1;
         text-align: justify;
       }
+    }
+
+    .titulo {
+      text-align: left;
+      font-size: 1.5vw;
+      font-weight: 600;
+      font-family: 'Open Sans';
+      letter-spacing: 0px;
+      color: #020d52;
+      opacity: 1;
     }
   }
 
@@ -152,6 +152,15 @@
 ::ng-deep svg:not(:root).svg-inline--fa {
   width: 18px;
   height: 17px;
+}
+
+::ng-deep .map-container {
+  width: 35vw !important;
+  height: 35vw !important;
+}
+
+a {
+  word-break: break-all;
 }
 
 @media only screen and (max-width: 900px) {
@@ -209,14 +218,19 @@
             font-size: 0.82rem;
           }
         }
+
+        ::ng-deep .map-container {
+          width: 85vw !important;
+          height: 85vw !important;
+        }
+      }
+
+      .titulo {
+        font-size: 28px;
       }
 
       .right {
         padding: 2rem 0rem;
-
-        .titulo {
-          font-size: 28px;
-        }
 
         .texto {
           font-size: 14px;

@@ -90,4 +90,14 @@ export class ApiService {
       downloadLink.click();
     }
   }
+
+  geocodeGoogle(address: string, city: string, country: string): Observable<any> {
+    const baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+    const key = 'AIzaSyDubCs2KvzxY79QCaIbX9Pq294qzeknJYA';
+    const addressNoSpace = address.replace(' ', '+');
+    const addressNoNumber = addressNoSpace.replace('#', '');
+    const addressFormated = addressNoNumber + ',+' + city.replace(' ', '+') + ',+' + country.replace(' ', '+');
+    const url = baseUrl + addressFormated + '&key=' + key;
+    return this.http.get(url);
+  }
 }

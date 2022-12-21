@@ -11,7 +11,12 @@ import { TipoArchivo } from 'app/shared/vo/tipo-archivo.enum';
 import { commonMessages } from 'app/shared/constants/commonMessages';
 import { Account } from 'app/core/user/account.model';
 import { CommonMessagesService } from 'app/entities/commonMessages/commonMessages.service';
-import { MapGeocoder } from '@angular/google-maps';
+import { ApiService } from 'app/shared/services/api.service';
+import { IOpcionVo } from 'app/shared/vo/opcion-vo';
+import { GeografiaVo } from 'app/shared/vo/geografia-vo';
+import { RegionesService } from 'app/entities/regiones/regiones.service';
+import { IRegiones } from 'app/shared/model/regiones.model';
+import { HttpResponse } from '@angular/common/http';
 
 declare let alertify: any;
 
@@ -37,6 +42,10 @@ export class PerfilInfoEmpresaComponent implements OnInit {
   showButton = true;
   imagenes_Productos: Array<IArchivo> = [];
   urls_Images: any = [];
+  municipiosPersonal: Array<IOpcionVo> = [];
+  geografia: Array<GeografiaVo> = [];
+  markerPosition = {};
+  markerOptions: google.maps.MarkerOptions = { draggable: false };
 
   Crear_Oferta = commonMessages.CREAR_OFERTA;
   Requisitos_Oferta = commonMessages.DETALLES_REQUISITOS_OFERTA;
@@ -65,18 +74,12 @@ export class PerfilInfoEmpresaComponent implements OnInit {
     private archivoService: ArchivoService,
     private route: ActivatedRoute,
     private commonMessagesService: CommonMessagesService,
-    private geocoder: MapGeocoder
+    private regionService: RegionesService,
+    private apiService: ApiService
   ) {
     const empresa = this.route.snapshot.queryParamMap.get('empresa')!;
     // this.empresaEnSesion = empresa;
     this.cargarCuentaEmpresa(parseInt(empresa, 10));
-    geocoder
-      .geocode({
-        address: 'Calle 28 Sur # 24 80'
-      })
-      .subscribe(({ results }: any) => {
-        console.log('servicio mapas: ', results);
-      });
   }
 
   ngOnInit(): void {
@@ -151,7 +154,54 @@ export class PerfilInfoEmpresaComponent implements OnInit {
       console.log('empresa: ', this.empresaEnSesion);
       this.consultarImagen();
       this.cargarImagenesCatalogo();
+      this.traerCiudad();
     });
+  }
+
+  getCoordenadas(): void {
+    const ciudadBD = this.municipiosPersonal.find((ciudad: { codigo: any }) => ciudad.codigo === this.empresaEnSesion.ciudad?.toString());
+    this.apiService.geocodeGoogle(this.empresaEnSesion.direccion, ciudadBD?.nombre!, this.empresaEnSesion.pais).subscribe(res => {
+      console.log('rescoords: ', res);
+      if (res.results.length > 0) {
+        const coords = res.results[0].geometry.location;
+        this.markerPosition = coords;
+        this.center = coords;
+        console.log('coords: ', coords.results[0].geometry.location);
+      }
+    });
+  }
+
+  traerCiudad(): void {
+    this.regionService
+      .query({
+        page: 0,
+        size: 1150
+      })
+      .subscribe((res: HttpResponse<IRegiones[]>) => {
+        this.geografia = res.body!.map(
+          item =>
+            new GeografiaVo(
+              item.codigoDaneDelDepartamento?.toString()!,
+              item.departamento!,
+              item.codigoDaneDelMunicipio?.toString()!,
+              item.municipio!
+            )
+        );
+        this.cargarMunicipiosPersonal();
+      });
+  }
+
+  cargarMunicipiosPersonal(): void {
+    this.municipiosPersonal = [];
+    this.municipiosPersonal = this.geografia
+      .map(item => {
+        return {
+          codigo: item.codigoMpio,
+          nombre: item.nombreMpio
+        };
+      })
+      .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0));
+    this.getCoordenadas();
   }
 
   consultarImagen(): void {
