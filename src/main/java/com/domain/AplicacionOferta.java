@@ -31,12 +31,12 @@ public class AplicacionOferta implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties("aplicacionOfertas")
+    @JsonIgnoreProperties("usuario")
     private Persona usuario;
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties("aplicacionOfertas")
+    @JsonIgnoreProperties("oferta")
     private Oferta oferta;
     
     @NotNull

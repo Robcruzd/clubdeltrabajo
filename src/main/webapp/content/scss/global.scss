@@ -14,11 +14,20 @@ h2,
 h3,
 h4 {
   font-weight: 300;
+  font-size: initial;
 }
 
 a:hover {
   /* make sure browsers use the pointer cursor for anchors, even with no href */
   cursor: pointer;
+}
+
+.dropdown-menu {
+  font-size: medium;
+}
+
+.dropdown-item {
+  font-size: medium;
 }
 
 .dropdown-item:hover {

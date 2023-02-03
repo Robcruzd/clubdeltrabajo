@@ -381,4 +381,8 @@ export class ClubEmpresasComponent implements OnInit {
       this.listaSectores = data;
     });
   }
+
+  verEmpresa(empresa: any): void {
+    this.router.navigate(['/perfil-info-empresa'], { queryParams: { empresa: empresa.id } });
+  }
 }

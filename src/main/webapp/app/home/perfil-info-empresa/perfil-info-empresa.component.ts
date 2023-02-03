@@ -29,6 +29,7 @@ export class PerfilInfoEmpresaComponent implements OnInit {
   center = { lat: 4.648, lng: -74.099 };
   zoom = 12;
   display?: google.maps.LatLngLiteral;
+  showMap = false;
 
   cmPerfilEmpresa: any = null;
   imagen!: Archivo;

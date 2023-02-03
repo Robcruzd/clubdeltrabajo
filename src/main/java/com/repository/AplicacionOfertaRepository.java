@@ -28,7 +28,7 @@ public interface AplicacionOfertaRepository extends JpaRepository<AplicacionOfer
 			nativeQuery = true)
 	List<AplicacionOferta> getByOferta(@Param("oferta") Long oferta);
 
-	@Query(value = "select * from ct_aplicacion_oferta_tb oferta_id = :oferta and usuario_id = :persona",
+	@Query(value = "select * from ct_aplicacion_oferta_tb where oferta_id = :oferta and usuario_id = :persona",
 			nativeQuery = true)
 	List<AplicacionOferta> getByOfertaAndPersona(@Param("oferta") Long oferta, @Param("persona") Long persona);
 

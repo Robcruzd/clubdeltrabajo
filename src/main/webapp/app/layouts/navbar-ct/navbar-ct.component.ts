@@ -133,7 +133,7 @@ export class NavbarCtComponent implements OnInit {
             { id: 1, etiqueta: 'Inicio', ruta: '/' },
             { id: 2, etiqueta: 'Perfil', ruta: '/perfil' },
             { id: 4, etiqueta: 'Publicaciones', ruta: '/resultados-busqueda' },
-            { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
+            // { id: 5, etiqueta: 'Nosotros', ruta: '/nosotros' },
             { id: 6, etiqueta: 'Contacto', ruta: '/informacion-empresa' }
           ];
           this.consultarImagen();
@@ -163,9 +163,9 @@ export class NavbarCtComponent implements OnInit {
     this.router.navigate(['/informacion-empresa']);
   }
 
-  nosotros(): void {
-    this.router.navigate(['/nosotros']);
-  }
+  // nosotros(): void {
+  //   this.router.navigate(['/nosotros']);
+  // }
 
   cerrarSesion(): void {
     this.lstOpcionesMenu = [
@@ -214,8 +214,8 @@ export class NavbarCtComponent implements OnInit {
       this.router.navigate(['/previo-registrar-emp']);
     } else if (elemento === 'publicacion') {
       this.router.navigate(['/resultados-busqueda']);
-    } else if (elemento === 'nosotros') {
-      this.router.navigate(['/nosotros']);
+      // } else if (elemento === 'nosotros') {
+      //   this.router.navigate(['/nosotros']);
     } else {
       this.router.navigate(['/']);
     }

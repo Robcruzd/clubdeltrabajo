@@ -268,11 +268,7 @@ export class CrearOfertaComponent implements OnInit {
     if (value === 0) {
       this.subnivelesLaborales = this.nivelesLaborales;
     } else {
-      // eslint-disable-next-line no-console
-      // console.log('vaaaalue: ', value);
       if (value && Object.entries(value).length > 0) {
-        // eslint-disable-next-line no-console
-        // console.log('vaaaalue2: ', value['nivelLaboral']);
         const subniveles = this.nivelesLaborales
           .filter(item => item.codigo === value['nivelLaboral'])
           .map(item => {
@@ -283,8 +279,6 @@ export class CrearOfertaComponent implements OnInit {
             };
           });
         this.subnivelesLaborales = subniveles[0].subniveles;
-        // eslint-disable-next-line no-console
-        // console.log(this.subnivelesLaborales);
       }
     }
   }
@@ -365,15 +359,20 @@ export class CrearOfertaComponent implements OnInit {
     this.oferta.mostrarSalario = this.formDatosBasicos.controls['mostrarSalario'].value;
     this.oferta.fechaPublicacionVip = moment(new Date(), 'YYYY-MMM-DD').subtract(5, 'hours');
     if (this.usuario?.userEmpresa) {
-      // this.ofertaService.getOfertasEmpresa(this.usuario.userEmpresa).subscribe(ofertaResponse => {
-      if (this.usuario?.userEmpresa) {
-        this.empresaService.find(this.usuario.userEmpresa).subscribe(RESPONSE => {
-          this.oferta.usuario = RESPONSE.body;
-          this.datosEmpresa = RESPONSE.body;
+      this.empresaService.find(this.usuario.userEmpresa).subscribe(RESPONSE => {
+        this.oferta.usuario = RESPONSE.body;
+        this.datosEmpresa = RESPONSE.body;
+        console.log('datos empresa: ', this.datosEmpresa);
+        if (
+          this.datosEmpresa &&
+          this.datosEmpresa?.descripcionEmpresa &&
+          this.datosEmpresa?.descripcionEmpresa !== '' &&
+          this.datosEmpresa?.apellidosRepresentanteLegal
+        ) {
           this.archivoService.getArchivoByTipoAndEmpresa(6, this.datosEmpresa).subscribe(data => {
             if (data.length === 0) {
               alertify.set('notifier', 'position', 'top-right');
-              alertify.error('¡No es posible publicar su oferta gratis, debe cargar el documento del nit en editar perfil!');
+              alertify.error('¡No es posible publicar su oferta, debe cargar el documento del nit en editar perfil!');
               this.router.navigate(['/crear-oferta']);
             } else {
               if (this.idOferta === 0) {
@@ -410,6 +409,7 @@ export class CrearOfertaComponent implements OnInit {
                           () => {
                             alertify.set('notifier', 'position', 'top-right');
                             alertify.error(commonMessages.HTTP_ERROR_LABEL);
+                            this.router.navigate(['/perfil-empresa']);
                           }
                         );
                       });
@@ -434,13 +434,14 @@ export class CrearOfertaComponent implements OnInit {
                         () => {
                           alertify.set('notifier', 'position', 'top-right');
                           alertify.error(commonMessages.HTTP_ERROR_LABEL);
+                          this.router.navigate(['/perfil-empresa']);
                         }
                       );
                     }
                   });
                 } else {
                   alertify.set('notifier', 'position', 'top-right');
-                  alertify.error('No es posible publicar más ofertas, debe adquirir un plan!');
+                  alertify.error('¡No es posible publicar más ofertas, debe adquirir un plan!');
                   this.router.navigate(['/controlar-ofertas']);
                 }
               } else {
@@ -456,15 +457,18 @@ export class CrearOfertaComponent implements OnInit {
                   () => {
                     alertify.set('notifier', 'position', 'top-right');
                     alertify.error(commonMessages.HTTP_ERROR_LABEL);
-                    // this.router.navigate(['/controlar-ofertas']);
+                    this.router.navigate(['/perfil-empresa']);
                   }
                 );
               }
             }
           });
-        });
-      }
-      // });
+        } else {
+          alertify.set('notifier', 'position', 'top-right');
+          alertify.error('¡No es posible publicar la oferta, debe registrar la información de su empresa en Editar perfil!');
+          this.router.navigate(['/editar-empresa']);
+        }
+      });
     }
 
     this.visualizarOferta = false;
@@ -606,8 +610,6 @@ export class CrearOfertaComponent implements OnInit {
   }
 
   vistaPreliminarOferta(): void {
-    // eslint-disable-next-line no-console
-    // console.log(this.formDatosBasicos);
     this.visualizarOferta = true;
     this.descripcionOferta = this.formDatosBasicos.controls['requisitos'].value;
     this.profesionOferta = this.formDatosBasicos.controls['profesion'].value.profesion;
@@ -653,7 +655,7 @@ export class CrearOfertaComponent implements OnInit {
       return true;
     }
     // Patrón de entrada, en este caso solo acepta numeros y letras
-    const patron = /[A-Za-z0-9]/;
+    const patron = /\w|\s|[,.;:]/g;
     const tecla_final = String.fromCharCode(tecla);
     return patron.test(tecla_final);
   }

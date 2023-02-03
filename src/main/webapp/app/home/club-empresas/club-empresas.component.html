@@ -71,21 +71,6 @@
             <div class="cuerpo">
                 <div class="div-buscador">
                     <div class="buscador">
-                        <!-- <div class="input-buscador">
-                            <input matInput placeholder="Busqueda" class="form-control">
-                        </div> -->
-                        <!-- <div class="input-buscador">
-                            <button class="btnBuscar" (click)="cargarEmpresas()">
-                                <fa-icon [icon]="faSearch" class="border-icon2" style="
-                                background: transparent; color: #0a0a0a;">
-                                </fa-icon>
-                            </button>
-                            <input matInput class="form-control" [(ngModel)]="valorBusqueda">
-                        </div> -->
-                        <!-- <div class="empresas">
-                            <p class="titulo">{{EmpresasTitulo}}</p>
-                            <p class="resultado">{{totalEmpresas}} {{Resultados}}</p>
-                        </div> -->
                         <div class="empresas">
                             <p class="titulo">{{Ciudad}}</p>
                             <select class="resultado" [(ngModel)]="municipioValue" (change)="cargarEmpresas()">
@@ -108,20 +93,13 @@
                                 </option>
                             </select>
                         </div>
-                        <!-- <div class="Sector">
-                            <p class="titulo">Sector</p> -->
-                            <!-- <p class="resultado">Seleccionar</p> -->
-                            <!-- <select class="resultado">
-                            <option>Seleccionar</option>
-                            </select>
-                        </div> -->
                     </div> 
                 </div>
                 <div class="perfil">
                     <div class="perfiles"
                      *ngFor="let item of ListaEmpresas | paginate: { itemsPerPage: 6, currentPage: page }">
                         <div class="mitad1">
-                            <img class="logo-empresa rounded-circle" [src]="item.imagen || urlImgDefault">
+                            <img class="logo-empresa rounded-circle" [src]="item.imagen || urlImgDefault" (click)="verEmpresa(item)">
                             <div>
                             <p class="nombre">{{item.razonSocial}}</p>
                             <p class="resumen">{{item.sector}}</p>

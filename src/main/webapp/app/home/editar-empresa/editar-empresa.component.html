@@ -201,22 +201,16 @@
             </div>
             <div class="row">
                 <div class="form-group-descripcion">
-                    <p class="estilo_label">{{Mision_Empresa}} <span class="estilo_campo_requerido">
-                            *</span></p>
+                    <p class="estilo_label">{{Mision_Empresa}}</p>
                     <textarea formControlName="mision" class="form-control text-area" rows="4"></textarea>
-                    <small *ngIf="formEmpresa.get('mision')?.errors?.required"
-                        class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                     <small *ngIf="formEmpresa.get('mision')?.errors?.pattern"
                         class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group-descripcion">
-                    <p class="estilo_label">{{Vision_Empresa}} <span class="estilo_campo_requerido">
-                            *</span></p>
+                    <p class="estilo_label">{{Vision_Empresa}}</p>
                     <textarea formControlName="vision" class="form-control text-area" rows="4"></textarea>
-                    <small *ngIf="formEmpresa.get('vision')?.errors?.required"
-                        class="form-text text-danger">{{labels.CAMPO_OBLIGATORIO_LABEL}}</small>
                     <small *ngIf="formEmpresa.get('vision')?.errors?.pattern"
                         class="form-text text-danger">{{labels.CARACTERES_NO_PERMITIDOS}}</small>
                 </div>

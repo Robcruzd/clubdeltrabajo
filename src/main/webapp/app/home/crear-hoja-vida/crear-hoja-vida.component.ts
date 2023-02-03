@@ -693,26 +693,20 @@ export class CrearHojaVidaComponent implements OnInit {
 
   cargarArchivos(hojavo: HojaVidaVo): void {
     this.hojaVidaVo = hojavo;
-    // eslint-disable-next-line no-console
-    // console.log('archivos: ', this.archivos);
+    console.log('documentob: ', this.cargadoDocumento);
     if (this.archivos.length > 0) {
       this.hojaVidaVo.archivos = this.archivos;
+      this.cargadoDocumento = this.archivos.some(archivo => archivo.tipo === 1);
+      console.log('documento: ', this.cargadoDocumento);
     }
-    // eslint-disable-next-line no-console
-    // console.log('gfgfgfgfgfgfgfgf');
     this.service.create(this.hojaVidaVo).subscribe(
       response => {
-        // eslint-disable-next-line no-console
-        // console.log('response save: ', response);
-        // eslint-disable-next-line no-console
-        // console.log('archivos aws: ', this.archivosaws);
-        // eslint-disable-next-line no-console
-        // console.log('archivos: ', this.archivos);
         if (response.body !== null) {
           if (response.body.informacionPersonal !== null) {
             this.formPersonal.get('id')?.setValue(response.body.informacionPersonal.id);
           }
           this.archivosaws.forEach((element: { file: File; name: string }) => {
+            console.log('element: ', element);
             const formData = new FormData();
             formData.append('file', element.file, element.name);
             this.archivo.uploadS3(formData).subscribe((res: any) => {});
@@ -722,7 +716,8 @@ export class CrearHojaVidaComponent implements OnInit {
           this.hojaVidaVo = response.body;
         }
       },
-      () => {
+      err => {
+        console.log(err);
         alertify.set('notifier', 'position', 'top-right');
         alertify.error(commonMessages.HTTP_ERROR_LABEL);
       }

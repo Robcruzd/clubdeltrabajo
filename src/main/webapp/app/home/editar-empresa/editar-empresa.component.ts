@@ -227,8 +227,8 @@ export class EditarEmpresaComponent implements OnInit {
       catalogo: ['', [Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú.:/ ]{1,}$')]],
       cantidadEmpleados: ['', [Validators.required, Validators.pattern('^[0-9]{0,}$')]],
       descripcion: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.:\n ]{0,}$')]],
-      mision: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.:\n ]{0,}$')]],
-      vision: ['', [Validators.required, Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.:\n ]{0,}$')]],
+      mision: ['', [Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.:\n ]{0,}$')]],
+      vision: ['', [Validators.pattern('^[0-9A-Za-zÑÁÉÍÓÚñáéíóú,;.:\n ]{0,}$')]],
       nombreRepresentante: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚñáéíóú ]{1,}$')]],
       apellidosRepresentante: ['', [Validators.required, Validators.pattern('^[A-Za-zÑÁÉÍÓÚñáéíóú ]{1,}$')]],
       telefonoRep: ['', [Validators.required, Validators.pattern('^[0-9]{7,10}$')]]
@@ -637,6 +637,9 @@ export class EditarEmpresaComponent implements OnInit {
         // a.href = this.archivoNit.archivo.toString();
         // a.download = this.archivoNit.nombre!;
         // a.click();
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error('No se ha cargado el NIT');
       }
     } else {
       this.imagenes_Productos.forEach(archivo => {

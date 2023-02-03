@@ -118,6 +118,7 @@ export class OfertaPublicaComponent implements OnInit {
     this.accountService.getAuthenticationState().subscribe(account => {
       this.account = account;
       this.personaInicial = this.account?.user || 0;
+      console.log('personaini: ', this.account);
     });
   }
 
