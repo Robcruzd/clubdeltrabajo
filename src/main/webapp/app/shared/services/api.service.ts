@@ -93,10 +93,12 @@ export class ApiService {
 
   geocodeGoogle(address: string, city: string, country: string): Observable<any> {
     const baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
-    const key = 'AIzaSyDubCs2KvzxY79QCaIbX9Pq294qzeknJYA';
-    const addressNoSpace = address.replace(' ', '+');
+    const key = 'AIzaSyD-GelsMtwPsQxiJh9ofZhsjKDvmml-1xI';
+    const addressNoSpace = address ? address.replace(' ', '+') : '';
     const addressNoNumber = addressNoSpace.replace('#', '');
-    const addressFormated = addressNoNumber + ',+' + city.replace(' ', '+') + ',+' + country.replace(' ', '+');
+    const cityNoSpace = city ? city.replace(' ', '+') : 'Bogota';
+    const countryNoSpace = country ? country.replace(' ', '+') : 'Colombia';
+    const addressFormated = addressNoNumber + ',+' + cityNoSpace + ',+' + countryNoSpace;
     const url = baseUrl + addressFormated + '&key=' + key;
     return this.http.get(url);
   }

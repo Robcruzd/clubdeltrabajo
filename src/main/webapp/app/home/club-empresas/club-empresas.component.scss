@@ -133,7 +133,8 @@
           }
         }
         .div-buscador {
-          width: 13rem;
+          width: 16rem;
+
           .buscador {
             background: #f5f5f5 0% 0% no-repeat padding-box;
             padding-top: 1vw;
@@ -155,12 +156,14 @@
               margin-top: 1.235vw;
               display: flex;
               flex-direction: column;
+              padding-left: 1.495vw;
+
               .titulo {
                 display: flex;
                 font-family: 'Roboto';
                 color: #020d52;
                 text-align: left;
-                margin-left: 1.495vw;
+                // margin-left: 1.495vw;
                 margin-bottom: 0px;
                 font-size: 0.8vw;
                 font-weight: normal;
@@ -175,8 +178,8 @@
                 margin-top: 0.26vw;
                 font-weight: normal;
                 text-align: left;
-                margin-left: 1.495vw;
-                width: 80%;
+                // margin-left: 1.495vw;
+                width: 90%;
               }
             }
           }

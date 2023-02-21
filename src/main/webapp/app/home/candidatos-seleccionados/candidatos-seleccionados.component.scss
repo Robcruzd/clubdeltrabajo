@@ -1,6 +1,7 @@
 .contenedor {
   display: flex;
   justify-content: center;
+  min-height: auto;
 
   .div-center {
     display: flex;
@@ -553,6 +554,10 @@
   }
 }
 
+::ng-deep .modal {
+  opacity: inherit;
+}
+
 ::ng-deep .ngx-pagination {
   padding: 0;
 }
@@ -915,7 +920,7 @@ kendo-pdf-export {
     .btn-seleccionado {
       // padding-left: 50%;
       display: flex;
-      justify-content: end;
+      justify-content: flex-end;
       // margin-bottom: 0.5vw;
       // .mensajeEmail {
       //   height: 1.56vw;
@@ -1339,7 +1344,7 @@ kendo-pdf-export {
       .botones-enviar-des {
         display: flex;
         flex-direction: row;
-        justify-content: end;
+        justify-content: flex-end;
         margin-top: 5px;
       }
     }

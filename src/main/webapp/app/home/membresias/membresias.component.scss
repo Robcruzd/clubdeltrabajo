@@ -356,6 +356,10 @@
   }
 }
 
+::ng-deep .modal {
+  opacity: inherit;
+}
+
 .footer {
   display: flex;
   flex-direction: row;
