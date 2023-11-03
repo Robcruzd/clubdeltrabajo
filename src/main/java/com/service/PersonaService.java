@@ -115,7 +115,7 @@ public class PersonaService {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtpout.secureserver.net");
         props.put("mail.smtp.port", "587");
-    	String correoEnvia = "info@clubdeltrabajo.com";
+    	String correoEnvia = "notificacion@clubdeltrabajo.com";
     	String contrasena = "Temporal22";
         Session session = Session.getInstance(props,
            new javax.mail.Authenticator() {

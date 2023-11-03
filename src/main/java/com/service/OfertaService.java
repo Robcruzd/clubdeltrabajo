@@ -184,8 +184,8 @@ public class OfertaService {
         String to = email;
 
         // Sender's email ID needs to be mentioned
-        String from = "info@clubdeltrabajo.com";
-        final String username = "info@clubdeltrabajo.com";//change accordingly
+        String from = "notificacion@clubdeltrabajo.com";
+        final String username = "notificacion@clubdeltrabajo.com";//change accordingly
         final String password = "Temporal22";//change accordingly
 
         // Assuming you are sending email through relay.jangosmtp.net

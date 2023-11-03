@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { SERVER_API_URL } from 'app/app.constants';
 import { RegionesService } from 'app/entities/regiones/regiones.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,6 +13,7 @@ import { IOpcionVo } from '../vo/opcion-vo';
 })
 export class ApiService {
   private readonly pdfFonts: any;
+  public mapsUrl = SERVER_API_URL + 'api/maps/getCoords';
   pdfMake: any;
   htmlToPdfmake: any;
   region: any;
@@ -92,14 +94,17 @@ export class ApiService {
   }
 
   geocodeGoogle(address: string, city: string, country: string): Observable<any> {
-    const baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
-    const key = 'AIzaSyD-GelsMtwPsQxiJh9ofZhsjKDvmml-1xI';
+    // const baseUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+    // const key = 'AIzaSyD-GelsMtwPsQxiJh9ofZhsjKDvmml-1xI';
     const addressNoSpace = address ? address.replace(' ', '+') : '';
     const addressNoNumber = addressNoSpace.replace('#', '');
     const cityNoSpace = city ? city.replace(' ', '+') : 'Bogota';
     const countryNoSpace = country ? country.replace(' ', '+') : 'Colombia';
     const addressFormated = addressNoNumber + ',+' + cityNoSpace + ',+' + countryNoSpace;
-    const url = baseUrl + addressFormated + '&key=' + key;
+    // const url = baseUrl + addressFormated + '&key=' + key;
+    const url = this.mapsUrl + '?data=' + addressFormated;
+    /* eslint-disable no-console */
+    console.log('url geocode: ', url);
     return this.http.get(url);
   }
 }

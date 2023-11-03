@@ -66,7 +66,7 @@ spring:
   mail:
     host: smtpout.secureserver.net
     port: 587
-    username: info@clubdeltrabajo.com
+    username: notificacion@clubdeltrabajo.com
     password: Temporal22
     protocol: smtp
     tls: true
@@ -74,7 +74,7 @@ spring:
       auth: true
       ssl.trust: smtpout.secureserver.net
   mail2:
-    username: notificaciones@clubdeltrabajo.com
+    username: notificacion@clubdeltrabajo.com
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
@@ -108,6 +108,9 @@ amazonProperties:
   accessKey: AKIAQUADP2ZJGCD6WNP7
   secretKey: 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
   bucketName: cdt-bucket-12650f52-428c-446a-9290-5931a2cd3958
+
+googleAPIs:
+  geocoding: AIzaSyAUG_LaWDrgn_Krh0i3sGYFjiPOqkMoVsA
 
 mercadoPagoProps:
   accessToken: APP_USR-2897952222653941-052319-014d2e87534b44c7d134c88155bfefc5-1127645459

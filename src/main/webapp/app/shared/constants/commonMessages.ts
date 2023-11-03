@@ -655,7 +655,7 @@ export const commonMessages = {
   DANGER_CAMPO_OBLIGATORIO: 'Este campo es obligatorio.',
   MENSAJE: 'Mensaje',
   ENVIAR: 'Enviar',
-  CORREO_INFO: 'info@clubdeltrabajo.com',
+  CORREO_INFO: 'notificacion@clubdeltrabajo.com',
   TEL_CLUB: '313 470 44 20',
 
   MENSAJE_BIENVENIDO: 'Bienvenido al club',
