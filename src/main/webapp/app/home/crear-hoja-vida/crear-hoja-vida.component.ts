@@ -259,6 +259,11 @@ export class CrearHojaVidaComponent implements OnInit {
     return this.profesiones.filter(option => option.profesion?.toLowerCase().includes(filterValue));
   }
 
+  private _filterProfesionObject(value: string): IProfesion {
+    const filterValue = value.toLowerCase().trim();
+    return this.profesiones.filter(option => option.profesion?.toLowerCase().trim() === filterValue)[0];
+  }
+
   traerProfesiones(): void {
     this.filteredOptionsProfesiones = this.myControlProfesiones.valueChanges.pipe(
       startWith(''),
@@ -267,7 +272,6 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   onSelectionChanged(event: any) {
-    console.log('event: ', event);
     this.profesionState = false;
     let bandera = 0;
     this.profesiones.map(option => {
@@ -645,8 +649,6 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   onSubmit1(): void {
-    // eslint-disable-next-line no-console
-    // console.log('submit1');
     // this.cargando = false;
     this.hojaVidaVo = new HojaVidaVo();
 
@@ -693,11 +695,9 @@ export class CrearHojaVidaComponent implements OnInit {
 
   cargarArchivos(hojavo: HojaVidaVo): void {
     this.hojaVidaVo = hojavo;
-    console.log('documentob: ', this.cargadoDocumento);
     if (this.archivos.length > 0) {
       this.hojaVidaVo.archivos = this.archivos;
       this.cargadoDocumento = this.archivos.some(archivo => archivo.tipo === 1);
-      console.log('documento: ', this.cargadoDocumento);
     }
     this.service.create(this.hojaVidaVo).subscribe(
       response => {
@@ -706,7 +706,6 @@ export class CrearHojaVidaComponent implements OnInit {
             this.formPersonal.get('id')?.setValue(response.body.informacionPersonal.id);
           }
           this.archivosaws.forEach((element: { file: File; name: string }) => {
-            console.log('element: ', element);
             const formData = new FormData();
             formData.append('file', element.file, element.name);
             this.archivo.uploadS3(formData).subscribe((res: any) => {});
@@ -830,7 +829,7 @@ export class CrearHojaVidaComponent implements OnInit {
       usuario: new Persona(this.persona),
       estadoCivil: this.formPersonal.get('estadoCivil')!.value,
       nivelEducativoProfesion: this.formPersonal.get('nivelEducativoProfesion')!.value,
-      profesion: this.formPersonal.get('profesion')!.value!,
+      profesion: this._filterProfesionObject(this.formPersonal.get('profesion')!.value!),
       activoNotificaciones: this.formPersonal.get('activoNotificaciones')!.value === this.labels.SI_LABEL ? true : false
     };
   }
@@ -1082,7 +1081,6 @@ export class CrearHojaVidaComponent implements OnInit {
 
   cargarMunicipios(value: Object): void {
     this.municipios = [];
-    console.log('value: ', value);
     if (value === 0) {
       this.municipios = this.geografia
         .map(item => {
@@ -1105,7 +1103,6 @@ export class CrearHojaVidaComponent implements OnInit {
           .sort((a: IOpcionVo, b: IOpcionVo) => (a.nombre > b.nombre ? 1 : b.nombre > a.nombre ? -1 : 0));
       }
     }
-    console.log('municipios: ', this.municipios);
   }
 
   cargarTipoDocumento(): void {
@@ -1676,7 +1673,6 @@ export class CrearHojaVidaComponent implements OnInit {
   }
 
   descargarArchivo(tipoArchivo: number | undefined, indice?: number): void {
-    console.log('tipoarchivo: ', tipoArchivo);
     switch (tipoArchivo) {
       case 1:
         {
