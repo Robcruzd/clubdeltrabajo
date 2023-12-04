@@ -1,84 +1,72 @@
 {
-    "name": "InformacionPersonal",
-    "fields": [
-        {
-            "fieldName": "fechaNacimiento",
-            "fieldType": "LocalDate",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "lugarNacimiento",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "direccionResidencia",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "genero",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "ciudad",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "telefono",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "discapacidad",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "redesSociales",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "licencenciaConduccion",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "perfilProfesional",
-            "fieldType": "String"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "persona",
-            "otherEntityRelationshipName": "informacionPersonal",
-            "relationshipValidateRules": "required",
-            "relationshipName": "usuario",
-            "otherEntityField": "id"
-        }
-    ],
-    "changelogDate": "20200517195900",
-    "entityTableName": "ct_informacion_personal_tb",
-    "dto": "no",
-    "pagination": "pagination",
-    "service": "serviceClass",
-    "jpaMetamodelFiltering": true,
-    "fluentMethods": true,
-    "readOnly": false,
-    "embedded": false,
-    "clientRootFolder": "",
-    "applications": "*"
+  "applications": "*",
+  "changelogDate": "20200517195900",
+  "clientRootFolder": "",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "ct_informacion_personal_tb",
+  "fields": [
+    {
+      "fieldName": "fechaNacimiento",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "lugarNacimiento",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "direccionResidencia",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "genero",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "ciudad",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "telefono",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "discapacidad",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "redesSociales",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "licencenciaConduccion",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "perfilProfesional",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "InformacionPersonal",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "persona",
+      "otherEntityRelationshipName": "informacionPersonal",
+      "relationshipName": "usuario",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceClass"
 }

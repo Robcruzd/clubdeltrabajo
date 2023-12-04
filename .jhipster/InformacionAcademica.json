@@ -1,56 +1,54 @@
 {
-    "name": "InformacionAcademica",
-    "fields": [
-        {
-            "fieldName": "nivelEstudio",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "estado",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "fechaInicio",
-            "fieldType": "LocalDate"
-        },
-        {
-            "fieldName": "fechaFin",
-            "fieldType": "LocalDate"
-        },
-        {
-            "fieldName": "tituloOtorgado",
-            "fieldType": "String"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "persona",
-            "otherEntityRelationshipName": "informacionAcademica",
-            "relationshipValidateRules": "required",
-            "relationshipName": "usuario",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "institucion",
-            "otherEntityRelationshipName": "informacionAcademica",
-            "relationshipName": "institucion",
-            "otherEntityField": "id"
-        }
-    ],
-    "changelogDate": "20200517195800",
-    "entityTableName": "ct_informacion_academica_tb",
-    "dto": "no",
-    "pagination": "pagination",
-    "service": "serviceClass",
-    "jpaMetamodelFiltering": true,
-    "fluentMethods": true,
-    "readOnly": false,
-    "embedded": false,
-    "clientRootFolder": "",
-    "applications": "*"
+  "applications": "*",
+  "changelogDate": "20200517195800",
+  "clientRootFolder": "",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "ct_informacion_academica_tb",
+  "fields": [
+    {
+      "fieldName": "nivelEstudio",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fechaInicio",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "fechaFin",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "tituloOtorgado",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "InformacionAcademica",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "persona",
+      "otherEntityRelationshipName": "informacionAcademica",
+      "relationshipName": "usuario",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "institucion",
+      "otherEntityRelationshipName": "informacionAcademica",
+      "relationshipName": "institucion",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
 }
