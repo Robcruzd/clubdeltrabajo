@@ -168,7 +168,6 @@ public class ArchivoResource {
     /**
      * {@code GET  /archivos/:id} : get the "id" archivo.
      *
-     * @param id the id of the archivo to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the archivo, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/archivos/perfil/{usuarioid}/tipo/{tipo}")

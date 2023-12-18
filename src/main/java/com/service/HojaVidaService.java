@@ -92,7 +92,6 @@ public class HojaVidaService {
 	/**
 	 * Save a HojaVidaVo.
 	 *
-	 * @param hojaVidaVo the entity to manage to persist.
 	 * @return the persisted entity.
 	 */
 	public HojaVidaVo save(HojaVidaVo hojaVida) {
@@ -258,7 +257,6 @@ public class HojaVidaService {
 	 * 
 	 * @param id the persona's id
 	 * @return the result entity
-	 * @throws IOException 
 	 */
 	public Optional<HojaVidaVo> get(Long id) {
 		HojaVidaVo hojaVidaVo = new HojaVidaVo();

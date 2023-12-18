@@ -63,7 +63,6 @@ public class MercadoPagoResource {
     /**
      * {@code POST  /profesions} : Create a new profesion.
      *
-     * @param profesion the profesion to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new profesion, or with status {@code 400 (Bad Request)} if the profesion has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
@@ -171,7 +170,6 @@ public class MercadoPagoResource {
     /**
      * {@code POST  /profesions} : Create a new profesion.
      *
-     * @param profesion the profesion to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new profesion, or with status {@code 400 (Bad Request)} if the profesion has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */

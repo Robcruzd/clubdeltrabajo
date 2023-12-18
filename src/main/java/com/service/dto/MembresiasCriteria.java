@@ -12,7 +12,7 @@ import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 
 /**
- * Criteria class for the {@link com.domain.Membresias} entity. This class is used
+ * Criteria class for the {@link com.domain.Membresia} entity. This class is used
  * in {@link com.web.rest.MembresiasResource} to receive all the possible filtering options from
  * the Http GET request parameters.
  * For example the following could be a valid request:

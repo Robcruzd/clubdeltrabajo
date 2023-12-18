@@ -20,10 +20,10 @@ import com.repository.MembresiaRepository;
 import com.service.dto.MembresiasCriteria;
 
 /**
- * Service for executing complex queries for {@link Membresias} entities in the database.
+ * Service for executing complex queries for {@link com.domain.Membresia} entities in the database.
  * The main input is a {@link MembresiasCriteria} which gets converted to {@link Specification},
  * in a way that all the filters must apply.
- * It returns a {@link List} of {@link Membresias} or a {@link Page} of {@link Membresias} which fulfills the criteria.
+ * It returns a {@link List} of {@link com.domain.Membresia} or a {@link Page} of {@link com.domain.Membresia} which fulfills the criteria.
  */
 @Service
 @Transactional(readOnly = true)
@@ -38,7 +38,7 @@ public class MembresiasQueryService extends QueryService<Membresia> {
     }
 
     /**
-     * Return a {@link List} of {@link Membresias} which matches the criteria from the database.
+     * Return a {@link List} of {@link com.domain.Membresia} which matches the criteria from the database.
      * @param criteria The object which holds all the filters, which the entities should match.
      * @return the matching entities.
      */
@@ -50,7 +50,7 @@ public class MembresiasQueryService extends QueryService<Membresia> {
     }
 
     /**
-     * Return a {@link Page} of {@link Membresias} which matches the criteria from the database.
+     * Return a {@link Page} of {@link com.domain.Membresia} which matches the criteria from the database.
      * @param criteria The object which holds all the filters, which the entities should match.
      * @param page The page, which should be returned.
      * @return the matching entities.

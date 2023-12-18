@@ -96,7 +96,6 @@ public class OfertaService {
     /**
      * Get all the ofertas.
      *
-     * @param pageable the pagination information.
      * @return the list of entities.
      */
     @Transactional(readOnly = true)

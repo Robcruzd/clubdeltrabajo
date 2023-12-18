@@ -13,8 +13,6 @@ public class AnalyticsReportingResource {
     /**
      * {@code GET  /cargos} : get all the cargos.
      *
-     * @param pageable the pagination information.
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of cargos in body.
      */
     @GetMapping("/users/analytics")

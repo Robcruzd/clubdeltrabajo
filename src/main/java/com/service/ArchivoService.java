@@ -161,7 +161,6 @@ public class ArchivoService {
     /**
      * Get one archivo by usuario and tipo.
      *
-     * @param usuario the persona.
      * @param tipo the tipo of archivo.
      * @return the entity.
      */
@@ -177,7 +176,6 @@ public class ArchivoService {
     /**
      * Get one archivo by empresa and tipo.
      *
-     * @param empresa the empresa.
      * @param tipo the tipo of archivo.
      * @return the entity.
      */

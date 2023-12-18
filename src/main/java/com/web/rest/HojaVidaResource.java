@@ -96,7 +96,6 @@ public class HojaVidaResource {
 	 * @param id the id of the persona to retrieve its curriculum.
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
 	 *         the hojaVida, or with status {@code 404 (Not Found)}.
-	 * @throws IOException 
 	 */
 	@GetMapping("/hoja-vida/{id}")
 	public ResponseEntity<HojaVidaVo> get(@PathVariable Long id) {
@@ -108,7 +107,6 @@ public class HojaVidaResource {
 	/**
 	 * {@code PUT  /hoja-vida/:id} : update the "id" persona.
 	 *
-	 * @param id the id of the persona to retrieve its curriculum.
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
 	 *         the hojaVida, or with status {@code 404 (Not Found)}.
 	 */

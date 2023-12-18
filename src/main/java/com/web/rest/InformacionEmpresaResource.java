@@ -20,7 +20,7 @@ import com.service.MailService;
 import io.github.jhipster.web.util.HeaderUtil;
 
 /**
- * REST controller for managing {@link com.domain.InformacionEmpresaVo}.
+ * REST controller for managing {@link com.domain.vo.InformacionEmpresaVo}.
  */
 @RestController
 @RequestMapping("/api")
@@ -42,7 +42,6 @@ public class InformacionEmpresaResource {
     /**
      * {@code POST  /informacion-empresa} : Send Informacion Empresa.
      *
-     * @param send informacion empresa.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body informacion empresa.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */

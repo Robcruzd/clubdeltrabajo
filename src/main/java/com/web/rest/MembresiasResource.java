@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * REST controller for managing {@link com.domain.Membresias}.
+ * REST controller for managing {@link com.domain.Membresia}.
  */
 @RestController
 @RequestMapping("/api")
